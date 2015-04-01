@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `matching` mod in crate `selectors`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, matching">
+
+    <title>selectors::matching - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>selectors</a></p><script>window.sidebarCurrent = {name: 'matching', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>selectors</a>::<wbr><a class='mod' href=''>matching</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-447' href='../../src/selectors/matching.rs.html#5-981'>[src]</a></span></h1>
+<h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.CommonStyleAffectingAttributeInfo.html'
+                               title='selectors::matching::CommonStyleAffectingAttributeInfo'>CommonStyleAffectingAttributeInfo</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.CommonStyleAffectingAttributes.html'
+                               title='selectors::matching::CommonStyleAffectingAttributes'>CommonStyleAffectingAttributes</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.DeclarationBlock.html'
+                               title='selectors::matching::DeclarationBlock'>DeclarationBlock</a></td>
+                        <td class='docblock short'><p>A property declaration together with its precedence among rules of equal specificity so that
+we can sort them.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Rule.html'
+                               title='selectors::matching::Rule'>Rule</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.SelectorMap.html'
+                               title='selectors::matching::SelectorMap'>SelectorMap</a></td>
+                        <td class='docblock short'><p>Map node attributes to Rules whose last simple selector starts with them.</p>
+</td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.CommonStyleAffectingAttributeMode.html'
+                               title='selectors::matching::CommonStyleAffectingAttributeMode'>CommonStyleAffectingAttributeMode</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.ALIGN_CENTER_ATTRIBUTE.html'
+                               title='selectors::matching::ALIGN_CENTER_ATTRIBUTE'>ALIGN_CENTER_ATTRIBUTE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.ALIGN_LEFT_ATTRIBUTE.html'
+                               title='selectors::matching::ALIGN_LEFT_ATTRIBUTE'>ALIGN_LEFT_ATTRIBUTE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.ALIGN_RIGHT_ATTRIBUTE.html'
+                               title='selectors::matching::ALIGN_RIGHT_ATTRIBUTE'>ALIGN_RIGHT_ATTRIBUTE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.HIDDEN_ATTRIBUTE.html'
+                               title='selectors::matching::HIDDEN_ATTRIBUTE'>HIDDEN_ATTRIBUTE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.NO_WRAP_ATTRIBUTE.html'
+                               title='selectors::matching::NO_WRAP_ATTRIBUTE'>NO_WRAP_ATTRIBUTE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='static' href='static.RECOMMENDED_SELECTOR_BLOOM_FILTER_SIZE.html'
+                               title='selectors::matching::RECOMMENDED_SELECTOR_BLOOM_FILTER_SIZE'>RECOMMENDED_SELECTOR_BLOOM_FILTER_SIZE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='static' href='static.SELECTOR_WHITESPACE.html'
+                               title='selectors::matching::SELECTOR_WHITESPACE'>SELECTOR_WHITESPACE</a></td>
+                        <td class='docblock short'><p>The definition of whitespace per CSS Selectors Level 3 § 4.</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.common_style_affecting_attributes.html'
+                               title='selectors::matching::common_style_affecting_attributes'>common_style_affecting_attributes</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.matches.html'
+                               title='selectors::matching::matches'>matches</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.matches_simple_selector.html'
+                               title='selectors::matching::matches_simple_selector'>matches_simple_selector</a></td>
+                        <td class='docblock short'><p>Determines whether the given element matches the given single selector.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.rare_style_affecting_attributes.html'
+                               title='selectors::matching::rare_style_affecting_attributes'>rare_style_affecting_attributes</a></td>
+                        <td class='docblock short'><p>Attributes that, if present, disable style sharing. All legacy HTML attributes must be in
+either this list or <code>common_style_affecting_attributes</code>. See the comment in
+<code>synthesize_presentational_hints_for_legacy_attributes</code>.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "selectors";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

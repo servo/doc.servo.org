@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `BytesContainer` trait in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, BytesContainer">
+
+    <title>std::old_path::BytesContainer - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>old_path</a></p><script>window.sidebarCurrent = {name: 'BytesContainer', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>std</a>::<wbr><a href='index.html'>old_path</a>::<wbr><a class='trait' href=''>BytesContainer</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-71651' href='../../src/std/old_path/mod.rs.html#791-803'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait BytesContainer {
+    fn <a href='#tymethod.container_as_bytes' class='fnname'>container_as_bytes</a>&lt;'a&gt;(&amp;'a self) -&gt; <a href='../primitive.slice.html'>&amp;'a [</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>;
+
+    fn <a href='#method.container_as_str' class='fnname'>container_as_str</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;'a <a href='../primitive.str.html'>str</a>&gt; { ... }
+    fn <a href='#method.is_str' class='fnname'>is_str</a>(_: <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;Self&gt;) -&gt; <a href='../primitive.bool.html'>bool</a> { ... }
+}</pre><div class='docblock'><p>A trait that represents something bytes-like (e.g. a &amp;[u8] or a &amp;str)</p>
+</div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.container_as_bytes' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.container_as_bytes' class='fnname'>container_as_bytes</a>&lt;'a&gt;(&amp;'a self) -&gt; <a href='../primitive.slice.html'>&amp;'a [</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Returns a &amp;[u8] representing the receiver</p>
+</div></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.container_as_str' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.container_as_str' class='fnname'>container_as_str</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;'a <a href='../primitive.str.html'>str</a>&gt;</code></h3><div class='docblock'><p>Returns the receiver interpreted as a utf-8 string, if possible</p>
+</div><h3 id='method.is_str' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.is_str' class='fnname'>is_str</a>(_: <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;Self&gt;) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns whether .container_as_str() is guaranteed to not fail</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a> for <a class='struct' href='../../std/old_path/posix/struct.Path.html' title='std::old_path::posix::Path'>Path</a></code></li>
+<li><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a> for <a class='struct' href='../../std/old_path/windows/struct.Path.html' title='std::old_path::windows::Path'>Path</a></code></li>
+<li><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a> for <a href='../primitive.str.html'>str</a></code></li>
+<li><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a> for <a class='struct' href='../../std/string/struct.String.html' title='std::string::String'>String</a></code></li>
+<li><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a> for <a href='../primitive.slice.html'>[<a href='../primitive.u8.html'>u8</a>]</a></code></li>
+<li><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;</code></li>
+<li><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a> for <a class='struct' href='../../std/ffi/struct.CString.html' title='std::ffi::CString'>CString</a></code></li>
+<li><a class='stability Unstable' title='Unstable'></a><code>impl&lt;'a, T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a> + <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a>&gt; <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a> for &amp;'a T</code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/std/old_path/trait.BytesContainer.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `match_token` mod in crate `html5ever_macros`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, match_token">
+
+    <title>html5ever_macros::match_token - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>html5ever_macros</a></p><script>window.sidebarCurrent = {name: 'match_token', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>html5ever_macros</a>::<wbr><a class='mod' href=''>match_token</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-762' href='../../src/html5ever_macros/match_token.rs.html#10-474'>[src]</a></span></h1>
+<div class='docblock'><p>Implements the <code>match_token!()</code> macro for use by the HTML tree builder
+in <code>src/tree_builder/mod.rs</code>.</p>
+
+<h2 id="example" class='section-header'><a
+                           href="#example">Example</a></h2><pre id='rust-example-rendered' class='rust '>
+<span class='macro'>match_token</span><span class='macro'>!</span>(<span class='ident'>token</span> {
+    <span class='ident'>CommentToken</span>(<span class='ident'>text</span>) <span class='op'>=&gt;</span> <span class='number'>1</span>,
+
+    <span class='ident'>tag</span> <span class='kw-2'>@</span> <span class='op'>&lt;</span><span class='ident'>base</span><span class='op'>&gt;</span> <span class='op'>&lt;</span><span class='ident'>link</span><span class='op'>&gt;</span> <span class='op'>&lt;</span><span class='ident'>meta</span><span class='op'>&gt;</span> <span class='op'>=&gt;</span> <span class='number'>2</span>,
+
+    <span class='op'>&lt;</span><span class='op'>/</span><span class='ident'>head</span><span class='op'>&gt;</span> <span class='op'>=&gt;</span> <span class='number'>3</span>,
+
+    <span class='op'>&lt;</span><span class='op'>/</span><span class='ident'>body</span><span class='op'>&gt;</span> <span class='op'>&lt;</span><span class='op'>/</span><span class='ident'>html</span><span class='op'>&gt;</span> <span class='op'>&lt;</span><span class='op'>/</span><span class='ident'>br</span><span class='op'>&gt;</span> <span class='op'>=&gt;</span> <span class='kw'>else</span>,
+
+    <span class='ident'>tag</span> <span class='kw-2'>@</span> <span class='op'>&lt;</span><span class='op'>/</span>_<span class='op'>&gt;</span> <span class='op'>=&gt;</span> <span class='number'>4</span>,
+
+    <span class='ident'>token</span> <span class='op'>=&gt;</span> <span class='number'>5</span>,
+})
+</pre>
+
+<h2 id="syntax" class='section-header'><a
+                           href="#syntax">Syntax</a></h2>
+<p>The left-hand side of each match arm is an optional <code>name @</code> binding, followed by</p>
+
+<ul>
+<li><p>an ordinary Rust pattern that starts with an identifier or an underscore, or</p></li>
+<li><p>a sequence of HTML tag names as identifiers, each inside &quot;&lt;...&gt;&quot; or &quot;&lt;/...&gt;&quot;
+to match an open or close tag respectively, or</p></li>
+<li><p>a &quot;wildcard tag&quot; &quot;&lt;_&gt;&quot; or &quot;&lt;/_&gt;&quot; to match all open tags or all close tags
+respectively.</p></li>
+</ul>
+
+<p>The right-hand side is either an expression or the keyword <code>else</code>.</p>
+
+<p>Note that this syntax does not support guards or pattern alternation like
+<code>Foo | Bar</code>.  This is not a fundamental limitation; it&#39;s done for implementation
+simplicity.</p>
+
+<h2 id="semantics" class='section-header'><a
+                           href="#semantics">Semantics</a></h2>
+<p>Ordinary Rust patterns match as usual.  If present, the <code>name @</code> binding has
+the usual meaning.</p>
+
+<p>A sequence of named tags matches any of those tags.  A single sequence can
+contain both open and close tags.  If present, the <code>name @</code> binding binds (by
+move) the <code>Tag</code> struct, not the outer <code>Token</code>.  That is, a match arm like</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>tag</span> <span class='kw-2'>@</span> <span class='op'>&lt;</span><span class='ident'>html</span><span class='op'>&gt;</span> <span class='op'>&lt;</span><span class='ident'>head</span><span class='op'>&gt;</span> <span class='op'>=&gt;</span> ...
+</pre>
+
+<p>expands to something like</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>TagToken</span>(<span class='ident'>tag</span> <span class='kw-2'>@</span> <span class='ident'>Tag</span> { <span class='ident'>name</span>: <span class='macro'>atom</span><span class='macro'>!</span>(<span class='ident'>html</span>), <span class='ident'>kind</span>: <span class='ident'>StartTag</span> })
+<span class='op'>|</span> <span class='ident'>TagToken</span>(<span class='ident'>tag</span> <span class='kw-2'>@</span> <span class='ident'>Tag</span> { <span class='ident'>name</span>: <span class='macro'>atom</span><span class='macro'>!</span>(<span class='ident'>head</span>), <span class='ident'>kind</span>: <span class='ident'>StartTag</span> }) <span class='op'>=&gt;</span> ...
+</pre>
+
+<p>A wildcard tag matches any tag of the appropriate kind, <em>unless</em> it was
+previously matched with an <code>else</code> right-hand side (more on this below).</p>
+
+<p>The expansion of this macro reorders code somewhat, to satisfy various
+restrictions arising from moves.  However it provides the semantics of in-order
+matching, by enforcing the following restrictions on its input:</p>
+
+<ul>
+<li><p>The last pattern must be a variable or the wildcard &quot;_&quot;.  In other words
+it must match everything.</p></li>
+<li><p>Otherwise, ordinary Rust patterns and specific-tag patterns cannot appear
+after wildcard tag patterns.</p></li>
+<li><p>No tag name may appear more than once.</p></li>
+<li><p>A wildcard tag pattern may not occur in the same arm as any other tag.
+&quot;&lt;_&gt; <html> =&gt; ...&quot; and &quot;&lt;_&gt; &lt;/_&gt; =&gt; ...&quot; are both forbidden.</p></li>
+<li><p>The right-hand side &quot;else&quot; may only appear with specific-tag patterns.
+It means that these specific tags should be handled by the last,
+catch-all case arm, rather than by any wildcard tag arm.  This situation
+is common in the HTML5 syntax.</p></li>
+</ul>
+</div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.expand.html'
+                               title='html5ever_macros::match_token::expand'>expand</a></td>
+                        <td class='docblock short'><p>Expand the <code>match_token!</code> macro.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "html5ever_macros";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Box` struct in crate `alloc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Box">
+
+    <title>alloc::boxed::Box - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../alloc/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>alloc</a>::<wbr><a href='index.html'>boxed</a></p><script>window.sidebarCurrent = {name: 'Box', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>alloc</a>::<wbr><a href='index.html'>boxed</a>::<wbr><a class='struct' href=''>Box</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-381' href='../../src/alloc/boxed.rs.html#86'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Box&lt;T&gt;(_);</pre><div class='docblock'><p>A pointer type for heap allocation.</p>
+
+<p>See the <a href="../../std/boxed/index.html">module-level documentation</a> for more.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl&lt;T&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.new' class='fnname'>new</a>(x: T) -&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Allocates memory on the heap and then moves <code>x</code> into it.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='number'>5</span>);
+</pre>
+</div></div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl&lt;T: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.from_raw' class='method'><a class='stability Unstable' title='Unstable: may be renamed or moved out of Box scope'></a><code>unsafe fn <a href='#method.from_raw' class='fnname'>from_raw</a>(raw: *mut T) -&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Constructs a box from the raw pointer.</p>
+
+<p>After this function call, pointer is owned by resulting box.
+In particular, it means that <code>Box</code> destructor calls destructor
+of <code>T</code> and releases memory. Since the way <code>Box</code> allocates and
+releases memory is unspecified, the only valid pointer to pass
+to this function is the one taken from another <code>Box</code> with
+<code>boxed::into_raw</code> function.</p>
+
+<p>Function is unsafe, because improper use of this function may
+lead to memory problems like double-free, for example if the
+function is called twice on the same raw pointer.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='../../core/default/trait.Default.html' title='core::default::Default'>Default</a>&gt; <a class='trait' href='../../core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.default' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a href='../../core/primitive.slice.html'>[T]</a>&gt;</code></h3><div class='impl-items'><h4 id='method.default' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a href='../../core/primitive.slice.html'>[T]</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>&gt; <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Returns a new box with a <code>clone()</code> of this box&#39;s contents.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='number'>5</span>);
+<span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='ident'>x</span>.<span class='ident'>clone</span>();
+</pre>
+</div><h4 id='method.clone_from' class='method'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;)</code></h4>
+<div class='docblock'><p>Copies <code>source</code>&#39;s contents into <code>self</code> without creating a new allocation.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='number'>5</span>);
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='number'>10</span>);
+
+<span class='ident'>y</span>.<span class='ident'>clone_from</span>(<span class='kw-2'>&amp;</span><span class='ident'>x</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='op'>*</span><span class='ident'>y</span>, <span class='number'>5</span>);
+</pre>
+</div></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> + <a class='trait' href='../../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&gt; <a class='trait' href='../../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;) -&gt; <a href='../../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;) -&gt; <a href='../../core/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> + <a class='trait' href='../../core/cmp/trait.PartialOrd.html' title='core::cmp::PartialOrd'>PartialOrd</a>&gt; <a class='trait' href='../../core/cmp/trait.PartialOrd.html' title='core::cmp::PartialOrd'>PartialOrd</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.partial_cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.partial_cmp' class='fnname'>partial_cmp</a>(&amp;self, other: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a>&gt;</code></h4>
+<h4 id='method.lt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.lt' class='fnname'>lt</a>(&amp;self, other: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;) -&gt; <a href='../../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.le' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.le' class='fnname'>le</a>(&amp;self, other: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;) -&gt; <a href='../../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ge' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ge' class='fnname'>ge</a>(&amp;self, other: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;) -&gt; <a href='../../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.gt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.gt' class='fnname'>gt</a>(&amp;self, other: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;) -&gt; <a href='../../core/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> + <a class='trait' href='../../core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a>&gt; <a class='trait' href='../../core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.cmp' class='fnname'>cmp</a>(&amp;self, other: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;) -&gt; <a class='enum' href='../../core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> + <a class='trait' href='../../core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a>&gt; <a class='trait' href='../../core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.assert_receiver_is_total_eq' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.assert_receiver_is_total_eq' class='fnname'>assert_receiver_is_total_eq</a>(&amp;self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> + <a class='trait' href='../../core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a>&gt; <a class='trait' href='../../core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.hash' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.hash' class='fnname'>hash</a>&lt;H: <a class='trait' href='../../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a>&gt;(&amp;self, state: &amp;mut H)</code></h4>
+<h4 id='method.hash_slice' class='tymethod'><a class='stability Unstable' title='Unstable: module was recently redesigned'></a><code>fn <a href='#tymethod.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a href='../../core/primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a></span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../alloc/boxed/trait.BoxAny.html' title='alloc::boxed::BoxAny'>BoxAny</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../core/any/trait.Any.html' title='core::any::Any'>Any</a>&gt;</code></h3><div class='impl-items'><h4 id='method.downcast' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.downcast' class='fnname'>downcast</a>&lt;T: 'static&gt;(self) -&gt; <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;, <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../core/any/trait.Any.html' title='core::any::Any'>Any</a>&gt;&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='../../core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> + ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='../../core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> + ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../core/any/trait.Any.html' title='core::any::Any'>Any</a>&gt;</code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='../../core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Target' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Target = T</code></h4>
+<h4 id='method.deref' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.deref' class='fnname'>deref</a>(&amp;self) -&gt; &amp;T</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='../../core/ops/trait.DerefMut.html' title='core::ops::DerefMut'>DerefMut</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.deref_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.deref_mut' class='fnname'>deref_mut</a>(&amp;mut self) -&gt; &amp;mut T</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;I: <a class='trait' href='../../core/iter/trait.Iterator.html' title='core::iter::Iterator'>Iterator</a> + ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='../../core/iter/trait.Iterator.html' title='core::iter::Iterator'>Iterator</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;I&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Item' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Item = Item</code></h4>
+<h4 id='method.next' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.next' class='fnname'>next</a>(&amp;mut self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Item&gt;</code></h4>
+<h4 id='method.size_hint' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.size_hint' class='fnname'>size_hint</a>(&amp;self) -&gt; <a href='../../core/primitive.tuple.html'>(<a href='../../core/primitive.usize.html'>usize</a>, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../../core/primitive.usize.html'>usize</a>&gt;)</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;I: <a class='trait' href='../../core/iter/trait.DoubleEndedIterator.html' title='core::iter::DoubleEndedIterator'>DoubleEndedIterator</a> + ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='../../core/iter/trait.DoubleEndedIterator.html' title='core::iter::DoubleEndedIterator'>DoubleEndedIterator</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;I&gt;</code></h3><div class='impl-items'><h4 id='method.next_back' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.next_back' class='fnname'>next_back</a>(&amp;mut self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Item&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;I: <a class='trait' href='../../core/iter/trait.ExactSizeIterator.html' title='core::iter::ExactSizeIterator'>ExactSizeIterator</a> + ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt; <a class='trait' href='../../core/iter/trait.ExactSizeIterator.html' title='core::iter::ExactSizeIterator'>ExactSizeIterator</a> for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;I&gt;</code></h3><div class='impl-items'><h4 id='method.len' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../../core/primitive.usize.html'>usize</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, E: <a class='trait' href='../../core/error/trait.Error.html' title='core::error::Error'>Error</a> + 'a&gt; <a class='trait' href='../../core/error/trait.FromError.html' title='core::error::FromError'>FromError</a>&lt;E&gt; for <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../core/error/trait.Error.html' title='core::error::Error'>Error</a> + 'a&gt;</code></h3><div class='impl-items'><h4 id='method.from_error' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.from_error' class='fnname'>from_error</a>(err: E) -&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../core/error/trait.Error.html' title='core::error::Error'>Error</a> + 'a&gt;</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "alloc";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

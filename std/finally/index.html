@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `finally` mod in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, finally">
+
+    <title>std::finally - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a></p><script>window.sidebarCurrent = {name: 'finally', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>std</a>::<wbr><a class='mod' href=''>finally</a><wbr><a class='stability Deprecated' title='It is unclear if this module is more robust than implementing Drop on a custom type, and this module is being removed with no replacement. Use a custom Drop implementation to regain existing functionality.'>Deprecated</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-72432' href='../../core/finally/index.html?gotosrc=72432'>[src]</a></span></h1>
+<div class='docblock'><p>The Finally trait provides a method, <code>finally</code> on
+stack closures that emulates Java-style try/finally blocks.</p>
+
+<p>Using the <code>finally</code> method is sometimes convenient, but the type rules
+prohibit any shared, mutable state between the &quot;try&quot; case and the
+&quot;finally&quot; case. For advanced cases, the <code>try_finally</code> function can
+also be used. See that function for more details.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    #![feature(unboxed_closures)]
+    
+    use std::finally::Finally;
+    
+    (|| {
+        // ...
+    }).finally(|| {
+        // this code is always run
+    })
+}</span><pre id='rust-example-rendered' class='rust '>
+
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>finally</span>::<span class='ident'>Finally</span>;
+
+(<span class='op'>||</span> {
+    <span class='comment'>// ...</span>
+}).<span class='ident'>finally</span>(<span class='op'>||</span> {
+    <span class='comment'>// this code is always run</span>
+})
+</pre>
+</div><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Deprecated' title='Deprecated: It is unclear if this module is more robust than implementing Drop on a custom type, and this module is being removed with no replacement. Use a custom Drop implementation to regain existing functionality.'></a><a class='trait' href='trait.Finally.html'
+                               title='std::finally::Finally'>Finally</a></td>
+                        <td class='docblock short'><p>A trait for executing a destructor unconditionally after a block of code,
+regardless of whether the blocked fails.</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Deprecated' title='Deprecated: It is unclear if this module is more robust than implementing Drop on a custom type, and this module is being removed with no replacement. Use a custom Drop implementation to regain existing functionality.'></a><a class='fn' href='fn.try_finally.html'
+                               title='std::finally::try_finally'>try_finally</a></td>
+                        <td class='docblock short'><p>The most general form of the <code>finally</code> functions. The function
+<code>try_fn</code> will be invoked first; whether or not it panics, the
+function <code>finally_fn</code> will be invoked next. The two parameters
+<code>mutate</code> and <code>drop</code> are used to thread state through the two
+closures. <code>mutate</code> is used for any shared, mutable state that both
+closures require access to; <code>drop</code> is used for any state that the
+<code>try_fn</code> requires ownership of.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

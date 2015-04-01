@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["Glb",""]],"struct":[["Glb","\"Greatest lower bound\" (common subtype)"]]});

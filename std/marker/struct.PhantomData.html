@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `PhantomData` struct in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, PhantomData">
+
+    <title>std::marker::PhantomData - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>marker</a></p><script>window.sidebarCurrent = {name: 'PhantomData', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>std</a>::<wbr><a href='index.html'>marker</a>::<wbr><a class='struct' href=''>PhantomData</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-27204' href='../../core/marker/struct.PhantomData.html?gotosrc=27204'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct PhantomData&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span>;</pre><div class='docblock'><p><code>PhantomData</code> is a way to tell the compiler about fake fields.
+Phantom data is required whenever type parameters are not used.
+The idea is that if the compiler encounters a <code>PhantomData&lt;T&gt;</code>
+instance, it will behave <em>as if</em> an instance of the type <code>T</code> were
+present for the purpose of various automatic analyses.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1>
+<p>When handling external resources over a foreign function interface, <code>PhantomData&lt;T&gt;</code> can
+prevent mismatches by enforcing types in the method implementations, although the struct
+doesn&#39;t actually contain values of the resource type.</p>
+<span class='rusttest'>fn main() {
+    trait ResType { fn foo(&amp;self); };
+    struct ParamType;
+    mod foreign_lib {
+    pub fn new(_: usize) -&gt; *mut () { 42 as *mut () }
+    pub fn do_stuff(_: *mut (), _: usize) {}
+    }
+    fn convert_params(_: ParamType) -&gt; usize { 42 }
+    use std::marker::PhantomData;
+    use std::mem;
+    
+    struct ExternalResource&lt;R&gt; {
+       resource_handle: *mut (),
+       resource_type: PhantomData&lt;R&gt;,
+    }
+    
+    impl&lt;R: ResType&gt; ExternalResource&lt;R&gt; {
+        fn new() -&gt; ExternalResource&lt;R&gt; {
+            let size_of_res = mem::size_of::&lt;R&gt;();
+            ExternalResource {
+                resource_handle: foreign_lib::new(size_of_res),
+                resource_type: PhantomData,
+            }
+        }
+    
+        fn do_stuff(&amp;self, param: ParamType) {
+            let foreign_params = convert_params(param);
+            foreign_lib::do_stuff(self.resource_handle, foreign_params);
+        }
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>PhantomData</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
+
+<span class='kw'>struct</span> <span class='ident'>ExternalResource</span><span class='op'>&lt;</span><span class='ident'>R</span><span class='op'>&gt;</span> {
+   <span class='ident'>resource_handle</span>: <span class='op'>*</span><span class='kw-2'>mut</span> (),
+   <span class='ident'>resource_type</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='ident'>R</span><span class='op'>&gt;</span>,
+}
+
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>R</span>: <span class='ident'>ResType</span><span class='op'>&gt;</span> <span class='ident'>ExternalResource</span><span class='op'>&lt;</span><span class='ident'>R</span><span class='op'>&gt;</span> {
+    <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>ExternalResource</span><span class='op'>&lt;</span><span class='ident'>R</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>size_of_res</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>R</span><span class='op'>&gt;</span>();
+        <span class='ident'>ExternalResource</span> {
+            <span class='ident'>resource_handle</span>: <span class='ident'>foreign_lib</span>::<span class='ident'>new</span>(<span class='ident'>size_of_res</span>),
+            <span class='ident'>resource_type</span>: <span class='ident'>PhantomData</span>,
+        }
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>do_stuff</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>param</span>: <span class='ident'>ParamType</span>) {
+        <span class='kw'>let</span> <span class='ident'>foreign_params</span> <span class='op'>=</span> <span class='ident'>convert_params</span>(<span class='ident'>param</span>);
+        <span class='ident'>foreign_lib</span>::<span class='ident'>do_stuff</span>(<span class='self'>self</span>.<span class='ident'>resource_handle</span>, <span class='ident'>foreign_params</span>);
+    }
+}
+</pre>
+
+<p>Another example: embedding a <code>PhantomData&lt;T&gt;</code> will inform the compiler
+that one or more instances of the type <code>T</code> could be dropped when
+instances of the type itself is dropped, though that may not be
+apparent from the other structure of the type itself. This is
+commonly necessary if the structure is using an unsafe pointer
+like <code>*mut T</code> whose referent may be dropped when the type is
+dropped, as a <code>*mut T</code> is otherwise not treated as owned.</p>
+
+<p>FIXME. Better documentation and examples of common patterns needed
+here! For now, please see <a href="https://github.com/rust-lang/rfcs/blob/master/text/0738-variance.md">RFC 738</a> for more information.</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/hash/trait.Hash.html' title='std::hash::Hash'>Hash</a> for <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span></code></h3><div class='impl-items'><h4 id='method.hash' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.hash' class='fnname'>hash</a>&lt;H&gt;(&amp;self, &amp;mut H) <span class='where'>where H: <a class='trait' href='../../std/hash/trait.Hasher.html' title='std::hash::Hasher'>Hasher</a></span></code></h4>
+<h4 id='method.hash_slice' class='tymethod'><a class='stability Unstable' title='Unstable: module was recently redesigned'></a><code>fn <a href='#tymethod.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a href='../primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../../std/hash/trait.Hasher.html' title='std::hash::Hasher'>Hasher</a></span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt;&gt; for <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, _other: &amp;<a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt;) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.ne' class='fnname'>ne</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/cmp/trait.Eq.html' title='std::cmp::Eq'>Eq</a> for <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/cmp/trait.PartialOrd.html' title='std::cmp::PartialOrd'>PartialOrd</a>&lt;<a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt;&gt; for <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span></code></h3><div class='impl-items'><h4 id='method.partial_cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.partial_cmp' class='fnname'>partial_cmp</a>(&amp;self, _other: &amp;<a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt;) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='enum' href='../../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a>&gt;</code></h4>
+<h4 id='method.lt' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.lt' class='fnname'>lt</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.le' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.le' class='fnname'>le</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.gt' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.gt' class='fnname'>gt</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ge' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.ge' class='fnname'>ge</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a> for <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span></code></h3><div class='impl-items'><h4 id='method.cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.cmp' class='fnname'>cmp</a>(&amp;self, _other: &amp;<a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt;) -&gt; <a class='enum' href='../../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt;</code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/fmt/trait.Debug.html' title='std::fmt::Debug'>Debug</a> for <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>, <a class='struct' href='../../std/fmt/struct.Error.html' title='std::fmt::Error'>Error</a>&gt;</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ChanReader","Allows reading from a rx."],["ChanWriter","Allows writing to a tx."]]});

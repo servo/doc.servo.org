@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `StdioContainer` enum in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, StdioContainer">
+
+    <title>std::old_io::process::StdioContainer - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../../index.html'>std</a>::<wbr><a href='../index.html'>old_io</a>::<wbr><a href='index.html'>process</a></p><script>window.sidebarCurrent = {name: 'StdioContainer', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../../index.html'>std</a>::<wbr><a href='../index.html'>old_io</a>::<wbr><a href='index.html'>process</a>::<wbr><a class='enum' href=''>StdioContainer</a><wbr><a class='stability Deprecated' title='replaced with the std::process module'>Deprecated</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-23601' href='../../../src/std/old_io/process.rs.html#479-496'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum StdioContainer {
+    Ignored,
+    InheritFd(<a class='type' href='../../../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>),
+    CreatePipe(<a href='../../primitive.bool.html'>bool</a>, <a href='../../primitive.bool.html'>bool</a>),
+}</pre><div class='docblock'><p>Describes what to do with a standard io stream for a child process.</p>
+</div><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.Ignored'><a class='stability Deprecated' title='Deprecated: replaced with the std::process module'></a><code>Ignored</code></td><td><div class='docblock'><p>This stream will be ignored. This is the equivalent of attaching the
+stream to <code>/dev/null</code></p>
+</div></td></tr><tr><td id='variant.InheritFd'><a class='stability Deprecated' title='Deprecated: replaced with the std::process module'></a><code>InheritFd</code></td><td><div class='docblock'><p>The specified file descriptor is inherited for the stream which it is
+specified for. Ownership of the file descriptor is <em>not</em> taken, so the
+caller must clean it up.</p>
+</div></td></tr><tr><td id='variant.CreatePipe'><a class='stability Deprecated' title='Deprecated: replaced with the std::process module'></a><code>CreatePipe</code></td><td><div class='docblock'><p>Creates a pipe for the specified file descriptor which will be created
+when the process is spawned.</p>
+
+<p>The first boolean argument is whether the pipe is readable, and the
+second is whether it is writable. These properties are from the view of
+the <em>child</em> process, not the parent process.</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../../std/old_io/process/enum.StdioContainer.html' title='std::old_io::process::StdioContainer'>StdioContainer</a></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a class='enum' href='../../../std/old_io/process/enum.StdioContainer.html' title='std::old_io::process::StdioContainer'>StdioContainer</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../../std/old_io/process/enum.StdioContainer.html' title='std::old_io::process::StdioContainer'>StdioContainer</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    <script src="../../../playpen.js"></script>
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

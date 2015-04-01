@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["comments",""]],"struct":[["StringReader",""],["TokenAndSpan",""]],"trait":[["Reader",""]],"fn":[["is_block_doc_comment",""],["is_doc_comment",""],["is_whitespace",""],["make_reader_with_embedded_idents",""]]});

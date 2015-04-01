@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["IpAddr","Enumeration of possible IP addresses"],["Ipv6MulticastScope",""]],"struct":[["Ipv4Addr","Representation of an IPv4 address."],["Ipv6Addr","Representation of an IPv6 address."]]});

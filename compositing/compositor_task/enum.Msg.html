@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Msg` enum in crate `compositing`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Msg">
+
+    <title>compositing::compositor_task::Msg - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>compositing</a>::<wbr><a href='index.html'>compositor_task</a></p><script>window.sidebarCurrent = {name: 'Msg', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>compositing</a>::<wbr><a href='index.html'>compositor_task</a>::<wbr><a class='enum' href=''>Msg</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-520' href='../../src/compositing/compositor_task.rs.html#168-221'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum Msg {
+    Exit(<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>&gt;),
+    ShutdownComplete,
+    GetGraphicsMetadata(<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layers/platform/linux/surface/struct.NativeGraphicsMetadata.html' title='layers::platform::linux::surface::NativeGraphicsMetadata'>NativeGraphicsMetadata</a>&gt;&gt;),
+    CreateOrUpdateBaseLayer(<a class='struct' href='../../compositing/compositor_task/struct.LayerProperties.html' title='compositing::compositor_task::LayerProperties'>LayerProperties</a>),
+    CreateOrUpdateDescendantLayer(<a class='struct' href='../../compositing/compositor_task/struct.LayerProperties.html' title='compositing::compositor_task::LayerProperties'>LayerProperties</a>),
+    SetLayerRect(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../../msg/compositor_msg/struct.LayerId.html' title='msg::compositor_msg::LayerId'>LayerId</a>, <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    ScrollFragmentPoint(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../../msg/compositor_msg/struct.LayerId.html' title='msg::compositor_msg::LayerId'>LayerId</a>, <a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    AssignPaintedBuffers(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../../msg/compositor_msg/struct.Epoch.html' title='msg::compositor_msg::Epoch'>Epoch</a>, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../msg/compositor_msg/struct.LayerId.html' title='msg::compositor_msg::LayerId'>LayerId</a>, <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../layers/layers/struct.LayerBufferSet.html' title='layers::layers::LayerBufferSet'>LayerBufferSet</a>&gt;)</a>&gt;),
+    ChangeReadyState(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='enum' href='../../msg/compositor_msg/enum.ReadyState.html' title='msg::compositor_msg::ReadyState'>ReadyState</a>),
+    ChangePaintState(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='enum' href='../../msg/compositor_msg/enum.PaintState.html' title='msg::compositor_msg::PaintState'>PaintState</a>),
+    ChangePageTitle(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;),
+    ChangePageUrl(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>),
+    ChangeRunningAnimationsState(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a href='../../std/primitive.bool.html'>bool</a>),
+    PaintMsgDiscarded,
+    SetFrameTree(<a class='struct' href='../../compositing/constellation/struct.SendableFrameTree.html' title='compositing::constellation::SendableFrameTree'>SendableFrameTree</a>, <a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>&gt;, <a class='struct' href='../../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a>),
+    LoadComplete,
+    ScrollTimeout(<a href='../../std/primitive.u64.html'>u64</a>),
+    KeyEvent(<a class='enum' href='../../msg/constellation_msg/enum.Key.html' title='msg::constellation_msg::Key'>Key</a>, <a class='enum' href='../../msg/constellation_msg/enum.KeyState.html' title='msg::constellation_msg::KeyState'>KeyState</a>, <a class='struct' href='../../msg/constellation_msg/struct.KeyModifiers.html' title='msg::constellation_msg::KeyModifiers'>KeyModifiers</a>),
+    SetCursor(<a class='enum' href='../../util/cursor/enum.Cursor.html' title='util::cursor::Cursor'>Cursor</a>),
+    PaintTaskExited(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>),
+}</pre><div class='docblock'><p>Messages from the painting task and the constellation task to the compositor task.</p>
+</div><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.Exit'><a class='stability Unmarked' title='No stability level'></a><code>Exit</code></td><td><div class='docblock'><p>Requests that the compositor shut down.</p>
+</div></td></tr><tr><td id='variant.ShutdownComplete'><a class='stability Unmarked' title='No stability level'></a><code>ShutdownComplete</code></td><td><div class='docblock'><p>Informs the compositor that the constellation has completed shutdown.
+Required because the constellation can have pending calls to make
+(e.g. SetFrameTree) at the time that we send it an ExitMsg.</p>
+</div></td></tr><tr><td id='variant.GetGraphicsMetadata'><a class='stability Unmarked' title='No stability level'></a><code>GetGraphicsMetadata</code></td><td><div class='docblock'><p>Requests the compositor&#39;s graphics metadata. Graphics metadata is what the painter needs
+to create surfaces that the compositor can see. On Linux this is the X display; on Mac this
+is the pixel format.</p>
+
+<p>The headless compositor returns <code>None</code>.</p>
+</div></td></tr><tr><td id='variant.CreateOrUpdateBaseLayer'><a class='stability Unmarked' title='No stability level'></a><code>CreateOrUpdateBaseLayer</code></td><td><div class='docblock'><p>Tells the compositor to create the root layer for a pipeline if necessary (i.e. if no layer
+with that ID exists).</p>
+</div></td></tr><tr><td id='variant.CreateOrUpdateDescendantLayer'><a class='stability Unmarked' title='No stability level'></a><code>CreateOrUpdateDescendantLayer</code></td><td><div class='docblock'><p>Tells the compositor to create a descendant layer for a pipeline if necessary (i.e. if no
+layer with that ID exists).</p>
+</div></td></tr><tr><td id='variant.SetLayerRect'><a class='stability Unmarked' title='No stability level'></a><code>SetLayerRect</code></td><td><div class='docblock'><p>Alerts the compositor that the specified layer&#39;s rect has changed.</p>
+</div></td></tr><tr><td id='variant.ScrollFragmentPoint'><a class='stability Unmarked' title='No stability level'></a><code>ScrollFragmentPoint</code></td><td><div class='docblock'><p>Scroll a page in a window</p>
+</div></td></tr><tr><td id='variant.AssignPaintedBuffers'><a class='stability Unmarked' title='No stability level'></a><code>AssignPaintedBuffers</code></td><td><div class='docblock'><p>Requests that the compositor assign the painted buffers to the given layers.</p>
+</div></td></tr><tr><td id='variant.ChangeReadyState'><a class='stability Unmarked' title='No stability level'></a><code>ChangeReadyState</code></td><td><div class='docblock'><p>Alerts the compositor to the current status of page loading.</p>
+</div></td></tr><tr><td id='variant.ChangePaintState'><a class='stability Unmarked' title='No stability level'></a><code>ChangePaintState</code></td><td><div class='docblock'><p>Alerts the compositor to the current status of painting.</p>
+</div></td></tr><tr><td id='variant.ChangePageTitle'><a class='stability Unmarked' title='No stability level'></a><code>ChangePageTitle</code></td><td><div class='docblock'><p>Alerts the compositor that the current page has changed its title.</p>
+</div></td></tr><tr><td id='variant.ChangePageUrl'><a class='stability Unmarked' title='No stability level'></a><code>ChangePageUrl</code></td><td><div class='docblock'><p>Alerts the compositor that the current page has changed its URL.</p>
+</div></td></tr><tr><td id='variant.ChangeRunningAnimationsState'><a class='stability Unmarked' title='No stability level'></a><code>ChangeRunningAnimationsState</code></td><td><div class='docblock'><p>Alerts the compositor that the given pipeline has changed whether it is running animations.</p>
+</div></td></tr><tr><td id='variant.PaintMsgDiscarded'><a class='stability Unmarked' title='No stability level'></a><code>PaintMsgDiscarded</code></td><td><div class='docblock'><p>Alerts the compositor that a <code>PaintMsg</code> has been discarded.</p>
+</div></td></tr><tr><td id='variant.SetFrameTree'><a class='stability Unmarked' title='No stability level'></a><code>SetFrameTree</code></td><td><div class='docblock'><p>Replaces the current frame tree, typically called during main frame navigation.</p>
+</div></td></tr><tr><td id='variant.LoadComplete'><a class='stability Unmarked' title='No stability level'></a><code>LoadComplete</code></td><td><div class='docblock'><p>The load of a page has completed.</p>
+</div></td></tr><tr><td id='variant.ScrollTimeout'><a class='stability Unmarked' title='No stability level'></a><code>ScrollTimeout</code></td><td><div class='docblock'><p>Indicates that the scrolling timeout with the given starting timestamp has happened and a
+composite should happen. (See the <code>scrolling</code> module.)</p>
+</div></td></tr><tr><td id='variant.KeyEvent'><a class='stability Unmarked' title='No stability level'></a><code>KeyEvent</code></td><td><div class='docblock'><p>Sends an unconsumed key event back to the compositor.</p>
+</div></td></tr><tr><td id='variant.SetCursor'><a class='stability Unmarked' title='No stability level'></a><code>SetCursor</code></td><td><div class='docblock'><p>Changes the cursor.</p>
+</div></td></tr><tr><td id='variant.PaintTaskExited'><a class='stability Unmarked' title='No stability level'></a><code>PaintTaskExited</code></td><td><div class='docblock'><p>Informs the compositor that the paint task for the given pipeline has exited.</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../compositing/compositor_task/enum.Msg.html' title='compositing::compositor_task::Msg'>Msg</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>, <a class='struct' href='../../core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "compositing";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

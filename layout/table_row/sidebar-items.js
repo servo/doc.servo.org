@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CellIntrinsicInlineSize","Information about the column inline size and span for each cell."],["TableRowFlow","A single row of a table."]]});

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Trusted` struct in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Trusted">
+
+    <title>script::dom::bindings::refcounted::Trusted - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a>::<wbr><a href='index.html'>refcounted</a></p><script>window.sidebarCurrent = {name: 'Trusted', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a>::<wbr><a href='index.html'>refcounted</a>::<wbr><a class='struct' href=''>Trusted</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-4977' href='../../../../src/script/dom/bindings/refcounted.rs.html#50-58'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Trusted&lt;T&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>A safe wrapper around a raw pointer to a DOM object that can be
+shared among tasks for use in asynchronous operations. The underlying
+DOM object is guaranteed to live at least as long as the last outstanding
+<code>Trusted&lt;T&gt;</code> instance.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T: <a class='trait' href='../../../../script/dom/bindings/utils/trait.Reflectable.html' title='script::dom::bindings::utils::Reflectable'>Reflectable</a>&gt; <a class='struct' href='../../../../script/dom/bindings/refcounted/struct.Trusted.html' title='script::dom::bindings::refcounted::Trusted'>Trusted</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(cx: *mut <a class='enum' href='../../../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, ptr: <a class='struct' href='../../../../script/dom/bindings/js/struct.JSRef.html' title='script::dom::bindings::js::JSRef'>JSRef</a>&lt;T&gt;, script_chan: <a class='struct' href='../../../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../../script/script_task/trait.ScriptChan.html' title='script::script_task::ScriptChan'>ScriptChan</a> + <a class='trait' href='../../../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a>&gt;) -&gt; <a class='struct' href='../../../../script/dom/bindings/refcounted/struct.Trusted.html' title='script::dom::bindings::refcounted::Trusted'>Trusted</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Create a new <code>Trusted&lt;T&gt;</code> instance from an existing DOM pointer. The DOM object will
+be prevented from being GCed for the duration of the resulting <code>Trusted&lt;T&gt;</code> object&#39;s
+lifetime.</p>
+</div><h4 id='method.to_temporary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.to_temporary' class='fnname'>to_temporary</a>(&amp;self) -&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.Temporary.html' title='script::dom::bindings::js::Temporary'>Temporary</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Obtain a usable DOM pointer from a pinned <code>Trusted&lt;T&gt;</code> value. Fails if used on
+a different thread than the original value from which this <code>Trusted&lt;T&gt;</code> was
+obtained.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='../../../../script/dom/bindings/utils/trait.Reflectable.html' title='script::dom::bindings::utils::Reflectable'>Reflectable</a>&gt; <a class='trait' href='../../../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../../../../script/dom/bindings/refcounted/struct.Trusted.html' title='script::dom::bindings::refcounted::Trusted'>Trusted</a>&lt;T&gt;</code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='../../../../script/dom/bindings/utils/trait.Reflectable.html' title='script::dom::bindings::utils::Reflectable'>Reflectable</a>&gt; <a class='trait' href='../../../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../../../script/dom/bindings/refcounted/struct.Trusted.html' title='script::dom::bindings::refcounted::Trusted'>Trusted</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../../../script/dom/bindings/refcounted/struct.Trusted.html' title='script::dom::bindings::refcounted::Trusted'>Trusted</a>&lt;T&gt;</code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='../../../../script/dom/bindings/utils/trait.Reflectable.html' title='script::dom::bindings::utils::Reflectable'>Reflectable</a>&gt; <a class='trait' href='../../../../core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../../../script/dom/bindings/refcounted/struct.Trusted.html' title='script::dom::bindings::refcounted::Trusted'>Trusted</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.drop' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../../../script/dom/bindings/trace/trait.JSTraceable.html' title='script::dom::bindings::trace::JSTraceable'>JSTraceable</a> for <a class='struct' href='../../../../script/dom/bindings/refcounted/struct.Trusted.html' title='script::dom::bindings::refcounted::Trusted'>Trusted</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.trace' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.trace' class='fnname'>trace</a>(&amp;self, _: *mut <a class='struct' href='../../../../js/jsapi/struct.JSTracer.html' title='js::jsapi::JSTracer'>JSTracer</a>)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

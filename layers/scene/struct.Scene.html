@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Scene` struct in crate `layers`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Scene">
+
+    <title>layers::scene::Scene - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layers</a>::<wbr><a href='index.html'>scene</a></p><script>window.sidebarCurrent = {name: 'Scene', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>layers</a>::<wbr><a href='index.html'>scene</a>::<wbr><a class='struct' href=''>Scene</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-2881' href='../../src/layers/scene.rs.html#18-24'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Scene&lt;T&gt; {
+    pub root: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../layers/layers/struct.Layer.html' title='layers::layers::Layer'>Layer</a>&lt;T&gt;&gt;&gt;,
+    pub viewport: <a class='type' href='../../geom/rect/type.TypedRect.html' title='geom::rect::TypedRect'>TypedRect</a>&lt;<a class='enum' href='../../layers/geometry/enum.DevicePixel.html' title='layers::geometry::DevicePixel'>DevicePixel</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;,
+    pub scale: <a class='struct' href='../../geom/scale_factor/struct.ScaleFactor.html' title='geom::scale_factor::ScaleFactor'>ScaleFactor</a>&lt;<a class='enum' href='../../layers/geometry/enum.LayerPixel.html' title='layers::geometry::LayerPixel'>LayerPixel</a>, <a class='enum' href='../../layers/geometry/enum.DevicePixel.html' title='layers::geometry::DevicePixel'>DevicePixel</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.root'><a class='stability Unmarked' title='No stability level'></a><code>root</code></td><td></td></tr><tr><td id='structfield.viewport'><a class='stability Unmarked' title='No stability level'></a><code>viewport</code></td><td></td></tr><tr><td id='structfield.scale'><a class='stability Unmarked' title='No stability level'></a><code>scale</code></td><td><div class='docblock'><p>The scene scale, to allow for zooming and high-resolution painting.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='struct' href='../../layers/scene/struct.Scene.html' title='layers::scene::Scene'>Scene</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(viewport: <a class='type' href='../../geom/rect/type.TypedRect.html' title='geom::rect::TypedRect'>TypedRect</a>&lt;<a class='enum' href='../../layers/geometry/enum.DevicePixel.html' title='layers::geometry::DevicePixel'>DevicePixel</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;) -&gt; <a class='struct' href='../../layers/scene/struct.Scene.html' title='layers::scene::Scene'>Scene</a>&lt;T&gt;</code></h4>
+<h4 id='method.get_buffer_requests_for_layer' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_buffer_requests_for_layer' class='fnname'>get_buffer_requests_for_layer</a>(&amp;mut self, layer: <a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../layers/layers/struct.Layer.html' title='layers::layers::Layer'>Layer</a>&lt;T&gt;&gt;, dirty_rect: <a class='type' href='../../geom/rect/type.TypedRect.html' title='geom::rect::TypedRect'>TypedRect</a>&lt;<a class='enum' href='../../layers/geometry/enum.LayerPixel.html' title='layers::geometry::LayerPixel'>LayerPixel</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;, layers_and_requests: &amp;mut <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../layers/layers/struct.Layer.html' title='layers::layers::Layer'>Layer</a>&lt;T&gt;&gt;, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../layers/layers/struct.BufferRequest.html' title='layers::layers::BufferRequest'>BufferRequest</a>&gt;)</a>&gt;, unused_buffers: &amp;mut <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../layers/layers/struct.Layer.html' title='layers::layers::Layer'>Layer</a>&lt;T&gt;&gt;, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../layers/layers/struct.LayerBuffer.html' title='layers::layers::LayerBuffer'>LayerBuffer</a>&gt;&gt;)</a>&gt;)</code></h4>
+<h4 id='method.get_buffer_requests' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_buffer_requests' class='fnname'>get_buffer_requests</a>(&amp;mut self, requests: &amp;mut <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../layers/layers/struct.Layer.html' title='layers::layers::Layer'>Layer</a>&lt;T&gt;&gt;, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../layers/layers/struct.BufferRequest.html' title='layers::layers::BufferRequest'>BufferRequest</a>&gt;)</a>&gt;, unused_buffers: &amp;mut <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../layers/layers/struct.Layer.html' title='layers::layers::Layer'>Layer</a>&lt;T&gt;&gt;, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../layers/layers/struct.LayerBuffer.html' title='layers::layers::LayerBuffer'>LayerBuffer</a>&gt;&gt;)</a>&gt;)</code></h4>
+<h4 id='method.mark_layer_contents_as_changed_recursively_for_layer' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mark_layer_contents_as_changed_recursively_for_layer' class='fnname'>mark_layer_contents_as_changed_recursively_for_layer</a>(&amp;self, layer: <a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../layers/layers/struct.Layer.html' title='layers::layers::Layer'>Layer</a>&lt;T&gt;&gt;)</code></h4>
+<h4 id='method.mark_layer_contents_as_changed_recursively' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mark_layer_contents_as_changed_recursively' class='fnname'>mark_layer_contents_as_changed_recursively</a>(&amp;self)</code></h4>
+<h4 id='method.set_root_layer_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.set_root_layer_size' class='fnname'>set_root_layer_size</a>(&amp;self, new_size: <a class='type' href='../../geom/size/type.TypedSize2D.html' title='geom::size::TypedSize2D'>TypedSize2D</a>&lt;<a class='enum' href='../../layers/geometry/enum.DevicePixel.html' title='layers::geometry::DevicePixel'>DevicePixel</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layers";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ThreadSafeLayoutNode` struct in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ThreadSafeLayoutNode">
+
+    <title>layout::wrapper::ThreadSafeLayoutNode - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a>::<wbr><a href='index.html'>wrapper</a></p><script>window.sidebarCurrent = {name: 'ThreadSafeLayoutNode', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>layout</a>::<wbr><a href='index.html'>wrapper</a>::<wbr><a class='struct' href=''>ThreadSafeLayoutNode</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-75876' href='../../src/layout/wrapper.rs.html#713-718'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ThreadSafeLayoutNode&lt;'ln&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>A thread-safe version of <code>LayoutNode</code>, used during flow construction. This type of layout
+node does not allow any parents or siblings of nodes to be accessed, to avoid races.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'ln&gt; <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'ln&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>&lt;'a&gt;(node: &amp;<a class='struct' href='../../layout/wrapper/struct.LayoutNode.html' title='layout::wrapper::LayoutNode'>LayoutNode</a>&lt;'a&gt;) -&gt; <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Creates a new <code>ThreadSafeLayoutNode</code> from the given <code>LayoutNode</code>.</p>
+</div><h4 id='method.debug_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.debug_id' class='fnname'>debug_id</a>(self) -&gt; <a href='../../std/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.flow_debug_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.flow_debug_id' class='fnname'>flow_debug_id</a>(self) -&gt; <a href='../../std/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.children' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.children' class='fnname'>children</a>(&amp;self) -&gt; <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNodeChildrenIterator.html' title='layout::wrapper::ThreadSafeLayoutNodeChildrenIterator'>ThreadSafeLayoutNodeChildrenIterator</a>&lt;'ln&gt;</code></h4>
+<div class='docblock'><p>Returns an iterator over this node&#39;s children.</p>
+</div><h4 id='method.as_element' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_element' class='fnname'>as_element</a>(&amp;self) -&gt; <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutElement.html' title='layout::wrapper::ThreadSafeLayoutElement'>ThreadSafeLayoutElement</a>&lt;'ln&gt;</code></h4>
+<div class='docblock'><p>If this is an element, accesses the element data. Fails if this is not an element node.</p>
+</div><h4 id='method.get_pseudo_element_type' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_pseudo_element_type' class='fnname'>get_pseudo_element_type</a>(&amp;self) -&gt; <a class='enum' href='../../layout/wrapper/enum.PseudoElementType.html' title='layout::wrapper::PseudoElementType'>PseudoElementType</a></code></h4>
+<h4 id='method.get_normal_display' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_normal_display' class='fnname'>get_normal_display</a>(&amp;self) -&gt; <a class='enum' href='../../style/properties/longhands/display/computed_value/enum.T.html' title='style::properties::longhands::display::computed_value::T'>T</a></code></h4>
+<h4 id='method.get_before_display' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_before_display' class='fnname'>get_before_display</a>(&amp;self) -&gt; <a class='enum' href='../../style/properties/longhands/display/computed_value/enum.T.html' title='style::properties::longhands::display::computed_value::T'>T</a></code></h4>
+<h4 id='method.get_after_display' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_after_display' class='fnname'>get_after_display</a>(&amp;self) -&gt; <a class='enum' href='../../style/properties/longhands/display/computed_value/enum.T.html' title='style::properties::longhands::display::computed_value::T'>T</a></code></h4>
+<h4 id='method.has_before_pseudo' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.has_before_pseudo' class='fnname'>has_before_pseudo</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.has_after_pseudo' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.has_after_pseudo' class='fnname'>has_after_pseudo</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.borrow_layout_data' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.borrow_layout_data' class='fnname'>borrow_layout_data</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/cell/struct.Ref.html' title='core::cell::Ref'>Ref</a>&lt;'a, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layout/data/struct.LayoutDataWrapper.html' title='layout::data::LayoutDataWrapper'>LayoutDataWrapper</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Borrows the layout data immutably. Fails on a conflicting borrow.</p>
+
+<p>TODO(pcwalton): Make this private. It will let us avoid borrow flag checks in some cases.</p>
+</div><h4 id='method.mutate_layout_data' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_layout_data' class='fnname'>mutate_layout_data</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/cell/struct.RefMut.html' title='core::cell::RefMut'>RefMut</a>&lt;'a, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layout/data/struct.LayoutDataWrapper.html' title='layout::data::LayoutDataWrapper'>LayoutDataWrapper</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Borrows the layout data mutably. Fails on a conflicting borrow.</p>
+
+<p>TODO(pcwalton): Make this private. It will let us avoid borrow flag checks in some cases.</p>
+</div><h4 id='method.traverse_postorder_mut' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.traverse_postorder_mut' class='fnname'>traverse_postorder_mut</a>&lt;T: <a class='trait' href='../../layout/wrapper/trait.PostorderNodeMutTraversal.html' title='layout::wrapper::PostorderNodeMutTraversal'>PostorderNodeMutTraversal</a>&gt;(&amp;mut self, traversal: &amp;mut T) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Traverses the tree in postorder.</p>
+
+<p>TODO(pcwalton): Offer a parallel version with a compatible API.</p>
+</div><h4 id='method.is_ignorable_whitespace' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_ignorable_whitespace' class='fnname'>is_ignorable_whitespace</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.get_input_value' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_input_value' class='fnname'>get_input_value</a>(&amp;self) -&gt; <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<h4 id='method.get_input_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_input_size' class='fnname'>get_input_size</a>(&amp;self) -&gt; <a href='../../std/primitive.u32.html'>u32</a></code></h4>
+<h4 id='method.get_unsigned_integer_attribute' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_unsigned_integer_attribute' class='fnname'>get_unsigned_integer_attribute</a>(self, attribute: <a class='enum' href='../../style/legacy/enum.UnsignedIntegerAttribute.html' title='style::legacy::UnsignedIntegerAttribute'>UnsignedIntegerAttribute</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../../std/primitive.u32.html'>u32</a>&gt;</code></h4>
+<h4 id='method.restyle_damage' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.restyle_damage' class='fnname'>restyle_damage</a>(self) -&gt; <a class='struct' href='../../layout/incremental/struct.RestyleDamage.html' title='layout::incremental::RestyleDamage'>RestyleDamage</a></code></h4>
+<div class='docblock'><p>Get the description of how to account for recent style changes.
+This is a simple bitfield and fine to copy by value.</p>
+</div><h4 id='method.set_restyle_damage' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.set_restyle_damage' class='fnname'>set_restyle_damage</a>(self, damage: <a class='struct' href='../../layout/incremental/struct.RestyleDamage.html' title='layout::incremental::RestyleDamage'>RestyleDamage</a>)</code></h4>
+<div class='docblock'><p>Set the restyle damage field.</p>
+</div><h4 id='method.flags' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.flags' class='fnname'>flags</a>(self) -&gt; <a class='struct' href='../../layout/data/struct.LayoutDataFlags.html' title='layout::data::LayoutDataFlags'>LayoutDataFlags</a></code></h4>
+<div class='docblock'><p>Returns the layout data flags for this node.</p>
+</div><h4 id='method.insert_flags' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert_flags' class='fnname'>insert_flags</a>(self, new_flags: <a class='struct' href='../../layout/data/struct.LayoutDataFlags.html' title='layout::data::LayoutDataFlags'>LayoutDataFlags</a>)</code></h4>
+<div class='docblock'><p>Adds the given flags to this node.</p>
+</div><h4 id='method.remove_flags' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.remove_flags' class='fnname'>remove_flags</a>(self, flags: <a class='struct' href='../../layout/data/struct.LayoutDataFlags.html' title='layout::data::LayoutDataFlags'>LayoutDataFlags</a>)</code></h4>
+<div class='docblock'><p>Removes the given flags from this node.</p>
+</div><h4 id='method.is_content' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_content' class='fnname'>is_content</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if this node contributes content. This is used in the implementation of
+<code>empty_cells</code> per CSS 2.1 § 17.6.1.1.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'ln&gt; <a class='trait' href='../../layout/wrapper/trait.TLayoutNode.html' title='layout::wrapper::TLayoutNode'>TLayoutNode</a> for <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'ln&gt;</code></h3><div class='impl-items'><h4 id='method.new_with_this_lifetime' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.new_with_this_lifetime' class='fnname'>new_with_this_lifetime</a>(&amp;self, node: &amp;<a class='struct' href='../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;) -&gt; <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'ln&gt;</code></h4>
+<div class='docblock'><p>Creates a new layout node with the same lifetime as this layout node.</p>
+</div><h4 id='method.type_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.type_id' class='fnname'>type_id</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../script/dom/node/enum.NodeTypeId.html' title='script::dom::node::NodeTypeId'>NodeTypeId</a>&gt;</code></h4>
+<div class='docblock'><p>Returns <code>None</code> if this is a pseudo-element.</p>
+</div><h4 id='method.get_jsmanaged' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_jsmanaged' class='fnname'>get_jsmanaged</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;</code></h4>
+<h4 id='method.get' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get' class='fnname'>get</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a></code></h4>
+<h4 id='method.first_child' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.first_child' class='fnname'>first_child</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'ln&gt;&gt;</code></h4>
+<h4 id='method.text_content' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.text_content' class='fnname'>text_content</a>(&amp;self) -&gt; <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='../../style/properties/longhands/content/computed_value/enum.ContentItem.html' title='style::properties::longhands::content::computed_value::ContentItem'>ContentItem</a>&gt;</code></h4>
+<h4 id='method.node_is_element' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.node_is_element' class='fnname'>node_is_element</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.node_is_document' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.node_is_document' class='fnname'>node_is_document</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.image_url' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.image_url' class='fnname'>image_url</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>&gt;</code></h4>
+<h4 id='method.get_renderer' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_renderer' class='fnname'>get_renderer</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='enum' href='../../canvas/canvas_paint_task/enum.CanvasMsg.html' title='canvas::canvas_paint_task::CanvasMsg'>CanvasMsg</a>&gt;&gt;</code></h4>
+<h4 id='method.get_canvas_width' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_canvas_width' class='fnname'>get_canvas_width</a>(&amp;self) -&gt; <a href='../../std/primitive.u32.html'>u32</a></code></h4>
+<h4 id='method.get_canvas_height' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_canvas_height' class='fnname'>get_canvas_height</a>(&amp;self) -&gt; <a href='../../std/primitive.u32.html'>u32</a></code></h4>
+<h4 id='method.iframe_pipeline_and_subpage_ids' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.iframe_pipeline_and_subpage_ids' class='fnname'>iframe_pipeline_and_subpage_ids</a>(&amp;self) -&gt; <a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>)</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'ln&gt; <a class='trait' href='../../layout/css/node_style/trait.StyledNode.html' title='layout::css::node_style::StyledNode'>StyledNode</a> for <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'ln&gt;</code></h3><div class='impl-items'><h4 id='method.style' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.style' class='fnname'>style</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;</code></h4>
+<h4 id='method.has_style' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.has_style' class='fnname'>has_style</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.unstyle' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.unstyle' class='fnname'>unstyle</a>(self)</code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'ln&gt; <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'ln&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'ln&gt;</code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'ln&gt; <a class='trait' href='../../core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'ln&gt;</code></h3><div class='impl-items'></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

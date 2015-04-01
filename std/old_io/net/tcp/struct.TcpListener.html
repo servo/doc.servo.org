@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `TcpListener` struct in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, TcpListener">
+
+    <title>std::old_io::net::tcp::TcpListener - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../../../index.html'>std</a>::<wbr><a href='../../index.html'>old_io</a>::<wbr><a href='../index.html'>net</a>::<wbr><a href='index.html'>tcp</a></p><script>window.sidebarCurrent = {name: 'TcpListener', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../../index.html'>std</a>::<wbr><a href='../../index.html'>old_io</a>::<wbr><a href='../index.html'>net</a>::<wbr><a href='index.html'>tcp</a>::<wbr><a class='struct' href=''>TcpListener</a><wbr><a class='stability Deprecated' title='replaced with new I/O primitives in `std::net`'>Deprecated</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-17399' href='../../../../src/std/old_io/net/tcp.rs.html#313-315'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct TcpListener {
+    // some fields omitted
+}</pre><div class='docblock'><p>A structure representing a socket server. This listener is used to create a
+<code>TcpAcceptor</code> which can be used to accept sockets on a local port.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    fn foo() {
+    use std::old_io::{TcpListener, TcpStream};
+    use std::old_io::{Acceptor, Listener};
+    use std::thread;
+    
+    let listener = TcpListener::bind(&quot;127.0.0.1:80&quot;).unwrap();
+    
+    // bind the listener to the specified address
+    let mut acceptor = listener.listen().unwrap();
+    
+    fn handle_client(mut stream: TcpStream) {
+        // ...
+    &amp;mut stream; // silence unused mutability/variable warning
+    }
+    // accept connections and process them, spawning a new tasks for each one
+    for stream in acceptor.incoming() {
+        match stream {
+            Err(e) =&gt; { /* connection failed */ }
+            Ok(stream) =&gt; {
+                thread::spawn(move|| {
+                    // connection succeeded
+                    handle_client(stream)
+                });
+            }
+        }
+    }
+    
+    // close the socket server
+    drop(acceptor);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>::{<span class='ident'>TcpListener</span>, <span class='ident'>TcpStream</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>::{<span class='ident'>Acceptor</span>, <span class='ident'>Listener</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>;
+
+<span class='kw'>let</span> <span class='ident'>listener</span> <span class='op'>=</span> <span class='ident'>TcpListener</span>::<span class='ident'>bind</span>(<span class='string'>&quot;127.0.0.1:80&quot;</span>).<span class='ident'>unwrap</span>();
+
+<span class='comment'>// bind the listener to the specified address</span>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>acceptor</span> <span class='op'>=</span> <span class='ident'>listener</span>.<span class='ident'>listen</span>().<span class='ident'>unwrap</span>();
+
+<span class='kw'>fn</span> <span class='ident'>handle_client</span>(<span class='kw-2'>mut</span> <span class='ident'>stream</span>: <span class='ident'>TcpStream</span>) {
+    <span class='comment'>// ...</span>
+}
+<span class='comment'>// accept connections and process them, spawning a new tasks for each one</span>
+<span class='kw'>for</span> <span class='ident'>stream</span> <span class='kw'>in</span> <span class='ident'>acceptor</span>.<span class='ident'>incoming</span>() {
+    <span class='kw'>match</span> <span class='ident'>stream</span> {
+        <span class='prelude-val'>Err</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> { <span class='comment'>/* connection failed */</span> }
+        <span class='prelude-val'>Ok</span>(<span class='ident'>stream</span>) <span class='op'>=&gt;</span> {
+            <span class='ident'>thread</span>::<span class='ident'>spawn</span>(<span class='kw'>move</span><span class='op'>||</span> {
+                <span class='comment'>// connection succeeded</span>
+                <span class='ident'>handle_client</span>(<span class='ident'>stream</span>)
+            });
+        }
+    }
+}
+
+<span class='comment'>// close the socket server</span>
+<span class='ident'>drop</span>(<span class='ident'>acceptor</span>);
+</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><code>impl <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpListener.html' title='std::old_io::net::tcp::TcpListener'>TcpListener</a></code></h3><div class='impl-items'><h4 id='method.bind' class='method'><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><code>fn <a href='#method.bind' class='fnname'>bind</a>&lt;A: <a class='trait' href='../../../../std/old_io/net/ip/trait.ToSocketAddr.html' title='std::old_io::net::ip::ToSocketAddr'>ToSocketAddr</a>&gt;(addr: A) -&gt; <a class='type' href='../../../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpListener.html' title='std::old_io::net::tcp::TcpListener'>TcpListener</a>&gt;</code></h4>
+<div class='docblock'><p>Creates a new <code>TcpListener</code> which will be bound to the specified address.
+This listener is not ready for accepting connections, <code>listen</code> must be called
+on it before that&#39;s possible.</p>
+
+<p>Binding with a port number of 0 will request that the OS assigns a port
+to this listener. The port allocated can be queried via the
+<code>socket_name</code> function.</p>
+
+<p>The address type can be any implementer of <code>ToSocketAddr</code> trait. See its
+documentation for concrete examples.</p>
+</div><h4 id='method.socket_name' class='method'><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><code>fn <a href='#method.socket_name' class='fnname'>socket_name</a>(&amp;mut self) -&gt; <a class='type' href='../../../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a class='struct' href='../../../../std/old_io/net/ip/struct.SocketAddr.html' title='std::old_io::net::ip::SocketAddr'>SocketAddr</a>&gt;</code></h4>
+<div class='docblock'><p>Returns the local socket address of this listener.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../../../std/old_io/trait.Listener.html' title='std::old_io::Listener'>Listener</a>&lt;<a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpStream.html' title='std::old_io::net::tcp::TcpStream'>TcpStream</a>, <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpAcceptor.html' title='std::old_io::net::tcp::TcpAcceptor'>TcpAcceptor</a>&gt; for <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpListener.html' title='std::old_io::net::tcp::TcpListener'>TcpListener</a></code></h3><div class='impl-items'><h4 id='method.listen' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.listen' class='fnname'>listen</a>(self) -&gt; <a class='type' href='../../../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpAcceptor.html' title='std::old_io::net::tcp::TcpAcceptor'>TcpAcceptor</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../../../std/os/unix/prelude/trait.AsRawFd.html' title='std::os::unix::prelude::AsRawFd'>AsRawFd</a> for <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpListener.html' title='std::old_io::net::tcp::TcpListener'>TcpListener</a></code></h3><div class='impl-items'><h4 id='method.as_raw_fd' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_raw_fd' class='fnname'>as_raw_fd</a>(&amp;self) -&gt; <a class='type' href='../../../../std/os/unix/prelude/type.Fd.html' title='std::os::unix::prelude::Fd'>Fd</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../../../std/os/unix/prelude/trait.AsRawFd.html' title='std::os::unix::prelude::AsRawFd'>AsRawFd</a> for <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpListener.html' title='std::old_io::net::tcp::TcpListener'>TcpListener</a></code></h3><div class='impl-items'><h4 id='method.as_raw_fd' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_raw_fd' class='fnname'>as_raw_fd</a>(&amp;self) -&gt; <a class='type' href='../../../../std/os/unix/prelude/type.Fd.html' title='std::os::unix::prelude::Fd'>Fd</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    <script src="../../../../playpen.js"></script>
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

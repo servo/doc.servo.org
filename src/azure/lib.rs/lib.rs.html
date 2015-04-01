@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="Source to the Rust file `/home/servo/.cargo/git/checkouts/rust-azure-03a3575c638f374d/master/src/lib.rs`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang">
+
+    <title>lib.rs.html -- source</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+<span id="2"> 2</span>
+<span id="3"> 3</span>
+<span id="4"> 4</span>
+<span id="5"> 5</span>
+<span id="6"> 6</span>
+<span id="7"> 7</span>
+<span id="8"> 8</span>
+<span id="9"> 9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+</pre><pre class='rust '>
+<span class='comment'>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */</span>
+
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span> <span class='op'>=</span> <span class='string'>&quot;azure&quot;</span>]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;rlib&quot;</span>]</span>
+
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>geom</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>skia</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>xlib</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;android&quot;</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>egl</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;macos&quot;</span>))]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>freetype</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;macos&quot;</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>core_foundation</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;macos&quot;</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>core_graphics</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;macos&quot;</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>core_text</span>;
+
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>azure</span>::{<span class='ident'>AzFontOptions</span>, <span class='ident'>AzFloat</span>, <span class='ident'>enum_AzSurfaceType</span>, <span class='ident'>AZ_SURFACE_DATA</span>, 
+                <span class='ident'>AZ_SURFACE_D2D1_BITMAP</span>, <span class='ident'>AZ_SURFACE_D2D1_DRAWTARGET</span>, <span class='ident'>AZ_SURFACE_CAIRO</span>, <span class='ident'>AZ_SURFACE_CAIRO_IMAGE</span>, 
+                <span class='ident'>AZ_SURFACE_COREGRAPHICS_IMAGE</span>, <span class='ident'>AZ_SURFACE_COREGRAPHICS_CGCONTEXT</span>, <span class='ident'>AZ_SURFACE_SKIA</span>, <span class='ident'>AZ_SURFACE_DUAL_DT</span>, 
+                <span class='ident'>enum_AzSurfaceFormat</span>, <span class='ident'>AZ_FORMAT_B8G8R8A8</span>, <span class='ident'>AZ_FORMAT_B8G8R8X8</span>, <span class='ident'>AZ_FORMAT_R5G6B5</span>, 
+                <span class='ident'>AZ_FORMAT_A8</span>, <span class='ident'>AzSurfaceFormat</span>, <span class='ident'>enum_AzBackendType</span>, <span class='ident'>AZ_BACKEND_NONE</span>, 
+                <span class='ident'>AZ_BACKEND_DIRECT2D</span>, <span class='ident'>AZ_BACKEND_COREGRAPHICS</span>, <span class='ident'>AZ_BACKEND_COREGRAPHICS_ACCELERATED</span>, <span class='ident'>AZ_BACKEND_CAIRO</span>, 
+                <span class='ident'>AZ_BACKEND_SKIA</span>, <span class='ident'>AZ_BACKEND_RECORDING</span>, <span class='ident'>AzBackendType</span>, <span class='ident'>enum_AzFontType</span>, 
+                <span class='ident'>AZ_FONT_DWRITE</span>, <span class='ident'>AZ_FONT_GDI</span>, <span class='ident'>AZ_FONT_MAC</span>, <span class='ident'>AZ_FONT_SKIA</span>, 
+                <span class='ident'>AZ_FONT_CAIRO</span>, <span class='ident'>AZ_FONT_COREGRAPHICS</span>, <span class='ident'>enum_AzNativeSurfaceType</span>, <span class='ident'>AZ_NATIVE_SURFACE_D3D10_TEXTURE</span>, 
+                <span class='ident'>AZ_NATIVE_SURFACE_CAIRO_SURFACE</span>, <span class='ident'>AZ_NATIVE_SURFACE_CGCONTEXT</span>, <span class='ident'>enum_AzNativeFontType</span>, <span class='ident'>AZ_NATIVE_FONT_DWRITE_FONT_FACE</span>, 
+                <span class='ident'>AZ_NATIVE_FONT_GDI_FONT_FACE</span>, <span class='ident'>AZ_NATIVE_FONT_MAC_FONT_FACE</span>, <span class='ident'>AZ_NATIVE_FONT_SKIA_FONT_FACE</span>, <span class='ident'>AZ_NATIVE_FONT_CAIRO_FONT_FACE</span>, 
+                <span class='ident'>enum_AzFontStyle</span>, <span class='ident'>AZ_FONT_STYLE_NORMAL</span>, <span class='ident'>AZ_FONT_STYLE_ITALIC</span>, <span class='ident'>AZ_FONT_STYLE_BOLD</span>, 
+                <span class='ident'>AZ_FONT_STYLE_BOLD_ITALIC</span>, <span class='ident'>enum_AzCompositionOp</span>, <span class='ident'>AZ_OP_OVER</span>, <span class='ident'>AZ_OP_ADD</span>, 
+                <span class='ident'>AZ_OP_ATOP</span>, <span class='ident'>AZ_OP_OUT</span>, <span class='ident'>AZ_OP_IN</span>, <span class='ident'>AZ_OP_SOURCE</span>, 
+                <span class='ident'>AZ_OP_DEST_IN</span>, <span class='ident'>AZ_OP_DEST_OUT</span>, <span class='ident'>AZ_OP_DEST_OVER</span>, <span class='ident'>AZ_OP_DEST_ATOP</span>, 
+                <span class='ident'>AZ_OP_XOR</span>, <span class='ident'>AZ_OP_MULTIPLY</span>, <span class='ident'>AZ_OP_SCREEN</span>, <span class='ident'>AZ_OP_OVERLAY</span>, 
+                <span class='ident'>AZ_OP_DARKEN</span>, <span class='ident'>AZ_OP_LIGHTEN</span>, <span class='ident'>AZ_OP_COLOR_DODGE</span>, <span class='ident'>AZ_OP_COLOR_BURN</span>, 
+                <span class='ident'>AZ_OP_HARD_LIGHT</span>, <span class='ident'>AZ_OP_SOFT_LIGHT</span>, <span class='ident'>AZ_OP_DIFFERENCE</span>, <span class='ident'>AZ_OP_EXCLUSION</span>, 
+                <span class='ident'>AZ_OP_HUE</span>, <span class='ident'>AZ_OP_SATURATION</span>, <span class='ident'>AZ_OP_COLOR</span>, <span class='ident'>AZ_OP_LUMINOSITY</span>, 
+                <span class='ident'>AZ_OP_COUNT</span>, <span class='ident'>enum_AzExtendMode</span>, <span class='ident'>AZ_EXTEND_CLAMP</span>, <span class='ident'>AZ_EXTEND_REPEAT</span>, 
+                <span class='ident'>AZ_EXTEND_REFLECT</span>, <span class='ident'>enum_AzFillRule</span>, <span class='ident'>AZ_FILL_WINDING</span>, <span class='ident'>AZ_FILL_EVEN_ODD</span>, 
+                <span class='ident'>enum_AzAntialiasMode</span>, <span class='ident'>AZ_AA_NONE</span>, <span class='ident'>AZ_AA_GRAY</span>, <span class='ident'>AZ_AA_SUBPIXEL</span>, 
+                <span class='ident'>enum_AzFilter</span>, <span class='ident'>AZ_FILTER_LINEAR</span>, <span class='ident'>AZ_FILTER_POINT</span>, <span class='ident'>AzFilter</span>, <span class='ident'>enum_AzPatternType</span>,
+                <span class='ident'>AZ_PATTERN_COLOR</span>, <span class='ident'>AZ_PATTERN_SURFACE</span>, <span class='ident'>AZ_PATTERN_LINEAR_GRADIENT</span>, <span class='ident'>AZ_PATTERN_RADIAL_GRADIENT</span>, 
+                <span class='ident'>enum_AzJoinStyle</span>, <span class='ident'>AZ_JOIN_BEVEL</span>, <span class='ident'>AZ_JOIN_ROUND</span>, <span class='ident'>AZ_JOIN_MITER</span>, 
+                <span class='ident'>AZ_JOIN_MITER_OR_BEVEL</span>, <span class='ident'>enum_AzCapStyle</span>, <span class='ident'>AZ_CAP_BUTT</span>, <span class='ident'>AZ_CAP_ROUND</span>, 
+                <span class='ident'>AZ_CAP_SQUARE</span>, <span class='ident'>enum_AzSamplingBounds</span>, <span class='ident'>AZ_SAMPLING_UNBOUNDED</span>, <span class='ident'>AZ_SAMPLING_BOUNDED</span>, 
+                <span class='ident'>enum_AzSide</span>, <span class='ident'>AZ_eSideTop</span>, <span class='ident'>AZ_eSideRight</span>, <span class='ident'>AZ_eSideBottom</span>, 
+                <span class='ident'>AZ_eSideLeft</span>, <span class='ident'>struct__AzColor</span>, <span class='ident'>AzColor</span>, <span class='ident'>struct__AzGradientStop</span>, 
+                <span class='ident'>AzGradientStop</span>, <span class='ident'>struct__AzIntRect</span>, <span class='ident'>AzIntRect</span>, <span class='ident'>struct__AzRect</span>, 
+                <span class='ident'>AzRect</span>, <span class='ident'>struct__AzIntPoint</span>, <span class='ident'>AzIntPoint</span>, <span class='ident'>struct__AzPoint</span>, 
+                <span class='ident'>AzPoint</span>, <span class='ident'>struct__AzIntSize</span>, <span class='ident'>AzIntSize</span>, <span class='ident'>struct__AzSize</span>, 
+                <span class='ident'>AzSize</span>, <span class='ident'>struct__AzMatrix</span>, <span class='ident'>AzMatrix</span>, <span class='ident'>struct__AzDrawOptions</span>, 
+                <span class='ident'>AzDrawOptions</span>, <span class='ident'>struct__AzStrokeOptions</span>, <span class='ident'>AzStrokeOptions</span>, <span class='ident'>struct__AzDrawSurfaceOptions</span>, 
+                <span class='ident'>AzDrawSurfaceOptions</span>, <span class='ident'>struct__AzGlyph</span>, <span class='ident'>AzGlyph</span>, <span class='ident'>struct__AzGlyphBuffer</span>, 
+                <span class='ident'>AzGlyphBuffer</span>, <span class='ident'>struct__AzNativeFont</span>, <span class='ident'>AzNativeFont</span>, <span class='ident'>AzGradientStopsRef</span>, 
+                <span class='ident'>AzDrawTargetRef</span>, <span class='ident'>AzPatternRef</span>, <span class='ident'>AzColorPatternRef</span>, <span class='ident'>AzScaledFontRef</span>, 
+                <span class='ident'>AzGlyphRenderingOptionsRef</span>, <span class='ident'>AzSourceSurfaceRef</span>, <span class='ident'>AzDataSourceSurfaceRef</span>, <span class='ident'>AzDrawSurfaceOptionsRef</span>, 
+                <span class='ident'>AzGLContext</span>, <span class='ident'>AzGLContextMetadataRef</span>,
+                <span class='ident'>AzPathRef</span>, <span class='ident'>AzPathBuilderRef</span>, <span class='ident'>AzSanityCheck</span>, <span class='ident'>AzCreateColorPattern</span>, 
+                <span class='ident'>AzCreateDrawTarget</span>, <span class='ident'>AzCreateDrawTargetForData</span>, <span class='ident'>AzCreateDrawTargetSkiaWithGrContextAndFBO</span>,
+                <span class='ident'>AzRetainDrawTarget</span>, <span class='ident'>AzReleaseDrawTarget</span>, <span class='ident'>AzDrawTargetGetSize</span>, <span class='ident'>AzDrawTargetFlush</span>, 
+                <span class='ident'>AzDrawTargetClearRect</span>, <span class='ident'>AzDrawTargetFillRect</span>, <span class='ident'>AzDrawTargetStrokeRect</span>, <span class='ident'>AzDrawTargetStrokeLine</span>, 
+                <span class='ident'>AzDrawTargetFill</span>, <span class='ident'>AzDrawTargetStroke</span>, <span class='ident'>AzDrawTargetPushClip</span>, <span class='ident'>AzDrawTargetPopClip</span>, <span class='ident'>AzDrawTargetFillGlyphs</span>, 
+                <span class='ident'>AzDrawTargetDrawSurface</span>, <span class='ident'>AzDrawTargetGetSnapshot</span>, <span class='ident'>AzDrawTargetCreateSourceSurfaceFromData</span>, <span class='ident'>AzReleaseSourceSurface</span>, 
+                <span class='ident'>AzSourceSurfaceGetSize</span>, <span class='ident'>AzSourceSurfaceGetFormat</span>, <span class='ident'>AzSourceSurfaceGetDataSurface</span>, <span class='ident'>AzDataSourceSurfaceGetData</span>, 
+                <span class='ident'>AzDataSourceSurfaceGetStride</span>, <span class='ident'>AzCreateScaledFontForNativeFont</span>, <span class='ident'>AzReleaseScaledFont</span>, <span class='ident'>AzDrawTargetSetTransform</span>, 
+                <span class='ident'>AzCreateFontOptionsForName</span>, <span class='ident'>AzDestroyFontOptions</span>, <span class='ident'>AzCreatePathBuilder</span>, 
+                <span class='ident'>AzReleasePathBuilder</span>, <span class='ident'>AzPathBuilderMoveTo</span>, <span class='ident'>AzPathBuilderLineTo</span>, <span class='ident'>AzPathBuilderFinish</span>, <span class='ident'>AzReleasePath</span>};
+
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>azure_hl</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>scaled_font</span>;
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>test</span>;
+
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>linkhack</span>;
+
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>azure</span>;
+</pre>
+</section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "azure";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

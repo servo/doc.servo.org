@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BlobOrString",""],["EventOrString",""],["FileOrString",""],["HTMLCanvasElementOrCanvasRenderingContext2D",""],["HTMLElementOrLong",""],["HTMLOptionElementOrHTMLOptGroupElement",""],["StringOrCanvasGradientOrCanvasPattern",""],["StringOrURLSearchParams",""]]});

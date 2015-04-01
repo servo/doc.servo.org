@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["UnixAcceptor","A value that can accept named pipe connections, returned from `listen()`."],["UnixListener","A value that can listen for incoming named pipe connection requests."],["UnixStream","A stream which communicates over a named pipe."]]});

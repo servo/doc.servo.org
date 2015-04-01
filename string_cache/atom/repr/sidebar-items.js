@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["UnpackedAtom",""]],"fn":[["from_packed_dynamic","Used for a fast path in Clone and Drop."],["inline_orig_bytes","For as_slice on inline atoms, we need a pointer into the original string contents."],["pack_static",""]],"constant":[["DYNAMIC_TAG",""],["INLINE_TAG",""],["MAX_INLINE_LEN",""],["STATIC_TAG",""]]});

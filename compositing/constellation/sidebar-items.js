@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Constellation","Maintains the pipelines and navigation context and grants permission to composite."],["Frame","Stores the navigation context for a single frame in the frame tree."],["SendableFrameTree",""]]});

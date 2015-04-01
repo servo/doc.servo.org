@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>A 30-minute Introduction to Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="rust.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="versioninfo">
+  <img src="http://www.rust-lang.org/logos/rust-logo-32x32-blk.png" width="32" height="32" alt><br>
+  <span class="white-sticker"><a href="http://rust-lang.org">Rust</a> 1.0.0-dev</span><br>
+  <a href="http://github.com/rust-lang/rust/commit/d3c49d2140fc65e8bb7d7cf25bfe74dda6ce5ecf"
+    class="hash white-sticker">d3c49d214</a>
+</div>
+
+
+    <h1 class="title">A 30-minute Introduction to Rust</h1>
+    <nav id="TOC"><ul>
+<li><a href="#tools">1 Tools</a><ul></ul></li>
+<li><a href="#ownership">2 Ownership</a><ul></ul></li>
+<li><a href="#concurrency">3 Concurrency</a><ul></ul></li>
+<li><a href="#safety-<em>and</em>-speed">4 Safety <em>and</em> Speed</a><ul></ul></li>
+<li><a href="#learning-more">5 Learning More</a><ul></ul></li></ul></nav><p>Rust is a modern systems programming language focusing on safety and speed. It
+accomplishes these goals by being memory safe without using garbage collection.</p>
+
+<p>This introduction will give you a rough idea of what Rust is like, eliding many
+details. It does not require prior experience with systems programming, but you
+may find the syntax easier if you&#39;ve used a &quot;curly brace&quot; programming language
+before, like C or JavaScript. The concepts are more important than the syntax,
+so don&#39;t worry if you don&#39;t get every last detail: you can read <a href="book/index.html">The
+Rust Programming Language</a> to get a more complete explanation.</p>
+
+<p>Because this is about high-level concepts, you don&#39;t need to actually install
+Rust to follow along. If you&#39;d like to anyway, check out <a href="http://rust-lang.org">the
+homepage</a> for explanation.</p>
+
+<p>To show off Rust, let&#39;s talk about how easy it is to get started with Rust.
+Then, we&#39;ll talk about Rust&#39;s most interesting feature, <em>ownership</em>, and
+then discuss how it makes concurrency easier to reason about. Finally,
+we&#39;ll talk about how Rust breaks down the perceived dichotomy between speed
+and safety.</p>
+
+<h1 id="tools" class='section-header'><a
+                           href="#tools">1 Tools</a></h1>
+<p>Getting started on a new Rust project is incredibly easy, thanks to Rust&#39;s
+package manager, <a href="http://crates.io">Cargo</a>.</p>
+
+<p>To start a new project with Cargo, use <code>cargo new</code>:</p>
+
+<pre><code class="language-{bash}">$ cargo new hello_world --bin
+</code></pre>
+
+<p>We&#39;re passing <code>--bin</code> because we&#39;re making a binary program: if we
+were making a library, we&#39;d leave it off.</p>
+
+<p>Let&#39;s check out what Cargo has generated for us:</p>
+
+<pre><code class="language-{bash}">$ cd hello_world
+$ tree .
+.
+├── Cargo.toml
+└── src
+    └── main.rs
+
+1 directory, 2 files
+</code></pre>
+
+<p>This is all we need to get started. First, let&#39;s check out <code>Cargo.toml</code>:</p>
+
+<pre><code class="language-{toml}">[package]
+
+name = &quot;hello_world&quot;
+version = &quot;0.0.1&quot;
+authors = [&quot;Your Name &lt;you@example.com&gt;&quot;]
+</code></pre>
+
+<p>This is called a <em>manifest</em>, and it contains all of the metadata that Cargo
+needs to compile your project.</p>
+
+<p>Here&#39;s what&#39;s in <code>src/main.rs</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>);
+}
+</pre>
+
+<p>Cargo generated a &quot;Hello World&quot; for us. We&#39;ll talk more about the syntax here
+later, but that&#39;s what Rust code looks like! Let&#39;s compile and run it:</p>
+
+<pre><code class="language-{bash}">$ cargo run
+   Compiling hello_world v0.0.1 (file:///Users/you/src/hello_world)
+     Running `target/hello_world`
+Hello, world!
+</code></pre>
+
+<p>Using an external dependency in Rust is incredibly easy. You add a line to
+your <code>Cargo.toml</code>:</p>
+
+<pre><code class="language-{toml}">[package]
+
+name = &quot;hello_world&quot;
+version = &quot;0.0.1&quot;
+authors = [&quot;Your Name &lt;someone@example.com&gt;&quot;]
+
+[dependencies.semver]
+
+git = &quot;https://github.com/rust-lang/semver.git&quot;
+</code></pre>
+
+<p>You added the <code>semver</code> library, which parses version numbers and compares them
+according to the <a href="http://semver.org/">SemVer specification</a>.</p>
+
+<p>Now, you can pull in that library using <code>extern crate</code> in
+<code>main.rs</code>.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>semver</span>;
+
+<span class='kw'>use</span> <span class='ident'>semver</span>::<span class='ident'>Version</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>Version</span>::<span class='ident'>parse</span>(<span class='string'>&quot;1.2.3&quot;</span>) <span class='op'>==</span> <span class='prelude-val'>Ok</span>(<span class='ident'>Version</span> {
+        <span class='ident'>major</span>: <span class='number'>1u64</span>,
+        <span class='ident'>minor</span>: <span class='number'>2u64</span>,
+        <span class='ident'>patch</span>: <span class='number'>3u64</span>,
+        <span class='ident'>pre</span>: <span class='macro'>vec</span><span class='macro'>!</span>(),
+        <span class='ident'>build</span>: <span class='macro'>vec</span><span class='macro'>!</span>(),
+    }));
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Versions compared successfully!&quot;</span>);
+}
+</pre>
+
+<p>Again, we&#39;ll discuss the exact details of all of this syntax soon. For now,
+let&#39;s compile and run it:</p>
+
+<pre><code class="language-{bash}">$ cargo run
+    Updating git repository `https://github.com/rust-lang/semver.git`
+   Compiling semver v0.0.1 (https://github.com/rust-lang/semver.git#bf739419)
+   Compiling hello_world v0.0.1 (file:///home/you/projects/hello_world)
+     Running `target/hello_world`
+Versions compared successfully!
+</code></pre>
+
+<p>Because we only specified a repository without a version, if someone else were
+to try out our project at a later date, when <code>semver</code> was updated, they would
+get a different, possibly incompatible version. To solve this problem, Cargo
+produces a file, <code>Cargo.lock</code>, which records the versions of any dependencies.
+This gives us repeatable builds.</p>
+
+<p>There is a lot more here, and this is a whirlwind tour, but you should feel
+right at home if you&#39;ve used tools like <a href="http://bundler.io/">Bundler</a>,
+<a href="https://www.npmjs.org/">npm</a>, or <a href="https://pip.pypa.io/en/latest/">pip</a>.
+There&#39;s no <code>Makefile</code>s or endless <code>autotools</code> output here. (Rust&#39;s tooling does
+<a href="http://crates.io/native-build.html">play nice with external libraries written in those
+tools</a>, if you need to.)</p>
+
+<p>Enough about tools, let&#39;s talk code!</p>
+
+<h1 id="ownership" class='section-header'><a
+                           href="#ownership">2 Ownership</a></h1>
+<p>Rust&#39;s defining feature is &quot;memory safety without garbage collection&quot;. Let&#39;s
+take a moment to talk about what that means. <em>Memory safety</em> means that the
+programming language eliminates certain kinds of bugs, such as <a href="http://en.wikipedia.org/wiki/Buffer_overflow">buffer
+overflows</a> and <a href="http://en.wikipedia.org/wiki/Dangling_pointer">dangling
+pointers</a>. These problems occur
+when you have unrestricted access to memory. As an example, here&#39;s some Ruby
+code:</p>
+
+<pre><code class="language-{ruby}">v = []
+
+v.push(&quot;Hello&quot;)
+
+x = v[0]
+
+v.push(&quot;world&quot;)
+
+puts x
+</code></pre>
+
+<p>We make an array, <code>v</code>, and then call <code>push</code> on it. <code>push</code> is a method which
+adds an element to the end of an array.</p>
+
+<p>Next, we make a new variable, <code>x</code>, that&#39;s equal to the first element of
+the array. Simple, but this is where the &quot;bug&quot; will appear.</p>
+
+<p>Let&#39;s keep going. We then call <code>push</code> again, pushing &quot;world&quot; onto the
+end of the array. <code>v</code> now is <code>[&quot;Hello&quot;, &quot;world&quot;]</code>.</p>
+
+<p>Finally, we print <code>x</code> with the <code>puts</code> method. This prints &quot;Hello.&quot;</p>
+
+<p>All good? Let&#39;s go over a similar, but subtly different example, in C++:</p>
+
+<pre><code class="language-{cpp}">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;string&gt;
+
+int main() {
+    std::vector&lt;std::string&gt; v;
+
+    v.push_back(&quot;Hello&quot;);
+
+    std::string&amp; x = v[0];
+
+    v.push_back(&quot;world&quot;);
+
+    std::cout &lt;&lt; x;
+}
+</code></pre>
+
+<p>It&#39;s a little more verbose due to the static typing, but it&#39;s almost the same
+thing. We make a <code>std::vector</code> of <code>std::string</code>s, we call <code>push_back</code> (same as
+<code>push</code>) on it, take a reference to the first element of the vector, call
+<code>push_back</code> again, and then print out the reference.</p>
+
+<p>There&#39;s two big differences here: one, they&#39;re not <em>exactly</em> the same thing,
+and two...</p>
+
+<pre><code class="language-{bash}">$ g++ hello.cpp -Wall -Werror
+$ ./a.out
+Segmentation fault (core dumped)
+</code></pre>
+
+<p>A crash! (Note that this is actually system-dependent. Because referring to an
+invalid reference is undefined behavior, the compiler can do anything,
+including the right thing!) Even though we compiled with flags to give us as
+many warnings as possible, and to treat those warnings as errors, we got no
+errors. When we ran the program, it crashed.</p>
+
+<p>Why does this happen? When we append to an array, its length changes. Since
+its length changes, we may need to allocate more memory. In Ruby, this happens
+as well, we just don&#39;t think about it very often. So why does the C++ version
+segfault when we allocate more memory?</p>
+
+<p>The answer is that in the C++ version, <code>x</code> is a <em>reference</em> to the memory
+location where the first element of the array is stored. But in Ruby, <code>x</code> is a
+standalone value, not connected to the underlying array at all. Let&#39;s dig into
+the details for a moment. Your program has access to memory, provided to it by
+the operating system. Each location in memory has an address.  So when we make
+our vector, <code>v</code>, it&#39;s stored in a memory location somewhere:</p>
+
+<table><thead>
+<tr>
+<th>location</th>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0x30</td>
+<td>v</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>(Address numbers made up, and in hexadecimal. Those of you with deep C++
+knowledge, there are some simplifications going on here, like the lack of an
+allocated length for the vector. This is an introduction.)</p>
+
+<p>When we push our first string onto the array, we allocate some memory,
+and <code>v</code> refers to it:</p>
+
+<table><thead>
+<tr>
+<th>location</th>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0x30</td>
+<td>v</td>
+<td>0x18</td>
+</tr>
+<tr>
+<td>0x18</td>
+<td></td>
+<td>&quot;Hello&quot;</td>
+</tr>
+</tbody></table>
+
+<p>We then make a reference to that first element. A reference is a variable
+that points to a memory location, so its value is the memory location of
+the <code>&quot;Hello&quot;</code> string:</p>
+
+<table><thead>
+<tr>
+<th>location</th>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0x30</td>
+<td>v</td>
+<td>0x18</td>
+</tr>
+<tr>
+<td>0x18</td>
+<td></td>
+<td>&quot;Hello&quot;</td>
+</tr>
+<tr>
+<td>0x14</td>
+<td>x</td>
+<td>0x18</td>
+</tr>
+</tbody></table>
+
+<p>When we push <code>&quot;world&quot;</code> onto the vector with <code>push_back</code>, there&#39;s no room:
+we only allocated one element. So, we need to allocate two elements,
+copy the <code>&quot;Hello&quot;</code> string over, and update the reference. Like this:</p>
+
+<table><thead>
+<tr>
+<th>location</th>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0x30</td>
+<td>v</td>
+<td>0x08</td>
+</tr>
+<tr>
+<td>0x18</td>
+<td></td>
+<td>GARBAGE</td>
+</tr>
+<tr>
+<td>0x14</td>
+<td>x</td>
+<td>0x18</td>
+</tr>
+<tr>
+<td>0x08</td>
+<td></td>
+<td>&quot;Hello&quot;</td>
+</tr>
+<tr>
+<td>0x04</td>
+<td></td>
+<td>&quot;world&quot;</td>
+</tr>
+</tbody></table>
+
+<p>Note that <code>v</code> now refers to the new list, which has two elements. It&#39;s all
+good. But our <code>x</code> didn&#39;t get updated! It still points at the old location,
+which isn&#39;t valid anymore. In fact, <a href="http://en.cppreference.com/w/cpp/container/vector/push_back">the documentation for <code>push_back</code> mentions
+this</a>:</p>
+
+<blockquote>
+<p>If the new <code>size()</code> is greater than <code>capacity()</code> then all iterators and
+references (including the past-the-end iterator) are invalidated.</p>
+</blockquote>
+
+<p>Finding where these iterators and references are is a difficult problem, and
+even in this simple case, <code>g++</code> can&#39;t help us here. While the bug is obvious in
+this case, in real code, it can be difficult to track down the source of the
+error.</p>
+
+<p>Before we talk about this solution, why didn&#39;t our Ruby code have this problem?
+The semantics are a little more complicated, and explaining Ruby&#39;s internals is
+out of the scope of a guide to Rust. But in a nutshell, Ruby&#39;s garbage
+collector keeps track of references, and makes sure that everything works as
+you might expect. This comes at an efficiency cost, and the internals are more
+complex.  If you&#39;d really like to dig into the details, <a href="http://patshaughnessy.net/2012/1/18/seeing-double-how-ruby-shares-string-values">this
+article</a>
+can give you more information.</p>
+
+<p>Garbage collection is a valid approach to memory safety, but Rust chooses a
+different path.  Let&#39;s examine what the Rust version of this looks like:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
+
+    <span class='ident'>v</span>.<span class='ident'>push</span>(<span class='string'>&quot;Hello&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='ident'>v</span>[<span class='number'>0</span>];
+
+    <span class='ident'>v</span>.<span class='ident'>push</span>(<span class='string'>&quot;world&quot;</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+</pre>
+
+<p>This looks like a bit of both: fewer type annotations, but we do create new
+variables with <code>let</code>. The method name is <code>push</code>, some other stuff is different,
+but it&#39;s pretty close. So what happens when we compile this code?  Does Rust
+print <code>&quot;Hello&quot;</code>, or does Rust crash?</p>
+
+<p>Neither. It refuses to compile:</p>
+
+<pre><code class="language-bash">$ cargo run
+   Compiling hello_world v0.0.1 (file:///Users/you/src/hello_world)
+main.rs:8:5: 8:6 error: cannot borrow `v` as mutable because it is also borrowed as immutable
+main.rs:8     v.push(&quot;world&quot;);
+              ^
+main.rs:6:14: 6:15 note: previous borrow of `v` occurs here; the immutable borrow prevents subsequent moves or mutable borrows of `v` until the borrow ends
+main.rs:6     let x = &amp;v[0];
+                       ^
+main.rs:11:2: 11:2 note: previous borrow ends here
+main.rs:1 fn main() {
+...
+main.rs:11 }
+           ^
+error: aborting due to previous error
+</code></pre>
+
+<p>When we try to mutate the array by <code>push</code>ing it the second time, Rust throws
+an error. It says that we &quot;cannot borrow v as mutable because it is also
+borrowed as immutable.&quot; What does it mean by &quot;borrowed&quot;?</p>
+
+<p>In Rust, the type system encodes the notion of <em>ownership</em>. The variable <code>v</code>
+is an <em>owner</em> of the vector. When we make a reference to <code>v</code>, we let that
+variable (in this case, <code>x</code>) <em>borrow</em> it for a while. Just like if you own a
+book, and you lend it to me, I&#39;m borrowing the book.</p>
+
+<p>So, when I try to modify the vector with the second call to <code>push</code>, I need
+to be owning it. But <code>x</code> is borrowing it. You can&#39;t modify something that
+you&#39;ve lent to someone. And so Rust throws an error.</p>
+
+<p>So how do we fix this problem? Well, we can make a copy of the element:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
+
+    <span class='ident'>v</span>.<span class='ident'>push</span>(<span class='string'>&quot;Hello&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>v</span>[<span class='number'>0</span>].<span class='ident'>clone</span>();
+
+    <span class='ident'>v</span>.<span class='ident'>push</span>(<span class='string'>&quot;world&quot;</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+</pre>
+
+<p>Note the addition of <code>clone()</code>. This creates a copy of the element, leaving
+the original untouched. Now, we no longer have two references to the same
+memory, and so the compiler is happy. Let&#39;s give that a try:</p>
+
+<pre><code class="language-{bash}">$ cargo run
+   Compiling hello_world v0.0.1 (file:///Users/you/src/hello_world)
+     Running `target/hello_world`
+Hello
+</code></pre>
+
+<p>Same result. Now, making a copy can be inefficient, so this solution may not be
+acceptable. There are other ways to get around this problem, but this is a toy
+example, and because we&#39;re in an introduction, we&#39;ll leave that for later.</p>
+
+<p>The point is, the Rust compiler and its notion of ownership has saved us from a
+bug that would crash the program. We&#39;ve achieved safety, at compile time,
+without needing to rely on a garbage collector to handle our memory.</p>
+
+<h1 id="concurrency" class='section-header'><a
+                           href="#concurrency">3 Concurrency</a></h1>
+<p>Rust&#39;s ownership model can help in other ways, as well. For example, take
+concurrency. Concurrency is a big topic, and an important one for any modern
+programming language. Let&#39;s take a look at how ownership can help you write
+safe concurrent programs.</p>
+
+<p>Here&#39;s an example of a concurrent Rust program:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>guards</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> (<span class='number'>0</span>..<span class='number'>10</span>).<span class='ident'>map</span>(<span class='op'>|</span>_<span class='op'>|</span> {
+        <span class='ident'>thread</span>::<span class='ident'>scoped</span>(<span class='op'>||</span> {
+            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>);
+        })
+    }).<span class='ident'>collect</span>();
+}
+</pre>
+
+<p>This program creates ten threads, which all print <code>Hello, world!</code>. The <code>scoped</code>
+function takes one argument, a closure, indicated by the double bars <code>||</code>. This
+closure is executed in a new thread created by <code>scoped</code>. The method is called
+<code>scoped</code> because it returns a &#39;join guard&#39;, which will automatically join the
+child thread when it goes out of scope. Because we <code>collect</code> these guards into
+a <code>Vec&lt;T&gt;</code>, and that vector goes out of scope at the end of our program, our
+program will wait for every thread to finish before finishing.</p>
+
+<p>One common form of problem in concurrent programs is a <em>data race</em>.
+This occurs when two different threads attempt to access the same
+location in memory in a non-synchronized way, where at least one of
+them is a write. If one thread is attempting to read, and one thread
+is attempting to write, you cannot be sure that your data will not be
+corrupted. Note the first half of that requirement: two threads that
+attempt to access the same location in memory. Rust&#39;s ownership model
+can track which pointers own which memory locations, which solves this
+problem.</p>
+
+<p>Let&#39;s see an example. This Rust code will not compile:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>numbers</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+
+    <span class='kw'>let</span> <span class='ident'>guards</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> (<span class='number'>0</span>..<span class='number'>3</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>i</span><span class='op'>|</span> {
+        <span class='ident'>thread</span>::<span class='ident'>scoped</span>(<span class='kw'>move</span> <span class='op'>||</span> {
+            <span class='ident'>numbers</span>[<span class='ident'>i</span>] <span class='op'>+=</span> <span class='number'>1</span>;
+            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;numbers[{}] is {}&quot;</span>, <span class='ident'>i</span>, <span class='ident'>numbers</span>[<span class='ident'>i</span>]);
+        })
+    }).<span class='ident'>collect</span>();
+}
+</pre>
+
+<p>It gives us this error:</p>
+
+<pre><code class="language-text">7:25: 10:6 error: cannot move out of captured outer variable in an `FnMut` closure
+7     thread::scoped(move || {
+8       numbers[i] += 1;
+9       println!(&quot;numbers[{}] is {}&quot;, i, numbers[i]);
+10     })
+error: aborting due to previous error
+</code></pre>
+
+<p>It mentions that &quot;captured outer variable in an <code>FnMut</code> closure&quot;.
+Because we declared the closure as a moving closure, and it referred
+to <code>numbers</code>, the closure will try to take ownership of the
+vector. But the closure itself is created in a loop, and hence we will
+actually create three closures, one for every iteration of the
+loop. This means that all three of those closures would try to own
+<code>numbers</code>, which is impossible -- <code>numbers</code> must have just one
+owner. Rust detects this and gives us the error: we claim that
+<code>numbers</code> has ownership, but our code tries to make three owners. This
+may cause a safety problem, so Rust disallows it.</p>
+
+<p>What to do here? Rust has two types that helps us: <code>Arc&lt;T&gt;</code> and <code>Mutex&lt;T&gt;</code>.
+<em>Arc</em> stands for &quot;atomically reference counted&quot;. In other words, an Arc will
+keep track of the number of references to something, and not free the
+associated resource until the count is zero. The <em>atomic</em> portion refers to an
+Arc&#39;s usage of concurrency primitives to atomically update the count, making it
+safe across threads. If we use an Arc, we can have our three references. But,
+an Arc does not allow mutable borrows of the data it holds, and we want to
+modify what we&#39;re sharing. In this case, we can use a <code>Mutex&lt;T&gt;</code> inside of our
+Arc. A Mutex will synchronize our accesses, so that we can ensure that our
+mutation doesn&#39;t cause a data race.</p>
+
+<p>Here&#39;s what using an Arc with a Mutex looks like:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Arc</span>,<span class='ident'>Mutex</span>};
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>numbers</span> <span class='op'>=</span> <span class='ident'>Arc</span>::<span class='ident'>new</span>(<span class='ident'>Mutex</span>::<span class='ident'>new</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]));
+
+    <span class='kw'>let</span> <span class='ident'>guards</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> (<span class='number'>0</span>..<span class='number'>3</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>i</span><span class='op'>|</span> {
+        <span class='kw'>let</span> <span class='ident'>number</span> <span class='op'>=</span> <span class='ident'>numbers</span>.<span class='ident'>clone</span>();
+        <span class='ident'>thread</span>::<span class='ident'>scoped</span>(<span class='kw'>move</span> <span class='op'>||</span> {
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>array</span> <span class='op'>=</span> <span class='ident'>number</span>.<span class='ident'>lock</span>().<span class='ident'>unwrap</span>();
+            <span class='ident'>array</span>[<span class='ident'>i</span>] <span class='op'>+=</span> <span class='number'>1</span>;
+            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;numbers[{}] is {}&quot;</span>, <span class='ident'>i</span>, <span class='ident'>array</span>[<span class='ident'>i</span>]);
+        })
+    }).<span class='ident'>collect</span>();
+}
+</pre>
+
+<p>We first have to <code>use</code> the appropriate library, and then we wrap our vector in
+an Arc with the call to <code>Arc::new()</code>. Inside of the loop, we make a new
+reference to the Arc with the <code>clone()</code> method. This will increment the
+reference count. When each new <code>numbers</code> variable binding goes out of scope, it
+will decrement the count. The <code>lock()</code> call will return us a reference to the
+value inside the Mutex, and block any other calls to <code>lock()</code> until said
+reference goes out of scope.</p>
+
+<p>We can compile and run this program without error, and in fact, see the
+non-deterministic aspect:</p>
+
+<pre><code class="language-{shell}">$ cargo run
+   Compiling hello_world v0.0.1 (file:///Users/you/src/hello_world)
+     Running `target/hello_world`
+numbers[1] is 3
+numbers[0] is 2
+numbers[2] is 4
+$ cargo run
+     Running `target/hello_world`
+numbers[2] is 4
+numbers[1] is 3
+numbers[0] is 2
+</code></pre>
+
+<p>Each time, we can get a slightly different output because the threads are not
+guaranteed to run in any set order. If you get the same order every time it is
+because each of these threads are very small and complete too fast for their
+indeterminate behavior to surface.</p>
+
+<p>The important part here is that the Rust compiler was able to use ownership to
+give us assurance <em>at compile time</em> that we weren&#39;t doing something incorrect
+with regards to concurrency. In order to share ownership, we were forced to be
+explicit and use a mechanism to ensure that it would be properly handled.</p>
+
+<h1 id="safety-<em>and</em>-speed" class='section-header'><a
+                           href="#safety-<em>and</em>-speed">4 Safety <em>and</em> Speed</a></h1>
+<p>Safety and speed are always presented as a continuum. At one end of the spectrum,
+you have maximum speed, but no safety. On the other end, you have absolute safety
+with no speed. Rust seeks to break out of this paradigm by introducing safety at
+compile time, ensuring that you haven&#39;t done anything wrong, while compiling to
+the same low-level code you&#39;d expect without the safety.</p>
+
+<p>As an example, Rust&#39;s ownership system is <em>entirely</em> at compile time. The
+safety check that makes this an error about moved values:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>numbers</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+
+    <span class='kw'>let</span> <span class='ident'>guards</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> (<span class='number'>0</span>..<span class='number'>3</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>i</span><span class='op'>|</span> {
+        <span class='ident'>thread</span>::<span class='ident'>scoped</span>(<span class='kw'>move</span> <span class='op'>||</span> {
+            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>numbers</span>[<span class='ident'>i</span>]);
+        })
+    }).<span class='ident'>collect</span>();
+}
+</pre>
+
+<p>carries no runtime penalty. And while some of Rust&#39;s safety features do have
+a run-time cost, there&#39;s often a way to write your code in such a way that
+you can remove it. As an example, this is a poor way to iterate through
+a vector:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+
+<span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>vec</span>.<span class='ident'>len</span>() {
+     <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>vec</span>[<span class='ident'>i</span>]);
+}
+</pre>
+
+<p>The reason is that the access of <code>vec[i]</code> does bounds checking, to ensure
+that we don&#39;t try to access an invalid index. However, we can remove this
+while retaining safety. The answer is iterators:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+
+<span class='kw'>for</span> <span class='ident'>x</span> <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='ident'>vec</span> {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+</pre>
+
+<p>This version uses an iterator that yields each element of the vector in turn.
+Because we have a reference to the element, rather than the whole vector itself,
+there&#39;s no array access bounds to check.</p>
+
+<h1 id="learning-more" class='section-header'><a
+                           href="#learning-more">5 Learning More</a></h1>
+<p>I hope that this taste of Rust has given you an idea if Rust is the right
+language for you. We talked about Rust&#39;s tooling, how encoding ownership into
+the type system helps you find bugs, how Rust can help you write correct
+concurrent code, and how you don&#39;t have to pay a speed cost for much of this
+safety.</p>
+
+<p>To continue your Rustic education, read <a href="book/index.html">The Rust Programming
+Language</a> for a more in-depth exploration of Rust&#39;s syntax and
+concepts.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <footer><p>
+Copyright &copy; 2011-2015 The Rust Project Developers. Licensed under the
+<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
+or the <a href="http://opensource.org/licenses/MIT">MIT license</a>, at your option.
+</p><p>
+This file may not be copied, modified, or distributed except according to those terms.
+</p></footer>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="playpen.js"></script>
+
+
+</body>
+</html>

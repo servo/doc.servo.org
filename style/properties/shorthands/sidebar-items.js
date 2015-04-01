@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["background",""],["border",""],["border_bottom",""],["border_color",""],["border_left",""],["border_radius",""],["border_right",""],["border_style",""],["border_top",""],["border_width",""],["font",""],["list_style",""],["margin",""],["outline",""],["overflow",""],["padding",""],["transition",""],["word_wrap",""]],"fn":[["parse_border",""]]});

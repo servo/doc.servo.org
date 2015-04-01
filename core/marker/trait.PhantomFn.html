@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `PhantomFn` trait in crate `core`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, PhantomFn">
+
+    <title>core::marker::PhantomFn - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../core/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>core</a>::<wbr><a href='index.html'>marker</a></p><script>window.sidebarCurrent = {name: 'PhantomFn', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>core</a>::<wbr><a href='index.html'>marker</a>::<wbr><a class='trait' href=''>PhantomFn</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-27197' href='../../src/core/marker.rs.html#341'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait PhantomFn&lt;A: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>, R: ?<a class='trait' href='../../core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> = <a href='../primitive.tuple.html'>()</a>&gt; { }</pre><div class='docblock'><p><code>PhantomFn</code> is a marker trait for use with traits that contain
+type or lifetime parameters that do not appear in any of their
+methods. In that case, you can either remove those parameters, or
+add a <code>PhantomFn</code> supertrait that reflects the signature of
+methods that compiler should &quot;pretend&quot; exists. This most commonly
+occurs for traits with no methods: in that particular case, you
+can extend <code>MarkerTrait</code>, which is equivalent to
+<code>PhantomFn&lt;Self&gt;</code>.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1>
+<p>As an example, consider a trait with no methods like <code>Even</code>, meant
+to represent types that are &quot;even&quot;:</p>
+<span class='rusttest'>fn main() {
+    trait Even { }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>trait</span> <span class='ident'>Even</span> { }
+</pre>
+
+<p>In this case, because the implicit parameter <code>Self</code> is unused, the
+compiler will issue an error. The only purpose of this trait is to
+categorize types (and hence instances of those types) as &quot;even&quot; or
+not, so if we <em>were</em> going to have a method, it might look like:</p>
+<span class='rusttest'>fn main() {
+    trait Even {
+        fn is_even(self) -&gt; bool { true }
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>trait</span> <span class='ident'>Even</span> {
+    <span class='kw'>fn</span> <span class='ident'>is_even</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> { <span class='boolval'>true</span> }
+}
+</pre>
+
+<p>Therefore, we can model a method like this as follows:</p>
+<span class='rusttest'>fn main() {
+    use std::marker::PhantomFn;
+    trait Even : PhantomFn&lt;Self&gt; { }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>PhantomFn</span>;
+<span class='kw'>trait</span> <span class='ident'>Even</span> : <span class='ident'>PhantomFn</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span> { }
+</pre>
+
+<p>Another equivalent, but clearer, option would be to use
+<code>MarkerTrait</code>:</p>
+<span class='rusttest'>fn main() {
+    use std::marker::MarkerTrait;
+    trait Even : MarkerTrait { }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>MarkerTrait</span>;
+<span class='kw'>trait</span> <span class='ident'>Even</span> : <span class='ident'>MarkerTrait</span> { }
+</pre>
+
+<h1 id="parameters" class='section-header'><a
+                           href="#parameters">Parameters</a></h1>
+<ul>
+<li><code>A</code> represents the type of the method&#39;s argument. You can use a
+tuple to represent &quot;multiple&quot; arguments. Any types appearing here
+will be considered &quot;contravariant&quot;.</li>
+<li><code>R</code>, if supplied, represents the method&#39;s return type. This defaults
+to <code>()</code> as it is rarely needed.</li>
+</ul>
+
+<h1 id="additional-reading" class='section-header'><a
+                           href="#additional-reading">Additional reading</a></h1>
+<p>More details and background can be found in <a href="https://github.com/rust-lang/rfcs/blob/master/text/0738-variance.md">RFC 738</a>.</p>
+</div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../../implementors/core/marker/trait.PhantomFn.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "core";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

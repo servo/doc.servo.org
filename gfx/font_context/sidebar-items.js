@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FontContext","The FontContext represents the per-thread/task state necessary for working with fonts. It is the public API used by the layout and paint code. It talks directly to the font cache task where required."]]});

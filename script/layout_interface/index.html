@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `layout_interface` mod in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, layout_interface">
+
+    <title>script::layout_interface - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>script</a></p><script>window.sidebarCurrent = {name: 'layout_interface', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>script</a>::<wbr><a class='mod' href=''>layout_interface</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-563234' href='../../src/script/layout_interface.rs.html#5-202'>[src]</a></span></h1>
+<div class='docblock'><p>The high-level interface from script to layout. Using this abstract
+interface helps reduce coupling between these two components, and enables
+the DOM to be placed in a separate crate from layout.</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use dom::node::<a class='struct' href='../../script/dom/node/struct.TrustedNodeAddress.html' title='script::dom::node::TrustedNodeAddress'>TrustedNodeAddress</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Animation.html'
+                               title='script::layout_interface::Animation'>Animation</a></td>
+                        <td class='docblock short'><p>State relating to an animation.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ContentBoxResponse.html'
+                               title='script::layout_interface::ContentBoxResponse'>ContentBoxResponse</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ContentBoxesResponse.html'
+                               title='script::layout_interface::ContentBoxesResponse'>ContentBoxesResponse</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.HitTestResponse.html'
+                               title='script::layout_interface::HitTestResponse'>HitTestResponse</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.LayoutChan.html'
+                               title='script::layout_interface::LayoutChan'>LayoutChan</a></td>
+                        <td class='docblock short'><p>Encapsulates a channel to the layout task.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.MouseOverResponse.html'
+                               title='script::layout_interface::MouseOverResponse'>MouseOverResponse</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Reflow.html'
+                               title='script::layout_interface::Reflow'>Reflow</a></td>
+                        <td class='docblock short'><p>Information needed for a reflow.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ScriptReflow.html'
+                               title='script::layout_interface::ScriptReflow'>ScriptReflow</a></td>
+                        <td class='docblock short'><p>Information needed for a script-initiated reflow.</p>
+</td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.Msg.html'
+                               title='script::layout_interface::Msg'>Msg</a></td>
+                        <td class='docblock short'><p>Asynchronous messages that script can send to layout.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.ReflowGoal.html'
+                               title='script::layout_interface::ReflowGoal'>ReflowGoal</a></td>
+                        <td class='docblock short'><p>Why we&#39;re doing reflow.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.ReflowQueryType.html'
+                               title='script::layout_interface::ReflowQueryType'>ReflowQueryType</a></td>
+                        <td class='docblock short'><p>Any query to perform with this reflow.</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.LayoutRPC.html'
+                               title='script::layout_interface::LayoutRPC'>LayoutRPC</a></td>
+                        <td class='docblock short'><p>Synchronous messages that script can send to layout.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.ScriptLayoutChan.html'
+                               title='script::layout_interface::ScriptLayoutChan'>ScriptLayoutChan</a></td>
+                        <td class='docblock short'><p>A trait to manage opaque references to script&lt;-&gt;layout channels without needing
+to expose the message type to crates that don&#39;t need to know about them.</p>
+</td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.OpaqueNode.html'
+                               title='script::layout_interface::OpaqueNode'>OpaqueNode</a></td>
+                        <td class='docblock short'><p>Type of an opaque node.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

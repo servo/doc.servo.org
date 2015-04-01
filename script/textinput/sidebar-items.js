@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["KeyReaction","Resulting action to be taken by the owner of a text input that is handling an event."],["Lines","Control whether this control should allow multiple lines."]],"struct":[["TextInput","Encapsulated state for handling keyboard input in a single or multiline text input control."]]});

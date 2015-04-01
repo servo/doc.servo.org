@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SpecificFragmentInfo` enum in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SpecificFragmentInfo">
+
+    <title>layout::fragment::SpecificFragmentInfo - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a>::<wbr><a href='index.html'>fragment</a></p><script>window.sidebarCurrent = {name: 'SpecificFragmentInfo', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>layout</a>::<wbr><a href='index.html'>fragment</a>::<wbr><a class='enum' href=''>SpecificFragmentInfo</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-32099' href='../../src/layout/fragment.rs.html#140-163'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum SpecificFragmentInfo {
+    Generic,
+    GeneratedContent(<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='enum' href='../../layout/fragment/enum.GeneratedContentInfo.html' title='layout::fragment::GeneratedContentInfo'>GeneratedContentInfo</a>&gt;),
+    Iframe(<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../layout/fragment/struct.IframeFragmentInfo.html' title='layout::fragment::IframeFragmentInfo'>IframeFragmentInfo</a>&gt;),
+    Image(<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../layout/fragment/struct.ImageFragmentInfo.html' title='layout::fragment::ImageFragmentInfo'>ImageFragmentInfo</a>&gt;),
+    Canvas(<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../layout/fragment/struct.CanvasFragmentInfo.html' title='layout::fragment::CanvasFragmentInfo'>CanvasFragmentInfo</a>&gt;),
+    InlineAbsoluteHypothetical(<a class='struct' href='../../layout/fragment/struct.InlineAbsoluteHypotheticalFragmentInfo.html' title='layout::fragment::InlineAbsoluteHypotheticalFragmentInfo'>InlineAbsoluteHypotheticalFragmentInfo</a>),
+    InlineBlock(<a class='struct' href='../../layout/fragment/struct.InlineBlockFragmentInfo.html' title='layout::fragment::InlineBlockFragmentInfo'>InlineBlockFragmentInfo</a>),
+    ScannedText(<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../layout/fragment/struct.ScannedTextFragmentInfo.html' title='layout::fragment::ScannedTextFragmentInfo'>ScannedTextFragmentInfo</a>&gt;),
+    Table,
+    TableCell,
+    TableColumn(<a class='struct' href='../../layout/fragment/struct.TableColumnFragmentInfo.html' title='layout::fragment::TableColumnFragmentInfo'>TableColumnFragmentInfo</a>),
+    TableRow,
+    TableWrapper,
+    UnscannedText(<a class='struct' href='../../layout/fragment/struct.UnscannedTextFragmentInfo.html' title='layout::fragment::UnscannedTextFragmentInfo'>UnscannedTextFragmentInfo</a>),
+}</pre><div class='docblock'><p>Info specific to the kind of fragment.</p>
+
+<p>Keep this enum small. As in, no more than one word. Or pcwalton will yell at you.</p>
+</div><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.Generic'><a class='stability Unmarked' title='No stability level'></a><code>Generic</code></td><td></td></tr><tr><td id='variant.GeneratedContent'><a class='stability Unmarked' title='No stability level'></a><code>GeneratedContent</code></td><td><div class='docblock'><p>A piece of generated content that cannot be resolved into <code>ScannedText</code> until the generated
+content resolution phase (e.g. an ordered list item marker).</p>
+</div></td></tr><tr><td id='variant.Iframe'><a class='stability Unmarked' title='No stability level'></a><code>Iframe</code></td><td></td></tr><tr><td id='variant.Image'><a class='stability Unmarked' title='No stability level'></a><code>Image</code></td><td></td></tr><tr><td id='variant.Canvas'><a class='stability Unmarked' title='No stability level'></a><code>Canvas</code></td><td></td></tr><tr><td id='variant.InlineAbsoluteHypothetical'><a class='stability Unmarked' title='No stability level'></a><code>InlineAbsoluteHypothetical</code></td><td><div class='docblock'><p>A hypothetical box (see CSS 2.1 § 10.3.7) for an absolutely-positioned block that was
+declared with <code>display: inline;</code>.</p>
+</div></td></tr><tr><td id='variant.InlineBlock'><a class='stability Unmarked' title='No stability level'></a><code>InlineBlock</code></td><td></td></tr><tr><td id='variant.ScannedText'><a class='stability Unmarked' title='No stability level'></a><code>ScannedText</code></td><td></td></tr><tr><td id='variant.Table'><a class='stability Unmarked' title='No stability level'></a><code>Table</code></td><td></td></tr><tr><td id='variant.TableCell'><a class='stability Unmarked' title='No stability level'></a><code>TableCell</code></td><td></td></tr><tr><td id='variant.TableColumn'><a class='stability Unmarked' title='No stability level'></a><code>TableColumn</code></td><td></td></tr><tr><td id='variant.TableRow'><a class='stability Unmarked' title='No stability level'></a><code>TableRow</code></td><td></td></tr><tr><td id='variant.TableWrapper'><a class='stability Unmarked' title='No stability level'></a><code>TableWrapper</code></td><td></td></tr><tr><td id='variant.UnscannedText'><a class='stability Unmarked' title='No stability level'></a><code>UnscannedText</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='enum' href='../../layout/fragment/enum.SpecificFragmentInfo.html' title='layout::fragment::SpecificFragmentInfo'>SpecificFragmentInfo</a></code></h3><div class='impl-items'><h4 id='method.get_type' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_type' class='fnname'>get_type</a>(&amp;self) -&gt; &amp;'static <a href='../../std/primitive.str.html'>str</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../layout/fragment/enum.SpecificFragmentInfo.html' title='layout::fragment::SpecificFragmentInfo'>SpecificFragmentInfo</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../layout/fragment/enum.SpecificFragmentInfo.html' title='layout::fragment::SpecificFragmentInfo'>SpecificFragmentInfo</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

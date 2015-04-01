@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `fontconfig` mod in crate `fontconfig`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, fontconfig">
+
+    <title>fontconfig::fontconfig - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>fontconfig</a></p><script>window.sidebarCurrent = {name: 'fontconfig', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>fontconfig</a>::<wbr><a class='mod' href=''>fontconfig</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-5' href='../../src/fontconfig/fontconfig.rs.html#10-568'>[src]</a></span></h1>
+<h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.struct__FcConstant.html'
+                               title='fontconfig::fontconfig::struct__FcConstant'>struct__FcConstant</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.struct__FcFontSet.html'
+                               title='fontconfig::fontconfig::struct__FcFontSet'>struct__FcFontSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.struct__FcMatrix.html'
+                               title='fontconfig::fontconfig::struct__FcMatrix'>struct__FcMatrix</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.struct__FcObjectSet.html'
+                               title='fontconfig::fontconfig::struct__FcObjectSet'>struct__FcObjectSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.struct__FcObjectType.html'
+                               title='fontconfig::fontconfig::struct__FcObjectType'>struct__FcObjectType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.struct__FcValue.html'
+                               title='fontconfig::fontconfig::struct__FcValue'>struct__FcValue</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_SLANT_ITALIC.html'
+                               title='fontconfig::fontconfig::FC_SLANT_ITALIC'>FC_SLANT_ITALIC</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_SLANT_OBLIQUE.html'
+                               title='fontconfig::fontconfig::FC_SLANT_OBLIQUE'>FC_SLANT_OBLIQUE</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_SLANT_ROMAN.html'
+                               title='fontconfig::fontconfig::FC_SLANT_ROMAN'>FC_SLANT_ROMAN</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_BLACK.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_BLACK'>FC_WEIGHT_BLACK</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_BOLD.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_BOLD'>FC_WEIGHT_BOLD</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_BOOK.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_BOOK'>FC_WEIGHT_BOOK</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_DEMIBOLD.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_DEMIBOLD'>FC_WEIGHT_DEMIBOLD</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_EXTRABLACK.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_EXTRABLACK'>FC_WEIGHT_EXTRABLACK</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_EXTRABOLD.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_EXTRABOLD'>FC_WEIGHT_EXTRABOLD</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_EXTRALIGHT.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_EXTRALIGHT'>FC_WEIGHT_EXTRALIGHT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_HEAVY.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_HEAVY'>FC_WEIGHT_HEAVY</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_LIGHT.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_LIGHT'>FC_WEIGHT_LIGHT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_MEDIUM.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_MEDIUM'>FC_WEIGHT_MEDIUM</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_NORMAL.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_NORMAL'>FC_WEIGHT_NORMAL</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_REGULAR.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_REGULAR'>FC_WEIGHT_REGULAR</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_SEMIBOLD.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_SEMIBOLD'>FC_WEIGHT_SEMIBOLD</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_THIN.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_THIN'>FC_WEIGHT_THIN</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_ULTRABLACK.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_ULTRABLACK'>FC_WEIGHT_ULTRABLACK</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_ULTRABOLD.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_ULTRABOLD'>FC_WEIGHT_ULTRABOLD</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FC_WEIGHT_ULTRALIGHT.html'
+                               title='fontconfig::fontconfig::FC_WEIGHT_ULTRALIGHT'>FC_WEIGHT_ULTRALIGHT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcEndianBig.html'
+                               title='fontconfig::fontconfig::FcEndianBig'>FcEndianBig</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcEndianLittle.html'
+                               title='fontconfig::fontconfig::FcEndianLittle'>FcEndianLittle</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcLangDifferentCountry.html'
+                               title='fontconfig::fontconfig::FcLangDifferentCountry'>FcLangDifferentCountry</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcLangDifferentLang.html'
+                               title='fontconfig::fontconfig::FcLangDifferentLang'>FcLangDifferentLang</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcLangDifferentTerritory.html'
+                               title='fontconfig::fontconfig::FcLangDifferentTerritory'>FcLangDifferentTerritory</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcLangEqual.html'
+                               title='fontconfig::fontconfig::FcLangEqual'>FcLangEqual</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcMatchFont.html'
+                               title='fontconfig::fontconfig::FcMatchFont'>FcMatchFont</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcMatchPattern.html'
+                               title='fontconfig::fontconfig::FcMatchPattern'>FcMatchPattern</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcMatchScan.html'
+                               title='fontconfig::fontconfig::FcMatchScan'>FcMatchScan</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcResultMatch.html'
+                               title='fontconfig::fontconfig::FcResultMatch'>FcResultMatch</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcResultNoId.html'
+                               title='fontconfig::fontconfig::FcResultNoId'>FcResultNoId</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcResultNoMatch.html'
+                               title='fontconfig::fontconfig::FcResultNoMatch'>FcResultNoMatch</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcResultOutOfMemory.html'
+                               title='fontconfig::fontconfig::FcResultOutOfMemory'>FcResultOutOfMemory</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcResultTypeMismatch.html'
+                               title='fontconfig::fontconfig::FcResultTypeMismatch'>FcResultTypeMismatch</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcSetApplication.html'
+                               title='fontconfig::fontconfig::FcSetApplication'>FcSetApplication</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcSetSystem.html'
+                               title='fontconfig::fontconfig::FcSetSystem'>FcSetSystem</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcTypeBool.html'
+                               title='fontconfig::fontconfig::FcTypeBool'>FcTypeBool</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcTypeCharSet.html'
+                               title='fontconfig::fontconfig::FcTypeCharSet'>FcTypeCharSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcTypeDouble.html'
+                               title='fontconfig::fontconfig::FcTypeDouble'>FcTypeDouble</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcTypeFTFace.html'
+                               title='fontconfig::fontconfig::FcTypeFTFace'>FcTypeFTFace</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcTypeInteger.html'
+                               title='fontconfig::fontconfig::FcTypeInteger'>FcTypeInteger</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcTypeLangSet.html'
+                               title='fontconfig::fontconfig::FcTypeLangSet'>FcTypeLangSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcTypeMatrix.html'
+                               title='fontconfig::fontconfig::FcTypeMatrix'>FcTypeMatrix</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcTypeString.html'
+                               title='fontconfig::fontconfig::FcTypeString'>FcTypeString</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FcTypeVoid.html'
+                               title='fontconfig::fontconfig::FcTypeVoid'>FcTypeVoid</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcAtomicCreate.html'
+                               title='fontconfig::fontconfig::FcAtomicCreate'>FcAtomicCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcAtomicDeleteNew.html'
+                               title='fontconfig::fontconfig::FcAtomicDeleteNew'>FcAtomicDeleteNew</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcAtomicDestroy.html'
+                               title='fontconfig::fontconfig::FcAtomicDestroy'>FcAtomicDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcAtomicLock.html'
+                               title='fontconfig::fontconfig::FcAtomicLock'>FcAtomicLock</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcAtomicNewFile.html'
+                               title='fontconfig::fontconfig::FcAtomicNewFile'>FcAtomicNewFile</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcAtomicOrigFile.html'
+                               title='fontconfig::fontconfig::FcAtomicOrigFile'>FcAtomicOrigFile</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcAtomicReplaceOrig.html'
+                               title='fontconfig::fontconfig::FcAtomicReplaceOrig'>FcAtomicReplaceOrig</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcAtomicUnlock.html'
+                               title='fontconfig::fontconfig::FcAtomicUnlock'>FcAtomicUnlock</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcBlanksAdd.html'
+                               title='fontconfig::fontconfig::FcBlanksAdd'>FcBlanksAdd</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcBlanksCreate.html'
+                               title='fontconfig::fontconfig::FcBlanksCreate'>FcBlanksCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcBlanksDestroy.html'
+                               title='fontconfig::fontconfig::FcBlanksDestroy'>FcBlanksDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcBlanksIsMember.html'
+                               title='fontconfig::fontconfig::FcBlanksIsMember'>FcBlanksIsMember</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCacheCopySet.html'
+                               title='fontconfig::fontconfig::FcCacheCopySet'>FcCacheCopySet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCacheDir.html'
+                               title='fontconfig::fontconfig::FcCacheDir'>FcCacheDir</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCacheNumFont.html'
+                               title='fontconfig::fontconfig::FcCacheNumFont'>FcCacheNumFont</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCacheNumSubdir.html'
+                               title='fontconfig::fontconfig::FcCacheNumSubdir'>FcCacheNumSubdir</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCacheSubdir.html'
+                               title='fontconfig::fontconfig::FcCacheSubdir'>FcCacheSubdir</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetAddChar.html'
+                               title='fontconfig::fontconfig::FcCharSetAddChar'>FcCharSetAddChar</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetCopy.html'
+                               title='fontconfig::fontconfig::FcCharSetCopy'>FcCharSetCopy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetCount.html'
+                               title='fontconfig::fontconfig::FcCharSetCount'>FcCharSetCount</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetCoverage.html'
+                               title='fontconfig::fontconfig::FcCharSetCoverage'>FcCharSetCoverage</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetCreate.html'
+                               title='fontconfig::fontconfig::FcCharSetCreate'>FcCharSetCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetDestroy.html'
+                               title='fontconfig::fontconfig::FcCharSetDestroy'>FcCharSetDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetEqual.html'
+                               title='fontconfig::fontconfig::FcCharSetEqual'>FcCharSetEqual</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetFirstPage.html'
+                               title='fontconfig::fontconfig::FcCharSetFirstPage'>FcCharSetFirstPage</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetHasChar.html'
+                               title='fontconfig::fontconfig::FcCharSetHasChar'>FcCharSetHasChar</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetIntersect.html'
+                               title='fontconfig::fontconfig::FcCharSetIntersect'>FcCharSetIntersect</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetIntersectCount.html'
+                               title='fontconfig::fontconfig::FcCharSetIntersectCount'>FcCharSetIntersectCount</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetIsSubset.html'
+                               title='fontconfig::fontconfig::FcCharSetIsSubset'>FcCharSetIsSubset</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetMerge.html'
+                               title='fontconfig::fontconfig::FcCharSetMerge'>FcCharSetMerge</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetNew.html'
+                               title='fontconfig::fontconfig::FcCharSetNew'>FcCharSetNew</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetNextPage.html'
+                               title='fontconfig::fontconfig::FcCharSetNextPage'>FcCharSetNextPage</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetSubtract.html'
+                               title='fontconfig::fontconfig::FcCharSetSubtract'>FcCharSetSubtract</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetSubtractCount.html'
+                               title='fontconfig::fontconfig::FcCharSetSubtractCount'>FcCharSetSubtractCount</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcCharSetUnion.html'
+                               title='fontconfig::fontconfig::FcCharSetUnion'>FcCharSetUnion</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigAppFontAddDir.html'
+                               title='fontconfig::fontconfig::FcConfigAppFontAddDir'>FcConfigAppFontAddDir</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigAppFontAddFile.html'
+                               title='fontconfig::fontconfig::FcConfigAppFontAddFile'>FcConfigAppFontAddFile</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigAppFontClear.html'
+                               title='fontconfig::fontconfig::FcConfigAppFontClear'>FcConfigAppFontClear</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigBuildFonts.html'
+                               title='fontconfig::fontconfig::FcConfigBuildFonts'>FcConfigBuildFonts</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigCreate.html'
+                               title='fontconfig::fontconfig::FcConfigCreate'>FcConfigCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigDestroy.html'
+                               title='fontconfig::fontconfig::FcConfigDestroy'>FcConfigDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigEnableHome.html'
+                               title='fontconfig::fontconfig::FcConfigEnableHome'>FcConfigEnableHome</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigFilename.html'
+                               title='fontconfig::fontconfig::FcConfigFilename'>FcConfigFilename</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigGetBlanks.html'
+                               title='fontconfig::fontconfig::FcConfigGetBlanks'>FcConfigGetBlanks</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigGetCache.html'
+                               title='fontconfig::fontconfig::FcConfigGetCache'>FcConfigGetCache</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigGetCacheDirs.html'
+                               title='fontconfig::fontconfig::FcConfigGetCacheDirs'>FcConfigGetCacheDirs</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigGetConfigDirs.html'
+                               title='fontconfig::fontconfig::FcConfigGetConfigDirs'>FcConfigGetConfigDirs</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigGetConfigFiles.html'
+                               title='fontconfig::fontconfig::FcConfigGetConfigFiles'>FcConfigGetConfigFiles</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigGetCurrent.html'
+                               title='fontconfig::fontconfig::FcConfigGetCurrent'>FcConfigGetCurrent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigGetFontDirs.html'
+                               title='fontconfig::fontconfig::FcConfigGetFontDirs'>FcConfigGetFontDirs</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigGetFonts.html'
+                               title='fontconfig::fontconfig::FcConfigGetFonts'>FcConfigGetFonts</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigGetRescanInterval.html'
+                               title='fontconfig::fontconfig::FcConfigGetRescanInterval'>FcConfigGetRescanInterval</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigHome.html'
+                               title='fontconfig::fontconfig::FcConfigHome'>FcConfigHome</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigParseAndLoad.html'
+                               title='fontconfig::fontconfig::FcConfigParseAndLoad'>FcConfigParseAndLoad</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigReference.html'
+                               title='fontconfig::fontconfig::FcConfigReference'>FcConfigReference</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigSetCurrent.html'
+                               title='fontconfig::fontconfig::FcConfigSetCurrent'>FcConfigSetCurrent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigSetRescanInterval.html'
+                               title='fontconfig::fontconfig::FcConfigSetRescanInterval'>FcConfigSetRescanInterval</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigSubstitute.html'
+                               title='fontconfig::fontconfig::FcConfigSubstitute'>FcConfigSubstitute</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigSubstituteWithPat.html'
+                               title='fontconfig::fontconfig::FcConfigSubstituteWithPat'>FcConfigSubstituteWithPat</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcConfigUptoDate.html'
+                               title='fontconfig::fontconfig::FcConfigUptoDate'>FcConfigUptoDate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcDefaultSubstitute.html'
+                               title='fontconfig::fontconfig::FcDefaultSubstitute'>FcDefaultSubstitute</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcDirCacheLoad.html'
+                               title='fontconfig::fontconfig::FcDirCacheLoad'>FcDirCacheLoad</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcDirCacheRead.html'
+                               title='fontconfig::fontconfig::FcDirCacheRead'>FcDirCacheRead</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcDirCacheUnlink.html'
+                               title='fontconfig::fontconfig::FcDirCacheUnlink'>FcDirCacheUnlink</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcDirCacheUnload.html'
+                               title='fontconfig::fontconfig::FcDirCacheUnload'>FcDirCacheUnload</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcDirCacheValid.html'
+                               title='fontconfig::fontconfig::FcDirCacheValid'>FcDirCacheValid</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcDirSave.html'
+                               title='fontconfig::fontconfig::FcDirSave'>FcDirSave</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcDirScan.html'
+                               title='fontconfig::fontconfig::FcDirScan'>FcDirScan</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFileIsDir.html'
+                               title='fontconfig::fontconfig::FcFileIsDir'>FcFileIsDir</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFileScan.html'
+                               title='fontconfig::fontconfig::FcFileScan'>FcFileScan</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFini.html'
+                               title='fontconfig::fontconfig::FcFini'>FcFini</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontList.html'
+                               title='fontconfig::fontconfig::FcFontList'>FcFontList</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontMatch.html'
+                               title='fontconfig::fontconfig::FcFontMatch'>FcFontMatch</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontRenderPrepare.html'
+                               title='fontconfig::fontconfig::FcFontRenderPrepare'>FcFontRenderPrepare</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontSetAdd.html'
+                               title='fontconfig::fontconfig::FcFontSetAdd'>FcFontSetAdd</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontSetCreate.html'
+                               title='fontconfig::fontconfig::FcFontSetCreate'>FcFontSetCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontSetDestroy.html'
+                               title='fontconfig::fontconfig::FcFontSetDestroy'>FcFontSetDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontSetList.html'
+                               title='fontconfig::fontconfig::FcFontSetList'>FcFontSetList</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontSetMatch.html'
+                               title='fontconfig::fontconfig::FcFontSetMatch'>FcFontSetMatch</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontSetPrint.html'
+                               title='fontconfig::fontconfig::FcFontSetPrint'>FcFontSetPrint</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontSetSort.html'
+                               title='fontconfig::fontconfig::FcFontSetSort'>FcFontSetSort</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontSetSortDestroy.html'
+                               title='fontconfig::fontconfig::FcFontSetSortDestroy'>FcFontSetSortDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFontSort.html'
+                               title='fontconfig::fontconfig::FcFontSort'>FcFontSort</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcFreeTypeQuery.html'
+                               title='fontconfig::fontconfig::FcFreeTypeQuery'>FcFreeTypeQuery</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcGetLangs.html'
+                               title='fontconfig::fontconfig::FcGetLangs'>FcGetLangs</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcGetVersion.html'
+                               title='fontconfig::fontconfig::FcGetVersion'>FcGetVersion</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcInit.html'
+                               title='fontconfig::fontconfig::FcInit'>FcInit</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcInitBringUptoDate.html'
+                               title='fontconfig::fontconfig::FcInitBringUptoDate'>FcInitBringUptoDate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcInitLoadConfig.html'
+                               title='fontconfig::fontconfig::FcInitLoadConfig'>FcInitLoadConfig</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcInitLoadConfigAndFonts.html'
+                               title='fontconfig::fontconfig::FcInitLoadConfigAndFonts'>FcInitLoadConfigAndFonts</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcInitReinitialize.html'
+                               title='fontconfig::fontconfig::FcInitReinitialize'>FcInitReinitialize</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangGetCharSet.html'
+                               title='fontconfig::fontconfig::FcLangGetCharSet'>FcLangGetCharSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetAdd.html'
+                               title='fontconfig::fontconfig::FcLangSetAdd'>FcLangSetAdd</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetCompare.html'
+                               title='fontconfig::fontconfig::FcLangSetCompare'>FcLangSetCompare</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetContains.html'
+                               title='fontconfig::fontconfig::FcLangSetContains'>FcLangSetContains</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetCopy.html'
+                               title='fontconfig::fontconfig::FcLangSetCopy'>FcLangSetCopy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetCreate.html'
+                               title='fontconfig::fontconfig::FcLangSetCreate'>FcLangSetCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetDestroy.html'
+                               title='fontconfig::fontconfig::FcLangSetDestroy'>FcLangSetDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetEqual.html'
+                               title='fontconfig::fontconfig::FcLangSetEqual'>FcLangSetEqual</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetGetLangs.html'
+                               title='fontconfig::fontconfig::FcLangSetGetLangs'>FcLangSetGetLangs</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetHasLang.html'
+                               title='fontconfig::fontconfig::FcLangSetHasLang'>FcLangSetHasLang</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcLangSetHash.html'
+                               title='fontconfig::fontconfig::FcLangSetHash'>FcLangSetHash</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcMatrixCopy.html'
+                               title='fontconfig::fontconfig::FcMatrixCopy'>FcMatrixCopy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcMatrixEqual.html'
+                               title='fontconfig::fontconfig::FcMatrixEqual'>FcMatrixEqual</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcMatrixMultiply.html'
+                               title='fontconfig::fontconfig::FcMatrixMultiply'>FcMatrixMultiply</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcMatrixRotate.html'
+                               title='fontconfig::fontconfig::FcMatrixRotate'>FcMatrixRotate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcMatrixScale.html'
+                               title='fontconfig::fontconfig::FcMatrixScale'>FcMatrixScale</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcMatrixShear.html'
+                               title='fontconfig::fontconfig::FcMatrixShear'>FcMatrixShear</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcNameConstant.html'
+                               title='fontconfig::fontconfig::FcNameConstant'>FcNameConstant</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcNameGetConstant.html'
+                               title='fontconfig::fontconfig::FcNameGetConstant'>FcNameGetConstant</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcNameGetObjectType.html'
+                               title='fontconfig::fontconfig::FcNameGetObjectType'>FcNameGetObjectType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcNameParse.html'
+                               title='fontconfig::fontconfig::FcNameParse'>FcNameParse</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcNameRegisterConstants.html'
+                               title='fontconfig::fontconfig::FcNameRegisterConstants'>FcNameRegisterConstants</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcNameRegisterObjectTypes.html'
+                               title='fontconfig::fontconfig::FcNameRegisterObjectTypes'>FcNameRegisterObjectTypes</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcNameUnparse.html'
+                               title='fontconfig::fontconfig::FcNameUnparse'>FcNameUnparse</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcNameUnregisterConstants.html'
+                               title='fontconfig::fontconfig::FcNameUnregisterConstants'>FcNameUnregisterConstants</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcNameUnregisterObjectTypes.html'
+                               title='fontconfig::fontconfig::FcNameUnregisterObjectTypes'>FcNameUnregisterObjectTypes</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcObjectSetAdd.html'
+                               title='fontconfig::fontconfig::FcObjectSetAdd'>FcObjectSetAdd</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcObjectSetBuild.html'
+                               title='fontconfig::fontconfig::FcObjectSetBuild'>FcObjectSetBuild</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcObjectSetCreate.html'
+                               title='fontconfig::fontconfig::FcObjectSetCreate'>FcObjectSetCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcObjectSetDestroy.html'
+                               title='fontconfig::fontconfig::FcObjectSetDestroy'>FcObjectSetDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternAdd.html'
+                               title='fontconfig::fontconfig::FcPatternAdd'>FcPatternAdd</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternAddBool.html'
+                               title='fontconfig::fontconfig::FcPatternAddBool'>FcPatternAddBool</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternAddCharSet.html'
+                               title='fontconfig::fontconfig::FcPatternAddCharSet'>FcPatternAddCharSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternAddDouble.html'
+                               title='fontconfig::fontconfig::FcPatternAddDouble'>FcPatternAddDouble</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternAddInteger.html'
+                               title='fontconfig::fontconfig::FcPatternAddInteger'>FcPatternAddInteger</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternAddLangSet.html'
+                               title='fontconfig::fontconfig::FcPatternAddLangSet'>FcPatternAddLangSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternAddMatrix.html'
+                               title='fontconfig::fontconfig::FcPatternAddMatrix'>FcPatternAddMatrix</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternAddString.html'
+                               title='fontconfig::fontconfig::FcPatternAddString'>FcPatternAddString</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternAddWeak.html'
+                               title='fontconfig::fontconfig::FcPatternAddWeak'>FcPatternAddWeak</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternBuild.html'
+                               title='fontconfig::fontconfig::FcPatternBuild'>FcPatternBuild</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternCreate.html'
+                               title='fontconfig::fontconfig::FcPatternCreate'>FcPatternCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternDel.html'
+                               title='fontconfig::fontconfig::FcPatternDel'>FcPatternDel</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternDestroy.html'
+                               title='fontconfig::fontconfig::FcPatternDestroy'>FcPatternDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternDuplicate.html'
+                               title='fontconfig::fontconfig::FcPatternDuplicate'>FcPatternDuplicate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternEqual.html'
+                               title='fontconfig::fontconfig::FcPatternEqual'>FcPatternEqual</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternEqualSubset.html'
+                               title='fontconfig::fontconfig::FcPatternEqualSubset'>FcPatternEqualSubset</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternFilter.html'
+                               title='fontconfig::fontconfig::FcPatternFilter'>FcPatternFilter</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternFormat.html'
+                               title='fontconfig::fontconfig::FcPatternFormat'>FcPatternFormat</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternGet.html'
+                               title='fontconfig::fontconfig::FcPatternGet'>FcPatternGet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternGetBool.html'
+                               title='fontconfig::fontconfig::FcPatternGetBool'>FcPatternGetBool</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternGetCharSet.html'
+                               title='fontconfig::fontconfig::FcPatternGetCharSet'>FcPatternGetCharSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternGetDouble.html'
+                               title='fontconfig::fontconfig::FcPatternGetDouble'>FcPatternGetDouble</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternGetInteger.html'
+                               title='fontconfig::fontconfig::FcPatternGetInteger'>FcPatternGetInteger</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternGetLangSet.html'
+                               title='fontconfig::fontconfig::FcPatternGetLangSet'>FcPatternGetLangSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternGetMatrix.html'
+                               title='fontconfig::fontconfig::FcPatternGetMatrix'>FcPatternGetMatrix</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternGetString.html'
+                               title='fontconfig::fontconfig::FcPatternGetString'>FcPatternGetString</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternHash.html'
+                               title='fontconfig::fontconfig::FcPatternHash'>FcPatternHash</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternPrint.html'
+                               title='fontconfig::fontconfig::FcPatternPrint'>FcPatternPrint</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternReference.html'
+                               title='fontconfig::fontconfig::FcPatternReference'>FcPatternReference</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcPatternRemove.html'
+                               title='fontconfig::fontconfig::FcPatternRemove'>FcPatternRemove</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrBasename.html'
+                               title='fontconfig::fontconfig::FcStrBasename'>FcStrBasename</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrCmp.html'
+                               title='fontconfig::fontconfig::FcStrCmp'>FcStrCmp</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrCmpIgnoreCase.html'
+                               title='fontconfig::fontconfig::FcStrCmpIgnoreCase'>FcStrCmpIgnoreCase</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrCopy.html'
+                               title='fontconfig::fontconfig::FcStrCopy'>FcStrCopy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrCopyFilename.html'
+                               title='fontconfig::fontconfig::FcStrCopyFilename'>FcStrCopyFilename</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrDirname.html'
+                               title='fontconfig::fontconfig::FcStrDirname'>FcStrDirname</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrDowncase.html'
+                               title='fontconfig::fontconfig::FcStrDowncase'>FcStrDowncase</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrFree.html'
+                               title='fontconfig::fontconfig::FcStrFree'>FcStrFree</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrListCreate.html'
+                               title='fontconfig::fontconfig::FcStrListCreate'>FcStrListCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrListDone.html'
+                               title='fontconfig::fontconfig::FcStrListDone'>FcStrListDone</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrListNext.html'
+                               title='fontconfig::fontconfig::FcStrListNext'>FcStrListNext</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrPlus.html'
+                               title='fontconfig::fontconfig::FcStrPlus'>FcStrPlus</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrSetAdd.html'
+                               title='fontconfig::fontconfig::FcStrSetAdd'>FcStrSetAdd</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrSetAddFilename.html'
+                               title='fontconfig::fontconfig::FcStrSetAddFilename'>FcStrSetAddFilename</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrSetCreate.html'
+                               title='fontconfig::fontconfig::FcStrSetCreate'>FcStrSetCreate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrSetDel.html'
+                               title='fontconfig::fontconfig::FcStrSetDel'>FcStrSetDel</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrSetDestroy.html'
+                               title='fontconfig::fontconfig::FcStrSetDestroy'>FcStrSetDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrSetEqual.html'
+                               title='fontconfig::fontconfig::FcStrSetEqual'>FcStrSetEqual</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrSetMember.html'
+                               title='fontconfig::fontconfig::FcStrSetMember'>FcStrSetMember</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrStr.html'
+                               title='fontconfig::fontconfig::FcStrStr'>FcStrStr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcStrStrIgnoreCase.html'
+                               title='fontconfig::fontconfig::FcStrStrIgnoreCase'>FcStrStrIgnoreCase</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcUcs4ToUtf8.html'
+                               title='fontconfig::fontconfig::FcUcs4ToUtf8'>FcUcs4ToUtf8</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcUtf16Len.html'
+                               title='fontconfig::fontconfig::FcUtf16Len'>FcUtf16Len</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcUtf16ToUcs4.html'
+                               title='fontconfig::fontconfig::FcUtf16ToUcs4'>FcUtf16ToUcs4</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcUtf8Len.html'
+                               title='fontconfig::fontconfig::FcUtf8Len'>FcUtf8Len</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcUtf8ToUcs4.html'
+                               title='fontconfig::fontconfig::FcUtf8ToUcs4'>FcUtf8ToUcs4</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcValueDestroy.html'
+                               title='fontconfig::fontconfig::FcValueDestroy'>FcValueDestroy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcValueEqual.html'
+                               title='fontconfig::fontconfig::FcValueEqual'>FcValueEqual</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcValuePrint.html'
+                               title='fontconfig::fontconfig::FcValuePrint'>FcValuePrint</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.FcValueSave.html'
+                               title='fontconfig::fontconfig::FcValueSave'>FcValueSave</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcAtomic.html'
+                               title='fontconfig::fontconfig::FcAtomic'>FcAtomic</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcBlanks.html'
+                               title='fontconfig::fontconfig::FcBlanks'>FcBlanks</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcBool.html'
+                               title='fontconfig::fontconfig::FcBool'>FcBool</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcCache.html'
+                               title='fontconfig::fontconfig::FcCache'>FcCache</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcChar16.html'
+                               title='fontconfig::fontconfig::FcChar16'>FcChar16</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcChar32.html'
+                               title='fontconfig::fontconfig::FcChar32'>FcChar32</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcChar8.html'
+                               title='fontconfig::fontconfig::FcChar8'>FcChar8</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcCharSet.html'
+                               title='fontconfig::fontconfig::FcCharSet'>FcCharSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcConfig.html'
+                               title='fontconfig::fontconfig::FcConfig'>FcConfig</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcConstant.html'
+                               title='fontconfig::fontconfig::FcConstant'>FcConstant</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcEndian.html'
+                               title='fontconfig::fontconfig::FcEndian'>FcEndian</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcFileCache.html'
+                               title='fontconfig::fontconfig::FcFileCache'>FcFileCache</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcFontSet.html'
+                               title='fontconfig::fontconfig::FcFontSet'>FcFontSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcLangResult.html'
+                               title='fontconfig::fontconfig::FcLangResult'>FcLangResult</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcLangSet.html'
+                               title='fontconfig::fontconfig::FcLangSet'>FcLangSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcMatchKind.html'
+                               title='fontconfig::fontconfig::FcMatchKind'>FcMatchKind</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcMatrix.html'
+                               title='fontconfig::fontconfig::FcMatrix'>FcMatrix</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcObjectSet.html'
+                               title='fontconfig::fontconfig::FcObjectSet'>FcObjectSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcObjectType.html'
+                               title='fontconfig::fontconfig::FcObjectType'>FcObjectType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcPattern.html'
+                               title='fontconfig::fontconfig::FcPattern'>FcPattern</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcResult.html'
+                               title='fontconfig::fontconfig::FcResult'>FcResult</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcSetName.html'
+                               title='fontconfig::fontconfig::FcSetName'>FcSetName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcStrList.html'
+                               title='fontconfig::fontconfig::FcStrList'>FcStrList</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcStrSet.html'
+                               title='fontconfig::fontconfig::FcStrSet'>FcStrSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcType.html'
+                               title='fontconfig::fontconfig::FcType'>FcType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.FcValue.html'
+                               title='fontconfig::fontconfig::FcValue'>FcValue</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.enum__FcLangResult.html'
+                               title='fontconfig::fontconfig::enum__FcLangResult'>enum__FcLangResult</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.enum__FcMatchKind.html'
+                               title='fontconfig::fontconfig::enum__FcMatchKind'>enum__FcMatchKind</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.enum__FcResult.html'
+                               title='fontconfig::fontconfig::enum__FcResult'>enum__FcResult</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.enum__FcSetName.html'
+                               title='fontconfig::fontconfig::enum__FcSetName'>enum__FcSetName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.enum__FcType.html'
+                               title='fontconfig::fontconfig::enum__FcType'>enum__FcType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcAtomic.html'
+                               title='fontconfig::fontconfig::struct__FcAtomic'>struct__FcAtomic</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcBlanks.html'
+                               title='fontconfig::fontconfig::struct__FcBlanks'>struct__FcBlanks</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcCache.html'
+                               title='fontconfig::fontconfig::struct__FcCache'>struct__FcCache</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcCharSet.html'
+                               title='fontconfig::fontconfig::struct__FcCharSet'>struct__FcCharSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcConfig.html'
+                               title='fontconfig::fontconfig::struct__FcConfig'>struct__FcConfig</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcGlobalCache.html'
+                               title='fontconfig::fontconfig::struct__FcGlobalCache'>struct__FcGlobalCache</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcLangSet.html'
+                               title='fontconfig::fontconfig::struct__FcLangSet'>struct__FcLangSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcPattern.html'
+                               title='fontconfig::fontconfig::struct__FcPattern'>struct__FcPattern</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcStrList.html'
+                               title='fontconfig::fontconfig::struct__FcStrList'>struct__FcStrList</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.struct__FcStrSet.html'
+                               title='fontconfig::fontconfig::struct__FcStrSet'>struct__FcStrSet</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.union_unnamed1.html'
+                               title='fontconfig::fontconfig::union_unnamed1'>union_unnamed1</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "fontconfig";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

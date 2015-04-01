@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `XGCValues` struct in crate `xlib`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, XGCValues">
+
+    <title>xlib::XGCValues - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>xlib</a></p><script>window.sidebarCurrent = {name: 'XGCValues', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>xlib</a>::<wbr><a class='struct' href=''>XGCValues</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-89' href='../src/xlib/xlib.rs.html#71-95'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct XGCValues {
+    pub function: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub plane_mask: <a class='type' href='../libc/types/os/arch/c95/type.c_ulong.html' title='libc::types::os::arch::c95::c_ulong'>c_ulong</a>,
+    pub foreground: <a class='type' href='../libc/types/os/arch/c95/type.c_ulong.html' title='libc::types::os::arch::c95::c_ulong'>c_ulong</a>,
+    pub background: <a class='type' href='../libc/types/os/arch/c95/type.c_ulong.html' title='libc::types::os::arch::c95::c_ulong'>c_ulong</a>,
+    pub line_width: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub line_style: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub cap_style: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub join_style: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub fill_style: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub fill_rule: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub arc_mode: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub tile: <a class='type' href='../xlib/type.Pixmap.html' title='xlib::Pixmap'>Pixmap</a>,
+    pub stipple: <a class='type' href='../xlib/type.Pixmap.html' title='xlib::Pixmap'>Pixmap</a>,
+    pub ts_x_origin: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub ts_y_origin: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub font: <a class='type' href='../xlib/type.Font.html' title='xlib::Font'>Font</a>,
+    pub subwindow_mode: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub graphics_exposures: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub clip_x_origin: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub clip_y_origin: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub clip_mask: <a class='type' href='../xlib/type.Pixmap.html' title='xlib::Pixmap'>Pixmap</a>,
+    pub dash_offset: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub dashes: <a class='type' href='../libc/types/os/arch/c95/type.c_char.html' title='libc::types::os::arch::c95::c_char'>c_char</a>,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.function'><a class='stability Unmarked' title='No stability level'></a><code>function</code></td><td></td></tr><tr><td id='structfield.plane_mask'><a class='stability Unmarked' title='No stability level'></a><code>plane_mask</code></td><td></td></tr><tr><td id='structfield.foreground'><a class='stability Unmarked' title='No stability level'></a><code>foreground</code></td><td></td></tr><tr><td id='structfield.background'><a class='stability Unmarked' title='No stability level'></a><code>background</code></td><td></td></tr><tr><td id='structfield.line_width'><a class='stability Unmarked' title='No stability level'></a><code>line_width</code></td><td></td></tr><tr><td id='structfield.line_style'><a class='stability Unmarked' title='No stability level'></a><code>line_style</code></td><td></td></tr><tr><td id='structfield.cap_style'><a class='stability Unmarked' title='No stability level'></a><code>cap_style</code></td><td></td></tr><tr><td id='structfield.join_style'><a class='stability Unmarked' title='No stability level'></a><code>join_style</code></td><td></td></tr><tr><td id='structfield.fill_style'><a class='stability Unmarked' title='No stability level'></a><code>fill_style</code></td><td></td></tr><tr><td id='structfield.fill_rule'><a class='stability Unmarked' title='No stability level'></a><code>fill_rule</code></td><td></td></tr><tr><td id='structfield.arc_mode'><a class='stability Unmarked' title='No stability level'></a><code>arc_mode</code></td><td></td></tr><tr><td id='structfield.tile'><a class='stability Unmarked' title='No stability level'></a><code>tile</code></td><td></td></tr><tr><td id='structfield.stipple'><a class='stability Unmarked' title='No stability level'></a><code>stipple</code></td><td></td></tr><tr><td id='structfield.ts_x_origin'><a class='stability Unmarked' title='No stability level'></a><code>ts_x_origin</code></td><td></td></tr><tr><td id='structfield.ts_y_origin'><a class='stability Unmarked' title='No stability level'></a><code>ts_y_origin</code></td><td></td></tr><tr><td id='structfield.font'><a class='stability Unmarked' title='No stability level'></a><code>font</code></td><td></td></tr><tr><td id='structfield.subwindow_mode'><a class='stability Unmarked' title='No stability level'></a><code>subwindow_mode</code></td><td></td></tr><tr><td id='structfield.graphics_exposures'><a class='stability Unmarked' title='No stability level'></a><code>graphics_exposures</code></td><td></td></tr><tr><td id='structfield.clip_x_origin'><a class='stability Unmarked' title='No stability level'></a><code>clip_x_origin</code></td><td></td></tr><tr><td id='structfield.clip_y_origin'><a class='stability Unmarked' title='No stability level'></a><code>clip_y_origin</code></td><td></td></tr><tr><td id='structfield.clip_mask'><a class='stability Unmarked' title='No stability level'></a><code>clip_mask</code></td><td></td></tr><tr><td id='structfield.dash_offset'><a class='stability Unmarked' title='No stability level'></a><code>dash_offset</code></td><td></td></tr><tr><td id='structfield.dashes'><a class='stability Unmarked' title='No stability level'></a><code>dashes</code></td><td></td></tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "xlib";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

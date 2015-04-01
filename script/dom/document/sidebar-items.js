@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Document",""],["DocumentProgressHandler",""]],"trait":[["DocumentHelpers",""],["LayoutDocumentHelpers",""]],"enum":[["DocumentProgressTask",""],["DocumentSource",""],["IsHTMLDocument",""]]});

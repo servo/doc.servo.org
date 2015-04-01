@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `scoped` mod in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, scoped">
+
+    <title>std::thread_local::scoped - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../../index.html'>std</a>::<wbr><a href='../index.html'>thread_local</a></p><script>window.sidebarCurrent = {name: 'scoped', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>std</a>::<wbr><a href='../index.html'>thread_local</a>::<wbr><a class='mod' href=''>scoped</a><wbr><a class='stability Unstable' title='scoped TLS has yet to have wide enough use to fully consider stabilizing its interface'>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-5816' href='../../../src/std/thread_local/scoped.rs.html#11-313'>[src]</a></span></h1>
+<div class='docblock'><p>Scoped thread-local storage</p>
+
+<p>This module provides the ability to generate <em>scoped</em> thread-local
+variables. In this sense, scoped indicates that thread local storage
+actually stores a reference to a value, and this reference is only placed
+in storage for a scoped amount of time.</p>
+
+<p>There are no restrictions on what types can be placed into a scoped
+variable, but all scoped variables are initialized to the equivalent of
+null. Scoped thread local storage is useful when a value is present for a known
+period of time and it is not required to relinquish ownership of the
+contents.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    scoped_thread_local!(static FOO: u32);
+    
+    // Initially each scoped slot is empty.
+    assert!(!FOO.is_set());
+    
+    // When inserting a value, the value is only in place for the duration
+    // of the closure specified.
+    FOO.set(&amp;1, || {
+        FOO.with(|slot| {
+            assert_eq!(*slot, 1);
+        });
+    });
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='macro'>scoped_thread_local</span><span class='macro'>!</span>(<span class='kw'>static</span> <span class='ident'>FOO</span>: <span class='ident'>u32</span>);
+
+<span class='comment'>// Initially each scoped slot is empty.</span>
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>FOO</span>.<span class='ident'>is_set</span>());
+
+<span class='comment'>// When inserting a value, the value is only in place for the duration</span>
+<span class='comment'>// of the closure specified.</span>
+<span class='ident'>FOO</span>.<span class='ident'>set</span>(<span class='kw-2'>&amp;</span><span class='number'>1</span>, <span class='op'>||</span> {
+    <span class='ident'>FOO</span>.<span class='ident'>with</span>(<span class='op'>|</span><span class='ident'>slot</span><span class='op'>|</span> {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='op'>*</span><span class='ident'>slot</span>, <span class='number'>1</span>);
+    });
+});
+</pre>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: scoped TLS has yet to have wide enough use to fully consider stabilizing its interface'></a><a class='struct' href='struct.Key.html'
+                               title='std::thread_local::scoped::Key'>Key</a></td>
+                        <td class='docblock short'><p>Type representing a thread local storage key corresponding to a reference
+to the type parameter <code>T</code>.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    <script src="../../../playpen.js"></script>
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Builder` struct in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Builder">
+
+    <title>std::thread::Builder - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>thread</a></p><script>window.sidebarCurrent = {name: 'Builder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>std</a>::<wbr><a href='index.html'>thread</a>::<wbr><a class='struct' href=''>Builder</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-85777' href='../../src/std/thread.rs.html#163-172'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Builder {
+    // some fields omitted
+}</pre><div class='docblock'><p>Thread configuration. Provides detailed control over the properties
+and behavior of new threads.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../std/thread/struct.Builder.html' title='std::thread::Builder'>Builder</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../std/thread/struct.Builder.html' title='std::thread::Builder'>Builder</a></code></h4>
+<div class='docblock'><p>Generate the base configuration for spawning a thread, from which
+configuration methods can be chained.</p>
+</div><h4 id='method.name' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.name' class='fnname'>name</a>(self, name: <a class='struct' href='../../std/string/struct.String.html' title='std::string::String'>String</a>) -&gt; <a class='struct' href='../../std/thread/struct.Builder.html' title='std::thread::Builder'>Builder</a></code></h4>
+<div class='docblock'><p>Name the thread-to-be. Currently the name is used for identification
+only in panic messages.</p>
+</div><h4 id='method.stack_size' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.stack_size' class='fnname'>stack_size</a>(self, size: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/thread/struct.Builder.html' title='std::thread::Builder'>Builder</a></code></h4>
+<div class='docblock'><p>Set the size of the stack for the new thread.</p>
+</div><h4 id='method.stdout' class='method'><a class='stability Unstable' title='Unstable: Will likely go away after proc removal'></a><code>fn <a href='#method.stdout' class='fnname'>stdout</a>(self, stdout: <a class='struct' href='../../std/boxed/struct.Box.html' title='std::boxed::Box'>Box</a>&lt;<a class='trait' href='../../std/old_io/trait.Writer.html' title='std::old_io::Writer'>Writer</a> + <a class='trait' href='../../std/marker/trait.Send.html' title='std::marker::Send'>Send</a> + 'static&gt;) -&gt; <a class='struct' href='../../std/thread/struct.Builder.html' title='std::thread::Builder'>Builder</a></code></h4>
+<div class='docblock'><p>Redirect thread-local stdout.</p>
+</div><h4 id='method.stderr' class='method'><a class='stability Unstable' title='Unstable: Will likely go away after proc removal'></a><code>fn <a href='#method.stderr' class='fnname'>stderr</a>(self, stderr: <a class='struct' href='../../std/boxed/struct.Box.html' title='std::boxed::Box'>Box</a>&lt;<a class='trait' href='../../std/old_io/trait.Writer.html' title='std::old_io::Writer'>Writer</a> + <a class='trait' href='../../std/marker/trait.Send.html' title='std::marker::Send'>Send</a> + 'static&gt;) -&gt; <a class='struct' href='../../std/thread/struct.Builder.html' title='std::thread::Builder'>Builder</a></code></h4>
+<div class='docblock'><p>Redirect thread-local stderr.</p>
+</div><h4 id='method.spawn' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.spawn' class='fnname'>spawn</a>&lt;F&gt;(self, f: F) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a class='struct' href='../../std/thread/struct.JoinHandle.html' title='std::thread::JoinHandle'>JoinHandle</a>&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnOnce.html' title='std::ops::FnOnce'>FnOnce</a>(), F: <a class='trait' href='../../std/marker/trait.Send.html' title='std::marker::Send'>Send</a> + 'static</span></code></h4>
+<div class='docblock'><p>Spawn a new thread, and return a join handle for it.</p>
+
+<p>The child thread may outlive the parent (unless the parent thread
+is the main thread; the whole process is terminated when the main
+thread finishes.) The join handle can be used to block on
+termination of the child thread, including recovering its panics.</p>
+
+<h1 id="errors" class='section-header'><a
+                           href="#errors">Errors</a></h1>
+<p>Unlike the <code>spawn</code> free function, this method yields an
+<code>io::Result</code> to capture any failure to create the thread at
+the OS level.</p>
+</div><h4 id='method.scoped' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.scoped' class='fnname'>scoped</a>&lt;'a, T, F&gt;(self, f: F) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a class='struct' href='../../std/thread/struct.JoinGuard.html' title='std::thread::JoinGuard'>JoinGuard</a>&lt;'a, T&gt;&gt; <span class='where'>where T: <a class='trait' href='../../std/marker/trait.Send.html' title='std::marker::Send'>Send</a> + 'a, F: <a class='trait' href='../../std/ops/trait.FnOnce.html' title='std::ops::FnOnce'>FnOnce</a>() -&gt; T, F: <a class='trait' href='../../std/marker/trait.Send.html' title='std::marker::Send'>Send</a> + 'a</span></code></h4>
+<div class='docblock'><p>Spawn a new child thread that must be joined within a given
+scope, and return a <code>JoinGuard</code>.</p>
+
+<p>The join guard can be used to explicitly join the child thread (via
+<code>join</code>), returning <code>Result&lt;T&gt;</code>, or it will implicitly join the child
+upon being dropped. Because the child thread may refer to data on the
+current thread&#39;s stack (hence the &quot;scoped&quot; name), it cannot be detached;
+it <em>must</em> be joined before the relevant stack frame is popped. See the
+module documentation for additional details.</p>
+
+<h1 id="errors" class='section-header'><a
+                           href="#errors">Errors</a></h1>
+<p>Unlike the <code>scoped</code> free function, this method yields an
+<code>io::Result</code> to capture any failure to create the thread at
+the OS level.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

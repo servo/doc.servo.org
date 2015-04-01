@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `TableRowFlow` struct in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, TableRowFlow">
+
+    <title>layout::table_row::TableRowFlow - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a>::<wbr><a href='index.html'>table_row</a></p><script>window.sidebarCurrent = {name: 'TableRowFlow', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>layout</a>::<wbr><a href='index.html'>table_row</a>::<wbr><a class='struct' href=''>TableRowFlow</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-68156' href='../../src/layout/table_row.rs.html#32-44'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct TableRowFlow {
+    pub block_flow: <a class='struct' href='../../layout/block/struct.BlockFlow.html' title='layout::block::BlockFlow'>BlockFlow</a>,
+    pub cell_intrinsic_inline_sizes: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../layout/table_row/struct.CellIntrinsicInlineSize.html' title='layout::table_row::CellIntrinsicInlineSize'>CellIntrinsicInlineSize</a>&gt;,
+    pub column_computed_inline_sizes: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../layout/table/struct.ColumnComputedInlineSize.html' title='layout::table::ColumnComputedInlineSize'>ColumnComputedInlineSize</a>&gt;,
+    pub spacing: <a class='struct' href='../../style/properties/longhands/border_spacing/computed_value/struct.T.html' title='style::properties::longhands::border_spacing::computed_value::T'>T</a>,
+}</pre><div class='docblock'><p>A single row of a table.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.block_flow'><a class='stability Unmarked' title='No stability level'></a><code>block_flow</code></td><td></td></tr><tr><td id='structfield.cell_intrinsic_inline_sizes'><a class='stability Unmarked' title='No stability level'></a><code>cell_intrinsic_inline_sizes</code></td><td><div class='docblock'><p>Information about the intrinsic inline-sizes of each cell.</p>
+</div></td></tr><tr><td id='structfield.column_computed_inline_sizes'><a class='stability Unmarked' title='No stability level'></a><code>column_computed_inline_sizes</code></td><td><div class='docblock'><p>Information about the computed inline-sizes of each column.</p>
+</div></td></tr><tr><td id='structfield.spacing'><a class='stability Unmarked' title='No stability level'></a><code>spacing</code></td><td><div class='docblock'><p>The spacing for this row, propagated down from the table during the inline-size assignment
+phase.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../layout/table_row/struct.TableRowFlow.html' title='layout::table_row::TableRowFlow'>TableRowFlow</a></code></h3><div class='impl-items'><h4 id='method.from_node_and_fragment' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.from_node_and_fragment' class='fnname'>from_node_and_fragment</a>(node: &amp;<a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>, fragment: <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a>) -&gt; <a class='struct' href='../../layout/table_row/struct.TableRowFlow.html' title='layout::table_row::TableRowFlow'>TableRowFlow</a></code></h4>
+<h4 id='method.fragment' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.fragment' class='fnname'>fragment</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../layout/flow/trait.Flow.html' title='layout::flow::Flow'>Flow</a> for <a class='struct' href='../../layout/table_row/struct.TableRowFlow.html' title='layout::table_row::TableRowFlow'>TableRowFlow</a></code></h3><div class='impl-items'><h4 id='method.class' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.class' class='fnname'>class</a>(&amp;self) -&gt; <a class='enum' href='../../layout/flow/enum.FlowClass.html' title='layout::flow::FlowClass'>FlowClass</a></code></h4>
+<h4 id='method.as_table_row' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_table_row' class='fnname'>as_table_row</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../layout/table_row/struct.TableRowFlow.html' title='layout::table_row::TableRowFlow'>TableRowFlow</a></code></h4>
+<h4 id='method.as_immutable_table_row' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_immutable_table_row' class='fnname'>as_immutable_table_row</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../layout/table_row/struct.TableRowFlow.html' title='layout::table_row::TableRowFlow'>TableRowFlow</a></code></h4>
+<h4 id='method.as_block' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_block' class='fnname'>as_block</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../layout/block/struct.BlockFlow.html' title='layout::block::BlockFlow'>BlockFlow</a></code></h4>
+<h4 id='method.column_intrinsic_inline_sizes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.column_intrinsic_inline_sizes' class='fnname'>column_intrinsic_inline_sizes</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../layout/table/struct.ColumnIntrinsicInlineSize.html' title='layout::table::ColumnIntrinsicInlineSize'>ColumnIntrinsicInlineSize</a>&gt;</code></h4>
+<h4 id='method.column_computed_inline_sizes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.column_computed_inline_sizes' class='fnname'>column_computed_inline_sizes</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../layout/table/struct.ColumnComputedInlineSize.html' title='layout::table::ColumnComputedInlineSize'>ColumnComputedInlineSize</a>&gt;</code></h4>
+<h4 id='method.bubble_inline_sizes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.bubble_inline_sizes' class='fnname'>bubble_inline_sizes</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Recursively (bottom-up) determines the context&#39;s preferred and minimum inline-sizes. When
+called on this context, all child contexts have had their min/pref inline-sizes set. This
+function must decide min/pref inline-sizes based on child context inline-sizes and
+dimensions of any fragments it is responsible for flowing.
+Min/pref inline-sizes set by this function are used in automatic table layout calculation.
+The specified column inline-sizes of children cells are used in fixed table layout
+calculation.</p>
+</div><h4 id='method.assign_inline_sizes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.assign_inline_sizes' class='fnname'>assign_inline_sizes</a>(&amp;mut self, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>)</code></h4>
+<h4 id='method.assign_block_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.assign_block_size' class='fnname'>assign_block_size</a>&lt;'a&gt;(&amp;mut self, ctx: &amp;'a <a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>&lt;'a&gt;)</code></h4>
+<h4 id='method.compute_absolute_position' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compute_absolute_position' class='fnname'>compute_absolute_position</a>(&amp;mut self)</code></h4>
+<h4 id='method.update_late_computed_inline_position_if_necessary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.update_late_computed_inline_position_if_necessary' class='fnname'>update_late_computed_inline_position_if_necessary</a>(&amp;mut self, inline_position: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>)</code></h4>
+<h4 id='method.update_late_computed_block_position_if_necessary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.update_late_computed_block_position_if_necessary' class='fnname'>update_late_computed_block_position_if_necessary</a>(&amp;mut self, block_position: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>)</code></h4>
+<h4 id='method.build_display_list' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list' class='fnname'>build_display_list</a>(&amp;mut self, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>)</code></h4>
+<h4 id='method.repair_style' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.repair_style' class='fnname'>repair_style</a>(&amp;mut self, new_style: &amp;<a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;)</code></h4>
+<h4 id='method.compute_overflow' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compute_overflow' class='fnname'>compute_overflow</a>(&amp;self) -&gt; <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+<h4 id='method.generated_containing_block_rect' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.generated_containing_block_rect' class='fnname'>generated_containing_block_rect</a>(&amp;self) -&gt; <a class='struct' href='../../util/logical_geometry/struct.LogicalRect.html' title='util::logical_geometry::LogicalRect'>LogicalRect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+<h4 id='method.iterate_through_fragment_border_boxes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.iterate_through_fragment_border_boxes' class='fnname'>iterate_through_fragment_border_boxes</a>(&amp;self, iterator: &amp;mut <a class='trait' href='../../layout/fragment/trait.FragmentBorderBoxIterator.html' title='layout::fragment::FragmentBorderBoxIterator'>FragmentBorderBoxIterator</a>, stacking_context_position: &amp;<a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;)</code></h4>
+<h4 id='method.mutate_fragments' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_fragments' class='fnname'>mutate_fragments</a>(&amp;mut self, mutator: &amp;mut <a class='trait' href='../../core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;mut <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a>))</code></h4>
+<h4 id='method.as_immutable_block' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_immutable_block' class='fnname'>as_immutable_block</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../layout/block/struct.BlockFlow.html' title='layout::block::BlockFlow'>BlockFlow</a></code></h4>
+<h4 id='method.as_immutable_inline' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_immutable_inline' class='fnname'>as_immutable_inline</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../layout/inline/struct.InlineFlow.html' title='layout::inline::InlineFlow'>InlineFlow</a></code></h4>
+<h4 id='method.as_inline' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_inline' class='fnname'>as_inline</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../layout/inline/struct.InlineFlow.html' title='layout::inline::InlineFlow'>InlineFlow</a></code></h4>
+<h4 id='method.as_table_wrapper' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_table_wrapper' class='fnname'>as_table_wrapper</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../layout/table_wrapper/struct.TableWrapperFlow.html' title='layout::table_wrapper::TableWrapperFlow'>TableWrapperFlow</a></code></h4>
+<h4 id='method.as_immutable_table_wrapper' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_immutable_table_wrapper' class='fnname'>as_immutable_table_wrapper</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../layout/table_wrapper/struct.TableWrapperFlow.html' title='layout::table_wrapper::TableWrapperFlow'>TableWrapperFlow</a></code></h4>
+<h4 id='method.as_table' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_table' class='fnname'>as_table</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../layout/table/struct.TableFlow.html' title='layout::table::TableFlow'>TableFlow</a></code></h4>
+<h4 id='method.as_immutable_table' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_immutable_table' class='fnname'>as_immutable_table</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../layout/table/struct.TableFlow.html' title='layout::table::TableFlow'>TableFlow</a></code></h4>
+<h4 id='method.as_table_colgroup' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_table_colgroup' class='fnname'>as_table_colgroup</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../layout/table_colgroup/struct.TableColGroupFlow.html' title='layout::table_colgroup::TableColGroupFlow'>TableColGroupFlow</a></code></h4>
+<h4 id='method.as_table_rowgroup' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_table_rowgroup' class='fnname'>as_table_rowgroup</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../layout/table_rowgroup/struct.TableRowGroupFlow.html' title='layout::table_rowgroup::TableRowGroupFlow'>TableRowGroupFlow</a></code></h4>
+<h4 id='method.as_immutable_table_rowgroup' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_immutable_table_rowgroup' class='fnname'>as_immutable_table_rowgroup</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../layout/table_rowgroup/struct.TableRowGroupFlow.html' title='layout::table_rowgroup::TableRowGroupFlow'>TableRowGroupFlow</a></code></h4>
+<h4 id='method.as_table_caption' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_table_caption' class='fnname'>as_table_caption</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../layout/table_caption/struct.TableCaptionFlow.html' title='layout::table_caption::TableCaptionFlow'>TableCaptionFlow</a></code></h4>
+<h4 id='method.as_table_cell' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_table_cell' class='fnname'>as_table_cell</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../layout/table_cell/struct.TableCellFlow.html' title='layout::table_cell::TableCellFlow'>TableCellFlow</a></code></h4>
+<h4 id='method.as_immutable_table_cell' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_immutable_table_cell' class='fnname'>as_immutable_table_cell</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../layout/table_cell/struct.TableCellFlow.html' title='layout::table_cell::TableCellFlow'>TableCellFlow</a></code></h4>
+<h4 id='method.place_float_if_applicable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.place_float_if_applicable' class='fnname'>place_float_if_applicable</a>&lt;'a&gt;(&amp;mut self, _: &amp;'a <a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>&lt;'a&gt;)</code></h4>
+<h4 id='method.assign_block_size_for_inorder_child_if_necessary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.assign_block_size_for_inorder_child_if_necessary' class='fnname'>assign_block_size_for_inorder_child_if_necessary</a>&lt;'a&gt;(&amp;mut self, layout_context: &amp;'a <a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>&lt;'a&gt;, parent_thread_id: <a href='../../std/primitive.u8.html'>u8</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.compute_collapsible_block_start_margin' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compute_collapsible_block_start_margin' class='fnname'>compute_collapsible_block_start_margin</a>(&amp;mut self, _layout_context: &amp;mut <a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>, _margin_collapse_info: &amp;mut <a class='struct' href='../../layout/model/struct.MarginCollapseInfo.html' title='layout::model::MarginCollapseInfo'>MarginCollapseInfo</a>)</code></h4>
+<h4 id='method.mark_as_root' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mark_as_root' class='fnname'>mark_as_root</a>(&amp;mut self)</code></h4>
+<h4 id='method.is_store_overflow_delayed' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_store_overflow_delayed' class='fnname'>is_store_overflow_delayed</a>(&amp;mut self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.is_root' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_root' class='fnname'>is_root</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.positioning' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.positioning' class='fnname'>positioning</a>(&amp;self) -&gt; <a class='enum' href='../../style/properties/longhands/position/computed_value/enum.T.html' title='style::properties::longhands::position::computed_value::T'>T</a></code></h4>
+<h4 id='method.is_fixed' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_fixed' class='fnname'>is_fixed</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.is_positioned' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_positioned' class='fnname'>is_positioned</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.is_relatively_positioned' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_relatively_positioned' class='fnname'>is_relatively_positioned</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.is_root_of_absolute_flow_tree' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_root_of_absolute_flow_tree' class='fnname'>is_root_of_absolute_flow_tree</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.is_absolute_containing_block' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_absolute_containing_block' class='fnname'>is_absolute_containing_block</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.layer_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.layer_id' class='fnname'>layer_id</a>(&amp;self, fragment_id: <a href='../../std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../../msg/compositor_msg/struct.LayerId.html' title='msg::compositor_msg::LayerId'>LayerId</a></code></h4>
+<h4 id='method.remove_compositor_layers' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.remove_compositor_layers' class='fnname'>remove_compositor_layers</a>(&amp;self, _: <a class='struct' href='../../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a>)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../layout/table_row/struct.TableRowFlow.html' title='layout::table_row::TableRowFlow'>TableRowFlow</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../rustc-serialize/serialize/trait.Encodable.html' title='rustc-serialize::serialize::Encodable'>Encodable</a> for <a class='struct' href='../../layout/table_row/struct.TableRowFlow.html' title='layout::table_row::TableRowFlow'>TableRowFlow</a></code></h3><div class='impl-items'><h4 id='method.encode' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.encode' class='fnname'>encode</a>&lt;__S: <a class='trait' href='../../rustc-serialize/serialize/trait.Encoder.html' title='rustc-serialize::serialize::Encoder'>Encoder</a>&gt;(&amp;self, __arg_0: &amp;mut __S) -&gt; <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>, Error&gt;</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

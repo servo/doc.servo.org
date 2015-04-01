@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `StrExt` trait in crate `core`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, StrExt">
+
+    <title>core::str::StrExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../core/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>core</a>::<wbr><a href='index.html'>str</a></p><script>window.sidebarCurrent = {name: 'StrExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>core</a>::<wbr><a href='index.html'>str</a>::<wbr><a class='trait' href=''>StrExt</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-99478' href='../../src/core/str/mod.rs.html#1327-1372'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait StrExt {
+    fn <a href='#tymethod.contains' class='fnname'>contains</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.contains_char' class='fnname'>contains_char</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.chars' class='fnname'>chars</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.Chars.html' title='core::str::Chars'>Chars</a>&lt;'a&gt;;
+    fn <a href='#tymethod.bytes' class='fnname'>bytes</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.Bytes.html' title='core::str::Bytes'>Bytes</a>&lt;'a&gt;;
+    fn <a href='#tymethod.char_indices' class='fnname'>char_indices</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.CharIndices.html' title='core::str::CharIndices'>CharIndices</a>&lt;'a&gt;;
+    fn <a href='#tymethod.split' class='fnname'>split</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../../core/str/struct.Split.html' title='core::str::Split'>Split</a>&lt;'a, P&gt;;
+    fn <a href='#tymethod.splitn' class='fnname'>splitn</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, count: <a href='../primitive.usize.html'>usize</a>, pat: P) -&gt; <a class='struct' href='../../core/str/struct.SplitN.html' title='core::str::SplitN'>SplitN</a>&lt;'a, P&gt;;
+    fn <a href='#tymethod.split_terminator' class='fnname'>split_terminator</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../../core/str/struct.SplitTerminator.html' title='core::str::SplitTerminator'>SplitTerminator</a>&lt;'a, P&gt;;
+    fn <a href='#tymethod.rsplitn' class='fnname'>rsplitn</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, count: <a href='../primitive.usize.html'>usize</a>, pat: P) -&gt; <a class='struct' href='../../core/str/struct.RSplitN.html' title='core::str::RSplitN'>RSplitN</a>&lt;'a, P&gt;;
+    fn <a href='#tymethod.match_indices' class='fnname'>match_indices</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../../core/str/struct.MatchIndices.html' title='core::str::MatchIndices'>MatchIndices</a>&lt;'a, P&gt;;
+    fn <a href='#tymethod.split_str' class='fnname'>split_str</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../../core/str/struct.SplitStr.html' title='core::str::SplitStr'>SplitStr</a>&lt;'a, P&gt;;
+    fn <a href='#tymethod.lines' class='fnname'>lines</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.Lines.html' title='core::str::Lines'>Lines</a>&lt;'a&gt;;
+    fn <a href='#tymethod.lines_any' class='fnname'>lines_any</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.LinesAny.html' title='core::str::LinesAny'>LinesAny</a>&lt;'a&gt;;
+    fn <a href='#tymethod.char_len' class='fnname'>char_len</a>(&amp;self) -&gt; <a href='../primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.slice_chars' class='fnname'>slice_chars</a>&lt;'a&gt;(&amp;'a self, begin: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; &amp;'a <a href='../primitive.str.html'>str</a>;
+    unsafe fn <a href='#tymethod.slice_unchecked' class='fnname'>slice_unchecked</a>&lt;'a&gt;(&amp;'a self, begin: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; &amp;'a <a href='../primitive.str.html'>str</a>;
+    fn <a href='#tymethod.starts_with' class='fnname'>starts_with</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.ends_with' class='fnname'>ends_with</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where Searcher: <a class='trait' href='../../core/str/trait.ReverseSearcher.html' title='core::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span>;
+    fn <a href='#tymethod.trim_matches' class='fnname'>trim_matches</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='../primitive.str.html'>str</a> <span class='where'>where Searcher: <a class='trait' href='../../core/str/trait.DoubleEndedSearcher.html' title='core::str::DoubleEndedSearcher'>DoubleEndedSearcher</a>&lt;'a&gt;</span>;
+    fn <a href='#tymethod.trim_left_matches' class='fnname'>trim_left_matches</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='../primitive.str.html'>str</a>;
+    fn <a href='#tymethod.trim_right_matches' class='fnname'>trim_right_matches</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='../primitive.str.html'>str</a> <span class='where'>where Searcher: <a class='trait' href='../../core/str/trait.ReverseSearcher.html' title='core::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span>;
+    fn <a href='#tymethod.is_char_boundary' class='fnname'>is_char_boundary</a>(&amp;self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.char_range_at' class='fnname'>char_range_at</a>(&amp;self, start: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../core/str/struct.CharRange.html' title='core::str::CharRange'>CharRange</a>;
+    fn <a href='#tymethod.char_range_at_reverse' class='fnname'>char_range_at_reverse</a>(&amp;self, start: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../core/str/struct.CharRange.html' title='core::str::CharRange'>CharRange</a>;
+    fn <a href='#tymethod.char_at' class='fnname'>char_at</a>(&amp;self, i: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.char.html'>char</a>;
+    fn <a href='#tymethod.char_at_reverse' class='fnname'>char_at_reverse</a>(&amp;self, i: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.char.html'>char</a>;
+    fn <a href='#tymethod.as_bytes' class='fnname'>as_bytes</a>&lt;'a&gt;(&amp;'a self) -&gt; <a href='../primitive.slice.html'>&amp;'a [</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.find' class='fnname'>find</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;;
+    fn <a href='#tymethod.rfind' class='fnname'>rfind</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where Searcher: <a class='trait' href='../../core/str/trait.ReverseSearcher.html' title='core::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span>;
+    fn <a href='#tymethod.find_str' class='fnname'>find_str</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;;
+    fn <a href='#tymethod.slice_shift_char' class='fnname'>slice_shift_char</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.tuple.html'>(<a href='../primitive.char.html'>char</a>, &amp;'a <a href='../primitive.str.html'>str</a>)</a>&gt;;
+    fn <a href='#tymethod.subslice_offset' class='fnname'>subslice_offset</a>(&amp;self, inner: &amp;<a href='../primitive.str.html'>str</a>) -&gt; <a href='../primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.as_ptr' class='fnname'>as_ptr</a>(&amp;self) -&gt; *const <a href='../primitive.u8.html'>u8</a>;
+    fn <a href='#tymethod.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.parse' class='fnname'>parse</a>&lt;T: <a class='trait' href='../../core/str/trait.FromStr.html' title='core::str::FromStr'>FromStr</a>&gt;(&amp;self) -&gt; <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, Err&gt;;
+}</pre><div class='docblock'><p>Methods for string slices</p>
+</div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.contains' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.contains' class='fnname'>contains</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.contains_char' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.contains_char' class='fnname'>contains_char</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.chars' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.chars' class='fnname'>chars</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.Chars.html' title='core::str::Chars'>Chars</a>&lt;'a&gt;</code></h3><h3 id='tymethod.bytes' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.bytes' class='fnname'>bytes</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.Bytes.html' title='core::str::Bytes'>Bytes</a>&lt;'a&gt;</code></h3><h3 id='tymethod.char_indices' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.char_indices' class='fnname'>char_indices</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.CharIndices.html' title='core::str::CharIndices'>CharIndices</a>&lt;'a&gt;</code></h3><h3 id='tymethod.split' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.split' class='fnname'>split</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../../core/str/struct.Split.html' title='core::str::Split'>Split</a>&lt;'a, P&gt;</code></h3><h3 id='tymethod.splitn' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.splitn' class='fnname'>splitn</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, count: <a href='../primitive.usize.html'>usize</a>, pat: P) -&gt; <a class='struct' href='../../core/str/struct.SplitN.html' title='core::str::SplitN'>SplitN</a>&lt;'a, P&gt;</code></h3><h3 id='tymethod.split_terminator' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.split_terminator' class='fnname'>split_terminator</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../../core/str/struct.SplitTerminator.html' title='core::str::SplitTerminator'>SplitTerminator</a>&lt;'a, P&gt;</code></h3><h3 id='tymethod.rsplitn' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.rsplitn' class='fnname'>rsplitn</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, count: <a href='../primitive.usize.html'>usize</a>, pat: P) -&gt; <a class='struct' href='../../core/str/struct.RSplitN.html' title='core::str::RSplitN'>RSplitN</a>&lt;'a, P&gt;</code></h3><h3 id='tymethod.match_indices' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.match_indices' class='fnname'>match_indices</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../../core/str/struct.MatchIndices.html' title='core::str::MatchIndices'>MatchIndices</a>&lt;'a, P&gt;</code></h3><h3 id='tymethod.split_str' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.split_str' class='fnname'>split_str</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../../core/str/struct.SplitStr.html' title='core::str::SplitStr'>SplitStr</a>&lt;'a, P&gt;</code></h3><h3 id='tymethod.lines' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.lines' class='fnname'>lines</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.Lines.html' title='core::str::Lines'>Lines</a>&lt;'a&gt;</code></h3><h3 id='tymethod.lines_any' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.lines_any' class='fnname'>lines_any</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../core/str/struct.LinesAny.html' title='core::str::LinesAny'>LinesAny</a>&lt;'a&gt;</code></h3><h3 id='tymethod.char_len' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.char_len' class='fnname'>char_len</a>(&amp;self) -&gt; <a href='../primitive.usize.html'>usize</a></code></h3><h3 id='tymethod.slice_chars' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.slice_chars' class='fnname'>slice_chars</a>&lt;'a&gt;(&amp;'a self, begin: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; &amp;'a <a href='../primitive.str.html'>str</a></code></h3><h3 id='tymethod.slice_unchecked' class='method'><a class='stability Unstable' title='Unstable'></a><code>unsafe fn <a href='#tymethod.slice_unchecked' class='fnname'>slice_unchecked</a>&lt;'a&gt;(&amp;'a self, begin: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; &amp;'a <a href='../primitive.str.html'>str</a></code></h3><h3 id='tymethod.starts_with' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.starts_with' class='fnname'>starts_with</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.ends_with' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.ends_with' class='fnname'>ends_with</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where Searcher: <a class='trait' href='../../core/str/trait.ReverseSearcher.html' title='core::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h3><h3 id='tymethod.trim_matches' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.trim_matches' class='fnname'>trim_matches</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='../primitive.str.html'>str</a> <span class='where'>where Searcher: <a class='trait' href='../../core/str/trait.DoubleEndedSearcher.html' title='core::str::DoubleEndedSearcher'>DoubleEndedSearcher</a>&lt;'a&gt;</span></code></h3><h3 id='tymethod.trim_left_matches' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.trim_left_matches' class='fnname'>trim_left_matches</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='../primitive.str.html'>str</a></code></h3><h3 id='tymethod.trim_right_matches' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.trim_right_matches' class='fnname'>trim_right_matches</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='../primitive.str.html'>str</a> <span class='where'>where Searcher: <a class='trait' href='../../core/str/trait.ReverseSearcher.html' title='core::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h3><h3 id='tymethod.is_char_boundary' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.is_char_boundary' class='fnname'>is_char_boundary</a>(&amp;self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.char_range_at' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.char_range_at' class='fnname'>char_range_at</a>(&amp;self, start: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../core/str/struct.CharRange.html' title='core::str::CharRange'>CharRange</a></code></h3><h3 id='tymethod.char_range_at_reverse' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.char_range_at_reverse' class='fnname'>char_range_at_reverse</a>(&amp;self, start: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../core/str/struct.CharRange.html' title='core::str::CharRange'>CharRange</a></code></h3><h3 id='tymethod.char_at' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.char_at' class='fnname'>char_at</a>(&amp;self, i: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.char.html'>char</a></code></h3><h3 id='tymethod.char_at_reverse' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.char_at_reverse' class='fnname'>char_at_reverse</a>(&amp;self, i: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.char.html'>char</a></code></h3><h3 id='tymethod.as_bytes' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.as_bytes' class='fnname'>as_bytes</a>&lt;'a&gt;(&amp;'a self) -&gt; <a href='../primitive.slice.html'>&amp;'a [</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a></code></h3><h3 id='tymethod.find' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.find' class='fnname'>find</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h3><h3 id='tymethod.rfind' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.rfind' class='fnname'>rfind</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where Searcher: <a class='trait' href='../../core/str/trait.ReverseSearcher.html' title='core::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h3><h3 id='tymethod.find_str' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.find_str' class='fnname'>find_str</a>&lt;'a, P: <a class='trait' href='../../core/str/trait.Pattern.html' title='core::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h3><h3 id='tymethod.slice_shift_char' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.slice_shift_char' class='fnname'>slice_shift_char</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.tuple.html'>(<a href='../primitive.char.html'>char</a>, &amp;'a <a href='../primitive.str.html'>str</a>)</a>&gt;</code></h3><h3 id='tymethod.subslice_offset' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.subslice_offset' class='fnname'>subslice_offset</a>(&amp;self, inner: &amp;<a href='../primitive.str.html'>str</a>) -&gt; <a href='../primitive.usize.html'>usize</a></code></h3><h3 id='tymethod.as_ptr' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.as_ptr' class='fnname'>as_ptr</a>(&amp;self) -&gt; *const <a href='../primitive.u8.html'>u8</a></code></h3><h3 id='tymethod.len' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../primitive.usize.html'>usize</a></code></h3><h3 id='tymethod.is_empty' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.parse' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.parse' class='fnname'>parse</a>&lt;T: <a class='trait' href='../../core/str/trait.FromStr.html' title='core::str::FromStr'>FromStr</a>&gt;(&amp;self) -&gt; <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, Err&gt;</code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../core/str/trait.StrExt.html' title='core::str::StrExt'>StrExt</a> for <a href='../primitive.str.html'>str</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/core/str/trait.StrExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "core";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

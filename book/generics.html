@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Generics</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Generics</h1>
+    <p>Sometimes, when writing a function or data type, we may want it to work for
+multiple types of arguments. For example, remember our <code>OptionalInt</code> type?</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>enum</span> <span class='ident'>OptionalInt</span> {
+    <span class='ident'>Value</span>(<span class='ident'>i32</span>),
+    <span class='ident'>Missing</span>,
+}
+</pre>
+
+<p>If we wanted to also have an <code>OptionalFloat64</code>, we would need a new enum:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>enum</span> <span class='ident'>OptionalFloat64</span> {
+    <span class='ident'>Valuef64</span>(<span class='ident'>f64</span>),
+    <span class='ident'>Missingf64</span>,
+}
+</pre>
+
+<p>This is really unfortunate. Luckily, Rust has a feature that gives us a better
+way: generics. Generics are called <em>parametric polymorphism</em> in type theory,
+which means that they are types or functions that have multiple forms (<em>poly</em>
+is multiple, <em>morph</em> is form) over a given parameter (<em>parametric</em>).</p>
+
+<p>Anyway, enough with type theory declarations, let&#39;s check out the generic form
+of <code>OptionalInt</code>. It is actually provided by Rust itself, and looks like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>enum</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='prelude-val'>Some</span>(<span class='ident'>T</span>),
+    <span class='prelude-val'>None</span>,
+}
+</pre>
+
+<p>The <code>&lt;T&gt;</code> part, which you&#39;ve seen a few times before, indicates that this is
+a generic data type. Inside the declaration of our enum, wherever we see a <code>T</code>,
+we substitute that type for the same type used in the generic. Here&#39;s an
+example of using <code>Option&lt;T&gt;</code>, with some extra type annotations:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='number'>5</span>);
+</pre>
+
+<p>In the type declaration, we say <code>Option&lt;i32&gt;</code>. Note how similar this looks to
+<code>Option&lt;T&gt;</code>. So, in this particular <code>Option</code>, <code>T</code> has the value of <code>i32</code>. On
+the right-hand side of the binding, we do make a <code>Some(T)</code>, where <code>T</code> is <code>5</code>.
+Since that&#39;s an <code>i32</code>, the two sides match, and Rust is happy. If they didn&#39;t
+match, we&#39;d get an error:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='number'>5</span>);
+<span class='comment'>// error: mismatched types: expected `core::option::Option&lt;f64&gt;`,</span>
+<span class='comment'>// found `core::option::Option&lt;_&gt;` (expected f64 but found integral variable)</span>
+</pre>
+
+<p>That doesn&#39;t mean we can&#39;t make <code>Option&lt;T&gt;</code>s that hold an <code>f64</code>! They just have to
+match up:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='number'>5</span>);
+<span class='kw'>let</span> <span class='ident'>y</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='number'>5.0f64</span>);
+</pre>
+
+<p>This is just fine. One definition, multiple uses.</p>
+
+<p>Generics don&#39;t have to only be generic over one type. Consider Rust&#39;s built-in
+<code>Result&lt;T, E&gt;</code> type:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>enum</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>E</span><span class='op'>&gt;</span> {
+    <span class='prelude-val'>Ok</span>(<span class='ident'>T</span>),
+    <span class='prelude-val'>Err</span>(<span class='ident'>E</span>),
+}
+</pre>
+
+<p>This type is generic over <em>two</em> types: <code>T</code> and <code>E</code>. By the way, the capital letters
+can be any letter you&#39;d like. We could define <code>Result&lt;T, E&gt;</code> as:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>enum</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>A</span>, <span class='ident'>Z</span><span class='op'>&gt;</span> {
+    <span class='prelude-val'>Ok</span>(<span class='ident'>A</span>),
+    <span class='prelude-val'>Err</span>(<span class='ident'>Z</span>),
+}
+</pre>
+
+<p>if we wanted to. Convention says that the first generic parameter should be
+<code>T</code>, for &#39;type,&#39; and that we use <code>E</code> for &#39;error.&#39; Rust doesn&#39;t care, however.</p>
+
+<p>The <code>Result&lt;T, E&gt;</code> type is intended to be used to return the result of a
+computation, and to have the ability to return an error if it didn&#39;t work out.
+Here&#39;s an example:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f64</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-val'>Ok</span>(<span class='number'>2.3f64</span>);
+<span class='kw'>let</span> <span class='ident'>y</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f64</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-val'>Err</span>(<span class='string'>&quot;There was an error.&quot;</span>.<span class='ident'>to_string</span>());
+</pre>
+
+<p>This particular Result will return an <code>f64</code> if there&#39;s a success, and a
+<code>String</code> if there&#39;s a failure. Let&#39;s write a function that uses <code>Result&lt;T, E&gt;</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>inverse</span>(<span class='ident'>x</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f64</span>, <span class='ident'>String</span><span class='op'>&gt;</span> {
+    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>==</span> <span class='number'>0.0f64</span> { <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='string'>&quot;x cannot be zero!&quot;</span>.<span class='ident'>to_string</span>()); }
+
+    <span class='prelude-val'>Ok</span>(<span class='number'>1.0f64</span> <span class='op'>/</span> <span class='ident'>x</span>)
+}
+</pre>
+
+<p>We don&#39;t want to take the inverse of zero, so we check to make sure that we
+weren&#39;t passed zero. If we were, then we return an <code>Err</code>, with a message. If
+it&#39;s okay, we return an <code>Ok</code>, with the answer.</p>
+
+<p>Why does this matter? Well, remember how <code>match</code> does exhaustive matches?
+Here&#39;s how this function gets used:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>inverse</span>(<span class='number'>25.0f64</span>);
+
+<span class='kw'>match</span> <span class='ident'>x</span> {
+    <span class='prelude-val'>Ok</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The inverse of 25 is {}&quot;</span>, <span class='ident'>x</span>),
+    <span class='prelude-val'>Err</span>(<span class='ident'>msg</span>) <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Error: {}&quot;</span>, <span class='ident'>msg</span>),
+}
+</pre>
+
+<p>The <code>match</code> enforces that we handle the <code>Err</code> case. In addition, because the
+answer is wrapped up in an <code>Ok</code>, we can&#39;t just use the result without doing
+the match:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>inverse</span>(<span class='number'>25.0f64</span>);
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span> <span class='op'>+</span> <span class='number'>2.0f64</span>); <span class='comment'>// error: binary operation `+` cannot be applied</span>
+           <span class='comment'>// to type `core::result::Result&lt;f64,collections::string::String&gt;`</span>
+</pre>
+
+<p>This function is great, but there&#39;s one other problem: it only works for 64 bit
+floating point values. What if we wanted to handle 32 bit floating point as
+well? We&#39;d have to write this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>inverse32</span>(<span class='ident'>x</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>f32</span>, <span class='ident'>String</span><span class='op'>&gt;</span> {
+    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>==</span> <span class='number'>0.0f32</span> { <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='string'>&quot;x cannot be zero!&quot;</span>.<span class='ident'>to_string</span>()); }
+
+    <span class='prelude-val'>Ok</span>(<span class='number'>1.0f32</span> <span class='op'>/</span> <span class='ident'>x</span>)
+}
+</pre>
+
+<p>Bummer. What we need is a <em>generic function</em>. Luckily, we can write one!
+However, it won&#39;t <em>quite</em> work yet. Before we get into that, let&#39;s talk syntax.
+A generic version of <code>inverse</code> would look something like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>inverse</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>String</span><span class='op'>&gt;</span> {
+    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>==</span> <span class='number'>0.0</span> { <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='string'>&quot;x cannot be zero!&quot;</span>.<span class='ident'>to_string</span>()); }
+
+    <span class='prelude-val'>Ok</span>(<span class='number'>1.0</span> <span class='op'>/</span> <span class='ident'>x</span>)
+}
+</pre>
+
+<p>Just like how we had <code>Option&lt;T&gt;</code>, we use a similar syntax for <code>inverse&lt;T&gt;</code>.
+We can then use <code>T</code> inside the rest of the signature: <code>x</code> has type <code>T</code>, and half
+of the <code>Result</code> has type <code>T</code>. However, if we try to compile that example, we&#39;ll get
+an error:</p>
+
+<pre><code class="language-text">error: binary operation `==` cannot be applied to type `T`
+</code></pre>
+
+<p>Because <code>T</code> can be <em>any</em> type, it may be a type that doesn&#39;t implement <code>==</code>,
+and therefore, the first line would be wrong. What do we do?</p>
+
+<p>To fix this example, we need to learn about another Rust feature: traits.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

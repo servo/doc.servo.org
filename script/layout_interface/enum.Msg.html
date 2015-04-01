@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Msg` enum in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Msg">
+
+    <title>script::layout_interface::Msg - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>script</a>::<wbr><a href='index.html'>layout_interface</a></p><script>window.sidebarCurrent = {name: 'Msg', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>script</a>::<wbr><a href='index.html'>layout_interface</a>::<wbr><a class='enum' href=''>Msg</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-563262' href='../../src/script/layout_interface.rs.html#29-65'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum Msg {
+    AddStylesheet(<a class='struct' href='../../style/stylesheets/struct.Stylesheet.html' title='style::stylesheets::Stylesheet'>Stylesheet</a>, <a class='struct' href='../../style/media_queries/struct.MediaQueryList.html' title='style::media_queries::MediaQueryList'>MediaQueryList</a>),
+    LoadStylesheet(<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>, <a class='struct' href='../../style/media_queries/struct.MediaQueryList.html' title='style::media_queries::MediaQueryList'>MediaQueryList</a>),
+    SetQuirksMode,
+    Reflow(<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../script/layout_interface/struct.ScriptReflow.html' title='script::layout_interface::ScriptReflow'>ScriptReflow</a>&gt;),
+    GetRPC(<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../script/layout_interface/trait.LayoutRPC.html' title='script::layout_interface::LayoutRPC'>LayoutRPC</a> + <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a>&gt;&gt;),
+    TickAnimations,
+    ReapLayoutData(<a class='struct' href='../../script/dom/node/struct.LayoutData.html' title='script::dom::node::LayoutData'>LayoutData</a>),
+    CollectReports(<a class='struct' href='../../profile/mem/struct.ReportsChan.html' title='profile::mem::ReportsChan'>ReportsChan</a>),
+    PrepareToExit(<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>&gt;),
+    ExitNow(<a class='enum' href='../../msg/constellation_msg/enum.PipelineExitType.html' title='msg::constellation_msg::PipelineExitType'>PipelineExitType</a>),
+}</pre><div class='docblock'><p>Asynchronous messages that script can send to layout.</p>
+</div><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.AddStylesheet'><a class='stability Unmarked' title='No stability level'></a><code>AddStylesheet</code></td><td><div class='docblock'><p>Adds the given stylesheet to the document.</p>
+</div></td></tr><tr><td id='variant.LoadStylesheet'><a class='stability Unmarked' title='No stability level'></a><code>LoadStylesheet</code></td><td><div class='docblock'><p>Adds the given stylesheet to the document.</p>
+</div></td></tr><tr><td id='variant.SetQuirksMode'><a class='stability Unmarked' title='No stability level'></a><code>SetQuirksMode</code></td><td><div class='docblock'><p>Puts a document into quirks mode, causing the quirks mode stylesheet to be loaded.</p>
+</div></td></tr><tr><td id='variant.Reflow'><a class='stability Unmarked' title='No stability level'></a><code>Reflow</code></td><td><div class='docblock'><p>Requests a reflow.</p>
+</div></td></tr><tr><td id='variant.GetRPC'><a class='stability Unmarked' title='No stability level'></a><code>GetRPC</code></td><td><div class='docblock'><p>Get an RPC interface.</p>
+</div></td></tr><tr><td id='variant.TickAnimations'><a class='stability Unmarked' title='No stability level'></a><code>TickAnimations</code></td><td><div class='docblock'><p>Requests that the layout task render the next frame of all animations.</p>
+</div></td></tr><tr><td id='variant.ReapLayoutData'><a class='stability Unmarked' title='No stability level'></a><code>ReapLayoutData</code></td><td><div class='docblock'><p>Destroys layout data associated with a DOM node.</p>
+
+<p>TODO(pcwalton): Maybe think about batching to avoid message traffic.</p>
+</div></td></tr><tr><td id='variant.CollectReports'><a class='stability Unmarked' title='No stability level'></a><code>CollectReports</code></td><td><div class='docblock'><p>Requests that the layout task measure its memory usage. The resulting reports are sent back
+via the supplied channel.</p>
+</div></td></tr><tr><td id='variant.PrepareToExit'><a class='stability Unmarked' title='No stability level'></a><code>PrepareToExit</code></td><td><div class='docblock'><p>Requests that the layout task enter a quiescent state in which no more messages are
+accepted except <code>ExitMsg</code>. A response message will be sent on the supplied channel when
+this happens.</p>
+</div></td></tr><tr><td id='variant.ExitNow'><a class='stability Unmarked' title='No stability level'></a><code>ExitNow</code></td><td><div class='docblock'><p>Requests that the layout task immediately shut down. There must be no more nodes left after
+this, or layout will crash.</p>
+</div></td></tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

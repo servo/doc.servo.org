@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `block` mod in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, block">
+
+    <title>layout::block - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a></p><script>window.sidebarCurrent = {name: 'block', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>layout</a>::<wbr><a class='mod' href=''>block</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-1019' href='../../src/layout/block.rs.html#5-2677'>[src]</a></span></h1>
+<div class='docblock'><p>Layout for CSS block-level elements.</p>
+
+<p>As a terminology note, the term <em>absolute positioning</em> here refers to elements with position
+<code>absolute</code> or <code>fixed</code>. The term <em>positioned element</em> refers to elements with position
+<code>relative</code>, <code>absolute</code>, and <code>fixed</code>. The term <em>containing block</em> (occasionally abbreviated as
+<em>CB</em>) is the containing block for the current flow, which differs from the static containing
+block if the flow is absolutely-positioned.</p>
+
+<p>&quot;CSS 2.1&quot; or &quot;CSS 2.2&quot; refers to the editor&#39;s draft of the W3C &quot;Cascading Style Sheets Level 2
+Revision 2 (CSS 2.2) Specification&quot; available here:</p>
+
+<p><a href="http://dev.w3.org/csswg/css2/">http://dev.w3.org/csswg/css2/</a></p>
+
+<p>&quot;INTRINSIC&quot; refers to L. David Baron&#39;s &quot;More Precise Definitions of Inline Layout and Table
+Layout&quot; available here:</p>
+
+<p><a href="http://dbaron.org/css/intrinsic/">http://dbaron.org/css/intrinsic/</a></p>
+
+<p>&quot;CSS-SIZING&quot; refers to the W3C &quot;CSS Intrinsic &amp; Extrinsic Sizing Module Level 3&quot; document
+available here:</p>
+
+<p><a href="http://dev.w3.org/csswg/css-sizing/">http://dev.w3.org/csswg/css-sizing/</a></p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.AbsoluteNonReplaced.html'
+                               title='layout::block::AbsoluteNonReplaced'>AbsoluteNonReplaced</a></td>
+                        <td class='docblock short'><p>The different types of Blocks.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.AbsoluteReplaced.html'
+                               title='layout::block::AbsoluteReplaced'>AbsoluteReplaced</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BlockFlow.html'
+                               title='layout::block::BlockFlow'>BlockFlow</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BlockFlowFlags.html'
+                               title='layout::block::BlockFlowFlags'>BlockFlowFlags</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BlockNonReplaced.html'
+                               title='layout::block::BlockNonReplaced'>BlockNonReplaced</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BlockReplaced.html'
+                               title='layout::block::BlockReplaced'>BlockReplaced</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.CandidateBSizeIterator.html'
+                               title='layout::block::CandidateBSizeIterator'>CandidateBSizeIterator</a></td>
+                        <td class='docblock short'><p>Performs block-size calculations potentially multiple times, taking
+(assuming an horizontal writing mode) <code>height</code>, <code>min-height</code>, and <code>max-height</code>
+into account. After each call to <code>next()</code>, the caller must call <code>.try()</code> with the
+current calculated value of <code>height</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.FloatNonReplaced.html'
+                               title='layout::block::FloatNonReplaced'>FloatNonReplaced</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.FloatReplaced.html'
+                               title='layout::block::FloatReplaced'>FloatReplaced</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.FloatedBlockInfo.html'
+                               title='layout::block::FloatedBlockInfo'>FloatedBlockInfo</a></td>
+                        <td class='docblock short'><p>Information specific to floated blocks.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ISizeConstraintInput.html'
+                               title='layout::block::ISizeConstraintInput'>ISizeConstraintInput</a></td>
+                        <td class='docblock short'><p>The inputs for the inline-sizes-and-margins constraint equation.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ISizeConstraintSolution.html'
+                               title='layout::block::ISizeConstraintSolution'>ISizeConstraintSolution</a></td>
+                        <td class='docblock short'><p>The solutions for the inline-size-and-margins constraint equation.</p>
+</td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.BlockType.html'
+                               title='layout::block::BlockType'>BlockType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.MarginsMayCollapseFlag.html'
+                               title='layout::block::MarginsMayCollapseFlag'>MarginsMayCollapseFlag</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.IS_ROOT.html'
+                               title='layout::block::IS_ROOT'>IS_ROOT</a></td>
+                        <td class='docblock short'><p>If this is set, then this block flow is the root flow.</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.ISizeAndMarginsComputer.html'
+                               title='layout::block::ISizeAndMarginsComputer'>ISizeAndMarginsComputer</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.propagate_layer_flag_from_child.html'
+                               title='layout::block::propagate_layer_flag_from_child'>propagate_layer_flag_from_child</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RenderContext",""]],"fn":[["bind_and_render_quad",""],["bind_and_render_quad_lines",""],["bind_and_render_solid_quad",""],["render_scene",""]],"trait":[["Render",""]]});

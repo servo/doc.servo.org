@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CanvasGradientStop",""],["CanvasPaintTask",""],["LinearGradientStyle",""],["RadialGradientStyle",""]],"enum":[["CanvasMsg",""],["FillOrStrokeStyle",""]],"trait":[["ToAzFloat",""]]});

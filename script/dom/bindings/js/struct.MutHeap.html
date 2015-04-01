@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `MutHeap` struct in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, MutHeap">
+
+    <title>script::dom::bindings::js::MutHeap - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a>::<wbr><a href='index.html'>js</a></p><script>window.sidebarCurrent = {name: 'MutHeap', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a>::<wbr><a href='index.html'>js</a>::<wbr><a class='struct' href=''>MutHeap</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-3269' href='../../../../src/script/dom/bindings/js.rs.html#325-327'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct MutHeap&lt;T: <a class='trait' href='../../../../script/dom/bindings/js/trait.HeapGCValue.html' title='script::dom::bindings::js::HeapGCValue'>HeapGCValue</a> + <a class='trait' href='../../../../core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a>&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>A holder that provides interior mutability for GC-managed values such as
+<code>JSVal</code> and <code>JS&lt;T&gt;</code>.</p>
+
+<p>Must be used in place of traditional interior mutability to ensure proper
+GC barriers are enforced.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T: <a class='trait' href='../../../../script/dom/bindings/js/trait.HeapGCValue.html' title='script::dom::bindings::js::HeapGCValue'>HeapGCValue</a> + <a class='trait' href='../../../../core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a>&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.MutHeap.html' title='script::dom::bindings::js::MutHeap'>MutHeap</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(initial: T) -&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.MutHeap.html' title='script::dom::bindings::js::MutHeap'>MutHeap</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Create a new <code>MutHeap</code>.</p>
+</div><h4 id='method.set' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.set' class='fnname'>set</a>(&amp;self, val: T)</code></h4>
+<div class='docblock'><p>Set this <code>MutHeap</code> to the given value, calling write barriers as
+appropriate.</p>
+</div><h4 id='method.get' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get' class='fnname'>get</a>(&amp;self) -&gt; T</code></h4>
+<div class='docblock'><p>Set the value in this <code>MutHeap</code>, calling read barriers as appropriate.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T: <a class='trait' href='../../../../script/dom/bindings/trace/trait.JSTraceable.html' title='script::dom::bindings::trace::JSTraceable'>JSTraceable</a> + <a class='trait' href='../../../../script/dom/bindings/js/trait.HeapGCValue.html' title='script::dom::bindings::js::HeapGCValue'>HeapGCValue</a> + <a class='trait' href='../../../../core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a>&gt; <a class='trait' href='../../../../script/dom/bindings/trace/trait.JSTraceable.html' title='script::dom::bindings::trace::JSTraceable'>JSTraceable</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.MutHeap.html' title='script::dom::bindings::js::MutHeap'>MutHeap</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.trace' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.trace' class='fnname'>trace</a>(&amp;self, __arg_0: *mut <a class='struct' href='../../../../js/jsapi/struct.JSTracer.html' title='js::jsapi::JSTracer'>JSTracer</a>)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

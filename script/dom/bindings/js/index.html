@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `js` mod in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, js">
+
+    <title>script::dom::bindings::js - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a></p><script>window.sidebarCurrent = {name: 'js', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a>::<wbr><a class='mod' href=''>js</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-2669' href='../../../../src/script/dom/bindings/js.rs.html#5-799'>[src]</a></span></h1>
+<div class='docblock'><p>Smart pointers for the JS-managed DOM objects.</p>
+
+<p>The DOM is made up of DOM objects whose lifetime is entirely controlled by
+the whims of the SpiderMonkey garbage collector. The types in this module
+are designed to ensure that any interactions with said Rust types only
+occur on values that will remain alive the entire time.</p>
+
+<p>Here is a brief overview of the important types:</p>
+
+<ul>
+<li><code>JSRef&lt;T&gt;</code>: a freely-copyable reference to a rooted DOM object.</li>
+<li><code>Root&lt;T&gt;</code>: a stack-based reference to a rooted DOM object.</li>
+<li><code>JS&lt;T&gt;</code>: a reference to a DOM object that can automatically be traced by
+the GC when encountered as a field of a Rust structure.</li>
+<li><code>Temporary&lt;T&gt;</code>: a reference to a DOM object that will remain rooted for
+the duration of its lifetime.</li>
+</ul>
+
+<p>The rule of thumb is as follows:</p>
+
+<ul>
+<li>All methods return <code>Temporary&lt;T&gt;</code>, to ensure the value remains alive
+until it is stored somewhere that is reachable by the GC.</li>
+<li>All functions take <code>JSRef&lt;T&gt;</code> arguments, to ensure that they will remain
+uncollected for the duration of their usage.</li>
+<li>All DOM structs contain <code>JS&lt;T&gt;</code> fields and derive the <code>JSTraceable</code>
+trait, to ensure that they are transitively marked as reachable by the GC
+if the enclosing value is reachable.</li>
+<li>All methods for type <code>T</code> are implemented for <code>JSRef&lt;T&gt;</code>, to ensure that
+the self value will not be collected for the duration of the method call.</li>
+</ul>
+
+<p>Both <code>Temporary&lt;T&gt;</code> and <code>JS&lt;T&gt;</code> do not allow access to their inner value
+without explicitly creating a stack-based root via the <code>root</code> method. This
+returns a <code>Root&lt;T&gt;</code>, which causes the JS-owned value to be uncollectable
+for the duration of the <code>Root</code> object&#39;s lifetime. A <code>JSRef&lt;T&gt;</code> can be
+obtained from a <code>Root&lt;T&gt;</code> by calling the <code>r</code> method. These <code>JSRef&lt;T&gt;</code>
+values are not allowed to outlive their originating <code>Root&lt;T&gt;</code>, to ensure
+that all interactions with the enclosed value only occur when said value is
+uncollectable, and will cause static lifetime errors if misused.</p>
+
+<p>Other miscellaneous helper traits:</p>
+
+<ul>
+<li><code>OptionalRootable</code> and <code>OptionalRootedRootable</code>: make rooting <code>Option</code>
+values easy via a <code>root</code> method</li>
+<li><code>ResultRootable</code>: make rooting successful <code>Result</code> values easy</li>
+<li><code>TemporaryPushable</code>: allows mutating vectors of <code>JS&lt;T&gt;</code> with new elements
+of <code>JSRef</code>/<code>Temporary</code></li>
+<li><code>RootedReference</code>: makes obtaining an <code>Option&lt;JSRef&lt;T&gt;&gt;</code> from an
+<code>Option&lt;Root&lt;T&gt;&gt;</code> easy</li>
+</ul>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.JS.html'
+                               title='script::dom::bindings::js::JS'>JS</a></td>
+                        <td class='docblock short'><p>A traced reference to a DOM object. Must only be used as a field in other
+DOM objects.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.JSRef.html'
+                               title='script::dom::bindings::js::JSRef'>JSRef</a></td>
+                        <td class='docblock short'><p>A reference to a DOM object that is guaranteed to be alive. This is freely
+copyable.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.LayoutJS.html'
+                               title='script::dom::bindings::js::LayoutJS'>LayoutJS</a></td>
+                        <td class='docblock short'><p>An unrooted reference to a DOM object for use in layout. <code>Layout*Helpers</code>
+traits must be implemented on this.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.MutHeap.html'
+                               title='script::dom::bindings::js::MutHeap'>MutHeap</a></td>
+                        <td class='docblock short'><p>A holder that provides interior mutability for GC-managed values such as
+<code>JSVal</code> and <code>JS&lt;T&gt;</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.MutNullableJS.html'
+                               title='script::dom::bindings::js::MutNullableJS'>MutNullableJS</a></td>
+                        <td class='docblock short'><p>A mutable <code>JS&lt;T&gt;</code> value, with nullability represented by an enclosing
+Option wrapper. Must be used in place of traditional internal mutability
+to ensure that the proper GC barriers are enforced.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Root.html'
+                               title='script::dom::bindings::js::Root'>Root</a></td>
+                        <td class='docblock short'><p>A rooted reference to a DOM object.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.RootCollection.html'
+                               title='script::dom::bindings::js::RootCollection'>RootCollection</a></td>
+                        <td class='docblock short'><p>An opaque, LIFO rooting mechanism. This tracks roots and ensures that they
+are destructed in a LIFO order.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.RootCollectionPtr.html'
+                               title='script::dom::bindings::js::RootCollectionPtr'>RootCollectionPtr</a></td>
+                        <td class='docblock short'><p>A pointer to a RootCollection, for use in global variables.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Temporary.html'
+                               title='script::dom::bindings::js::Temporary'>Temporary</a></td>
+                        <td class='docblock short'><p>A type that represents a JS-owned value that is rooted for the lifetime of
+this value. Importantly, it requires explicit rooting in order to interact
+with the inner value. Can be assigned into JS-owned member fields (i.e.
+<code>JS&lt;T&gt;</code> types) safely via the <code>JS&lt;T&gt;::assign</code> method or
+<code>OptionalSettable::assign</code> (for <code>Option&lt;JS&lt;T&gt;&gt;</code> fields).</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Unrooted.html'
+                               title='script::dom::bindings::js::Unrooted'>Unrooted</a></td>
+                        <td class='docblock short'><p>An unrooted, JS-owned value. Must not be held across a GC.</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.Assignable.html'
+                               title='script::dom::bindings::js::Assignable'>Assignable</a></td>
+                        <td class='docblock short'><p>Trait that allows extracting a <code>JS&lt;T&gt;</code> value from a variety of
+rooting-related containers, which in general is an unsafe operation since
+they can outlive the rooted lifetime of the original value.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.Comparable.html'
+                               title='script::dom::bindings::js::Comparable'>Comparable</a></td>
+                        <td class='docblock short'><p>A trait for comparing smart pointers ignoring the lifetimes</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.HeapGCValue.html'
+                               title='script::dom::bindings::js::HeapGCValue'>HeapGCValue</a></td>
+                        <td class='docblock short'><p>A trait to be implemented for JS-managed types that can be stored in
+mutable member fields.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.OptionalOptionalRootedRootable.html'
+                               title='script::dom::bindings::js::OptionalOptionalRootedRootable'>OptionalOptionalRootedRootable</a></td>
+                        <td class='docblock short'><p>Root a rootable <code>Option&lt;Option&gt;</code> type (used for <code>Option&lt;Option&lt;JS&lt;T&gt;&gt;&gt;</code>)</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.OptionalRootable.html'
+                               title='script::dom::bindings::js::OptionalRootable'>OptionalRootable</a></td>
+                        <td class='docblock short'><p>Root a rootable <code>Option</code> type (used for <code>Option&lt;Temporary&lt;T&gt;&gt;</code>)</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.OptionalRootedReference.html'
+                               title='script::dom::bindings::js::OptionalRootedReference'>OptionalRootedReference</a></td>
+                        <td class='docblock short'><p>Get an <code>Option&lt;Option&lt;JSRef&lt;T&gt;&gt;&gt;</code> out of an <code>Option&lt;Option&lt;Root&lt;T&gt;&gt;&gt;</code></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.OptionalRootedRootable.html'
+                               title='script::dom::bindings::js::OptionalRootedRootable'>OptionalRootedRootable</a></td>
+                        <td class='docblock short'><p>Root a rootable <code>Option</code> type (used for <code>Option&lt;JS&lt;T&gt;&gt;</code>)</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.OptionalUnrootable.html'
+                               title='script::dom::bindings::js::OptionalUnrootable'>OptionalUnrootable</a></td>
+                        <td class='docblock short'><p>Return an unrooted type for storing in optional DOM fields</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.ResultRootable.html'
+                               title='script::dom::bindings::js::ResultRootable'>ResultRootable</a></td>
+                        <td class='docblock short'><p>Root a rootable <code>Result</code> type (any of <code>Temporary&lt;T&gt;</code> or <code>JS&lt;T&gt;</code>)</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.RootedReference.html'
+                               title='script::dom::bindings::js::RootedReference'>RootedReference</a></td>
+                        <td class='docblock short'><p>Get an <code>Option&lt;JSRef&lt;T&gt;&gt;</code> out of an <code>Option&lt;Root&lt;T&gt;&gt;</code></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.TemporaryPushable.html'
+                               title='script::dom::bindings::js::TemporaryPushable'>TemporaryPushable</a></td>
+                        <td class='docblock short'><p>Provides a facility to push unrooted values onto lists of rooted values.
+This is safe under the assumption that said lists are reachable via the GC
+graph, and therefore the new values are transitively rooted for the
+lifetime of their new owner.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

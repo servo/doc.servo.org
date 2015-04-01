@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Module` struct in crate `rustdoc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Module">
+
+    <title>rustdoc::doctree::Module - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../rustdoc/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>rustdoc</a>::<wbr><a href='index.html'>doctree</a></p><script>window.sidebarCurrent = {name: 'Module', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rustdoc</a>::<wbr><a href='index.html'>doctree</a>::<wbr><a class='struct' href=''>Module</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-38311' href='../../src/rustdoc/doctree.rs.html#23-46'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Module {
+    pub name: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>&gt;,
+    pub attrs: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='type' href='http://doc.rust-lang.org/nightly/syntax/ast/type.Attribute.html' title='syntax::ast::Attribute'>Attribute</a>&gt;,
+    pub where_outer: <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Span.html' title='syntax::codemap::Span'>Span</a>,
+    pub where_inner: <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Span.html' title='syntax::codemap::Span'>Span</a>,
+    pub extern_crates: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.ExternCrate.html' title='rustdoc::doctree::ExternCrate'>ExternCrate</a>&gt;,
+    pub imports: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Import.html' title='rustdoc::doctree::Import'>Import</a>&gt;,
+    pub structs: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Struct.html' title='rustdoc::doctree::Struct'>Struct</a>&gt;,
+    pub enums: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Enum.html' title='rustdoc::doctree::Enum'>Enum</a>&gt;,
+    pub fns: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Function.html' title='rustdoc::doctree::Function'>Function</a>&gt;,
+    pub mods: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Module.html' title='rustdoc::doctree::Module'>Module</a>&gt;,
+    pub id: <a class='type' href='http://doc.rust-lang.org/nightly/syntax/ast/type.NodeId.html' title='syntax::ast::NodeId'>NodeId</a>,
+    pub typedefs: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Typedef.html' title='rustdoc::doctree::Typedef'>Typedef</a>&gt;,
+    pub statics: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Static.html' title='rustdoc::doctree::Static'>Static</a>&gt;,
+    pub constants: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Constant.html' title='rustdoc::doctree::Constant'>Constant</a>&gt;,
+    pub traits: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Trait.html' title='rustdoc::doctree::Trait'>Trait</a>&gt;,
+    pub vis: <a class='enum' href='http://doc.rust-lang.org/nightly/syntax/ast/enum.Visibility.html' title='syntax::ast::Visibility'>Visibility</a>,
+    pub stab: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/attr/struct.Stability.html' title='syntax::attr::Stability'>Stability</a>&gt;,
+    pub impls: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Impl.html' title='rustdoc::doctree::Impl'>Impl</a>&gt;,
+    pub def_traits: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.DefaultImpl.html' title='rustdoc::doctree::DefaultImpl'>DefaultImpl</a>&gt;,
+    pub foreigns: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.ForeignMod.html' title='syntax::ast::ForeignMod'>ForeignMod</a>&gt;,
+    pub macros: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustdoc/doctree/struct.Macro.html' title='rustdoc::doctree::Macro'>Macro</a>&gt;,
+    pub is_crate: <a href='../../std/primitive.bool.html'>bool</a>,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.name'><a class='stability Unstable' title='Unstable'></a><code>name</code></td><td></td></tr><tr><td id='structfield.attrs'><a class='stability Unstable' title='Unstable'></a><code>attrs</code></td><td></td></tr><tr><td id='structfield.where_outer'><a class='stability Unstable' title='Unstable'></a><code>where_outer</code></td><td></td></tr><tr><td id='structfield.where_inner'><a class='stability Unstable' title='Unstable'></a><code>where_inner</code></td><td></td></tr><tr><td id='structfield.extern_crates'><a class='stability Unstable' title='Unstable'></a><code>extern_crates</code></td><td></td></tr><tr><td id='structfield.imports'><a class='stability Unstable' title='Unstable'></a><code>imports</code></td><td></td></tr><tr><td id='structfield.structs'><a class='stability Unstable' title='Unstable'></a><code>structs</code></td><td></td></tr><tr><td id='structfield.enums'><a class='stability Unstable' title='Unstable'></a><code>enums</code></td><td></td></tr><tr><td id='structfield.fns'><a class='stability Unstable' title='Unstable'></a><code>fns</code></td><td></td></tr><tr><td id='structfield.mods'><a class='stability Unstable' title='Unstable'></a><code>mods</code></td><td></td></tr><tr><td id='structfield.id'><a class='stability Unstable' title='Unstable'></a><code>id</code></td><td></td></tr><tr><td id='structfield.typedefs'><a class='stability Unstable' title='Unstable'></a><code>typedefs</code></td><td></td></tr><tr><td id='structfield.statics'><a class='stability Unstable' title='Unstable'></a><code>statics</code></td><td></td></tr><tr><td id='structfield.constants'><a class='stability Unstable' title='Unstable'></a><code>constants</code></td><td></td></tr><tr><td id='structfield.traits'><a class='stability Unstable' title='Unstable'></a><code>traits</code></td><td></td></tr><tr><td id='structfield.vis'><a class='stability Unstable' title='Unstable'></a><code>vis</code></td><td></td></tr><tr><td id='structfield.stab'><a class='stability Unstable' title='Unstable'></a><code>stab</code></td><td></td></tr><tr><td id='structfield.impls'><a class='stability Unstable' title='Unstable'></a><code>impls</code></td><td></td></tr><tr><td id='structfield.def_traits'><a class='stability Unstable' title='Unstable'></a><code>def_traits</code></td><td></td></tr><tr><td id='structfield.foreigns'><a class='stability Unstable' title='Unstable'></a><code>foreigns</code></td><td></td></tr><tr><td id='structfield.macros'><a class='stability Unstable' title='Unstable'></a><code>macros</code></td><td></td></tr><tr><td id='structfield.is_crate'><a class='stability Unstable' title='Unstable'></a><code>is_crate</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='struct' href='../../rustdoc/doctree/struct.Module.html' title='rustdoc::doctree::Module'>Module</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.new' class='fnname'>new</a>(name: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>&gt;) -&gt; <a class='struct' href='../../rustdoc/doctree/struct.Module.html' title='rustdoc::doctree::Module'>Module</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../rustdoc/clean/trait.Clean.html' title='rustdoc::clean::Clean'>Clean</a>&lt;<a class='struct' href='../../rustdoc/clean/struct.Item.html' title='rustdoc::clean::Item'>Item</a>&gt; for <a class='struct' href='../../rustdoc/doctree/struct.Module.html' title='rustdoc::doctree::Module'>Module</a></code></h3><div class='impl-items'><h4 id='method.clean' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.clean' class='fnname'>clean</a>(&amp;self, cx: &amp;<a class='struct' href='../../rustdoc/core/struct.DocContext.html' title='rustdoc::core::DocContext'>DocContext</a>) -&gt; <a class='struct' href='../../rustdoc/clean/struct.Item.html' title='rustdoc::clean::Item'>Item</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rustdoc";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

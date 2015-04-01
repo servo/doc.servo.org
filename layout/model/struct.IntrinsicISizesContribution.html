@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `IntrinsicISizesContribution` struct in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, IntrinsicISizesContribution">
+
+    <title>layout::model::IntrinsicISizesContribution - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a>::<wbr><a href='index.html'>model</a></p><script>window.sidebarCurrent = {name: 'IntrinsicISizesContribution', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>layout</a>::<wbr><a href='index.html'>model</a>::<wbr><a class='struct' href=''>IntrinsicISizesContribution</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-58605' href='../../src/layout/model.rs.html#274-279'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct IntrinsicISizesContribution {
+    pub content_intrinsic_sizes: <a class='struct' href='../../layout/model/struct.IntrinsicISizes.html' title='layout::model::IntrinsicISizes'>IntrinsicISizes</a>,
+    pub surrounding_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>,
+}</pre><div class='docblock'><p>The temporary result of the computation of intrinsic inline-sizes.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.content_intrinsic_sizes'><a class='stability Unmarked' title='No stability level'></a><code>content_intrinsic_sizes</code></td><td><div class='docblock'><p>Intrinsic sizes for the content only (not counting borders, padding, or margins).</p>
+</div></td></tr><tr><td id='structfield.surrounding_size'><a class='stability Unmarked' title='No stability level'></a><code>surrounding_size</code></td><td><div class='docblock'><p>The inline size of borders and padding, as well as margins if appropriate.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../layout/model/struct.IntrinsicISizesContribution.html' title='layout::model::IntrinsicISizesContribution'>IntrinsicISizesContribution</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../layout/model/struct.IntrinsicISizesContribution.html' title='layout::model::IntrinsicISizesContribution'>IntrinsicISizesContribution</a></code></h4>
+<div class='docblock'><p>Creates and initializes an inline size computation with all sizes set to zero.</p>
+</div><h4 id='method.finish' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.finish' class='fnname'>finish</a>(self) -&gt; <a class='struct' href='../../layout/model/struct.IntrinsicISizes.html' title='layout::model::IntrinsicISizes'>IntrinsicISizes</a></code></h4>
+<div class='docblock'><p>Adds the content intrinsic sizes and the surrounding size together to yield the final
+intrinsic size computation.</p>
+</div><h4 id='method.union_inline' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.union_inline' class='fnname'>union_inline</a>(&amp;mut self, sizes: &amp;<a class='struct' href='../../layout/model/struct.IntrinsicISizes.html' title='layout::model::IntrinsicISizes'>IntrinsicISizes</a>)</code></h4>
+<div class='docblock'><p>Updates the computation so that the minimum is the maximum of the current minimum and the
+given minimum and the preferred is the sum of the current preferred and the given
+preferred. This is used when laying out fragments in the inline direction.</p>
+
+<p>FIXME(pcwalton): This is incorrect when the inline fragment contains forced line breaks
+(e.g. <code>&lt;br&gt;</code> or <code>white-space: pre</code>).</p>
+</div><h4 id='method.union_block' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.union_block' class='fnname'>union_block</a>(&amp;mut self, sizes: &amp;<a class='struct' href='../../layout/model/struct.IntrinsicISizes.html' title='layout::model::IntrinsicISizes'>IntrinsicISizes</a>)</code></h4>
+<div class='docblock'><p>Updates the computation so that the minimum is the maximum of the current minimum and the
+given minimum and the preferred is the maximum of the current preferred and the given
+preferred. This can be useful when laying out fragments in the block direction (but note
+that it does not take floats into account, so <code>BlockFlow</code> does not use it).</p>
+
+<p>This is used when contributing the intrinsic sizes for individual fragments.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TypeId","A `TypeId` represents a globally unique identifier for a type."]],"trait":[["Any","The `Any` trait is implemented by all `'static` types, and can be used for dynamic typing"]]});

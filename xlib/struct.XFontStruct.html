@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `XFontStruct` struct in crate `xlib`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, XFontStruct">
+
+    <title>xlib::XFontStruct - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>xlib</a></p><script>window.sidebarCurrent = {name: 'XFontStruct', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>xlib</a>::<wbr><a class='struct' href=''>XFontStruct</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-1341' href='../src/xlib/xlib.rs.html#814-831'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct XFontStruct {
+    pub ext_data: *mut <a class='type' href='../xlib/type.XExtData.html' title='xlib::XExtData'>XExtData</a>,
+    pub fid: <a class='type' href='../xlib/type.Font.html' title='xlib::Font'>Font</a>,
+    pub direction: <a class='type' href='../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+    pub min_char_or_byte2: <a class='type' href='../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+    pub max_char_or_byte2: <a class='type' href='../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+    pub min_byte1: <a class='type' href='../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+    pub max_byte1: <a class='type' href='../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+    pub all_chars_exist: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub default_char: <a class='type' href='../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+    pub n_properties: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub properties: *mut <a class='struct' href='../xlib/struct.XFontProp.html' title='xlib::XFontProp'>XFontProp</a>,
+    pub min_bounds: <a class='struct' href='../xlib/struct.XCharStruct.html' title='xlib::XCharStruct'>XCharStruct</a>,
+    pub max_bounds: <a class='struct' href='../xlib/struct.XCharStruct.html' title='xlib::XCharStruct'>XCharStruct</a>,
+    pub per_char: *mut <a class='struct' href='../xlib/struct.XCharStruct.html' title='xlib::XCharStruct'>XCharStruct</a>,
+    pub ascent: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub descent: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.ext_data'><a class='stability Unmarked' title='No stability level'></a><code>ext_data</code></td><td></td></tr><tr><td id='structfield.fid'><a class='stability Unmarked' title='No stability level'></a><code>fid</code></td><td></td></tr><tr><td id='structfield.direction'><a class='stability Unmarked' title='No stability level'></a><code>direction</code></td><td></td></tr><tr><td id='structfield.min_char_or_byte2'><a class='stability Unmarked' title='No stability level'></a><code>min_char_or_byte2</code></td><td></td></tr><tr><td id='structfield.max_char_or_byte2'><a class='stability Unmarked' title='No stability level'></a><code>max_char_or_byte2</code></td><td></td></tr><tr><td id='structfield.min_byte1'><a class='stability Unmarked' title='No stability level'></a><code>min_byte1</code></td><td></td></tr><tr><td id='structfield.max_byte1'><a class='stability Unmarked' title='No stability level'></a><code>max_byte1</code></td><td></td></tr><tr><td id='structfield.all_chars_exist'><a class='stability Unmarked' title='No stability level'></a><code>all_chars_exist</code></td><td></td></tr><tr><td id='structfield.default_char'><a class='stability Unmarked' title='No stability level'></a><code>default_char</code></td><td></td></tr><tr><td id='structfield.n_properties'><a class='stability Unmarked' title='No stability level'></a><code>n_properties</code></td><td></td></tr><tr><td id='structfield.properties'><a class='stability Unmarked' title='No stability level'></a><code>properties</code></td><td></td></tr><tr><td id='structfield.min_bounds'><a class='stability Unmarked' title='No stability level'></a><code>min_bounds</code></td><td></td></tr><tr><td id='structfield.max_bounds'><a class='stability Unmarked' title='No stability level'></a><code>max_bounds</code></td><td></td></tr><tr><td id='structfield.per_char'><a class='stability Unmarked' title='No stability level'></a><code>per_char</code></td><td></td></tr><tr><td id='structfield.ascent'><a class='stability Unmarked' title='No stability level'></a><code>ascent</code></td><td></td></tr><tr><td id='structfield.descent'><a class='stability Unmarked' title='No stability level'></a><code>descent</code></td><td></td></tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "xlib";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

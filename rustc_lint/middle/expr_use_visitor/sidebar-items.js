@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Delegate","This trait defines the callbacks you can expect to receive when employing the ExprUseVisitor."]],"enum":[["ConsumeMode",""],["LoanCause",""],["MatchMode",""],["MoveReason",""],["MutateMode",""]],"struct":[["ExprUseVisitor",""]]});

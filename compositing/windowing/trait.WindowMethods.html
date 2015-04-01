@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `WindowMethods` trait in crate `compositing`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, WindowMethods">
+
+    <title>compositing::windowing::WindowMethods - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>compositing</a>::<wbr><a href='index.html'>windowing</a></p><script>window.sidebarCurrent = {name: 'WindowMethods', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>compositing</a>::<wbr><a href='index.html'>windowing</a>::<wbr><a class='trait' href=''>WindowMethods</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-15318' href='../../src/compositing/windowing.rs.html#94-137'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait WindowMethods {
+    fn <a href='#tymethod.framebuffer_size' class='fnname'>framebuffer_size</a>(&amp;self) -&gt; <a class='type' href='../../geom/size/type.TypedSize2D.html' title='geom::size::TypedSize2D'>TypedSize2D</a>&lt;<a class='enum' href='../../layers/geometry/enum.DevicePixel.html' title='layers::geometry::DevicePixel'>DevicePixel</a>, <a href='../../std/primitive.u32.html'>u32</a>&gt;;
+    fn <a href='#tymethod.size' class='fnname'>size</a>(&amp;self) -&gt; <a class='type' href='../../geom/size/type.TypedSize2D.html' title='geom::size::TypedSize2D'>TypedSize2D</a>&lt;<a class='enum' href='../../util/geometry/enum.ScreenPx.html' title='util::geometry::ScreenPx'>ScreenPx</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;;
+    fn <a href='#tymethod.present' class='fnname'>present</a>(&amp;self);
+    fn <a href='#tymethod.set_ready_state' class='fnname'>set_ready_state</a>(&amp;self, ready_state: <a class='enum' href='../../msg/compositor_msg/enum.ReadyState.html' title='msg::compositor_msg::ReadyState'>ReadyState</a>);
+    fn <a href='#tymethod.set_paint_state' class='fnname'>set_paint_state</a>(&amp;self, paint_state: <a class='enum' href='../../msg/compositor_msg/enum.PaintState.html' title='msg::compositor_msg::PaintState'>PaintState</a>);
+    fn <a href='#tymethod.set_page_title' class='fnname'>set_page_title</a>(&amp;self, title: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;);
+    fn <a href='#tymethod.set_page_url' class='fnname'>set_page_url</a>(&amp;self, url: <a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>);
+    fn <a href='#tymethod.load_end' class='fnname'>load_end</a>(&amp;self);
+    fn <a href='#tymethod.hidpi_factor' class='fnname'>hidpi_factor</a>(&amp;self) -&gt; <a class='struct' href='../../geom/scale_factor/struct.ScaleFactor.html' title='geom::scale_factor::ScaleFactor'>ScaleFactor</a>&lt;<a class='enum' href='../../util/geometry/enum.ScreenPx.html' title='util::geometry::ScreenPx'>ScreenPx</a>, <a class='enum' href='../../layers/geometry/enum.DevicePixel.html' title='layers::geometry::DevicePixel'>DevicePixel</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;;
+    fn <a href='#tymethod.native_metadata' class='fnname'>native_metadata</a>(&amp;self) -&gt; <a class='struct' href='../../layers/platform/linux/surface/struct.NativeGraphicsMetadata.html' title='layers::platform::linux::surface::NativeGraphicsMetadata'>NativeGraphicsMetadata</a>;
+    fn <a href='#tymethod.create_compositor_channel' class='fnname'>create_compositor_channel</a>(_: &amp;<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;Self&gt;&gt;) -&gt; <a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../compositing/compositor_task/trait.CompositorProxy.html' title='compositing::compositor_task::CompositorProxy'>CompositorProxy</a> + <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a>&gt;, <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../compositing/compositor_task/trait.CompositorReceiver.html' title='compositing::compositor_task::CompositorReceiver'>CompositorReceiver</a>&gt;)</a>;
+    fn <a href='#tymethod.prepare_for_composite' class='fnname'>prepare_for_composite</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.set_cursor' class='fnname'>set_cursor</a>(&amp;self, cursor: <a class='enum' href='../../util/cursor/enum.Cursor.html' title='util::cursor::Cursor'>Cursor</a>);
+    fn <a href='#tymethod.handle_key' class='fnname'>handle_key</a>(&amp;self, key: <a class='enum' href='../../msg/constellation_msg/enum.Key.html' title='msg::constellation_msg::Key'>Key</a>, mods: <a class='struct' href='../../msg/constellation_msg/struct.KeyModifiers.html' title='msg::constellation_msg::KeyModifiers'>KeyModifiers</a>);
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.framebuffer_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.framebuffer_size' class='fnname'>framebuffer_size</a>(&amp;self) -&gt; <a class='type' href='../../geom/size/type.TypedSize2D.html' title='geom::size::TypedSize2D'>TypedSize2D</a>&lt;<a class='enum' href='../../layers/geometry/enum.DevicePixel.html' title='layers::geometry::DevicePixel'>DevicePixel</a>, <a href='../../std/primitive.u32.html'>u32</a>&gt;</code></h3><div class='docblock'><p>Returns the size of the window in hardware pixels.</p>
+</div><h3 id='tymethod.size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.size' class='fnname'>size</a>(&amp;self) -&gt; <a class='type' href='../../geom/size/type.TypedSize2D.html' title='geom::size::TypedSize2D'>TypedSize2D</a>&lt;<a class='enum' href='../../util/geometry/enum.ScreenPx.html' title='util::geometry::ScreenPx'>ScreenPx</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;</code></h3><div class='docblock'><p>Returns the size of the window in density-independent &quot;px&quot; units.</p>
+</div><h3 id='tymethod.present' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.present' class='fnname'>present</a>(&amp;self)</code></h3><div class='docblock'><p>Presents the window to the screen (perhaps by page flipping).</p>
+</div><h3 id='tymethod.set_ready_state' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_ready_state' class='fnname'>set_ready_state</a>(&amp;self, ready_state: <a class='enum' href='../../msg/compositor_msg/enum.ReadyState.html' title='msg::compositor_msg::ReadyState'>ReadyState</a>)</code></h3><div class='docblock'><p>Sets the ready state of the current page.</p>
+</div><h3 id='tymethod.set_paint_state' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_paint_state' class='fnname'>set_paint_state</a>(&amp;self, paint_state: <a class='enum' href='../../msg/compositor_msg/enum.PaintState.html' title='msg::compositor_msg::PaintState'>PaintState</a>)</code></h3><div class='docblock'><p>Sets the paint state of the current page.</p>
+</div><h3 id='tymethod.set_page_title' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_page_title' class='fnname'>set_page_title</a>(&amp;self, title: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;)</code></h3><div class='docblock'><p>Sets the page title for the current page.</p>
+</div><h3 id='tymethod.set_page_url' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_page_url' class='fnname'>set_page_url</a>(&amp;self, url: <a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>)</code></h3><div class='docblock'><p>Sets the load data for the current page.</p>
+</div><h3 id='tymethod.load_end' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.load_end' class='fnname'>load_end</a>(&amp;self)</code></h3><div class='docblock'><p>Called when the browser is done loading a frame.</p>
+</div><h3 id='tymethod.hidpi_factor' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.hidpi_factor' class='fnname'>hidpi_factor</a>(&amp;self) -&gt; <a class='struct' href='../../geom/scale_factor/struct.ScaleFactor.html' title='geom::scale_factor::ScaleFactor'>ScaleFactor</a>&lt;<a class='enum' href='../../util/geometry/enum.ScreenPx.html' title='util::geometry::ScreenPx'>ScreenPx</a>, <a class='enum' href='../../layers/geometry/enum.DevicePixel.html' title='layers::geometry::DevicePixel'>DevicePixel</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;</code></h3><div class='docblock'><p>Returns the hidpi factor of the monitor.</p>
+</div><h3 id='tymethod.native_metadata' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.native_metadata' class='fnname'>native_metadata</a>(&amp;self) -&gt; <a class='struct' href='../../layers/platform/linux/surface/struct.NativeGraphicsMetadata.html' title='layers::platform::linux::surface::NativeGraphicsMetadata'>NativeGraphicsMetadata</a></code></h3><div class='docblock'><p>Gets the OS native graphics information for this window.</p>
+</div><h3 id='tymethod.create_compositor_channel' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.create_compositor_channel' class='fnname'>create_compositor_channel</a>(_: &amp;<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;Self&gt;&gt;) -&gt; <a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../compositing/compositor_task/trait.CompositorProxy.html' title='compositing::compositor_task::CompositorProxy'>CompositorProxy</a> + <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a>&gt;, <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../compositing/compositor_task/trait.CompositorReceiver.html' title='compositing::compositor_task::CompositorReceiver'>CompositorReceiver</a>&gt;)</a></code></h3><div class='docblock'><p>Creates a channel to the compositor. The dummy parameter is needed because we don&#39;t have
+UFCS in Rust yet.</p>
+
+<p>This is part of the windowing system because its implementation often involves OS-specific
+magic to wake the up window&#39;s event loop.</p>
+</div><h3 id='tymethod.prepare_for_composite' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.prepare_for_composite' class='fnname'>prepare_for_composite</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Requests that the window system prepare a composite. Typically this will involve making
+some type of platform-specific graphics context current. Returns true if the composite may
+proceed and false if it should not.</p>
+</div><h3 id='tymethod.set_cursor' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_cursor' class='fnname'>set_cursor</a>(&amp;self, cursor: <a class='enum' href='../../util/cursor/enum.Cursor.html' title='util::cursor::Cursor'>Cursor</a>)</code></h3><div class='docblock'><p>Sets the cursor to be used in the window.</p>
+</div><h3 id='tymethod.handle_key' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.handle_key' class='fnname'>handle_key</a>(&amp;self, key: <a class='enum' href='../../msg/constellation_msg/enum.Key.html' title='msg::constellation_msg::Key'>Key</a>, mods: <a class='struct' href='../../msg/constellation_msg/struct.KeyModifiers.html' title='msg::constellation_msg::KeyModifiers'>KeyModifiers</a>)</code></h3><div class='docblock'><p>Process a key event.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../../implementors/compositing/windowing/trait.WindowMethods.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "compositing";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

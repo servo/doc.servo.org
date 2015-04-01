@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_nth","Parse the *An+B* notation, as found in the `:nth-child()` selector. The input is typically the arguments of a function, in which case the caller needs to check if the arguments’ parser is exhausted. Return `Ok((A, B))`, or `Err(())` for a syntax error."]]});

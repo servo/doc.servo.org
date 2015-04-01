@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `boxed` mod in crate `collections`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, boxed">
+
+    <title>collections::boxed - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../collections/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>collections</a></p><script>window.sidebarCurrent = {name: 'boxed', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>collections</a>::<wbr><a class='mod' href=''>boxed</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-466' href='../../alloc/boxed/index.html?gotosrc=466'>[src]</a></span></h1>
+<div class='docblock'><p>A pointer type for heap allocation.</p>
+
+<p><code>Box&lt;T&gt;</code>, casually referred to as a &#39;box&#39;, provides the simplest form of
+heap allocation in Rust. Boxes provide ownership for this allocation, and
+drop their contents when they go out of scope.</p>
+
+<p>Boxes are useful in two situations: recursive data structures, and
+occasionally when returning data. <a href="../../../book/pointers.html#best-practices-1">The Pointer chapter of the
+Book</a> explains these cases in
+detail.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1>
+<p>Creating a box:</p>
+<span class='rusttest'>fn main() {
+    let x = Box::new(5);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='number'>5</span>);
+</pre>
+
+<p>Creating a recursive data structure:</p>
+<span class='rusttest'>#[derive(Debug)]
+enum List&lt;T&gt; {
+    Cons(T, Box&lt;List&lt;T&gt;&gt;),
+    Nil,
+}
+
+fn main() {
+    let list: List&lt;i32&gt; = List::Cons(1, Box::new(List::Cons(2, Box::new(List::Nil))));
+    println!(&quot;{:?}&quot;, list);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>enum</span> <span class='ident'>List</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='ident'>Cons</span>(<span class='ident'>T</span>, <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>List</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;&gt;</span>),
+    <span class='ident'>Nil</span>,
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>list</span>: <span class='ident'>List</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>List</span>::<span class='ident'>Cons</span>(<span class='number'>1</span>, <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>List</span>::<span class='ident'>Cons</span>(<span class='number'>2</span>, <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>List</span>::<span class='ident'>Nil</span>))));
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>list</span>);
+}
+</pre>
+
+<p>This will print <code>Cons(1, Box(Cons(2, Box(Nil))))</code>.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Box.html'
+                               title='collections::boxed::Box'>Box</a></td>
+                        <td class='docblock short'><p>A pointer type for heap allocation.</p>
+</td>
+                    </tr>
+                </table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: may be renamed; uncertain about custom allocator design'></a><a class='static' href='static.HEAP.html'
+                               title='collections::boxed::HEAP'>HEAP</a></td>
+                        <td class='docblock short'><p>A value that represents the heap. This is the default place that the <code>box</code>
+keyword allocates into when no place is supplied.</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: this trait will likely disappear once compiler bugs blocking a direct impl on `Box&lt;Any&gt;` have been fixed '></a><a class='trait' href='trait.BoxAny.html'
+                               title='collections::boxed::BoxAny'>BoxAny</a></td>
+                        <td class='docblock short'><p>Extension methods for an owning <code>Any</code> trait object.</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: may be renamed'></a><a class='fn' href='fn.into_raw.html'
+                               title='collections::boxed::into_raw'>into_raw</a></td>
+                        <td class='docblock short'><p>Consumes the <code>Box</code>, returning the wrapped raw pointer.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "collections";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

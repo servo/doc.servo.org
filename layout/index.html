@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `layout` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, layout">
+
+    <title>layout - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'layout', ty: 'mod', relpath: '../'};</script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>layout</a><wbr></span><span class='out-of-band'><a href='stability.html'>[stability]</a> <span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-0' href='../src/layout/lib.rs.html#5-100'>[src]</a></span></h1>
+<h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='animation/index.html'
+                               title='layout::animation'>animation</a></td>
+                        <td class='docblock short'><p>CSS transitions and animations.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='block/index.html'
+                               title='layout::block'>block</a></td>
+                        <td class='docblock short'><p>Layout for CSS block-level elements.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='construct/index.html'
+                               title='layout::construct'>construct</a></td>
+                        <td class='docblock short'><p>Creates flows and fragments from a DOM tree via a bottom-up, incremental traversal of the DOM.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='context/index.html'
+                               title='layout::context'>context</a></td>
+                        <td class='docblock short'><p>Data needed by the layout task.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='css/index.html'
+                               title='layout::css'>css</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='data/index.html'
+                               title='layout::data'>data</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='display_list_builder/index.html'
+                               title='layout::display_list_builder'>display_list_builder</a></td>
+                        <td class='docblock short'><p>Builds display lists from flows and fragments.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='floats/index.html'
+                               title='layout::floats'>floats</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='flow/index.html'
+                               title='layout::flow'>flow</a></td>
+                        <td class='docblock short'><p>Servo&#39;s experimental layout system builds a tree of <code>Flow</code> and <code>Fragment</code> objects and solves
+layout constraints to obtain positions and display attributes of tree nodes. Positions are
+computed in several tree traversals driven by the fundamental data dependencies required by</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='flow_list/index.html'
+                               title='layout::flow_list'>flow_list</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='flow_ref/index.html'
+                               title='layout::flow_ref'>flow_ref</a></td>
+                        <td class='docblock short'><p>Reference-counted pointers to flows.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='fragment/index.html'
+                               title='layout::fragment'>fragment</a></td>
+                        <td class='docblock short'><p>The <code>Fragment</code> type, which represents the leaves of the layout tree.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='generated_content/index.html'
+                               title='layout::generated_content'>generated_content</a></td>
+                        <td class='docblock short'><p>The generated content assignment phase.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='incremental/index.html'
+                               title='layout::incremental'>incremental</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='inline/index.html'
+                               title='layout::inline'>inline</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='layout_debug/index.html'
+                               title='layout::layout_debug'>layout_debug</a></td>
+                        <td class='docblock short'><p>Supports writing a trace file created during each layout scope
+that can be viewed by an external tool to make layout debugging easier.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='layout_task/index.html'
+                               title='layout::layout_task'>layout_task</a></td>
+                        <td class='docblock short'><p>The layout task. Performs layout on the DOM, builds display lists and sends them to be
+painted.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='list_item/index.html'
+                               title='layout::list_item'>list_item</a></td>
+                        <td class='docblock short'><p>Layout for elements with a CSS <code>display</code> property of <code>list-item</code>. These elements consist of a
+block and an extra inline fragment for the marker.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='model/index.html'
+                               title='layout::model'>model</a></td>
+                        <td class='docblock short'><p>Borders, padding, and margins.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='opaque_node/index.html'
+                               title='layout::opaque_node'>opaque_node</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='parallel/index.html'
+                               title='layout::parallel'>parallel</a></td>
+                        <td class='docblock short'><p>Implements parallel traversals over the DOM and flow trees.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='sequential/index.html'
+                               title='layout::sequential'>sequential</a></td>
+                        <td class='docblock short'><p>Implements sequential traversals over the DOM and flow trees.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='table/index.html'
+                               title='layout::table'>table</a></td>
+                        <td class='docblock short'><p>CSS table formatting contexts.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='table_caption/index.html'
+                               title='layout::table_caption'>table_caption</a></td>
+                        <td class='docblock short'><p>CSS table formatting contexts.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='table_cell/index.html'
+                               title='layout::table_cell'>table_cell</a></td>
+                        <td class='docblock short'><p>CSS table formatting contexts.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='table_colgroup/index.html'
+                               title='layout::table_colgroup'>table_colgroup</a></td>
+                        <td class='docblock short'><p>CSS table formatting contexts.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='table_row/index.html'
+                               title='layout::table_row'>table_row</a></td>
+                        <td class='docblock short'><p>CSS table formatting contexts.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='table_rowgroup/index.html'
+                               title='layout::table_rowgroup'>table_rowgroup</a></td>
+                        <td class='docblock short'><p>CSS table formatting contexts.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='table_wrapper/index.html'
+                               title='layout::table_wrapper'>table_wrapper</a></td>
+                        <td class='docblock short'><p>CSS tables.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='text/index.html'
+                               title='layout::text'>text</a></td>
+                        <td class='docblock short'><p>Text layout.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='traversal/index.html'
+                               title='layout::traversal'>traversal</a></td>
+                        <td class='docblock short'><p>Traversals over the DOM and flow trees, running the layout computations.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='wrapper/index.html'
+                               title='layout::wrapper'>wrapper</a></td>
+                        <td class='docblock short'><p>A safe wrapper for DOM nodes that prevents layout from mutating the DOM, from letting DOM nodes
+escape, and from generally doing anything that it isn&#39;t supposed to. This is accomplished via
+a simple whitelist of allowed operations, along with some lifetime magic to prevent nodes from
+escaping.</p>
+</td>
+                    </tr>
+                </table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='macro' href='macro.layout_debug_scope!.html'
+                               title='layout::layout_debug_scope!'>layout_debug_scope!</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

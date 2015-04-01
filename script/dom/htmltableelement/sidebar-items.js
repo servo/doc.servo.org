@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["HTMLTableElement",""]],"trait":[["HTMLTableElementHelpers",""]]});

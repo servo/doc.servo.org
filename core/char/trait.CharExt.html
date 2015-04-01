@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `CharExt` trait in crate `core`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CharExt">
+
+    <title>core::char::CharExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../core/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>core</a>::<wbr><a href='index.html'>char</a></p><script>window.sidebarCurrent = {name: 'CharExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>core</a>::<wbr><a href='index.html'>char</a>::<wbr><a class='trait' href=''>CharExt</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-71254' href='../../src/core/char.rs.html#141-351'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait CharExt {
+    fn <a href='#tymethod.is_digit' class='fnname'>is_digit</a>(self, radix: <a href='../primitive.u32.html'>u32</a>) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.to_digit' class='fnname'>to_digit</a>(self, radix: <a href='../primitive.u32.html'>u32</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.u32.html'>u32</a>&gt;;
+    fn <a href='#tymethod.escape_unicode' class='fnname'>escape_unicode</a>(self) -&gt; <a class='struct' href='../../core/char/struct.EscapeUnicode.html' title='core::char::EscapeUnicode'>EscapeUnicode</a>;
+    fn <a href='#tymethod.escape_default' class='fnname'>escape_default</a>(self) -&gt; <a class='struct' href='../../core/char/struct.EscapeDefault.html' title='core::char::EscapeDefault'>EscapeDefault</a>;
+    fn <a href='#tymethod.len_utf8' class='fnname'>len_utf8</a>(self) -&gt; <a href='../primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.len_utf16' class='fnname'>len_utf16</a>(self) -&gt; <a href='../primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.encode_utf8' class='fnname'>encode_utf8</a>(self, dst: <a href='../primitive.slice.html'>&amp;mut [</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;;
+    fn <a href='#tymethod.encode_utf16' class='fnname'>encode_utf16</a>(self, dst: <a href='../primitive.slice.html'>&amp;mut [</a><a href='../primitive.u16.html'>u16</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;;
+}</pre><div class='docblock'><p>Basic <code>char</code> manipulations.</p>
+</div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.is_digit' class='method'><a class='stability Unstable' title='Unstable: pending integer conventions'></a><code>fn <a href='#tymethod.is_digit' class='fnname'>is_digit</a>(self, radix: <a href='../primitive.u32.html'>u32</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Checks if a <code>char</code> parses as a numeric digit in the given radix.</p>
+
+<p>Compared to <code>is_numeric()</code>, this function only recognizes the characters
+<code>0-9</code>, <code>a-z</code> and <code>A-Z</code>.</p>
+
+<h1 id="return-value" class='section-header'><a
+                           href="#return-value">Return value</a></h1>
+<p>Returns <code>true</code> if <code>c</code> is a valid digit under <code>radix</code>, and <code>false</code>
+otherwise.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if given a radix &gt; 36.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let c = &#39;1&#39;;
+    
+    assert!(c.is_digit(10));
+    
+    assert!(&#39;f&#39;.is_digit(16));
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='string'>&#39;1&#39;</span>;
+
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>c</span>.<span class='ident'>is_digit</span>(<span class='number'>10</span>));
+
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='string'>&#39;f&#39;</span>.<span class='ident'>is_digit</span>(<span class='number'>16</span>));
+</pre>
+</div><h3 id='tymethod.to_digit' class='method'><a class='stability Unstable' title='Unstable: pending integer conventions'></a><code>fn <a href='#tymethod.to_digit' class='fnname'>to_digit</a>(self, radix: <a href='../primitive.u32.html'>u32</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.u32.html'>u32</a>&gt;</code></h3><div class='docblock'><p>Converts a character to the corresponding digit.</p>
+
+<h1 id="return-value" class='section-header'><a
+                           href="#return-value">Return value</a></h1>
+<p>If <code>c</code> is between &#39;0&#39; and &#39;9&#39;, the corresponding value between 0 and
+9. If <code>c</code> is &#39;a&#39; or &#39;A&#39;, 10. If <code>c</code> is &#39;b&#39; or &#39;B&#39;, 11, etc. Returns
+none if the character does not refer to a digit in the given radix.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if given a radix outside the range [0..36].</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let c = &#39;1&#39;;
+    
+    assert_eq!(c.to_digit(10), Some(1));
+    
+    assert_eq!(&#39;f&#39;.to_digit(16), Some(15));
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='string'>&#39;1&#39;</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>c</span>.<span class='ident'>to_digit</span>(<span class='number'>10</span>), <span class='prelude-val'>Some</span>(<span class='number'>1</span>));
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&#39;f&#39;</span>.<span class='ident'>to_digit</span>(<span class='number'>16</span>), <span class='prelude-val'>Some</span>(<span class='number'>15</span>));
+</pre>
+</div><h3 id='tymethod.escape_unicode' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.escape_unicode' class='fnname'>escape_unicode</a>(self) -&gt; <a class='struct' href='../../core/char/struct.EscapeUnicode.html' title='core::char::EscapeUnicode'>EscapeUnicode</a></code></h3><div class='docblock'><p>Returns an iterator that yields the hexadecimal Unicode escape of a character, as <code>char</code>s.</p>
+
+<p>All characters are escaped with Rust syntax of the form <code>\\u{NNNN}</code> where <code>NNNN</code> is the
+shortest hexadecimal representation of the code point.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    for i in &#39;❤&#39;.escape_unicode() {
+        println!(&quot;{}&quot;, i);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='string'>&#39;❤&#39;</span>.<span class='ident'>escape_unicode</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>i</span>);
+}
+</pre>
+
+<p>This prints:</p>
+
+<pre><code class="language-text">\
+u
+{
+2
+7
+6
+4
+}
+</code></pre>
+
+<p>Collecting into a <code>String</code>:</p>
+<span class='rusttest'>fn main() {
+    let heart: String = &#39;❤&#39;.escape_unicode().collect();
+    
+    assert_eq!(heart, r&quot;\u{2764}&quot;);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>heart</span>: <span class='ident'>String</span> <span class='op'>=</span> <span class='string'>&#39;❤&#39;</span>.<span class='ident'>escape_unicode</span>().<span class='ident'>collect</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>heart</span>, <span class='string'>r&quot;\u{2764}&quot;</span>);
+</pre>
+</div><h3 id='tymethod.escape_default' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.escape_default' class='fnname'>escape_default</a>(self) -&gt; <a class='struct' href='../../core/char/struct.EscapeDefault.html' title='core::char::EscapeDefault'>EscapeDefault</a></code></h3><div class='docblock'><p>Returns an iterator that yields the &#39;default&#39; ASCII and
+C++11-like literal escape of a character, as <code>char</code>s.</p>
+
+<p>The default is chosen with a bias toward producing literals that are
+legal in a variety of languages, including C++11 and similar C-family
+languages. The exact rules are:</p>
+
+<ul>
+<li>Tab, CR and LF are escaped as &#39;\t&#39;, &#39;\r&#39; and &#39;\n&#39; respectively.</li>
+<li>Single-quote, double-quote and backslash chars are backslash-
+escaped.</li>
+<li>Any other chars in the range [0x20,0x7e] are not escaped.</li>
+<li>Any other chars are given hex Unicode escapes; see <code>escape_unicode</code>.</li>
+</ul>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    for i in &#39;&quot;&#39;.escape_default() {
+        println!(&quot;{}&quot;, i);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='string'>&#39;&quot;&#39;</span>.<span class='ident'>escape_default</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>i</span>);
+}
+</pre>
+
+<p>This prints:</p>
+
+<pre><code class="language-text">\
+&quot;
+</code></pre>
+
+<p>Collecting into a <code>String</code>:</p>
+<span class='rusttest'>fn main() {
+    let quote: String = &#39;&quot;&#39;.escape_default().collect();
+    
+    assert_eq!(quote, &quot;\\\&quot;&quot;);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>quote</span>: <span class='ident'>String</span> <span class='op'>=</span> <span class='string'>&#39;&quot;&#39;</span>.<span class='ident'>escape_default</span>().<span class='ident'>collect</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>quote</span>, <span class='string'>&quot;\\\&quot;&quot;</span>);
+</pre>
+</div><h3 id='tymethod.len_utf8' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.len_utf8' class='fnname'>len_utf8</a>(self) -&gt; <a href='../primitive.usize.html'>usize</a></code></h3><div class='docblock'><p>Returns the number of bytes this character would need if encoded in UTF-8.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let n = &#39;ß&#39;.len_utf8();
+    
+    assert_eq!(n, 2);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='string'>&#39;ß&#39;</span>.<span class='ident'>len_utf8</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>, <span class='number'>2</span>);
+</pre>
+</div><h3 id='tymethod.len_utf16' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.len_utf16' class='fnname'>len_utf16</a>(self) -&gt; <a href='../primitive.usize.html'>usize</a></code></h3><div class='docblock'><p>Returns the number of bytes this character would need if encoded in UTF-16.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let n = &#39;ß&#39;.len_utf16();
+    
+    assert_eq!(n, 1);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='string'>&#39;ß&#39;</span>.<span class='ident'>len_utf16</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>, <span class='number'>1</span>);
+</pre>
+</div><h3 id='tymethod.encode_utf8' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.encode_utf8' class='fnname'>encode_utf8</a>(self, dst: <a href='../primitive.slice.html'>&amp;mut [</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h3><div class='docblock'><p>Encodes this character as UTF-8 into the provided byte buffer, and then returns the number
+of bytes written.</p>
+
+<p>If the buffer is not large enough, nothing will be written into it and a <code>None</code> will be
+returned.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1>
+<p>In both of these examples, &#39;ß&#39; takes two bytes to encode.</p>
+<span class='rusttest'>fn main() {
+    let mut b = [0; 2];
+    
+    let result = &#39;ß&#39;.encode_utf8(&amp;mut b);
+    
+    assert_eq!(result, Some(2));
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span> <span class='op'>=</span> [<span class='number'>0</span>; <span class='number'>2</span>];
+
+<span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='string'>&#39;ß&#39;</span>.<span class='ident'>encode_utf8</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>result</span>, <span class='prelude-val'>Some</span>(<span class='number'>2</span>));
+</pre>
+
+<p>A buffer that&#39;s too small:</p>
+<span class='rusttest'>fn main() {
+    let mut b = [0; 1];
+    
+    let result = &#39;ß&#39;.encode_utf8(&amp;mut b);
+    
+    assert_eq!(result, None);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span> <span class='op'>=</span> [<span class='number'>0</span>; <span class='number'>1</span>];
+
+<span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='string'>&#39;ß&#39;</span>.<span class='ident'>encode_utf8</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>result</span>, <span class='prelude-val'>None</span>);
+</pre>
+</div><h3 id='tymethod.encode_utf16' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.encode_utf16' class='fnname'>encode_utf16</a>(self, dst: <a href='../primitive.slice.html'>&amp;mut [</a><a href='../primitive.u16.html'>u16</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h3><div class='docblock'><p>Encodes this character as UTF-16 into the provided <code>u16</code> buffer, and then returns the
+number of <code>u16</code>s written.</p>
+
+<p>If the buffer is not large enough, nothing will be written into it and a <code>None</code> will be
+returned.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1>
+<p>In both of these examples, &#39;ß&#39; takes one byte to encode.</p>
+<span class='rusttest'>fn main() {
+    let mut b = [0; 1];
+    
+    let result = &#39;ß&#39;.encode_utf16(&amp;mut b);
+    
+    assert_eq!(result, Some(1));
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span> <span class='op'>=</span> [<span class='number'>0</span>; <span class='number'>1</span>];
+
+<span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='string'>&#39;ß&#39;</span>.<span class='ident'>encode_utf16</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>result</span>, <span class='prelude-val'>Some</span>(<span class='number'>1</span>));
+</pre>
+
+<p>A buffer that&#39;s too small:</p>
+<span class='rusttest'>fn main() {
+    let mut b = [0; 0];
+    
+    let result = &#39;ß&#39;.encode_utf8(&amp;mut b);
+    
+    assert_eq!(result, None);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>b</span> <span class='op'>=</span> [<span class='number'>0</span>; <span class='number'>0</span>];
+
+<span class='kw'>let</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='string'>&#39;ß&#39;</span>.<span class='ident'>encode_utf8</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>b</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>result</span>, <span class='prelude-val'>None</span>);
+</pre>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/char/trait.CharExt.html' title='core::char::CharExt'>CharExt</a> for <a href='../primitive.char.html'>char</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/core/char/trait.CharExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "core";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

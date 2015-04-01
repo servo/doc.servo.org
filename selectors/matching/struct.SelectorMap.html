@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SelectorMap` struct in crate `selectors`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SelectorMap">
+
+    <title>selectors::matching::SelectorMap - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>selectors</a>::<wbr><a href='index.html'>matching</a></p><script>window.sidebarCurrent = {name: 'SelectorMap', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>selectors</a>::<wbr><a href='index.html'>matching</a>::<wbr><a class='struct' href=''>SelectorMap</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-480' href='../../src/selectors/matching.rs.html#41-53'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct SelectorMap&lt;T&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>Map node attributes to Rules whose last simple selector starts with them.</p>
+
+<p>e.g.,
+&quot;p &gt; img&quot; would go into the set of Rules corresponding to the
+element &quot;img&quot;
+&quot;a .foo .bar.baz&quot; would go into the set of Rules corresponding to
+the class &quot;bar&quot;</p>
+
+<p>Because we match Rules right-to-left (i.e., moving up the tree
+from a node), we need to compare the last simple selector in the
+Rule with the node.</p>
+
+<p>So, if a node has ID &quot;id1&quot; and classes &quot;foo&quot; and &quot;bar&quot;, then all
+the rules it matches will have their last simple selector starting
+either with &quot;#id1&quot; or with &quot;.foo&quot; or with &quot;.bar&quot;.</p>
+
+<p>Hence, the union of the rules keyed on each of node&#39;s classes, ID,
+element name, etc. will contain the Rules that actually match that
+node.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='struct' href='../../selectors/matching/struct.SelectorMap.html' title='selectors::matching::SelectorMap'>SelectorMap</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../selectors/matching/struct.SelectorMap.html' title='selectors::matching::SelectorMap'>SelectorMap</a>&lt;T&gt;</code></h4>
+<h4 id='method.get_all_matching_rules' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_all_matching_rules' class='fnname'>get_all_matching_rules</a>&lt;'a, N, V&gt;(&amp;self, node: &amp;N, parent_bf: &amp;<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../selectors/bloom/struct.BloomFilter.html' title='selectors::bloom::BloomFilter'>BloomFilter</a>&gt;&gt;, matching_rules_list: &amp;mut V, shareable: &amp;mut <a href='../../std/primitive.bool.html'>bool</a>) <span class='where'>where N: <a class='trait' href='../../selectors/tree/trait.TNode.html' title='selectors::tree::TNode'>TNode</a>&lt;'a&gt;, V: <a class='trait' href='../../selectors/smallvec/trait.VecLike.html' title='selectors::smallvec::VecLike'>VecLike</a>&lt;<a class='struct' href='../../selectors/matching/struct.DeclarationBlock.html' title='selectors::matching::DeclarationBlock'>DeclarationBlock</a>&lt;T&gt;&gt;</span></code></h4>
+<div class='docblock'><p>Append to <code>rule_list</code> all Rules in <code>self</code> that match node.</p>
+
+<p>Extract matching rules as per node&#39;s ID, classes, tag name, etc..
+Sort the Rules at the end to maintain cascading order.</p>
+</div><h4 id='method.insert' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert' class='fnname'>insert</a>(&amp;mut self, rule: <a class='struct' href='../../selectors/matching/struct.Rule.html' title='selectors::matching::Rule'>Rule</a>&lt;T&gt;)</code></h4>
+<div class='docblock'><p>Insert rule into the correct hash.
+Order in which to try: id_hash, class_hash, local_name_hash, universal_rules.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "selectors";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

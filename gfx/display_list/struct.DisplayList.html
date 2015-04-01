@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `DisplayList` struct in crate `gfx`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, DisplayList">
+
+    <title>gfx::display_list::DisplayList - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>gfx</a>::<wbr><a href='index.html'>display_list</a></p><script>window.sidebarCurrent = {name: 'DisplayList', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>gfx</a>::<wbr><a href='index.html'>display_list</a>::<wbr><a class='struct' href=''>DisplayList</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-5544' href='../../src/gfx/display_list/mod.rs.html#82-95'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct DisplayList {
+    pub background_and_borders: <a class='struct' href='../../collections/linked_list/struct.LinkedList.html' title='collections::linked_list::LinkedList'>LinkedList</a>&lt;<a class='enum' href='../../gfx/display_list/enum.DisplayItem.html' title='gfx::display_list::DisplayItem'>DisplayItem</a>&gt;,
+    pub block_backgrounds_and_borders: <a class='struct' href='../../collections/linked_list/struct.LinkedList.html' title='collections::linked_list::LinkedList'>LinkedList</a>&lt;<a class='enum' href='../../gfx/display_list/enum.DisplayItem.html' title='gfx::display_list::DisplayItem'>DisplayItem</a>&gt;,
+    pub floats: <a class='struct' href='../../collections/linked_list/struct.LinkedList.html' title='collections::linked_list::LinkedList'>LinkedList</a>&lt;<a class='enum' href='../../gfx/display_list/enum.DisplayItem.html' title='gfx::display_list::DisplayItem'>DisplayItem</a>&gt;,
+    pub content: <a class='struct' href='../../collections/linked_list/struct.LinkedList.html' title='collections::linked_list::LinkedList'>LinkedList</a>&lt;<a class='enum' href='../../gfx/display_list/enum.DisplayItem.html' title='gfx::display_list::DisplayItem'>DisplayItem</a>&gt;,
+    pub outlines: <a class='struct' href='../../collections/linked_list/struct.LinkedList.html' title='collections::linked_list::LinkedList'>LinkedList</a>&lt;<a class='enum' href='../../gfx/display_list/enum.DisplayItem.html' title='gfx::display_list::DisplayItem'>DisplayItem</a>&gt;,
+    pub children: <a class='struct' href='../../collections/linked_list/struct.LinkedList.html' title='collections::linked_list::LinkedList'>LinkedList</a>&lt;<a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../gfx/display_list/struct.StackingContext.html' title='gfx::display_list::StackingContext'>StackingContext</a>&gt;&gt;,
+}</pre><div class='docblock'><p>Display items that make up a stacking context. &quot;Steps&quot; here refer to the steps in CSS 2.1
+Appendix E.</p>
+
+<p>TODO(pcwalton): We could reduce the size of this structure with a more &quot;skip list&quot;-like
+structure, omitting several pointers and lengths.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.background_and_borders'><a class='stability Unmarked' title='No stability level'></a><code>background_and_borders</code></td><td><div class='docblock'><p>The border and backgrounds for the root of this stacking context: steps 1 and 2.</p>
+</div></td></tr><tr><td id='structfield.block_backgrounds_and_borders'><a class='stability Unmarked' title='No stability level'></a><code>block_backgrounds_and_borders</code></td><td><div class='docblock'><p>Borders and backgrounds for block-level descendants: step 4.</p>
+</div></td></tr><tr><td id='structfield.floats'><a class='stability Unmarked' title='No stability level'></a><code>floats</code></td><td><div class='docblock'><p>Floats: step 5. These are treated as pseudo-stacking contexts.</p>
+</div></td></tr><tr><td id='structfield.content'><a class='stability Unmarked' title='No stability level'></a><code>content</code></td><td><div class='docblock'><p>All other content.</p>
+</div></td></tr><tr><td id='structfield.outlines'><a class='stability Unmarked' title='No stability level'></a><code>outlines</code></td><td><div class='docblock'><p>Outlines: step 10.</p>
+</div></td></tr><tr><td id='structfield.children'><a class='stability Unmarked' title='No stability level'></a><code>children</code></td><td><div class='docblock'><p>Child stacking contexts.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a></code></h4>
+<div class='docblock'><p>Creates a new, empty display list.</p>
+</div><h4 id='method.append_from' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.append_from' class='fnname'>append_from</a>(&amp;mut self, other: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>)</code></h4>
+<div class='docblock'><p>Appends all display items from <code>other</code> into <code>self</code>, preserving stacking order and emptying
+<code>other</code> in the process.</p>
+</div><h4 id='method.form_float_pseudo_stacking_context' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.form_float_pseudo_stacking_context' class='fnname'>form_float_pseudo_stacking_context</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Merges all display items from all non-float stacking levels to the <code>float</code> stacking level.</p>
+</div><h4 id='method.all_display_items' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.all_display_items' class='fnname'>all_display_items</a>(&amp;self) -&gt; <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='../../gfx/display_list/enum.DisplayItem.html' title='gfx::display_list::DisplayItem'>DisplayItem</a>&gt;</code></h4>
+<div class='docblock'><p>Returns a list of all items in this display list concatenated together. This is extremely
+inefficient and should only be used for debugging.</p>
+</div><h4 id='method.print_items' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.print_items' class='fnname'>print_items</a>(&amp;self, indentation: <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>)</code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../util/mem/trait.HeapSizeOf.html' title='util::mem::HeapSizeOf'>HeapSizeOf</a> for <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a></code></h3><div class='impl-items'><h4 id='method.heap_size_of_children' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.heap_size_of_children' class='fnname'>heap_size_of_children</a>(&amp;self) -&gt; <a href='../../std/primitive.usize.html'>usize</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "gfx";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

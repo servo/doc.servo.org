@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ImageHolder","A struct to store image data. The image will be loaded once the first time it is requested, and an Arc will be stored.  Clones of this Arc are given out on demand."]]});

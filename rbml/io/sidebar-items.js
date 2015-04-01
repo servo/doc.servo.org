@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SeekableMemWriter","Writes to an owned, growable byte vector that supports seeking."]]});

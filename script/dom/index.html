@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `dom` mod in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, dom">
+
+    <title>script::dom - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>script</a></p><script>window.sidebarCurrent = {name: 'dom', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>script</a>::<wbr><a class='mod' href=''>dom</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-1726' href='../../src/script/dom/mod.rs.html#5-332'>[src]</a></span></h1>
+<div class='docblock'><p>The implementation of the DOM.</p>
+
+<p>The DOM is comprised of interfaces (defined by specifications using
+<a href="https://heycam.github.io/webidl/">WebIDL</a>) that are implemented as Rust
+structs in submodules of this module. Its implementation is documented
+below.</p>
+
+<h1 id="a-dom-object-and-its-reflector" class='section-header'><a
+                           href="#a-dom-object-and-its-reflector">A DOM object and its reflector</a></h1>
+<p>The implementation of an interface <code>Foo</code> in Servo&#39;s DOM involves two
+related but distinct objects:</p>
+
+<ul>
+<li>the <strong>DOM object</strong>: an instance of the Rust struct <code>dom::foo::Foo</code>
+(marked with the <code>#[dom_struct]</code> attribute) on the Rust heap;</li>
+<li>the <strong>reflector</strong>: a <code>JSObject</code> allocated by SpiderMonkey, that owns the
+DOM object.</li>
+</ul>
+
+<h1 id="memory-management" class='section-header'><a
+                           href="#memory-management">Memory management</a></h1>
+<p>Reflectors of DOM objects, and thus the DOM objects themselves, are managed
+by the SpiderMonkey Garbage Collector. Thus, keeping alive a DOM object
+is done through its reflector.</p>
+
+<p>For more information, see:</p>
+
+<ul>
+<li>rooting pointers on the stack: the <a href="bindings/js/struct.Root.html"><code>Root</code></a>
+and <a href="bindings/js/struct.JSRef.html"><code>JSRef</code></a> smart pointers;</li>
+<li>tracing pointers in member fields: the <a href="bindings/js/struct.JS.html"><code>JS</code></a>,
+<a href="bindings/js/struct.MutNullableJS.html"><code>MutNullableJS</code></a> and
+<a href="bindings/js/struct.MutHeap.html"><code>MutHeap</code></a> smart pointers and
+<a href="bindings/trace/index.html">the tracing implementation</a>;</li>
+<li>returning pointers from functions: the
+<a href="bindings/js/struct.Temporary.html"><code>Temporary</code></a> smart pointer;</li>
+<li>rooting pointers from across task boundaries or in channels: the
+<a href="bindings/refcounted/struct.Trusted.html"><code>Trusted</code></a> smart pointer;</li>
+<li>extracting pointers to DOM objects from their reflectors: the
+<a href="bindings/js/struct.Unrooted.html"><code>Unrooted</code></a> smart pointer.</li>
+</ul>
+
+<h1 id="inheritance" class='section-header'><a
+                           href="#inheritance">Inheritance</a></h1>
+<p>Rust does not support struct inheritance, as would be used for the
+object-oriented DOM APIs. To work around this issue, Servo stores an
+instance of the superclass in the first field of its subclasses. (Note that
+it is stored by value, rather than in a smart pointer such as <code>JS&lt;T&gt;</code>.)</p>
+
+<p>This implies that a pointer to an object can safely be cast to a pointer
+to all its classes.</p>
+
+<p>This invariant is enforced by the lint in
+<code>plugins::lints::inheritance_integrity</code>.</p>
+
+<h1 id="construction" class='section-header'><a
+                           href="#construction">Construction</a></h1>
+<p>DOM objects of type <code>T</code> in Servo have two constructors:</p>
+
+<ul>
+<li>a <code>T::new_inherited</code> static method that returns a plain <code>T</code>, and</li>
+<li>a <code>T::new</code> static method that returns <code>Temporary&lt;T&gt;</code>.</li>
+</ul>
+
+<p>(The result of either method can be wrapped in <code>Result</code>, if that is
+appropriate for the type in question.)</p>
+
+<p>The latter calls the former, boxes the result, and creates a reflector
+corresponding to it by calling <code>dom::bindings::utils::reflect_dom_object</code>
+(which yields ownership of the object to the SpiderMonkey Garbage Collector).
+This is the API to use when creating a DOM object.</p>
+
+<p>The former should only be called by the latter, and by subclasses&#39;
+<code>new_inherited</code> methods.</p>
+
+<p>DOM object constructors in JavaScript correspond to a <code>T::Constructor</code>
+static method. This method is always fallible.</p>
+
+<h1 id="destruction" class='section-header'><a
+                           href="#destruction">Destruction</a></h1>
+<p>When the SpiderMonkey Garbage Collector discovers that the reflector of a
+DOM object is garbage, it calls the reflector&#39;s finalization hook. This
+function deletes the reflector&#39;s DOM object, calling its destructor in the
+process.</p>
+
+<h1 id="mutability-and-aliasing" class='section-header'><a
+                           href="#mutability-and-aliasing">Mutability and aliasing</a></h1>
+<p>Reflectors are JavaScript objects, and as such can be freely aliased. As
+Rust does not allow mutable aliasing, mutable borrows of DOM objects are
+not allowed. In particular, any mutable fields use <code>Cell</code> or <code>DOMRefCell</code>
+to manage their mutability.</p>
+
+<h1 id="reflector-and-reflectable" class='section-header'><a
+                           href="#reflector-and-reflectable"><code>Reflector</code> and <code>Reflectable</code></a></h1>
+<p>Every DOM object has a <code>Reflector</code> as its first (transitive) member field.
+This contains a <code>*mut JSObject</code> that points to its reflector.</p>
+
+<p>The <code>FooBinding::Wrap</code> function creates the reflector, stores a pointer to
+the DOM object in the reflector, and initializes the pointer to the reflector
+in the <code>Reflector</code> field.</p>
+
+<p>The <code>Reflectable</code> trait provides a <code>reflector()</code> method that returns the
+DOM object&#39;s <code>Reflector</code>. It is implemented automatically for DOM structs
+through the <code>#[dom_struct]</code> attribute.</p>
+
+<h1 id="implementing-methods-for-a-dom-object" class='section-header'><a
+                           href="#implementing-methods-for-a-dom-object">Implementing methods for a DOM object</a></h1>
+<p>In order to ensure that DOM objects are rooted when they are called, we
+require that all methods are implemented for <code>JSRef&lt;&#39;a, Foo&gt;</code>. This means
+that all methods are defined on traits. Conventionally, those traits are
+called</p>
+
+<ul>
+<li><code>dom::bindings::codegen::Bindings::FooBindings::FooMethods</code> for methods
+defined through IDL;</li>
+<li><code>FooHelpers</code> for public methods;</li>
+<li><code>PrivateFooHelpers</code> for private methods.</li>
+</ul>
+
+<h1 id="calling-methods-on-a-dom-object" class='section-header'><a
+                           href="#calling-methods-on-a-dom-object">Calling methods on a DOM object</a></h1>
+<p>To call a method on a DOM object, we require that the object is rooted, by
+calling <code>.root()</code> on a <code>Temporary</code> or <code>JS</code> pointer. This constructs a
+<code>Root</code> on the stack, which ensures the DOM object stays alive for the
+duration of its lifetime. A <code>JSRef</code> on which to call the method can then be
+obtained by calling the <code>r()</code> method on the <code>Root</code>.</p>
+
+<h1 id="accessing-fields-of-a-dom-object" class='section-header'><a
+                           href="#accessing-fields-of-a-dom-object">Accessing fields of a DOM object</a></h1>
+<p>All fields of DOM objects are private; accessing them from outside their
+module is done through explicit getter or setter methods.</p>
+
+<p>However, <code>JSRef&lt;T&gt;</code> dereferences to <code>&amp;T</code>, so fields can be accessed on a
+<code>JSRef&lt;T&gt;</code> directly within the module that defines the struct.</p>
+
+<h1 id="inheritance-and-casting" class='section-header'><a
+                           href="#inheritance-and-casting">Inheritance and casting</a></h1>
+<p>For all DOM interfaces <code>Foo</code> in an inheritance chain, a
+<code>dom::bindings::codegen::InheritTypes::FooCast</code> provides methods to cast
+to other types in the inheritance chain. For example:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>f</span>(<span class='ident'>element</span>: <span class='ident'>JSRef</span><span class='op'>&lt;</span><span class='ident'>Element</span><span class='op'>&gt;</span>) {
+    <span class='kw'>let</span> <span class='ident'>base</span>: <span class='ident'>JSRef</span><span class='op'>&lt;</span><span class='ident'>Node</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>NodeCast</span>::<span class='ident'>from_ref</span>(<span class='ident'>element</span>);
+    <span class='kw'>let</span> <span class='ident'>derived</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>JSRef</span><span class='op'>&lt;</span><span class='ident'>HTMLElement</span><span class='op'>&gt;&gt;</span> <span class='op'>=</span> <span class='ident'>HTMLElementCast</span>::<span class='ident'>to_ref</span>(<span class='ident'>element</span>);
+}
+</pre>
+
+<h1 id="adding-a-new-dom-interface" class='section-header'><a
+                           href="#adding-a-new-dom-interface">Adding a new DOM interface</a></h1>
+<p>Adding a new interface <code>Foo</code> requires at least the following:</p>
+
+<ul>
+<li>adding the new IDL file at <code>components/script/dom/webidls/Foo.webidl</code>;</li>
+<li>creating <code>components/script/dom/foo.rs</code>;</li>
+<li>listing <code>foo.rs</code> in components/script/dom/mod.rs`;</li>
+<li>defining the DOM struct <code>Foo</code> with a <code>#[dom_struct]</code> attribute, a
+superclass or <code>Reflector</code> member, and other members as appropriate;</li>
+<li>implementing the
+<code>dom::bindings::codegen::Bindings::FooBindings::FooMethods</code> trait for
+<code>JSRef&lt;Foo&gt;</code>.</li>
+</ul>
+
+<h1 id="accessing-dom-objects-from-layout" class='section-header'><a
+                           href="#accessing-dom-objects-from-layout">Accessing DOM objects from layout</a></h1>
+<p>Layout code can access the DOM through the
+<a href="bindings/js/struct.LayoutJS.html"><code>LayoutJS</code></a> smart pointer. This does not
+keep the DOM object alive; we ensure that no DOM code (Garbage Collection
+in particular) runs while the layout task is accessing the DOM.</p>
+
+<p>Methods accessible to layout are implemented on <code>LayoutJS&lt;Foo&gt;</code> using
+<code>LayoutFooHelpers</code> traits.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='activation/index.html'
+                               title='script::dom::activation'>activation</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='attr/index.html'
+                               title='script::dom::attr'>attr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='bindings/index.html'
+                               title='script::dom::bindings'>bindings</a></td>
+                        <td class='docblock short'><p>The code to expose the DOM to JavaScript through IDL bindings.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='blob/index.html'
+                               title='script::dom::blob'>blob</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='browsercontext/index.html'
+                               title='script::dom::browsercontext'>browsercontext</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='canvasgradient/index.html'
+                               title='script::dom::canvasgradient'>canvasgradient</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='canvaspattern/index.html'
+                               title='script::dom::canvaspattern'>canvaspattern</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='canvasrenderingcontext2d/index.html'
+                               title='script::dom::canvasrenderingcontext2d'>canvasrenderingcontext2d</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='characterdata/index.html'
+                               title='script::dom::characterdata'>characterdata</a></td>
+                        <td class='docblock short'><p>DOM bindings for <code>CharacterData</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='comment/index.html'
+                               title='script::dom::comment'>comment</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='console/index.html'
+                               title='script::dom::console'>console</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='cssstyledeclaration/index.html'
+                               title='script::dom::cssstyledeclaration'>cssstyledeclaration</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='customevent/index.html'
+                               title='script::dom::customevent'>customevent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='dedicatedworkerglobalscope/index.html'
+                               title='script::dom::dedicatedworkerglobalscope'>dedicatedworkerglobalscope</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='document/index.html'
+                               title='script::dom::document'>document</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='documentfragment/index.html'
+                               title='script::dom::documentfragment'>documentfragment</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='documenttype/index.html'
+                               title='script::dom::documenttype'>documenttype</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='domexception/index.html'
+                               title='script::dom::domexception'>domexception</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='domimplementation/index.html'
+                               title='script::dom::domimplementation'>domimplementation</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='domparser/index.html'
+                               title='script::dom::domparser'>domparser</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='domrect/index.html'
+                               title='script::dom::domrect'>domrect</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='domrectlist/index.html'
+                               title='script::dom::domrectlist'>domrectlist</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='domstringmap/index.html'
+                               title='script::dom::domstringmap'>domstringmap</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='domtokenlist/index.html'
+                               title='script::dom::domtokenlist'>domtokenlist</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='element/index.html'
+                               title='script::dom::element'>element</a></td>
+                        <td class='docblock short'><p>Element nodes.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='errorevent/index.html'
+                               title='script::dom::errorevent'>errorevent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='event/index.html'
+                               title='script::dom::event'>event</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='eventdispatcher/index.html'
+                               title='script::dom::eventdispatcher'>eventdispatcher</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='eventtarget/index.html'
+                               title='script::dom::eventtarget'>eventtarget</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='file/index.html'
+                               title='script::dom::file'>file</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='formdata/index.html'
+                               title='script::dom::formdata'>formdata</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlanchorelement/index.html'
+                               title='script::dom::htmlanchorelement'>htmlanchorelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlappletelement/index.html'
+                               title='script::dom::htmlappletelement'>htmlappletelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlareaelement/index.html'
+                               title='script::dom::htmlareaelement'>htmlareaelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlaudioelement/index.html'
+                               title='script::dom::htmlaudioelement'>htmlaudioelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlbaseelement/index.html'
+                               title='script::dom::htmlbaseelement'>htmlbaseelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlbodyelement/index.html'
+                               title='script::dom::htmlbodyelement'>htmlbodyelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlbrelement/index.html'
+                               title='script::dom::htmlbrelement'>htmlbrelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlbuttonelement/index.html'
+                               title='script::dom::htmlbuttonelement'>htmlbuttonelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlcanvaselement/index.html'
+                               title='script::dom::htmlcanvaselement'>htmlcanvaselement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlcollection/index.html'
+                               title='script::dom::htmlcollection'>htmlcollection</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmldataelement/index.html'
+                               title='script::dom::htmldataelement'>htmldataelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmldatalistelement/index.html'
+                               title='script::dom::htmldatalistelement'>htmldatalistelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmldirectoryelement/index.html'
+                               title='script::dom::htmldirectoryelement'>htmldirectoryelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmldivelement/index.html'
+                               title='script::dom::htmldivelement'>htmldivelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmldlistelement/index.html'
+                               title='script::dom::htmldlistelement'>htmldlistelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlelement/index.html'
+                               title='script::dom::htmlelement'>htmlelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlembedelement/index.html'
+                               title='script::dom::htmlembedelement'>htmlembedelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlfieldsetelement/index.html'
+                               title='script::dom::htmlfieldsetelement'>htmlfieldsetelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlfontelement/index.html'
+                               title='script::dom::htmlfontelement'>htmlfontelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlformelement/index.html'
+                               title='script::dom::htmlformelement'>htmlformelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlframeelement/index.html'
+                               title='script::dom::htmlframeelement'>htmlframeelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlframesetelement/index.html'
+                               title='script::dom::htmlframesetelement'>htmlframesetelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlheadelement/index.html'
+                               title='script::dom::htmlheadelement'>htmlheadelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlheadingelement/index.html'
+                               title='script::dom::htmlheadingelement'>htmlheadingelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlhrelement/index.html'
+                               title='script::dom::htmlhrelement'>htmlhrelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlhtmlelement/index.html'
+                               title='script::dom::htmlhtmlelement'>htmlhtmlelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmliframeelement/index.html'
+                               title='script::dom::htmliframeelement'>htmliframeelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlimageelement/index.html'
+                               title='script::dom::htmlimageelement'>htmlimageelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlinputelement/index.html'
+                               title='script::dom::htmlinputelement'>htmlinputelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmllabelelement/index.html'
+                               title='script::dom::htmllabelelement'>htmllabelelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmllegendelement/index.html'
+                               title='script::dom::htmllegendelement'>htmllegendelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmllielement/index.html'
+                               title='script::dom::htmllielement'>htmllielement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmllinkelement/index.html'
+                               title='script::dom::htmllinkelement'>htmllinkelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlmapelement/index.html'
+                               title='script::dom::htmlmapelement'>htmlmapelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlmediaelement/index.html'
+                               title='script::dom::htmlmediaelement'>htmlmediaelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlmetaelement/index.html'
+                               title='script::dom::htmlmetaelement'>htmlmetaelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlmeterelement/index.html'
+                               title='script::dom::htmlmeterelement'>htmlmeterelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlmodelement/index.html'
+                               title='script::dom::htmlmodelement'>htmlmodelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlobjectelement/index.html'
+                               title='script::dom::htmlobjectelement'>htmlobjectelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlolistelement/index.html'
+                               title='script::dom::htmlolistelement'>htmlolistelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmloptgroupelement/index.html'
+                               title='script::dom::htmloptgroupelement'>htmloptgroupelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmloptionelement/index.html'
+                               title='script::dom::htmloptionelement'>htmloptionelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmloutputelement/index.html'
+                               title='script::dom::htmloutputelement'>htmloutputelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlparagraphelement/index.html'
+                               title='script::dom::htmlparagraphelement'>htmlparagraphelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlparamelement/index.html'
+                               title='script::dom::htmlparamelement'>htmlparamelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlpreelement/index.html'
+                               title='script::dom::htmlpreelement'>htmlpreelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlprogresselement/index.html'
+                               title='script::dom::htmlprogresselement'>htmlprogresselement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlquoteelement/index.html'
+                               title='script::dom::htmlquoteelement'>htmlquoteelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlscriptelement/index.html'
+                               title='script::dom::htmlscriptelement'>htmlscriptelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlselectelement/index.html'
+                               title='script::dom::htmlselectelement'>htmlselectelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlsourceelement/index.html'
+                               title='script::dom::htmlsourceelement'>htmlsourceelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlspanelement/index.html'
+                               title='script::dom::htmlspanelement'>htmlspanelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlstyleelement/index.html'
+                               title='script::dom::htmlstyleelement'>htmlstyleelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltablecaptionelement/index.html'
+                               title='script::dom::htmltablecaptionelement'>htmltablecaptionelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltablecellelement/index.html'
+                               title='script::dom::htmltablecellelement'>htmltablecellelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltablecolelement/index.html'
+                               title='script::dom::htmltablecolelement'>htmltablecolelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltabledatacellelement/index.html'
+                               title='script::dom::htmltabledatacellelement'>htmltabledatacellelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltableelement/index.html'
+                               title='script::dom::htmltableelement'>htmltableelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltableheadercellelement/index.html'
+                               title='script::dom::htmltableheadercellelement'>htmltableheadercellelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltablerowelement/index.html'
+                               title='script::dom::htmltablerowelement'>htmltablerowelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltablesectionelement/index.html'
+                               title='script::dom::htmltablesectionelement'>htmltablesectionelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltemplateelement/index.html'
+                               title='script::dom::htmltemplateelement'>htmltemplateelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltextareaelement/index.html'
+                               title='script::dom::htmltextareaelement'>htmltextareaelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltimeelement/index.html'
+                               title='script::dom::htmltimeelement'>htmltimeelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltitleelement/index.html'
+                               title='script::dom::htmltitleelement'>htmltitleelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmltrackelement/index.html'
+                               title='script::dom::htmltrackelement'>htmltrackelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlulistelement/index.html'
+                               title='script::dom::htmlulistelement'>htmlulistelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlunknownelement/index.html'
+                               title='script::dom::htmlunknownelement'>htmlunknownelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='htmlvideoelement/index.html'
+                               title='script::dom::htmlvideoelement'>htmlvideoelement</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='imagedata/index.html'
+                               title='script::dom::imagedata'>imagedata</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='keyboardevent/index.html'
+                               title='script::dom::keyboardevent'>keyboardevent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='location/index.html'
+                               title='script::dom::location'>location</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='messageevent/index.html'
+                               title='script::dom::messageevent'>messageevent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='mouseevent/index.html'
+                               title='script::dom::mouseevent'>mouseevent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='namednodemap/index.html'
+                               title='script::dom::namednodemap'>namednodemap</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='navigator/index.html'
+                               title='script::dom::navigator'>navigator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='navigatorinfo/index.html'
+                               title='script::dom::navigatorinfo'>navigatorinfo</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='node/index.html'
+                               title='script::dom::node'>node</a></td>
+                        <td class='docblock short'><p>The core DOM types. Defines the basic DOM hierarchy as well as all the HTML elements.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='nodeiterator/index.html'
+                               title='script::dom::nodeiterator'>nodeiterator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='nodelist/index.html'
+                               title='script::dom::nodelist'>nodelist</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='performance/index.html'
+                               title='script::dom::performance'>performance</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='performancetiming/index.html'
+                               title='script::dom::performancetiming'>performancetiming</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='processinginstruction/index.html'
+                               title='script::dom::processinginstruction'>processinginstruction</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='progressevent/index.html'
+                               title='script::dom::progressevent'>progressevent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='range/index.html'
+                               title='script::dom::range'>range</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='screen/index.html'
+                               title='script::dom::screen'>screen</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='servohtmlparser/index.html'
+                               title='script::dom::servohtmlparser'>servohtmlparser</a></td>
+                        <td class='docblock short'><p>The bulk of the HTML parser integration is in <code>script::parse::html</code>.
+This module is mostly about its interaction with DOM memory management.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='storage/index.html'
+                               title='script::dom::storage'>storage</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='storageevent/index.html'
+                               title='script::dom::storageevent'>storageevent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='testbinding/index.html'
+                               title='script::dom::testbinding'>testbinding</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='text/index.html'
+                               title='script::dom::text'>text</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='textencoder/index.html'
+                               title='script::dom::textencoder'>textencoder</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='treewalker/index.html'
+                               title='script::dom::treewalker'>treewalker</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='types/index.html'
+                               title='script::dom::types'>types</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='uievent/index.html'
+                               title='script::dom::uievent'>uievent</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='urlhelper/index.html'
+                               title='script::dom::urlhelper'>urlhelper</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='urlsearchparams/index.html'
+                               title='script::dom::urlsearchparams'>urlsearchparams</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='validitystate/index.html'
+                               title='script::dom::validitystate'>validitystate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='virtualmethods/index.html'
+                               title='script::dom::virtualmethods'>virtualmethods</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='websocket/index.html'
+                               title='script::dom::websocket'>websocket</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='window/index.html'
+                               title='script::dom::window'>window</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='worker/index.html'
+                               title='script::dom::worker'>worker</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='workerglobalscope/index.html'
+                               title='script::dom::workerglobalscope'>workerglobalscope</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='workerlocation/index.html'
+                               title='script::dom::workerlocation'>workerlocation</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='workernavigator/index.html'
+                               title='script::dom::workernavigator'>workernavigator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='xmlhttprequest/index.html'
+                               title='script::dom::xmlhttprequest'>xmlhttprequest</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='xmlhttprequesteventtarget/index.html'
+                               title='script::dom::xmlhttprequesteventtarget'>xmlhttprequesteventtarget</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='xmlhttprequestupload/index.html'
+                               title='script::dom::xmlhttprequestupload'>xmlhttprequestupload</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

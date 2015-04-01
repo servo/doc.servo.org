@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `old_path` mod in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, old_path">
+
+    <title>std::old_path - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a></p><script>window.sidebarCurrent = {name: 'old_path', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>std</a>::<wbr><a class='mod' href=''>old_path</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-64028' href='../../src/std/old_path/mod.rs.html#11-925'>[src]</a></span></h1>
+<div class='docblock'><p>Cross-platform path support</p>
+
+<p>This module implements support for two flavors of paths. <code>PosixPath</code> represents a path on any
+unix-like system, whereas <code>WindowsPath</code> represents a path on Windows. This module also exposes
+a typedef <code>Path</code> which is equal to the appropriate platform-specific path variant.</p>
+
+<p>Both <code>PosixPath</code> and <code>WindowsPath</code> implement a trait <code>GenericPath</code>, which contains the set of
+methods that behave the same for both paths. They each also implement some methods that could
+not be expressed in <code>GenericPath</code>, yet behave identically for both path flavors, such as
+<code>.components()</code>.</p>
+
+<p>The three main design goals of this module are 1) to avoid unnecessary allocation, 2) to behave
+the same regardless of which flavor of path is being used, and 3) to support paths that cannot
+be represented in UTF-8 (as Linux has no restriction on paths beyond disallowing NUL).</p>
+
+<h2 id="usage" class='section-header'><a
+                           href="#usage">Usage</a></h2>
+<p>Usage of this module is fairly straightforward. Unless writing platform-specific code, <code>Path</code>
+should be used to refer to the platform-native path.</p>
+
+<p>Creation of a path is typically done with either <code>Path::new(some_str)</code> or
+<code>Path::new(some_vec)</code>. This path can be modified with <code>.push()</code> and <code>.pop()</code> (and other
+setters). The resulting Path can either be passed to another API that expects a path, or can be
+turned into a <code>&amp;[u8]</code> with <code>.as_vec()</code> or a <code>Option&lt;&amp;str&gt;</code> with <code>.as_str()</code>. Similarly,
+attributes of the path can be queried with methods such as <code>.filename()</code>. There are also
+methods that return a new path instead of modifying the receiver, such as <code>.join()</code> or
+<code>.dir_path()</code>.</p>
+
+<p>Paths are always kept in normalized form. This means that creating the path
+<code>Path::new(&quot;a/b/../c&quot;)</code> will return the path <code>a/c</code>. Similarly any attempt to mutate the path
+will always leave it in normalized form.</p>
+
+<p>When rendering a path to some form of output, there is a method <code>.display()</code> which is
+compatible with the <code>format!()</code> parameter <code>{}</code>. This will render the path as a string,
+replacing all non-utf8 sequences with the Replacement Character (U+FFFD). As such it is not
+suitable for passing to any API that actually operates on the path; it is only intended for
+display.</p>
+
+<h2 id="example" class='section-header'><a
+                           href="#example">Example</a></h2><span class='rusttest'>fn main() {
+    use std::old_io::fs::PathExtensions;
+    
+    let mut path = Path::new(&quot;/tmp/path&quot;);
+    println!(&quot;path: {}&quot;, path.display());
+    path.set_filename(&quot;foo&quot;);
+    path.push(&quot;bar&quot;);
+    println!(&quot;new path: {}&quot;, path.display());
+    println!(&quot;path exists: {}&quot;, path.exists());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>::<span class='ident'>fs</span>::<span class='ident'>PathExtensions</span>;
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>path</span> <span class='op'>=</span> <span class='ident'>Path</span>::<span class='ident'>new</span>(<span class='string'>&quot;/tmp/path&quot;</span>);
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;path: {}&quot;</span>, <span class='ident'>path</span>.<span class='ident'>display</span>());
+<span class='ident'>path</span>.<span class='ident'>set_filename</span>(<span class='string'>&quot;foo&quot;</span>);
+<span class='ident'>path</span>.<span class='ident'>push</span>(<span class='string'>&quot;bar&quot;</span>);
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;new path: {}&quot;</span>, <span class='ident'>path</span>.<span class='ident'>display</span>());
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;path exists: {}&quot;</span>, <span class='ident'>path</span>.<span class='ident'>exists</span>());
+</pre>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use self::<a class='mod'
+                                            href='./posix/index.html'>posix</a>::<a class='struct' href='../../std/old_path/posix/struct.Path.html' title='std::old_path::posix::Path'>Path</a> as PosixPath;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                            href='./windows/index.html'>windows</a>::<a class='struct' href='../../std/old_path/windows/struct.Path.html' title='std::old_path::windows::Path'>Path</a> as WindowsPath;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                            href='./posix/index.html'>posix</a>::<a class='struct' href='../../std/old_path/posix/struct.Path.html' title='std::old_path::posix::Path'>Path</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                            href='./posix/index.html'>posix</a>::<a class='type' href='../../std/old_path/posix/type.Components.html' title='std::old_path::posix::Components'>Components</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                            href='./posix/index.html'>posix</a>::<a class='type' href='../../std/old_path/posix/type.StrComponents.html' title='std::old_path::posix::StrComponents'>StrComponents</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                            href='./posix/index.html'>posix</a>::SEP;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                            href='./posix/index.html'>posix</a>::SEP_BYTE;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                            href='./posix/index.html'>posix</a>::<a class='fn' href='../../std/old_path/posix/fn.is_sep.html' title='std::old_path::posix::is_sep'>is_sep</a>;</code></td></tr><tr><td><code>pub use self::<a class='mod'
+                                            href='./posix/index.html'>posix</a>::<a class='fn' href='../../std/old_path/posix/fn.is_sep_byte.html' title='std::old_path::posix::is_sep_byte'>is_sep_byte</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='mod' href='posix/index.html'
+                               title='std::old_path::posix'>posix</a></td>
+                        <td class='docblock short'><p>POSIX file path handling</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='mod' href='windows/index.html'
+                               title='std::old_path::windows'>windows</a></td>
+                        <td class='docblock short'><p>Windows file path handling</p>
+</td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='struct' href='struct.Display.html'
+                               title='std::old_path::Display'>Display</a></td>
+                        <td class='docblock short'><p>Helper struct for printing paths with format!()</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='trait' href='trait.BytesContainer.html'
+                               title='std::old_path::BytesContainer'>BytesContainer</a></td>
+                        <td class='docblock short'><p>A trait that represents something bytes-like (e.g. a &amp;[u8] or a &amp;str)</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='trait' href='trait.GenericPath.html'
+                               title='std::old_path::GenericPath'>GenericPath</a></td>
+                        <td class='docblock short'><p>A trait that represents the generic operations available on paths</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='trait' href='trait.GenericPathUnsafe.html'
+                               title='std::old_path::GenericPathUnsafe'>GenericPathUnsafe</a></td>
+                        <td class='docblock short'><p>A trait that represents the unsafe operations on GenericPaths</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

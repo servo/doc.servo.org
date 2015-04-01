@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Texture` struct in crate `layers`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Texture">
+
+    <title>layers::texturegl::Texture - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layers</a>::<wbr><a href='index.html'>texturegl</a></p><script>window.sidebarCurrent = {name: 'Texture', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>layers</a>::<wbr><a href='index.html'>texturegl</a>::<wbr><a class='struct' href=''>Texture</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-3308' href='../../src/layers/texturegl.rs.html#61-77'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Texture {
+    pub target: <a class='enum' href='../../layers/texturegl/enum.TextureTarget.html' title='layers::texturegl::TextureTarget'>TextureTarget</a>,
+    pub flip: <a class='enum' href='../../layers/texturegl/enum.Flip.html' title='layers::texturegl::Flip'>Flip</a>,
+    pub size: <a class='struct' href='../../geom/size/struct.Size2D.html' title='geom::size::Size2D'>Size2D</a>&lt;<a href='../../std/primitive.usize.html'>usize</a>&gt;,
+    // some fields omitted
+}</pre><div class='docblock'><p>A texture.</p>
+
+<p>TODO: Include client storage here for <code>GL_CLIENT_STORAGE_APPLE</code>.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.target'><a class='stability Unmarked' title='No stability level'></a><code>target</code></td><td><div class='docblock'><p>The texture target.</p>
+</div></td></tr><tr><td id='structfield.flip'><a class='stability Unmarked' title='No stability level'></a><code>flip</code></td><td></td></tr><tr><td id='structfield.size'><a class='stability Unmarked' title='No stability level'></a><code>size</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../layers/texturegl/struct.Texture.html' title='layers::texturegl::Texture'>Texture</a></code></h3><div class='impl-items'><h4 id='method.zero' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.zero' class='fnname'>zero</a>() -&gt; <a class='struct' href='../../layers/texturegl/struct.Texture.html' title='layers::texturegl::Texture'>Texture</a></code></h4>
+<h4 id='method.is_zero' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_zero' class='fnname'>is_zero</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../layers/texturegl/struct.Texture.html' title='layers::texturegl::Texture'>Texture</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(target: <a class='enum' href='../../layers/texturegl/enum.TextureTarget.html' title='layers::texturegl::TextureTarget'>TextureTarget</a>, size: <a class='struct' href='../../geom/size/struct.Size2D.html' title='geom::size::Size2D'>Size2D</a>&lt;<a href='../../std/primitive.usize.html'>usize</a>&gt;) -&gt; <a class='struct' href='../../layers/texturegl/struct.Texture.html' title='layers::texturegl::Texture'>Texture</a></code></h4>
+<div class='docblock'><p>Creates a new blank texture.</p>
+</div><h4 id='method.new_with_buffer' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new_with_buffer' class='fnname'>new_with_buffer</a>(buffer: &amp;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../layers/layers/struct.LayerBuffer.html' title='layers::layers::LayerBuffer'>LayerBuffer</a>&gt;) -&gt; <a class='struct' href='../../layers/texturegl/struct.Texture.html' title='layers::texturegl::Texture'>Texture</a></code></h4>
+<h4 id='method.native_texture' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.native_texture' class='fnname'>native_texture</a>(&amp;self) -&gt; <a class='type' href='../../gleam/ffi/types/type.GLuint.html' title='gleam::ffi::types::GLuint'>GLuint</a></code></h4>
+<div class='docblock'><p>Returns the raw OpenGL texture underlying this texture.</p>
+</div><h4 id='method.set_filter_mode' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.set_filter_mode' class='fnname'>set_filter_mode</a>(&amp;self, mode: <a class='enum' href='../../layers/texturegl/enum.FilterMode.html' title='layers::texturegl::FilterMode'>FilterMode</a>)</code></h4>
+<div class='docblock'><p>Sets the filter mode for this texture.</p>
+</div><h4 id='method.bind' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.bind' class='fnname'>bind</a>(&amp;self) -&gt; <a class='struct' href='../../layers/texturegl/struct.BoundTexture.html' title='layers::texturegl::BoundTexture'>BoundTexture</a></code></h4>
+<div class='docblock'><p>Binds the texture to the current context.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../layers/texturegl/struct.Texture.html' title='layers::texturegl::Texture'>Texture</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layers";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

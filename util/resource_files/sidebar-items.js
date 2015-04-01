@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["read_resource_file",""],["resources_dir_path",""]]});

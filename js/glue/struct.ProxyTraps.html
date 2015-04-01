@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ProxyTraps` struct in crate `js`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ProxyTraps">
+
+    <title>js::glue::ProxyTraps - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>js</a>::<wbr><a href='index.html'>glue</a></p><script>window.sidebarCurrent = {name: 'ProxyTraps', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>js</a>::<wbr><a href='index.html'>glue</a>::<wbr><a class='struct' href=''>ProxyTraps</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-8357' href='../../src/js/glue.rs.html#14-44'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ProxyTraps {
+    pub getPropertyDescriptor: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a class='type' href='../../js/jsapi/type.jsid.html' title='js::jsapi::jsid'>jsid</a>, <a href='../../std/primitive.bool.html'>bool</a>, *mut <a class='struct' href='../../js/jsapi/struct.JSPropertyDescriptor.html' title='js::jsapi::JSPropertyDescriptor'>JSPropertyDescriptor</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub getOwnPropertyDescriptor: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a class='type' href='../../js/jsapi/type.jsid.html' title='js::jsapi::jsid'>jsid</a>, <a href='../../std/primitive.bool.html'>bool</a>, *mut <a class='struct' href='../../js/jsapi/struct.JSPropertyDescriptor.html' title='js::jsapi::JSPropertyDescriptor'>JSPropertyDescriptor</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub defineProperty: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a class='type' href='../../js/jsapi/type.jsid.html' title='js::jsapi::jsid'>jsid</a>, *mut <a class='struct' href='../../js/jsapi/struct.JSPropertyDescriptor.html' title='js::jsapi::JSPropertyDescriptor'>JSPropertyDescriptor</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub getOwnPropertyNames: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, *mut <a class='enum' href='../../js/glue/enum.AutoIdVector.html' title='js::glue::AutoIdVector'>AutoIdVector</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub delete_: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a class='type' href='../../js/jsapi/type.jsid.html' title='js::jsapi::jsid'>jsid</a>, *mut <a href='../../std/primitive.bool.html'>bool</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub enumerate: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, *mut <a class='enum' href='../../js/glue/enum.AutoIdVector.html' title='js::glue::AutoIdVector'>AutoIdVector</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub has: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a class='type' href='../../js/jsapi/type.jsid.html' title='js::jsapi::jsid'>jsid</a>, *mut <a href='../../std/primitive.bool.html'>bool</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub hasOwn: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a class='type' href='../../js/jsapi/type.jsid.html' title='js::jsapi::jsid'>jsid</a>, *mut <a href='../../std/primitive.bool.html'>bool</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub get: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a class='type' href='../../js/jsapi/type.jsid.html' title='js::jsapi::jsid'>jsid</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub set: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a class='type' href='../../js/jsapi/type.jsid.html' title='js::jsapi::jsid'>jsid</a>, <a href='../../std/primitive.bool.html'>bool</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub keys: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, *mut <a class='enum' href='../../js/glue/enum.AutoIdVector.html' title='js::glue::AutoIdVector'>AutoIdVector</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub iterate: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a href='../../std/primitive.usize.html'>usize</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub call: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a href='../../std/primitive.usize.html'>usize</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub construct: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a href='../../std/primitive.usize.html'>usize</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub nativeCall: *const <a href='../../std/primitive.u8.html'>u8</a>,
+    pub hasInstance: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>, *mut <a href='../../std/primitive.bool.html'>bool</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub typeOf: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>) -&gt; <a href='../../std/primitive.usize.html'>usize</a>&gt;,
+    pub objectClassIs: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a href='../../std/primitive.usize.html'>usize</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub obj_toString: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>) -&gt; *mut <a class='enum' href='../../js/jsapi/enum.JSString.html' title='js::jsapi::JSString'>JSString</a>&gt;,
+    pub fun_toString: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a href='../../std/primitive.usize.html'>usize</a>) -&gt; *mut <a class='enum' href='../../js/jsapi/enum.JSString.html' title='js::jsapi::JSString'>JSString</a>&gt;,
+    pub defaultValue: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a href='../../std/primitive.usize.html'>usize</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub iteratorNext: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub finalize: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='struct' href='../../js/jsapi/struct.JSFreeOp.html' title='js::jsapi::JSFreeOp'>JSFreeOp</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>)&gt;,
+    pub getElementIfPresent: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, <a href='../../std/primitive.u32.html'>u32</a>, *mut <a class='struct' href='../../js/jsval/struct.JSVal.html' title='js::jsval::JSVal'>JSVal</a>, *mut <a href='../../std/primitive.bool.html'>bool</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub getPrototypeOf: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>, *mut *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a>&gt;,
+    pub trace: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;unsafe  extern "C" fn(*mut <a class='struct' href='../../js/jsapi/struct.JSTracer.html' title='js::jsapi::JSTracer'>JSTracer</a>, *mut <a class='enum' href='../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a>)&gt;,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.getPropertyDescriptor'><a class='stability Unmarked' title='No stability level'></a><code>getPropertyDescriptor</code></td><td></td></tr><tr><td id='structfield.getOwnPropertyDescriptor'><a class='stability Unmarked' title='No stability level'></a><code>getOwnPropertyDescriptor</code></td><td></td></tr><tr><td id='structfield.defineProperty'><a class='stability Unmarked' title='No stability level'></a><code>defineProperty</code></td><td></td></tr><tr><td id='structfield.getOwnPropertyNames'><a class='stability Unmarked' title='No stability level'></a><code>getOwnPropertyNames</code></td><td></td></tr><tr><td id='structfield.delete_'><a class='stability Unmarked' title='No stability level'></a><code>delete_</code></td><td></td></tr><tr><td id='structfield.enumerate'><a class='stability Unmarked' title='No stability level'></a><code>enumerate</code></td><td></td></tr><tr><td id='structfield.has'><a class='stability Unmarked' title='No stability level'></a><code>has</code></td><td></td></tr><tr><td id='structfield.hasOwn'><a class='stability Unmarked' title='No stability level'></a><code>hasOwn</code></td><td></td></tr><tr><td id='structfield.get'><a class='stability Unmarked' title='No stability level'></a><code>get</code></td><td></td></tr><tr><td id='structfield.set'><a class='stability Unmarked' title='No stability level'></a><code>set</code></td><td></td></tr><tr><td id='structfield.keys'><a class='stability Unmarked' title='No stability level'></a><code>keys</code></td><td></td></tr><tr><td id='structfield.iterate'><a class='stability Unmarked' title='No stability level'></a><code>iterate</code></td><td></td></tr><tr><td id='structfield.call'><a class='stability Unmarked' title='No stability level'></a><code>call</code></td><td></td></tr><tr><td id='structfield.construct'><a class='stability Unmarked' title='No stability level'></a><code>construct</code></td><td></td></tr><tr><td id='structfield.nativeCall'><a class='stability Unmarked' title='No stability level'></a><code>nativeCall</code></td><td></td></tr><tr><td id='structfield.hasInstance'><a class='stability Unmarked' title='No stability level'></a><code>hasInstance</code></td><td></td></tr><tr><td id='structfield.typeOf'><a class='stability Unmarked' title='No stability level'></a><code>typeOf</code></td><td></td></tr><tr><td id='structfield.objectClassIs'><a class='stability Unmarked' title='No stability level'></a><code>objectClassIs</code></td><td></td></tr><tr><td id='structfield.obj_toString'><a class='stability Unmarked' title='No stability level'></a><code>obj_toString</code></td><td></td></tr><tr><td id='structfield.fun_toString'><a class='stability Unmarked' title='No stability level'></a><code>fun_toString</code></td><td></td></tr><tr><td id='structfield.defaultValue'><a class='stability Unmarked' title='No stability level'></a><code>defaultValue</code></td><td></td></tr><tr><td id='structfield.iteratorNext'><a class='stability Unmarked' title='No stability level'></a><code>iteratorNext</code></td><td></td></tr><tr><td id='structfield.finalize'><a class='stability Unmarked' title='No stability level'></a><code>finalize</code></td><td></td></tr><tr><td id='structfield.getElementIfPresent'><a class='stability Unmarked' title='No stability level'></a><code>getElementIfPresent</code></td><td></td></tr><tr><td id='structfield.getPrototypeOf'><a class='stability Unmarked' title='No stability level'></a><code>getPrototypeOf</code></td><td></td></tr><tr><td id='structfield.trace'><a class='stability Unmarked' title='No stability level'></a><code>trace</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> for <a class='struct' href='../../js/glue/struct.ProxyTraps.html' title='js::glue::ProxyTraps'>ProxyTraps</a></code></h3><div class='impl-items'></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "js";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

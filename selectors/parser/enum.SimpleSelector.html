@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SimpleSelector` enum in crate `selectors`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SimpleSelector">
+
+    <title>selectors::parser::SimpleSelector - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>selectors</a>::<wbr><a href='index.html'>parser</a></p><script>window.sidebarCurrent = {name: 'SimpleSelector', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>selectors</a>::<wbr><a href='index.html'>parser</a>::<wbr><a class='enum' href=''>SimpleSelector</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-4793' href='../../src/selectors/parser.rs.html#62-98'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum SimpleSelector {
+    ID(<a class='struct' href='../../string_cache/atom/struct.Atom.html' title='string_cache::atom::Atom'>Atom</a>),
+    Class(<a class='struct' href='../../string_cache/atom/struct.Atom.html' title='string_cache::atom::Atom'>Atom</a>),
+    LocalName(<a class='struct' href='../../selectors/parser/struct.LocalName.html' title='selectors::parser::LocalName'>LocalName</a>),
+    Namespace(<a class='struct' href='../../string_cache/namespace/struct.Namespace.html' title='string_cache::namespace::Namespace'>Namespace</a>),
+    AttrExists(<a class='struct' href='../../selectors/parser/struct.AttrSelector.html' title='selectors::parser::AttrSelector'>AttrSelector</a>),
+    AttrEqual(<a class='struct' href='../../selectors/parser/struct.AttrSelector.html' title='selectors::parser::AttrSelector'>AttrSelector</a>, <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='enum' href='../../selectors/parser/enum.CaseSensitivity.html' title='selectors::parser::CaseSensitivity'>CaseSensitivity</a>),
+    AttrIncludes(<a class='struct' href='../../selectors/parser/struct.AttrSelector.html' title='selectors::parser::AttrSelector'>AttrSelector</a>, <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>),
+    AttrDashMatch(<a class='struct' href='../../selectors/parser/struct.AttrSelector.html' title='selectors::parser::AttrSelector'>AttrSelector</a>, <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>),
+    AttrPrefixMatch(<a class='struct' href='../../selectors/parser/struct.AttrSelector.html' title='selectors::parser::AttrSelector'>AttrSelector</a>, <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>),
+    AttrSubstringMatch(<a class='struct' href='../../selectors/parser/struct.AttrSelector.html' title='selectors::parser::AttrSelector'>AttrSelector</a>, <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>),
+    AttrSuffixMatch(<a class='struct' href='../../selectors/parser/struct.AttrSelector.html' title='selectors::parser::AttrSelector'>AttrSelector</a>, <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>),
+    Negation(<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='../../selectors/parser/enum.SimpleSelector.html' title='selectors::parser::SimpleSelector'>SimpleSelector</a>&gt;),
+    AnyLink,
+    Link,
+    Visited,
+    Hover,
+    Disabled,
+    Enabled,
+    Checked,
+    Indeterminate,
+    FirstChild,
+    LastChild,
+    OnlyChild,
+    Root,
+    NthChild(<a href='../../std/primitive.i32.html'>i32</a>, <a href='../../std/primitive.i32.html'>i32</a>),
+    NthLastChild(<a href='../../std/primitive.i32.html'>i32</a>, <a href='../../std/primitive.i32.html'>i32</a>),
+    NthOfType(<a href='../../std/primitive.i32.html'>i32</a>, <a href='../../std/primitive.i32.html'>i32</a>),
+    NthLastOfType(<a href='../../std/primitive.i32.html'>i32</a>, <a href='../../std/primitive.i32.html'>i32</a>),
+    FirstOfType,
+    LastOfType,
+    OnlyOfType,
+    ServoNonzeroBorder,
+}</pre><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.ID'><a class='stability Unmarked' title='No stability level'></a><code>ID</code></td><td></td></tr><tr><td id='variant.Class'><a class='stability Unmarked' title='No stability level'></a><code>Class</code></td><td></td></tr><tr><td id='variant.LocalName'><a class='stability Unmarked' title='No stability level'></a><code>LocalName</code></td><td></td></tr><tr><td id='variant.Namespace'><a class='stability Unmarked' title='No stability level'></a><code>Namespace</code></td><td></td></tr><tr><td id='variant.AttrExists'><a class='stability Unmarked' title='No stability level'></a><code>AttrExists</code></td><td></td></tr><tr><td id='variant.AttrEqual'><a class='stability Unmarked' title='No stability level'></a><code>AttrEqual</code></td><td></td></tr><tr><td id='variant.AttrIncludes'><a class='stability Unmarked' title='No stability level'></a><code>AttrIncludes</code></td><td></td></tr><tr><td id='variant.AttrDashMatch'><a class='stability Unmarked' title='No stability level'></a><code>AttrDashMatch</code></td><td></td></tr><tr><td id='variant.AttrPrefixMatch'><a class='stability Unmarked' title='No stability level'></a><code>AttrPrefixMatch</code></td><td></td></tr><tr><td id='variant.AttrSubstringMatch'><a class='stability Unmarked' title='No stability level'></a><code>AttrSubstringMatch</code></td><td></td></tr><tr><td id='variant.AttrSuffixMatch'><a class='stability Unmarked' title='No stability level'></a><code>AttrSuffixMatch</code></td><td></td></tr><tr><td id='variant.Negation'><a class='stability Unmarked' title='No stability level'></a><code>Negation</code></td><td></td></tr><tr><td id='variant.AnyLink'><a class='stability Unmarked' title='No stability level'></a><code>AnyLink</code></td><td></td></tr><tr><td id='variant.Link'><a class='stability Unmarked' title='No stability level'></a><code>Link</code></td><td></td></tr><tr><td id='variant.Visited'><a class='stability Unmarked' title='No stability level'></a><code>Visited</code></td><td></td></tr><tr><td id='variant.Hover'><a class='stability Unmarked' title='No stability level'></a><code>Hover</code></td><td></td></tr><tr><td id='variant.Disabled'><a class='stability Unmarked' title='No stability level'></a><code>Disabled</code></td><td></td></tr><tr><td id='variant.Enabled'><a class='stability Unmarked' title='No stability level'></a><code>Enabled</code></td><td></td></tr><tr><td id='variant.Checked'><a class='stability Unmarked' title='No stability level'></a><code>Checked</code></td><td></td></tr><tr><td id='variant.Indeterminate'><a class='stability Unmarked' title='No stability level'></a><code>Indeterminate</code></td><td></td></tr><tr><td id='variant.FirstChild'><a class='stability Unmarked' title='No stability level'></a><code>FirstChild</code></td><td></td></tr><tr><td id='variant.LastChild'><a class='stability Unmarked' title='No stability level'></a><code>LastChild</code></td><td></td></tr><tr><td id='variant.OnlyChild'><a class='stability Unmarked' title='No stability level'></a><code>OnlyChild</code></td><td></td></tr><tr><td id='variant.Root'><a class='stability Unmarked' title='No stability level'></a><code>Root</code></td><td></td></tr><tr><td id='variant.NthChild'><a class='stability Unmarked' title='No stability level'></a><code>NthChild</code></td><td></td></tr><tr><td id='variant.NthLastChild'><a class='stability Unmarked' title='No stability level'></a><code>NthLastChild</code></td><td></td></tr><tr><td id='variant.NthOfType'><a class='stability Unmarked' title='No stability level'></a><code>NthOfType</code></td><td></td></tr><tr><td id='variant.NthLastOfType'><a class='stability Unmarked' title='No stability level'></a><code>NthLastOfType</code></td><td></td></tr><tr><td id='variant.FirstOfType'><a class='stability Unmarked' title='No stability level'></a><code>FirstOfType</code></td><td></td></tr><tr><td id='variant.LastOfType'><a class='stability Unmarked' title='No stability level'></a><code>LastOfType</code></td><td></td></tr><tr><td id='variant.OnlyOfType'><a class='stability Unmarked' title='No stability level'></a><code>OnlyOfType</code></td><td></td></tr><tr><td id='variant.ServoNonzeroBorder'><a class='stability Unmarked' title='No stability level'></a><code>ServoNonzeroBorder</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../selectors/parser/enum.SimpleSelector.html' title='selectors::parser::SimpleSelector'>SimpleSelector</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a> for <a class='enum' href='../../selectors/parser/enum.SimpleSelector.html' title='selectors::parser::SimpleSelector'>SimpleSelector</a></code></h3><div class='impl-items'><h4 id='method.hash' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.hash' class='fnname'>hash</a>&lt;__H: <a class='trait' href='../../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a>&gt;(&amp;self, __arg_0: &amp;mut __H)</code></h4>
+<h4 id='method.hash_slice' class='tymethod'><a class='stability Unstable' title='Unstable: module was recently redesigned'></a><code>fn <a href='#tymethod.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a href='../../std/primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a></span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../selectors/parser/enum.SimpleSelector.html' title='selectors::parser::SimpleSelector'>SimpleSelector</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../selectors/parser/enum.SimpleSelector.html' title='selectors::parser::SimpleSelector'>SimpleSelector</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../../selectors/parser/enum.SimpleSelector.html' title='selectors::parser::SimpleSelector'>SimpleSelector</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../selectors/parser/enum.SimpleSelector.html' title='selectors::parser::SimpleSelector'>SimpleSelector</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../selectors/parser/enum.SimpleSelector.html' title='selectors::parser::SimpleSelector'>SimpleSelector</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../../selectors/parser/enum.SimpleSelector.html' title='selectors::parser::SimpleSelector'>SimpleSelector</a></code></h3><div class='impl-items'><h4 id='method.assert_receiver_is_total_eq' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.assert_receiver_is_total_eq' class='fnname'>assert_receiver_is_total_eq</a>(&amp;self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "selectors";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

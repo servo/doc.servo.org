@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SupportedType",""]],"mod":[["SupportedTypeValues",""]],"fn":[["DefineDOMInterface",""],["GetProtoObject",""],["Wrap",""]],"static":[["sNativePropertyHooks",""]],"trait":[["DOMParserMethods",""]]});

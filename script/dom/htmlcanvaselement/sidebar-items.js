@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["HTMLCanvasElement",""]],"trait":[["HTMLCanvasElementHelpers",""],["LayoutHTMLCanvasElementHelpers",""]]});

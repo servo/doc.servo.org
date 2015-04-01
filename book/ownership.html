@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Ownership</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Ownership</h1>
+    <p>This guide presents Rust&#39;s ownership system. This is one of Rust&#39;s most unique
+and compelling features, with which Rust developers should become quite
+acquainted. Ownership is how Rust achieves its largest goal, memory safety.
+The ownership system has a few distinct concepts: <em>ownership</em>, <em>borrowing</em>,
+and <em>lifetimes</em>. We&#39;ll talk about each one in turn.</p>
+
+<h1 id="meta" class='section-header'><a
+                           href="#meta">Meta</a></h1>
+<p>Before we get to the details, two important notes about the ownership system.</p>
+
+<p>Rust has a focus on safety and speed. It accomplishes these goals through many
+<em>zero-cost abstractions</em>, which means that in Rust, abstractions cost as little
+as possible in order to make them work. The ownership system is a prime example
+of a zero cost abstraction. All of the analysis we&#39;ll talk about in this guide
+is <em>done at compile time</em>. You do not pay any run-time cost for any of these
+features.</p>
+
+<p>However, this system does have a certain cost: learning curve. Many new users
+to Rust experience something we like to call &quot;fighting with the borrow
+checker,&quot; where the Rust compiler refuses to compile a program that the author
+thinks is valid. This often happens because the programmer&#39;s mental model of
+how ownership should work doesn&#39;t match the actual rules that Rust implements.
+You probably will experience similar things at first. There is good news,
+however: more experienced Rust developers report that once they work with the
+rules of the ownership system for a period of time, they fight the borrow
+checker less and less.</p>
+
+<p>With that in mind, let&#39;s learn about ownership.</p>
+
+<h1 id="ownership" class='section-header'><a
+                           href="#ownership">Ownership</a></h1>
+<p>At its core, ownership is about <em>resources</em>. For the purposes of the vast
+majority of this guide, we will talk about a specific resource: memory. The
+concept generalizes to any kind of resource, like a file handle, but to make it
+more concrete, we&#39;ll focus on memory.</p>
+
+<p>When your program allocates some memory, it needs some way to deallocate that
+memory. Imagine a function <code>foo</code> that allocates four bytes of memory, and then
+never deallocates that memory. We call this problem <em>leaking</em> memory, because
+each time we call <code>foo</code>, we&#39;re allocating another four bytes. Eventually, with
+enough calls to <code>foo</code>, we will run our system out of memory. That&#39;s no good. So
+we need some way for <code>foo</code> to deallocate those four bytes. It&#39;s also important
+that we don&#39;t deallocate too many times, either. Without getting into the
+details, attempting to deallocate memory multiple times can lead to problems.
+In other words, any time some memory is allocated, we need to make sure that we
+deallocate that memory once and only once. Too many times is bad, not enough
+times is bad. The counts must match.</p>
+
+<p>There&#39;s one other important detail with regards to allocating memory. Whenever
+we request some amount of memory, what we are given is a handle to that memory.
+This handle (often called a <em>pointer</em>, when we&#39;re referring to memory) is how
+we interact with the allocated memory. As long as we have that handle, we can
+do something with the memory. Once we&#39;re done with the handle, we&#39;re also done
+with the memory, as we can&#39;t do anything useful without a handle to it.</p>
+
+<p>Historically, systems programming languages require you to track these
+allocations, deallocations, and handles yourself. For example, if we want some
+memory from the heap in a language like C, we do this:</p>
+
+<pre><code class="language-c">{
+    int *x = malloc(sizeof(int));
+
+    // we can now do stuff with our handle x
+    *x = 5;
+
+    free(x);
+}
+</code></pre>
+
+<p>The call to <code>malloc</code> allocates some memory. The call to <code>free</code> deallocates the
+memory. There&#39;s also bookkeeping about allocating the correct amount of memory.</p>
+
+<p>Rust combines these two aspects of allocating memory (and other resources) into
+a concept called <em>ownership</em>. Whenever we request some memory, that handle we
+receive is called the <em>owning handle</em>. Whenever that handle goes out of scope,
+Rust knows that you cannot do anything with the memory anymore, and so
+therefore deallocates the memory for you. Here&#39;s the equivalent example in
+Rust:</p>
+<pre id='rust-example-rendered' class='rust '>
+{
+    <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='number'>5</span>);
+}
+</pre>
+
+<p>The <code>Box::new</code> function creates a <code>Box&lt;T&gt;</code> (specifically <code>Box&lt;i32&gt;</code> in this
+case) by allocating a small segment of memory on the heap with enough space to
+fit an <code>i32</code>. But where in the code is the box deallocated? We said before that
+we must have a deallocation for each allocation. Rust handles this for you. It
+knows that our handle, <code>x</code>, is the owning reference to our box. Rust knows that
+<code>x</code> will go out of scope at the end of the block, and so it inserts a call to
+deallocate the memory at the end of the scope. Because the compiler does this
+for us, it&#39;s impossible to forget. We always have exactly one deallocation
+  paired with each of our allocations.</p>
+
+<p>This is pretty straightforward, but what happens when we want to pass our box
+to a function? Let&#39;s look at some code:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='number'>5</span>);
+
+    <span class='ident'>add_one</span>(<span class='ident'>x</span>);
+}
+
+<span class='kw'>fn</span> <span class='ident'>add_one</span>(<span class='kw-2'>mut</span> <span class='ident'>num</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>) {
+    <span class='op'>*</span><span class='ident'>num</span> <span class='op'>+=</span> <span class='number'>1</span>;
+}
+</pre>
+
+<p>This code works, but it&#39;s not ideal. For example, let&#39;s add one more line of
+code, where we print out the value of <code>x</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='number'>5</span>);
+
+    <span class='ident'>add_one</span>(<span class='ident'>x</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+
+<span class='kw'>fn</span> <span class='ident'>add_one</span>(<span class='kw-2'>mut</span> <span class='ident'>num</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>) {
+    <span class='op'>*</span><span class='ident'>num</span> <span class='op'>+=</span> <span class='number'>1</span>;
+}
+</pre>
+
+<p>This does not compile, and gives us an error:</p>
+
+<pre><code class="language-text">error: use of moved value: `x`
+   println!(&quot;{}&quot;, x);
+                  ^
+</code></pre>
+
+<p>Remember, we need one deallocation for every allocation. When we try to pass
+our box to <code>add_one</code>, we would have two handles to the memory: <code>x</code> in <code>main</code>,
+and <code>num</code> in <code>add_one</code>. If we deallocated the memory when each handle went out
+of scope, we would have two deallocations and one allocation, and that&#39;s wrong.
+So when we call <code>add_one</code>, Rust defines <code>num</code> as the owner of the handle. And
+so, now that we&#39;ve given ownership to <code>num</code>, <code>x</code> is invalid. <code>x</code>&#39;s value has
+&quot;moved&quot; from <code>x</code> to <code>num</code>. Hence the error: use of moved value <code>x</code>.</p>
+
+<p>To fix this, we can have <code>add_one</code> give ownership back when it&#39;s done with the
+box:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='number'>5</span>);
+
+    <span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='ident'>add_one</span>(<span class='ident'>x</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>y</span>);
+}
+
+<span class='kw'>fn</span> <span class='ident'>add_one</span>(<span class='kw-2'>mut</span> <span class='ident'>num</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span> {
+    <span class='op'>*</span><span class='ident'>num</span> <span class='op'>+=</span> <span class='number'>1</span>;
+
+    <span class='ident'>num</span>
+}
+</pre>
+
+<p>This code will compile and run just fine. Now, we return a <code>box</code>, and so the
+ownership is transferred back to <code>y</code> in <code>main</code>. We only have ownership for the
+duration of our function before giving it back. This pattern is very common,
+and so Rust introduces a concept to describe a handle which temporarily refers
+to something another handle owns. It&#39;s called <em>borrowing</em>, and it&#39;s done with
+<em>references</em>, designated by the <code>&amp;</code> symbol.</p>
+
+<h1 id="borrowing" class='section-header'><a
+                           href="#borrowing">Borrowing</a></h1>
+<p>Here&#39;s the current state of our <code>add_one</code> function:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>add_one</span>(<span class='kw-2'>mut</span> <span class='ident'>num</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span> {
+    <span class='op'>*</span><span class='ident'>num</span> <span class='op'>+=</span> <span class='number'>1</span>;
+
+    <span class='ident'>num</span>
+}
+</pre>
+
+<p>This function takes ownership, because it takes a <code>Box</code>, which owns its
+contents. But then we give ownership right back.</p>
+
+<p>In the physical world, you can give one of your possessions to someone for a
+short period of time. You still own your possession, you&#39;re just letting someone
+else use it for a while. We call that <em>lending</em> something to someone, and that
+person is said to be <em>borrowing</em> that something from you.</p>
+
+<p>Rust&#39;s ownership system also allows an owner to lend out a handle for a limited
+period. This is also called <em>borrowing</em>. Here&#39;s a version of <code>add_one</code> which
+borrows its argument rather than taking ownership:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>add_one</span>(<span class='ident'>num</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>i32</span>) {
+    <span class='op'>*</span><span class='ident'>num</span> <span class='op'>+=</span> <span class='number'>1</span>;
+}
+</pre>
+
+<p>This function borrows an <code>i32</code> from its caller, and then increments it. When
+the function is over, and <code>num</code> goes out of scope, the borrow is over.</p>
+
+<p>We have to change our <code>main</code> a bit too:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='number'>5</span>;
+
+    <span class='ident'>add_one</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>x</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+
+<span class='kw'>fn</span> <span class='ident'>add_one</span>(<span class='ident'>num</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>i32</span>) {
+    <span class='op'>*</span><span class='ident'>num</span> <span class='op'>+=</span> <span class='number'>1</span>;
+}
+</pre>
+
+<p>We don&#39;t need to assign the result of <code>add_one()</code> anymore, because it doesn&#39;t
+return anything anymore. This is because we&#39;re not passing ownership back,
+since we just borrow, not take ownership.</p>
+
+<h1 id="lifetimes" class='section-header'><a
+                           href="#lifetimes">Lifetimes</a></h1>
+<p>Lending out a reference to a resource that someone else owns can be
+complicated, however. For example, imagine this set of operations:</p>
+
+<ol>
+<li>I acquire a handle to some kind of resource.</li>
+<li>I lend you a reference to the resource.</li>
+<li>I decide I&#39;m done with the resource, and deallocate it, while you still have
+your reference.</li>
+<li>You decide to use the resource.</li>
+</ol>
+
+<p>Uh oh! Your reference is pointing to an invalid resource. This is called a
+<em>dangling pointer</em> or &quot;use after free,&quot; when the resource is memory.</p>
+
+<p>To fix this, we have to make sure that step four never happens after step
+three. The ownership system in Rust does this through a concept called
+<em>lifetimes</em>, which describe the scope that a reference is valid for.</p>
+
+<p>Remember the function that borrowed an <code>i32</code>? Let&#39;s look at it again.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>add_one</span>(<span class='ident'>num</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>i32</span>) {
+    <span class='op'>*</span><span class='ident'>num</span> <span class='op'>+=</span> <span class='number'>1</span>;
+}
+</pre>
+
+<p>Rust has a feature called <em>lifetime elision</em>, which allows you to not write
+lifetime annotations in certain circumstances. This is one of them. We will
+cover the others later. Without eliding the lifetimes, <code>add_one</code> looks like
+this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>add_one</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>num</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>i32</span>) {
+    <span class='op'>*</span><span class='ident'>num</span> <span class='op'>+=</span> <span class='number'>1</span>;
+}
+</pre>
+
+<p>The <code>&#39;a</code> is called a <em>lifetime</em>. Most lifetimes are used in places where
+short names like <code>&#39;a</code>, <code>&#39;b</code> and <code>&#39;c</code> are clearest, but it&#39;s often useful to
+have more descriptive names. Let&#39;s dig into the syntax in a bit more detail:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>add_one</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(...)
+</pre>
+
+<p>This part <em>declares</em> our lifetimes. This says that <code>add_one</code> has one lifetime,
+<code>&#39;a</code>. If we had two, it would look like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>add_two</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='lifetime'>&#39;b</span><span class='op'>&gt;</span>(...)
+</pre>
+
+<p>Then in our parameter list, we use the lifetimes we&#39;ve named:</p>
+<pre id='rust-example-rendered' class='rust '>
+...(<span class='ident'>num</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>i32</span>)
+</pre>
+
+<p>If you compare <code>&amp;mut i32</code> to <code>&amp;&#39;a mut i32</code>, they&#39;re the same, it&#39;s just that the
+lifetime <code>&#39;a</code> has snuck in between the <code>&amp;</code> and the <code>mut i32</code>. We read <code>&amp;mut i32</code> as &quot;a
+mutable reference to an i32&quot; and <code>&amp;&#39;a mut i32</code> as &quot;a mutable reference to an i32 with the lifetime &#39;a.&#39;&quot;</p>
+
+<p>Why do lifetimes matter? Well, for example, here&#39;s some code:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Foo</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>i32</span>,
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='number'>5</span>; <span class='comment'>// this is the same as `let _y = 5; let y = &amp;_y;`</span>
+    <span class='kw'>let</span> <span class='ident'>f</span> <span class='op'>=</span> <span class='ident'>Foo</span> { <span class='ident'>x</span>: <span class='ident'>y</span> };
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>f</span>.<span class='ident'>x</span>);
+}
+</pre>
+
+<p>As you can see, <code>struct</code>s can also have lifetimes. In a similar way to functions,</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Foo</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+</pre>
+
+<p>declares a lifetime, and</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>i32</span>,
+</pre>
+
+<p>uses it. So why do we need a lifetime here? We need to ensure that any reference
+to a <code>Foo</code> cannot outlive the reference to an <code>i32</code> it contains.</p>
+
+<h2 id="thinking-in-scopes" class='section-header'><a
+                           href="#thinking-in-scopes">Thinking in scopes</a></h2>
+<p>A way to think about lifetimes is to visualize the scope that a reference is
+valid for. For example:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='number'>5</span>;     <span class='comment'>// -+ y goes into scope</span>
+                    <span class='comment'>//  |</span>
+    <span class='comment'>// stuff        //  |</span>
+                    <span class='comment'>//  |</span>
+}                   <span class='comment'>// -+ y goes out of scope</span>
+</pre>
+
+<p>Adding in our <code>Foo</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Foo</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>i32</span>,
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='number'>5</span>;           <span class='comment'>// -+ y goes into scope</span>
+    <span class='kw'>let</span> <span class='ident'>f</span> <span class='op'>=</span> <span class='ident'>Foo</span> { <span class='ident'>x</span>: <span class='ident'>y</span> }; <span class='comment'>// -+ f goes into scope</span>
+    <span class='comment'>// stuff              //  |</span>
+                          <span class='comment'>//  |</span>
+}                         <span class='comment'>// -+ f and y go out of scope</span>
+</pre>
+
+<p>Our <code>f</code> lives within the scope of <code>y</code>, so everything works. What if it didn&#39;t?
+This code won&#39;t work:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Foo</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>i32</span>,
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>x</span>;                    <span class='comment'>// -+ x goes into scope</span>
+                              <span class='comment'>//  |</span>
+    {                         <span class='comment'>//  |</span>
+        <span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='number'>5</span>;           <span class='comment'>// ---+ y goes into scope</span>
+        <span class='kw'>let</span> <span class='ident'>f</span> <span class='op'>=</span> <span class='ident'>Foo</span> { <span class='ident'>x</span>: <span class='ident'>y</span> }; <span class='comment'>// ---+ f goes into scope</span>
+        <span class='ident'>x</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='ident'>f</span>.<span class='ident'>x</span>;             <span class='comment'>//  | | error here</span>
+    }                         <span class='comment'>// ---+ f and y go out of scope</span>
+                              <span class='comment'>//  |</span>
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);        <span class='comment'>//  |</span>
+}                             <span class='comment'>// -+ x goes out of scope</span>
+</pre>
+
+<p>Whew! As you can see here, the scopes of <code>f</code> and <code>y</code> are smaller than the scope
+of <code>x</code>. But when we do <code>x = &amp;f.x</code>, we make <code>x</code> a reference to something that&#39;s
+about to go out of scope.</p>
+
+<p>Named lifetimes are a way of giving these scopes a name. Giving something a
+name is the first step towards being able to talk about it.</p>
+
+<h2 id="&#39;static" class='section-header'><a
+                           href="#&#39;static">&#39;static</a></h2>
+<p>The lifetime named <em>static</em> is a special lifetime. It signals that something
+has the lifetime of the entire program. Most Rust programmers first come across
+<code>&#39;static</code> when dealing with strings:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span> <span class='op'>=</span> <span class='string'>&quot;Hello, world.&quot;</span>;
+</pre>
+
+<p>String literals have the type <code>&amp;&#39;static str</code> because the reference is always
+alive: they are baked into the data segment of the final binary. Another
+example are globals:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>static</span> <span class='ident'>FOO</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='number'>5</span>;
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>i32</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='ident'>FOO</span>;
+</pre>
+
+<p>This adds an <code>i32</code> to the data segment of the binary, and <code>x</code> is a reference
+to it.</p>
+
+<h1 id="shared-ownership" class='section-header'><a
+                           href="#shared-ownership">Shared Ownership</a></h1>
+<p>In all the examples we&#39;ve considered so far, we&#39;ve assumed that each handle has
+a singular owner. But sometimes, this doesn&#39;t work. Consider a car. Cars have
+four wheels. We would want a wheel to know which car it was attached to. But
+this won&#39;t work:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Car</span> {
+    <span class='ident'>name</span>: <span class='ident'>String</span>,
+}
+
+<span class='kw'>struct</span> <span class='ident'>Wheel</span> {
+    <span class='ident'>size</span>: <span class='ident'>i32</span>,
+    <span class='ident'>owner</span>: <span class='ident'>Car</span>,
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>car</span> <span class='op'>=</span> <span class='ident'>Car</span> { <span class='ident'>name</span>: <span class='string'>&quot;DeLorean&quot;</span>.<span class='ident'>to_string</span>() };
+
+    <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>4</span> {
+        <span class='ident'>Wheel</span> { <span class='ident'>size</span>: <span class='number'>360</span>, <span class='ident'>owner</span>: <span class='ident'>car</span> };
+    }
+}
+</pre>
+
+<p>We try to make four <code>Wheel</code>s, each with a <code>Car</code> that it&#39;s attached to. But the
+compiler knows that on the second iteration of the loop, there&#39;s a problem:</p>
+
+<pre><code class="language-text">error: use of moved value: `car`
+    Wheel { size: 360, owner: car };
+                              ^~~
+note: `car` moved here because it has type `Car`, which is non-copyable
+    Wheel { size: 360, owner: car };
+                              ^~~
+</code></pre>
+
+<p>We need our <code>Car</code> to be pointed to by multiple <code>Wheel</code>s. We can&#39;t do that with
+<code>Box&lt;T&gt;</code>, because it has a single owner. We can do it with <code>Rc&lt;T&gt;</code> instead:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rc</span>::<span class='ident'>Rc</span>;
+
+<span class='kw'>struct</span> <span class='ident'>Car</span> {
+    <span class='ident'>name</span>: <span class='ident'>String</span>,
+}
+
+<span class='kw'>struct</span> <span class='ident'>Wheel</span> {
+    <span class='ident'>size</span>: <span class='ident'>i32</span>,
+    <span class='ident'>owner</span>: <span class='ident'>Rc</span><span class='op'>&lt;</span><span class='ident'>Car</span><span class='op'>&gt;</span>,
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>car</span> <span class='op'>=</span> <span class='ident'>Car</span> { <span class='ident'>name</span>: <span class='string'>&quot;DeLorean&quot;</span>.<span class='ident'>to_string</span>() };
+
+    <span class='kw'>let</span> <span class='ident'>car_owner</span> <span class='op'>=</span> <span class='ident'>Rc</span>::<span class='ident'>new</span>(<span class='ident'>car</span>);
+
+    <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>4</span> {
+        <span class='ident'>Wheel</span> { <span class='ident'>size</span>: <span class='number'>360</span>, <span class='ident'>owner</span>: <span class='ident'>car_owner</span>.<span class='ident'>clone</span>() };
+    }
+}
+</pre>
+
+<p>We wrap our <code>Car</code> in an <code>Rc&lt;T&gt;</code>, getting an <code>Rc&lt;Car&gt;</code>, and then use the
+<code>clone()</code> method to make new references. We&#39;ve also changed our <code>Wheel</code> to have
+an <code>Rc&lt;Car&gt;</code> rather than just a <code>Car</code>.</p>
+
+<p>This is the simplest kind of multiple ownership possible. For example, there&#39;s
+also <code>Arc&lt;T&gt;</code>, which uses more expensive atomic instructions to be the
+thread-safe counterpart of <code>Rc&lt;T&gt;</code>.</p>
+
+<h2 id="lifetime-elision" class='section-header'><a
+                           href="#lifetime-elision">Lifetime Elision</a></h2>
+<p>Earlier, we mentioned <em>lifetime elision</em>, a feature of Rust which allows you to
+not write lifetime annotations in certain circumstances. All references have a
+lifetime, and so if you elide a lifetime (like <code>&amp;T</code> instead of <code>&amp;&#39;a T</code>), Rust
+will do three things to determine what those lifetimes should be.</p>
+
+<p>When talking about lifetime elision, we use the term <em>input lifetime</em> and
+<em>output lifetime</em>. An <em>input lifetime</em> is a lifetime associated with a parameter
+of a function, and an <em>output lifetime</em> is a lifetime associated with the return
+value of a function. For example, this function has an input lifetime:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>foo</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>bar</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>)
+</pre>
+
+<p>This one has an output lifetime:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>foo</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>() <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>
+</pre>
+
+<p>This one has a lifetime in both positions:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>foo</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>bar</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>
+</pre>
+
+<p>Here are the three rules:</p>
+
+<ul>
+<li><p>Each elided lifetime in a function&#39;s arguments becomes a distinct lifetime
+parameter.</p></li>
+<li><p>If there is exactly one input lifetime, elided or not, that lifetime is
+assigned to all elided lifetimes in the return values of that function.</p></li>
+<li><p>If there are multiple input lifetimes, but one of them is <code>&amp;self</code> or <code>&amp;mut
+self</code>, the lifetime of <code>self</code> is assigned to all elided output lifetimes.</p></li>
+</ul>
+
+<p>Otherwise, it is an error to elide an output lifetime.</p>
+
+<h3 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h3>
+<p>Here are some examples of functions with elided lifetimes, and the version of
+what the elided lifetimes are expand to:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>print</span>(<span class='ident'>s</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>); <span class='comment'>// elided</span>
+<span class='kw'>fn</span> <span class='ident'>print</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>s</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>); <span class='comment'>// expanded</span>
+
+<span class='kw'>fn</span> <span class='ident'>debug</span>(<span class='ident'>lvl</span>: <span class='ident'>u32</span>, <span class='ident'>s</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>); <span class='comment'>// elided</span>
+<span class='kw'>fn</span> <span class='ident'>debug</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>lvl</span>: <span class='ident'>u32</span>, <span class='ident'>s</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>); <span class='comment'>// expanded</span>
+
+<span class='comment'>// In the preceding example, `lvl` doesn&#39;t need a lifetime because it&#39;s not a</span>
+<span class='comment'>// reference (`&amp;`). Only things relating to references (such as a `struct`</span>
+<span class='comment'>// which contains a reference) need lifetimes.</span>
+
+<span class='kw'>fn</span> <span class='ident'>substr</span>(<span class='ident'>s</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>until</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span>; <span class='comment'>// elided</span>
+<span class='kw'>fn</span> <span class='ident'>substr</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>s</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>, <span class='ident'>until</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>; <span class='comment'>// expanded</span>
+
+<span class='kw'>fn</span> <span class='ident'>get_str</span>() <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span>; <span class='comment'>// ILLEGAL, no inputs</span>
+
+<span class='kw'>fn</span> <span class='ident'>frob</span>(<span class='ident'>s</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>t</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span>; <span class='comment'>// ILLEGAL, two inputs</span>
+<span class='kw'>fn</span> <span class='ident'>frob</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='lifetime'>&#39;b</span><span class='op'>&gt;</span>(<span class='ident'>s</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>, <span class='ident'>t</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;b</span> <span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span>; <span class='comment'>// Expanded: Output lifetime is unclear</span>
+
+<span class='kw'>fn</span> <span class='ident'>get_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>T</span>; <span class='comment'>// elided</span>
+<span class='kw'>fn</span> <span class='ident'>get_mut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>T</span>; <span class='comment'>// expanded</span>
+
+<span class='kw'>fn</span> <span class='ident'>args</span><span class='op'>&lt;</span><span class='ident'>T</span>:<span class='ident'>ToCStr</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>args</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>T</span>]) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Command</span> <span class='comment'>// elided</span>
+<span class='kw'>fn</span> <span class='ident'>args</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='lifetime'>&#39;b</span>, <span class='ident'>T</span>:<span class='ident'>ToCStr</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>args</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;b</span> [<span class='ident'>T</span>]) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>Command</span> <span class='comment'>// expanded</span>
+
+<span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>buf</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>u8</span>]) <span class='op'>-&gt;</span> <span class='ident'>BufWriter</span>; <span class='comment'>// elided</span>
+<span class='kw'>fn</span> <span class='ident'>new</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>buf</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> [<span class='ident'>u8</span>]) <span class='op'>-&gt;</span> <span class='ident'>BufWriter</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='comment'>// expanded</span>
+</pre>
+
+<h1 id="related-resources" class='section-header'><a
+                           href="#related-resources">Related Resources</a></h1>
+<p>Coming Soon.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Error","Base functionality for all errors in Rust."],["FromError","A trait for types that can be converted from a given error type `E`."]]});

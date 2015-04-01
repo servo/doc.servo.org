@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Installing Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Installing Rust</h1>
+    <p>The first step to using Rust is to install it! There are a number of ways to
+install Rust, but the easiest is to use the <code>rustup</code> script. If you&#39;re on
+Linux or a Mac, all you need to do is this (note that you don&#39;t need to type
+in the <code>$</code>s, they just indicate the start of each command):</p>
+
+<pre><code class="language-bash">$ curl -L https://static.rust-lang.org/rustup.sh | sudo sh
+</code></pre>
+
+<p>If you&#39;re concerned about the <a href="http://curlpipesh.tumblr.com/">potential insecurity</a> of using <code>curl | sudo sh</code>,
+please keep reading and see our disclaimer below. And feel free to use a two-step version of the installation and examine our installation script:</p>
+
+<pre><code class="language-bash">$ curl -L https://static.rust-lang.org/rustup.sh -O
+$ sudo sh rustup.sh
+</code></pre>
+
+<p>If you&#39;re on Windows, please download either the <a href="https://static.rust-lang.org/dist/rust-nightly-i686-pc-windows-gnu.exe">32-bit
+installer</a>
+or the <a href="https://static.rust-lang.org/dist/rust-nightly-x86_64-pc-windows-gnu.exe">64-bit
+installer</a>
+and run it.</p>
+
+<p>If you decide you don&#39;t want Rust anymore, we&#39;ll be a bit sad, but that&#39;s okay.
+Not every programming language is great for everyone. Just run the uninstall
+script:</p>
+
+<pre><code class="language-bash">$ sudo /usr/local/lib/rustlib/uninstall.sh
+</code></pre>
+
+<p>If you used the Windows installer, just re-run the <code>.exe</code> and it will give you
+an uninstall option.</p>
+
+<p>You can re-run this script any time you want to update Rust. Which, at this
+point, is often. Rust is still pre-1.0, and so people assume that you&#39;re using
+a very recent Rust.</p>
+
+<p>This brings me to one other point: some people, and somewhat rightfully so, get
+very upset when we tell you to <code>curl | sudo sh</code>. And they should be! Basically,
+when you do this, you are trusting that the good people who maintain Rust
+aren&#39;t going to hack your computer and do bad things. That&#39;s a good instinct!
+If you&#39;re one of those people, please check out the documentation on <a href="https://github.com/rust-lang/rust#building-from-source">building
+Rust from Source</a>, or
+<a href="http://www.rust-lang.org/install.html">the official binary downloads</a>. And we
+promise that this method will not be the way to install Rust forever: it&#39;s just
+the easiest way to keep people updated while Rust is in its alpha state.</p>
+
+<p>Oh, we should also mention the officially supported platforms:</p>
+
+<ul>
+<li>Windows (7, 8, Server 2008 R2)</li>
+<li>Linux (2.6.18 or later, various distributions), x86 and x86-64</li>
+<li>OSX 10.7 (Lion) or greater, x86 and x86-64</li>
+</ul>
+
+<p>We extensively test Rust on these platforms, and a few others, too, like
+Android. But these are the ones most likely to work, as they have the most
+testing.</p>
+
+<p>Finally, a comment about Windows. Rust considers Windows to be a first-class
+platform upon release, but if we&#39;re honest, the Windows experience isn&#39;t as
+integrated as the Linux/OS X experience is. We&#39;re working on it! If anything
+does not work, it is a bug. Please let us know if that happens. Each and every
+commit is tested against Windows just like any other platform.</p>
+
+<p>If you&#39;ve got Rust installed, you can open up a shell, and type this:</p>
+
+<pre><code class="language-bash">$ rustc --version
+</code></pre>
+
+<p>You should see the version number, commit hash, commit date and build date:</p>
+
+<pre><code class="language-bash">rustc 1.0.0-nightly (f11f3e7ba 2015-01-04) (built 2015-01-06)
+</code></pre>
+
+<p>If you did, Rust has been installed successfully! Congrats!</p>
+
+<p>If not, there are a number of places where you can get help. The easiest is
+<a href="irc://irc.mozilla.org/#rust">the #rust IRC channel on irc.mozilla.org</a>, which
+you can access through
+<a href="http://chat.mibbit.com/?server=irc.mozilla.org&amp;channel=%23rust">Mibbit</a>. Click
+that link, and you&#39;ll be chatting with other Rustaceans (a silly nickname we
+call ourselves), and we can help you out. Other great resources include <a href="http://www.reddit.com/r/rust">the
+/r/rust subreddit</a>, and <a href="http://stackoverflow.com/questions/tagged/rust">Stack
+Overflow</a>.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

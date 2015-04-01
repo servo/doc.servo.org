@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `File` struct in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, File">
+
+    <title>std::fs::File - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>fs</a></p><script>window.sidebarCurrent = {name: 'File', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>std</a>::<wbr><a href='index.html'>fs</a>::<wbr><a class='struct' href=''>File</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-44419' href='../../src/std/fs/mod.rs.html#57-60'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct File {
+    // some fields omitted
+}</pre><div class='docblock'><p>A reference to an open file on the filesystem.</p>
+
+<p>An instance of a <code>File</code> can be read and/or written depending on what options
+it was opened with. Files also implement <code>Seek</code> to alter the logical cursor
+that the file contains internally.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::io::prelude::*;
+    use std::fs::File;
+    
+    fn foo() -&gt; std::io::Result&lt;()&gt; {
+    let mut f = try!(File::create(&quot;foo.txt&quot;));
+    try!(f.write_all(b&quot;Hello, world!&quot;));
+    
+    let mut f = try!(File::open(&quot;foo.txt&quot;));
+    let mut s = String::new();
+    try!(f.read_to_string(&amp;mut s));
+    assert_eq!(s, &quot;Hello, world!&quot;);
+    Ok(())
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fs</span>::<span class='ident'>File</span>;
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>f</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>File</span>::<span class='ident'>create</span>(<span class='string'>&quot;foo.txt&quot;</span>));
+<span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>f</span>.<span class='ident'>write_all</span>(<span class='string'>b&quot;Hello, world!&quot;</span>));
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>f</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>File</span>::<span class='ident'>open</span>(<span class='string'>&quot;foo.txt&quot;</span>));
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>new</span>();
+<span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>f</span>.<span class='ident'>read_to_string</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>s</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>s</span>, <span class='string'>&quot;Hello, world!&quot;</span>);
+</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../std/fs/struct.File.html' title='std::fs::File'>File</a></code></h3><div class='impl-items'><h4 id='method.open' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.open' class='fnname'>open</a>&lt;P: <a class='trait' href='../../std/path/trait.AsPath.html' title='std::path::AsPath'>AsPath</a> + ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a>&gt;(path: &amp;P) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a class='struct' href='../../std/fs/struct.File.html' title='std::fs::File'>File</a>&gt;</code></h4>
+<div class='docblock'><p>Attempts to open a file in read-only mode.</p>
+
+<p>See the <code>OpenOptions::open</code> method for more details.</p>
+
+<h1 id="errors" class='section-header'><a
+                           href="#errors">Errors</a></h1>
+<p>This function will return an error if <code>path</code> does not already exist.
+Other errors may also be returned according to <code>OpenOptions::open</code>.</p>
+</div><h4 id='method.create' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.create' class='fnname'>create</a>&lt;P: <a class='trait' href='../../std/path/trait.AsPath.html' title='std::path::AsPath'>AsPath</a> + ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a>&gt;(path: &amp;P) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a class='struct' href='../../std/fs/struct.File.html' title='std::fs::File'>File</a>&gt;</code></h4>
+<div class='docblock'><p>Open a file in write-only mode.</p>
+
+<p>This function will create a file if it does not exist,
+and will truncate it if it does.</p>
+
+<p>See the <code>OpenOptions::open</code> function for more details.</p>
+</div><h4 id='method.path' class='method'><a class='stability Unstable' title='Unstable: this abstraction is imposed by this library instead of the underlying OS and may be removed'></a><code>fn <a href='#method.path' class='fnname'>path</a>(&amp;self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;<a class='struct' href='../../std/path/struct.Path.html' title='std::path::Path'>Path</a>&gt;</code></h4>
+<div class='docblock'><p>Returns the original path that was used to open this file.</p>
+</div><h4 id='method.sync_all' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.sync_all' class='fnname'>sync_all</a>(&amp;self) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Attempt to sync all OS-internal metadata to disk.</p>
+
+<p>This function will attempt to ensure that all in-core data reaches the
+filesystem before returning.</p>
+</div><h4 id='method.sync_data' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.sync_data' class='fnname'>sync_data</a>(&amp;self) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>This function is similar to <code>sync_all</code>, except that it may not
+synchronize file metadata to the filesystem.</p>
+
+<p>This is intended for use cases that must synchronize content, but don&#39;t
+need the metadata on disk. The goal of this method is to reduce disk
+operations.</p>
+
+<p>Note that some platforms may simply implement this in terms of
+<code>sync_all</code>.</p>
+</div><h4 id='method.set_len' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.set_len' class='fnname'>set_len</a>(&amp;self, size: <a href='../primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Truncates or extends the underlying file, updating the size of
+this file to become <code>size</code>.</p>
+
+<p>If the <code>size</code> is less than the current file&#39;s size, then the file will
+be shrunk. If it is greater than the current file&#39;s size, then the file
+will be extended to <code>size</code> and have all of the intermediate data filled
+in with 0s.</p>
+</div><h4 id='method.metadata' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.metadata' class='fnname'>metadata</a>(&amp;self) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a class='struct' href='../../std/fs/struct.Metadata.html' title='std::fs::Metadata'>Metadata</a>&gt;</code></h4>
+<div class='docblock'><p>Queries metadata about the underlying file.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/io/trait.Read.html' title='std::io::Read'>Read</a> for <a class='struct' href='../../std/fs/struct.File.html' title='std::fs::File'>File</a></code></h3><div class='impl-items'><h4 id='method.read' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.read' class='fnname'>read</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;mut [</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h4>
+<h4 id='method.read_to_end' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.read_to_end' class='fnname'>read_to_end</a>(&amp;mut self, buf: &amp;mut <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.read_to_string' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.read_to_string' class='fnname'>read_to_string</a>(&amp;mut self, buf: &amp;mut <a class='struct' href='../../std/string/struct.String.html' title='std::string::String'>String</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/io/trait.Write.html' title='std::io::Write'>Write</a> for <a class='struct' href='../../std/fs/struct.File.html' title='std::fs::File'>File</a></code></h3><div class='impl-items'><h4 id='method.write' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.write' class='fnname'>write</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;[</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h4>
+<h4 id='method.flush' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.flush' class='fnname'>flush</a>(&amp;mut self) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_all' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.write_all' class='fnname'>write_all</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;[</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_fmt' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.write_fmt' class='fnname'>write_fmt</a>(&amp;mut self, fmt: <a class='struct' href='../../std/fmt/struct.Arguments.html' title='std::fmt::Arguments'>Arguments</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/io/trait.Seek.html' title='std::io::Seek'>Seek</a> for <a class='struct' href='../../std/fs/struct.File.html' title='std::fs::File'>File</a></code></h3><div class='impl-items'><h4 id='method.seek' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.seek' class='fnname'>seek</a>(&amp;mut self, pos: <a class='enum' href='../../std/io/enum.SeekFrom.html' title='std::io::SeekFrom'>SeekFrom</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.u64.html'>u64</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/os/unix/prelude/trait.AsRawFd.html' title='std::os::unix::prelude::AsRawFd'>AsRawFd</a> for <a class='struct' href='../../std/fs/struct.File.html' title='std::fs::File'>File</a></code></h3><div class='impl-items'><h4 id='method.as_raw_fd' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_raw_fd' class='fnname'>as_raw_fd</a>(&amp;self) -&gt; <a class='type' href='../../std/os/unix/prelude/type.Fd.html' title='std::os::unix::prelude::Fd'>Fd</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/os/unix/prelude/trait.AsRawFd.html' title='std::os::unix::prelude::AsRawFd'>AsRawFd</a> for <a class='struct' href='../../std/fs/struct.File.html' title='std::fs::File'>File</a></code></h3><div class='impl-items'><h4 id='method.as_raw_fd' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_raw_fd' class='fnname'>as_raw_fd</a>(&amp;self) -&gt; <a class='type' href='../../std/os/unix/prelude/type.Fd.html' title='std::os::unix::prelude::Fd'>Fd</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

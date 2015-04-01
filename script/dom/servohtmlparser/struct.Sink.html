@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Sink` struct in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Sink">
+
+    <title>script::dom::servohtmlparser::Sink - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a>::<wbr><a href='index.html'>servohtmlparser</a></p><script>window.sidebarCurrent = {name: 'Sink', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a>::<wbr><a href='index.html'>servohtmlparser</a>::<wbr><a class='struct' href=''>Sink</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-540288' href='../../../src/script/dom/servohtmlparser.rs.html#29-32'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Sink {
+    pub base_url: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a>&gt;,
+    pub document: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/document/struct.Document.html' title='script::dom::document::Document'>Document</a>&gt;,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.base_url'><a class='stability Unmarked' title='No stability level'></a><code>base_url</code></td><td></td></tr><tr><td id='structfield.document'><a class='stability Unmarked' title='No stability level'></a><code>document</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='trait' href='../../../html5ever/tree_builder/interface/trait.TreeSink.html' title='html5ever::tree_builder::interface::TreeSink'>TreeSink</a> for <a class='struct' href='../../../script/dom/servohtmlparser/struct.Sink.html' title='script::dom::servohtmlparser::Sink'>Sink</a></code></h3><div class='impl-items'><h4 id='assoc_type.Handle' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Handle = <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;</code></h4>
+<h4 id='method.get_document' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_document' class='fnname'>get_document</a>(&amp;mut self) -&gt; <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;</code></h4>
+<h4 id='method.same_node' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.same_node' class='fnname'>same_node</a>(&amp;self, x: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;, y: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;) -&gt; <a href='../../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.elem_name' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.elem_name' class='fnname'>elem_name</a>(&amp;self, target: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;) -&gt; <a class='struct' href='../../../string_cache/namespace/struct.QualName.html' title='string_cache::namespace::QualName'>QualName</a></code></h4>
+<h4 id='method.create_element' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.create_element' class='fnname'>create_element</a>(&amp;mut self, name: <a class='struct' href='../../../string_cache/namespace/struct.QualName.html' title='string_cache::namespace::QualName'>QualName</a>, attrs: <a class='struct' href='../../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../../html5ever/tokenizer/interface/struct.Attribute.html' title='html5ever::tokenizer::interface::Attribute'>Attribute</a>&gt;) -&gt; <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;</code></h4>
+<h4 id='method.create_comment' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.create_comment' class='fnname'>create_comment</a>(&amp;mut self, text: <a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;</code></h4>
+<h4 id='method.append_before_sibling' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.append_before_sibling' class='fnname'>append_before_sibling</a>(&amp;mut self, sibling: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;, new_node: <a class='enum' href='../../../html5ever/tree_builder/interface/enum.NodeOrText.html' title='html5ever::tree_builder::interface::NodeOrText'>NodeOrText</a>&lt;<a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;&gt;) -&gt; <a class='enum' href='../../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../../../std/primitive.tuple.html'>()</a>, <a class='enum' href='../../../html5ever/tree_builder/interface/enum.NodeOrText.html' title='html5ever::tree_builder::interface::NodeOrText'>NodeOrText</a>&lt;<a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;&gt;&gt;</code></h4>
+<h4 id='method.parse_error' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.parse_error' class='fnname'>parse_error</a>(&amp;mut self, msg: <a class='enum' href='../../../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a href='../../../std/primitive.str.html'>str</a>&gt;)</code></h4>
+<h4 id='method.set_quirks_mode' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.set_quirks_mode' class='fnname'>set_quirks_mode</a>(&amp;mut self, mode: <a class='enum' href='../../../html5ever/tree_builder/interface/enum.QuirksMode.html' title='html5ever::tree_builder::interface::QuirksMode'>QuirksMode</a>)</code></h4>
+<h4 id='method.append' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.append' class='fnname'>append</a>(&amp;mut self, parent: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;, child: <a class='enum' href='../../../html5ever/tree_builder/interface/enum.NodeOrText.html' title='html5ever::tree_builder::interface::NodeOrText'>NodeOrText</a>&lt;<a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;&gt;)</code></h4>
+<h4 id='method.append_doctype_to_document' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.append_doctype_to_document' class='fnname'>append_doctype_to_document</a>(&amp;mut self, name: <a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>, public_id: <a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>, system_id: <a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>)</code></h4>
+<h4 id='method.add_attrs_if_missing' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.add_attrs_if_missing' class='fnname'>add_attrs_if_missing</a>(&amp;mut self, target: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;, attrs: <a class='struct' href='../../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../../html5ever/tokenizer/interface/struct.Attribute.html' title='html5ever::tokenizer::interface::Attribute'>Attribute</a>&gt;)</code></h4>
+<h4 id='method.remove_from_parent' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.remove_from_parent' class='fnname'>remove_from_parent</a>(&amp;mut self, _target: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;)</code></h4>
+<h4 id='method.mark_script_already_started' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mark_script_already_started' class='fnname'>mark_script_already_started</a>(&amp;mut self, node: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;)</code></h4>
+<h4 id='method.complete_script' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.complete_script' class='fnname'>complete_script</a>(&amp;mut self, node: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;)</code></h4>
+<h4 id='method.reparent_children' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.reparent_children' class='fnname'>reparent_children</a>(&amp;mut self, _node: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;, _new_parent: <a class='struct' href='../../../script/dom/bindings/js/struct.JS.html' title='script::dom::bindings::js::JS'>JS</a>&lt;<a class='struct' href='../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;)</code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../script/dom/bindings/trace/trait.JSTraceable.html' title='script::dom::bindings::trace::JSTraceable'>JSTraceable</a> for <a class='struct' href='../../../script/dom/servohtmlparser/struct.Sink.html' title='script::dom::servohtmlparser::Sink'>Sink</a></code></h3><div class='impl-items'><h4 id='method.trace' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.trace' class='fnname'>trace</a>(&amp;self, __arg_0: *mut <a class='struct' href='../../../js/jsapi/struct.JSTracer.html' title='js::jsapi::JSTracer'>JSTracer</a>)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

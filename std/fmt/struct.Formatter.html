@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Formatter` struct in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Formatter">
+
+    <title>std::fmt::Formatter - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>fmt</a></p><script>window.sidebarCurrent = {name: 'Formatter', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>std</a>::<wbr><a href='index.html'>fmt</a>::<wbr><a class='struct' href=''>Formatter</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-110266' href='../../core/fmt/struct.Formatter.html?gotosrc=110266'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Formatter&lt;'a&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>A struct to represent both where to emit formatting strings to and how they
+should be formatted. A mutable version of this is passed to all formatting
+traits.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl&lt;'a&gt; <a class='struct' href='../../std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.pad_integral' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.pad_integral' class='fnname'>pad_integral</a>(&amp;mut self, is_positive: <a href='../primitive.bool.html'>bool</a>, prefix: &amp;<a href='../primitive.str.html'>str</a>, buf: &amp;<a href='../primitive.str.html'>str</a>) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>, <a class='struct' href='../../std/fmt/struct.Error.html' title='std::fmt::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Performs the correct padding for an integer which has already been
+emitted into a str. The str should <em>not</em> contain the sign for the
+integer, that will be added by this method.</p>
+
+<h1 id="arguments" class='section-header'><a
+                           href="#arguments">Arguments</a></h1>
+<ul>
+<li>is_positive - whether the original integer was positive or not.</li>
+<li>prefix - if the &#39;#&#39; character (FlagAlternate) is provided, this
+is the prefix to put in front of the number.</li>
+<li>buf - the byte array that the number has been formatted into</li>
+</ul>
+
+<p>This function will correctly account for the flags provided as well as
+the minimum width. It will not take precision into account.</p>
+</div><h4 id='method.pad' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.pad' class='fnname'>pad</a>(&amp;mut self, s: &amp;<a href='../primitive.str.html'>str</a>) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>, <a class='struct' href='../../std/fmt/struct.Error.html' title='std::fmt::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>This function takes a string slice and emits it to the internal buffer
+after applying the relevant formatting flags specified. The flags
+recognized for generic strings are:</p>
+
+<ul>
+<li>width - the minimum width of what to emit</li>
+<li>fill/align - what to emit and where to emit it if the string
+           provided needs to be padded</li>
+<li>precision - the maximum length to emit, the string is truncated if it
+          is longer than this length</li>
+</ul>
+
+<p>Notably this function ignored the <code>flag</code> parameters</p>
+</div><h4 id='method.write_str' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.write_str' class='fnname'>write_str</a>(&amp;mut self, data: &amp;<a href='../primitive.str.html'>str</a>) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>, <a class='struct' href='../../std/fmt/struct.Error.html' title='std::fmt::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Writes some data to the underlying buffer contained within this
+formatter.</p>
+</div><h4 id='method.write_fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.write_fmt' class='fnname'>write_fmt</a>(&amp;mut self, fmt: <a class='struct' href='../../std/fmt/struct.Arguments.html' title='std::fmt::Arguments'>Arguments</a>) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>, <a class='struct' href='../../std/fmt/struct.Error.html' title='std::fmt::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Writes some formatted information into this instance</p>
+</div><h4 id='method.flags' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.flags' class='fnname'>flags</a>(&amp;self) -&gt; <a href='../primitive.u32.html'>u32</a></code></h4>
+<div class='docblock'><p>Flags for formatting (packed version of rt::Flag)</p>
+</div><h4 id='method.fill' class='method'><a class='stability Unstable' title='Unstable: method was just created'></a><code>fn <a href='#method.fill' class='fnname'>fill</a>(&amp;self) -&gt; <a href='../primitive.char.html'>char</a></code></h4>
+<div class='docblock'><p>Character used as &#39;fill&#39; whenever there is alignment</p>
+</div><h4 id='method.align' class='method'><a class='stability Unstable' title='Unstable: method was just created'></a><code>fn <a href='#method.align' class='fnname'>align</a>(&amp;self) -&gt; <a class='enum' href='../../core/fmt/rt/v1/enum.Alignment.html' title='core::fmt::rt::v1::Alignment'>Alignment</a></code></h4>
+<div class='docblock'><p>Flag indicating what form of alignment was requested</p>
+</div><h4 id='method.width' class='method'><a class='stability Unstable' title='Unstable: method was just created'></a><code>fn <a href='#method.width' class='fnname'>width</a>(&amp;self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h4>
+<div class='docblock'><p>Optionally specified integer width that the output should be</p>
+</div><h4 id='method.precision' class='method'><a class='stability Unstable' title='Unstable: method was just created'></a><code>fn <a href='#method.precision' class='fnname'>precision</a>(&amp;self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h4>
+<div class='docblock'><p>Optionally specified precision for numeric types</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

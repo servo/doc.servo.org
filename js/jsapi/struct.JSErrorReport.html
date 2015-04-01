@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `JSErrorReport` struct in crate `js`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, JSErrorReport">
+
+    <title>js::jsapi::JSErrorReport - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>js</a>::<wbr><a href='index.html'>jsapi</a></p><script>window.sidebarCurrent = {name: 'JSErrorReport', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>js</a>::<wbr><a href='index.html'>jsapi</a>::<wbr><a class='struct' href=''>JSErrorReport</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-1238' href='../../src/js/jsapi.rs.html#391-405'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct JSErrorReport {
+    pub filename: *const <a class='type' href='../../libc/types/os/arch/c95/type.c_char.html' title='libc::types::os::arch::c95::c_char'>c_char</a>,
+    pub originPrincipals: *mut <a class='struct' href='../../js/jsapi/struct.JSPrincipals.html' title='js::jsapi::JSPrincipals'>JSPrincipals</a>,
+    pub lineno: <a class='type' href='../../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+    pub linebuf: *const <a class='type' href='../../libc/types/os/arch/c95/type.c_char.html' title='libc::types::os::arch::c95::c_char'>c_char</a>,
+    pub tokenptr: *const <a class='type' href='../../libc/types/os/arch/c95/type.c_char.html' title='libc::types::os::arch::c95::c_char'>c_char</a>,
+    pub uclinebuf: *const <a class='type' href='../../js/jsapi/type.jschar.html' title='js::jsapi::jschar'>jschar</a>,
+    pub uctokenptr: *const <a class='type' href='../../js/jsapi/type.jschar.html' title='js::jsapi::jschar'>jschar</a>,
+    pub flags: <a class='type' href='../../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+    pub errorNumber: <a class='type' href='../../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+    pub ucmessage: *const <a class='type' href='../../js/jsapi/type.jschar.html' title='js::jsapi::jschar'>jschar</a>,
+    pub messageArgs: *mut *const <a class='type' href='../../js/jsapi/type.jschar.html' title='js::jsapi::jschar'>jschar</a>,
+    pub exnType: <a class='type' href='../../libc/types/common/c99/type.int16_t.html' title='libc::types::common::c99::int16_t'>int16_t</a>,
+    pub column: <a class='type' href='../../libc/types/os/arch/c95/type.c_uint.html' title='libc::types::os::arch::c95::c_uint'>c_uint</a>,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.filename'><a class='stability Unmarked' title='No stability level'></a><code>filename</code></td><td></td></tr><tr><td id='structfield.originPrincipals'><a class='stability Unmarked' title='No stability level'></a><code>originPrincipals</code></td><td></td></tr><tr><td id='structfield.lineno'><a class='stability Unmarked' title='No stability level'></a><code>lineno</code></td><td></td></tr><tr><td id='structfield.linebuf'><a class='stability Unmarked' title='No stability level'></a><code>linebuf</code></td><td></td></tr><tr><td id='structfield.tokenptr'><a class='stability Unmarked' title='No stability level'></a><code>tokenptr</code></td><td></td></tr><tr><td id='structfield.uclinebuf'><a class='stability Unmarked' title='No stability level'></a><code>uclinebuf</code></td><td></td></tr><tr><td id='structfield.uctokenptr'><a class='stability Unmarked' title='No stability level'></a><code>uctokenptr</code></td><td></td></tr><tr><td id='structfield.flags'><a class='stability Unmarked' title='No stability level'></a><code>flags</code></td><td></td></tr><tr><td id='structfield.errorNumber'><a class='stability Unmarked' title='No stability level'></a><code>errorNumber</code></td><td></td></tr><tr><td id='structfield.ucmessage'><a class='stability Unmarked' title='No stability level'></a><code>ucmessage</code></td><td></td></tr><tr><td id='structfield.messageArgs'><a class='stability Unmarked' title='No stability level'></a><code>messageArgs</code></td><td></td></tr><tr><td id='structfield.exnType'><a class='stability Unmarked' title='No stability level'></a><code>exnType</code></td><td></td></tr><tr><td id='structfield.column'><a class='stability Unmarked' title='No stability level'></a><code>column</code></td><td></td></tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "js";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

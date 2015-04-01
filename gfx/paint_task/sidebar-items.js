@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PaintChan",""],["PaintLayer","Information about a hardware graphics layer that layout sends to the painting task."],["PaintRequest",""],["PaintTask",""]],"enum":[["Msg",""]],"static":[["THREAD_TINT_COLORS",""]]});

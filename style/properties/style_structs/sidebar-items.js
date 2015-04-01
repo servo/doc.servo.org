@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Animation",""],["Background",""],["Border",""],["Box",""],["Color",""],["Counters",""],["Effects",""],["Font",""],["InheritedBox",""],["InheritedTable",""],["InheritedText",""],["List",""],["Margin",""],["Outline",""],["Padding",""],["Pointing",""],["PositionOffsets",""],["Table",""],["Text",""]]});

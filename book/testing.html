@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Testing</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Testing</h1>
+    <blockquote>
+<p>Program testing can be a very effective way to show the presence of bugs, but
+it is hopelessly inadequate for showing their absence. </p>
+
+<p>Edsger W. Dijkstra, &quot;The Humble Programmer&quot; (1972)</p>
+</blockquote>
+
+<p>Let&#39;s talk about how to test Rust code. What we will not be talking about is
+the right way to test Rust code. There are many schools of thought regarding
+the right and wrong way to write tests. All of these approaches use the same
+basic tools, and so we&#39;ll show you the syntax for using them.</p>
+
+<h1 id="the-test-attribute" class='section-header'><a
+                           href="#the-test-attribute">The <code>test</code> attribute</a></h1>
+<p>At its simplest, a test in Rust is a function that&#39;s annotated with the <code>test</code>
+attribute. Let&#39;s make a new project with Cargo called <code>adder</code>:</p>
+
+<pre><code class="language-bash">$ cargo new adder
+$ cd adder
+</code></pre>
+
+<p>Cargo will automatically generate a simple test when you make a new project.
+Here&#39;s the contents of <code>src/lib.rs</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='attribute'>#[<span class='ident'>test</span>]</span>
+<span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+}
+</pre>
+
+<p>Note the <code>#[test]</code>. This attribute indicates that this is a test function. It
+currently has no body. That&#39;s good enough to pass! We can run the tests with
+<code>cargo test</code>:</p>
+
+<pre><code class="language-bash">$ cargo test
+   Compiling adder v0.0.1 (file:///home/you/projects/adder)
+     Running target/adder-91b3e234d4ed382a
+
+running 1 test
+test it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured
+</code></pre>
+
+<p>Cargo compiled and ran our tests. There are two sets of output here: one
+for the test we wrote, and another for documentation tests. We&#39;ll talk about
+those later. For now, see this line:</p>
+
+<pre><code class="language-text">test it_works ... ok
+</code></pre>
+
+<p>Note the <code>it_works</code>. This comes from the name of our function:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+</pre>
+
+<p>We also get a summary line:</p>
+
+<pre><code class="language-text">test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+</code></pre>
+
+<p>So why does our do-nothing test pass? Any test which doesn&#39;t <code>panic!</code> passes,
+and any test that does <code>panic!</code> fails. Let&#39;s make our test fail:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='attribute'>#[<span class='ident'>test</span>]</span>
+<span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='boolval'>false</span>);
+}
+</pre>
+
+<p><code>assert!</code> is a macro provided by Rust which takes one argument: if the argument
+is <code>true</code>, nothing happens. If the argument is false, it <code>panic!</code>s. Let&#39;s run
+our tests again:</p>
+
+<pre><code class="language-bash">$ cargo test
+   Compiling adder v0.0.1 (file:///home/you/projects/adder)
+     Running target/adder-91b3e234d4ed382a
+
+running 1 test
+test it_works ... FAILED
+
+failures:
+
+---- it_works stdout ----
+        thread &#39;it_works&#39; panicked at &#39;assertion failed: false&#39;, /home/steve/tmp/adder/src/lib.rs:3
+
+
+
+failures:
+    it_works
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured
+
+thread &#39;&lt;main&gt;&#39; panicked at &#39;Some tests failed&#39;, /home/steve/src/rust/src/libtest/lib.rs:247
+</code></pre>
+
+<p>Rust indicates that our test failed:</p>
+
+<pre><code class="language-text">test it_works ... FAILED
+</code></pre>
+
+<p>And that&#39;s reflected in the summary line:</p>
+
+<pre><code class="language-text">test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured
+</code></pre>
+
+<p>We also get a non-zero status code:</p>
+
+<pre><code class="language-bash">$ echo $?
+101
+</code></pre>
+
+<p>This is useful if you want to integrate <code>cargo test</code> into other tooling.</p>
+
+<p>We can invert our test&#39;s failure with another attribute: <code>should_fail</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='attribute'>#[<span class='ident'>test</span>]</span>
+<span class='attribute'>#[<span class='ident'>should_fail</span>]</span>
+<span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='boolval'>false</span>);
+}
+</pre>
+
+<p>This test will now succeed if we <code>panic!</code> and fail if we complete. Let&#39;s try it:</p>
+
+<pre><code class="language-bash">$ cargo test
+   Compiling adder v0.0.1 (file:///home/you/projects/adder)
+     Running target/adder-91b3e234d4ed382a
+
+running 1 test
+test it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured
+</code></pre>
+
+<p>Rust provides another macro, <code>assert_eq!</code>, that compares two arguments for
+equality:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='attribute'>#[<span class='ident'>test</span>]</span>
+<span class='attribute'>#[<span class='ident'>should_fail</span>]</span>
+<span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello&quot;</span>, <span class='string'>&quot;world&quot;</span>);
+}
+</pre>
+
+<p>Does this test pass or fail? Because of the <code>should_fail</code> attribute, it
+passes:</p>
+
+<pre><code class="language-bash">$ cargo test
+   Compiling adder v0.0.1 (file:///home/you/projects/adder)
+     Running target/adder-91b3e234d4ed382a
+
+running 1 test
+test it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured
+</code></pre>
+
+<p><code>should_fail</code> tests can be fragile, as it&#39;s hard to guarantee that the test
+didn&#39;t fail for an unexpected reason. To help with this, an optional <code>expected</code>
+parameter can be added to the <code>should_fail</code> attribute. The test harness will
+make sure that the failure message contains the provided text. A safer version
+of the example above would be:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='attribute'>#[<span class='ident'>test</span>]</span>
+<span class='attribute'>#[<span class='ident'>should_fail</span>(<span class='ident'>expected</span> <span class='op'>=</span> <span class='string'>&quot;assertion failed&quot;</span>)]</span>
+<span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;Hello&quot;</span>, <span class='string'>&quot;world&quot;</span>);
+}
+</pre>
+
+<p>That&#39;s all there is to the basics! Let&#39;s write one &#39;real&#39; test:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_two</span>(<span class='ident'>a</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='ident'>a</span> <span class='op'>+</span> <span class='number'>2</span>
+}
+
+<span class='attribute'>#[<span class='ident'>test</span>]</span>
+<span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>4</span>, <span class='ident'>add_two</span>(<span class='number'>2</span>));
+}
+</pre>
+
+<p>This is a very common use of <code>assert_eq!</code>: call some function with
+some known arguments and compare it to the expected output.</p>
+
+<h1 id="the-test-module" class='section-header'><a
+                           href="#the-test-module">The <code>test</code> module</a></h1>
+<p>There is one way in which our existing example is not idiomatic: it&#39;s
+missing the test module. The idiomatic way of writing our example
+looks like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_two</span>(<span class='ident'>a</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='ident'>a</span> <span class='op'>+</span> <span class='number'>2</span>
+}
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>tests</span> {
+    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>add_two</span>;
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>4</span>, <span class='ident'>add_two</span>(<span class='number'>2</span>));
+    }
+}
+</pre>
+
+<p>There&#39;s a few changes here. The first is the introduction of a <code>mod tests</code> with
+a <code>cfg</code> attribute. The module allows us to group all of our tests together, and
+to also define helper functions if needed, that don&#39;t become a part of the rest
+of our crate. The <code>cfg</code> attribute only compiles our test code if we&#39;re
+currently trying to run the tests. This can save compile time, and also ensures
+that our tests are entirely left out of a normal build.</p>
+
+<p>The second change is the <code>use</code> declaration. Because we&#39;re in an inner module,
+we need to bring our test function into scope. This can be annoying if you have
+a large module, and so this is a common use of the <code>glob</code> feature. Let&#39;s change
+our <code>src/lib.rs</code> to make use of it:</p>
+<pre id='rust-example-rendered' class='rust '>
+
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_two</span>(<span class='ident'>a</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='ident'>a</span> <span class='op'>+</span> <span class='number'>2</span>
+}
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>tests</span> {
+    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>4</span>, <span class='ident'>add_two</span>(<span class='number'>2</span>));
+    }
+}
+</pre>
+
+<p>Note the different <code>use</code> line. Now we run our tests:</p>
+
+<pre><code class="language-bash">$ cargo test
+    Updating registry `https://github.com/rust-lang/crates.io-index`
+   Compiling adder v0.0.1 (file:///home/you/projects/adder)
+     Running target/adder-91b3e234d4ed382a
+
+running 1 test
+test test::it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured
+</code></pre>
+
+<p>It works!</p>
+
+<p>The current convention is to use the <code>test</code> module to hold your &quot;unit-style&quot;
+tests. Anything that just tests one small bit of functionality makes sense to
+go here. But what about &quot;integration-style&quot; tests instead? For that, we have
+the <code>tests</code> directory</p>
+
+<h1 id="the-tests-directory" class='section-header'><a
+                           href="#the-tests-directory">The <code>tests</code> directory</a></h1>
+<p>To write an integration test, let&#39;s make a <code>tests</code> directory, and
+put a <code>tests/lib.rs</code> file inside, with this as its contents:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>adder</span>;
+
+<span class='attribute'>#[<span class='ident'>test</span>]</span>
+<span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>4</span>, <span class='ident'>adder</span>::<span class='ident'>add_two</span>(<span class='number'>2</span>));
+}   
+</pre>
+
+<p>This looks similar to our previous tests, but slightly different. We now have
+an <code>extern crate adder</code> at the top. This is because the tests in the <code>tests</code>
+directory are an entirely separate crate, and so we need to import our library.
+This is also why <code>tests</code> is a suitable place to write integration-style tests:
+they use the library like any other consumer of it would.</p>
+
+<p>Let&#39;s run them:</p>
+
+<pre><code class="language-bash">$ cargo test
+   Compiling adder v0.0.1 (file:///home/you/projects/adder)
+     Running target/adder-91b3e234d4ed382a
+
+running 1 test
+test test::it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+
+     Running target/lib-c18e7d3494509e74
+
+running 1 test
+test it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured
+</code></pre>
+
+<p>Now we have three sections: our previous test is also run, as well as our new
+one.</p>
+
+<p>That&#39;s all there is to the <code>tests</code> directory. The <code>test</code> module isn&#39;t needed
+here, since the whole thing is focused on tests.</p>
+
+<p>Let&#39;s finally check out that third section: documentation tests.</p>
+
+<h1 id="documentation-tests" class='section-header'><a
+                           href="#documentation-tests">Documentation tests</a></h1>
+<p>Nothing is better than documentation with examples. Nothing is worse than
+examples that don&#39;t actually work, because the code has changed since the
+documentation has been written. To this end, Rust supports automatically
+running examples in your documentation. Here&#39;s a fleshed-out <code>src/lib.rs</code>
+with examples:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='doccomment'>//! The `adder` crate provides functions that add numbers to other numbers.</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! # Examples</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! ```</span>
+<span class='doccomment'>//! assert_eq!(4, adder::add_two(2));</span>
+<span class='doccomment'>//! ```</span>
+
+<span class='doccomment'>/// This function adds two to its argument.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```</span>
+<span class='doccomment'>/// use adder::add_two;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(4, add_two(2));</span>
+<span class='doccomment'>/// ```</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_two</span>(<span class='ident'>a</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='ident'>a</span> <span class='op'>+</span> <span class='number'>2</span>
+}
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>tests</span> {
+    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>4</span>, <span class='ident'>add_two</span>(<span class='number'>2</span>));
+    }
+}
+</pre>
+
+<p>Note the module-level documentation with <code>//!</code> and the function-level
+documentation with <code>///</code>. Rust&#39;s documentation supports Markdown in comments,
+and so triple graves mark code blocks. It is conventional to include the
+<code># Examples</code> section, exactly like that, with examples following.</p>
+
+<p>Let&#39;s run the tests again:</p>
+
+<pre><code class="language-bash">$ cargo test
+   Compiling adder v0.0.1 (file:///home/steve/tmp/adder)
+     Running target/adder-91b3e234d4ed382a
+
+running 1 test
+test test::it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+
+     Running target/lib-c18e7d3494509e74
+
+running 1 test
+test it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured
+
+   Doc-tests adder
+
+running 2 tests
+test add_two_0 ... ok
+test _0 ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured
+</code></pre>
+
+<p>Now we have all three kinds of tests running! Note the names of the
+documentation tests: the <code>_0</code> is generated for the module test, and <code>add_two_0</code>
+for the function test. These will auto increment with names like <code>add_two_1</code> as
+you add more examples.</p>
+
+<h1 id="benchmark-tests" class='section-header'><a
+                           href="#benchmark-tests">Benchmark tests</a></h1>
+<p>Rust also supports benchmark tests, which can test the performance of your
+code. Let&#39;s make our <code>src/lib.rs</code> look like this (comments elided):</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
+
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>add_two</span>(<span class='ident'>a</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='ident'>a</span> <span class='op'>+</span> <span class='number'>2</span>
+}
+
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>tests</span> {
+    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='ident'>test</span>::<span class='ident'>Bencher</span>;
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>it_works</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>4</span>, <span class='ident'>add_two</span>(<span class='number'>2</span>));
+    }
+
+    <span class='attribute'>#[<span class='ident'>bench</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>bench_add_two</span>(<span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Bencher</span>) {
+        <span class='ident'>b</span>.<span class='ident'>iter</span>(<span class='op'>||</span> <span class='ident'>add_two</span>(<span class='number'>2</span>));
+    }
+}
+</pre>
+
+<p>We&#39;ve imported the <code>test</code> crate, which contains our benchmarking support.
+We have a new function as well, with the <code>bench</code> attribute. Unlike regular
+tests, which take no arguments, benchmark tests take a <code>&amp;mut Bencher</code>. This
+<code>Bencher</code> provides an <code>iter</code> method, which takes a closure. This closure
+contains the code we&#39;d like to benchmark.</p>
+
+<p>We can run benchmark tests with <code>cargo bench</code>:</p>
+
+<pre><code class="language-bash">$ cargo bench
+   Compiling adder v0.0.1 (file:///home/steve/tmp/adder)
+     Running target/release/adder-91b3e234d4ed382a
+
+running 2 tests
+test tests::it_works ... ignored
+test tests::bench_add_two ... bench:         1 ns/iter (+/- 0)
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 1 measured
+</code></pre>
+
+<p>Our non-benchmark test was ignored. You may have noticed that <code>cargo bench</code>
+takes a bit longer than <code>cargo test</code>. This is because Rust runs our benchmark
+a number of times, and then takes the average. Because we&#39;re doing so little
+work in this example, we have a <code>1 ns/iter (+/- 0)</code>, but this would show
+the variance if there was one.</p>
+
+<p>Advice on writing benchmarks:</p>
+
+<ul>
+<li>Move setup code outside the <code>iter</code> loop; only put the part you want to measure inside</li>
+<li>Make the code do &quot;the same thing&quot; on each iteration; do not accumulate or change state</li>
+<li>Make the outer function idempotent too; the benchmark runner is likely to run
+it many times</li>
+<li> Make the inner <code>iter</code> loop short and fast so benchmark runs are fast and the
+calibrator can adjust the run-length at fine resolution</li>
+<li>Make the code in the <code>iter</code> loop do something simple, to assist in pinpointing
+performance improvements (or regressions)</li>
+</ul>
+
+<h2 id="gotcha:-optimizations" class='section-header'><a
+                           href="#gotcha:-optimizations">Gotcha: optimizations</a></h2>
+<p>There&#39;s another tricky part to writing benchmarks: benchmarks compiled with
+optimizations activated can be dramatically changed by the optimizer so that
+the benchmark is no longer benchmarking what one expects. For example, the
+compiler might recognize that some calculation has no external effects and
+remove it entirely.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
+<span class='kw'>use</span> <span class='ident'>test</span>::<span class='ident'>Bencher</span>;
+
+<span class='attribute'>#[<span class='ident'>bench</span>]</span>
+<span class='kw'>fn</span> <span class='ident'>bench_xor_1000_ints</span>(<span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Bencher</span>) {
+    <span class='ident'>b</span>.<span class='ident'>iter</span>(<span class='op'>||</span> {
+        (<span class='number'>0</span>..<span class='number'>1000</span>).<span class='ident'>fold</span>(<span class='number'>0</span>, <span class='op'>|</span><span class='ident'>old</span>, <span class='ident'>new</span><span class='op'>|</span> <span class='ident'>old</span> <span class='op'>^</span> <span class='ident'>new</span>);
+    });
+}
+</pre>
+
+<p>gives the following results</p>
+
+<pre><code class="language-text">running 1 test
+test bench_xor_1000_ints ... bench:         0 ns/iter (+/- 0)
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 1 measured
+</code></pre>
+
+<p>The benchmarking runner offers two ways to avoid this. Either, the closure that
+the <code>iter</code> method receives can return an arbitrary value which forces the
+optimizer to consider the result used and ensures it cannot remove the
+computation entirely. This could be done for the example above by adjusting the
+<code>b.iter</code> call to</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>b</span>.<span class='ident'>iter</span>(<span class='op'>||</span> {
+    <span class='comment'>// note lack of `;` (could also use an explicit `return`).</span>
+    (<span class='number'>0</span>..<span class='number'>1000</span>).<span class='ident'>fold</span>(<span class='number'>0</span>, <span class='op'>|</span><span class='ident'>old</span>, <span class='ident'>new</span><span class='op'>|</span> <span class='ident'>old</span> <span class='op'>^</span> <span class='ident'>new</span>)
+});
+</pre>
+
+<p>Or, the other option is to call the generic <code>test::black_box</code> function, which
+is an opaque &quot;black box&quot; to the optimizer and so forces it to consider any
+argument as used.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
+
+<span class='ident'>b</span>.<span class='ident'>iter</span>(<span class='op'>||</span> {
+    <span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='ident'>test</span>::<span class='ident'>black_box</span>(<span class='number'>1000</span>);
+
+    (<span class='number'>0</span>..<span class='ident'>n</span>).<span class='ident'>fold</span>(<span class='number'>0</span>, <span class='op'>|</span><span class='ident'>a</span>, <span class='ident'>b</span><span class='op'>|</span> <span class='ident'>a</span> <span class='op'>^</span> <span class='ident'>b</span>)
+})
+</pre>
+
+<p>Neither of these read or modify the value, and are very cheap for small values.
+Larger values can be passed indirectly to reduce overhead (e.g.
+<code>black_box(&amp;huge_struct)</code>).</p>
+
+<p>Performing either of the above changes gives the following benchmarking results</p>
+
+<pre><code class="language-text">running 1 test
+test bench_xor_1000_ints ... bench:       131 ns/iter (+/- 3)
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 1 measured
+</code></pre>
+
+<p>However, the optimizer can still modify a testcase in an undesirable manner
+even when using either of the above.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

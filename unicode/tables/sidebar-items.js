@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["UNICODE_VERSION","The version of [Unicode](http://www.unicode.org/) that the unicode parts of `CharExt` and `UnicodeStrPrelude` traits are based on."]],"mod":[["normalization",""],["regex",""]]});

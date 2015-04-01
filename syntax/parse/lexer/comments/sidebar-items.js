@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CommentStyle",""]],"struct":[["Comment",""],["Literal",""]],"fn":[["doc_comment_style",""],["gather_comments_and_literals",""],["is_doc_comment",""],["strip_doc_comment_decoration",""]]});

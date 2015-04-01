@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `char` mod in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, char">
+
+    <title>std::char - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a></p><script>window.sidebarCurrent = {name: 'char', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>std</a>::<wbr><a class='mod' href=''>char</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-92266' href='../../unicode/char/index.html?gotosrc=92266'>[src]</a></span></h1>
+<div class='docblock'><p>Character manipulation (<code>char</code> type, Unicode Scalar Value)</p>
+
+<p>This module provides the <code>CharExt</code> trait, as well as its
+implementation for the primitive <code>char</code> type, in order to allow
+basic character manipulation.</p>
+
+<p>A <code>char</code> actually represents a
+<em><a href="http://www.unicode.org/glossary/#unicode_scalar_value">Unicode Scalar Value</a></em>,
+as it can contain any Unicode code point except high-surrogate and
+low-surrogate code points.</p>
+
+<p>As such, only values in the ranges [0x0,0xD7FF] and [0xE000,0x10FFFF]
+(inclusive) are allowed. A <code>char</code> can always be safely cast to a <code>u32</code>;
+however the converse is not always true due to the above range limits
+and, as such, should be performed via the <code>from_u32</code> function.</p>
+</div><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='constant' href='constant.MAX.html'
+                               title='std::char::MAX'>MAX</a></td>
+                        <td class='docblock short'><p>The highest valid code point</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='constant' href='constant.UNICODE_VERSION.html'
+                               title='std::char::UNICODE_VERSION'>UNICODE_VERSION</a></td>
+                        <td class='docblock short'><p>The version of <a href="http://www.unicode.org/">Unicode</a>
+that the unicode parts of <code>CharExt</code> and <code>UnicodeStrPrelude</code> traits are based on.</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='trait' href='trait.CharExt.html'
+                               title='std::char::CharExt'>CharExt</a></td>
+                        <td class='docblock short'><p>Functionality for manipulating <code>char</code>.</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='fn' href='fn.canonical_combining_class.html'
+                               title='std::char::canonical_combining_class'>canonical_combining_class</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='fn' href='fn.compose.html'
+                               title='std::char::compose'>compose</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='fn' href='fn.decompose_canonical.html'
+                               title='std::char::decompose_canonical'>decompose_canonical</a></td>
+                        <td class='docblock short'><p>Compute canonical Unicode decomposition for character</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='fn' href='fn.decompose_compatible.html'
+                               title='std::char::decompose_compatible'>decompose_compatible</a></td>
+                        <td class='docblock short'><p>Compute canonical or compatible Unicode decomposition for character</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: pending integer conventions'></a><a class='fn' href='fn.from_digit.html'
+                               title='std::char::from_digit'>from_digit</a></td>
+                        <td class='docblock short'><p>Converts a number to the character representing it.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='fn' href='fn.from_u32.html'
+                               title='std::char::from_u32'>from_u32</a></td>
+                        <td class='docblock short'><p>Converts a <code>u32</code> to an <code>Option&lt;char&gt;</code>.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

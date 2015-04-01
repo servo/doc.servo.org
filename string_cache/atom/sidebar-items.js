@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Atom",""]],"mod":[["repr","Details of the atom representation that need to be shared between the macros crate and the run-time library, in order to guarantee consistency."]]});

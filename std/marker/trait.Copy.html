@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Copy` trait in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Copy">
+
+    <title>std::marker::Copy - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>marker</a></p><script>window.sidebarCurrent = {name: 'Copy', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>std</a>::<wbr><a href='index.html'>marker</a>::<wbr><a class='trait' href=''>Copy</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-26742' href='../../core/marker/trait.Copy.html?gotosrc=26742'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait Copy <span class='where'>where Self: <a class='trait' href='../../std/marker/trait.MarkerTrait.html' title='std::marker::MarkerTrait'>MarkerTrait</a></span> { }</pre><div class='docblock'><p>Types that can be copied by simply copying bits (i.e. <code>memcpy</code>).</p>
+
+<p>By default, variable bindings have &#39;move semantics.&#39; In other
+words:</p>
+<span class='rusttest'>fn main() {
+    #[derive(Debug)]
+    struct Foo;
+    
+    let x = Foo;
+    
+    let y = x;
+    
+    // `x` has moved into `y`, and so cannot be used
+    
+    // println!(&quot;{:?}&quot;, x); // error: use of moved value
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>Foo</span>;
+
+<span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Foo</span>;
+
+<span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='ident'>x</span>;
+
+<span class='comment'>// `x` has moved into `y`, and so cannot be used</span>
+
+<span class='comment'>// println!(&quot;{:?}&quot;, x); // error: use of moved value</span>
+</pre>
+
+<p>However, if a type implements <code>Copy</code>, it instead has &#39;copy semantics&#39;:</p>
+<span class='rusttest'>fn main() {
+    // we can just derive a `Copy` implementation
+    #[derive(Debug, Copy)]
+    struct Foo;
+    
+    let x = Foo;
+    
+    let y = x;
+    
+    // `y` is a copy of `x`
+    
+    println!(&quot;{:?}&quot;, x); // A-OK!
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='comment'>// we can just derive a `Copy` implementation</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>Copy</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>Foo</span>;
+
+<span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>Foo</span>;
+
+<span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='ident'>x</span>;
+
+<span class='comment'>// `y` is a copy of `x`</span>
+
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>x</span>); <span class='comment'>// A-OK!</span>
+</pre>
+
+<p>It&#39;s important to note that in these two examples, the only difference is if you are allowed to
+access <code>x</code> after the assignment: a move is also a bitwise copy under the hood.</p>
+
+<h2 id="when-can-my-type-be-copy?" class='section-header'><a
+                           href="#when-can-my-type-be-copy?">When can my type be <code>Copy</code>?</a></h2>
+<p>A type can implement <code>Copy</code> if all of its components implement <code>Copy</code>. For example, this
+<code>struct</code> can be <code>Copy</code>:</p>
+<span class='rusttest'>fn main() {
+    struct Point {
+       x: i32,
+       y: i32,
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Point</span> {
+   <span class='ident'>x</span>: <span class='ident'>i32</span>,
+   <span class='ident'>y</span>: <span class='ident'>i32</span>,
+}
+</pre>
+
+<p>A <code>struct</code> can be <code>Copy</code>, and <code>i32</code> is <code>Copy</code>, so therefore, <code>Point</code> is eligible to be <code>Copy</code>.</p>
+<span class='rusttest'>fn main() {
+    struct Point;
+    struct PointList {
+        points: Vec&lt;Point&gt;,
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>PointList</span> {
+    <span class='ident'>points</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Point</span><span class='op'>&gt;</span>,
+}
+</pre>
+
+<p>The <code>PointList</code> <code>struct</code> cannot implement <code>Copy</code>, because <code>Vec&lt;T&gt;</code> is not <code>Copy</code>. If we
+attempt to derive a <code>Copy</code> implementation, we&#39;ll get an error.</p>
+
+<pre><code class="language-text">error: the trait `Copy` may not be implemented for this type; field `points` does not implement
+`Copy`
+</code></pre>
+
+<h2 id="how-can-i-implement-copy?" class='section-header'><a
+                           href="#how-can-i-implement-copy?">How can I implement <code>Copy</code>?</a></h2>
+<p>There are two ways to implement <code>Copy</code> on your type:</p>
+<span class='rusttest'>fn main() {
+    #[derive(Copy)]
+    struct MyStruct;
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>MyStruct</span>;
+</pre>
+
+<p>and</p>
+<span class='rusttest'>fn main() {
+    struct MyStruct;
+    impl Copy for MyStruct {}
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>MyStruct</span>;
+<span class='kw'>impl</span> <span class='ident'>Copy</span> <span class='kw'>for</span> <span class='ident'>MyStruct</span> {}
+</pre>
+
+<p>There is a small difference between the two: the <code>derive</code> strategy will also place a <code>Copy</code>
+bound on type parameters, which isn&#39;t always desired.</p>
+
+<h2 id="when-can-my-type-<em>not</em>-be-copy?" class='section-header'><a
+                           href="#when-can-my-type-<em>not</em>-be-copy?">When can my type <em>not</em> be <code>Copy</code>?</a></h2>
+<p>Some types can&#39;t be copied safely. For example, copying <code>&amp;mut T</code> would create an aliased
+mutable reference, and copying <code>String</code> would result in two attempts to free the same buffer.</p>
+
+<p>Generalizing the latter case, any type implementing <code>Drop</code> can&#39;t be <code>Copy</code>, because it&#39;s
+managing some resource besides its own <code>size_of::&lt;T&gt;()</code> bytes.</p>
+
+<h2 id="when-should-my-type-be-copy?" class='section-header'><a
+                           href="#when-should-my-type-be-copy?">When should my type be <code>Copy</code>?</a></h2>
+<p>Generally speaking, if your type <em>can</em> implement <code>Copy</code>, it should. There&#39;s one important thing
+to consider though: if you think your type may <em>not</em> be able to implement <code>Copy</code> in the future,
+then it might be prudent to not implement <code>Copy</code>. This is because removing <code>Copy</code> is a breaking
+change: that second example would fail to compile if we made <code>Foo</code> non-<code>Copy</code>.</p>
+</div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/num/wrapping/struct.Wrapping.html' title='std::num::wrapping::Wrapping'>Wrapping</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a></span></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/num/enum.FpCategory.html' title='std::num::FpCategory'>FpCategory</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/intrinsics/struct.TyDesc.html' title='std::intrinsics::TyDesc'>TyDesc</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../core/nonzero/struct.NonZero.html' title='core::nonzero::NonZero'>NonZero</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a>, T: <a class='trait' href='../../core/nonzero/trait.Zeroable.html' title='core::nonzero::Zeroable'>Zeroable</a></span></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/marker/struct.PhantomData.html' title='std::marker::PhantomData'>PhantomData</a>&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/ops/struct.RangeFull.html' title='std::ops::RangeFull'>RangeFull</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;Idx&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/ops/struct.RangeTo.html' title='std::ops::RangeTo'>RangeTo</a>&lt;Idx&gt; <span class='where'>where Idx: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a></span></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/any/struct.TypeId.html' title='std::any::TypeId'>TypeId</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/sync/atomic/enum.Ordering.html' title='std::sync::atomic::Ordering'>Ordering</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/cell/enum.BorrowState.html' title='std::cell::BorrowState'>BorrowState</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a></span></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/raw/struct.Slice.html' title='std::raw::Slice'>Slice</a>&lt;T&gt;</code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/raw/struct.Closure.html' title='std::raw::Closure'>Closure</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/raw/struct.TraitObject.html' title='std::raw::TraitObject'>TraitObject</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;T, E&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;T, E&gt; <span class='where'>where T: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a>, E: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a></span></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.i8x16.html' title='std::simd::i8x16'>i8x16</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.i16x8.html' title='std::simd::i16x8'>i16x8</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.i32x4.html' title='std::simd::i32x4'>i32x4</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.i64x2.html' title='std::simd::i64x2'>i64x2</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.u8x16.html' title='std::simd::u8x16'>u8x16</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.u16x8.html' title='std::simd::u16x8'>u16x8</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.u32x4.html' title='std::simd::u32x4'>u32x4</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.u64x2.html' title='std::simd::u64x2'>u64x2</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.f32x4.html' title='std::simd::f32x4'>f32x4</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/simd/struct.f64x2.html' title='std::simd::f64x2'>f64x2</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/str/enum.SearchStep.html' title='std::str::SearchStep'>SearchStep</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/str/enum.Utf8Error.html' title='std::str::Utf8Error'>Utf8Error</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../core/str/struct.BytesDeref.html' title='core::str::BytesDeref'>BytesDeref</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/str/struct.CharRange.html' title='std::str::CharRange'>CharRange</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/fmt/struct.Radix.html' title='std::fmt::Radix'>Radix</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;T, R&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/fmt/struct.RadixFmt.html' title='std::fmt::RadixFmt'>RadixFmt</a>&lt;T, R&gt; <span class='where'>where T: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a>, R: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a></span></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../core/fmt/rt/v1/struct.Argument.html' title='core::fmt::rt::v1::Argument'>Argument</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../core/fmt/rt/v1/struct.FormatSpec.html' title='core::fmt::rt::v1::FormatSpec'>FormatSpec</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../core/fmt/rt/v1/enum.Alignment.html' title='core::fmt::rt::v1::Alignment'>Alignment</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../core/fmt/rt/v1/enum.Count.html' title='core::fmt::rt::v1::Count'>Count</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../core/fmt/rt/v1/enum.Position.html' title='core::fmt::rt::v1::Position'>Position</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/fmt/struct.Error.html' title='std::fmt::Error'>Error</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../core/fmt/enum.FlagV1.html' title='core::fmt::FlagV1'>FlagV1</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;'a&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/fmt/struct.Arguments.html' title='std::fmt::Arguments'>Arguments</a>&lt;'a&gt;</code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;NodeRef, Type, NodeType&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../collections/btree/node/struct.Handle.html' title='collections::btree::node::Handle'>Handle</a>&lt;NodeRef, Type, NodeType&gt; <span class='where'>where NodeRef: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a>, Type: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a>, NodeType: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a></span></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;E&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../collections/enum_set/struct.EnumSet.html' title='collections::enum_set::EnumSet'>EnumSet</a>&lt;E&gt;</code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../collections/linked_list/struct.Rawlink.html' title='collections::linked_list::Rawlink'>Rawlink</a>&lt;T&gt;</code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../collections/slice/enum.Direction.html' title='collections::slice::Direction'>Direction</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../collections/slice/struct.SizeDirection.html' title='collections::slice::SizeDirection'>SizeDirection</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../unicode/tables/grapheme/enum.GraphemeCat.html' title='unicode::tables::grapheme::GraphemeCat'>GraphemeCat</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../unicode/u_str/enum.Utf16Item.html' title='unicode::u_str::Utf16Item'>Utf16Item</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/num/strconv/enum.ExponentFormat.html' title='std::num::strconv::ExponentFormat'>ExponentFormat</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/num/strconv/enum.SignificantDigits.html' title='std::num::strconv::SignificantDigits'>SignificantDigits</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/num/strconv/enum.SignFormat.html' title='std::num::strconv::SignFormat'>SignFormat</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/thread_local/enum.State.html' title='std::thread_local::State'>State</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/net/addrinfo/enum.SocketType.html' title='std::old_io::net::addrinfo::SocketType'>SocketType</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/net/addrinfo/enum.Flag.html' title='std::old_io::net::addrinfo::Flag'>Flag</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/net/addrinfo/enum.Protocol.html' title='std::old_io::net::addrinfo::Protocol'>Protocol</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/net/addrinfo/struct.Hint.html' title='std::old_io::net::addrinfo::Hint'>Hint</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/net/addrinfo/struct.Info.html' title='std::old_io::net::addrinfo::Info'>Info</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/net/ip/enum.IpAddr.html' title='std::old_io::net::ip::IpAddr'>IpAddr</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/net/ip/struct.SocketAddr.html' title='std::old_io::net::ip::SocketAddr'>SocketAddr</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/net/ip/struct.ParseError.html' title='std::old_io::net::ip::ParseError'>ParseError</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/process/enum.StdioContainer.html' title='std::old_io::process::StdioContainer'>StdioContainer</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/process/enum.ProcessExit.html' title='std::old_io::process::ProcessExit'>ProcessExit</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/util/struct.NullWriter.html' title='std::old_io::util::NullWriter'>NullWriter</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/util/struct.ZeroReader.html' title='std::old_io::util::ZeroReader'>ZeroReader</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/util/struct.NullReader.html' title='std::old_io::util::NullReader'>NullReader</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/enum.IoErrorKind.html' title='std::old_io::IoErrorKind'>IoErrorKind</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/enum.SeekStyle.html' title='std::old_io::SeekStyle'>SeekStyle</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/enum.FileMode.html' title='std::old_io::FileMode'>FileMode</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/enum.FileAccess.html' title='std::old_io::FileAccess'>FileAccess</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_io/enum.FileType.html' title='std::old_io::FileType'>FileType</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/struct.FileStat.html' title='std::old_io::FileStat'>FileStat</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/struct.UnstableFileStat.html' title='std::old_io::UnstableFileStat'>UnstableFileStat</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_io/struct.FilePermission.html' title='std::old_io::FilePermission'>FilePermission</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/io/enum.ErrorKind.html' title='std::io::ErrorKind'>ErrorKind</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/io/enum.SeekFrom.html' title='std::io::SeekFrom'>SeekFrom</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/net/struct.Ipv4Addr.html' title='std::net::Ipv4Addr'>Ipv4Addr</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/net/struct.Ipv6Addr.html' title='std::net::Ipv6Addr'>Ipv6Addr</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/net/enum.Ipv6MulticastScope.html' title='std::net::Ipv6MulticastScope'>Ipv6MulticastScope</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/net/enum.IpAddr.html' title='std::net::IpAddr'>IpAddr</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/net/struct.SocketAddr.html' title='std::net::SocketAddr'>SocketAddr</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/net/enum.Shutdown.html' title='std::net::Shutdown'>Shutdown</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/os/struct.Pipe.html' title='std::os::Pipe'>Pipe</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/os/enum.MemoryMapKind.html' title='std::os::MemoryMapKind'>MemoryMapKind</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/os/enum.MapOption.html' title='std::os::MapOption'>MapOption</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/os/enum.MapError.html' title='std::os::MapError'>MapError</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;'a&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/path/enum.Prefix.html' title='std::path::Prefix'>Prefix</a>&lt;'a&gt;</code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;'a&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/path/enum.Component.html' title='std::path::Component'>Component</a>&lt;'a&gt;</code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_path/posix/struct.ParsePathError.html' title='std::old_path::posix::ParsePathError'>ParsePathError</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/old_path/windows/struct.ParsePathError.html' title='std::old_path::windows::ParsePathError'>ParsePathError</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/old_path/windows/enum.PathPrefix.html' title='std::old_path::windows::PathPrefix'>PathPrefix</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/process/struct.ExitStatus.html' title='std::process::ExitStatus'>ExitStatus</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/distributions/normal/struct.StandardNormal.html' title='std::rand::distributions::normal::StandardNormal'>StandardNormal</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/distributions/struct.Normal.html' title='std::rand::distributions::Normal'>Normal</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/distributions/struct.LogNormal.html' title='std::rand::distributions::LogNormal'>LogNormal</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/distributions/exponential/struct.Exp1.html' title='std::rand::distributions::exponential::Exp1'>Exp1</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/distributions/struct.Exp.html' title='std::rand::distributions::Exp'>Exp</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/struct.IsaacRng.html' title='std::rand::IsaacRng'>IsaacRng</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/struct.Isaac64Rng.html' title='std::rand::Isaac64Rng'>Isaac64Rng</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/struct.ChaChaRng.html' title='std::rand::ChaChaRng'>ChaChaRng</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/reseeding/struct.ReseedWithDefault.html' title='std::rand::reseeding::ReseedWithDefault'>ReseedWithDefault</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/rand/struct.StdRng.html' title='std::rand::StdRng'>StdRng</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/time/duration/struct.Duration.html' title='std::time::duration::Duration'>Duration</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a>&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/sync/mpsc/struct.SendError.html' title='std::sync::mpsc::SendError'>SendError</a>&lt;T&gt;</code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='struct' href='../../std/sync/mpsc/struct.RecvError.html' title='std::sync::mpsc::RecvError'>RecvError</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/sync/mpsc/enum.TryRecvError.html' title='std::sync::mpsc::TryRecvError'>TryRecvError</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a>&gt; <a class='trait' href='../../std/marker/trait.Copy.html' title='std::marker::Copy'>Copy</a> for <a class='enum' href='../../std/sync/mpsc/enum.TrySendError.html' title='std::sync::mpsc::TrySendError'>TrySendError</a>&lt;T&gt;</code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/core/marker/trait.Copy.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

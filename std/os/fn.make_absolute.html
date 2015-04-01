@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `make_absolute` fn in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, make_absolute">
+
+    <title>std::os::make_absolute - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>os</a></p><script>window.sidebarCurrent = {name: 'make_absolute', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content fn">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>std</a>::<wbr><a href='index.html'>os</a>::<wbr><a class='fn' href=''>make_absolute</a><wbr><a class='stability Deprecated' title='use env::current_dir + .join directly'>Deprecated</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-53186' href='../../src/std/os.rs.html#510-520'>[src]</a></span></h1>
+<pre class='rust fn'>pub fn make_absolute(p: &amp;<a class='struct' href='../../std/old_path/posix/struct.Path.html' title='std::old_path::posix::Path'>Path</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a class='struct' href='../../std/old_path/posix/struct.Path.html' title='std::old_path::posix::Path'>Path</a>&gt;</pre><div class='docblock'><p>Convert a relative path to an absolute path</p>
+
+<p>If the given path is relative, return it prepended with the current working
+directory. If the given path is already an absolute path, return it
+as is.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::os;
+    use std::old_path::Path;
+    
+    // Assume we&#39;re in a path like /home/someuser
+    let rel_path = Path::new(&quot;..&quot;);
+    let abs_path = os::make_absolute(&amp;rel_path).unwrap();
+    println!(&quot;The absolute path is {}&quot;, abs_path.display());
+    // Prints &quot;The absolute path is /home&quot;
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_path</span>::<span class='ident'>Path</span>;
+
+<span class='comment'>// Assume we&#39;re in a path like /home/someuser</span>
+<span class='kw'>let</span> <span class='ident'>rel_path</span> <span class='op'>=</span> <span class='ident'>Path</span>::<span class='ident'>new</span>(<span class='string'>&quot;..&quot;</span>);
+<span class='kw'>let</span> <span class='ident'>abs_path</span> <span class='op'>=</span> <span class='ident'>os</span>::<span class='ident'>make_absolute</span>(<span class='kw-2'>&amp;</span><span class='ident'>rel_path</span>).<span class='ident'>unwrap</span>();
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The absolute path is {}&quot;</span>, <span class='ident'>abs_path</span>.<span class='ident'>display</span>());
+<span class='comment'>// Prints &quot;The absolute path is /home&quot;</span>
+</pre>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ShapedGlyphData",""],["ShapedGlyphEntry",""],["Shaper",""]]});

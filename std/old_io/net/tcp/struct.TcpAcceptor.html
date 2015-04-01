@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `TcpAcceptor` struct in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, TcpAcceptor">
+
+    <title>std::old_io::net::tcp::TcpAcceptor - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../../../index.html'>std</a>::<wbr><a href='../../index.html'>old_io</a>::<wbr><a href='../index.html'>net</a>::<wbr><a href='index.html'>tcp</a></p><script>window.sidebarCurrent = {name: 'TcpAcceptor', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../../index.html'>std</a>::<wbr><a href='../../index.html'>old_io</a>::<wbr><a href='../index.html'>net</a>::<wbr><a href='index.html'>tcp</a>::<wbr><a class='struct' href=''>TcpAcceptor</a><wbr><a class='stability Deprecated' title='replaced with new I/O primitives in `std::net`'>Deprecated</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-17490' href='../../../../src/std/old_io/net/tcp.rs.html#355-357'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct TcpAcceptor {
+    // some fields omitted
+}</pre><div class='docblock'><p>The accepting half of a TCP socket server. This structure is created through
+a <code>TcpListener</code>&#39;s <code>listen</code> method, and this object can be used to accept new
+<code>TcpStream</code> instances.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><code>impl <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpAcceptor.html' title='std::old_io::net::tcp::TcpAcceptor'>TcpAcceptor</a></code></h3><div class='impl-items'><h4 id='method.set_timeout' class='method'><a class='stability Unstable' title='Unstable: the type of the argument and name of this function are subject to change'></a><code>fn <a href='#method.set_timeout' class='fnname'>set_timeout</a>(&amp;mut self, ms: <a class='enum' href='../../../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a href='../../../primitive.u64.html'>u64</a>&gt;)</code></h4>
+<div class='docblock'><p>Prevents blocking on all future accepts after <code>ms</code> milliseconds have
+elapsed.</p>
+
+<p>This function is used to set a deadline after which this acceptor will
+time out accepting any connections. The argument is the relative
+distance, in milliseconds, to a point in the future after which all
+accepts will fail.</p>
+
+<p>If the argument specified is <code>None</code>, then any previously registered
+timeout is cleared.</p>
+
+<p>A timeout of <code>0</code> can be used to &quot;poll&quot; this acceptor to see if it has
+any pending connections. All pending connections will be accepted,
+regardless of whether the timeout has expired or not (the accept will
+not block in this case).</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::old_io::TcpListener;
+    use std::old_io::{Listener, Acceptor, TimedOut};
+    
+    let mut a = TcpListener::bind(&quot;127.0.0.1:8482&quot;).listen().unwrap();
+    
+    // After 100ms have passed, all accepts will fail
+    a.set_timeout(Some(100));
+    
+    match a.accept() {
+        Ok(..) =&gt; println!(&quot;accepted a socket&quot;),
+        Err(ref e) if e.kind == TimedOut =&gt; { println!(&quot;timed out!&quot;); }
+        Err(e) =&gt; println!(&quot;err: {}&quot;, e),
+    }
+    
+    // Reset the timeout and try again
+    a.set_timeout(Some(100));
+    let socket = a.accept();
+    
+    // Clear the timeout and block indefinitely waiting for a connection
+    a.set_timeout(None);
+    let socket = a.accept();
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>::<span class='ident'>TcpListener</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>::{<span class='ident'>Listener</span>, <span class='ident'>Acceptor</span>, <span class='ident'>TimedOut</span>};
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>TcpListener</span>::<span class='ident'>bind</span>(<span class='string'>&quot;127.0.0.1:8482&quot;</span>).<span class='ident'>listen</span>().<span class='ident'>unwrap</span>();
+
+<span class='comment'>// After 100ms have passed, all accepts will fail</span>
+<span class='ident'>a</span>.<span class='ident'>set_timeout</span>(<span class='prelude-val'>Some</span>(<span class='number'>100</span>));
+
+<span class='kw'>match</span> <span class='ident'>a</span>.<span class='ident'>accept</span>() {
+    <span class='prelude-val'>Ok</span>(..) <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;accepted a socket&quot;</span>),
+    <span class='prelude-val'>Err</span>(<span class='kw-2'>ref</span> <span class='ident'>e</span>) <span class='kw'>if</span> <span class='ident'>e</span>.<span class='ident'>kind</span> <span class='op'>==</span> <span class='ident'>TimedOut</span> <span class='op'>=&gt;</span> { <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;timed out!&quot;</span>); }
+    <span class='prelude-val'>Err</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;err: {}&quot;</span>, <span class='ident'>e</span>),
+}
+
+<span class='comment'>// Reset the timeout and try again</span>
+<span class='ident'>a</span>.<span class='ident'>set_timeout</span>(<span class='prelude-val'>Some</span>(<span class='number'>100</span>));
+<span class='kw'>let</span> <span class='ident'>socket</span> <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>accept</span>();
+
+<span class='comment'>// Clear the timeout and block indefinitely waiting for a connection</span>
+<span class='ident'>a</span>.<span class='ident'>set_timeout</span>(<span class='prelude-val'>None</span>);
+<span class='kw'>let</span> <span class='ident'>socket</span> <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>accept</span>();
+</pre>
+</div><h4 id='method.close_accept' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.close_accept' class='fnname'>close_accept</a>(&amp;mut self) -&gt; <a class='type' href='../../../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../../../primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Closes the accepting capabilities of this acceptor.</p>
+
+<p>This function is similar to <code>TcpStream</code>&#39;s <code>close_{read,write}</code> methods
+in that it will affect <em>all</em> cloned handles of this acceptor&#39;s original
+handle.</p>
+
+<p>Once this function succeeds, all future calls to <code>accept</code> will return
+immediately with an error, preventing all future calls to accept. The
+underlying socket will not be relinquished back to the OS until all
+acceptors have been deallocated.</p>
+
+<p>This is useful for waking up a thread in an accept loop to indicate that
+it should exit.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::old_io::{TcpListener, Listener, Acceptor, EndOfFile};
+    use std::thread;
+    
+    let mut a = TcpListener::bind(&quot;127.0.0.1:8482&quot;).listen().unwrap();
+    let a2 = a.clone();
+    
+    let _t = thread::spawn(move|| {
+        let mut a2 = a2;
+        for socket in a2.incoming() {
+            match socket {
+                Ok(s) =&gt; { /* handle s */ }
+                Err(ref e) if e.kind == EndOfFile =&gt; break, // closed
+                Err(e) =&gt; panic!(&quot;unexpected error: {}&quot;, e),
+            }
+        }
+    });
+    
+    fn wait_for_sigint() {}
+    // Now that our accept loop is running, wait for the program to be
+    // requested to exit.
+    wait_for_sigint();
+    
+    // Signal our accept loop to exit
+    assert!(a.close_accept().is_ok());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>::{<span class='ident'>TcpListener</span>, <span class='ident'>Listener</span>, <span class='ident'>Acceptor</span>, <span class='ident'>EndOfFile</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>thread</span>;
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='ident'>TcpListener</span>::<span class='ident'>bind</span>(<span class='string'>&quot;127.0.0.1:8482&quot;</span>).<span class='ident'>listen</span>().<span class='ident'>unwrap</span>();
+<span class='kw'>let</span> <span class='ident'>a2</span> <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>clone</span>();
+
+<span class='kw'>let</span> <span class='ident'>_t</span> <span class='op'>=</span> <span class='ident'>thread</span>::<span class='ident'>spawn</span>(<span class='kw'>move</span><span class='op'>||</span> {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a2</span> <span class='op'>=</span> <span class='ident'>a2</span>;
+    <span class='kw'>for</span> <span class='ident'>socket</span> <span class='kw'>in</span> <span class='ident'>a2</span>.<span class='ident'>incoming</span>() {
+        <span class='kw'>match</span> <span class='ident'>socket</span> {
+            <span class='prelude-val'>Ok</span>(<span class='ident'>s</span>) <span class='op'>=&gt;</span> { <span class='comment'>/* handle s */</span> }
+            <span class='prelude-val'>Err</span>(<span class='kw-2'>ref</span> <span class='ident'>e</span>) <span class='kw'>if</span> <span class='ident'>e</span>.<span class='ident'>kind</span> <span class='op'>==</span> <span class='ident'>EndOfFile</span> <span class='op'>=&gt;</span> <span class='kw'>break</span>, <span class='comment'>// closed</span>
+            <span class='prelude-val'>Err</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;unexpected error: {}&quot;</span>, <span class='ident'>e</span>),
+        }
+    }
+});
+
+<span class='comment'>// Now that our accept loop is running, wait for the program to be</span>
+<span class='comment'>// requested to exit.</span>
+<span class='ident'>wait_for_sigint</span>();
+
+<span class='comment'>// Signal our accept loop to exit</span>
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>close_accept</span>().<span class='ident'>is_ok</span>());
+</pre>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../../../std/old_io/trait.Acceptor.html' title='std::old_io::Acceptor'>Acceptor</a>&lt;<a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpStream.html' title='std::old_io::net::tcp::TcpStream'>TcpStream</a>&gt; for <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpAcceptor.html' title='std::old_io::net::tcp::TcpAcceptor'>TcpAcceptor</a></code></h3><div class='impl-items'><h4 id='method.accept' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.accept' class='fnname'>accept</a>(&amp;mut self) -&gt; <a class='type' href='../../../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpStream.html' title='std::old_io::net::tcp::TcpStream'>TcpStream</a>&gt;</code></h4>
+<h4 id='method.incoming' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.incoming' class='fnname'>incoming</a>&lt;'r&gt;(&amp;'r mut self) -&gt; <a class='struct' href='../../../../std/old_io/struct.IncomingConnections.html' title='std::old_io::IncomingConnections'>IncomingConnections</a>&lt;'r, Self&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpAcceptor.html' title='std::old_io::net::tcp::TcpAcceptor'>TcpAcceptor</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpAcceptor.html' title='std::old_io::net::tcp::TcpAcceptor'>TcpAcceptor</a></code></h4>
+<div class='docblock'><p>Creates a new handle to this TCP acceptor, allowing for simultaneous
+accepts.</p>
+
+<p>The underlying TCP acceptor will not be closed until all handles to the
+acceptor have been deallocated. Incoming connections will be received on
+at most once acceptor, the same connection will not be accepted twice.</p>
+
+<p>The <code>close_accept</code> method will shut down <em>all</em> acceptors cloned from the
+same original acceptor, whereas the <code>set_timeout</code> method only affects
+the selector that it is called on.</p>
+
+<p>This function is useful for creating a handle to invoke <code>close_accept</code>
+on to wake up any other task blocked in <code>accept</code>.</p>
+</div><h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../../../std/os/unix/prelude/trait.AsRawFd.html' title='std::os::unix::prelude::AsRawFd'>AsRawFd</a> for <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpAcceptor.html' title='std::old_io::net::tcp::TcpAcceptor'>TcpAcceptor</a></code></h3><div class='impl-items'><h4 id='method.as_raw_fd' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_raw_fd' class='fnname'>as_raw_fd</a>(&amp;self) -&gt; <a class='type' href='../../../../std/os/unix/prelude/type.Fd.html' title='std::os::unix::prelude::Fd'>Fd</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../../../std/os/unix/prelude/trait.AsRawFd.html' title='std::os::unix::prelude::AsRawFd'>AsRawFd</a> for <a class='struct' href='../../../../std/old_io/net/tcp/struct.TcpAcceptor.html' title='std::old_io::net::tcp::TcpAcceptor'>TcpAcceptor</a></code></h3><div class='impl-items'><h4 id='method.as_raw_fd' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_raw_fd' class='fnname'>as_raw_fd</a>(&amp;self) -&gt; <a class='type' href='../../../../std/os/unix/prelude/type.Fd.html' title='std::os::unix::prelude::Fd'>Fd</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    <script src="../../../../playpen.js"></script>
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

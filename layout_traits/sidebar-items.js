@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["LayoutControlMsg","Messages sent to the layout task from the constellation"]],"trait":[["LayoutTaskFactory",""]],"struct":[["LayoutControlChan","A channel wrapper for constellation messages"]]});

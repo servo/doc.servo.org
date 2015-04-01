@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BlobPropertyBag",""]],"fn":[["DefineDOMInterface",""],["GetProtoObject",""],["Wrap",""]],"static":[["sNativePropertyHooks",""]],"trait":[["BlobMethods",""]]});

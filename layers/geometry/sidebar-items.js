@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DevicePixel","One hardware pixel."],["LayerPixel","One pixel in layer coordinate space."]]});

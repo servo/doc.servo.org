@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["abbrev_map",""]],"struct":[["ctxt",""],["ty_abbrev",""]],"fn":[["enc_bare_fn_ty",""],["enc_bounds",""],["enc_builtin_bounds",""],["enc_closure_ty",""],["enc_existential_bounds",""],["enc_predicate",""],["enc_region",""],["enc_region_bounds",""],["enc_substs",""],["enc_trait_ref",""],["enc_ty",""],["enc_type_param_def",""]]});

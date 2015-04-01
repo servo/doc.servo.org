@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["TreeWalkerMethods",""]],"fn":[["DefineDOMInterface",""],["GetProtoObject",""],["Wrap",""]],"static":[["sNativePropertyHooks",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["mem","Memory profiling functions."],["time","Timing functions."]],"macro":[["path!","An easy way to build a path for a report."]]});

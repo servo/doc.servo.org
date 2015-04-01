@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `QualifiedRuleParser` trait in crate `cssparser`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, QualifiedRuleParser">
+
+    <title>cssparser::QualifiedRuleParser - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>cssparser</a></p><script>window.sidebarCurrent = {name: 'QualifiedRuleParser', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>cssparser</a>::<wbr><a class='trait' href=''>QualifiedRuleParser</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-211' href='../src/cssparser/rules_and_declarations.rs.html#152-184'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait QualifiedRuleParser {
+    type Prelude = <a href='../std/primitive.tuple.html'>()</a>;
+    type QualifiedRule = <a href='../std/primitive.tuple.html'>()</a>;
+    fn <a href='#method.parse_prelude' class='fnname'>parse_prelude</a>(&amp;self, input: &amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::Prelude, <a href='../std/primitive.tuple.html'>()</a>&gt; { ... }
+    fn <a href='#method.parse_block' class='fnname'>parse_block</a>(&amp;self, prelude: Self::Prelude, input: &amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::QualifiedRule, <a href='../std/primitive.tuple.html'>()</a>&gt; { ... }
+}</pre><div class='docblock'><p>A trait to provide various parsing of qualified rules.</p>
+
+<p>For example, there could be different implementations
+for top-level qualified rules (i.e. style rules with Selectors as prelude)
+and for qualified rules inside <code>@keyframes</code> (keyframe rules with keyframe selectors as prelude).</p>
+
+<p>Default implementations that reject all qualified rules are provided,
+so that <code>impl QualifiedRuleParser&lt;(), ()&gt; for ... {}</code> can be used
+for example for using <code>RuleListParser</code> to parse a rule list with only at-rules
+(such as inside <code>@font-feature-values</code>).</p>
+</div>
+            <h2 id='associated-types'>Associated Types</h2>
+            <div class='methods'>
+        <h3 id='associatedtype.Prelude' class='method'><a class='stability Unmarked' title='No stability level'></a><code>type Prelude = <a href='../std/primitive.tuple.html'>()</a></code></h3><div class='docblock'><p>The intermediate representation of a qualified rule prelude.</p>
+</div><h3 id='associatedtype.QualifiedRule' class='method'><a class='stability Unmarked' title='No stability level'></a><code>type QualifiedRule = <a href='../std/primitive.tuple.html'>()</a></code></h3><div class='docblock'><p>The finished representation of a qualified rule.</p>
+</div></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.parse_prelude' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.parse_prelude' class='fnname'>parse_prelude</a>(&amp;self, input: &amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::Prelude, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h3><div class='docblock'><p>Parse the prelude of a qualified rule. For style rules, this is as Selector list.</p>
+
+<p>Return the representation of the prelude,
+or <code>Err(())</code> to ignore the entire at-rule as invalid.</p>
+
+<p>The prelude is the part before the <code>{ /* ... */ }</code> block.</p>
+
+<p>The given <code>input</code> is a &quot;delimited&quot; parser
+that ends where the prelude should end (before the next <code>{</code>).</p>
+</div><h3 id='method.parse_block' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.parse_block' class='fnname'>parse_block</a>(&amp;self, prelude: Self::Prelude, input: &amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self::QualifiedRule, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h3><div class='docblock'><p>Parse the content of a <code>{ /* ... */ }</code> block for the body of the qualified rule.</p>
+
+<p>Return the finished representation of the qualified rule
+as returned by <code>RuleListParser::next</code>,
+or <code>Err(())</code> to ignore the entire at-rule as invalid.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../implementors/cssparser/trait.QualifiedRuleParser.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "cssparser";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

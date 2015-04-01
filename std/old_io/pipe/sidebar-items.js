@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PipePair",""],["PipeStream","A synchronous, in-memory pipe."]]});

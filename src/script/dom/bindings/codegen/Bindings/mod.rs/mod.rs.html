@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="Source to the Rust file `/home/servo/buildbot/slave/doc/build/components/script/dom/bindings/codegen/Bindings/mod.rs`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang">
+
+    <title>mod.rs.html -- source</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+<span id="2">  2</span>
+<span id="3">  3</span>
+<span id="4">  4</span>
+<span id="5">  5</span>
+<span id="6">  6</span>
+<span id="7">  7</span>
+<span id="8">  8</span>
+<span id="9">  9</span>
+<span id="10"> 10</span>
+<span id="11"> 11</span>
+<span id="12"> 12</span>
+<span id="13"> 13</span>
+<span id="14"> 14</span>
+<span id="15"> 15</span>
+<span id="16"> 16</span>
+<span id="17"> 17</span>
+<span id="18"> 18</span>
+<span id="19"> 19</span>
+<span id="20"> 20</span>
+<span id="21"> 21</span>
+<span id="22"> 22</span>
+<span id="23"> 23</span>
+<span id="24"> 24</span>
+<span id="25"> 25</span>
+<span id="26"> 26</span>
+<span id="27"> 27</span>
+<span id="28"> 28</span>
+<span id="29"> 29</span>
+<span id="30"> 30</span>
+<span id="31"> 31</span>
+<span id="32"> 32</span>
+<span id="33"> 33</span>
+<span id="34"> 34</span>
+<span id="35"> 35</span>
+<span id="36"> 36</span>
+<span id="37"> 37</span>
+<span id="38"> 38</span>
+<span id="39"> 39</span>
+<span id="40"> 40</span>
+<span id="41"> 41</span>
+<span id="42"> 42</span>
+<span id="43"> 43</span>
+<span id="44"> 44</span>
+<span id="45"> 45</span>
+<span id="46"> 46</span>
+<span id="47"> 47</span>
+<span id="48"> 48</span>
+<span id="49"> 49</span>
+<span id="50"> 50</span>
+<span id="51"> 51</span>
+<span id="52"> 52</span>
+<span id="53"> 53</span>
+<span id="54"> 54</span>
+<span id="55"> 55</span>
+<span id="56"> 56</span>
+<span id="57"> 57</span>
+<span id="58"> 58</span>
+<span id="59"> 59</span>
+<span id="60"> 60</span>
+<span id="61"> 61</span>
+<span id="62"> 62</span>
+<span id="63"> 63</span>
+<span id="64"> 64</span>
+<span id="65"> 65</span>
+<span id="66"> 66</span>
+<span id="67"> 67</span>
+<span id="68"> 68</span>
+<span id="69"> 69</span>
+<span id="70"> 70</span>
+<span id="71"> 71</span>
+<span id="72"> 72</span>
+<span id="73"> 73</span>
+<span id="74"> 74</span>
+<span id="75"> 75</span>
+<span id="76"> 76</span>
+<span id="77"> 77</span>
+<span id="78"> 78</span>
+<span id="79"> 79</span>
+<span id="80"> 80</span>
+<span id="81"> 81</span>
+<span id="82"> 82</span>
+<span id="83"> 83</span>
+<span id="84"> 84</span>
+<span id="85"> 85</span>
+<span id="86"> 86</span>
+<span id="87"> 87</span>
+<span id="88"> 88</span>
+<span id="89"> 89</span>
+<span id="90"> 90</span>
+<span id="91"> 91</span>
+<span id="92"> 92</span>
+<span id="93"> 93</span>
+<span id="94"> 94</span>
+<span id="95"> 95</span>
+<span id="96"> 96</span>
+<span id="97"> 97</span>
+<span id="98"> 98</span>
+<span id="99"> 99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+</pre><pre class='rust '>
+<span class='comment'>/* THIS FILE IS AUTOGENERATED - DO NOT EDIT */</span>
+
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>AttrBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>BlobBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>CSSStyleDeclarationBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>CanvasGradientBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>CanvasPatternBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>CanvasRenderingContext2DBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>CharacterDataBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>CommentBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ConsoleBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>CustomEventBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DOMExceptionBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DOMImplementationBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DOMParserBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DOMRectBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DOMRectListBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DOMStringMapBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DOMTokenListBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DedicatedWorkerGlobalScopeBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DocumentBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DocumentFragmentBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>DocumentTypeBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ErrorEventBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>EventBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>EventHandlerBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>EventListenerBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>EventTargetBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>FileBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>FormDataBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>FunctionBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLAnchorElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLAppletElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLAreaElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLAudioElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLBRElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLBaseElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLBodyElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLButtonElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLCanvasElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLCollectionBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLDListElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLDataElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLDataListElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLDirectoryElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLDivElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLEmbedElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLFieldSetElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLFontElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLFormElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLFrameElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLFrameSetElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLHRElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLHeadElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLHeadingElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLHtmlElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLIFrameElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLImageElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLInputElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLLIElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLLabelElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLLegendElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLLinkElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLMapElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLMediaElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLMetaElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLMeterElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLModElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLOListElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLObjectElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLOptGroupElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLOptionElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLOutputElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLParagraphElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLParamElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLPreElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLProgressElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLQuoteElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLScriptElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLSelectElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLSourceElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLSpanElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLStyleElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTableCaptionElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTableCellElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTableColElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTableDataCellElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTableElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTableHeaderCellElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTableRowElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTableSectionElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTemplateElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTextAreaElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTimeElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTitleElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLTrackElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLUListElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLUnknownElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>HTMLVideoElementBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ImageDataBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>KeyboardEventBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>LocationBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>MessageEventBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>MouseEventBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>NamedNodeMapBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>NavigatorBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>NodeBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>NodeFilterBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>NodeIteratorBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>NodeListBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>PerformanceBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>PerformanceTimingBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ProcessingInstructionBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ProgressEventBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>RangeBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ScreenBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ServoHTMLParserBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>SharedMouseAndKeyboardEventInitBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>StorageBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>StorageEventBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>TestBindingBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>TextBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>TextEncoderBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>TreeWalkerBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>UIEventBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>URLSearchParamsBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ValidityStateBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>WebSocketBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>WindowBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>WorkerBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>WorkerGlobalScopeBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>WorkerLocationBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>WorkerNavigatorBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>XMLHttpRequestBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>XMLHttpRequestEventTargetBinding</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>XMLHttpRequestUploadBinding</span>;
+</pre>
+</section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../../../../jquery.js"></script>
+    <script src="../../../../../../../main.js"></script>
+    
+    <script async src="../../../../../../../search-index.js"></script>
+</body>
+</html>

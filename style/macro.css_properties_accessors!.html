@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `css_properties_accessors!` macro in crate `style`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, css_properties_accessors!">
+
+    <title>style::css_properties_accessors! - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>style</a></p><script>window.sidebarCurrent = {name: 'css_properties_accessors!', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content macro">
+<h1 class='fqn'><span class='in-band'><a href='index.html'>style</a>::<wbr><a class='macro' href=''>css_properties_accessors!</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span></span></h1>
+<pre class='rust macro'>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>css_properties_accessors</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>macro_name</span>: <span class='ident'>ident</span>) <span class='op'>=&gt;</span> {
+        <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>macro_name</span><span class='op'>!</span> {
+                        [<span class='ident'>Background</span>, <span class='ident'>SetBackground</span>, <span class='string'>&quot;background&quot;</span>],
+                        [<span class='ident'>Margin</span>, <span class='ident'>SetMargin</span>, <span class='string'>&quot;margin&quot;</span>],
+                        [<span class='ident'>Padding</span>, <span class='ident'>SetPadding</span>, <span class='string'>&quot;padding&quot;</span>],
+                        [<span class='ident'>BorderColor</span>, <span class='ident'>SetBorderColor</span>, <span class='string'>&quot;border-color&quot;</span>],
+                        [<span class='ident'>BorderStyle</span>, <span class='ident'>SetBorderStyle</span>, <span class='string'>&quot;border-style&quot;</span>],
+                        [<span class='ident'>BorderWidth</span>, <span class='ident'>SetBorderWidth</span>, <span class='string'>&quot;border-width&quot;</span>],
+                        [<span class='ident'>BorderTop</span>, <span class='ident'>SetBorderTop</span>, <span class='string'>&quot;border-top&quot;</span>],
+                        [<span class='ident'>BorderRight</span>, <span class='ident'>SetBorderRight</span>, <span class='string'>&quot;border-right&quot;</span>],
+                        [<span class='ident'>BorderBottom</span>, <span class='ident'>SetBorderBottom</span>, <span class='string'>&quot;border-bottom&quot;</span>],
+                        [<span class='ident'>BorderLeft</span>, <span class='ident'>SetBorderLeft</span>, <span class='string'>&quot;border-left&quot;</span>],
+                        [<span class='ident'>Border</span>, <span class='ident'>SetBorder</span>, <span class='string'>&quot;border&quot;</span>],
+                        [<span class='ident'>BorderRadius</span>, <span class='ident'>SetBorderRadius</span>, <span class='string'>&quot;border-radius&quot;</span>],
+                        [<span class='ident'>Outline</span>, <span class='ident'>SetOutline</span>, <span class='string'>&quot;outline&quot;</span>],
+                        [<span class='ident'>Font</span>, <span class='ident'>SetFont</span>, <span class='string'>&quot;font&quot;</span>],
+                        [<span class='ident'>WordWrap</span>, <span class='ident'>SetWordWrap</span>, <span class='string'>&quot;word-wrap&quot;</span>],
+                        [<span class='ident'>ListStyle</span>, <span class='ident'>SetListStyle</span>, <span class='string'>&quot;list-style&quot;</span>],
+                        [<span class='ident'>Overflow</span>, <span class='ident'>SetOverflow</span>, <span class='string'>&quot;overflow&quot;</span>],
+                        [<span class='ident'>Transition</span>, <span class='ident'>SetTransition</span>, <span class='string'>&quot;transition&quot;</span>],
+                        [<span class='ident'>MarginTop</span>, <span class='ident'>SetMarginTop</span>, <span class='string'>&quot;margin-top&quot;</span>],
+                        [<span class='ident'>MarginRight</span>, <span class='ident'>SetMarginRight</span>, <span class='string'>&quot;margin-right&quot;</span>],
+                        [<span class='ident'>MarginBottom</span>, <span class='ident'>SetMarginBottom</span>, <span class='string'>&quot;margin-bottom&quot;</span>],
+                        [<span class='ident'>MarginLeft</span>, <span class='ident'>SetMarginLeft</span>, <span class='string'>&quot;margin-left&quot;</span>],
+                        [<span class='ident'>PaddingTop</span>, <span class='ident'>SetPaddingTop</span>, <span class='string'>&quot;padding-top&quot;</span>],
+                        [<span class='ident'>PaddingRight</span>, <span class='ident'>SetPaddingRight</span>, <span class='string'>&quot;padding-right&quot;</span>],
+                        [<span class='ident'>PaddingBottom</span>, <span class='ident'>SetPaddingBottom</span>, <span class='string'>&quot;padding-bottom&quot;</span>],
+                        [<span class='ident'>PaddingLeft</span>, <span class='ident'>SetPaddingLeft</span>, <span class='string'>&quot;padding-left&quot;</span>],
+                        [<span class='ident'>BorderTopColor</span>, <span class='ident'>SetBorderTopColor</span>, <span class='string'>&quot;border-top-color&quot;</span>],
+                        [<span class='ident'>BorderRightColor</span>, <span class='ident'>SetBorderRightColor</span>, <span class='string'>&quot;border-right-color&quot;</span>],
+                        [<span class='ident'>BorderBottomColor</span>, <span class='ident'>SetBorderBottomColor</span>, <span class='string'>&quot;border-bottom-color&quot;</span>],
+                        [<span class='ident'>BorderLeftColor</span>, <span class='ident'>SetBorderLeftColor</span>, <span class='string'>&quot;border-left-color&quot;</span>],
+                        [<span class='ident'>BorderTopStyle</span>, <span class='ident'>SetBorderTopStyle</span>, <span class='string'>&quot;border-top-style&quot;</span>],
+                        [<span class='ident'>BorderRightStyle</span>, <span class='ident'>SetBorderRightStyle</span>, <span class='string'>&quot;border-right-style&quot;</span>],
+                        [<span class='ident'>BorderBottomStyle</span>, <span class='ident'>SetBorderBottomStyle</span>, <span class='string'>&quot;border-bottom-style&quot;</span>],
+                        [<span class='ident'>BorderLeftStyle</span>, <span class='ident'>SetBorderLeftStyle</span>, <span class='string'>&quot;border-left-style&quot;</span>],
+                        [<span class='ident'>BorderTopWidth</span>, <span class='ident'>SetBorderTopWidth</span>, <span class='string'>&quot;border-top-width&quot;</span>],
+                        [<span class='ident'>BorderRightWidth</span>, <span class='ident'>SetBorderRightWidth</span>, <span class='string'>&quot;border-right-width&quot;</span>],
+                        [<span class='ident'>BorderBottomWidth</span>, <span class='ident'>SetBorderBottomWidth</span>, <span class='string'>&quot;border-bottom-width&quot;</span>],
+                        [<span class='ident'>BorderLeftWidth</span>, <span class='ident'>SetBorderLeftWidth</span>, <span class='string'>&quot;border-left-width&quot;</span>],
+                        [<span class='ident'>BorderTopLeftRadius</span>, <span class='ident'>SetBorderTopLeftRadius</span>, <span class='string'>&quot;border-top-left-radius&quot;</span>],
+                        [<span class='ident'>BorderTopRightRadius</span>, <span class='ident'>SetBorderTopRightRadius</span>, <span class='string'>&quot;border-top-right-radius&quot;</span>],
+                        [<span class='ident'>BorderBottomRightRadius</span>, <span class='ident'>SetBorderBottomRightRadius</span>, <span class='string'>&quot;border-bottom-right-radius&quot;</span>],
+                        [<span class='ident'>BorderBottomLeftRadius</span>, <span class='ident'>SetBorderBottomLeftRadius</span>, <span class='string'>&quot;border-bottom-left-radius&quot;</span>],
+                        [<span class='ident'>OutlineColor</span>, <span class='ident'>SetOutlineColor</span>, <span class='string'>&quot;outline-color&quot;</span>],
+                        [<span class='ident'>OutlineStyle</span>, <span class='ident'>SetOutlineStyle</span>, <span class='string'>&quot;outline-style&quot;</span>],
+                        [<span class='ident'>OutlineWidth</span>, <span class='ident'>SetOutlineWidth</span>, <span class='string'>&quot;outline-width&quot;</span>],
+                        [<span class='ident'>OutlineOffset</span>, <span class='ident'>SetOutlineOffset</span>, <span class='string'>&quot;outline-offset&quot;</span>],
+                        [<span class='ident'>Top</span>, <span class='ident'>SetTop</span>, <span class='string'>&quot;top&quot;</span>],
+                        [<span class='ident'>Right</span>, <span class='ident'>SetRight</span>, <span class='string'>&quot;right&quot;</span>],
+                        [<span class='ident'>Bottom</span>, <span class='ident'>SetBottom</span>, <span class='string'>&quot;bottom&quot;</span>],
+                        [<span class='ident'>Left</span>, <span class='ident'>SetLeft</span>, <span class='string'>&quot;left&quot;</span>],
+                        [<span class='ident'>Display</span>, <span class='ident'>SetDisplay</span>, <span class='string'>&quot;display&quot;</span>],
+                        [<span class='ident'>Position</span>, <span class='ident'>SetPosition</span>, <span class='string'>&quot;position&quot;</span>],
+                        [<span class='ident'>Clear</span>, <span class='ident'>SetClear</span>, <span class='string'>&quot;clear&quot;</span>],
+                        [<span class='ident'>ZIndex</span>, <span class='ident'>SetZIndex</span>, <span class='string'>&quot;z-index&quot;</span>],
+                        [<span class='ident'>Direction</span>, <span class='ident'>SetDirection</span>, <span class='string'>&quot;direction&quot;</span>],
+                        [<span class='ident'>Width</span>, <span class='ident'>SetWidth</span>, <span class='string'>&quot;width&quot;</span>],
+                        [<span class='ident'>Height</span>, <span class='ident'>SetHeight</span>, <span class='string'>&quot;height&quot;</span>],
+                        [<span class='ident'>MinWidth</span>, <span class='ident'>SetMinWidth</span>, <span class='string'>&quot;min-width&quot;</span>],
+                        [<span class='ident'>MaxWidth</span>, <span class='ident'>SetMaxWidth</span>, <span class='string'>&quot;max-width&quot;</span>],
+                        [<span class='ident'>MinHeight</span>, <span class='ident'>SetMinHeight</span>, <span class='string'>&quot;min-height&quot;</span>],
+                        [<span class='ident'>MaxHeight</span>, <span class='ident'>SetMaxHeight</span>, <span class='string'>&quot;max-height&quot;</span>],
+                        [<span class='ident'>LineHeight</span>, <span class='ident'>SetLineHeight</span>, <span class='string'>&quot;line-height&quot;</span>],
+                        [<span class='ident'>VerticalAlign</span>, <span class='ident'>SetVerticalAlign</span>, <span class='string'>&quot;vertical-align&quot;</span>],
+                        [<span class='ident'>OverflowX</span>, <span class='ident'>SetOverflowX</span>, <span class='string'>&quot;overflow-x&quot;</span>],
+                        [<span class='ident'>OverflowY</span>, <span class='ident'>SetOverflowY</span>, <span class='string'>&quot;overflow-y&quot;</span>],
+                        [<span class='ident'>Visibility</span>, <span class='ident'>SetVisibility</span>, <span class='string'>&quot;visibility&quot;</span>],
+                        [<span class='ident'>Content</span>, <span class='ident'>SetContent</span>, <span class='string'>&quot;content&quot;</span>],
+                        [<span class='ident'>ListStylePosition</span>, <span class='ident'>SetListStylePosition</span>, <span class='string'>&quot;list-style-position&quot;</span>],
+                        [<span class='ident'>ListStyleType</span>, <span class='ident'>SetListStyleType</span>, <span class='string'>&quot;list-style-type&quot;</span>],
+                        [<span class='ident'>ListStyleImage</span>, <span class='ident'>SetListStyleImage</span>, <span class='string'>&quot;list-style-image&quot;</span>],
+                        [<span class='ident'>Quotes</span>, <span class='ident'>SetQuotes</span>, <span class='string'>&quot;quotes&quot;</span>],
+                        [<span class='ident'>CounterIncrement</span>, <span class='ident'>SetCounterIncrement</span>, <span class='string'>&quot;counter-increment&quot;</span>],
+                        [<span class='ident'>CounterReset</span>, <span class='ident'>SetCounterReset</span>, <span class='string'>&quot;counter-reset&quot;</span>],
+                        [<span class='ident'>BackgroundColor</span>, <span class='ident'>SetBackgroundColor</span>, <span class='string'>&quot;background-color&quot;</span>],
+                        [<span class='ident'>BackgroundImage</span>, <span class='ident'>SetBackgroundImage</span>, <span class='string'>&quot;background-image&quot;</span>],
+                        [<span class='ident'>BackgroundPosition</span>, <span class='ident'>SetBackgroundPosition</span>, <span class='string'>&quot;background-position&quot;</span>],
+                        [<span class='ident'>BackgroundRepeat</span>, <span class='ident'>SetBackgroundRepeat</span>, <span class='string'>&quot;background-repeat&quot;</span>],
+                        [<span class='ident'>BackgroundAttachment</span>, <span class='ident'>SetBackgroundAttachment</span>, <span class='string'>&quot;background-attachment&quot;</span>],
+                        [<span class='ident'>BackgroundSize</span>, <span class='ident'>SetBackgroundSize</span>, <span class='string'>&quot;background-size&quot;</span>],
+                        [<span class='ident'>Color</span>, <span class='ident'>SetColor</span>, <span class='string'>&quot;color&quot;</span>],
+                        [<span class='ident'>FontFamily</span>, <span class='ident'>SetFontFamily</span>, <span class='string'>&quot;font-family&quot;</span>],
+                        [<span class='ident'>FontStyle</span>, <span class='ident'>SetFontStyle</span>, <span class='string'>&quot;font-style&quot;</span>],
+                        [<span class='ident'>FontVariant</span>, <span class='ident'>SetFontVariant</span>, <span class='string'>&quot;font-variant&quot;</span>],
+                        [<span class='ident'>FontWeight</span>, <span class='ident'>SetFontWeight</span>, <span class='string'>&quot;font-weight&quot;</span>],
+                        [<span class='ident'>FontSize</span>, <span class='ident'>SetFontSize</span>, <span class='string'>&quot;font-size&quot;</span>],
+                        [<span class='ident'>FontStretch</span>, <span class='ident'>SetFontStretch</span>, <span class='string'>&quot;font-stretch&quot;</span>],
+                        [<span class='ident'>TextAlign</span>, <span class='ident'>SetTextAlign</span>, <span class='string'>&quot;text-align&quot;</span>],
+                        [<span class='ident'>LetterSpacing</span>, <span class='ident'>SetLetterSpacing</span>, <span class='string'>&quot;letter-spacing&quot;</span>],
+                        [<span class='ident'>WordSpacing</span>, <span class='ident'>SetWordSpacing</span>, <span class='string'>&quot;word-spacing&quot;</span>],
+                        [<span class='ident'>TextIndent</span>, <span class='ident'>SetTextIndent</span>, <span class='string'>&quot;text-indent&quot;</span>],
+                        [<span class='ident'>OverflowWrap</span>, <span class='ident'>SetOverflowWrap</span>, <span class='string'>&quot;overflow-wrap&quot;</span>],
+                        [<span class='ident'>WordBreak</span>, <span class='ident'>SetWordBreak</span>, <span class='string'>&quot;word-break&quot;</span>],
+                        [<span class='ident'>TextOverflow</span>, <span class='ident'>SetTextOverflow</span>, <span class='string'>&quot;text-overflow&quot;</span>],
+                        [<span class='ident'>TextJustify</span>, <span class='ident'>SetTextJustify</span>, <span class='string'>&quot;text-justify&quot;</span>],
+                        [<span class='ident'>TextDecoration</span>, <span class='ident'>SetTextDecoration</span>, <span class='string'>&quot;text-decoration&quot;</span>],
+                        [<span class='ident'>WhiteSpace</span>, <span class='ident'>SetWhiteSpace</span>, <span class='string'>&quot;white-space&quot;</span>],
+                        [<span class='ident'>TextTransform</span>, <span class='ident'>SetTextTransform</span>, <span class='string'>&quot;text-transform&quot;</span>],
+                        [<span class='ident'>TextRendering</span>, <span class='ident'>SetTextRendering</span>, <span class='string'>&quot;text-rendering&quot;</span>],
+                        [<span class='ident'>TableLayout</span>, <span class='ident'>SetTableLayout</span>, <span class='string'>&quot;table-layout&quot;</span>],
+                        [<span class='ident'>EmptyCells</span>, <span class='ident'>SetEmptyCells</span>, <span class='string'>&quot;empty-cells&quot;</span>],
+                        [<span class='ident'>CaptionSide</span>, <span class='ident'>SetCaptionSide</span>, <span class='string'>&quot;caption-side&quot;</span>],
+                        [<span class='ident'>BorderCollapse</span>, <span class='ident'>SetBorderCollapse</span>, <span class='string'>&quot;border-collapse&quot;</span>],
+                        [<span class='ident'>BorderSpacing</span>, <span class='ident'>SetBorderSpacing</span>, <span class='string'>&quot;border-spacing&quot;</span>],
+                        [<span class='ident'>WritingMode</span>, <span class='ident'>SetWritingMode</span>, <span class='string'>&quot;writing-mode&quot;</span>],
+                        [<span class='ident'>TextOrientation</span>, <span class='ident'>SetTextOrientation</span>, <span class='string'>&quot;text-orientation&quot;</span>],
+                        [<span class='ident'>BoxSizing</span>, <span class='ident'>SetBoxSizing</span>, <span class='string'>&quot;box-sizing&quot;</span>],
+                        [<span class='ident'>Cursor</span>, <span class='ident'>SetCursor</span>, <span class='string'>&quot;cursor&quot;</span>],
+                        [<span class='ident'>PointerEvents</span>, <span class='ident'>SetPointerEvents</span>, <span class='string'>&quot;pointer-events&quot;</span>],
+                        [<span class='ident'>Opacity</span>, <span class='ident'>SetOpacity</span>, <span class='string'>&quot;opacity&quot;</span>],
+                        [<span class='ident'>BoxShadow</span>, <span class='ident'>SetBoxShadow</span>, <span class='string'>&quot;box-shadow&quot;</span>],
+                        [<span class='ident'>Clip</span>, <span class='ident'>SetClip</span>, <span class='string'>&quot;clip&quot;</span>],
+                        [<span class='ident'>TextShadow</span>, <span class='ident'>SetTextShadow</span>, <span class='string'>&quot;text-shadow&quot;</span>],
+                        [<span class='ident'>Filter</span>, <span class='ident'>SetFilter</span>, <span class='string'>&quot;filter&quot;</span>],
+                        [<span class='ident'>Transform</span>, <span class='ident'>SetTransform</span>, <span class='string'>&quot;transform&quot;</span>],
+                        [<span class='ident'>TransformOrigin</span>, <span class='ident'>SetTransformOrigin</span>, <span class='string'>&quot;transform-origin&quot;</span>],
+                        [<span class='ident'>MixBlendMode</span>, <span class='ident'>SetMixBlendMode</span>, <span class='string'>&quot;mix-blend-mode&quot;</span>],
+                        [<span class='ident'>ImageRendering</span>, <span class='ident'>SetImageRendering</span>, <span class='string'>&quot;image-rendering&quot;</span>],
+                        [<span class='ident'>TransitionDuration</span>, <span class='ident'>SetTransitionDuration</span>, <span class='string'>&quot;transition-duration&quot;</span>],
+                        [<span class='ident'>TransitionTimingFunction</span>, <span class='ident'>SetTransitionTimingFunction</span>, <span class='string'>&quot;transition-timing-function&quot;</span>],
+                        [<span class='ident'>TransitionProperty</span>, <span class='ident'>SetTransitionProperty</span>, <span class='string'>&quot;transition-property&quot;</span>],
+                        [<span class='ident'>TransitionDelay</span>, <span class='ident'>SetTransitionDelay</span>, <span class='string'>&quot;transition-delay&quot;</span>]
+        }
+    }
+}
+</pre>
+</section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "style";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

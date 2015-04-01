@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CookieStorage",""]],"enum":[["CookieSource","The creator of a given cookie"]]});

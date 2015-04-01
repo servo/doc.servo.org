@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TextRunScanner","A stack-allocated object for scanning an inline flow into `TextRun`-containing `TextFragment`s."]],"fn":[["font_metrics_for_style","Returns the metrics of the font represented by the given `FontStyle`, respectively."],["line_height_from_style","Returns the line block-size needed by the given computed style and font size."]]});

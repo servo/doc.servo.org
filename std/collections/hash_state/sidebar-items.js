@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["HashState","A trait representing stateful hashes which can be used to hash keys in a `HashMap`."]],"struct":[["DefaultState","A structure which is a factory for instances of `Hasher` which implement the default trait."]]});

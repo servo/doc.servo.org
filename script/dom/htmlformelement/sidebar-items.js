@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FormDatum",""],["HTMLFormElement",""]],"trait":[["FormControl",""],["HTMLFormElementHelpers",""]],"enum":[["FormEncType",""],["FormMethod",""],["FormSubmitter",""],["ResetFrom",""],["SubmittedFrom",""]]});

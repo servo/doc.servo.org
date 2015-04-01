@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["Dependencies","A mapping of all required dependencies for a particular flavor of output."],["DependencyList","A list of dependencies for a certain crate type."]],"fn":[["calculate",""]]});

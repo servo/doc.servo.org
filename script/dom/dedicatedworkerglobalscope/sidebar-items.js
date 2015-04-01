@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["DedicatedWorkerGlobalScopeHelpers",""]],"struct":[["DedicatedWorkerGlobalScope",""],["SendableWorkerScriptChan","A ScriptChan that can be cloned freely and will silently send a TrustedWorkerAddress with every message. While this SendableWorkerScriptChan is alive, the associated Worker object will remain alive."]]});

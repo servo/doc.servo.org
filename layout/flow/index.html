@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `flow` mod in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, flow">
+
+    <title>layout::flow - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a></p><script>window.sidebarCurrent = {name: 'flow', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>layout</a>::<wbr><a class='mod' href=''>flow</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-24996' href='../../src/layout/flow.rs.html#5-1371'>[src]</a></span></h1>
+<div class='docblock'><p>Servo&#39;s experimental layout system builds a tree of <code>Flow</code> and <code>Fragment</code> objects and solves
+layout constraints to obtain positions and display attributes of tree nodes. Positions are
+computed in several tree traversals driven by the fundamental data dependencies required by</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.AbsolutePositionInfo.html'
+                               title='layout::flow::AbsolutePositionInfo'>AbsolutePositionInfo</a></td>
+                        <td class='docblock short'><p>Information needed to compute absolute (i.e. viewport-relative) flow positions (not to be
+confused with absolutely-positioned flows).</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BaseFlow.html'
+                               title='layout::flow::BaseFlow'>BaseFlow</a></td>
+                        <td class='docblock short'><p>Data common to all flows.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ContainingBlockLink.html'
+                               title='layout::flow::ContainingBlockLink'>ContainingBlockLink</a></td>
+                        <td class='docblock short'><p>A link to a flow&#39;s containing block.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.DescendantIter.html'
+                               title='layout::flow::DescendantIter'>DescendantIter</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Descendants.html'
+                               title='layout::flow::Descendants'>Descendants</a></td>
+                        <td class='docblock short'><p>The Descendants of a flow.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.FlowFlags.html'
+                               title='layout::flow::FlowFlags'>FlowFlags</a></td>
+                        <td class='docblock short'><p>Flags used in flows.</p>
+</td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.FlowClass.html'
+                               title='layout::flow::FlowClass'>FlowClass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.ForceNonfloatedFlag.html'
+                               title='layout::flow::ForceNonfloatedFlag'>ForceNonfloatedFlag</a></td>
+                        <td class='docblock short'><p>Whether a base flow should be forced to be nonfloated. This can affect e.g. <code>TableFlow</code>, which
+is never floated because the table wrapper flow is the floated one.</p>
+</td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.AFFECTS_COUNTERS.html'
+                               title='layout::flow::AFFECTS_COUNTERS'>AFFECTS_COUNTERS</a></td>
+                        <td class='docblock short'><p>Whether this flow has a fragment with <code>counter-reset</code> or <code>counter-increment</code> styles.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.CLEARS_LEFT.html'
+                               title='layout::flow::CLEARS_LEFT'>CLEARS_LEFT</a></td>
+                        <td class='docblock short'><p>Whether this flow clears to the left. This is checked all over layout, so a
+virtual call is too expensive.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.CLEARS_RIGHT.html'
+                               title='layout::flow::CLEARS_RIGHT'>CLEARS_RIGHT</a></td>
+                        <td class='docblock short'><p>Whether this flow clears to the right. This is checked all over layout, so a
+virtual call is too expensive.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FLOATS_LEFT.html'
+                               title='layout::flow::FLOATS_LEFT'>FLOATS_LEFT</a></td>
+                        <td class='docblock short'><p>Whether this flow is left-floated. This is checked all over layout, so a
+virtual call is too expensive.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FLOATS_RIGHT.html'
+                               title='layout::flow::FLOATS_RIGHT'>FLOATS_RIGHT</a></td>
+                        <td class='docblock short'><p>Whether this flow is right-floated. This is checked all over layout, so a
+virtual call is too expensive.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.HAS_COUNTER_AFFECTING_CHILDREN.html'
+                               title='layout::flow::HAS_COUNTER_AFFECTING_CHILDREN'>HAS_COUNTER_AFFECTING_CHILDREN</a></td>
+                        <td class='docblock short'><p>Whether this flow&#39;s descendants have fragments that affect <code>counter-reset</code> or <code>counter-increment</code> styles.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.HAS_LEFT_FLOATED_DESCENDANTS.html'
+                               title='layout::flow::HAS_LEFT_FLOATED_DESCENDANTS'>HAS_LEFT_FLOATED_DESCENDANTS</a></td>
+                        <td class='docblock short'><p>Whether this flow has descendants that float left in the same block formatting
+context.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.HAS_RIGHT_FLOATED_DESCENDANTS.html'
+                               title='layout::flow::HAS_RIGHT_FLOATED_DESCENDANTS'>HAS_RIGHT_FLOATED_DESCENDANTS</a></td>
+                        <td class='docblock short'><p>Whether this flow has descendants that float right in the same block formatting
+context.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.IMPACTED_BY_LEFT_FLOATS.html'
+                               title='layout::flow::IMPACTED_BY_LEFT_FLOATS'>IMPACTED_BY_LEFT_FLOATS</a></td>
+                        <td class='docblock short'><p>Whether this flow is impacted by floats to the left in the same block formatting
+context (i.e. its height depends on some prior flows with <code>float: left</code>).</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.IMPACTED_BY_RIGHT_FLOATS.html'
+                               title='layout::flow::IMPACTED_BY_RIGHT_FLOATS'>IMPACTED_BY_RIGHT_FLOATS</a></td>
+                        <td class='docblock short'><p>Whether this flow is impacted by floats to the right in the same block
+formatting context (i.e. its height depends on some prior flows with <code>float:
+right</code>).</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.IS_ABSOLUTELY_POSITIONED.html'
+                               title='layout::flow::IS_ABSOLUTELY_POSITIONED'>IS_ABSOLUTELY_POSITIONED</a></td>
+                        <td class='docblock short'><p>Whether this flow is absolutely positioned. This is checked all over layout, so a
+virtual call is too expensive.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.LAYERS_NEEDED_FOR_DESCENDANTS.html'
+                               title='layout::flow::LAYERS_NEEDED_FOR_DESCENDANTS'>LAYERS_NEEDED_FOR_DESCENDANTS</a></td>
+                        <td class='docblock short'><p>Whether this flow contains a flow that has its own layer within the same absolute
+containing block.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.NEEDS_LAYER.html'
+                               title='layout::flow::NEEDS_LAYER'>NEEDS_LAYER</a></td>
+                        <td class='docblock short'><p>Whether this flow must have its own layer. Even if this flag is not set, it might
+get its own layer if it&#39;s deemed to be likely to overlap flows with their own
+layer.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.TEXT_ALIGN.html'
+                               title='layout::flow::TEXT_ALIGN'>TEXT_ALIGN</a></td>
+                        <td class='docblock short'><p>Text alignment. NB: If you update this, update <code>TEXT_ALIGN_SHIFT</code> below.</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.Flow.html'
+                               title='layout::flow::Flow'>Flow</a></td>
+                        <td class='docblock short'><p>Virtual methods that make up a float context.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.ImmutableFlowUtils.html'
+                               title='layout::flow::ImmutableFlowUtils'>ImmutableFlowUtils</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.InorderFlowTraversal.html'
+                               title='layout::flow::InorderFlowTraversal'>InorderFlowTraversal</a></td>
+                        <td class='docblock short'><p>An in-order (sequential only) traversal.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.MutableFlowUtils.html'
+                               title='layout::flow::MutableFlowUtils'>MutableFlowUtils</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.MutableOwnedFlowUtils.html'
+                               title='layout::flow::MutableOwnedFlowUtils'>MutableOwnedFlowUtils</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.PostorderFlowTraversal.html'
+                               title='layout::flow::PostorderFlowTraversal'>PostorderFlowTraversal</a></td>
+                        <td class='docblock short'><p>A bottom-up traversal, with a optional in-order pass.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.PreorderFlowTraversal.html'
+                               title='layout::flow::PreorderFlowTraversal'>PreorderFlowTraversal</a></td>
+                        <td class='docblock short'><p>A top-down traversal.</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.base.html'
+                               title='layout::flow::base'>base</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.child_iter.html'
+                               title='layout::flow::child_iter'>child_iter</a></td>
+                        <td class='docblock short'><p>Iterates over the children of this flow.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.imm_child_iter.html'
+                               title='layout::flow::imm_child_iter'>imm_child_iter</a></td>
+                        <td class='docblock short'><p>Iterates over the children of this immutable flow.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.mut_base.html'
+                               title='layout::flow::mut_base'>mut_base</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.AbsDescendants.html'
+                               title='layout::flow::AbsDescendants'>AbsDescendants</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.DescendantOffsetIter.html'
+                               title='layout::flow::DescendantOffsetIter'>DescendantOffsetIter</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

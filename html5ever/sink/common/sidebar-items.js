@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["NodeEnum","The different kinds of nodes in the DOM."]]});

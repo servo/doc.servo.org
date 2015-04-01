@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PrivatizePass","Lint for keeping DOM fields private"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["LayoutContext",""],["SharedLayoutContext","Layout information shared among all workers. This must be thread-safe."],["SharedLayoutContextWrapper",""]]});

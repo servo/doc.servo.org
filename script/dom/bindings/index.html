@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `bindings` mod in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, bindings">
+
+    <title>script::dom::bindings - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a></p><script>window.sidebarCurrent = {name: 'bindings', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a>::<wbr><a class='mod' href=''>bindings</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-1730' href='../../../src/script/dom/bindings/mod.rs.html#5-55'>[src]</a></span></h1>
+<div class='docblock'><p>The code to expose the DOM to JavaScript through IDL bindings.</p>
+
+<h1 id="exposing-a-dom-object-to-javascript" class='section-header'><a
+                           href="#exposing-a-dom-object-to-javascript">Exposing a DOM object to JavaScript</a></h1>
+<p>As <a href="../index.html#a-dom-object-and-its-reflector">explained earlier</a>, the
+implementation of an interface <code>Foo</code> involves two objects: the DOM object
+(implemented in Rust) and the reflector (a <code>JSObject</code>).</p>
+
+<p>In order to expose the interface&#39;s members to the web, properties
+corresponding to the operations and attributes are defined on an object in
+the reflector&#39;s prototype chain or on the reflector itself.</p>
+
+<p>Typically, these properties are either value properties whose value is a
+function (for operations) or accessor properties that have a getter and
+optionally a setter function (for attributes, depending on whether they are
+marked <code>readonly</code>).</p>
+
+<p>All these JavaScript functions are set up such that, when they&#39;re called,
+they call a Rust function in the generated glue code. This glue code does
+some sanity checks and <a href="conversions/index.html">argument conversions</a>, and
+calls into API implementation for the DOM object.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='callback/index.html'
+                               title='script::dom::bindings::callback'>callback</a></td>
+                        <td class='docblock short'><p>Base classes to work with IDL callbacks.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='cell/index.html'
+                               title='script::dom::bindings::cell'>cell</a></td>
+                        <td class='docblock short'><p>A shareable mutable container for the DOM.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='codegen/index.html'
+                               title='script::dom::bindings::codegen'>codegen</a></td>
+                        <td class='docblock short'><p>Generated JS-Rust bindings.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='conversions/index.html'
+                               title='script::dom::bindings::conversions'>conversions</a></td>
+                        <td class='docblock short'><p>Conversions of Rust values to and from <code>JSVal</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='error/index.html'
+                               title='script::dom::bindings::error'>error</a></td>
+                        <td class='docblock short'><p>Utilities to throw exceptions from Rust bindings.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='global/index.html'
+                               title='script::dom::bindings::global'>global</a></td>
+                        <td class='docblock short'><p>Abstractions for global scopes.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='js/index.html'
+                               title='script::dom::bindings::js'>js</a></td>
+                        <td class='docblock short'><p>Smart pointers for the JS-managed DOM objects.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='num/index.html'
+                               title='script::dom::bindings::num'>num</a></td>
+                        <td class='docblock short'><p>The <code>Finite&lt;T&gt;</code> struct.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='proxyhandler/index.html'
+                               title='script::dom::bindings::proxyhandler'>proxyhandler</a></td>
+                        <td class='docblock short'><p>Utilities for the implementation of JSAPI proxy handlers.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='refcounted/index.html'
+                               title='script::dom::bindings::refcounted'>refcounted</a></td>
+                        <td class='docblock short'><p>A generic, safe mechanism by which DOM objects can be pinned and transferred
+between tasks (or intra-task for asynchronous events). Akin to Gecko&#39;s
+nsMainThreadPtrHandle, this uses thread-safe reference counting and ensures
+that the actual SpiderMonkey GC integration occurs on the script task via
+message passing. Ownership of a <code>Trusted&lt;T&gt;</code> object means the DOM object of
+type T to which it points remains alive. Any other behaviour is undefined.
+To guarantee the lifetime of a DOM object when performing asynchronous operations,
+obtain a <code>Trusted&lt;T&gt;</code> from that object and pass it along with each operation.
+A usable pointer to the original DOM object can be obtained on the script task
+from a <code>Trusted&lt;T&gt;</code> via the <code>to_temporary</code> method.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='str/index.html'
+                               title='script::dom::bindings::str'>str</a></td>
+                        <td class='docblock short'><p>The <code>ByteString</code> struct.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='structuredclone/index.html'
+                               title='script::dom::bindings::structuredclone'>structuredclone</a></td>
+                        <td class='docblock short'><p>This module implements structured cloning, as defined by <a href="https://html.spec.whatwg.org/multipage/#safe-passing-of-structured-data">HTML</a>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='trace/index.html'
+                               title='script::dom::bindings::trace'>trace</a></td>
+                        <td class='docblock short'><p>Utilities for tracing JS-managed values.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='utils/index.html'
+                               title='script::dom::bindings::utils'>utils</a></td>
+                        <td class='docblock short'><p>Various utilities to glue JavaScript and the DOM implementation together.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Macros</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Macros</h1>
+    <p>By now you&#39;ve learned about many of the tools Rust provides for abstracting and
+reusing code. These units of code reuse have a rich semantic structure. For
+example, functions have a type signature, type parameters have trait bounds,
+and overloaded functions must belong to a particular trait.</p>
+
+<p>This structure means that Rust&#39;s core abstractions have powerful compile-time
+correctness checking. But this comes at the price of reduced flexibility. If
+you visually identify a pattern of repeated code, you may find it&#39;s difficult
+or cumbersome to express that pattern as a generic function, a trait, or
+anything else within Rust&#39;s semantics.</p>
+
+<p>Macros allow us to abstract at a <em>syntactic</em> level. A macro invocation is
+shorthand for an &quot;expanded&quot; syntactic form. This expansion happens early in
+compilation, before any static checking. As a result, macros can capture many
+patterns of code reuse that Rust&#39;s core abstractions cannot.</p>
+
+<p>The drawback is that macro-based code can be harder to understand, because
+fewer of the built-in rules apply. Like an ordinary function, a well-behaved
+macro can be used without understanding its implementation. However, it can be
+difficult to design a well-behaved macro!  Additionally, compiler errors in
+macro code are harder to interpret, because they describe problems in the
+expanded code, not the source-level form that developers use.</p>
+
+<p>These drawbacks make macros something of a &quot;feature of last resort&quot;. That&#39;s not
+to say that macros are bad; they are part of Rust because sometimes they&#39;re
+needed for truly concise, well-abstracted code. Just keep this tradeoff in
+mind.</p>
+
+<h1 id="defining-a-macro" class='section-header'><a
+                           href="#defining-a-macro">Defining a macro</a></h1>
+<p>You may have seen the <code>vec!</code> macro, used to initialize a <a href="arrays-vectors-and-slices.html">vector</a> with any
+number of elements.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+</pre>
+
+<p>This can&#39;t be an ordinary function, because it takes any number of arguments.
+But we can imagine it as syntactic shorthand for</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span> <span class='op'>=</span> {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>temp_vec</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+    <span class='ident'>temp_vec</span>.<span class='ident'>push</span>(<span class='number'>1</span>);
+    <span class='ident'>temp_vec</span>.<span class='ident'>push</span>(<span class='number'>2</span>);
+    <span class='ident'>temp_vec</span>.<span class='ident'>push</span>(<span class='number'>3</span>);
+    <span class='ident'>temp_vec</span>
+};
+</pre>
+
+<p>We can implement this shorthand, using a macro: <sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup></p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>vec</span> {
+    ( $( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>expr</span> ),<span class='op'>*</span> ) <span class='op'>=&gt;</span> {
+        {
+            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>temp_vec</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+            $(
+                <span class='ident'>temp_vec</span>.<span class='ident'>push</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>);
+            )<span class='op'>*</span>
+            <span class='ident'>temp_vec</span>
+        }
+    };
+}
+</pre>
+
+<p>Whoa, that&#39;s a lot of new syntax! Let&#39;s break it down.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>vec</span> { ... }
+</pre>
+
+<p>This says we&#39;re defining a macro named <code>vec</code>, much as <code>fn vec</code> would define a
+function named <code>vec</code>. In prose, we informally write a macro&#39;s name with an
+exclamation point, e.g. <code>vec!</code>. The exclamation point is part of the invocation
+syntax and serves to distinguish a macro from an ordinary function.</p>
+
+<h2 id="matching" class='section-header'><a
+                           href="#matching">Matching</a></h2>
+<p>The macro is defined through a series of <em>rules</em>, which are pattern-matching
+cases. Above, we had</p>
+<pre id='rust-example-rendered' class='rust '>
+( $( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>expr</span> ),<span class='op'>*</span> ) <span class='op'>=&gt;</span> { ... };
+</pre>
+
+<p>This is like a <code>match</code> expression arm, but the matching happens on Rust syntax
+trees, at compile time. The semicolon is optional on the last (here, only)
+case. The &quot;pattern&quot; on the left-hand side of <code>=&gt;</code> is known as a <em>matcher</em>.
+These have <a href="../reference.html#macros">their own little grammar</a> within the language.</p>
+
+<p>The matcher <code>$x:expr</code> will match any Rust expression, binding that syntax tree
+to the <em>metavariable</em> <code>$x</code>. The identifier <code>expr</code> is a <em>fragment specifier</em>;
+the full possibilities are enumerated in the <a href="advanced-macros.html">advanced macros chapter</a>.
+Surrounding the matcher with <code>$(...),*</code> will match zero or more expressions,
+separated by commas.</p>
+
+<p>Aside from the special matcher syntax, any Rust tokens that appear in a matcher
+must match exactly. For example,</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>foo</span> {
+    (<span class='ident'>x</span> <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;mode X: {}&quot;</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>));
+    (<span class='ident'>y</span> <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;mode Y: {}&quot;</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>));
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>foo</span><span class='macro'>!</span>(<span class='ident'>y</span> <span class='op'>=&gt;</span> <span class='number'>3</span>);
+}
+</pre>
+
+<p>will print</p>
+
+<pre><code class="language-text">mode Y: 3
+</code></pre>
+
+<p>With</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>foo</span><span class='macro'>!</span>(<span class='ident'>z</span> <span class='op'>=&gt;</span> <span class='number'>3</span>);
+</pre>
+
+<p>we get the compiler error</p>
+
+<pre><code class="language-text">error: no rules expected the token `z`
+</code></pre>
+
+<h2 id="expansion" class='section-header'><a
+                           href="#expansion">Expansion</a></h2>
+<p>The right-hand side of a macro rule is ordinary Rust syntax, for the most part.
+But we can splice in bits of syntax captured by the matcher. From the original
+example:</p>
+<pre id='rust-example-rendered' class='rust '>
+$(
+    <span class='ident'>temp_vec</span>.<span class='ident'>push</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>);
+)<span class='op'>*</span>
+</pre>
+
+<p>Each matched expression <code>$x</code> will produce a single <code>push</code> statement in the
+macro expansion. The repetition in the expansion proceeds in &quot;lockstep&quot; with
+repetition in the matcher (more on this in a moment).</p>
+
+<p>Because <code>$x</code> was already declared as matching an expression, we don&#39;t repeat
+<code>:expr</code> on the right-hand side. Also, we don&#39;t include a separating comma as
+part of the repetition operator. Instead, we have a terminating semicolon
+within the repeated block.</p>
+
+<p>Another detail: the <code>vec!</code> macro has <em>two</em> pairs of braces on the right-hand
+side. They are often combined like so:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>foo</span> {
+    () <span class='op'>=&gt;</span> {{
+        ...
+    }}
+}
+</pre>
+
+<p>The outer braces are part of the syntax of <code>macro_rules!</code>. In fact, you can use
+<code>()</code> or <code>[]</code> instead. They simply delimit the right-hand side as a whole.</p>
+
+<p>The inner braces are part of the expanded syntax. Remember, the <code>vec!</code> macro is
+used in an expression context. To write an expression with multiple statements,
+including <code>let</code>-bindings, we use a block. If your macro expands to a single
+expression, you don&#39;t need this extra layer of braces.</p>
+
+<p>Note that we never <em>declared</em> that the macro produces an expression. In fact,
+this is not determined until we use the macro as an expression. With care, you
+can write a macro whose expansion works in several contexts. For example,
+shorthand for a data type could be valid as either an expression or a pattern.</p>
+
+<h2 id="repetition" class='section-header'><a
+                           href="#repetition">Repetition</a></h2>
+<p>The repetition operator follows two principal rules:</p>
+
+<ol>
+<li><code>$(...)*</code> walks through one &quot;layer&quot; of repetitions, for all of the <code>$name</code>s
+it contains, in lockstep, and</li>
+<li>each <code>$name</code> must be under at least as many <code>$(...)*</code>s as it was matched
+against. If it is under more, it&#39;ll be duplicated, as appropriate.</li>
+</ol>
+
+<p>This baroque macro illustrates the duplication of variables from outer
+repetition levels.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>o_O</span> {
+    (
+        $(
+            <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>expr</span>; [ $( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>y</span>:<span class='ident'>expr</span> ),<span class='op'>*</span> ]
+        );<span class='op'>*</span>
+    ) <span class='op'>=&gt;</span> {
+        <span class='kw-2'>&amp;</span>[ $($( <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span> <span class='op'>+</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>y</span> ),<span class='op'>*</span>),<span class='op'>*</span> ]
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>a</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>i32</span>]
+        <span class='op'>=</span> <span class='macro'>o_O</span><span class='macro'>!</span>(<span class='number'>10</span>; [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+               <span class='number'>20</span>; [<span class='number'>4</span>, <span class='number'>5</span>, <span class='number'>6</span>]);
+
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>, [<span class='number'>11</span>, <span class='number'>12</span>, <span class='number'>13</span>, <span class='number'>24</span>, <span class='number'>25</span>, <span class='number'>26</span>]);
+}
+</pre>
+
+<p>That&#39;s most of the matcher syntax. These examples use <code>$(...)*</code>, which is a
+&quot;zero or more&quot; match. Alternatively you can write <code>$(...)+</code> for a &quot;one or
+more&quot; match. Both forms optionally include a separator, which can be any token
+except <code>+</code> or <code>*</code>.</p>
+
+<p>This system is based on
+&quot;<a href="http://www.cs.indiana.edu/ftp/techreports/TR206.pdf">Macro-by-Example</a>&quot;
+(PDF link).</p>
+
+<h1 id="hygiene" class='section-header'><a
+                           href="#hygiene">Hygiene</a></h1>
+<p>Some languages implement macros using simple text substitution, which leads to
+various problems. For example, this C program prints <code>13</code> instead of the
+expected <code>25</code>.</p>
+
+<pre><code class="language-text">#define FIVE_TIMES(x) 5 * x
+
+int main() {
+    printf(&quot;%d\n&quot;, FIVE_TIMES(2 + 3));
+    return 0;
+}
+</code></pre>
+
+<p>After expansion we have <code>5 * 2 + 3</code>, and multiplication has greater precedence
+than addition. If you&#39;ve used C macros a lot, you probably know the standard
+idioms for avoiding this problem, as well as five or six others. In Rust, we
+don&#39;t have to worry about it.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>five_times</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> (<span class='number'>5</span> <span class='op'>*</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>x</span>);
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>25</span>, <span class='macro'>five_times</span><span class='macro'>!</span>(<span class='number'>2</span> <span class='op'>+</span> <span class='number'>3</span>));
+}
+</pre>
+
+<p>The metavariable <code>$x</code> is parsed as a single expression node, and keeps its
+place in the syntax tree even after substitution.</p>
+
+<p>Another common problem in macro systems is <em>variable capture</em>. Here&#39;s a C
+macro, using <a href="https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html">a GNU C extension</a> to emulate Rust&#39;s expression blocks.</p>
+
+<pre><code class="language-text">#define LOG(msg) ({ \
+    int state = get_log_state(); \
+    if (state &gt; 0) { \
+        printf(&quot;log(%d): %s\n&quot;, state, msg); \
+    } \
+})
+</code></pre>
+
+<p>Here&#39;s a simple use case that goes terribly wrong:</p>
+
+<pre><code class="language-text">const char *state = &quot;reticulating splines&quot;;
+LOG(state)
+</code></pre>
+
+<p>This expands to</p>
+
+<pre><code class="language-text">const char *state = &quot;reticulating splines&quot;;
+int state = get_log_state();
+if (state &gt; 0) {
+    printf(&quot;log(%d): %s\n&quot;, state, state);
+}
+</code></pre>
+
+<p>The second variable named <code>state</code> shadows the first one.  This is a problem
+because the print statement should refer to both of them.</p>
+
+<p>The equivalent Rust macro has the desired behavior.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>log</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>msg</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {{
+        <span class='kw'>let</span> <span class='ident'>state</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='ident'>get_log_state</span>();
+        <span class='kw'>if</span> <span class='ident'>state</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
+            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;log({}): {}&quot;</span>, <span class='ident'>state</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>msg</span>);
+        }
+    }};
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>state</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span> <span class='op'>=</span> <span class='string'>&quot;reticulating splines&quot;</span>;
+    <span class='macro'>log</span><span class='macro'>!</span>(<span class='ident'>state</span>);
+}
+</pre>
+
+<p>This works because Rust has a <a href="http://en.wikipedia.org/wiki/Hygienic_macro">hygienic macro system</a>. Each macro expansion
+happens in a distinct <em>syntax context</em>, and each variable is tagged with the
+syntax context where it was introduced. It&#39;s as though the variable <code>state</code>
+inside <code>main</code> is painted a different &quot;color&quot; from the variable <code>state</code> inside
+the macro, and therefore they don&#39;t conflict.</p>
+
+<p>This also restricts the ability of macros to introduce new bindings at the
+invocation site. Code such as the following will not work:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>foo</span> {
+    () <span class='op'>=&gt;</span> (<span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='number'>3</span>);
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>foo</span><span class='macro'>!</span>();
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+</pre>
+
+<p>Instead you need to pass the variable name into the invocation, so it&#39;s tagged
+with the right syntax context.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>foo</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>v</span>:<span class='ident'>ident</span>) <span class='op'>=&gt;</span> (<span class='kw'>let</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>v</span> <span class='op'>=</span> <span class='number'>3</span>);
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>foo</span><span class='macro'>!</span>(<span class='ident'>x</span>);
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+</pre>
+
+<p>This holds for <code>let</code> bindings and loop labels, but not for <a href="../reference.html#items">items</a>.
+So the following code does compile:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>foo</span> {
+    () <span class='op'>=&gt;</span> (<span class='kw'>fn</span> <span class='ident'>x</span>() { });
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>foo</span><span class='macro'>!</span>();
+    <span class='ident'>x</span>();
+}
+</pre>
+
+<h1 id="recursive-macros" class='section-header'><a
+                           href="#recursive-macros">Recursive macros</a></h1>
+<p>A macro&#39;s expansion can include more macro invocations, including invocations
+of the very same macro being expanded.  These recursive macros are useful for
+processing tree-structured input, as illustrated by this (simplistic) HTML
+shorthand:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>write_html</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>w</span>:<span class='ident'>expr</span>, ) <span class='op'>=&gt;</span> (());
+
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>w</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>tt</span>) <span class='op'>=&gt;</span> (<span class='macro'>write</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>w</span>, <span class='string'>&quot;{}&quot;</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>));
+
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>w</span>:<span class='ident'>expr</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>tag</span>:<span class='ident'>ident</span> [ $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>inner</span>:<span class='ident'>tt</span>)<span class='op'>*</span> ] $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>rest</span>:<span class='ident'>tt</span>)<span class='op'>*</span>) <span class='op'>=&gt;</span> {{
+        <span class='macro'>write</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>w</span>, <span class='string'>&quot;&lt;{}&gt;&quot;</span>, <span class='macro'>stringify</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>tag</span>));
+        <span class='macro'>write_html</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>w</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>inner</span>)<span class='op'>*</span>);
+        <span class='macro'>write</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>w</span>, <span class='string'>&quot;&lt;/{}&gt;&quot;</span>, <span class='macro'>stringify</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>tag</span>));
+        <span class='macro'>write_html</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>w</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>rest</span>)<span class='op'>*</span>);
+    }};
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>::<span class='ident'>Write</span>;
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>out</span> <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>new</span>();
+
+    <span class='macro'>write_html</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>out</span>,
+        <span class='ident'>html</span>[
+            <span class='ident'>head</span>[<span class='ident'>title</span>[<span class='string'>&quot;Macros guide&quot;</span>]]
+            <span class='ident'>body</span>[<span class='ident'>h1</span>[<span class='string'>&quot;Macros are the best!&quot;</span>]]
+        ]);
+
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>out</span>,
+        <span class='string'>&quot;&lt;html&gt;&lt;head&gt;&lt;title&gt;Macros guide&lt;/title&gt;&lt;/head&gt;\
+         &lt;body&gt;&lt;h1&gt;Macros are the best!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span>);
+}
+</pre>
+
+<h1 id="debugging-macro-code" class='section-header'><a
+                           href="#debugging-macro-code">Debugging macro code</a></h1>
+<p>To see the results of expanding macros, run <code>rustc --pretty expanded</code>. The
+output represents a whole crate, so you can also feed it back in to <code>rustc</code>,
+which will sometimes produce better error messages than the original
+compilation. Note that the <code>--pretty expanded</code> output may have a different
+meaning if multiple variables of the same name (but different syntax contexts)
+are in play in the same scope. In this case <code>--pretty expanded,hygiene</code> will
+tell you about the syntax contexts.</p>
+
+<p><code>rustc</code> provides two syntax extensions that help with macro debugging. For now,
+they are unstable and require feature gates.</p>
+
+<ul>
+<li><p><code>log_syntax!(...)</code> will print its arguments to standard output, at compile
+time, and &quot;expand&quot; to nothing.</p></li>
+<li><p><code>trace_macros!(true)</code> will enable a compiler message every time a macro is
+expanded. Use <code>trace_macros!(false)</code> later in expansion to turn it off.</p></li>
+</ul>
+
+<h1 id="further-reading" class='section-header'><a
+                           href="#further-reading">Further reading</a></h1>
+<p>The <a href="advanced-macros.html">advanced macros chapter</a> goes into more detail about macro syntax. It
+also describes how to share macros between different modules or crates.</p>
+
+<div class="footnotes">
+<hr>
+<ol>
+
+<li id="fn1">
+<p>The actual definition of <code>vec!</code> in libcollections differs from the
+       one presented here, for reasons of efficiency and reusability. Some
+       of these are mentioned in the <a href="advanced-macros.html">advanced macros chapter</a>.&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
+</li>
+
+</ol>
+</div>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

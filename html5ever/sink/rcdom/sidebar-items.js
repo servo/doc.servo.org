@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["Handle","Reference to a DOM node."],["WeakHandle","Weak reference to a DOM node, used for parent pointers."]],"struct":[["Node","A DOM node."],["RcDom","The DOM itself; the result of parsing."]]});

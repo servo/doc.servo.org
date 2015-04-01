@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `XSetWindowAttributes` struct in crate `xlib`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, XSetWindowAttributes">
+
+    <title>xlib::XSetWindowAttributes - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>xlib</a></p><script>window.sidebarCurrent = {name: 'XSetWindowAttributes', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>xlib</a>::<wbr><a class='struct' href=''>XSetWindowAttributes</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-233' href='../src/xlib/xlib.rs.html#155-171'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct XSetWindowAttributes {
+    pub background_pixmap: <a class='type' href='../xlib/type.Pixmap.html' title='xlib::Pixmap'>Pixmap</a>,
+    pub background_pixel: <a class='type' href='../libc/types/os/arch/c95/type.c_ulong.html' title='libc::types::os::arch::c95::c_ulong'>c_ulong</a>,
+    pub border_pixmap: <a class='type' href='../xlib/type.Pixmap.html' title='xlib::Pixmap'>Pixmap</a>,
+    pub border_pixel: <a class='type' href='../libc/types/os/arch/c95/type.c_ulong.html' title='libc::types::os::arch::c95::c_ulong'>c_ulong</a>,
+    pub bit_gravity: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub win_gravity: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub backing_store: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub backing_planes: <a class='type' href='../libc/types/os/arch/c95/type.c_ulong.html' title='libc::types::os::arch::c95::c_ulong'>c_ulong</a>,
+    pub backing_pixel: <a class='type' href='../libc/types/os/arch/c95/type.c_ulong.html' title='libc::types::os::arch::c95::c_ulong'>c_ulong</a>,
+    pub save_under: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub event_mask: <a class='type' href='../libc/types/os/arch/c95/type.c_long.html' title='libc::types::os::arch::c95::c_long'>c_long</a>,
+    pub do_not_propagate_mask: <a class='type' href='../libc/types/os/arch/c95/type.c_long.html' title='libc::types::os::arch::c95::c_long'>c_long</a>,
+    pub override_redirect: <a class='type' href='../libc/types/os/arch/c95/type.c_int.html' title='libc::types::os::arch::c95::c_int'>c_int</a>,
+    pub colormap: <a class='type' href='../xlib/type.Colormap.html' title='xlib::Colormap'>Colormap</a>,
+    pub cursor: <a class='type' href='../xlib/type.Cursor.html' title='xlib::Cursor'>Cursor</a>,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.background_pixmap'><a class='stability Unmarked' title='No stability level'></a><code>background_pixmap</code></td><td></td></tr><tr><td id='structfield.background_pixel'><a class='stability Unmarked' title='No stability level'></a><code>background_pixel</code></td><td></td></tr><tr><td id='structfield.border_pixmap'><a class='stability Unmarked' title='No stability level'></a><code>border_pixmap</code></td><td></td></tr><tr><td id='structfield.border_pixel'><a class='stability Unmarked' title='No stability level'></a><code>border_pixel</code></td><td></td></tr><tr><td id='structfield.bit_gravity'><a class='stability Unmarked' title='No stability level'></a><code>bit_gravity</code></td><td></td></tr><tr><td id='structfield.win_gravity'><a class='stability Unmarked' title='No stability level'></a><code>win_gravity</code></td><td></td></tr><tr><td id='structfield.backing_store'><a class='stability Unmarked' title='No stability level'></a><code>backing_store</code></td><td></td></tr><tr><td id='structfield.backing_planes'><a class='stability Unmarked' title='No stability level'></a><code>backing_planes</code></td><td></td></tr><tr><td id='structfield.backing_pixel'><a class='stability Unmarked' title='No stability level'></a><code>backing_pixel</code></td><td></td></tr><tr><td id='structfield.save_under'><a class='stability Unmarked' title='No stability level'></a><code>save_under</code></td><td></td></tr><tr><td id='structfield.event_mask'><a class='stability Unmarked' title='No stability level'></a><code>event_mask</code></td><td></td></tr><tr><td id='structfield.do_not_propagate_mask'><a class='stability Unmarked' title='No stability level'></a><code>do_not_propagate_mask</code></td><td></td></tr><tr><td id='structfield.override_redirect'><a class='stability Unmarked' title='No stability level'></a><code>override_redirect</code></td><td></td></tr><tr><td id='structfield.colormap'><a class='stability Unmarked' title='No stability level'></a><code>colormap</code></td><td></td></tr><tr><td id='structfield.cursor'><a class='stability Unmarked' title='No stability level'></a><code>cursor</code></td><td></td></tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "xlib";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

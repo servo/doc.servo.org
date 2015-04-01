@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `cascade` fn in crate `style`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, cascade">
+
+    <title>style::properties::cascade - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>style</a>::<wbr><a href='index.html'>properties</a></p><script>window.sidebarCurrent = {name: 'cascade', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content fn">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>style</a>::<wbr><a href='index.html'>properties</a>::<wbr><a class='fn' href=''>cascade</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span></span></h1>
+<pre class='rust fn'>pub fn cascade(viewport_size: <a class='struct' href='../../geom/size/struct.Size2D.html' title='geom::size::Size2D'>Size2D</a>&lt;<a class='struct' href='../../style/properties/longhands/outline_width/computed_value/struct.T.html' title='style::properties::longhands::outline_width::computed_value::T'>Au</a>&gt;, applicable_declarations: <a href='../../std/primitive.slice.html'>&amp;[</a><a class='struct' href='../../selectors/matching/struct.DeclarationBlock.html' title='selectors::matching::DeclarationBlock'>DeclarationBlock</a>&lt;<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='../../style/properties/enum.PropertyDeclaration.html' title='style::properties::PropertyDeclaration'>PropertyDeclaration</a>&gt;&gt;<a href='../../std/primitive.slice.html'>]</a>, shareable: <a href='../../std/primitive.bool.html'>bool</a>, parent_style: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;, cached_style: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;) -&gt; <a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>, <a href='../../std/primitive.bool.html'>bool</a>)</a></pre><div class='docblock'><p>Performs the CSS cascade, computing new styles for an element from its parent style and
+optionally a cached related style. The arguments are:</p>
+
+<ul>
+<li><p><code>viewport_size</code>: The size of the initial viewport.</p></li>
+<li><p><code>applicable_declarations</code>: The list of CSS rules that matched.</p></li>
+<li><p><code>shareable</code>: Whether the <code>ComputedValues</code> structure to be constructed should be considered
+shareable.</p></li>
+<li><p><code>parent_style</code>: The parent style, if applicable; if <code>None</code>, this is the root node.</p></li>
+<li><p><code>cached_style</code>: If present, cascading is short-circuited for everything but inherited
+values and these values are used instead. Obviously, you must be careful when supplying
+this that it is safe to only provide inherited declarations. If <code>parent_style</code> is <code>None</code>,
+this is ignored.</p></li>
+</ul>
+
+<p>Returns the computed values and a boolean indicating whether the result is cacheable.</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "style";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

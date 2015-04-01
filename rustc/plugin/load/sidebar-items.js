@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PluginRegistrar",""]],"fn":[["load_plugins","Read plugin metadata and dynamically load registrar functions."]],"type":[["PluginRegistrarFun","Pointer to a registrar function."]]});

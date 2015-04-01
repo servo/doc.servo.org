@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Int` trait in crate `core`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Int">
+
+    <title>core::num::Int - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../core/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>core</a>::<wbr><a href='index.html'>num</a></p><script>window.sidebarCurrent = {name: 'Int', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>core</a>::<wbr><a href='index.html'>num</a>::<wbr><a class='trait' href=''>Int</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-3768' href='../../src/core/num/mod.rs.html#40-407'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait Int: <a class='trait' href='../../core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> + <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='../../core/num/trait.NumCast.html' title='core::num::NumCast'>NumCast</a> + <a class='trait' href='../../core/cmp/trait.PartialOrd.html' title='core::cmp::PartialOrd'>PartialOrd</a> + <a class='trait' href='../../core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a> + <a class='trait' href='../../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> + <a class='trait' href='../../core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> + <a class='trait' href='../../core/ops/trait.Add.html' title='core::ops::Add'>Add</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Sub.html' title='core::ops::Sub'>Sub</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Div.html' title='core::ops::Div'>Div</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Rem.html' title='core::ops::Rem'>Rem</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Not.html' title='core::ops::Not'>Not</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.BitAnd.html' title='core::ops::BitAnd'>BitAnd</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.BitOr.html' title='core::ops::BitOr'>BitOr</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.BitXor.html' title='core::ops::BitXor'>BitXor</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Shl.html' title='core::ops::Shl'>Shl</a>&lt;<a href='../primitive.usize.html'>usize</a>, Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Shr.html' title='core::ops::Shr'>Shr</a>&lt;<a href='../primitive.usize.html'>usize</a>, Output=Self&gt; + <a class='trait' href='../../core/num/wrapping/trait.WrappingOps.html' title='core::num::wrapping::WrappingOps'>WrappingOps</a> + <a class='trait' href='../../core/num/wrapping/trait.OverflowingOps.html' title='core::num::wrapping::OverflowingOps'>OverflowingOps</a> {
+    fn <a href='#tymethod.zero' class='fnname'>zero</a>() -&gt; Self;
+    fn <a href='#tymethod.one' class='fnname'>one</a>() -&gt; Self;
+    fn <a href='#tymethod.min_value' class='fnname'>min_value</a>() -&gt; Self;
+    fn <a href='#tymethod.max_value' class='fnname'>max_value</a>() -&gt; Self;
+    fn <a href='#tymethod.count_ones' class='fnname'>count_ones</a>(self) -&gt; <a href='../primitive.u32.html'>u32</a>;
+    fn <a href='#tymethod.leading_zeros' class='fnname'>leading_zeros</a>(self) -&gt; <a href='../primitive.u32.html'>u32</a>;
+    fn <a href='#tymethod.trailing_zeros' class='fnname'>trailing_zeros</a>(self) -&gt; <a href='../primitive.u32.html'>u32</a>;
+    fn <a href='#tymethod.rotate_left' class='fnname'>rotate_left</a>(self, n: <a href='../primitive.u32.html'>u32</a>) -&gt; Self;
+    fn <a href='#tymethod.rotate_right' class='fnname'>rotate_right</a>(self, n: <a href='../primitive.u32.html'>u32</a>) -&gt; Self;
+    fn <a href='#tymethod.swap_bytes' class='fnname'>swap_bytes</a>(self) -&gt; Self;
+    fn <a href='#tymethod.checked_add' class='fnname'>checked_add</a>(self, other: Self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;;
+    fn <a href='#tymethod.checked_sub' class='fnname'>checked_sub</a>(self, other: Self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;;
+    fn <a href='#tymethod.checked_mul' class='fnname'>checked_mul</a>(self, other: Self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;;
+    fn <a href='#tymethod.checked_div' class='fnname'>checked_div</a>(self, other: Self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;;
+
+    fn <a href='#method.count_zeros' class='fnname'>count_zeros</a>(self) -&gt; <a href='../primitive.u32.html'>u32</a> { ... }
+    fn <a href='#method.from_be' class='fnname'>from_be</a>(x: Self) -&gt; Self { ... }
+    fn <a href='#method.from_le' class='fnname'>from_le</a>(x: Self) -&gt; Self { ... }
+    fn <a href='#method.to_be' class='fnname'>to_be</a>(self) -&gt; Self { ... }
+    fn <a href='#method.to_le' class='fnname'>to_le</a>(self) -&gt; Self { ... }
+    fn <a href='#method.saturating_add' class='fnname'>saturating_add</a>(self, other: Self) -&gt; Self { ... }
+    fn <a href='#method.saturating_sub' class='fnname'>saturating_sub</a>(self, other: Self) -&gt; Self { ... }
+    fn <a href='#method.pow' class='fnname'>pow</a>(self, exp: <a href='../primitive.u32.html'>u32</a>) -&gt; Self { ... }
+}</pre><div class='docblock'><p>A built-in signed or unsigned integer.</p>
+</div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.zero' class='method'><a class='stability Unstable' title='Unstable: unsure about its place in the world'></a><code>fn <a href='#tymethod.zero' class='fnname'>zero</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the <code>0</code> value of this integer type.</p>
+</div><h3 id='tymethod.one' class='method'><a class='stability Unstable' title='Unstable: unsure about its place in the world'></a><code>fn <a href='#tymethod.one' class='fnname'>one</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the <code>1</code> value of this integer type.</p>
+</div><h3 id='tymethod.min_value' class='method'><a class='stability Unstable' title='Unstable: unsure about its place in the world'></a><code>fn <a href='#tymethod.min_value' class='fnname'>min_value</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the smallest value that can be represented by this integer type.</p>
+</div><h3 id='tymethod.max_value' class='method'><a class='stability Unstable' title='Unstable: unsure about its place in the world'></a><code>fn <a href='#tymethod.max_value' class='fnname'>max_value</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the largest value that can be represented by this integer type.</p>
+</div><h3 id='tymethod.count_ones' class='method'><a class='stability Unstable' title='Unstable: pending integer conventions'></a><code>fn <a href='#tymethod.count_ones' class='fnname'>count_ones</a>(self) -&gt; <a href='../primitive.u32.html'>u32</a></code></h3><div class='docblock'><p>Returns the number of ones in the binary representation of <code>self</code>.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0b01001100u8;
+    
+    assert_eq!(n.count_ones(), 3);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0b01001100u8</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>count_ones</span>(), <span class='number'>3</span>);
+</pre>
+</div><h3 id='tymethod.leading_zeros' class='method'><a class='stability Unstable' title='Unstable: pending integer conventions'></a><code>fn <a href='#tymethod.leading_zeros' class='fnname'>leading_zeros</a>(self) -&gt; <a href='../primitive.u32.html'>u32</a></code></h3><div class='docblock'><p>Returns the number of leading zeros in the binary representation
+of <code>self</code>.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0b0101000u16;
+    
+    assert_eq!(n.leading_zeros(), 10);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0b0101000u16</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>leading_zeros</span>(), <span class='number'>10</span>);
+</pre>
+</div><h3 id='tymethod.trailing_zeros' class='method'><a class='stability Unstable' title='Unstable: pending integer conventions'></a><code>fn <a href='#tymethod.trailing_zeros' class='fnname'>trailing_zeros</a>(self) -&gt; <a href='../primitive.u32.html'>u32</a></code></h3><div class='docblock'><p>Returns the number of trailing zeros in the binary representation
+of <code>self</code>.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0b0101000u16;
+    
+    assert_eq!(n.trailing_zeros(), 3);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0b0101000u16</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>trailing_zeros</span>(), <span class='number'>3</span>);
+</pre>
+</div><h3 id='tymethod.rotate_left' class='method'><a class='stability Unstable' title='Unstable: pending integer conventions'></a><code>fn <a href='#tymethod.rotate_left' class='fnname'>rotate_left</a>(self, n: <a href='../primitive.u32.html'>u32</a>) -&gt; Self</code></h3><div class='docblock'><p>Shifts the bits to the left by a specified amount amount, <code>n</code>, wrapping
+the truncated bits to the end of the resulting integer.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0x0123456789ABCDEFu64;
+    let m = 0x3456789ABCDEF012u64;
+    
+    assert_eq!(n.rotate_left(12), m);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0x0123456789ABCDEFu64</span>;
+<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='number'>0x3456789ABCDEF012u64</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>rotate_left</span>(<span class='number'>12</span>), <span class='ident'>m</span>);
+</pre>
+</div><h3 id='tymethod.rotate_right' class='method'><a class='stability Unstable' title='Unstable: pending integer conventions'></a><code>fn <a href='#tymethod.rotate_right' class='fnname'>rotate_right</a>(self, n: <a href='../primitive.u32.html'>u32</a>) -&gt; Self</code></h3><div class='docblock'><p>Shifts the bits to the right by a specified amount amount, <code>n</code>, wrapping
+the truncated bits to the beginning of the resulting integer.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0x0123456789ABCDEFu64;
+    let m = 0xDEF0123456789ABCu64;
+    
+    assert_eq!(n.rotate_right(12), m);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0x0123456789ABCDEFu64</span>;
+<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='number'>0xDEF0123456789ABCu64</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>rotate_right</span>(<span class='number'>12</span>), <span class='ident'>m</span>);
+</pre>
+</div><h3 id='tymethod.swap_bytes' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.swap_bytes' class='fnname'>swap_bytes</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Reverses the byte order of the integer.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0x0123456789ABCDEFu64;
+    let m = 0xEFCDAB8967452301u64;
+    
+    assert_eq!(n.swap_bytes(), m);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0x0123456789ABCDEFu64</span>;
+<span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='number'>0xEFCDAB8967452301u64</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>swap_bytes</span>(), <span class='ident'>m</span>);
+</pre>
+</div><h3 id='tymethod.checked_add' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.checked_add' class='fnname'>checked_add</a>(self, other: Self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Checked integer addition. Computes <code>self + other</code>, returning <code>None</code> if
+overflow occurred.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    assert_eq!(5u16.checked_add(65530), Some(65535));
+    assert_eq!(6u16.checked_add(65530), None);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>5u16</span>.<span class='ident'>checked_add</span>(<span class='number'>65530</span>), <span class='prelude-val'>Some</span>(<span class='number'>65535</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>6u16</span>.<span class='ident'>checked_add</span>(<span class='number'>65530</span>), <span class='prelude-val'>None</span>);
+</pre>
+</div><h3 id='tymethod.checked_sub' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.checked_sub' class='fnname'>checked_sub</a>(self, other: Self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Checked integer subtraction. Computes <code>self - other</code>, returning <code>None</code>
+if underflow occurred.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    assert_eq!((-127i8).checked_sub(1), Some(-128));
+    assert_eq!((-128i8).checked_sub(1), None);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>-</span><span class='number'>127i8</span>).<span class='ident'>checked_sub</span>(<span class='number'>1</span>), <span class='prelude-val'>Some</span>(<span class='op'>-</span><span class='number'>128</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>-</span><span class='number'>128i8</span>).<span class='ident'>checked_sub</span>(<span class='number'>1</span>), <span class='prelude-val'>None</span>);
+</pre>
+</div><h3 id='tymethod.checked_mul' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.checked_mul' class='fnname'>checked_mul</a>(self, other: Self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Checked integer multiplication. Computes <code>self * other</code>, returning
+<code>None</code> if underflow or overflow occurred.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    assert_eq!(5u8.checked_mul(51), Some(255));
+    assert_eq!(5u8.checked_mul(52), None);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>5u8</span>.<span class='ident'>checked_mul</span>(<span class='number'>51</span>), <span class='prelude-val'>Some</span>(<span class='number'>255</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>5u8</span>.<span class='ident'>checked_mul</span>(<span class='number'>52</span>), <span class='prelude-val'>None</span>);
+</pre>
+</div><h3 id='tymethod.checked_div' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.checked_div' class='fnname'>checked_div</a>(self, other: Self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Checked integer division. Computes <code>self / other</code>, returning <code>None</code> if
+<code>other == 0</code> or the operation results in underflow or overflow.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    assert_eq!((-127i8).checked_div(-1), Some(127));
+    assert_eq!((-128i8).checked_div(-1), None);
+    assert_eq!((1i8).checked_div(0), None);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>-</span><span class='number'>127i8</span>).<span class='ident'>checked_div</span>(<span class='op'>-</span><span class='number'>1</span>), <span class='prelude-val'>Some</span>(<span class='number'>127</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>-</span><span class='number'>128i8</span>).<span class='ident'>checked_div</span>(<span class='op'>-</span><span class='number'>1</span>), <span class='prelude-val'>None</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='number'>1i8</span>).<span class='ident'>checked_div</span>(<span class='number'>0</span>), <span class='prelude-val'>None</span>);
+</pre>
+</div></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.count_zeros' class='method'><a class='stability Unstable' title='Unstable: pending integer conventions'></a><code>fn <a href='#method.count_zeros' class='fnname'>count_zeros</a>(self) -&gt; <a href='../primitive.u32.html'>u32</a></code></h3><div class='docblock'><p>Returns the number of zeros in the binary representation of <code>self</code>.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0b01001100u8;
+    
+    assert_eq!(n.count_zeros(), 5);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0b01001100u8</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>count_zeros</span>(), <span class='number'>5</span>);
+</pre>
+</div><h3 id='method.from_be' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.from_be' class='fnname'>from_be</a>(x: Self) -&gt; Self</code></h3><div class='docblock'><p>Convert an integer from big endian to the target&#39;s endianness.</p>
+
+<p>On big endian this is a no-op. On little endian the bytes are swapped.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0x0123456789ABCDEFu64;
+    
+    if cfg!(target_endian = &quot;big&quot;) {
+        assert_eq!(Int::from_be(n), n)
+    } else {
+        assert_eq!(Int::from_be(n), n.swap_bytes())
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0x0123456789ABCDEFu64</span>;
+
+<span class='kw'>if</span> <span class='macro'>cfg</span><span class='macro'>!</span>(<span class='ident'>target_endian</span> <span class='op'>=</span> <span class='string'>&quot;big&quot;</span>) {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Int</span>::<span class='ident'>from_be</span>(<span class='ident'>n</span>), <span class='ident'>n</span>)
+} <span class='kw'>else</span> {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Int</span>::<span class='ident'>from_be</span>(<span class='ident'>n</span>), <span class='ident'>n</span>.<span class='ident'>swap_bytes</span>())
+}
+</pre>
+</div><h3 id='method.from_le' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.from_le' class='fnname'>from_le</a>(x: Self) -&gt; Self</code></h3><div class='docblock'><p>Convert an integer from little endian to the target&#39;s endianness.</p>
+
+<p>On little endian this is a no-op. On big endian the bytes are swapped.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0x0123456789ABCDEFu64;
+    
+    if cfg!(target_endian = &quot;little&quot;) {
+        assert_eq!(Int::from_le(n), n)
+    } else {
+        assert_eq!(Int::from_le(n), n.swap_bytes())
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0x0123456789ABCDEFu64</span>;
+
+<span class='kw'>if</span> <span class='macro'>cfg</span><span class='macro'>!</span>(<span class='ident'>target_endian</span> <span class='op'>=</span> <span class='string'>&quot;little&quot;</span>) {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Int</span>::<span class='ident'>from_le</span>(<span class='ident'>n</span>), <span class='ident'>n</span>)
+} <span class='kw'>else</span> {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Int</span>::<span class='ident'>from_le</span>(<span class='ident'>n</span>), <span class='ident'>n</span>.<span class='ident'>swap_bytes</span>())
+}
+</pre>
+</div><h3 id='method.to_be' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.to_be' class='fnname'>to_be</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Convert <code>self</code> to big endian from the target&#39;s endianness.</p>
+
+<p>On big endian this is a no-op. On little endian the bytes are swapped.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0x0123456789ABCDEFu64;
+    
+    if cfg!(target_endian = &quot;big&quot;) {
+        assert_eq!(n.to_be(), n)
+    } else {
+        assert_eq!(n.to_be(), n.swap_bytes())
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0x0123456789ABCDEFu64</span>;
+
+<span class='kw'>if</span> <span class='macro'>cfg</span><span class='macro'>!</span>(<span class='ident'>target_endian</span> <span class='op'>=</span> <span class='string'>&quot;big&quot;</span>) {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>to_be</span>(), <span class='ident'>n</span>)
+} <span class='kw'>else</span> {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>to_be</span>(), <span class='ident'>n</span>.<span class='ident'>swap_bytes</span>())
+}
+</pre>
+</div><h3 id='method.to_le' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.to_le' class='fnname'>to_le</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Convert <code>self</code> to little endian from the target&#39;s endianness.</p>
+
+<p>On little endian this is a no-op. On big endian the bytes are swapped.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    let n = 0x0123456789ABCDEFu64;
+    
+    if cfg!(target_endian = &quot;little&quot;) {
+        assert_eq!(n.to_le(), n)
+    } else {
+        assert_eq!(n.to_le(), n.swap_bytes())
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> <span class='number'>0x0123456789ABCDEFu64</span>;
+
+<span class='kw'>if</span> <span class='macro'>cfg</span><span class='macro'>!</span>(<span class='ident'>target_endian</span> <span class='op'>=</span> <span class='string'>&quot;little&quot;</span>) {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>to_le</span>(), <span class='ident'>n</span>)
+} <span class='kw'>else</span> {
+    <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>n</span>.<span class='ident'>to_le</span>(), <span class='ident'>n</span>.<span class='ident'>swap_bytes</span>())
+}
+</pre>
+</div><h3 id='method.saturating_add' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.saturating_add' class='fnname'>saturating_add</a>(self, other: Self) -&gt; Self</code></h3><div class='docblock'><p>Saturating integer addition. Computes <code>self + other</code>, saturating at
+the numeric bounds instead of overflowing.</p>
+</div><h3 id='method.saturating_sub' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.saturating_sub' class='fnname'>saturating_sub</a>(self, other: Self) -&gt; Self</code></h3><div class='docblock'><p>Saturating integer subtraction. Computes <code>self - other</code>, saturating at
+the numeric bounds instead of overflowing.</p>
+</div><h3 id='method.pow' class='method'><a class='stability Unstable' title='Unstable: pending integer conventions'></a><code>fn <a href='#method.pow' class='fnname'>pow</a>(self, exp: <a href='../primitive.u32.html'>u32</a>) -&gt; Self</code></h3><div class='docblock'><p>Raises self to the power of <code>exp</code>, using exponentiation by squaring.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::num::Int;
+    
+    assert_eq!(2.pow(4), 16);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>2</span>.<span class='ident'>pow</span>(<span class='number'>4</span>), <span class='number'>16</span>);
+</pre>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.u8.html'>u8</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.u16.html'>u16</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.u32.html'>u32</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.u64.html'>u64</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.usize.html'>usize</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.i8.html'>i8</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.i16.html'>i16</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.i32.html'>i32</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.i64.html'>i64</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/num/trait.Int.html' title='core::num::Int'>Int</a> for <a href='../primitive.isize.html'>isize</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/core/num/trait.Int.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "core";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

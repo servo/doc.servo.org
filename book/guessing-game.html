@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Guessing Game</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Guessing Game</h1>
+    <p>Okay! We&#39;ve got the basics of Rust down. Let&#39;s write a bigger program.</p>
+
+<p>For our first project, we&#39;ll implement a classic beginner programming problem:
+the guessing game. Here&#39;s how it works: Our program will generate a random
+integer between one and a hundred. It will then prompt us to enter a guess.
+Upon entering our guess, it will tell us if we&#39;re too low or too high. Once we
+guess correctly, it will congratulate us. Sound good?</p>
+
+<h2 id="set-up" class='section-header'><a
+                           href="#set-up">Set up</a></h2>
+<p>Let&#39;s set up a new project. Go to your projects directory. Remember how we
+had to create our directory structure and a <code>Cargo.toml</code> for <code>hello_world</code>? Cargo
+has a command that does that for us. Let&#39;s give it a shot:</p>
+
+<pre><code class="language-{bash}">$ cd ~/projects
+$ cargo new guessing_game --bin
+$ cd guessing_game
+</code></pre>
+
+<p>We pass the name of our project to <code>cargo new</code>, and then the <code>--bin</code> flag,
+since we&#39;re making a binary, rather than a library.</p>
+
+<p>Check out the generated <code>Cargo.toml</code>:</p>
+
+<pre><code class="language-toml">[package]
+
+name = &quot;guessing_game&quot;
+version = &quot;0.0.1&quot;
+authors = [&quot;Your Name &lt;you@example.com&gt;&quot;]
+</code></pre>
+
+<p>Cargo gets this information from your environment. If it&#39;s not correct, go ahead
+and fix that.</p>
+
+<p>Finally, Cargo generated a &quot;Hello, world!&quot; for us. Check out <code>src/main.rs</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Hello, world!&quot;</span>)
+}
+</pre>
+
+<p>Let&#39;s try compiling what Cargo gave us:</p>
+
+<pre><code class="language-{bash}">$ cargo build
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+</code></pre>
+
+<p>Excellent! Open up your <code>src/main.rs</code> again. We&#39;ll be writing all of
+our code in this file. We&#39;ll talk about multiple-file projects later on in the
+guide.</p>
+
+<p>Before we move on, let me show you one more Cargo command: <code>run</code>. <code>cargo run</code>
+is kind of like <code>cargo build</code>, but it also then runs the produced executable.
+Try it out:</p>
+
+<pre><code class="language-bash">$ cargo run
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+     Running `target/guessing_game`
+Hello, world!
+</code></pre>
+
+<p>Great! The <code>run</code> command comes in handy when you need to rapidly iterate on a project.
+Our game is just such a project, we need to quickly test each iteration before moving on to the next one.</p>
+
+<h2 id="processing-a-guess" class='section-header'><a
+                           href="#processing-a-guess">Processing a Guess</a></h2>
+<p>Let&#39;s get to it! The first thing we need to do for our guessing game is
+allow our player to input a guess. Put this in your <code>src/main.rs</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                           .<span class='ident'>ok</span>()
+                           .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>input</span>);
+}
+</pre>
+
+<p>You&#39;ve seen this code before, when we talked about standard input. We
+import the <code>std::old_io</code> module with <code>use</code>, and then our <code>main</code> function contains
+our program&#39;s logic. We print a little message announcing the game, ask the
+user to input a guess, get their input, and then print it out.</p>
+
+<p>Because we talked about this in the section on standard I/O, I won&#39;t go into
+more details here. If you need a refresher, go re-read that section.</p>
+
+<h2 id="generating-a-secret-number" class='section-header'><a
+                           href="#generating-a-secret-number">Generating a secret number</a></h2>
+<p>Next, we need to generate a secret number. To do that, we need to use Rust&#39;s
+random number generation, which we haven&#39;t talked about yet. Rust includes a
+bunch of interesting functions in its standard library. If you need a bit of
+code, it&#39;s possible that it&#39;s already been written for you! In this case,
+we do know that Rust has random number generation, but we don&#39;t know how to
+use it.</p>
+
+<p>Enter the docs. Rust has a page specifically to document the standard library.
+You can find that page <a href="../std/index.html">here</a>. There&#39;s a lot of information on
+that page, but the best part is the search bar. Right up at the top, there&#39;s
+a box that you can enter in a search term. The search is pretty primitive
+right now, but is getting better all the time. If you type &quot;random&quot; in that
+box, the page will update to <a href="../std/index.html?search=random">this one</a>. The very
+first result is a link to <a href="../std/rand/fn.random.html"><code>std::rand::random</code></a>. If we
+click on that result, we&#39;ll be taken to its documentation page.</p>
+
+<p>This page shows us a few things: the type signature of the function, some
+explanatory text, and then an example. Let&#39;s try to modify our code to add in the
+<code>random</code> function and see what happens:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>; <span class='comment'>// secret_number: i32</span>
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                           .<span class='ident'>ok</span>()
+                           .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>input</span>);
+}
+</pre>
+
+<p>The first thing we changed was to <code>use std::rand</code>, as the docs
+explained.  We then added in a <code>let</code> expression to create a variable binding
+named <code>secret_number</code>, and we printed out its result.</p>
+
+<p>Also, you may wonder why we are using <code>%</code> on the result of <code>rand::random()</code>.
+This operator is called <em>modulo</em>, and it returns the remainder of a division.
+By taking the modulo of the result of <code>rand::random()</code>, we&#39;re limiting the
+values to be between 0 and 99. Then, we add one to the result, making it from 1
+to 100. Using modulo can give you a very, very small bias in the result, but
+for this example, it is not important.</p>
+
+<p>Let&#39;s try to compile this using <code>cargo build</code>:</p>
+
+<pre><code class="language-bash">$ cargo build
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+src/main.rs:7:26: 7:34 error: the type of this value must be known in this context
+src/main.rs:7     let secret_number = (rand::random() % 100) + 1;
+                                       ^~~~~~~~
+error: aborting due to previous error
+</code></pre>
+
+<p>It didn&#39;t work! Rust says &quot;the type of this value must be known in this
+context.&quot; What&#39;s up with that? Well, as it turns out, <code>rand::random()</code> can
+generate many kinds of random values, not just integers. And in this case, Rust
+isn&#39;t sure what kind of value <code>random()</code> should generate. So we have to help
+it. With number literals, we can just add an <code>i32</code> onto the end to tell Rust they&#39;re
+integers, but that does not work with functions. There&#39;s a different syntax,
+and it looks like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>();
+</pre>
+
+<p>This says &quot;please give me a random <code>i32</code> value.&quot; We can change our code to use
+this hint:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                           .<span class='ident'>ok</span>()
+                           .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>input</span>);
+}
+</pre>
+
+<p>Try running our new program a few times:</p>
+
+<pre><code class="language-bash">$ cargo run
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+     Running `target/guessing_game`
+Guess the number!
+The secret number is: 7
+Please input your guess.
+4
+You guessed: 4
+$ ./target/guessing_game
+Guess the number!
+The secret number is: 83
+Please input your guess.
+5
+You guessed: 5
+$ ./target/guessing_game
+Guess the number!
+The secret number is: -29
+Please input your guess.
+42
+You guessed: 42
+</code></pre>
+
+<p>Wait. Negative 29? We wanted a number between one and a hundred! We have two
+options here: we can either ask <code>random()</code> to generate an unsigned integer, which
+can only be positive, or we can use the <code>abs()</code> function. Let&#39;s go with the
+unsigned integer approach. If we want a random positive number, we should ask for
+a random positive number. Our code looks like this now:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                           .<span class='ident'>ok</span>()
+                           .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>input</span>);
+}
+</pre>
+
+<p>And trying it out:</p>
+
+<pre><code class="language-bash">$ cargo run
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+     Running `target/guessing_game`
+Guess the number!
+The secret number is: 57
+Please input your guess.
+3
+You guessed: 3
+</code></pre>
+
+<p>Great! Next up: let&#39;s compare our guess to the secret guess.</p>
+
+<h2 id="comparing-guesses" class='section-header'><a
+                           href="#comparing-guesses">Comparing guesses</a></h2>
+<p>If you remember, earlier in the guide, we made a <code>cmp</code> function that compared
+two numbers. Let&#39;s add that in, along with a <code>match</code> statement to compare our
+guess to the secret number:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                           .<span class='ident'>ok</span>()
+                           .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>input</span>);
+
+    <span class='kw'>match</span> <span class='ident'>cmp</span>(<span class='ident'>input</span>, <span class='ident'>secret_number</span>) {
+        <span class='ident'>Ordering</span>::<span class='ident'>Less</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too small!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too big!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You win!&quot;</span>),
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='ident'>a</span>: <span class='ident'>i32</span>, <span class='ident'>b</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+    <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Less</span> }
+    <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> }
+    <span class='kw'>else</span> { <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> }
+}
+</pre>
+
+<p>If we try to compile, we&#39;ll get some errors:</p>
+
+<pre><code class="language-bash">$ cargo build
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+src/main.rs:20:15: 20:20 error: mismatched types: expected `i32` but found `collections::string::String` (expected i32 but found struct collections::string::String)
+src/main.rs:20     match cmp(input, secret_number) {
+                             ^~~~~
+src/main.rs:20:22: 20:35 error: mismatched types: expected `i32` but found `u32` (expected i32 but found u32)
+src/main.rs:20     match cmp(input, secret_number) {
+                                    ^~~~~~~~~~~~~
+error: aborting due to 2 previous errors
+</code></pre>
+
+<p>This often happens when writing Rust programs, and is one of Rust&#39;s greatest
+strengths. You try out some code, see if it compiles, and Rust tells you that
+you&#39;ve done something wrong. In this case, our <code>cmp</code> function works on integers,
+but we&#39;ve given it unsigned integers. In this case, the fix is easy, because
+we wrote the <code>cmp</code> function! Let&#39;s change it to take <code>u32</code>s:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                           .<span class='ident'>ok</span>()
+                           .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>input</span>);
+
+    <span class='kw'>match</span> <span class='ident'>cmp</span>(<span class='ident'>input</span>, <span class='ident'>secret_number</span>) {
+        <span class='ident'>Ordering</span>::<span class='ident'>Less</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too small!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too big!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You win!&quot;</span>),
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='ident'>a</span>: <span class='ident'>u32</span>, <span class='ident'>b</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+    <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Less</span> }
+    <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> }
+    <span class='kw'>else</span> { <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> }
+}
+</pre>
+
+<p>And try compiling again:</p>
+
+<pre><code class="language-bash">$ cargo build
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+src/main.rs:20:15: 20:20 error: mismatched types: expected `u32` but found `collections::string::String` (expected u32 but found struct collections::string::String)
+src/main.rs:20     match cmp(input, secret_number) {
+                             ^~~~~
+error: aborting due to previous error
+</code></pre>
+
+<p>This error is similar to the last one: we expected to get a <code>u32</code>, but we got
+a <code>String</code> instead! That&#39;s because our <code>input</code> variable is coming from the
+standard input, and you can guess anything. Try it:</p>
+
+<pre><code class="language-bash">$ ./target/guessing_game
+Guess the number!
+The secret number is: 73
+Please input your guess.
+hello
+You guessed: hello
+</code></pre>
+
+<p>Oops! Also, you&#39;ll note that we just ran our program even though it didn&#39;t compile.
+This works because the older version we did successfully compile was still lying
+around. Gotta be careful!</p>
+
+<p>Anyway, we have a <code>String</code>, but we need a <code>u32</code>. What to do? Well, there&#39;s
+a function for that:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                       .<span class='ident'>ok</span>()
+                       .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+<span class='kw'>let</span> <span class='ident'>input_num</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u32</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>parse</span>();
+</pre>
+
+<p>The <code>parse</code> function takes in a <code>&amp;str</code> value and converts it into something.
+We tell it what kind of something with a type hint. Remember our type hint with
+<code>random()</code>? It looked like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>();
+</pre>
+
+<p>There&#39;s an alternate way of providing a hint too, and that&#39;s declaring the type
+in a <code>let</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='ident'>rand</span>::<span class='ident'>random</span>();
+</pre>
+
+<p>In this case, we say <code>x</code> is a <code>u32</code> explicitly, so Rust is able to properly
+tell <code>random()</code> what to generate. In a similar fashion, both of these work:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>input_num_option</span> <span class='op'>=</span> <span class='string'>&quot;5&quot;</span>.<span class='ident'>parse</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>().<span class='ident'>ok</span>(); <span class='comment'>// input_num: Option&lt;u32&gt;</span>
+<span class='kw'>let</span> <span class='ident'>input_num_result</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u32</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='string'>&quot;5&quot;</span>.<span class='ident'>parse</span>(); <span class='comment'>// input_num: Result&lt;u32, &lt;u32 as FromStr&gt;::Err&gt;</span>
+</pre>
+
+<p>Above, we&#39;re converting the <code>Result</code> returned by <code>parse</code> to an <code>Option</code> by using
+the <code>ok</code> method as well.  Anyway, with us now converting our input to a number,
+our code looks like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                           .<span class='ident'>ok</span>()
+                           .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+    <span class='kw'>let</span> <span class='ident'>input_num</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u32</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>parse</span>();
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {:?}&quot;</span>, <span class='ident'>input_num</span>);
+
+    <span class='kw'>match</span> <span class='ident'>cmp</span>(<span class='ident'>input_num</span>, <span class='ident'>secret_number</span>) {
+        <span class='ident'>Ordering</span>::<span class='ident'>Less</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too small!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too big!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You win!&quot;</span>),
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='ident'>a</span>: <span class='ident'>u32</span>, <span class='ident'>b</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+    <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Less</span> }
+    <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> }
+    <span class='kw'>else</span> { <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> }
+}
+</pre>
+
+<p>Let&#39;s try it out!</p>
+
+<pre><code class="language-bash">$ cargo build
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+src/main.rs:21:15: 21:24 error: mismatched types: expected `u32`, found `core::result::Result&lt;u32, core::num::ParseIntError&gt;` (expected u32, found enum `core::result::Result`) [E0308]
+src/main.rs:21     match cmp(input_num, secret_number) {
+                             ^~~~~~~~~
+error: aborting due to previous error
+</code></pre>
+
+<p>Oh yeah! Our <code>input_num</code> has the type <code>Result&lt;u32, &lt;some error&gt;&gt;</code>, rather than <code>u32</code>. We
+need to unwrap the Result. If you remember from before, <code>match</code> is a great way
+to do that. Try this code:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                           .<span class='ident'>ok</span>()
+                           .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+    <span class='kw'>let</span> <span class='ident'>input_num</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u32</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>parse</span>();
+
+    <span class='kw'>let</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>input_num</span> {
+        <span class='prelude-val'>Ok</span>(<span class='ident'>n</span>) <span class='op'>=&gt;</span> <span class='ident'>n</span>,
+        <span class='prelude-val'>Err</span>(_) <span class='op'>=&gt;</span> {
+            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input a number!&quot;</span>);
+            <span class='kw'>return</span>;
+        }
+    };
+
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>num</span>);
+
+    <span class='kw'>match</span> <span class='ident'>cmp</span>(<span class='ident'>num</span>, <span class='ident'>secret_number</span>) {
+        <span class='ident'>Ordering</span>::<span class='ident'>Less</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too small!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too big!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You win!&quot;</span>),
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='ident'>a</span>: <span class='ident'>u32</span>, <span class='ident'>b</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+    <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Less</span> }
+    <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> }
+    <span class='kw'>else</span> { <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> }
+}
+</pre>
+
+<p>We use a <code>match</code> to either give us the <code>u32</code> inside of the <code>Result</code>, or else
+print an error message and return. Let&#39;s give this a shot:</p>
+
+<pre><code class="language-bash">$ cargo run
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+     Running `target/guessing_game`
+Guess the number!
+The secret number is: 17
+Please input your guess.
+5
+Please input a number!
+</code></pre>
+
+<p>Uh, what? But we did!</p>
+
+<p>... actually, we didn&#39;t. See, when you get a line of input from <code>stdin()</code>,
+you get all the input. Including the <code>\n</code> character from you pressing Enter.
+Therefore, <code>parse()</code> sees the string <code>&quot;5\n&quot;</code> and says &quot;nope, that&#39;s not a
+number; there&#39;s non-number stuff in there!&quot; Luckily for us, <code>&amp;str</code>s have an easy
+method we can use defined on them: <code>trim()</code>. One small modification, and our
+code looks like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                           .<span class='ident'>ok</span>()
+                           .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+    <span class='kw'>let</span> <span class='ident'>input_num</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u32</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>trim</span>().<span class='ident'>parse</span>();
+
+    <span class='kw'>let</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>input_num</span> {
+        <span class='prelude-val'>Ok</span>(<span class='ident'>num</span>) <span class='op'>=&gt;</span> <span class='ident'>num</span>,
+        <span class='prelude-val'>Err</span>(_) <span class='op'>=&gt;</span> {
+            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input a number!&quot;</span>);
+            <span class='kw'>return</span>;
+        }
+    };
+
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>num</span>);
+
+    <span class='kw'>match</span> <span class='ident'>cmp</span>(<span class='ident'>num</span>, <span class='ident'>secret_number</span>) {
+        <span class='ident'>Ordering</span>::<span class='ident'>Less</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too small!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too big!&quot;</span>),
+        <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You win!&quot;</span>),
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='ident'>a</span>: <span class='ident'>u32</span>, <span class='ident'>b</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+    <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Less</span> }
+    <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> }
+    <span class='kw'>else</span> { <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> }
+}
+</pre>
+
+<p>Let&#39;s try it!</p>
+
+<pre><code class="language-bash">$ cargo run
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+     Running `target/guessing_game`
+Guess the number!
+The secret number is: 58
+Please input your guess.
+  76
+You guessed: 76
+Too big!
+</code></pre>
+
+<p>Nice! You can see I even added spaces before my guess, and it still figured
+out that I guessed 76. Run the program a few times, and verify that guessing
+the number works, as well as guessing a number too small.</p>
+
+<p>The Rust compiler helped us out quite a bit there! This technique is called
+&quot;leaning on the compiler&quot;, and it&#39;s often useful when working on some code.
+Let the error messages help guide you towards the correct types.</p>
+
+<p>Now we&#39;ve got most of the game working, but we can only make one guess. Let&#39;s
+change that by adding loops!</p>
+
+<h2 id="looping" class='section-header'><a
+                           href="#looping">Looping</a></h2>
+<p>As we already discussed, the <code>loop</code> keyword gives us an infinite loop.
+Let&#39;s add that in:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='kw'>loop</span> {
+
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+        <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                               .<span class='ident'>ok</span>()
+                               .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+        <span class='kw'>let</span> <span class='ident'>input_num</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u32</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>trim</span>().<span class='ident'>parse</span>();
+
+        <span class='kw'>let</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>input_num</span> {
+            <span class='prelude-val'>Ok</span>(<span class='ident'>num</span>) <span class='op'>=&gt;</span> <span class='ident'>num</span>,
+            <span class='prelude-val'>Err</span>(_) <span class='op'>=&gt;</span> {
+                <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input a number!&quot;</span>);
+                <span class='kw'>return</span>;
+            }
+        };
+
+
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>num</span>);
+
+        <span class='kw'>match</span> <span class='ident'>cmp</span>(<span class='ident'>num</span>, <span class='ident'>secret_number</span>) {
+            <span class='ident'>Ordering</span>::<span class='ident'>Less</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too small!&quot;</span>),
+            <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too big!&quot;</span>),
+            <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You win!&quot;</span>),
+        }
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='ident'>a</span>: <span class='ident'>u32</span>, <span class='ident'>b</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+    <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Less</span> }
+    <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> }
+    <span class='kw'>else</span> { <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> }
+}
+</pre>
+
+<p>And try it out. But wait, didn&#39;t we just add an infinite loop? Yup. Remember
+that <code>return</code>? If we give a non-number answer, we&#39;ll <code>return</code> and quit. Observe:</p>
+
+<pre><code class="language-bash">$ cargo run
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+     Running `target/guessing_game`
+Guess the number!
+The secret number is: 59
+Please input your guess.
+45
+You guessed: 45
+Too small!
+Please input your guess.
+60
+You guessed: 60
+Too big!
+Please input your guess.
+59
+You guessed: 59
+You win!
+Please input your guess.
+quit
+Please input a number!
+</code></pre>
+
+<p>Ha! <code>quit</code> actually quits. As does any other non-number input. Well, this is
+suboptimal to say the least. First, let&#39;s actually quit when you win the game:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='kw'>loop</span> {
+
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+        <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                               .<span class='ident'>ok</span>()
+                               .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+        <span class='kw'>let</span> <span class='ident'>input_num</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u32</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>trim</span>().<span class='ident'>parse</span>();
+
+        <span class='kw'>let</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>input_num</span> {
+            <span class='prelude-val'>Ok</span>(<span class='ident'>num</span>) <span class='op'>=&gt;</span> <span class='ident'>num</span>,
+            <span class='prelude-val'>Err</span>(_) <span class='op'>=&gt;</span> {
+                <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input a number!&quot;</span>);
+                <span class='kw'>return</span>;
+            }
+        };
+
+
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>num</span>);
+
+        <span class='kw'>match</span> <span class='ident'>cmp</span>(<span class='ident'>num</span>, <span class='ident'>secret_number</span>) {
+            <span class='ident'>Ordering</span>::<span class='ident'>Less</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too small!&quot;</span>),
+            <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too big!&quot;</span>),
+            <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> <span class='op'>=&gt;</span> {
+                <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You win!&quot;</span>);
+                <span class='kw'>return</span>;
+            },
+        }
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='ident'>a</span>: <span class='ident'>u32</span>, <span class='ident'>b</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+    <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Less</span> }
+    <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> }
+    <span class='kw'>else</span> { <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> }
+}
+</pre>
+
+<p>By adding the <code>return</code> line after the <code>You win!</code>, we&#39;ll exit the program when
+we win. We have just one more tweak to make: when someone inputs a non-number,
+we don&#39;t want to quit, we just want to ignore it. Change that <code>return</code> to
+<code>continue</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The secret number is: {}&quot;</span>, <span class='ident'>secret_number</span>);
+
+    <span class='kw'>loop</span> {
+
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+        <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                               .<span class='ident'>ok</span>()
+                               .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+        <span class='kw'>let</span> <span class='ident'>input_num</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u32</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>trim</span>().<span class='ident'>parse</span>();
+
+        <span class='kw'>let</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>input_num</span> {
+            <span class='prelude-val'>Ok</span>(<span class='ident'>num</span>) <span class='op'>=&gt;</span> <span class='ident'>num</span>,
+            <span class='prelude-val'>Err</span>(_) <span class='op'>=&gt;</span> {
+                <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input a number!&quot;</span>);
+                <span class='kw'>continue</span>;
+            }
+        };
+
+
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>num</span>);
+
+        <span class='kw'>match</span> <span class='ident'>cmp</span>(<span class='ident'>num</span>, <span class='ident'>secret_number</span>) {
+            <span class='ident'>Ordering</span>::<span class='ident'>Less</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too small!&quot;</span>),
+            <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too big!&quot;</span>),
+            <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> <span class='op'>=&gt;</span> {
+                <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You win!&quot;</span>);
+                <span class='kw'>return</span>;
+            },
+        }
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='ident'>a</span>: <span class='ident'>u32</span>, <span class='ident'>b</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+    <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Less</span> }
+    <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> }
+    <span class='kw'>else</span> { <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> }
+}
+</pre>
+
+<p>Now we should be good! Let&#39;s try:</p>
+
+<pre><code class="language-bash">$ cargo run
+   Compiling guessing_game v0.0.1 (file:///home/you/projects/guessing_game)
+     Running `target/guessing_game`
+Guess the number!
+The secret number is: 61
+Please input your guess.
+10
+You guessed: 10
+Too small!
+Please input your guess.
+99
+You guessed: 99
+Too big!
+Please input your guess.
+foo
+Please input a number!
+Please input your guess.
+61
+You guessed: 61
+You win!
+</code></pre>
+
+<p>Awesome! With one tiny last tweak, we have finished the guessing game. Can you
+think of what it is? That&#39;s right, we don&#39;t want to print out the secret number.
+It was good for testing, but it kind of ruins the game. Here&#39;s our final source:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>old_io</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>rand</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Guess the number!&quot;</span>);
+
+    <span class='kw'>let</span> <span class='ident'>secret_number</span> <span class='op'>=</span> (<span class='ident'>rand</span>::<span class='ident'>random</span>::<span class='op'>&lt;</span><span class='ident'>u32</span><span class='op'>&gt;</span>() <span class='op'>%</span> <span class='number'>100</span>) <span class='op'>+</span> <span class='number'>1</span>;
+
+    <span class='kw'>loop</span> {
+
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input your guess.&quot;</span>);
+
+        <span class='kw'>let</span> <span class='ident'>input</span> <span class='op'>=</span> <span class='ident'>old_io</span>::<span class='ident'>stdin</span>().<span class='ident'>read_line</span>()
+                               .<span class='ident'>ok</span>()
+                               .<span class='ident'>expect</span>(<span class='string'>&quot;Failed to read line&quot;</span>);
+        <span class='kw'>let</span> <span class='ident'>input_num</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>u32</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>input</span>.<span class='ident'>trim</span>().<span class='ident'>parse</span>();
+
+        <span class='kw'>let</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>input_num</span> {
+            <span class='prelude-val'>Ok</span>(<span class='ident'>num</span>) <span class='op'>=&gt;</span> <span class='ident'>num</span>,
+            <span class='prelude-val'>Err</span>(_) <span class='op'>=&gt;</span> {
+                <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Please input a number!&quot;</span>);
+                <span class='kw'>continue</span>;
+            }
+        };
+
+
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You guessed: {}&quot;</span>, <span class='ident'>num</span>);
+
+        <span class='kw'>match</span> <span class='ident'>cmp</span>(<span class='ident'>num</span>, <span class='ident'>secret_number</span>) {
+            <span class='ident'>Ordering</span>::<span class='ident'>Less</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too small!&quot;</span>),
+            <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Too big!&quot;</span>),
+            <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> <span class='op'>=&gt;</span> {
+                <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;You win!&quot;</span>);
+                <span class='kw'>return</span>;
+            },
+        }
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>cmp</span>(<span class='ident'>a</span>: <span class='ident'>u32</span>, <span class='ident'>b</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+    <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&lt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Less</span> }
+    <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span> <span class='op'>&gt;</span> <span class='ident'>b</span> { <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> }
+    <span class='kw'>else</span> { <span class='ident'>Ordering</span>::<span class='ident'>Equal</span> }
+}
+</pre>
+
+<h2 id="complete!" class='section-header'><a
+                           href="#complete!">Complete!</a></h2>
+<p>At this point, you have successfully built the Guessing Game! Congratulations!</p>
+
+<p>You&#39;ve now learned the basic syntax of Rust. All of this is relatively close to
+various other programming languages you have used in the past. These
+fundamental syntactical and semantic elements will form the foundation for the
+rest of your Rust education.</p>
+
+<p>Now that you&#39;re an expert at the basics, it&#39;s time to learn about some of
+Rust&#39;s more unique features.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

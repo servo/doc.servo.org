@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EventReader","Simple wrapper around an `std::old_io::Buffer` which provides pull-based XML parsing."],["Events","XML events iterator, created by `events()` method on `Parser`."]],"mod":[["config","Contains parser configuration structure."],["events","Contains `XmlEvent` datatype, instances of which are emitted by the parser."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["LayoutDataFlags",""],["LayoutDataWrapper",""],["PrivateLayoutData","Data that layout associates with a node."]],"trait":[["LayoutDataAccess","A trait that allows access to the layout data of a DOM node."]],"constant":[["HAS_NEWLY_CONSTRUCTED_FLOW","Whether a flow has been newly constructed."]]});

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ScriptTaskFactory` trait in crate `script_traits`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ScriptTaskFactory">
+
+    <title>script_traits::ScriptTaskFactory - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>script_traits</a></p><script>window.sidebarCurrent = {name: 'ScriptTaskFactory', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>script_traits</a>::<wbr><a class='trait' href=''>ScriptTaskFactory</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-242' href='../src/script_traits/lib.rs.html#103-123'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ScriptTaskFactory {
+    fn <a href='#tymethod.create' class='fnname'>create</a>&lt;C&gt;(_phantom: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut Self&gt;, id: <a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, parent_info: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../std/primitive.tuple.html'>(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>)</a>&gt;, compositor: C, layout_chan: &amp;<a class='struct' href='../script_traits/struct.OpaqueScriptLayoutChannel.html' title='script_traits::OpaqueScriptLayoutChannel'>OpaqueScriptLayoutChannel</a>, control_chan: <a class='struct' href='../script_traits/struct.ScriptControlChan.html' title='script_traits::ScriptControlChan'>ScriptControlChan</a>, control_port: <a class='struct' href='../std/sync/mpsc/struct.Receiver.html' title='std::sync::mpsc::Receiver'>Receiver</a>&lt;<a class='enum' href='../script_traits/enum.ConstellationControlMsg.html' title='script_traits::ConstellationControlMsg'>ConstellationControlMsg</a>&gt;, constellation_msg: <a class='struct' href='../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a>, failure_msg: <a class='struct' href='../msg/constellation_msg/struct.Failure.html' title='msg::constellation_msg::Failure'>Failure</a>, resource_task: <a class='type' href='../net/resource_task/type.ResourceTask.html' title='net::resource_task::ResourceTask'>ResourceTask</a>, storage_task: <a class='type' href='../net/storage_task/type.StorageTask.html' title='net::storage_task::StorageTask'>StorageTask</a>, image_cache_task: <a class='struct' href='../net/image_cache_task/struct.ImageCacheTask.html' title='net::image_cache_task::ImageCacheTask'>ImageCacheTask</a>, devtools_chan: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../devtools_traits/type.DevtoolsControlChan.html' title='devtools_traits::DevtoolsControlChan'>DevtoolsControlChan</a>&gt;, window_size: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>&gt;, load_data: <a class='struct' href='../msg/constellation_msg/struct.LoadData.html' title='msg::constellation_msg::LoadData'>LoadData</a>) <span class='where'>where C: <a class='trait' href='../msg/compositor_msg/trait.ScriptListener.html' title='msg::compositor_msg::ScriptListener'>ScriptListener</a> + <a class='trait' href='../core/marker/trait.Send.html' title='core::marker::Send'>Send</a></span>;
+    fn <a href='#tymethod.create_layout_channel' class='fnname'>create_layout_channel</a>(_phantom: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut Self&gt;) -&gt; <a class='struct' href='../script_traits/struct.OpaqueScriptLayoutChannel.html' title='script_traits::OpaqueScriptLayoutChannel'>OpaqueScriptLayoutChannel</a>;
+    fn <a href='#tymethod.clone_layout_channel' class='fnname'>clone_layout_channel</a>(_phantom: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut Self&gt;, pair: &amp;<a class='struct' href='../script_traits/struct.OpaqueScriptLayoutChannel.html' title='script_traits::OpaqueScriptLayoutChannel'>OpaqueScriptLayoutChannel</a>) -&gt; <a class='struct' href='../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../core/any/trait.Any.html' title='core::any::Any'>Any</a> + <a class='trait' href='../core/marker/trait.Send.html' title='core::marker::Send'>Send</a>&gt;;
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.create' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.create' class='fnname'>create</a>&lt;C&gt;(_phantom: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut Self&gt;, id: <a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, parent_info: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../std/primitive.tuple.html'>(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>)</a>&gt;, compositor: C, layout_chan: &amp;<a class='struct' href='../script_traits/struct.OpaqueScriptLayoutChannel.html' title='script_traits::OpaqueScriptLayoutChannel'>OpaqueScriptLayoutChannel</a>, control_chan: <a class='struct' href='../script_traits/struct.ScriptControlChan.html' title='script_traits::ScriptControlChan'>ScriptControlChan</a>, control_port: <a class='struct' href='../std/sync/mpsc/struct.Receiver.html' title='std::sync::mpsc::Receiver'>Receiver</a>&lt;<a class='enum' href='../script_traits/enum.ConstellationControlMsg.html' title='script_traits::ConstellationControlMsg'>ConstellationControlMsg</a>&gt;, constellation_msg: <a class='struct' href='../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a>, failure_msg: <a class='struct' href='../msg/constellation_msg/struct.Failure.html' title='msg::constellation_msg::Failure'>Failure</a>, resource_task: <a class='type' href='../net/resource_task/type.ResourceTask.html' title='net::resource_task::ResourceTask'>ResourceTask</a>, storage_task: <a class='type' href='../net/storage_task/type.StorageTask.html' title='net::storage_task::StorageTask'>StorageTask</a>, image_cache_task: <a class='struct' href='../net/image_cache_task/struct.ImageCacheTask.html' title='net::image_cache_task::ImageCacheTask'>ImageCacheTask</a>, devtools_chan: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../devtools_traits/type.DevtoolsControlChan.html' title='devtools_traits::DevtoolsControlChan'>DevtoolsControlChan</a>&gt;, window_size: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>&gt;, load_data: <a class='struct' href='../msg/constellation_msg/struct.LoadData.html' title='msg::constellation_msg::LoadData'>LoadData</a>) <span class='where'>where C: <a class='trait' href='../msg/compositor_msg/trait.ScriptListener.html' title='msg::compositor_msg::ScriptListener'>ScriptListener</a> + <a class='trait' href='../core/marker/trait.Send.html' title='core::marker::Send'>Send</a></span></code></h3><h3 id='tymethod.create_layout_channel' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.create_layout_channel' class='fnname'>create_layout_channel</a>(_phantom: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut Self&gt;) -&gt; <a class='struct' href='../script_traits/struct.OpaqueScriptLayoutChannel.html' title='script_traits::OpaqueScriptLayoutChannel'>OpaqueScriptLayoutChannel</a></code></h3><h3 id='tymethod.clone_layout_channel' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.clone_layout_channel' class='fnname'>clone_layout_channel</a>(_phantom: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut Self&gt;, pair: &amp;<a class='struct' href='../script_traits/struct.OpaqueScriptLayoutChannel.html' title='script_traits::OpaqueScriptLayoutChannel'>OpaqueScriptLayoutChannel</a>) -&gt; <a class='struct' href='../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../core/any/trait.Any.html' title='core::any::Any'>Any</a> + <a class='trait' href='../core/marker/trait.Send.html' title='core::marker::Send'>Send</a>&gt;</code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../implementors/script_traits/trait.ScriptTaskFactory.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "script_traits";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

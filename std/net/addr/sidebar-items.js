@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["ToSocketAddrs","A trait for objects which can be converted or resolved to one or more `SocketAddr` values."]],"struct":[["SocketAddr","Representation of a socket address for networking applications"]]});

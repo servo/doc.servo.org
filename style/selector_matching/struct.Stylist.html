@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Stylist` struct in crate `style`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Stylist">
+
+    <title>style::selector_matching::Stylist - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>style</a>::<wbr><a href='index.html'>selector_matching</a></p><script>window.sidebarCurrent = {name: 'Stylist', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>style</a>::<wbr><a href='index.html'>selector_matching</a>::<wbr><a class='struct' href=''>Stylist</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span></span></h1>
+<pre class='rust struct'>pub struct Stylist {
+    pub device: <a class='struct' href='../../style/media_queries/struct.Device.html' title='style::media_queries::Device'>Device</a>,
+    // some fields omitted
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.device'><a class='stability Unmarked' title='No stability level'></a><code>device</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../style/selector_matching/struct.Stylist.html' title='style::selector_matching::Stylist'>Stylist</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(device: <a class='struct' href='../../style/media_queries/struct.Device.html' title='style::media_queries::Device'>Device</a>) -&gt; <a class='struct' href='../../style/selector_matching/struct.Stylist.html' title='style::selector_matching::Stylist'>Stylist</a></code></h4>
+<h4 id='method.update' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.update' class='fnname'>update</a>(&amp;mut self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.set_device' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.set_device' class='fnname'>set_device</a>(&amp;mut self, device: <a class='struct' href='../../style/media_queries/struct.Device.html' title='style::media_queries::Device'>Device</a>)</code></h4>
+<h4 id='method.add_quirks_mode_stylesheet' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.add_quirks_mode_stylesheet' class='fnname'>add_quirks_mode_stylesheet</a>(&amp;mut self)</code></h4>
+<h4 id='method.add_stylesheet' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.add_stylesheet' class='fnname'>add_stylesheet</a>(&amp;mut self, stylesheet: <a class='struct' href='../../style/stylesheets/struct.Stylesheet.html' title='style::stylesheets::Stylesheet'>Stylesheet</a>)</code></h4>
+<h4 id='method.push_applicable_declarations' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_applicable_declarations' class='fnname'>push_applicable_declarations</a>&lt;'a, N, V&gt;(&amp;self, element: &amp;N, parent_bf: &amp;<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../selectors/bloom/struct.BloomFilter.html' title='selectors::bloom::BloomFilter'>BloomFilter</a>&gt;&gt;, style_attribute: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='struct' href='../../style/properties/struct.PropertyDeclarationBlock.html' title='style::properties::PropertyDeclarationBlock'>PropertyDeclarationBlock</a>&gt;, pseudo_element: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../selectors/parser/enum.PseudoElement.html' title='selectors::parser::PseudoElement'>PseudoElement</a>&gt;, applicable_declarations: &amp;mut V) -&gt; <a href='../../std/primitive.bool.html'>bool</a> <span class='where'>where N: <a class='trait' href='../../style/node/trait.TNode.html' title='style::node::TNode'>TNode</a>&lt;'a&gt;, Element: <a class='trait' href='../../style/node/trait.TElementAttributes.html' title='style::node::TElementAttributes'>TElementAttributes</a>, V: <a class='trait' href='../../selectors/smallvec/trait.VecLike.html' title='selectors::smallvec::VecLike'>VecLike</a>&lt;<a class='type' href='../../style/selector_matching/type.DeclarationBlock.html' title='style::selector_matching::DeclarationBlock'>DeclarationBlock</a>&gt;</span></code></h4>
+<div class='docblock'><p>Returns the applicable CSS declarations for the given element. This corresponds to
+<code>ElementRuleCollector</code> in WebKit.</p>
+
+<p>The returned boolean indicates whether the style is <em>shareable</em>; that is, whether the
+matched selectors are simple enough to allow the matching logic to be reduced to the logic
+in <code>css::matching::PrivateMatchMethods::candidate_element_allows_for_style_sharing</code>.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../style/legacy/trait.PresentationalHintSynthesis.html' title='style::legacy::PresentationalHintSynthesis'>PresentationalHintSynthesis</a> for <a class='struct' href='../../style/selector_matching/struct.Stylist.html' title='style::selector_matching::Stylist'>Stylist</a></code></h3><div class='impl-items'><h4 id='method.synthesize_presentational_hints_for_legacy_attributes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.synthesize_presentational_hints_for_legacy_attributes' class='fnname'>synthesize_presentational_hints_for_legacy_attributes</a>&lt;'a, N, V&gt;(&amp;self, node: &amp;N, matching_rules_list: &amp;mut V, shareable: &amp;mut <a href='../../std/primitive.bool.html'>bool</a>) <span class='where'>where N: <a class='trait' href='../../style/node/trait.TNode.html' title='style::node::TNode'>TNode</a>&lt;'a&gt;, Element: <a class='trait' href='../../style/node/trait.TElementAttributes.html' title='style::node::TElementAttributes'>TElementAttributes</a>, V: <a class='trait' href='../../selectors/smallvec/trait.VecLike.html' title='selectors::smallvec::VecLike'>VecLike</a>&lt;<a class='struct' href='../../selectors/matching/struct.DeclarationBlock.html' title='selectors::matching::DeclarationBlock'>DeclarationBlock</a>&lt;<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='../../style/properties/enum.PropertyDeclaration.html' title='style::properties::PropertyDeclaration'>PropertyDeclaration</a>&gt;&gt;&gt;</span></code></h4>
+<h4 id='method.synthesize_presentational_hint_for_legacy_background_color_attribute' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.synthesize_presentational_hint_for_legacy_background_color_attribute' class='fnname'>synthesize_presentational_hint_for_legacy_background_color_attribute</a>&lt;'a, E, V&gt;(&amp;self, element: E, matching_rules_list: &amp;mut V, shareable: &amp;mut <a href='../../std/primitive.bool.html'>bool</a>) <span class='where'>where E: <a class='trait' href='../../style/node/trait.TElement.html' title='style::node::TElement'>TElement</a>&lt;'a&gt; + <a class='trait' href='../../style/node/trait.TElementAttributes.html' title='style::node::TElementAttributes'>TElementAttributes</a>, V: <a class='trait' href='../../selectors/smallvec/trait.VecLike.html' title='selectors::smallvec::VecLike'>VecLike</a>&lt;<a class='struct' href='../../selectors/matching/struct.DeclarationBlock.html' title='selectors::matching::DeclarationBlock'>DeclarationBlock</a>&lt;<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='../../style/properties/enum.PropertyDeclaration.html' title='style::properties::PropertyDeclaration'>PropertyDeclaration</a>&gt;&gt;&gt;</span></code></h4>
+<h4 id='method.synthesize_presentational_hint_for_legacy_border_attribute' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.synthesize_presentational_hint_for_legacy_border_attribute' class='fnname'>synthesize_presentational_hint_for_legacy_border_attribute</a>&lt;'a, E, V&gt;(&amp;self, element: E, matching_rules_list: &amp;mut V, shareable: &amp;mut <a href='../../std/primitive.bool.html'>bool</a>) <span class='where'>where E: <a class='trait' href='../../style/node/trait.TElement.html' title='style::node::TElement'>TElement</a>&lt;'a&gt; + <a class='trait' href='../../style/node/trait.TElementAttributes.html' title='style::node::TElementAttributes'>TElementAttributes</a>, V: <a class='trait' href='../../selectors/smallvec/trait.VecLike.html' title='selectors::smallvec::VecLike'>VecLike</a>&lt;<a class='struct' href='../../selectors/matching/struct.DeclarationBlock.html' title='selectors::matching::DeclarationBlock'>DeclarationBlock</a>&lt;<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='../../style/properties/enum.PropertyDeclaration.html' title='style::properties::PropertyDeclaration'>PropertyDeclaration</a>&gt;&gt;&gt;</span></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "style";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

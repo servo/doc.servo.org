@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `save` mod in crate `rustc_trans`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, save">
+
+    <title>rustc_trans::save - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../rustc_trans/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>rustc_trans</a></p><script>window.sidebarCurrent = {name: 'save', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>rustc_trans</a>::<wbr><a class='mod' href=''>save</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-142460' href='../../src/rustc_trans/save/mod.rs.html#11-1617'>[src]</a></span></h1>
+<div class='docblock'><p>Output a CSV file containing the output from rustc&#39;s analysis. The data is
+primarily designed to be used as input to the DXR tool, specifically its
+Rust plugin. It could also be used by IDEs or other code browsing, search, or
+cross-referencing tools.</p>
+
+<p>Dumping the analysis is implemented by walking the AST and getting a bunch of
+info out from all over the place. We use Def IDs to identify objects. The
+tricky part is getting syntactic (span, source text) and semantic (reference
+Def IDs) information for parts of expressions which the compiler has discarded.
+E.g., in a path <code>foo::bar::baz</code>, the compiler only keeps a span for the whole
+path and a reference to <code>baz</code>, but we want spans and references for all three
+idents.</p>
+
+<p>SpanUtils is used to manipulate spans. In particular, to extract sub-spans
+from spans (e.g., the span for <code>bar</code> from the above example path).
+Recorder is used for recording the output in csv format. FmtStrs separates
+the format of the output away from extracting it from the compiler.
+DxrVisitor walks the AST and processes it.</p>
+</div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='fn' href='fn.process_crate.html'
+                               title='rustc_trans::save::process_crate'>process_crate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rustc_trans";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

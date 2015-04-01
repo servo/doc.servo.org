@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Float` trait in crate `core`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Float">
+
+    <title>core::num::Float - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../core/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>core</a>::<wbr><a href='index.html'>num</a></p><script>window.sidebarCurrent = {name: 'Float', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>core</a>::<wbr><a href='index.html'>num</a>::<wbr><a class='trait' href=''>Float</a><wbr><a class='stability Unstable' title='distribution of methods between core/std is unclear'>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-17274' href='../../src/core/num/mod.rs.html#1350-1511'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait Float: <a class='trait' href='../../core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> + <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='../../core/num/trait.NumCast.html' title='core::num::NumCast'>NumCast</a> + <a class='trait' href='../../core/cmp/trait.PartialOrd.html' title='core::cmp::PartialOrd'>PartialOrd</a> + <a class='trait' href='../../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> + <a class='trait' href='../../core/ops/trait.Neg.html' title='core::ops::Neg'>Neg</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Add.html' title='core::ops::Add'>Add</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Sub.html' title='core::ops::Sub'>Sub</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Div.html' title='core::ops::Div'>Div</a>&lt;Output=Self&gt; + <a class='trait' href='../../core/ops/trait.Rem.html' title='core::ops::Rem'>Rem</a>&lt;Output=Self&gt; {
+    fn <a href='#tymethod.nan' class='fnname'>nan</a>() -&gt; Self;
+    fn <a href='#tymethod.infinity' class='fnname'>infinity</a>() -&gt; Self;
+    fn <a href='#tymethod.neg_infinity' class='fnname'>neg_infinity</a>() -&gt; Self;
+    fn <a href='#tymethod.zero' class='fnname'>zero</a>() -&gt; Self;
+    fn <a href='#tymethod.neg_zero' class='fnname'>neg_zero</a>() -&gt; Self;
+    fn <a href='#tymethod.one' class='fnname'>one</a>() -&gt; Self;
+    fn <a href='#tymethod.mantissa_digits' class='fnname'>mantissa_digits</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.digits' class='fnname'>digits</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.epsilon' class='fnname'>epsilon</a>() -&gt; Self;
+    fn <a href='#tymethod.min_exp' class='fnname'>min_exp</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.isize.html'>isize</a>;
+    fn <a href='#tymethod.max_exp' class='fnname'>max_exp</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.isize.html'>isize</a>;
+    fn <a href='#tymethod.min_10_exp' class='fnname'>min_10_exp</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.isize.html'>isize</a>;
+    fn <a href='#tymethod.max_10_exp' class='fnname'>max_10_exp</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.isize.html'>isize</a>;
+    fn <a href='#tymethod.min_value' class='fnname'>min_value</a>() -&gt; Self;
+    fn <a href='#tymethod.min_pos_value' class='fnname'>min_pos_value</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; Self;
+    fn <a href='#tymethod.max_value' class='fnname'>max_value</a>() -&gt; Self;
+    fn <a href='#tymethod.is_nan' class='fnname'>is_nan</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.is_infinite' class='fnname'>is_infinite</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.is_finite' class='fnname'>is_finite</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.is_normal' class='fnname'>is_normal</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.classify' class='fnname'>classify</a>(self) -&gt; <a class='enum' href='../../core/num/enum.FpCategory.html' title='core::num::FpCategory'>FpCategory</a>;
+    fn <a href='#tymethod.integer_decode' class='fnname'>integer_decode</a>(self) -&gt; <a href='../primitive.tuple.html'>(<a href='../primitive.u64.html'>u64</a>, <a href='../primitive.i16.html'>i16</a>, <a href='../primitive.i8.html'>i8</a>)</a>;
+    fn <a href='#tymethod.floor' class='fnname'>floor</a>(self) -&gt; Self;
+    fn <a href='#tymethod.ceil' class='fnname'>ceil</a>(self) -&gt; Self;
+    fn <a href='#tymethod.round' class='fnname'>round</a>(self) -&gt; Self;
+    fn <a href='#tymethod.trunc' class='fnname'>trunc</a>(self) -&gt; Self;
+    fn <a href='#tymethod.fract' class='fnname'>fract</a>(self) -&gt; Self;
+    fn <a href='#tymethod.abs' class='fnname'>abs</a>(self) -&gt; Self;
+    fn <a href='#tymethod.signum' class='fnname'>signum</a>(self) -&gt; Self;
+    fn <a href='#tymethod.is_positive' class='fnname'>is_positive</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.is_negative' class='fnname'>is_negative</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.mul_add' class='fnname'>mul_add</a>(self, a: Self, b: Self) -&gt; Self;
+    fn <a href='#tymethod.recip' class='fnname'>recip</a>(self) -&gt; Self;
+    fn <a href='#tymethod.powi' class='fnname'>powi</a>(self, n: <a href='../primitive.i32.html'>i32</a>) -&gt; Self;
+    fn <a href='#tymethod.powf' class='fnname'>powf</a>(self, n: Self) -&gt; Self;
+    fn <a href='#tymethod.sqrt' class='fnname'>sqrt</a>(self) -&gt; Self;
+    fn <a href='#tymethod.rsqrt' class='fnname'>rsqrt</a>(self) -&gt; Self;
+    fn <a href='#tymethod.exp' class='fnname'>exp</a>(self) -&gt; Self;
+    fn <a href='#tymethod.exp2' class='fnname'>exp2</a>(self) -&gt; Self;
+    fn <a href='#tymethod.ln' class='fnname'>ln</a>(self) -&gt; Self;
+    fn <a href='#tymethod.log' class='fnname'>log</a>(self, base: Self) -&gt; Self;
+    fn <a href='#tymethod.log2' class='fnname'>log2</a>(self) -&gt; Self;
+    fn <a href='#tymethod.log10' class='fnname'>log10</a>(self) -&gt; Self;
+    fn <a href='#tymethod.to_degrees' class='fnname'>to_degrees</a>(self) -&gt; Self;
+    fn <a href='#tymethod.to_radians' class='fnname'>to_radians</a>(self) -&gt; Self;
+}</pre><div class='docblock'><p>A built-in floating point number.</p>
+</div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.nan' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.nan' class='fnname'>nan</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the NaN value.</p>
+</div><h3 id='tymethod.infinity' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.infinity' class='fnname'>infinity</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the infinite value.</p>
+</div><h3 id='tymethod.neg_infinity' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.neg_infinity' class='fnname'>neg_infinity</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the negative infinite value.</p>
+</div><h3 id='tymethod.zero' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.zero' class='fnname'>zero</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the <code>0</code> value.</p>
+</div><h3 id='tymethod.neg_zero' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.neg_zero' class='fnname'>neg_zero</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns -0.0.</p>
+</div><h3 id='tymethod.one' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.one' class='fnname'>one</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the <code>1</code> value.</p>
+</div><h3 id='tymethod.mantissa_digits' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::MANTISSA_DIGITS` or `std::f64::MANTISSA_DIGITS` as appropriate'></a><code>fn <a href='#tymethod.mantissa_digits' class='fnname'>mantissa_digits</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.usize.html'>usize</a></code></h3><div class='docblock'><p>Returns the number of binary digits of mantissa that this type supports.</p>
+</div><h3 id='tymethod.digits' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::DIGITS` or `std::f64::DIGITS` as appropriate'></a><code>fn <a href='#tymethod.digits' class='fnname'>digits</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.usize.html'>usize</a></code></h3><div class='docblock'><p>Returns the number of base-10 digits of precision that this type supports.</p>
+</div><h3 id='tymethod.epsilon' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::EPSILON` or `std::f64::EPSILON` as appropriate'></a><code>fn <a href='#tymethod.epsilon' class='fnname'>epsilon</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the difference between 1.0 and the smallest representable number larger than 1.0.</p>
+</div><h3 id='tymethod.min_exp' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::MIN_EXP` or `std::f64::MIN_EXP` as appropriate'></a><code>fn <a href='#tymethod.min_exp' class='fnname'>min_exp</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.isize.html'>isize</a></code></h3><div class='docblock'><p>Returns the minimum binary exponent that this type can represent.</p>
+</div><h3 id='tymethod.max_exp' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::MAX_EXP` or `std::f64::MAX_EXP` as appropriate'></a><code>fn <a href='#tymethod.max_exp' class='fnname'>max_exp</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.isize.html'>isize</a></code></h3><div class='docblock'><p>Returns the maximum binary exponent that this type can represent.</p>
+</div><h3 id='tymethod.min_10_exp' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::MIN_10_EXP` or `std::f64::MIN_10_EXP` as appropriate'></a><code>fn <a href='#tymethod.min_10_exp' class='fnname'>min_10_exp</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.isize.html'>isize</a></code></h3><div class='docblock'><p>Returns the minimum base-10 exponent that this type can represent.</p>
+</div><h3 id='tymethod.max_10_exp' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::MAX_10_EXP` or `std::f64::MAX_10_EXP` as appropriate'></a><code>fn <a href='#tymethod.max_10_exp' class='fnname'>max_10_exp</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; <a href='../primitive.isize.html'>isize</a></code></h3><div class='docblock'><p>Returns the maximum base-10 exponent that this type can represent.</p>
+</div><h3 id='tymethod.min_value' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::MIN` or `std::f64::MIN` as appropriate'></a><code>fn <a href='#tymethod.min_value' class='fnname'>min_value</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the smallest finite value that this type can represent.</p>
+</div><h3 id='tymethod.min_pos_value' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::MIN_POSITIVE` or `std::f64::MIN_POSITIVE` as appropriate'></a><code>fn <a href='#tymethod.min_pos_value' class='fnname'>min_pos_value</a>(unused_self: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;) -&gt; Self</code></h3><div class='docblock'><p>Returns the smallest normalized positive number that this type can represent.</p>
+</div><h3 id='tymethod.max_value' class='method'><a class='stability Deprecated' title='Deprecated: use `std::f32::MAX` or `std::f64::MAX` as appropriate'></a><code>fn <a href='#tymethod.max_value' class='fnname'>max_value</a>() -&gt; Self</code></h3><div class='docblock'><p>Returns the largest finite value that this type can represent.</p>
+</div><h3 id='tymethod.is_nan' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.is_nan' class='fnname'>is_nan</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns true if this value is NaN and false otherwise.</p>
+</div><h3 id='tymethod.is_infinite' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.is_infinite' class='fnname'>is_infinite</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns true if this value is positive infinity or negative infinity and
+false otherwise.</p>
+</div><h3 id='tymethod.is_finite' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.is_finite' class='fnname'>is_finite</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns true if this number is neither infinite nor NaN.</p>
+</div><h3 id='tymethod.is_normal' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.is_normal' class='fnname'>is_normal</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns true if this number is neither zero, infinite, denormal, or NaN.</p>
+</div><h3 id='tymethod.classify' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.classify' class='fnname'>classify</a>(self) -&gt; <a class='enum' href='../../core/num/enum.FpCategory.html' title='core::num::FpCategory'>FpCategory</a></code></h3><div class='docblock'><p>Returns the category that this number falls into.</p>
+</div><h3 id='tymethod.integer_decode' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.integer_decode' class='fnname'>integer_decode</a>(self) -&gt; <a href='../primitive.tuple.html'>(<a href='../primitive.u64.html'>u64</a>, <a href='../primitive.i16.html'>i16</a>, <a href='../primitive.i8.html'>i8</a>)</a></code></h3><div class='docblock'><p>Returns the mantissa, exponent and sign as integers, respectively.</p>
+</div><h3 id='tymethod.floor' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.floor' class='fnname'>floor</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Return the largest integer less than or equal to a number.</p>
+</div><h3 id='tymethod.ceil' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.ceil' class='fnname'>ceil</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Return the smallest integer greater than or equal to a number.</p>
+</div><h3 id='tymethod.round' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.round' class='fnname'>round</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Return the nearest integer to a number. Round half-way cases away from
+<code>0.0</code>.</p>
+</div><h3 id='tymethod.trunc' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.trunc' class='fnname'>trunc</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Return the integer part of a number.</p>
+</div><h3 id='tymethod.fract' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.fract' class='fnname'>fract</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Return the fractional part of a number.</p>
+</div><h3 id='tymethod.abs' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.abs' class='fnname'>abs</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Computes the absolute value of <code>self</code>. Returns <code>Float::nan()</code> if the
+number is <code>Float::nan()</code>.</p>
+</div><h3 id='tymethod.signum' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.signum' class='fnname'>signum</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Returns a number that represents the sign of <code>self</code>.</p>
+
+<ul>
+<li><code>1.0</code> if the number is positive, <code>+0.0</code> or <code>Float::infinity()</code></li>
+<li><code>-1.0</code> if the number is negative, <code>-0.0</code> or <code>Float::neg_infinity()</code></li>
+<li><code>Float::nan()</code> if the number is <code>Float::nan()</code></li>
+</ul>
+</div><h3 id='tymethod.is_positive' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.is_positive' class='fnname'>is_positive</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns <code>true</code> if <code>self</code> is positive, including <code>+0.0</code> and
+<code>Float::infinity()</code>.</p>
+</div><h3 id='tymethod.is_negative' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.is_negative' class='fnname'>is_negative</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns <code>true</code> if <code>self</code> is negative, including <code>-0.0</code> and
+<code>Float::neg_infinity()</code>.</p>
+</div><h3 id='tymethod.mul_add' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.mul_add' class='fnname'>mul_add</a>(self, a: Self, b: Self) -&gt; Self</code></h3><div class='docblock'><p>Fused multiply-add. Computes <code>(self * a) + b</code> with only one rounding
+error. This produces a more accurate result with better performance than
+a separate multiplication operation followed by an add.</p>
+</div><h3 id='tymethod.recip' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.recip' class='fnname'>recip</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Take the reciprocal (inverse) of a number, <code>1/x</code>.</p>
+</div><h3 id='tymethod.powi' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.powi' class='fnname'>powi</a>(self, n: <a href='../primitive.i32.html'>i32</a>) -&gt; Self</code></h3><div class='docblock'><p>Raise a number to an integer power.</p>
+
+<p>Using this function is generally faster than using <code>powf</code></p>
+</div><h3 id='tymethod.powf' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.powf' class='fnname'>powf</a>(self, n: Self) -&gt; Self</code></h3><div class='docblock'><p>Raise a number to a floating point power.</p>
+</div><h3 id='tymethod.sqrt' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.sqrt' class='fnname'>sqrt</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Take the square root of a number.</p>
+
+<p>Returns NaN if <code>self</code> is a negative number.</p>
+</div><h3 id='tymethod.rsqrt' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.rsqrt' class='fnname'>rsqrt</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Take the reciprocal (inverse) square root of a number, <code>1/sqrt(x)</code>.</p>
+</div><h3 id='tymethod.exp' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.exp' class='fnname'>exp</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Returns <code>e^(self)</code>, (the exponential function).</p>
+</div><h3 id='tymethod.exp2' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.exp2' class='fnname'>exp2</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Returns 2 raised to the power of the number, <code>2^(self)</code>.</p>
+</div><h3 id='tymethod.ln' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.ln' class='fnname'>ln</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Returns the natural logarithm of the number.</p>
+</div><h3 id='tymethod.log' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.log' class='fnname'>log</a>(self, base: Self) -&gt; Self</code></h3><div class='docblock'><p>Returns the logarithm of the number with respect to an arbitrary base.</p>
+</div><h3 id='tymethod.log2' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.log2' class='fnname'>log2</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Returns the base 2 logarithm of the number.</p>
+</div><h3 id='tymethod.log10' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.log10' class='fnname'>log10</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Returns the base 10 logarithm of the number.</p>
+</div><h3 id='tymethod.to_degrees' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.to_degrees' class='fnname'>to_degrees</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Convert radians to degrees.</p>
+</div><h3 id='tymethod.to_radians' class='method'><a class='stability Unstable' title='Unstable: distribution of methods between core/std is unclear'></a><code>fn <a href='#tymethod.to_radians' class='fnname'>to_radians</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Convert degrees to radians.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unstable' title='Unstable: trait is unstable'></a><code>impl <a class='trait' href='../../core/num/trait.Float.html' title='core::num::Float'>Float</a> for <a href='../primitive.f32.html'>f32</a></code></li>
+<li><a class='stability Unstable' title='Unstable: trait is unstable'></a><code>impl <a class='trait' href='../../core/num/trait.Float.html' title='core::num::Float'>Float</a> for <a href='../primitive.f64.html'>f64</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/core/num/trait.Float.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "core";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

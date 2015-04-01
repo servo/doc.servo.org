@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `PrivateLayoutData` struct in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, PrivateLayoutData">
+
+    <title>layout::data::PrivateLayoutData - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a>::<wbr><a href='index.html'>data</a></p><script>window.sidebarCurrent = {name: 'PrivateLayoutData', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>layout</a>::<wbr><a href='index.html'>data</a>::<wbr><a class='struct' href=''>PrivateLayoutData</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-15820' href='../../src/layout/data.rs.html#20-43'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct PrivateLayoutData {
+    pub before_style: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;&gt;,
+    pub after_style: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;&gt;,
+    pub restyle_damage: <a class='struct' href='../../layout/incremental/struct.RestyleDamage.html' title='layout::incremental::RestyleDamage'>RestyleDamage</a>,
+    pub flow_construction_result: <a class='enum' href='../../layout/construct/enum.ConstructionResult.html' title='layout::construct::ConstructionResult'>ConstructionResult</a>,
+    pub before_flow_construction_result: <a class='enum' href='../../layout/construct/enum.ConstructionResult.html' title='layout::construct::ConstructionResult'>ConstructionResult</a>,
+    pub after_flow_construction_result: <a class='enum' href='../../layout/construct/enum.ConstructionResult.html' title='layout::construct::ConstructionResult'>ConstructionResult</a>,
+    pub parallel: <a class='struct' href='../../layout/parallel/struct.DomParallelInfo.html' title='layout::parallel::DomParallelInfo'>DomParallelInfo</a>,
+    pub flags: <a class='struct' href='../../layout/data/struct.LayoutDataFlags.html' title='layout::data::LayoutDataFlags'>LayoutDataFlags</a>,
+}</pre><div class='docblock'><p>Data that layout associates with a node.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.before_style'><a class='stability Unmarked' title='No stability level'></a><code>before_style</code></td><td><div class='docblock'><p>The results of CSS styling for this node&#39;s <code>before</code> pseudo-element, if any.</p>
+</div></td></tr><tr><td id='structfield.after_style'><a class='stability Unmarked' title='No stability level'></a><code>after_style</code></td><td><div class='docblock'><p>The results of CSS styling for this node&#39;s <code>after</code> pseudo-element, if any.</p>
+</div></td></tr><tr><td id='structfield.restyle_damage'><a class='stability Unmarked' title='No stability level'></a><code>restyle_damage</code></td><td><div class='docblock'><p>Description of how to account for recent style changes.</p>
+</div></td></tr><tr><td id='structfield.flow_construction_result'><a class='stability Unmarked' title='No stability level'></a><code>flow_construction_result</code></td><td><div class='docblock'><p>The current results of flow construction for this node. This is either a flow or a
+<code>ConstructionItem</code>. See comments in <code>construct.rs</code> for more details.</p>
+</div></td></tr><tr><td id='structfield.before_flow_construction_result'><a class='stability Unmarked' title='No stability level'></a><code>before_flow_construction_result</code></td><td></td></tr><tr><td id='structfield.after_flow_construction_result'><a class='stability Unmarked' title='No stability level'></a><code>after_flow_construction_result</code></td><td></td></tr><tr><td id='structfield.parallel'><a class='stability Unmarked' title='No stability level'></a><code>parallel</code></td><td><div class='docblock'><p>Information needed during parallel traversals.</p>
+</div></td></tr><tr><td id='structfield.flags'><a class='stability Unmarked' title='No stability level'></a><code>flags</code></td><td><div class='docblock'><p>Various flags.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../layout/data/struct.PrivateLayoutData.html' title='layout::data::PrivateLayoutData'>PrivateLayoutData</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../layout/data/struct.PrivateLayoutData.html' title='layout::data::PrivateLayoutData'>PrivateLayoutData</a></code></h4>
+<div class='docblock'><p>Creates new layout data.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

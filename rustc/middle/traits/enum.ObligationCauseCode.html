@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ObligationCauseCode` enum in crate `rustc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ObligationCauseCode">
+
+    <title>rustc::middle::traits::ObligationCauseCode - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../../rustc/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../../index.html'>rustc</a>::<wbr><a href='../index.html'>middle</a>::<wbr><a href='index.html'>traits</a></p><script>window.sidebarCurrent = {name: 'ObligationCauseCode', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../../index.html'>rustc</a>::<wbr><a href='../index.html'>middle</a>::<wbr><a href='index.html'>traits</a>::<wbr><a class='enum' href=''>ObligationCauseCode</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-177665' href='../../../src/rustc/middle/traits/mod.rs.html#94-131'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum ObligationCauseCode&lt;'tcx&gt; {
+    MiscObligation,
+    ItemObligation(<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.DefId.html' title='syntax::ast::DefId'>DefId</a>),
+    ObjectCastObligation(<a class='type' href='../../../rustc/middle/ty/type.Ty.html' title='rustc::middle::ty::Ty'>Ty</a>&lt;'tcx&gt;),
+    AssignmentLhsSized,
+    StructInitializerSized,
+    VariableType(<a class='type' href='http://doc.rust-lang.org/nightly/syntax/ast/type.NodeId.html' title='syntax::ast::NodeId'>NodeId</a>),
+    ReturnType,
+    RepeatVec,
+    ClosureCapture(<a class='type' href='http://doc.rust-lang.org/nightly/syntax/ast/type.NodeId.html' title='syntax::ast::NodeId'>NodeId</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Span.html' title='syntax::codemap::Span'>Span</a>, <a class='enum' href='../../../rustc/middle/ty/enum.BuiltinBound.html' title='rustc::middle::ty::BuiltinBound'>BuiltinBound</a>),
+    FieldSized,
+    ObjectSized,
+    SharedStatic,
+    BuiltinDerivedObligation(<a class='struct' href='../../../rustc/middle/traits/struct.DerivedObligationCause.html' title='rustc::middle::traits::DerivedObligationCause'>DerivedObligationCause</a>&lt;'tcx&gt;),
+    ImplDerivedObligation(<a class='struct' href='../../../rustc/middle/traits/struct.DerivedObligationCause.html' title='rustc::middle::traits::DerivedObligationCause'>DerivedObligationCause</a>&lt;'tcx&gt;),
+    CompareImplMethodObligation,
+}</pre><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.MiscObligation'><a class='stability Unstable' title='Unstable'></a><code>MiscObligation</code></td><td><div class='docblock'><p>Not well classified or should be obvious from span.</p>
+</div></td></tr><tr><td id='variant.ItemObligation'><a class='stability Unstable' title='Unstable'></a><code>ItemObligation</code></td><td><div class='docblock'><p>In an impl of trait X for type Y, type Y must
+also implement all supertraits of X.</p>
+</div></td></tr><tr><td id='variant.ObjectCastObligation'><a class='stability Unstable' title='Unstable'></a><code>ObjectCastObligation</code></td><td><div class='docblock'><p>Obligation incurred due to an object cast.</p>
+</div></td></tr><tr><td id='variant.AssignmentLhsSized'><a class='stability Unstable' title='Unstable'></a><code>AssignmentLhsSized</code></td><td><div class='docblock'><p>Various cases where expressions must be sized/copy/etc:</p>
+</div></td></tr><tr><td id='variant.StructInitializerSized'><a class='stability Unstable' title='Unstable'></a><code>StructInitializerSized</code></td><td></td></tr><tr><td id='variant.VariableType'><a class='stability Unstable' title='Unstable'></a><code>VariableType</code></td><td></td></tr><tr><td id='variant.ReturnType'><a class='stability Unstable' title='Unstable'></a><code>ReturnType</code></td><td></td></tr><tr><td id='variant.RepeatVec'><a class='stability Unstable' title='Unstable'></a><code>RepeatVec</code></td><td></td></tr><tr><td id='variant.ClosureCapture'><a class='stability Unstable' title='Unstable'></a><code>ClosureCapture</code></td><td></td></tr><tr><td id='variant.FieldSized'><a class='stability Unstable' title='Unstable'></a><code>FieldSized</code></td><td></td></tr><tr><td id='variant.ObjectSized'><a class='stability Unstable' title='Unstable'></a><code>ObjectSized</code></td><td></td></tr><tr><td id='variant.SharedStatic'><a class='stability Unstable' title='Unstable'></a><code>SharedStatic</code></td><td></td></tr><tr><td id='variant.BuiltinDerivedObligation'><a class='stability Unstable' title='Unstable'></a><code>BuiltinDerivedObligation</code></td><td></td></tr><tr><td id='variant.ImplDerivedObligation'><a class='stability Unstable' title='Unstable'></a><code>ImplDerivedObligation</code></td><td></td></tr><tr><td id='variant.CompareImplMethodObligation'><a class='stability Unstable' title='Unstable'></a><code>CompareImplMethodObligation</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'tcx&gt; <a class='trait' href='../../../core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../../../rustc/middle/traits/enum.ObligationCauseCode.html' title='rustc::middle::traits::ObligationCauseCode'>ObligationCauseCode</a>&lt;'tcx&gt;</code></h3><div class='impl-items'><h4 id='method.assert_receiver_is_total_eq' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.assert_receiver_is_total_eq' class='fnname'>assert_receiver_is_total_eq</a>(&amp;self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'tcx&gt; <a class='trait' href='../../../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../../../rustc/middle/traits/enum.ObligationCauseCode.html' title='rustc::middle::traits::ObligationCauseCode'>ObligationCauseCode</a>&lt;'tcx&gt;</code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../rustc/middle/traits/enum.ObligationCauseCode.html' title='rustc::middle::traits::ObligationCauseCode'>ObligationCauseCode</a>&lt;'tcx&gt;) -&gt; <a href='../../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../rustc/middle/traits/enum.ObligationCauseCode.html' title='rustc::middle::traits::ObligationCauseCode'>ObligationCauseCode</a>&lt;'tcx&gt;) -&gt; <a href='../../../std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'tcx&gt; <a class='trait' href='../../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../../rustc/middle/traits/enum.ObligationCauseCode.html' title='rustc::middle::traits::ObligationCauseCode'>ObligationCauseCode</a>&lt;'tcx&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../../rustc/middle/traits/enum.ObligationCauseCode.html' title='rustc::middle::traits::ObligationCauseCode'>ObligationCauseCode</a>&lt;'tcx&gt;</code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "rustc";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

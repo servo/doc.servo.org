@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["XHRProgress",""]],"type":[["SendParam",""],["TrustedXHRAddress",""]],"struct":[["GenerationId",""],["XMLHttpRequest",""]]});

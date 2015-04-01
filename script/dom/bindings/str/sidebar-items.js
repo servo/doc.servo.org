@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ByteString","Encapsulates the IDL `ByteString` type."],["USVString","A string that is constructed from a UCS-2 buffer by replacing invalid code points with the replacement character."]]});

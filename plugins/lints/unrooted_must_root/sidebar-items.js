@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["UnrootedPass","Lint for ensuring safe usage of unrooted pointers"]]});

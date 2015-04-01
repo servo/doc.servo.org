@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `match_cfg!` macro in crate `mac`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, match_cfg!">
+
+    <title>mac::match_cfg! - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>mac</a></p><script>window.sidebarCurrent = {name: 'match_cfg!', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content macro">
+<h1 class='fqn'><span class='in-band'><a href='index.html'>mac</a>::<wbr><a class='macro' href=''>match_cfg!</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-27' href='../src/mac/cfg.rs.html#22-48'>[src]</a></span></h1>
+<pre class='rust macro'>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>match_cfg</span> {
+    ( $( (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>:<span class='ident'>meta</span>) <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>, )<span class='op'>*</span> _ <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>last</span>:<span class='ident'>expr</span>, ) <span class='op'>=&gt;</span> {
+        <span class='kw'>match</span> () {
+            $(
+                <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>)]</span>
+                () <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>,
+            )<span class='op'>*</span>
+
+            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>( $( <span class='ident'>not</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>) ),<span class='op'>*</span> ))]</span>
+            () <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>last</span>,
+        }
+    };
+
+    ( $( (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>:<span class='ident'>meta</span>) <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>:<span class='ident'>expr</span>, )<span class='op'>*</span> ) <span class='op'>=&gt;</span> {
+        <span class='macro'>match_cfg</span><span class='macro'>!</span> {
+            $(
+                (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>cfg</span>) <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>,
+            )<span class='op'>*</span>
+
+            _ <span class='op'>=&gt;</span> {
+                <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>static_assert</span>]</span>
+                <span class='kw'>static</span> <span class='ident'>MATCH_CFG_FALLBACK_UNREACHABLE</span>: <span class='ident'>bool</span> <span class='op'>=</span> <span class='boolval'>false</span>;
+            }
+        }
+    };
+}
+</pre>
+<div class='docblock'><p>Compile-time matching on config variables.</p>
+
+<p>Only the branch relevant on your machine will be type-checked!</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>mascot</span> <span class='op'>=</span> <span class='macro'>match_cfg</span><span class='macro'>!</span> {
+    (<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;linux&quot;</span>) <span class='op'>=&gt;</span> <span class='string'>&quot;penguin&quot;</span>,
+    (<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;openbsd&quot;</span>) <span class='op'>=&gt;</span> <span class='string'>&quot;blowfish&quot;</span>,
+    _ <span class='op'>=&gt;</span> <span class='string'>&quot;unknown&quot;</span>,
+};
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>mascot</span>);
+</pre>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "mac";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

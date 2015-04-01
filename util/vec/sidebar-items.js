@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["byte_swap",""]],"trait":[["BinarySearchMethods",""],["Comparator","FIXME(pcwalton): Workaround for lack of unboxed closures. This is called in performance-critical code, so a closure is insufficient."],["FullBinarySearchMethods",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MouseWindowEvent",""],["WindowEvent","Events that the windowing system sends to Servo."],["WindowNavigateMsg",""]],"trait":[["WindowMethods",""]]});

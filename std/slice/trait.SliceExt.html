@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SliceExt` trait in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SliceExt">
+
+    <title>std::slice::SliceExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>slice</a></p><script>window.sidebarCurrent = {name: 'SliceExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>std</a>::<wbr><a href='index.html'>slice</a>::<wbr><a class='trait' href=''>SliceExt</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-21363' href='../../collections/slice/trait.SliceExt.html?gotosrc=21363'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait SliceExt <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a></span> {
+    type Item;
+
+    fn <a href='#tymethod.sort_by' class='fnname'>sort_by</a>&lt;F&gt;(&amp;mut self, compare: F) <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a class='enum' href='../../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a></span>;
+    fn <a href='#tymethod.move_from' class='fnname'>move_from</a>(&amp;mut self, src: <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;, start: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.slice' class='fnname'>slice</a>(&amp;self, start: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.slice_from' class='fnname'>slice_from</a>(&amp;self, start: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.slice_to' class='fnname'>slice_to</a>(&amp;self, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.split_at' class='fnname'>split_at</a>(&amp;self, mid: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.tuple.html'>(<a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>, <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>)</a>;
+    fn <a href='#tymethod.iter' class='fnname'>iter</a>(&amp;self) -&gt; <a class='struct' href='../../std/slice/struct.Iter.html' title='std::slice::Iter'>Iter</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.split' class='fnname'>split</a>&lt;F&gt;(&amp;self, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.Split.html' title='std::slice::Split'>Split</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span>;
+    fn <a href='#tymethod.splitn' class='fnname'>splitn</a>&lt;F&gt;(&amp;self, n: <a href='../primitive.usize.html'>usize</a>, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.SplitN.html' title='std::slice::SplitN'>SplitN</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span>;
+    fn <a href='#tymethod.rsplitn' class='fnname'>rsplitn</a>&lt;F&gt;(&amp;self, n: <a href='../primitive.usize.html'>usize</a>, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.RSplitN.html' title='std::slice::RSplitN'>RSplitN</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span>;
+    fn <a href='#tymethod.windows' class='fnname'>windows</a>(&amp;self, size: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/slice/struct.Windows.html' title='std::slice::Windows'>Windows</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.chunks' class='fnname'>chunks</a>(&amp;self, size: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/slice/struct.Chunks.html' title='std::slice::Chunks'>Chunks</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.get' class='fnname'>get</a>(&amp;self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.first' class='fnname'>first</a>(&amp;self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.tail' class='fnname'>tail</a>(&amp;self) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.init' class='fnname'>init</a>(&amp;self) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.last' class='fnname'>last</a>(&amp;self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    unsafe fn <a href='#tymethod.get_unchecked' class='fnname'>get_unchecked</a>(&amp;self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item;
+    fn <a href='#tymethod.as_ptr' class='fnname'>as_ptr</a>(&amp;self) -&gt; *const &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item;
+    fn <a href='#tymethod.binary_search_by' class='fnname'>binary_search_by</a>&lt;F&gt;(&amp;self, f: F) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>, <a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a class='enum' href='../../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a></span>;
+    fn <a href='#tymethod.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.get_mut' class='fnname'>get_mut</a>(&amp;mut self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.as_mut_slice' class='fnname'>as_mut_slice</a>(&amp;mut self) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.slice_mut' class='fnname'>slice_mut</a>(&amp;mut self, start: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.slice_from_mut' class='fnname'>slice_from_mut</a>(&amp;mut self, start: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.slice_to_mut' class='fnname'>slice_to_mut</a>(&amp;mut self, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.iter_mut' class='fnname'>iter_mut</a>(&amp;mut self) -&gt; <a class='struct' href='../../std/slice/struct.IterMut.html' title='std::slice::IterMut'>IterMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.first_mut' class='fnname'>first_mut</a>(&amp;mut self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.tail_mut' class='fnname'>tail_mut</a>(&amp;mut self) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.init_mut' class='fnname'>init_mut</a>(&amp;mut self) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>;
+    fn <a href='#tymethod.last_mut' class='fnname'>last_mut</a>(&amp;mut self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.split_mut' class='fnname'>split_mut</a>&lt;F&gt;(&amp;mut self, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.SplitMut.html' title='std::slice::SplitMut'>SplitMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span>;
+    fn <a href='#tymethod.splitn_mut' class='fnname'>splitn_mut</a>&lt;F&gt;(&amp;mut self, n: <a href='../primitive.usize.html'>usize</a>, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.SplitNMut.html' title='std::slice::SplitNMut'>SplitNMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span>;
+    fn <a href='#tymethod.rsplitn_mut' class='fnname'>rsplitn_mut</a>&lt;F&gt;(&amp;mut self, n: <a href='../primitive.usize.html'>usize</a>, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.RSplitNMut.html' title='std::slice::RSplitNMut'>RSplitNMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span>;
+    fn <a href='#tymethod.chunks_mut' class='fnname'>chunks_mut</a>(&amp;mut self, chunk_size: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/slice/struct.ChunksMut.html' title='std::slice::ChunksMut'>ChunksMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+    fn <a href='#tymethod.swap' class='fnname'>swap</a>(&amp;mut self, a: <a href='../primitive.usize.html'>usize</a>, b: <a href='../primitive.usize.html'>usize</a>);
+    fn <a href='#tymethod.split_at_mut' class='fnname'>split_at_mut</a>(&amp;mut self, mid: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.tuple.html'>(<a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>, <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>)</a>;
+    fn <a href='#tymethod.reverse' class='fnname'>reverse</a>(&amp;mut self);
+    unsafe fn <a href='#tymethod.get_unchecked_mut' class='fnname'>get_unchecked_mut</a>(&amp;mut self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; &amp;mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item;
+    fn <a href='#tymethod.as_mut_ptr' class='fnname'>as_mut_ptr</a>(&amp;mut self) -&gt; *mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item;
+    fn <a href='#tymethod.to_vec' class='fnname'>to_vec</a>(&amp;self) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span>;
+    fn <a href='#tymethod.permutations' class='fnname'>permutations</a>(&amp;self) -&gt; <a class='struct' href='../../std/slice/struct.Permutations.html' title='std::slice::Permutations'>Permutations</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span>;
+    fn <a href='#tymethod.clone_from_slice' class='fnname'>clone_from_slice</a>(&amp;mut self, <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>) -&gt; <a href='../primitive.usize.html'>usize</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span>;
+    fn <a href='#tymethod.sort' class='fnname'>sort</a>(&amp;mut self) <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span>;
+    fn <a href='#tymethod.binary_search' class='fnname'>binary_search</a>(&amp;self, x: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>, <a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span>;
+    fn <a href='#tymethod.next_permutation' class='fnname'>next_permutation</a>(&amp;mut self) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span>;
+    fn <a href='#tymethod.prev_permutation' class='fnname'>prev_permutation</a>(&amp;mut self) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span>;
+    fn <a href='#tymethod.position_elem' class='fnname'>position_elem</a>(&amp;self, t: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span>;
+    fn <a href='#tymethod.rposition_elem' class='fnname'>rposition_elem</a>(&amp;self, t: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span>;
+    fn <a href='#tymethod.contains' class='fnname'>contains</a>(&amp;self, x: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span>;
+    fn <a href='#tymethod.starts_with' class='fnname'>starts_with</a>(&amp;self, needle: <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span>;
+    fn <a href='#tymethod.ends_with' class='fnname'>ends_with</a>(&amp;self, needle: <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span>;
+    fn <a href='#tymethod.into_vec' class='fnname'>into_vec</a>(self: <a class='struct' href='../../std/boxed/struct.Box.html' title='std::boxed::Box'>Box</a>&lt;Self&gt;) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;;
+
+    fn <a href='#tymethod.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a href='../primitive.bool.html'>bool</a> { ... }
+    fn <a href='#tymethod.binary_search_elem' class='fnname'>binary_search_elem</a>(&amp;self, x: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>, <a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span> { ... }
+}</pre><div class='docblock'><p>Allocating extension methods for slices.</p>
+</div>
+            <h2 id='associated-types'>Associated Types</h2>
+            <div class='methods'>
+        <h3 id='associatedtype.Item' class='method'><a class='stability Unmarked' title='No stability level'></a><code>type Item</code></h3></div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.sort_by' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.sort_by' class='fnname'>sort_by</a>&lt;F&gt;(&amp;mut self, compare: F) <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a class='enum' href='../../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a></span></code></h3><div class='docblock'><p>Sorts the slice, in place, using <code>compare</code> to compare
+elements.</p>
+
+<p>This sort is <code>O(n log n)</code> worst-case and stable, but allocates
+approximately <code>2 * n</code>, where <code>n</code> is the length of <code>self</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut v = [5, 4, 1, 3, 2];
+    v.sort_by(|a, b| a.cmp(b));
+    assert!(v == [1, 2, 3, 4, 5]);
+    
+    // reverse sorting
+    v.sort_by(|a, b| b.cmp(a));
+    assert!(v == [5, 4, 3, 2, 1]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>5</span>, <span class='number'>4</span>, <span class='number'>1</span>, <span class='number'>3</span>, <span class='number'>2</span>];
+<span class='ident'>v</span>.<span class='ident'>sort_by</span>(<span class='op'>|</span><span class='ident'>a</span>, <span class='ident'>b</span><span class='op'>|</span> <span class='ident'>a</span>.<span class='ident'>cmp</span>(<span class='ident'>b</span>));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span> <span class='op'>==</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>]);
+
+<span class='comment'>// reverse sorting</span>
+<span class='ident'>v</span>.<span class='ident'>sort_by</span>(<span class='op'>|</span><span class='ident'>a</span>, <span class='ident'>b</span><span class='op'>|</span> <span class='ident'>b</span>.<span class='ident'>cmp</span>(<span class='ident'>a</span>));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span> <span class='op'>==</span> [<span class='number'>5</span>, <span class='number'>4</span>, <span class='number'>3</span>, <span class='number'>2</span>, <span class='number'>1</span>]);
+</pre>
+</div><h3 id='tymethod.move_from' class='method'><a class='stability Unstable' title='Unstable: uncertain about this API approach'></a><code>fn <a href='#tymethod.move_from' class='fnname'>move_from</a>(&amp;mut self, src: <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;, start: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.usize.html'>usize</a></code></h3><div class='docblock'><p>Consumes <code>src</code> and moves as many elements as it can into <code>self</code>
+from the range [start,end).</p>
+
+<p>Returns the number of elements copied (the shorter of <code>self.len()</code>
+and <code>end - start</code>).</p>
+
+<h1 id="arguments" class='section-header'><a
+                           href="#arguments">Arguments</a></h1>
+<ul>
+<li>src - A mutable vector of <code>T</code></li>
+<li>start - The index into <code>src</code> to start copying from</li>
+<li>end - The index into <code>src</code> to stop copying from</li>
+</ul>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut a = [1, 2, 3, 4, 5];
+    let b = vec![6, 7, 8];
+    let num_moved = a.move_from(b, 0, 3);
+    assert_eq!(num_moved, 3);
+    assert!(a == [6, 7, 8, 4, 5]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>a</span> <span class='op'>=</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>];
+<span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>6</span>, <span class='number'>7</span>, <span class='number'>8</span>];
+<span class='kw'>let</span> <span class='ident'>num_moved</span> <span class='op'>=</span> <span class='ident'>a</span>.<span class='ident'>move_from</span>(<span class='ident'>b</span>, <span class='number'>0</span>, <span class='number'>3</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>num_moved</span>, <span class='number'>3</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>a</span> <span class='op'>==</span> [<span class='number'>6</span>, <span class='number'>7</span>, <span class='number'>8</span>, <span class='number'>4</span>, <span class='number'>5</span>]);
+</pre>
+</div><h3 id='tymethod.slice' class='method'><a class='stability Deprecated' title='Deprecated: use &amp;s[start .. end] instead'></a><code>fn <a href='#tymethod.slice' class='fnname'>slice</a>(&amp;self, start: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Deprecated: use <code>&amp;s[start .. end]</code> notation instead.</p>
+</div><h3 id='tymethod.slice_from' class='method'><a class='stability Deprecated' title='Deprecated: use &amp;s[start..] instead'></a><code>fn <a href='#tymethod.slice_from' class='fnname'>slice_from</a>(&amp;self, start: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Deprecated: use <code>&amp;s[start..]</code> notation instead.</p>
+</div><h3 id='tymethod.slice_to' class='method'><a class='stability Deprecated' title='Deprecated: use &amp;s[..end] instead'></a><code>fn <a href='#tymethod.slice_to' class='fnname'>slice_to</a>(&amp;self, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Deprecated: use <code>&amp;s[..end]</code> notation instead.</p>
+</div><h3 id='tymethod.split_at' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.split_at' class='fnname'>split_at</a>(&amp;self, mid: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.tuple.html'>(<a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>, <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>)</a></code></h3><div class='docblock'><p>Divides one slice into two at an index.</p>
+
+<p>The first will contain all indices from <code>[0, mid)</code> (excluding
+the index <code>mid</code> itself) and the second will contain all
+indices from <code>[mid, len)</code> (excluding the index <code>len</code> itself).</p>
+
+<p>Panics if <code>mid &gt; len</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = [10, 40, 30, 20, 50];
+    let (v1, v2) = v.split_at(2);
+    assert_eq!([10, 40], v1);
+    assert_eq!([30, 20, 50], v2);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>, <span class='number'>20</span>, <span class='number'>50</span>];
+<span class='kw'>let</span> (<span class='ident'>v1</span>, <span class='ident'>v2</span>) <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>split_at</span>(<span class='number'>2</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>([<span class='number'>10</span>, <span class='number'>40</span>], <span class='ident'>v1</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>([<span class='number'>30</span>, <span class='number'>20</span>, <span class='number'>50</span>], <span class='ident'>v2</span>);
+</pre>
+</div><h3 id='tymethod.iter' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.iter' class='fnname'>iter</a>(&amp;self) -&gt; <a class='struct' href='../../std/slice/struct.Iter.html' title='std::slice::Iter'>Iter</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns an iterator over the slice.</p>
+</div><h3 id='tymethod.split' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.split' class='fnname'>split</a>&lt;F&gt;(&amp;self, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.Split.html' title='std::slice::Split'>Split</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span></code></h3><div class='docblock'><p>Returns an iterator over subslices separated by elements that match
+<code>pred</code>.  The matched element is not contained in the subslices.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1>
+<p>Print the slice split by numbers divisible by 3 (i.e. <code>[10, 40]</code>,
+<code>[20]</code>, <code>[50]</code>):</p>
+<span class='rusttest'>fn main() {
+    let v = [10, 40, 30, 20, 60, 50];
+    for group in v.split(|num| *num % 3 == 0) {
+        println!(&quot;{:?}&quot;, group);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>, <span class='number'>20</span>, <span class='number'>60</span>, <span class='number'>50</span>];
+<span class='kw'>for</span> <span class='ident'>group</span> <span class='kw'>in</span> <span class='ident'>v</span>.<span class='ident'>split</span>(<span class='op'>|</span><span class='ident'>num</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>num</span> <span class='op'>%</span> <span class='number'>3</span> <span class='op'>==</span> <span class='number'>0</span>) {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>group</span>);
+}
+</pre>
+</div><h3 id='tymethod.splitn' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.splitn' class='fnname'>splitn</a>&lt;F&gt;(&amp;self, n: <a href='../primitive.usize.html'>usize</a>, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.SplitN.html' title='std::slice::SplitN'>SplitN</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span></code></h3><div class='docblock'><p>Returns an iterator over subslices separated by elements that match
+<code>pred</code>, limited to splitting at most <code>n</code> times.  The matched element is
+not contained in the subslices.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1>
+<p>Print the slice split once by numbers divisible by 3 (i.e. <code>[10, 40]</code>,
+<code>[20, 60, 50]</code>):</p>
+<span class='rusttest'>fn main() {
+    let v = [10, 40, 30, 20, 60, 50];
+    for group in v.splitn(1, |num| *num % 3 == 0) {
+        println!(&quot;{:?}&quot;, group);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>, <span class='number'>20</span>, <span class='number'>60</span>, <span class='number'>50</span>];
+<span class='kw'>for</span> <span class='ident'>group</span> <span class='kw'>in</span> <span class='ident'>v</span>.<span class='ident'>splitn</span>(<span class='number'>1</span>, <span class='op'>|</span><span class='ident'>num</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>num</span> <span class='op'>%</span> <span class='number'>3</span> <span class='op'>==</span> <span class='number'>0</span>) {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>group</span>);
+}
+</pre>
+</div><h3 id='tymethod.rsplitn' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.rsplitn' class='fnname'>rsplitn</a>&lt;F&gt;(&amp;self, n: <a href='../primitive.usize.html'>usize</a>, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.RSplitN.html' title='std::slice::RSplitN'>RSplitN</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span></code></h3><div class='docblock'><p>Returns an iterator over subslices separated by elements that match
+<code>pred</code> limited to splitting at most <code>n</code> times. This starts at the end of
+the slice and works backwards.  The matched element is not contained in
+the subslices.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1>
+<p>Print the slice split once, starting from the end, by numbers divisible
+by 3 (i.e. <code>[50]</code>, <code>[10, 40, 30, 20]</code>):</p>
+<span class='rusttest'>fn main() {
+    let v = [10, 40, 30, 20, 60, 50];
+    for group in v.rsplitn(1, |num| *num % 3 == 0) {
+        println!(&quot;{:?}&quot;, group);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>, <span class='number'>20</span>, <span class='number'>60</span>, <span class='number'>50</span>];
+<span class='kw'>for</span> <span class='ident'>group</span> <span class='kw'>in</span> <span class='ident'>v</span>.<span class='ident'>rsplitn</span>(<span class='number'>1</span>, <span class='op'>|</span><span class='ident'>num</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>num</span> <span class='op'>%</span> <span class='number'>3</span> <span class='op'>==</span> <span class='number'>0</span>) {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>group</span>);
+}
+</pre>
+</div><h3 id='tymethod.windows' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.windows' class='fnname'>windows</a>(&amp;self, size: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/slice/struct.Windows.html' title='std::slice::Windows'>Windows</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns an iterator over all contiguous windows of length
+<code>size</code>. The windows overlap. If the slice is shorter than
+<code>size</code>, the iterator returns no values.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>size</code> is 0.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1>
+<p>Print the adjacent pairs of a slice (i.e. <code>[1,2]</code>, <code>[2,3]</code>,
+<code>[3,4]</code>):</p>
+<span class='rusttest'>fn main() {
+    let v = &amp;[1, 2, 3, 4];
+    for win in v.windows(2) {
+        println!(&quot;{:?}&quot;, win);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>];
+<span class='kw'>for</span> <span class='ident'>win</span> <span class='kw'>in</span> <span class='ident'>v</span>.<span class='ident'>windows</span>(<span class='number'>2</span>) {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>win</span>);
+}
+</pre>
+</div><h3 id='tymethod.chunks' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.chunks' class='fnname'>chunks</a>(&amp;self, size: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/slice/struct.Chunks.html' title='std::slice::Chunks'>Chunks</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns an iterator over <code>size</code> elements of the slice at a
+time. The chunks do not overlap. If <code>size</code> does not divide the
+length of the slice, then the last chunk will not have length
+<code>size</code>.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>size</code> is 0.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1>
+<p>Print the slice two elements at a time (i.e. <code>[1,2]</code>,
+<code>[3,4]</code>, <code>[5]</code>):</p>
+<span class='rusttest'>fn main() {
+    let v = &amp;[1, 2, 3, 4, 5];
+    for win in v.chunks(2) {
+        println!(&quot;{:?}&quot;, win);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>];
+<span class='kw'>for</span> <span class='ident'>win</span> <span class='kw'>in</span> <span class='ident'>v</span>.<span class='ident'>chunks</span>(<span class='number'>2</span>) {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>win</span>);
+}
+</pre>
+</div><h3 id='tymethod.get' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.get' class='fnname'>get</a>(&amp;self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns the element of a slice at the given index, or <code>None</code> if the
+index is out of bounds.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = [10, 40, 30];
+    assert_eq!(Some(&amp;40), v.get(1));
+    assert_eq!(None, v.get(3));
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>];
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='number'>40</span>), <span class='ident'>v</span>.<span class='ident'>get</span>(<span class='number'>1</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='prelude-val'>None</span>, <span class='ident'>v</span>.<span class='ident'>get</span>(<span class='number'>3</span>));
+</pre>
+</div><h3 id='tymethod.first' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.first' class='fnname'>first</a>(&amp;self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns the first element of a slice, or <code>None</code> if it is empty.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = [10, 40, 30];
+    assert_eq!(Some(&amp;10), v.first());
+    
+    let w: &amp;[i32] = &amp;[];
+    assert_eq!(None, w.first());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>];
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='number'>10</span>), <span class='ident'>v</span>.<span class='ident'>first</span>());
+
+<span class='kw'>let</span> <span class='ident'>w</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>i32</span>] <span class='op'>=</span> <span class='kw-2'>&amp;</span>[];
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='prelude-val'>None</span>, <span class='ident'>w</span>.<span class='ident'>first</span>());
+</pre>
+</div><h3 id='tymethod.tail' class='method'><a class='stability Unstable' title='Unstable: likely to be renamed'></a><code>fn <a href='#tymethod.tail' class='fnname'>tail</a>(&amp;self) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Returns all but the first element of a slice.</p>
+</div><h3 id='tymethod.init' class='method'><a class='stability Unstable' title='Unstable: likely to be renamed'></a><code>fn <a href='#tymethod.init' class='fnname'>init</a>(&amp;self) -&gt; <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Returns all but the last element of a slice.</p>
+</div><h3 id='tymethod.last' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.last' class='fnname'>last</a>(&amp;self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns the last element of a slice, or <code>None</code> if it is empty.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = [10, 40, 30];
+    assert_eq!(Some(&amp;30), v.last());
+    
+    let w: &amp;[i32] = &amp;[];
+    assert_eq!(None, w.last());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>];
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='number'>30</span>), <span class='ident'>v</span>.<span class='ident'>last</span>());
+
+<span class='kw'>let</span> <span class='ident'>w</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>i32</span>] <span class='op'>=</span> <span class='kw-2'>&amp;</span>[];
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='prelude-val'>None</span>, <span class='ident'>w</span>.<span class='ident'>last</span>());
+</pre>
+</div><h3 id='tymethod.get_unchecked' class='method'><a class='stability Stable' title='Stable'></a><code>unsafe fn <a href='#tymethod.get_unchecked' class='fnname'>get_unchecked</a>(&amp;self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item</code></h3><div class='docblock'><p>Returns a pointer to the element at the given index, without doing
+bounds checking.</p>
+</div><h3 id='tymethod.as_ptr' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.as_ptr' class='fnname'>as_ptr</a>(&amp;self) -&gt; *const &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item</code></h3><div class='docblock'><p>Returns an unsafe pointer to the slice&#39;s buffer</p>
+
+<p>The caller must ensure that the slice outlives the pointer this
+function returns, or else it will end up pointing to garbage.</p>
+
+<p>Modifying the slice may cause its buffer to be reallocated, which
+would also make any pointers to it invalid.</p>
+</div><h3 id='tymethod.binary_search_by' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.binary_search_by' class='fnname'>binary_search_by</a>&lt;F&gt;(&amp;self, f: F) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>, <a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a class='enum' href='../../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a></span></code></h3><div class='docblock'><p>Binary search a sorted slice with a comparator function.</p>
+
+<p>The comparator function should implement an order consistent
+with the sort order of the underlying slice, returning an
+order code that indicates whether its argument is <code>Less</code>,
+<code>Equal</code> or <code>Greater</code> the desired target.</p>
+
+<p>If a matching value is found then returns <code>Ok</code>, containing
+the index for the matched element; if no match is found then
+<code>Err</code> is returned, containing the index where a matching
+element could be inserted while maintaining sorted order.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1>
+<p>Looks up a series of four elements. The first is found, with a
+uniquely determined position; the second and third are not
+found; the fourth could match any position in <code>[1,4]</code>.</p>
+<span class='rusttest'>fn main() {
+    let s = [0, 1, 1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
+    let s = s.as_slice();
+    
+    let seek = 13;
+    assert_eq!(s.binary_search_by(|probe| probe.cmp(&amp;seek)), Ok(9));
+    let seek = 4;
+    assert_eq!(s.binary_search_by(|probe| probe.cmp(&amp;seek)), Err(7));
+    let seek = 100;
+    assert_eq!(s.binary_search_by(|probe| probe.cmp(&amp;seek)), Err(13));
+    let seek = 1;
+    let r = s.binary_search_by(|probe| probe.cmp(&amp;seek));
+    assert!(match r { Ok(1...4) =&gt; true, _ =&gt; false, });
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> [<span class='number'>0</span>, <span class='number'>1</span>, <span class='number'>1</span>, <span class='number'>1</span>, <span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>5</span>, <span class='number'>8</span>, <span class='number'>13</span>, <span class='number'>21</span>, <span class='number'>34</span>, <span class='number'>55</span>];
+<span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>s</span>.<span class='ident'>as_slice</span>();
+
+<span class='kw'>let</span> <span class='ident'>seek</span> <span class='op'>=</span> <span class='number'>13</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>s</span>.<span class='ident'>binary_search_by</span>(<span class='op'>|</span><span class='ident'>probe</span><span class='op'>|</span> <span class='ident'>probe</span>.<span class='ident'>cmp</span>(<span class='kw-2'>&amp;</span><span class='ident'>seek</span>)), <span class='prelude-val'>Ok</span>(<span class='number'>9</span>));
+<span class='kw'>let</span> <span class='ident'>seek</span> <span class='op'>=</span> <span class='number'>4</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>s</span>.<span class='ident'>binary_search_by</span>(<span class='op'>|</span><span class='ident'>probe</span><span class='op'>|</span> <span class='ident'>probe</span>.<span class='ident'>cmp</span>(<span class='kw-2'>&amp;</span><span class='ident'>seek</span>)), <span class='prelude-val'>Err</span>(<span class='number'>7</span>));
+<span class='kw'>let</span> <span class='ident'>seek</span> <span class='op'>=</span> <span class='number'>100</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>s</span>.<span class='ident'>binary_search_by</span>(<span class='op'>|</span><span class='ident'>probe</span><span class='op'>|</span> <span class='ident'>probe</span>.<span class='ident'>cmp</span>(<span class='kw-2'>&amp;</span><span class='ident'>seek</span>)), <span class='prelude-val'>Err</span>(<span class='number'>13</span>));
+<span class='kw'>let</span> <span class='ident'>seek</span> <span class='op'>=</span> <span class='number'>1</span>;
+<span class='kw'>let</span> <span class='ident'>r</span> <span class='op'>=</span> <span class='ident'>s</span>.<span class='ident'>binary_search_by</span>(<span class='op'>|</span><span class='ident'>probe</span><span class='op'>|</span> <span class='ident'>probe</span>.<span class='ident'>cmp</span>(<span class='kw-2'>&amp;</span><span class='ident'>seek</span>));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='kw'>match</span> <span class='ident'>r</span> { <span class='prelude-val'>Ok</span>(<span class='number'>1</span>...<span class='number'>4</span>) <span class='op'>=&gt;</span> <span class='boolval'>true</span>, _ <span class='op'>=&gt;</span> <span class='boolval'>false</span>, });
+</pre>
+</div><h3 id='tymethod.len' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../primitive.usize.html'>usize</a></code></h3><div class='docblock'><p>Return the number of elements in the slice</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    let a = [1, 2, 3];
+    assert_eq!(a.len(), 3);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>len</span>(), <span class='number'>3</span>);
+</pre>
+</div><h3 id='tymethod.get_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.get_mut' class='fnname'>get_mut</a>(&amp;mut self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns a mutable reference to the element at the given index,
+or <code>None</code> if the index is out of bounds</p>
+</div><h3 id='tymethod.as_mut_slice' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.as_mut_slice' class='fnname'>as_mut_slice</a>(&amp;mut self) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Work with <code>self</code> as a mut slice.
+Primarily intended for getting a &amp;mut [T] from a [T; N].</p>
+</div><h3 id='tymethod.slice_mut' class='method'><a class='stability Deprecated' title='Deprecated: use &amp;mut s[start .. end] instead'></a><code>fn <a href='#tymethod.slice_mut' class='fnname'>slice_mut</a>(&amp;mut self, start: <a href='../primitive.usize.html'>usize</a>, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Deprecated: use <code>&amp;mut s[start .. end]</code> instead.</p>
+</div><h3 id='tymethod.slice_from_mut' class='method'><a class='stability Deprecated' title='Deprecated: use &amp;mut s[start ..] instead'></a><code>fn <a href='#tymethod.slice_from_mut' class='fnname'>slice_from_mut</a>(&amp;mut self, start: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Deprecated: use <code>&amp;mut s[start ..]</code> instead.</p>
+</div><h3 id='tymethod.slice_to_mut' class='method'><a class='stability Deprecated' title='Deprecated: use &amp;mut s[.. end] instead'></a><code>fn <a href='#tymethod.slice_to_mut' class='fnname'>slice_to_mut</a>(&amp;mut self, end: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Deprecated: use <code>&amp;mut s[.. end]</code> instead.</p>
+</div><h3 id='tymethod.iter_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.iter_mut' class='fnname'>iter_mut</a>(&amp;mut self) -&gt; <a class='struct' href='../../std/slice/struct.IterMut.html' title='std::slice::IterMut'>IterMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns an iterator that allows modifying each value</p>
+</div><h3 id='tymethod.first_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.first_mut' class='fnname'>first_mut</a>(&amp;mut self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns a mutable pointer to the first element of a slice, or <code>None</code> if it is empty</p>
+</div><h3 id='tymethod.tail_mut' class='method'><a class='stability Unstable' title='Unstable: likely to be renamed or removed'></a><code>fn <a href='#tymethod.tail_mut' class='fnname'>tail_mut</a>(&amp;mut self) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Returns all but the first element of a mutable slice</p>
+</div><h3 id='tymethod.init_mut' class='method'><a class='stability Unstable' title='Unstable: likely to be renamed or removed'></a><code>fn <a href='#tymethod.init_mut' class='fnname'>init_mut</a>(&amp;mut self) -&gt; <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a></code></h3><div class='docblock'><p>Returns all but the last element of a mutable slice</p>
+</div><h3 id='tymethod.last_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.last_mut' class='fnname'>last_mut</a>(&amp;mut self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns a mutable pointer to the last item in the slice.</p>
+</div><h3 id='tymethod.split_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.split_mut' class='fnname'>split_mut</a>&lt;F&gt;(&amp;mut self, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.SplitMut.html' title='std::slice::SplitMut'>SplitMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span></code></h3><div class='docblock'><p>Returns an iterator over mutable subslices separated by elements that
+match <code>pred</code>.  The matched element is not contained in the subslices.</p>
+</div><h3 id='tymethod.splitn_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.splitn_mut' class='fnname'>splitn_mut</a>&lt;F&gt;(&amp;mut self, n: <a href='../primitive.usize.html'>usize</a>, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.SplitNMut.html' title='std::slice::SplitNMut'>SplitNMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span></code></h3><div class='docblock'><p>Returns an iterator over subslices separated by elements that match
+<code>pred</code>, limited to splitting at most <code>n</code> times.  The matched element is
+not contained in the subslices.</p>
+</div><h3 id='tymethod.rsplitn_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.rsplitn_mut' class='fnname'>rsplitn_mut</a>&lt;F&gt;(&amp;mut self, n: <a href='../primitive.usize.html'>usize</a>, pred: F) -&gt; <a class='struct' href='../../std/slice/struct.RSplitNMut.html' title='std::slice::RSplitNMut'>RSplitNMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item, F&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span></code></h3><div class='docblock'><p>Returns an iterator over subslices separated by elements that match
+<code>pred</code> limited to splitting at most <code>n</code> times. This starts at the end of
+the slice and works backwards.  The matched element is not contained in
+the subslices.</p>
+</div><h3 id='tymethod.chunks_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.chunks_mut' class='fnname'>chunks_mut</a>(&amp;mut self, chunk_size: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/slice/struct.ChunksMut.html' title='std::slice::ChunksMut'>ChunksMut</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Returns an iterator over <code>chunk_size</code> elements of the slice at a time.
+The chunks are mutable and do not overlap. If <code>chunk_size</code> does
+not divide the length of the slice, then the last chunk will not
+have length <code>chunk_size</code>.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>chunk_size</code> is 0.</p>
+</div><h3 id='tymethod.swap' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.swap' class='fnname'>swap</a>(&amp;mut self, a: <a href='../primitive.usize.html'>usize</a>, b: <a href='../primitive.usize.html'>usize</a>)</code></h3><div class='docblock'><p>Swaps two elements in a slice.</p>
+
+<h1 id="arguments" class='section-header'><a
+                           href="#arguments">Arguments</a></h1>
+<ul>
+<li>a - The index of the first element</li>
+<li>b - The index of the second element</li>
+</ul>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>a</code> or <code>b</code> are out of bounds.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    let mut v = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;];
+    v.swap(1, 3);
+    assert!(v == [&quot;a&quot;, &quot;d&quot;, &quot;c&quot;, &quot;b&quot;]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='string'>&quot;a&quot;</span>, <span class='string'>&quot;b&quot;</span>, <span class='string'>&quot;c&quot;</span>, <span class='string'>&quot;d&quot;</span>];
+<span class='ident'>v</span>.<span class='ident'>swap</span>(<span class='number'>1</span>, <span class='number'>3</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span> <span class='op'>==</span> [<span class='string'>&quot;a&quot;</span>, <span class='string'>&quot;d&quot;</span>, <span class='string'>&quot;c&quot;</span>, <span class='string'>&quot;b&quot;</span>]);
+</pre>
+</div><h3 id='tymethod.split_at_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.split_at_mut' class='fnname'>split_at_mut</a>(&amp;mut self, mid: <a href='../primitive.usize.html'>usize</a>) -&gt; <a href='../primitive.tuple.html'>(<a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>, <a href='../primitive.slice.html'>&amp;mut [</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>)</a></code></h3><div class='docblock'><p>Divides one <code>&amp;mut</code> into two at an index.</p>
+
+<p>The first will contain all indices from <code>[0, mid)</code> (excluding
+the index <code>mid</code> itself) and the second will contain all
+indices from <code>[mid, len)</code> (excluding the index <code>len</code> itself).</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>mid &gt; len</code>.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    let mut v = [1, 2, 3, 4, 5, 6];
+    
+    // scoped to restrict the lifetime of the borrows
+    {
+       let (left, right) = v.split_at_mut(0);
+       assert!(left == []);
+       assert!(right == [1, 2, 3, 4, 5, 6]);
+    }
+    
+    {
+        let (left, right) = v.split_at_mut(2);
+        assert!(left == [1, 2]);
+        assert!(right == [3, 4, 5, 6]);
+    }
+    
+    {
+        let (left, right) = v.split_at_mut(6);
+        assert!(left == [1, 2, 3, 4, 5, 6]);
+        assert!(right == []);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>, <span class='number'>6</span>];
+
+<span class='comment'>// scoped to restrict the lifetime of the borrows</span>
+{
+   <span class='kw'>let</span> (<span class='ident'>left</span>, <span class='ident'>right</span>) <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>split_at_mut</span>(<span class='number'>0</span>);
+   <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>left</span> <span class='op'>==</span> []);
+   <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>right</span> <span class='op'>==</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>, <span class='number'>6</span>]);
+}
+
+{
+    <span class='kw'>let</span> (<span class='ident'>left</span>, <span class='ident'>right</span>) <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>split_at_mut</span>(<span class='number'>2</span>);
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>left</span> <span class='op'>==</span> [<span class='number'>1</span>, <span class='number'>2</span>]);
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>right</span> <span class='op'>==</span> [<span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>, <span class='number'>6</span>]);
+}
+
+{
+    <span class='kw'>let</span> (<span class='ident'>left</span>, <span class='ident'>right</span>) <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>split_at_mut</span>(<span class='number'>6</span>);
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>left</span> <span class='op'>==</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>, <span class='number'>6</span>]);
+    <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>right</span> <span class='op'>==</span> []);
+}
+</pre>
+</div><h3 id='tymethod.reverse' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.reverse' class='fnname'>reverse</a>(&amp;mut self)</code></h3><div class='docblock'><p>Reverse the order of elements in a slice, in place.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    let mut v = [1, 2, 3];
+    v.reverse();
+    assert!(v == [3, 2, 1]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='ident'>v</span>.<span class='ident'>reverse</span>();
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span> <span class='op'>==</span> [<span class='number'>3</span>, <span class='number'>2</span>, <span class='number'>1</span>]);
+</pre>
+</div><h3 id='tymethod.get_unchecked_mut' class='method'><a class='stability Stable' title='Stable'></a><code>unsafe fn <a href='#tymethod.get_unchecked_mut' class='fnname'>get_unchecked_mut</a>(&amp;mut self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; &amp;mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item</code></h3><div class='docblock'><p>Returns an unsafe mutable pointer to the element in index</p>
+</div><h3 id='tymethod.as_mut_ptr' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.as_mut_ptr' class='fnname'>as_mut_ptr</a>(&amp;mut self) -&gt; *mut &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item</code></h3><div class='docblock'><p>Return an unsafe mutable pointer to the slice&#39;s buffer.</p>
+
+<p>The caller must ensure that the slice outlives the pointer this
+function returns, or else it will end up pointing to garbage.</p>
+
+<p>Modifying the slice may cause its buffer to be reallocated, which
+would also make any pointers to it invalid.</p>
+</div><h3 id='tymethod.to_vec' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.to_vec' class='fnname'>to_vec</a>(&amp;self) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span></code></h3><div class='docblock'><p>Copies <code>self</code> into a new <code>Vec</code>.</p>
+</div><h3 id='tymethod.permutations' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.permutations' class='fnname'>permutations</a>(&amp;self) -&gt; <a class='struct' href='../../std/slice/struct.Permutations.html' title='std::slice::Permutations'>Permutations</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span></code></h3><div class='docblock'><p>Creates an iterator that yields every possible permutation of the
+vector in succession.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = [1, 2, 3];
+    let mut perms = v.permutations();
+    
+    for p in perms {
+      println!(&quot;{:?}&quot;, p);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>perms</span> <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>permutations</span>();
+
+<span class='kw'>for</span> <span class='ident'>p</span> <span class='kw'>in</span> <span class='ident'>perms</span> {
+  <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>p</span>);
+}
+</pre>
+
+<p>Iterating through permutations one by one.</p>
+<span class='rusttest'>fn main() {
+    let v = [1, 2, 3];
+    let mut perms = v.permutations();
+    
+    assert_eq!(Some(vec![1, 2, 3]), perms.next());
+    assert_eq!(Some(vec![1, 3, 2]), perms.next());
+    assert_eq!(Some(vec![3, 1, 2]), perms.next());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>perms</span> <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>permutations</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]), <span class='ident'>perms</span>.<span class='ident'>next</span>());
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>3</span>, <span class='number'>2</span>]), <span class='ident'>perms</span>.<span class='ident'>next</span>());
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='prelude-val'>Some</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>3</span>, <span class='number'>1</span>, <span class='number'>2</span>]), <span class='ident'>perms</span>.<span class='ident'>next</span>());
+</pre>
+</div><h3 id='tymethod.clone_from_slice' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.clone_from_slice' class='fnname'>clone_from_slice</a>(&amp;mut self, <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>) -&gt; <a href='../primitive.usize.html'>usize</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span></code></h3><div class='docblock'><p>Copies as many elements from <code>src</code> as it can into <code>self</code> (the
+shorter of <code>self.len()</code> and <code>src.len()</code>). Returns the number
+of elements copied.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    let mut dst = [0, 0, 0];
+    let src = [1, 2];
+    
+    assert!(dst.clone_from_slice(&amp;src) == 2);
+    assert!(dst == [1, 2, 0]);
+    
+    let src2 = [3, 4, 5, 6];
+    assert!(dst.clone_from_slice(&amp;src2) == 3);
+    assert!(dst == [3, 4, 5]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>dst</span> <span class='op'>=</span> [<span class='number'>0</span>, <span class='number'>0</span>, <span class='number'>0</span>];
+<span class='kw'>let</span> <span class='ident'>src</span> <span class='op'>=</span> [<span class='number'>1</span>, <span class='number'>2</span>];
+
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>dst</span>.<span class='ident'>clone_from_slice</span>(<span class='kw-2'>&amp;</span><span class='ident'>src</span>) <span class='op'>==</span> <span class='number'>2</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>dst</span> <span class='op'>==</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>0</span>]);
+
+<span class='kw'>let</span> <span class='ident'>src2</span> <span class='op'>=</span> [<span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>, <span class='number'>6</span>];
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>dst</span>.<span class='ident'>clone_from_slice</span>(<span class='kw-2'>&amp;</span><span class='ident'>src2</span>) <span class='op'>==</span> <span class='number'>3</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>dst</span> <span class='op'>==</span> [<span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>]);
+</pre>
+</div><h3 id='tymethod.sort' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.sort' class='fnname'>sort</a>(&amp;mut self) <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span></code></h3><div class='docblock'><p>Sorts the slice, in place.</p>
+
+<p>This is equivalent to <code>self.sort_by(|a, b| a.cmp(b))</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut v = [-5, 4, 1, -3, 2];
+    
+    v.sort();
+    assert!(v == [-5, -3, 1, 2, 4]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='op'>-</span><span class='number'>5</span>, <span class='number'>4</span>, <span class='number'>1</span>, <span class='op'>-</span><span class='number'>3</span>, <span class='number'>2</span>];
+
+<span class='ident'>v</span>.<span class='ident'>sort</span>();
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span> <span class='op'>==</span> [<span class='op'>-</span><span class='number'>5</span>, <span class='op'>-</span><span class='number'>3</span>, <span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>4</span>]);
+</pre>
+</div><h3 id='tymethod.binary_search' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.binary_search' class='fnname'>binary_search</a>(&amp;self, x: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>, <a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span></code></h3><div class='docblock'><p>Binary search a sorted slice for a given element.</p>
+
+<p>If the value is found then <code>Ok</code> is returned, containing the
+index of the matching element; if the value is not found then
+<code>Err</code> is returned, containing the index where a matching
+element could be inserted while maintaining sorted order.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1>
+<p>Looks up a series of four elements. The first is found, with a
+uniquely determined position; the second and third are not
+found; the fourth could match any position in <code>[1,4]</code>.</p>
+<span class='rusttest'>fn main() {
+    let s = [0, 1, 1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
+    let s = s.as_slice();
+    
+    assert_eq!(s.binary_search(&amp;13),  Ok(9));
+    assert_eq!(s.binary_search(&amp;4),   Err(7));
+    assert_eq!(s.binary_search(&amp;100), Err(13));
+    let r = s.binary_search(&amp;1);
+    assert!(match r { Ok(1...4) =&gt; true, _ =&gt; false, });
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> [<span class='number'>0</span>, <span class='number'>1</span>, <span class='number'>1</span>, <span class='number'>1</span>, <span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>5</span>, <span class='number'>8</span>, <span class='number'>13</span>, <span class='number'>21</span>, <span class='number'>34</span>, <span class='number'>55</span>];
+<span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>s</span>.<span class='ident'>as_slice</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>s</span>.<span class='ident'>binary_search</span>(<span class='kw-2'>&amp;</span><span class='number'>13</span>),  <span class='prelude-val'>Ok</span>(<span class='number'>9</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>s</span>.<span class='ident'>binary_search</span>(<span class='kw-2'>&amp;</span><span class='number'>4</span>),   <span class='prelude-val'>Err</span>(<span class='number'>7</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>s</span>.<span class='ident'>binary_search</span>(<span class='kw-2'>&amp;</span><span class='number'>100</span>), <span class='prelude-val'>Err</span>(<span class='number'>13</span>));
+<span class='kw'>let</span> <span class='ident'>r</span> <span class='op'>=</span> <span class='ident'>s</span>.<span class='ident'>binary_search</span>(<span class='kw-2'>&amp;</span><span class='number'>1</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='kw'>match</span> <span class='ident'>r</span> { <span class='prelude-val'>Ok</span>(<span class='number'>1</span>...<span class='number'>4</span>) <span class='op'>=&gt;</span> <span class='boolval'>true</span>, _ <span class='op'>=&gt;</span> <span class='boolval'>false</span>, });
+</pre>
+</div><h3 id='tymethod.next_permutation' class='method'><a class='stability Unstable' title='Unstable: uncertain if this merits inclusion in std'></a><code>fn <a href='#tymethod.next_permutation' class='fnname'>next_permutation</a>(&amp;mut self) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span></code></h3><div class='docblock'><p>Mutates the slice to the next lexicographic permutation.</p>
+
+<p>Returns <code>true</code> if successful and <code>false</code> if the slice is at the
+last-ordered permutation.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    let v: &amp;mut [_] = &amp;mut [0, 1, 2];
+    v.next_permutation();
+    let b: &amp;mut [_] = &amp;mut [0, 2, 1];
+    assert!(v == b);
+    v.next_permutation();
+    let b: &amp;mut [_] = &amp;mut [1, 0, 2];
+    assert!(v == b);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [_] <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='number'>0</span>, <span class='number'>1</span>, <span class='number'>2</span>];
+<span class='ident'>v</span>.<span class='ident'>next_permutation</span>();
+<span class='kw'>let</span> <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [_] <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='number'>0</span>, <span class='number'>2</span>, <span class='number'>1</span>];
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span> <span class='op'>==</span> <span class='ident'>b</span>);
+<span class='ident'>v</span>.<span class='ident'>next_permutation</span>();
+<span class='kw'>let</span> <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [_] <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='number'>1</span>, <span class='number'>0</span>, <span class='number'>2</span>];
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span> <span class='op'>==</span> <span class='ident'>b</span>);
+</pre>
+</div><h3 id='tymethod.prev_permutation' class='method'><a class='stability Unstable' title='Unstable: uncertain if this merits inclusion in std'></a><code>fn <a href='#tymethod.prev_permutation' class='fnname'>prev_permutation</a>(&amp;mut self) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span></code></h3><div class='docblock'><p>Mutates the slice to the previous lexicographic permutation.</p>
+
+<p>Returns <code>true</code> if successful and <code>false</code> if the slice is at the
+first-ordered permutation.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    let v: &amp;mut [_] = &amp;mut [1, 0, 2];
+    v.prev_permutation();
+    let b: &amp;mut [_] = &amp;mut [0, 2, 1];
+    assert!(v == b);
+    v.prev_permutation();
+    let b: &amp;mut [_] = &amp;mut [0, 1, 2];
+    assert!(v == b);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [_] <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='number'>1</span>, <span class='number'>0</span>, <span class='number'>2</span>];
+<span class='ident'>v</span>.<span class='ident'>prev_permutation</span>();
+<span class='kw'>let</span> <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [_] <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='number'>0</span>, <span class='number'>2</span>, <span class='number'>1</span>];
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span> <span class='op'>==</span> <span class='ident'>b</span>);
+<span class='ident'>v</span>.<span class='ident'>prev_permutation</span>();
+<span class='kw'>let</span> <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [_] <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='number'>0</span>, <span class='number'>1</span>, <span class='number'>2</span>];
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span> <span class='op'>==</span> <span class='ident'>b</span>);
+</pre>
+</div><h3 id='tymethod.position_elem' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.position_elem' class='fnname'>position_elem</a>(&amp;self, t: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span></code></h3><div class='docblock'><p>Find the first index containing a matching value.</p>
+</div><h3 id='tymethod.rposition_elem' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.rposition_elem' class='fnname'>rposition_elem</a>(&amp;self, t: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span></code></h3><div class='docblock'><p>Find the last index containing a matching value.</p>
+</div><h3 id='tymethod.contains' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.contains' class='fnname'>contains</a>(&amp;self, x: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span></code></h3><div class='docblock'><p>Returns true if the slice contains an element with the given value.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = [10, 40, 30];
+    assert!(v.contains(&amp;30));
+    assert!(!v.contains(&amp;50));
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>];
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>contains</span>(<span class='kw-2'>&amp;</span><span class='number'>30</span>));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>v</span>.<span class='ident'>contains</span>(<span class='kw-2'>&amp;</span><span class='number'>50</span>));
+</pre>
+</div><h3 id='tymethod.starts_with' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.starts_with' class='fnname'>starts_with</a>(&amp;self, needle: <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span></code></h3><div class='docblock'><p>Returns true if <code>needle</code> is a prefix of the slice.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = [10, 40, 30];
+    assert!(v.starts_with(&amp;[10]));
+    assert!(v.starts_with(&amp;[10, 40]));
+    assert!(!v.starts_with(&amp;[50]));
+    assert!(!v.starts_with(&amp;[10, 50]));
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>];
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>starts_with</span>(<span class='kw-2'>&amp;</span>[<span class='number'>10</span>]));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>starts_with</span>(<span class='kw-2'>&amp;</span>[<span class='number'>10</span>, <span class='number'>40</span>]));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>v</span>.<span class='ident'>starts_with</span>(<span class='kw-2'>&amp;</span>[<span class='number'>50</span>]));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>v</span>.<span class='ident'>starts_with</span>(<span class='kw-2'>&amp;</span>[<span class='number'>10</span>, <span class='number'>50</span>]));
+</pre>
+</div><h3 id='tymethod.ends_with' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.ends_with' class='fnname'>ends_with</a>(&amp;self, needle: <a href='../primitive.slice.html'>&amp;[</a>&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item<a href='../primitive.slice.html'>]</a>) -&gt; <a href='../primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</span></code></h3><div class='docblock'><p>Returns true if <code>needle</code> is a suffix of the slice.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = [10, 40, 30];
+    assert!(v.ends_with(&amp;[30]));
+    assert!(v.ends_with(&amp;[40, 30]));
+    assert!(!v.ends_with(&amp;[50]));
+    assert!(!v.ends_with(&amp;[50, 30]));
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> [<span class='number'>10</span>, <span class='number'>40</span>, <span class='number'>30</span>];
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>ends_with</span>(<span class='kw-2'>&amp;</span>[<span class='number'>30</span>]));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>ends_with</span>(<span class='kw-2'>&amp;</span>[<span class='number'>40</span>, <span class='number'>30</span>]));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>v</span>.<span class='ident'>ends_with</span>(<span class='kw-2'>&amp;</span>[<span class='number'>50</span>]));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>v</span>.<span class='ident'>ends_with</span>(<span class='kw-2'>&amp;</span>[<span class='number'>50</span>, <span class='number'>30</span>]));
+</pre>
+</div><h3 id='tymethod.into_vec' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.into_vec' class='fnname'>into_vec</a>(self: <a class='struct' href='../../std/boxed/struct.Box.html' title='std::boxed::Box'>Box</a>&lt;Self&gt;) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item&gt;</code></h3><div class='docblock'><p>Convert <code>self</code> into a vector without clones or allocation.</p>
+</div></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.is_empty' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns true if the slice has a length of 0</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    let a = [1, 2, 3];
+    assert!(!a.is_empty());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>a</span>.<span class='ident'>is_empty</span>());
+</pre>
+</div><h3 id='tymethod.binary_search_elem' class='method'><a class='stability Deprecated' title='Deprecated: use binary_search instead'></a><code>fn <a href='#tymethod.binary_search_elem' class='fnname'>binary_search_elem</a>(&amp;self, x: &amp;&lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>, <a href='../primitive.usize.html'>usize</a>&gt; <span class='where'>where &lt;Self as <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a>&gt;::Item: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span></code></h3><div class='docblock'><p>Deprecated: use <code>binary_search</code> instead.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/slice/trait.SliceExt.html' title='std::slice::SliceExt'>SliceExt</a> for <a href='../primitive.slice.html'>[T]</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/collections/slice/trait.SliceExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

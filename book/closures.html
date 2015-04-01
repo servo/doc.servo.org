@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Closures</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Closures</h1>
+    <p>So far, we&#39;ve made lots of functions in Rust, but we&#39;ve given them all names.
+Rust also allows us to create anonymous functions. Rust&#39;s anonymous
+functions are called <em>closures</em>. By themselves, closures aren&#39;t all that
+interesting, but when you combine them with functions that take closures as
+arguments, really powerful things are possible.</p>
+
+<p>Let&#39;s make a closure:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>add_one</span> <span class='op'>=</span> <span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> { <span class='number'>1</span> <span class='op'>+</span> <span class='ident'>x</span> };
+
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The sum of 5 plus 1 is {}.&quot;</span>, <span class='ident'>add_one</span>(<span class='number'>5</span>));
+</pre>
+
+<p>We create a closure using the <code>|...| { ... }</code> syntax, and then we create a
+binding so we can use it later. Note that we call the function using the
+binding name and two parentheses, just like we would for a named function.</p>
+
+<p>Let&#39;s compare syntax. The two are pretty close:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>add_one</span> <span class='op'>=</span> <span class='op'>|</span><span class='ident'>x</span>: <span class='ident'>i32</span><span class='op'>|</span> <span class='op'>-&gt;</span> <span class='ident'>i32</span> { <span class='number'>1</span> <span class='op'>+</span> <span class='ident'>x</span> };
+<span class='kw'>fn</span>  <span class='ident'>add_one</span>   (<span class='ident'>x</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> { <span class='number'>1</span> <span class='op'>+</span> <span class='ident'>x</span> }
+</pre>
+
+<p>As you may have noticed, closures infer their argument and return types, so you
+don&#39;t need to declare one. This is different from named functions, which
+default to returning unit (<code>()</code>).</p>
+
+<p>There&#39;s one big difference between a closure and named functions, and it&#39;s in
+the name: a closure &quot;closes over its environment.&quot; What does that mean? It means
+this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>x</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='number'>5</span>;
+
+    <span class='kw'>let</span> <span class='ident'>printer</span> <span class='op'>=</span> <span class='op'>||</span> { <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;x is: {}&quot;</span>, <span class='ident'>x</span>); };
+
+    <span class='ident'>printer</span>(); <span class='comment'>// prints &quot;x is: 5&quot;</span>
+}
+</pre>
+
+<p>The <code>||</code> syntax means this is an anonymous closure that takes no arguments.
+Without it, we&#39;d just have a block of code in <code>{}</code>s.</p>
+
+<p>In other words, a closure has access to variables in the scope where it&#39;s
+defined. The closure borrows any variables it uses, so this will error:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>x</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='number'>5</span>;
+
+    <span class='kw'>let</span> <span class='ident'>printer</span> <span class='op'>=</span> <span class='op'>||</span> { <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;x is: {}&quot;</span>, <span class='ident'>x</span>); };
+
+    <span class='ident'>x</span> <span class='op'>=</span> <span class='number'>6</span>; <span class='comment'>// error: cannot assign to `x` because it is borrowed</span>
+}
+</pre>
+
+<h2 id="moving-closures" class='section-header'><a
+                           href="#moving-closures">Moving closures</a></h2>
+<p>Rust has a second type of closure, called a <em>moving closure</em>. Moving
+closures are indicated using the <code>move</code> keyword (e.g., <code>move || x *
+x</code>). The difference between a moving closure and an ordinary closure
+is that a moving closure always takes ownership of all variables that
+it uses. Ordinary closures, in contrast, just create a reference into
+the enclosing stack frame. Moving closures are most useful with Rust&#39;s
+concurrency features, and so we&#39;ll just leave it at this for
+now. We&#39;ll talk about them more in the &quot;Threads&quot; section of the guide.</p>
+
+<h2 id="accepting-closures-as-arguments" class='section-header'><a
+                           href="#accepting-closures-as-arguments">Accepting closures as arguments</a></h2>
+<p>Closures are most useful as an argument to another function. Here&#39;s an example:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>twice</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>Fn</span>(<span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='ident'>f</span>(<span class='ident'>x</span>) <span class='op'>+</span> <span class='ident'>f</span>(<span class='ident'>x</span>)
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>square</span> <span class='op'>=</span> <span class='op'>|</span><span class='ident'>x</span>: <span class='ident'>i32</span><span class='op'>|</span> { <span class='ident'>x</span> <span class='op'>*</span> <span class='ident'>x</span> };
+
+    <span class='ident'>twice</span>(<span class='number'>5</span>, <span class='ident'>square</span>); <span class='comment'>// evaluates to 50</span>
+}
+</pre>
+
+<p>Let&#39;s break the example down, starting with <code>main</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>square</span> <span class='op'>=</span> <span class='op'>|</span><span class='ident'>x</span>: <span class='ident'>i32</span><span class='op'>|</span> { <span class='ident'>x</span> <span class='op'>*</span> <span class='ident'>x</span> };
+</pre>
+
+<p>We&#39;ve seen this before. We make a closure that takes an integer, and returns
+its square.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>twice</span>(<span class='number'>5</span>, <span class='ident'>square</span>); <span class='comment'>// evaluates to 50</span>
+</pre>
+
+<p>This line is more interesting. Here, we call our function, <code>twice</code>, and we pass
+it two arguments: an integer, <code>5</code>, and our closure, <code>square</code>. This is just like
+passing any other two variable bindings to a function, but if you&#39;ve never
+worked with closures before, it can seem a little complex. Just think: &quot;I&#39;m
+passing two variables: one is an i32, and one is a function.&quot;</p>
+
+<p>Next, let&#39;s look at how <code>twice</code> is defined:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>twice</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>Fn</span>(<span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+</pre>
+
+<p><code>twice</code> takes two arguments, <code>x</code> and <code>f</code>. That&#39;s why we called it with two
+arguments. <code>x</code> is an <code>i32</code>, we&#39;ve done that a ton of times. <code>f</code> is a function,
+though, and that function takes an <code>i32</code> and returns an <code>i32</code>. This is
+what the requirement <code>Fn(i32) -&gt; i32</code> for the type parameter <code>F</code> says.
+Now <code>F</code> represents <em>any</em> function that takes an <code>i32</code> and returns an <code>i32</code>.</p>
+
+<p>This is the most complicated function signature we&#39;ve seen yet! Give it a read
+a few times until you can see how it works. It takes a teeny bit of practice, and
+then it&#39;s easy. The good news is that this kind of passing a closure around
+can be very efficient. With all the type information available at compile-time
+the compiler can do wonders.</p>
+
+<p>Finally, <code>twice</code> returns an <code>i32</code> as well.</p>
+
+<p>Okay, let&#39;s look at the body of <code>twice</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>twice</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>Fn</span>(<span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+  <span class='ident'>f</span>(<span class='ident'>x</span>) <span class='op'>+</span> <span class='ident'>f</span>(<span class='ident'>x</span>)
+}
+</pre>
+
+<p>Since our closure is named <code>f</code>, we can call it just like we called our closures
+before, and we pass in our <code>x</code> argument to each one, hence the name <code>twice</code>.</p>
+
+<p>If you do the math, <code>(5 * 5) + (5 * 5) == 50</code>, so that&#39;s the output we get.</p>
+
+<p>Play around with this concept until you&#39;re comfortable with it. Rust&#39;s standard
+library uses lots of closures where appropriate, so you&#39;ll be using
+this technique a lot.</p>
+
+<p>If we didn&#39;t want to give <code>square</code> a name, we could just define it inline.
+This example is the same as the previous one:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>twice</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>Fn</span>(<span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='ident'>f</span>(<span class='ident'>x</span>) <span class='op'>+</span> <span class='ident'>f</span>(<span class='ident'>x</span>)
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='ident'>twice</span>(<span class='number'>5</span>, <span class='op'>|</span><span class='ident'>x</span>: <span class='ident'>i32</span><span class='op'>|</span> { <span class='ident'>x</span> <span class='op'>*</span> <span class='ident'>x</span> }); <span class='comment'>// evaluates to 50</span>
+}
+</pre>
+
+<p>A named function&#39;s name can be used wherever you&#39;d use a closure. Another
+way of writing the previous example:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>twice</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>Fn</span>(<span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='ident'>f</span>(<span class='ident'>x</span>) <span class='op'>+</span> <span class='ident'>f</span>(<span class='ident'>x</span>)
+}
+
+<span class='kw'>fn</span> <span class='ident'>square</span>(<span class='ident'>x</span>: <span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> { <span class='ident'>x</span> <span class='op'>*</span> <span class='ident'>x</span> }
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='ident'>twice</span>(<span class='number'>5</span>, <span class='ident'>square</span>); <span class='comment'>// evaluates to 50</span>
+}
+</pre>
+
+<p>Doing this is not particularly common, but it&#39;s useful every once in a while.</p>
+
+<p>Before we move on, let us look at a function that accepts two closures.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>compose</span><span class='op'>&lt;</span><span class='ident'>F</span>, <span class='ident'>G</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>i32</span>, <span class='ident'>f</span>: <span class='ident'>F</span>, <span class='ident'>g</span>: <span class='ident'>G</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>
+    <span class='kw'>where</span> <span class='ident'>F</span>: <span class='ident'>Fn</span>(<span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span>, <span class='ident'>G</span>: <span class='ident'>Fn</span>(<span class='ident'>i32</span>) <span class='op'>-&gt;</span> <span class='ident'>i32</span> {
+    <span class='ident'>g</span>(<span class='ident'>f</span>(<span class='ident'>x</span>))
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='ident'>compose</span>(<span class='number'>5</span>,
+            <span class='op'>|</span><span class='ident'>n</span>: <span class='ident'>i32</span><span class='op'>|</span> { <span class='ident'>n</span> <span class='op'>+</span> <span class='number'>42</span> },
+            <span class='op'>|</span><span class='ident'>n</span>: <span class='ident'>i32</span><span class='op'>|</span> { <span class='ident'>n</span> <span class='op'>*</span> <span class='number'>2</span> }); <span class='comment'>// evaluates to 94</span>
+}
+</pre>
+
+<p>You might ask yourself: why do we need to introduce two type
+parameters <code>F</code> and <code>G</code> here?  Evidently, both <code>f</code> and <code>g</code> have the
+same signature: <code>Fn(i32) -&gt; i32</code>.</p>
+
+<p>That is because in Rust each closure has its own unique type.
+So, not only do closures with different signatures have different types,
+but different closures with the <em>same</em> signature have <em>different</em>
+types, as well!</p>
+
+<p>You can think of it this way: the behavior of a closure is part of its
+type.  Therefore, using a single type parameter for both closures
+will accept the first of them, rejecting the second. The distinct
+type of the second closure does not allow it to be represented by the
+same type parameter as that of the first.  We acknowledge this, and
+use two different type parameters <code>F</code> and <code>G</code>.</p>
+
+<p>This also introduces the <code>where</code> clause, which lets us describe type
+parameters in a more flexible manner.</p>
+
+<p>That&#39;s all you need to get the hang of closures! Closures are a little bit
+strange at first, but once you&#39;re used to them, you&#39;ll miss them
+in other languages. Passing functions to other functions is
+incredibly powerful, as you will see in the following chapter about iterators.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

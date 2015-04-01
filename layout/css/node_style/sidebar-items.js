@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["StyledNode","Node mixin providing `style` method that returns a `NodeStyle`"]]});

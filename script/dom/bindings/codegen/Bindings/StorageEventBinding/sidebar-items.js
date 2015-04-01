@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["DefineDOMInterface",""],["GetProtoObject",""],["Wrap",""]],"struct":[["StorageEventInit",""]],"static":[["sNativePropertyHooks",""]],"trait":[["StorageEventMethods",""]]});

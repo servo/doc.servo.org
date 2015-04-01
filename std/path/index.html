@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `path` mod in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, path">
+
+    <title>std::path - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a></p><script>window.sidebarCurrent = {name: 'path', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>std</a>::<wbr><a class='mod' href=''>path</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-55537' href='../../src/std/path.rs.html#11-2628'>[src]</a></span></h1>
+<div class='docblock'><p>Cross-platform path manipulation.</p>
+
+<p>This module provides two types, <code>PathBuf</code> and <code>Path</code> (akin to <code>String</code> and
+<code>str</code>), for working with paths abstractly. These types are thin wrappers
+around <code>OsString</code> and <code>OsStr</code> respectively, meaning that they work directly
+on strings according to the local platform&#39;s path syntax.</p>
+
+<h2 id="simple-usage" class='section-header'><a
+                           href="#simple-usage">Simple usage</a></h2>
+<p>Path manipulation involves both parsing components from slices and building
+new owned paths.</p>
+
+<p>To parse a path, you can create a <code>Path</code> slice from a <code>str</code>
+slice and start asking questions:</p>
+<span class='rusttest'>fn main() {
+    use std::path::Path;
+    
+    let path = Path::new(&quot;/tmp/foo/bar.txt&quot;);
+    let file = path.file_name();
+    let extension = path.extension();
+    let parent_dir = path.parent();
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>path</span>::<span class='ident'>Path</span>;
+
+<span class='kw'>let</span> <span class='ident'>path</span> <span class='op'>=</span> <span class='ident'>Path</span>::<span class='ident'>new</span>(<span class='string'>&quot;/tmp/foo/bar.txt&quot;</span>);
+<span class='kw'>let</span> <span class='ident'>file</span> <span class='op'>=</span> <span class='ident'>path</span>.<span class='ident'>file_name</span>();
+<span class='kw'>let</span> <span class='ident'>extension</span> <span class='op'>=</span> <span class='ident'>path</span>.<span class='ident'>extension</span>();
+<span class='kw'>let</span> <span class='ident'>parent_dir</span> <span class='op'>=</span> <span class='ident'>path</span>.<span class='ident'>parent</span>();
+</pre>
+
+<p>To build or modify paths, use <code>PathBuf</code>:</p>
+<span class='rusttest'>fn main() {
+    use std::path::PathBuf;
+    
+    let mut path = PathBuf::new(&quot;c:\\&quot;);
+    path.push(&quot;windows&quot;);
+    path.push(&quot;system32&quot;);
+    path.set_extension(&quot;dll&quot;);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>path</span>::<span class='ident'>PathBuf</span>;
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>path</span> <span class='op'>=</span> <span class='ident'>PathBuf</span>::<span class='ident'>new</span>(<span class='string'>&quot;c:\\&quot;</span>);
+<span class='ident'>path</span>.<span class='ident'>push</span>(<span class='string'>&quot;windows&quot;</span>);
+<span class='ident'>path</span>.<span class='ident'>push</span>(<span class='string'>&quot;system32&quot;</span>);
+<span class='ident'>path</span>.<span class='ident'>set_extension</span>(<span class='string'>&quot;dll&quot;</span>);
+</pre>
+
+<h2 id="path-components-and-normalization" class='section-header'><a
+                           href="#path-components-and-normalization">Path components and normalization</a></h2>
+<p>The path APIs are built around the notion of &quot;components&quot;, which roughly
+correspond to the substrings between path separators (<code>/</code> and, on Windows,
+<code>\</code>). The APIs for path parsing are largely specified in terms of the path&#39;s
+components, so it&#39;s important to clearly understand how those are determined.</p>
+
+<p>A path can always be reconstructed into an equivalent path by putting
+together its components via <code>push</code>. Syntactically, the paths may differ by
+the normalization described below.</p>
+
+<h3 id="component-types" class='section-header'><a
+                           href="#component-types">Component types</a></h3>
+<p>Components come in several types:</p>
+
+<ul>
+<li><p>Normal components are the default: standard references to files or
+directories. The path <code>a/b</code> has two normal components, <code>a</code> and <code>b</code>.</p></li>
+<li><p>Current directory components represent the <code>.</code> character. For example,
+<code>a/.</code> has a normal component <code>a</code> and a current directory component.</p></li>
+<li><p>The root directory component represents a separator that designates
+starting from root. For example, <code>/a/b</code> has a root directory component
+followed by normal components <code>a</code> and <code>b</code>.</p></li>
+</ul>
+
+<p>On Windows, two additional component types come into play:</p>
+
+<ul>
+<li><p>Prefix components, of which there is a large variety. For example, <code>C:</code>
+and <code>\\server\share</code> are prefixes. The path <code>C:windows</code> has a prefix
+component <code>C:</code> and a normal component <code>windows</code>; the path <code>C:\windows</code> has a
+prefix component <code>C:</code>, a root directory component, and a normal component
+<code>windows</code>.</p></li>
+<li><p>Empty components, a special case for so-called &quot;verbatim&quot; paths where very
+little normalization is allowed. For example, <code>\\?\C:\</code> has a &quot;verbatim&quot;
+prefix <code>\\?\C:</code>, a root component, and an empty component (as a way of
+representing the trailing <code>\</code>. Such a trailing <code>\</code> is in fact the only
+situation in which an empty component is produced.</p></li>
+</ul>
+
+<h3 id="normalization" class='section-header'><a
+                           href="#normalization">Normalization</a></h3>
+<p>Aside from splitting on the separator(s), there is a small amount of
+&quot;normalization&quot;:</p>
+
+<ul>
+<li><p>Repeated separators are ignored: <code>a/b</code> and <code>a//b</code> both have components <code>a</code>
+and <code>b</code>.</p></li>
+<li><p>Paths ending in a separator are treated as if they have a current directory
+component at the end (or, in verbatim paths, an empty component).  For
+example, while <code>a/b</code> has components <code>a</code> and <code>b</code>, the paths <code>a/b/</code> and
+<code>a/b/.</code> both have components <code>a</code>, <code>b</code>, and <code>.</code> (current directory).  The
+reason for this normalization is that <code>a/b</code> and <code>a/b/</code> are treated
+differently in some contexts, but <code>a/b/</code> and <code>a/b/.</code> are always treated
+the same.</p></li>
+</ul>
+
+<p>No other normalization takes place by default. In particular, <code>a/./b/</code> and
+<code>a/b</code> are treated distinctly in terms of components, as are <code>a/c</code> and
+<code>a/b/../c</code>. Further normalization is possible to build on top of the
+components APIs, and will be included in this library very soon.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='struct' href='struct.Components.html'
+                               title='std::path::Components'>Components</a></td>
+                        <td class='docblock short'><p>The core iterator giving the components of a path.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='struct' href='struct.Display.html'
+                               title='std::path::Display'>Display</a></td>
+                        <td class='docblock short'><p>Helper struct for safely printing paths with <code>format!()</code> and <code>{}</code></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='struct' href='struct.Iter.html'
+                               title='std::path::Iter'>Iter</a></td>
+                        <td class='docblock short'><p>An iterator over the components of a path, as <code>OsStr</code> slices.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='struct' href='struct.Path.html'
+                               title='std::path::Path'>Path</a></td>
+                        <td class='docblock short'><p>A slice of a path (akin to <code>str</code>).</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='struct' href='struct.PathBuf.html'
+                               title='std::path::PathBuf'>PathBuf</a></td>
+                        <td class='docblock short'><p>An owned, mutable path (akin to <code>String</code>).</p>
+</td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='enum' href='enum.Component.html'
+                               title='std::path::Component'>Component</a></td>
+                        <td class='docblock short'><p>A single component of a path.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='enum' href='enum.Prefix.html'
+                               title='std::path::Prefix'>Prefix</a></td>
+                        <td class='docblock short'><p>Path prefixes (Windows only).</p>
+</td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='constant' href='constant.MAIN_SEPARATOR.html'
+                               title='std::path::MAIN_SEPARATOR'>MAIN_SEPARATOR</a></td>
+                        <td class='docblock short'><p>The primary sperator for the current platform</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='trait' href='trait.AsPath.html'
+                               title='std::path::AsPath'>AsPath</a></td>
+                        <td class='docblock short'><p>Freely convertible to a <code>Path</code>.</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='fn' href='fn.is_separator.html'
+                               title='std::path::is_separator'>is_separator</a></td>
+                        <td class='docblock short'><p>Determine whether the character is one of the permitted path
+separators for the current platform.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

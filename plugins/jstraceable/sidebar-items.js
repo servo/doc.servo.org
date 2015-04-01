@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["expand_dom_struct",""],["expand_jstraceable","Provides the hook to expand `#[jstraceable]` into an implementation of `JSTraceable`"]]});

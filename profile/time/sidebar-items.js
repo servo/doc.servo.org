@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["profile",""],["time",""]],"trait":[["Formattable",""]],"enum":[["ProfilerCategory",""],["ProfilerMsg",""],["TimerMetadataFrameType",""],["TimerMetadataReflowType",""]],"type":[["ProfilerMetadata",""]],"struct":[["Profiler",""],["ProfilerChan",""],["TimerMetadata",""]]});

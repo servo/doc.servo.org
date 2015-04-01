@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Opts` struct in crate `util`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Opts">
+
+    <title>util::opts::Opts - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>util</a>::<wbr><a href='index.html'>opts</a></p><script>window.sidebarCurrent = {name: 'Opts', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>util</a>::<wbr><a href='index.html'>opts</a>::<wbr><a class='struct' href=''>Opts</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-13738' href='../../src/util/opts.rs.html#24-127'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Opts {
+    pub urls: <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
+    pub paint_threads: <a href='../../std/primitive.usize.html'>usize</a>,
+    pub gpu_painting: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub tile_size: <a href='../../std/primitive.usize.html'>usize</a>,
+    pub device_pixels_per_px: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../geom/scale_factor/struct.ScaleFactor.html' title='geom::scale_factor::ScaleFactor'>ScaleFactor</a>&lt;<a class='enum' href='../../util/geometry/enum.ScreenPx.html' title='util::geometry::ScreenPx'>ScreenPx</a>, <a class='enum' href='../../layers/geometry/enum.DevicePixel.html' title='layers::geometry::DevicePixel'>DevicePixel</a>, <a href='../../std/primitive.f32.html'>f32</a>&gt;&gt;,
+    pub time_profiler_period: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../../std/primitive.f64.html'>f64</a>&gt;,
+    pub mem_profiler_period: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../../std/primitive.f64.html'>f64</a>&gt;,
+    pub enable_experimental: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub layout_threads: <a href='../../std/primitive.usize.html'>usize</a>,
+    pub nonincremental_layout: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub nossl: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub userscripts: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub output_file: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
+    pub headless: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub hard_fail: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub bubble_inline_sizes_separately: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub show_debug_borders: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub show_debug_fragment_borders: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub show_debug_parallel_paint: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub show_debug_parallel_layout: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub enable_text_antialiasing: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub trace_layout: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub profile_tasks: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub devtools_port: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../../std/primitive.u16.html'>u16</a>&gt;,
+    pub initial_window_size: <a class='type' href='../../geom/size/type.TypedSize2D.html' title='geom::size::TypedSize2D'>TypedSize2D</a>&lt;<a class='enum' href='../../util/geometry/enum.ScreenPx.html' title='util::geometry::ScreenPx'>ScreenPx</a>, <a href='../../std/primitive.u32.html'>u32</a>&gt;,
+    pub user_agent: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
+    pub dump_flow_tree: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub dump_display_list: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub relayout_event: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub validate_display_list_geometry: <a href='../../std/primitive.bool.html'>bool</a>,
+    pub resources_path: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
+}</pre><div class='docblock'><p>Global flags for Servo, currently set on the command line.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.urls'><a class='stability Unmarked' title='No stability level'></a><code>urls</code></td><td><div class='docblock'><p>The initial URLs to load.</p>
+</div></td></tr><tr><td id='structfield.paint_threads'><a class='stability Unmarked' title='No stability level'></a><code>paint_threads</code></td><td><div class='docblock'><p>How many threads to use for CPU painting (<code>-t</code>).</p>
+
+<p>Note that painting is sequentialized when using GPU painting.</p>
+</div></td></tr><tr><td id='structfield.gpu_painting'><a class='stability Unmarked' title='No stability level'></a><code>gpu_painting</code></td><td><div class='docblock'><p>True to use GPU painting via Skia-GL, false to use CPU painting via Skia (<code>-g</code>). Note that
+compositing is always done on the GPU.</p>
+</div></td></tr><tr><td id='structfield.tile_size'><a class='stability Unmarked' title='No stability level'></a><code>tile_size</code></td><td><div class='docblock'><p>The maximum size of each tile in pixels (<code>-s</code>).</p>
+</div></td></tr><tr><td id='structfield.device_pixels_per_px'><a class='stability Unmarked' title='No stability level'></a><code>device_pixels_per_px</code></td><td><div class='docblock'><p>The ratio of device pixels per px at the default scale. If unspecified, will use the
+platform default setting.</p>
+</div></td></tr><tr><td id='structfield.time_profiler_period'><a class='stability Unmarked' title='No stability level'></a><code>time_profiler_period</code></td><td><div class='docblock'><p><code>None</code> to disable the time profiler or <code>Some</code> with an interval in seconds to enable it and
+cause it to produce output on that interval (<code>-p</code>).</p>
+</div></td></tr><tr><td id='structfield.mem_profiler_period'><a class='stability Unmarked' title='No stability level'></a><code>mem_profiler_period</code></td><td><div class='docblock'><p><code>None</code> to disable the memory profiler or <code>Some</code> with an interval in seconds to enable it
+and cause it to produce output on that interval (<code>-m</code>).</p>
+</div></td></tr><tr><td id='structfield.enable_experimental'><a class='stability Unmarked' title='No stability level'></a><code>enable_experimental</code></td><td><div class='docblock'><p>Enable experimental web features (<code>-e</code>).</p>
+</div></td></tr><tr><td id='structfield.layout_threads'><a class='stability Unmarked' title='No stability level'></a><code>layout_threads</code></td><td><div class='docblock'><p>The number of threads to use for layout (<code>-y</code>). Defaults to 1, which results in a recursive
+sequential algorithm.</p>
+</div></td></tr><tr><td id='structfield.nonincremental_layout'><a class='stability Unmarked' title='No stability level'></a><code>nonincremental_layout</code></td><td></td></tr><tr><td id='structfield.nossl'><a class='stability Unmarked' title='No stability level'></a><code>nossl</code></td><td></td></tr><tr><td id='structfield.userscripts'><a class='stability Unmarked' title='No stability level'></a><code>userscripts</code></td><td></td></tr><tr><td id='structfield.output_file'><a class='stability Unmarked' title='No stability level'></a><code>output_file</code></td><td></td></tr><tr><td id='structfield.headless'><a class='stability Unmarked' title='No stability level'></a><code>headless</code></td><td></td></tr><tr><td id='structfield.hard_fail'><a class='stability Unmarked' title='No stability level'></a><code>hard_fail</code></td><td></td></tr><tr><td id='structfield.bubble_inline_sizes_separately'><a class='stability Unmarked' title='No stability level'></a><code>bubble_inline_sizes_separately</code></td><td><div class='docblock'><p>True if we should bubble intrinsic widths sequentially (<code>-b</code>). If this is true, then
+intrinsic widths are computed as a separate pass instead of during flow construction. You
+may wish to turn this flag on in order to benchmark style recalculation against other
+browser engines.</p>
+</div></td></tr><tr><td id='structfield.show_debug_borders'><a class='stability Unmarked' title='No stability level'></a><code>show_debug_borders</code></td><td><div class='docblock'><p>True if we should show borders on all layers and tiles for
+debugging purposes (<code>--show-debug-borders</code>).</p>
+</div></td></tr><tr><td id='structfield.show_debug_fragment_borders'><a class='stability Unmarked' title='No stability level'></a><code>show_debug_fragment_borders</code></td><td><div class='docblock'><p>True if we should show borders on all fragments for debugging purposes
+(<code>--show-debug-fragment-borders</code>).</p>
+</div></td></tr><tr><td id='structfield.show_debug_parallel_paint'><a class='stability Unmarked' title='No stability level'></a><code>show_debug_parallel_paint</code></td><td><div class='docblock'><p>True if we should paint tiles with overlays based on which thread painted them.</p>
+</div></td></tr><tr><td id='structfield.show_debug_parallel_layout'><a class='stability Unmarked' title='No stability level'></a><code>show_debug_parallel_layout</code></td><td><div class='docblock'><p>True if we should paint borders around flows based on which thread painted them.</p>
+</div></td></tr><tr><td id='structfield.enable_text_antialiasing'><a class='stability Unmarked' title='No stability level'></a><code>enable_text_antialiasing</code></td><td><div class='docblock'><p>If set with --disable-text-aa, disable antialiasing on fonts. This is primarily useful for reftests
+where pixel perfect results are required when using fonts such as the Ahem
+font for layout tests.</p>
+</div></td></tr><tr><td id='structfield.trace_layout'><a class='stability Unmarked' title='No stability level'></a><code>trace_layout</code></td><td><div class='docblock'><p>True if each step of layout is traced to an external JSON file
+for debugging purposes. Settings this implies sequential layout
+and paint.</p>
+</div></td></tr><tr><td id='structfield.profile_tasks'><a class='stability Unmarked' title='No stability level'></a><code>profile_tasks</code></td><td><div class='docblock'><p>If true, instrument the runtime for each task created and dump
+that information to a JSON file that can be viewed in the task
+profile viewer.</p>
+</div></td></tr><tr><td id='structfield.devtools_port'><a class='stability Unmarked' title='No stability level'></a><code>devtools_port</code></td><td><div class='docblock'><p><code>None</code> to disable devtools or <code>Some</code> with a port number to start a server to listen to
+remote Firefox devtools connections.</p>
+</div></td></tr><tr><td id='structfield.initial_window_size'><a class='stability Unmarked' title='No stability level'></a><code>initial_window_size</code></td><td><div class='docblock'><p>The initial requested size of the window.</p>
+</div></td></tr><tr><td id='structfield.user_agent'><a class='stability Unmarked' title='No stability level'></a><code>user_agent</code></td><td><div class='docblock'><p>An optional string allowing the user agent to be set for testing.</p>
+</div></td></tr><tr><td id='structfield.dump_flow_tree'><a class='stability Unmarked' title='No stability level'></a><code>dump_flow_tree</code></td><td><div class='docblock'><p>Dumps the flow tree after a layout.</p>
+</div></td></tr><tr><td id='structfield.dump_display_list'><a class='stability Unmarked' title='No stability level'></a><code>dump_display_list</code></td><td><div class='docblock'><p>Dumps the flow tree after a layout.</p>
+</div></td></tr><tr><td id='structfield.relayout_event'><a class='stability Unmarked' title='No stability level'></a><code>relayout_event</code></td><td><div class='docblock'><p>Emits notifications when there is a relayout.</p>
+</div></td></tr><tr><td id='structfield.validate_display_list_geometry'><a class='stability Unmarked' title='No stability level'></a><code>validate_display_list_geometry</code></td><td><div class='docblock'><p>Whether to show an error when display list geometry escapes flow overflow regions.</p>
+</div></td></tr><tr><td id='structfield.resources_path'><a class='stability Unmarked' title='No stability level'></a><code>resources_path</code></td><td><div class='docblock'><p>A specific path to find required resources (such as user-agent.css).</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../util/opts/struct.Opts.html' title='util::opts::Opts'>Opts</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../util/opts/struct.Opts.html' title='util::opts::Opts'>Opts</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "util";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

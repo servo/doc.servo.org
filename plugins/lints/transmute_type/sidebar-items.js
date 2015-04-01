@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TransmutePass","Lint for auditing transmutes"]]});

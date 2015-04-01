@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `CssStringWriter` struct in crate `cssparser`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CssStringWriter">
+
+    <title>cssparser::CssStringWriter - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>cssparser</a></p><script>window.sidebarCurrent = {name: 'CssStringWriter', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>cssparser</a>::<wbr><a class='struct' href=''>CssStringWriter</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-15879' href='../src/cssparser/serializer.rs.html#236-238'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct CssStringWriter&lt;'a, W: 'a&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>A <code>TextWriter</code> adaptor that escapes text for writing as a double-quoted CSS string.
+Quotes are not included.</p>
+
+<p>Typical usage:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>write_foo</span><span class='op'>&lt;</span><span class='ident'>W</span><span class='op'>&gt;</span>(<span class='ident'>foo</span>: <span class='kw-2'>&amp;</span><span class='ident'>Foo</span>, <span class='ident'>dest</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>W</span>) <span class='op'>-&gt;</span> <span class='ident'>text_writer</span>::<span class='prelude-ty'>Result</span> <span class='kw'>where</span> <span class='ident'>W</span>: <span class='ident'>TextWriter</span> {
+    <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>dest</span>.<span class='ident'>write_char</span>(<span class='string'>&#39;&quot;&#39;</span>));
+    {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>string_dest</span> <span class='op'>=</span> <span class='ident'>CssStringWriter</span>::<span class='ident'>new</span>(<span class='ident'>dest</span>);
+        <span class='comment'>// Write into string_dest...</span>
+    }
+    <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>dest</span>.<span class='ident'>write_char</span>(<span class='string'>&#39;&quot;&#39;</span>));
+    <span class='prelude-val'>Ok</span>(())
+}
+</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a, W&gt; <a class='struct' href='../cssparser/struct.CssStringWriter.html' title='cssparser::CssStringWriter'>CssStringWriter</a>&lt;'a, W&gt; <span class='where'>where W: <a class='trait' href='../text_writer/trait.TextWriter.html' title='text_writer::TextWriter'>TextWriter</a></span></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(inner: &amp;'a mut W) -&gt; <a class='struct' href='../cssparser/struct.CssStringWriter.html' title='cssparser::CssStringWriter'>CssStringWriter</a>&lt;'a, W&gt;</code></h4>
+<div class='docblock'><p>Wrap a text writer to create a <code>CssStringWriter</code>.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a, W&gt; <a class='trait' href='../text_writer/trait.TextWriter.html' title='text_writer::TextWriter'>TextWriter</a> for <a class='struct' href='../cssparser/struct.CssStringWriter.html' title='cssparser::CssStringWriter'>CssStringWriter</a>&lt;'a, W&gt; <span class='where'>where W: <a class='trait' href='../text_writer/trait.TextWriter.html' title='text_writer::TextWriter'>TextWriter</a></span></code></h3><div class='impl-items'><h4 id='method.write_str' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.write_str' class='fnname'>write_str</a>(&amp;mut self, s: &amp;<a href='../std/primitive.str.html'>str</a>) -&gt; <a class='type' href='../text_writer/type.Result.html' title='text_writer::Result'>Result</a></code></h4>
+<h4 id='method.write_char' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.write_char' class='fnname'>write_char</a>(&amp;mut self, c: <a href='../std/primitive.char.html'>char</a>) -&gt; <a class='type' href='../text_writer/type.Result.html' title='text_writer::Result'>Result</a></code></h4>
+<h4 id='method.write_fmt' class='tymethod'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.write_fmt' class='fnname'>write_fmt</a>(&amp;mut self, args: <a class='struct' href='../core/fmt/struct.Arguments.html' title='core::fmt::Arguments'>Arguments</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a class='struct' href='../text_writer/struct.Error.html' title='text_writer::Error'>Error</a>&gt;</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "cssparser";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

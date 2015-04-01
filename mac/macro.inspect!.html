@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `inspect!` macro in crate `mac`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, inspect!">
+
+    <title>mac::inspect! - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>mac</a></p><script>window.sidebarCurrent = {name: 'inspect!', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content macro">
+<h1 class='fqn'><span class='in-band'><a href='index.html'>mac</a>::<wbr><a class='macro' href=''>inspect!</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-26' href='../src/mac/inspect.rs.html#44-59'>[src]</a></span></h1>
+<pre class='rust macro'>
+<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>inspect</span> {
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>prefix</span>:<span class='ident'>expr</span> <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>expr</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {{
+        <span class='kw'>let</span> <span class='ident'>val</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>expr</span>;
+        <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}:{} - {}{:?}&quot;</span>, <span class='macro'>file</span><span class='macro'>!</span>(), <span class='macro'>line</span><span class='macro'>!</span>(), <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>prefix</span>, <span class='ident'>val</span>);
+        <span class='ident'>val</span>
+    }};
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>expr</span>:<span class='ident'>expr</span>) <span class='op'>=&gt;</span> {
+        <span class='macro'>inspect</span><span class='macro'>!</span>(<span class='macro'>concat</span><span class='macro'>!</span>(<span class='macro'>stringify</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>expr</span>), <span class='string'>&quot; = &quot;</span>) <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>expr</span>)
+    };
+    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>prefix</span>:<span class='ident'>expr</span> <span class='op'>=&gt;</span> $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>expr</span>:<span class='ident'>expr</span>),<span class='op'>+</span>) <span class='op'>=&gt;</span> {
+        <span class='macro'>inspect</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>prefix</span> <span class='op'>=&gt;</span> ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>expr</span>),<span class='op'>+</span>))
+    };
+    ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>expr</span>:<span class='ident'>expr</span>),<span class='op'>+</span>) <span class='op'>=&gt;</span> {
+        <span class='macro'>inspect</span><span class='macro'>!</span>(($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>expr</span>),<span class='op'>+</span>))
+    };
+}
+</pre>
+<div class='docblock'><p>Evaluates an expression, prints a stringified version of the expression
+along with the evaluated value, and then returns that value.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><pre id='rust-example-rendered' class='rust '>
+
+<span class='kw'>fn</span> <span class='ident'>lcm_2_to_4</span>() <span class='op'>-&gt;</span> <span class='ident'>u32</span> {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>i</span> <span class='op'>=</span> <span class='number'>1</span>;
+    <span class='kw'>loop</span> {
+        <span class='kw'>if</span> <span class='macro'>inspect</span><span class='macro'>!</span>(<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>==</span> (<span class='number'>0</span>, <span class='number'>0</span>, <span class='number'>0</span>) {
+            <span class='kw'>return</span> <span class='macro'>inspect</span><span class='macro'>!</span>(<span class='string'>&quot;done: i = &quot;</span> <span class='op'>=&gt;</span> <span class='ident'>i</span>);
+        }
+        <span class='ident'>i</span> <span class='op'>+=</span> <span class='number'>1</span>;
+    }
+}
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>lcm_2_to_4</span>(), <span class='number'>12</span>);
+</pre>
+
+<p>Returns <code>12</code>, and prints the following to stdout:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>1</span>, <span class='number'>1</span>, <span class='number'>1</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>0</span>, <span class='number'>2</span>, <span class='number'>2</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>1</span>, <span class='number'>0</span>, <span class='number'>3</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>0</span>, <span class='number'>1</span>, <span class='number'>0</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>1</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>0</span>, <span class='number'>0</span>, <span class='number'>2</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>1</span>, <span class='number'>1</span>, <span class='number'>3</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>0</span>, <span class='number'>2</span>, <span class='number'>0</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>1</span>, <span class='number'>0</span>, <span class='number'>1</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>0</span>, <span class='number'>1</span>, <span class='number'>2</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>94</span> <span class='op'>-</span> (<span class='ident'>i</span> <span class='op'>%</span> <span class='number'>2</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>3</span>, <span class='ident'>i</span> <span class='op'>%</span> <span class='number'>4</span>) <span class='op'>=</span> (<span class='number'>0</span>, <span class='number'>0</span>, <span class='number'>0</span>)
+<span class='ident'>src</span><span class='op'>/</span><span class='ident'>inspect</span>.<span class='ident'>rs</span>:<span class='number'>95</span> <span class='op'>-</span> <span class='ident'>done</span>: <span class='ident'>i</span> <span class='op'>=</span> <span class='number'>12</span>
+</pre>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "mac";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Msg` enum in crate `net`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Msg">
+
+    <title>net::image_cache_task::Msg - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>net</a>::<wbr><a href='index.html'>image_cache_task</a></p><script>window.sidebarCurrent = {name: 'Msg', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>net</a>::<wbr><a href='index.html'>image_cache_task</a>::<wbr><a class='enum' href=''>Msg</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-5095' href='../../src/net/image_cache_task.rs.html#22-51'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum Msg {
+    Prefetch(<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>),
+    Decode(<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>),
+    GetImage(<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>, <a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='enum' href='../../net/image_cache_task/enum.ImageResponseMsg.html' title='net::image_cache_task::ImageResponseMsg'>ImageResponseMsg</a>&gt;),
+    WaitForImage(<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>, <a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='enum' href='../../net/image_cache_task/enum.ImageResponseMsg.html' title='net::image_cache_task::ImageResponseMsg'>ImageResponseMsg</a>&gt;),
+    Exit(<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>&gt;),
+    StorePrefetchedImageData(<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>, <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.u8.html'>u8</a>&gt;, <a href='../../std/primitive.tuple.html'>()</a>&gt;),
+    StoreImage(<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='type' href='../../net/image/base/type.Image.html' title='net::image::base::Image'>Image</a>&gt;&gt;&gt;),
+    WaitForStore(<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>&gt;),
+    WaitForStorePrefetched(<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>&gt;),
+}</pre><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.Prefetch'><a class='stability Unmarked' title='No stability level'></a><code>Prefetch</code></td><td><div class='docblock'><p>Tell the cache that we may need a particular image soon. Must be posted
+before Decode</p>
+</div></td></tr><tr><td id='variant.Decode'><a class='stability Unmarked' title='No stability level'></a><code>Decode</code></td><td><div class='docblock'><p>Tell the cache to decode an image. Must be posted before GetImage/WaitForImage</p>
+</div></td></tr><tr><td id='variant.GetImage'><a class='stability Unmarked' title='No stability level'></a><code>GetImage</code></td><td><div class='docblock'><p>Request an Image object for a URL. If the image is not is not immediately
+available then ImageNotReady is returned.</p>
+</div></td></tr><tr><td id='variant.WaitForImage'><a class='stability Unmarked' title='No stability level'></a><code>WaitForImage</code></td><td><div class='docblock'><p>Wait for an image to become available (or fail to load).</p>
+</div></td></tr><tr><td id='variant.Exit'><a class='stability Unmarked' title='No stability level'></a><code>Exit</code></td><td><div class='docblock'><p>Clients must wait for a response before shutting down the ResourceTask</p>
+</div></td></tr><tr><td id='variant.StorePrefetchedImageData'><a class='stability Unmarked' title='No stability level'></a><code>StorePrefetchedImageData</code></td><td><div class='docblock'><p>Used by the prefetch tasks to post back image binaries</p>
+</div></td></tr><tr><td id='variant.StoreImage'><a class='stability Unmarked' title='No stability level'></a><code>StoreImage</code></td><td><div class='docblock'><p>Used by the decoder tasks to post decoded images back to the cache</p>
+</div></td></tr><tr><td id='variant.WaitForStore'><a class='stability Unmarked' title='No stability level'></a><code>WaitForStore</code></td><td><div class='docblock'><p>For testing</p>
+</div></td></tr><tr><td id='variant.WaitForStorePrefetched'><a class='stability Unmarked' title='No stability level'></a><code>WaitForStorePrefetched</code></td><td><div class='docblock'><p>For testing</p>
+</div></td></tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "net";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

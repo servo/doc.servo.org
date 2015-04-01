@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `UnsignedInt` trait in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, UnsignedInt">
+
+    <title>std::num::UnsignedInt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>num</a></p><script>window.sidebarCurrent = {name: 'UnsignedInt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>std</a>::<wbr><a href='index.html'>num</a>::<wbr><a class='trait' href=''>UnsignedInt</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-7274' href='../../core/num/trait.UnsignedInt.html?gotosrc=7274'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait UnsignedInt <span class='where'>where Self: <a class='trait' href='../../std/num/wrapping/trait.WrappingOps.html' title='std::num::wrapping::WrappingOps'>WrappingOps</a>, Self: <a class='trait' href='../../std/num/trait.Int.html' title='std::num::Int'>Int</a></span> {
+    fn <a href='#tymethod.is_power_of_two' class='fnname'>is_power_of_two</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a> { ... }
+    fn <a href='#tymethod.next_power_of_two' class='fnname'>next_power_of_two</a>(self) -&gt; Self { ... }
+    fn <a href='#tymethod.checked_next_power_of_two' class='fnname'>checked_next_power_of_two</a>(self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;Self&gt; { ... }
+}</pre><div class='docblock'><p>A built-in unsigned integer.</p>
+</div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.is_power_of_two' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.is_power_of_two' class='fnname'>is_power_of_two</a>(self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h3><div class='docblock'><p>Returns <code>true</code> iff <code>self == 2^k</code> for some <code>k</code>.</p>
+</div><h3 id='tymethod.next_power_of_two' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.next_power_of_two' class='fnname'>next_power_of_two</a>(self) -&gt; Self</code></h3><div class='docblock'><p>Returns the smallest power of two greater than or equal to <code>self</code>.
+Unspecified behavior on overflow.</p>
+</div><h3 id='tymethod.checked_next_power_of_two' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.checked_next_power_of_two' class='fnname'>checked_next_power_of_two</a>(self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Returns the smallest power of two greater than or equal to <code>n</code>. If the
+next power of two is greater than the type&#39;s maximum value, <code>None</code> is
+returned, otherwise the power of two is wrapped in <code>Some</code>.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/num/trait.UnsignedInt.html' title='std::num::UnsignedInt'>UnsignedInt</a> for <a href='../primitive.usize.html'>usize</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/num/trait.UnsignedInt.html' title='std::num::UnsignedInt'>UnsignedInt</a> for <a href='../primitive.u8.html'>u8</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/num/trait.UnsignedInt.html' title='std::num::UnsignedInt'>UnsignedInt</a> for <a href='../primitive.u16.html'>u16</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/num/trait.UnsignedInt.html' title='std::num::UnsignedInt'>UnsignedInt</a> for <a href='../primitive.u32.html'>u32</a></code></li>
+<li><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/num/trait.UnsignedInt.html' title='std::num::UnsignedInt'>UnsignedInt</a> for <a href='../primitive.u64.html'>u64</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/core/num/trait.UnsignedInt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

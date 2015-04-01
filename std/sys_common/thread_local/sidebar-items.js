@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StaticKey","A type for TLS keys that are statically allocated."]],"constant":[["INIT","Constant initialization value for static TLS keys."],["INIT_INNER","Constant initialization value for the inner part of static TLS keys."]]});

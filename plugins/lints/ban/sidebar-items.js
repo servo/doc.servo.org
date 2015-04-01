@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BanPass","Lint for banning various unsafe types"]]});

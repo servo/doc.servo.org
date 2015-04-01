@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `HTMLTextAreaElementMethods` trait in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, HTMLTextAreaElementMethods">
+
+    <title>script::dom::bindings::codegen::Bindings::HTMLTextAreaElementBinding::HTMLTextAreaElementMethods - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../../../index.html'>script</a>::<wbr><a href='../../../../index.html'>dom</a>::<wbr><a href='../../../index.html'>bindings</a>::<wbr><a href='../../index.html'>codegen</a>::<wbr><a href='../index.html'>Bindings</a>::<wbr><a href='index.html'>HTMLTextAreaElementBinding</a></p><script>window.sidebarCurrent = {name: 'HTMLTextAreaElementMethods', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../../../../index.html'>script</a>::<wbr><a href='../../../../index.html'>dom</a>::<wbr><a href='../../../index.html'>bindings</a>::<wbr><a href='../../index.html'>codegen</a>::<wbr><a href='../index.html'>Bindings</a>::<wbr><a href='index.html'>HTMLTextAreaElementBinding</a>::<wbr><a class='trait' href=''>HTMLTextAreaElementMethods</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-248433' href='../../../../../../src/script/dom/bindings/codegen/Bindings/HTMLTextAreaElementBinding.rs.html#775-797'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait HTMLTextAreaElementMethods {
+    fn <a href='#tymethod.Cols' class='fnname'>Cols</a>(self) -&gt; <a href='../../../../../../std/primitive.u32.html'>u32</a>;
+    fn <a href='#tymethod.SetCols' class='fnname'>SetCols</a>(self, value: <a href='../../../../../../std/primitive.u32.html'>u32</a>);
+    fn <a href='#tymethod.Disabled' class='fnname'>Disabled</a>(self) -&gt; <a href='../../../../../../std/primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.SetDisabled' class='fnname'>SetDisabled</a>(self, value: <a href='../../../../../../std/primitive.bool.html'>bool</a>);
+    fn <a href='#tymethod.Name' class='fnname'>Name</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>;
+    fn <a href='#tymethod.SetName' class='fnname'>SetName</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>);
+    fn <a href='#tymethod.Placeholder' class='fnname'>Placeholder</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>;
+    fn <a href='#tymethod.SetPlaceholder' class='fnname'>SetPlaceholder</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>);
+    fn <a href='#tymethod.ReadOnly' class='fnname'>ReadOnly</a>(self) -&gt; <a href='../../../../../../std/primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.SetReadOnly' class='fnname'>SetReadOnly</a>(self, value: <a href='../../../../../../std/primitive.bool.html'>bool</a>);
+    fn <a href='#tymethod.Required' class='fnname'>Required</a>(self) -&gt; <a href='../../../../../../std/primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.SetRequired' class='fnname'>SetRequired</a>(self, value: <a href='../../../../../../std/primitive.bool.html'>bool</a>);
+    fn <a href='#tymethod.Rows' class='fnname'>Rows</a>(self) -&gt; <a href='../../../../../../std/primitive.u32.html'>u32</a>;
+    fn <a href='#tymethod.SetRows' class='fnname'>SetRows</a>(self, value: <a href='../../../../../../std/primitive.u32.html'>u32</a>);
+    fn <a href='#tymethod.Wrap' class='fnname'>Wrap</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>;
+    fn <a href='#tymethod.SetWrap' class='fnname'>SetWrap</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>);
+    fn <a href='#tymethod.Type' class='fnname'>Type</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>;
+    fn <a href='#tymethod.DefaultValue' class='fnname'>DefaultValue</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>;
+    fn <a href='#tymethod.SetDefaultValue' class='fnname'>SetDefaultValue</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>);
+    fn <a href='#tymethod.Value' class='fnname'>Value</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>;
+    fn <a href='#tymethod.SetValue' class='fnname'>SetValue</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>);
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.Cols' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.Cols' class='fnname'>Cols</a>(self) -&gt; <a href='../../../../../../std/primitive.u32.html'>u32</a></code></h3><h3 id='tymethod.SetCols' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetCols' class='fnname'>SetCols</a>(self, value: <a href='../../../../../../std/primitive.u32.html'>u32</a>)</code></h3><h3 id='tymethod.Disabled' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.Disabled' class='fnname'>Disabled</a>(self) -&gt; <a href='../../../../../../std/primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.SetDisabled' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetDisabled' class='fnname'>SetDisabled</a>(self, value: <a href='../../../../../../std/primitive.bool.html'>bool</a>)</code></h3><h3 id='tymethod.Name' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.Name' class='fnname'>Name</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a></code></h3><h3 id='tymethod.SetName' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetName' class='fnname'>SetName</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>)</code></h3><h3 id='tymethod.Placeholder' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.Placeholder' class='fnname'>Placeholder</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a></code></h3><h3 id='tymethod.SetPlaceholder' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetPlaceholder' class='fnname'>SetPlaceholder</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>)</code></h3><h3 id='tymethod.ReadOnly' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.ReadOnly' class='fnname'>ReadOnly</a>(self) -&gt; <a href='../../../../../../std/primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.SetReadOnly' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetReadOnly' class='fnname'>SetReadOnly</a>(self, value: <a href='../../../../../../std/primitive.bool.html'>bool</a>)</code></h3><h3 id='tymethod.Required' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.Required' class='fnname'>Required</a>(self) -&gt; <a href='../../../../../../std/primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.SetRequired' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetRequired' class='fnname'>SetRequired</a>(self, value: <a href='../../../../../../std/primitive.bool.html'>bool</a>)</code></h3><h3 id='tymethod.Rows' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.Rows' class='fnname'>Rows</a>(self) -&gt; <a href='../../../../../../std/primitive.u32.html'>u32</a></code></h3><h3 id='tymethod.SetRows' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetRows' class='fnname'>SetRows</a>(self, value: <a href='../../../../../../std/primitive.u32.html'>u32</a>)</code></h3><h3 id='tymethod.Wrap' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.Wrap' class='fnname'>Wrap</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a></code></h3><h3 id='tymethod.SetWrap' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetWrap' class='fnname'>SetWrap</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>)</code></h3><h3 id='tymethod.Type' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.Type' class='fnname'>Type</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a></code></h3><h3 id='tymethod.DefaultValue' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.DefaultValue' class='fnname'>DefaultValue</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a></code></h3><h3 id='tymethod.SetDefaultValue' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetDefaultValue' class='fnname'>SetDefaultValue</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>)</code></h3><h3 id='tymethod.Value' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.Value' class='fnname'>Value</a>(self) -&gt; <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a></code></h3><h3 id='tymethod.SetValue' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.SetValue' class='fnname'>SetValue</a>(self, value: <a class='type' href='../../../../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>)</code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='trait' href='../../../../../../script/dom/bindings/codegen/Bindings/HTMLTextAreaElementBinding/trait.HTMLTextAreaElementMethods.html' title='script::dom::bindings::codegen::Bindings::HTMLTextAreaElementBinding::HTMLTextAreaElementMethods'>HTMLTextAreaElementMethods</a> for <a class='struct' href='../../../../../../script/dom/bindings/js/struct.JSRef.html' title='script::dom::bindings::js::JSRef'>JSRef</a>&lt;'a, <a class='struct' href='../../../../../../script/dom/htmltextareaelement/struct.HTMLTextAreaElement.html' title='script::dom::htmltextareaelement::HTMLTextAreaElement'>HTMLTextAreaElement</a>&gt;</code></li>
+</ul><script type="text/javascript" async
+                              src="../../../../../../implementors/script/dom/bindings/codegen/Bindings/HTMLTextAreaElementBinding/trait.HTMLTextAreaElementMethods.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../../../jquery.js"></script>
+    <script src="../../../../../../main.js"></script>
+    
+    <script async src="../../../../../../search-index.js"></script>
+</body>
+</html>

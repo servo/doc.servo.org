@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `repr` mod in crate `string_cache`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, repr">
+
+    <title>string_cache::atom::repr - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>string_cache</a>::<wbr><a href='../index.html'>atom</a></p><script>window.sidebarCurrent = {name: 'repr', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>string_cache</a>::<wbr><a href='../index.html'>atom</a>::<wbr><a class='mod' href=''>repr</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-37' href='../../../src/string_cache/atom/up/up/shared/repr.rs.html#10-129'>[src]</a></span></h1>
+<div class='docblock'><p>Details of the atom representation that need to be shared between
+the macros crate and the run-time library, in order to guarantee
+consistency.</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use self::UnpackedAtom::{<a class='enum' href='../../../string_cache/atom/repr/enum.UnpackedAtom.html' title='string_cache::atom::repr::UnpackedAtom'>Dynamic</a>, <a class='enum' href='../../../string_cache/atom/repr/enum.UnpackedAtom.html' title='string_cache::atom::repr::UnpackedAtom'>Inline</a>, <a class='enum' href='../../../string_cache/atom/repr/enum.UnpackedAtom.html' title='string_cache::atom::repr::UnpackedAtom'>Static</a>};</code></td></tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.UnpackedAtom.html'
+                               title='string_cache::atom::repr::UnpackedAtom'>UnpackedAtom</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.DYNAMIC_TAG.html'
+                               title='string_cache::atom::repr::DYNAMIC_TAG'>DYNAMIC_TAG</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.INLINE_TAG.html'
+                               title='string_cache::atom::repr::INLINE_TAG'>INLINE_TAG</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.MAX_INLINE_LEN.html'
+                               title='string_cache::atom::repr::MAX_INLINE_LEN'>MAX_INLINE_LEN</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.STATIC_TAG.html'
+                               title='string_cache::atom::repr::STATIC_TAG'>STATIC_TAG</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.from_packed_dynamic.html'
+                               title='string_cache::atom::repr::from_packed_dynamic'>from_packed_dynamic</a></td>
+                        <td class='docblock short'><p>Used for a fast path in Clone and Drop.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.inline_orig_bytes.html'
+                               title='string_cache::atom::repr::inline_orig_bytes'>inline_orig_bytes</a></td>
+                        <td class='docblock short'><p>For as_slice on inline atoms, we need a pointer into the original
+string contents.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.pack_static.html'
+                               title='string_cache::atom::repr::pack_static'>pack_static</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "string_cache";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

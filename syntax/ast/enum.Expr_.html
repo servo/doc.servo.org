@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Expr_` enum in crate `syntax`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Expr_">
+
+    <title>syntax::ast::Expr_ - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../syntax/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>syntax</a>::<wbr><a href='index.html'>ast</a></p><script>window.sidebarCurrent = {name: 'Expr_', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>syntax</a>::<wbr><a href='index.html'>ast</a>::<wbr><a class='enum' href=''>Expr_</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-33413' href='../../src/syntax/ast.rs.html#726-781'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum Expr_ {
+    ExprBox(<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;),
+    ExprVec(<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;),
+    ExprCall(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;),
+    ExprMethodCall(<a class='type' href='../../syntax/ast/type.SpannedIdent.html' title='syntax::ast::SpannedIdent'>SpannedIdent</a>, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Ty.html' title='syntax::ast::Ty'>Ty</a>&gt;&gt;, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;),
+    ExprTup(<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;),
+    ExprBinary(<a class='type' href='../../syntax/ast/type.BinOp.html' title='syntax::ast::BinOp'>BinOp</a>, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;),
+    ExprUnary(<a class='enum' href='../../syntax/ast/enum.UnOp.html' title='syntax::ast::UnOp'>UnOp</a>, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;),
+    ExprLit(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='type' href='../../syntax/ast/type.Lit.html' title='syntax::ast::Lit'>Lit</a>&gt;),
+    ExprCast(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Ty.html' title='syntax::ast::Ty'>Ty</a>&gt;),
+    ExprIf(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>&gt;, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;),
+    ExprIfLet(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Pat.html' title='syntax::ast::Pat'>Pat</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>&gt;, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;),
+    ExprWhile(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>&gt;, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>&gt;),
+    ExprWhileLet(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Pat.html' title='syntax::ast::Pat'>Pat</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>&gt;, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>&gt;),
+    ExprForLoop(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Pat.html' title='syntax::ast::Pat'>Pat</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>&gt;, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>&gt;),
+    ExprLoop(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>&gt;, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>&gt;),
+    ExprMatch(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../syntax/ast/struct.Arm.html' title='syntax::ast::Arm'>Arm</a>&gt;, <a class='enum' href='../../syntax/ast/enum.MatchSource.html' title='syntax::ast::MatchSource'>MatchSource</a>),
+    ExprClosure(<a class='enum' href='../../syntax/ast/enum.CaptureClause.html' title='syntax::ast::CaptureClause'>CaptureClause</a>, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.FnDecl.html' title='syntax::ast::FnDecl'>FnDecl</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>&gt;),
+    ExprBlock(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>&gt;),
+    ExprAssign(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;),
+    ExprAssignOp(<a class='type' href='../../syntax/ast/type.BinOp.html' title='syntax::ast::BinOp'>BinOp</a>, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;),
+    ExprField(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='type' href='../../syntax/ast/type.SpannedIdent.html' title='syntax::ast::SpannedIdent'>SpannedIdent</a>),
+    ExprTupField(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a href='../../std/primitive.usize.html'>usize</a>&gt;),
+    ExprIndex(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;),
+    ExprRange(<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;),
+    ExprPath(<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ast/struct.QSelf.html' title='syntax::ast::QSelf'>QSelf</a>&gt;, <a class='struct' href='../../syntax/ast/struct.Path.html' title='syntax::ast::Path'>Path</a>),
+    ExprAddrOf(<a class='enum' href='../../syntax/ast/enum.Mutability.html' title='syntax::ast::Mutability'>Mutability</a>, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;),
+    ExprBreak(<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>&gt;),
+    ExprAgain(<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>&gt;),
+    ExprRet(<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;),
+    ExprInlineAsm(<a class='struct' href='../../syntax/ast/struct.InlineAsm.html' title='syntax::ast::InlineAsm'>InlineAsm</a>),
+    ExprMac(<a class='type' href='../../syntax/ast/type.Mac.html' title='syntax::ast::Mac'>Mac</a>),
+    ExprStruct(<a class='struct' href='../../syntax/ast/struct.Path.html' title='syntax::ast::Path'>Path</a>, <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../syntax/ast/struct.Field.html' title='syntax::ast::Field'>Field</a>&gt;, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;&gt;),
+    ExprRepeat(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;, <a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;),
+    ExprParen(<a class='struct' href='../../syntax/ptr/struct.P.html' title='syntax::ptr::P'>P</a>&lt;<a class='struct' href='../../syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>&gt;),
+}</pre><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.ExprBox'><a class='stability Unstable' title='Unstable'></a><code>ExprBox</code></td><td><div class='docblock'><p>First expr is the place; second expr is the value.</p>
+</div></td></tr><tr><td id='variant.ExprVec'><a class='stability Unstable' title='Unstable'></a><code>ExprVec</code></td><td></td></tr><tr><td id='variant.ExprCall'><a class='stability Unstable' title='Unstable'></a><code>ExprCall</code></td><td></td></tr><tr><td id='variant.ExprMethodCall'><a class='stability Unstable' title='Unstable'></a><code>ExprMethodCall</code></td><td></td></tr><tr><td id='variant.ExprTup'><a class='stability Unstable' title='Unstable'></a><code>ExprTup</code></td><td></td></tr><tr><td id='variant.ExprBinary'><a class='stability Unstable' title='Unstable'></a><code>ExprBinary</code></td><td></td></tr><tr><td id='variant.ExprUnary'><a class='stability Unstable' title='Unstable'></a><code>ExprUnary</code></td><td></td></tr><tr><td id='variant.ExprLit'><a class='stability Unstable' title='Unstable'></a><code>ExprLit</code></td><td></td></tr><tr><td id='variant.ExprCast'><a class='stability Unstable' title='Unstable'></a><code>ExprCast</code></td><td></td></tr><tr><td id='variant.ExprIf'><a class='stability Unstable' title='Unstable'></a><code>ExprIf</code></td><td></td></tr><tr><td id='variant.ExprIfLet'><a class='stability Unstable' title='Unstable'></a><code>ExprIfLet</code></td><td></td></tr><tr><td id='variant.ExprWhile'><a class='stability Unstable' title='Unstable'></a><code>ExprWhile</code></td><td></td></tr><tr><td id='variant.ExprWhileLet'><a class='stability Unstable' title='Unstable'></a><code>ExprWhileLet</code></td><td></td></tr><tr><td id='variant.ExprForLoop'><a class='stability Unstable' title='Unstable'></a><code>ExprForLoop</code></td><td></td></tr><tr><td id='variant.ExprLoop'><a class='stability Unstable' title='Unstable'></a><code>ExprLoop</code></td><td></td></tr><tr><td id='variant.ExprMatch'><a class='stability Unstable' title='Unstable'></a><code>ExprMatch</code></td><td></td></tr><tr><td id='variant.ExprClosure'><a class='stability Unstable' title='Unstable'></a><code>ExprClosure</code></td><td></td></tr><tr><td id='variant.ExprBlock'><a class='stability Unstable' title='Unstable'></a><code>ExprBlock</code></td><td></td></tr><tr><td id='variant.ExprAssign'><a class='stability Unstable' title='Unstable'></a><code>ExprAssign</code></td><td></td></tr><tr><td id='variant.ExprAssignOp'><a class='stability Unstable' title='Unstable'></a><code>ExprAssignOp</code></td><td></td></tr><tr><td id='variant.ExprField'><a class='stability Unstable' title='Unstable'></a><code>ExprField</code></td><td></td></tr><tr><td id='variant.ExprTupField'><a class='stability Unstable' title='Unstable'></a><code>ExprTupField</code></td><td></td></tr><tr><td id='variant.ExprIndex'><a class='stability Unstable' title='Unstable'></a><code>ExprIndex</code></td><td></td></tr><tr><td id='variant.ExprRange'><a class='stability Unstable' title='Unstable'></a><code>ExprRange</code></td><td></td></tr><tr><td id='variant.ExprPath'><a class='stability Unstable' title='Unstable'></a><code>ExprPath</code></td><td><div class='docblock'><p>Variable reference, possibly containing <code>::</code> and/or type
+parameters, e.g. foo::bar::<baz>. Optionally &quot;qualified&quot;,
+e.g. <code>&lt;Vec&lt;T&gt; as SomeTrait&gt;::SomeType</code>.</p>
+</div></td></tr><tr><td id='variant.ExprAddrOf'><a class='stability Unstable' title='Unstable'></a><code>ExprAddrOf</code></td><td></td></tr><tr><td id='variant.ExprBreak'><a class='stability Unstable' title='Unstable'></a><code>ExprBreak</code></td><td></td></tr><tr><td id='variant.ExprAgain'><a class='stability Unstable' title='Unstable'></a><code>ExprAgain</code></td><td></td></tr><tr><td id='variant.ExprRet'><a class='stability Unstable' title='Unstable'></a><code>ExprRet</code></td><td></td></tr><tr><td id='variant.ExprInlineAsm'><a class='stability Unstable' title='Unstable'></a><code>ExprInlineAsm</code></td><td></td></tr><tr><td id='variant.ExprMac'><a class='stability Unstable' title='Unstable'></a><code>ExprMac</code></td><td></td></tr><tr><td id='variant.ExprStruct'><a class='stability Unstable' title='Unstable'></a><code>ExprStruct</code></td><td><div class='docblock'><p>A struct literal expression.</p>
+</div></td></tr><tr><td id='variant.ExprRepeat'><a class='stability Unstable' title='Unstable'></a><code>ExprRepeat</code></td><td><div class='docblock'><p>A vector literal constructed from one repeated element.</p>
+</div></td></tr><tr><td id='variant.ExprParen'><a class='stability Unstable' title='Unstable'></a><code>ExprParen</code></td><td><div class='docblock'><p>No-op: used solely so we can pretty-print faithfully</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a> for <a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a></code></h3><div class='impl-items'><h4 id='method.hash' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.hash' class='fnname'>hash</a>&lt;__H: <a class='trait' href='../../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a>&gt;(&amp;self, __arg_0: &amp;mut __H)</code></h4>
+<h4 id='method.hash_slice' class='tymethod'><a class='stability Unstable' title='Unstable: module was recently redesigned'></a><code>fn <a href='#tymethod.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a href='../../std/primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a></span></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: deprecated in favor of rustc-serialize on crates.io'></a><code>impl <a class='trait' href='../../serialize/serialize/trait.Decodable.html' title='serialize::serialize::Decodable'>Decodable</a> for <a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a></code></h3><div class='impl-items'><h4 id='method.decode' class='method'><a class='stability Unstable' title='Unstable: deprecated in favor of rustc-serialize on crates.io'></a><code>fn <a href='#method.decode' class='fnname'>decode</a>&lt;__D: <a class='trait' href='../../serialize/serialize/trait.Decoder.html' title='serialize::serialize::Decoder'>Decoder</a>&gt;(__arg_0: &amp;mut __D) -&gt; <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a>, Error&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: deprecated in favor of rustc-serialize on crates.io'></a><code>impl <a class='trait' href='../../serialize/serialize/trait.Encodable.html' title='serialize::serialize::Encodable'>Encodable</a> for <a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a></code></h3><div class='impl-items'><h4 id='method.encode' class='method'><a class='stability Unstable' title='Unstable: deprecated in favor of rustc-serialize on crates.io'></a><code>fn <a href='#method.encode' class='fnname'>encode</a>&lt;__S: <a class='trait' href='../../serialize/serialize/trait.Encoder.html' title='serialize::serialize::Encoder'>Encoder</a>&gt;(&amp;self, __arg_0: &amp;mut __S) -&gt; <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>, Error&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a></code></h3><div class='impl-items'><h4 id='method.assert_receiver_is_total_eq' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.assert_receiver_is_total_eq' class='fnname'>assert_receiver_is_total_eq</a>(&amp;self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../syntax/ast/enum.Expr_.html' title='syntax::ast::Expr_'>Expr_</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "syntax";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

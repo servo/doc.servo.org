@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["CanvasGradientMethods",""]],"static":[["sNativePropertyHooks",""]],"fn":[["DefineDOMInterface",""],["GetProtoObject",""],["Wrap",""]]});

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Method Syntax</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Method Syntax</h1>
+    <p>Functions are great, but if you want to call a bunch of them on some data, it
+can be awkward. Consider this code:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>baz</span>(<span class='ident'>bar</span>(<span class='ident'>foo</span>(<span class='ident'>x</span>)));
+</pre>
+
+<p>We would read this left-to right, and so we see &quot;baz bar foo.&quot; But this isn&#39;t the
+order that the functions would get called in, that&#39;s inside-out: &quot;foo bar baz.&quot;
+Wouldn&#39;t it be nice if we could do this instead?</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='ident'>x</span>.<span class='ident'>foo</span>().<span class='ident'>bar</span>().<span class='ident'>baz</span>();
+</pre>
+
+<p>Luckily, as you may have guessed with the leading question, you can! Rust provides
+the ability to use this <em>method call syntax</em> via the <code>impl</code> keyword.</p>
+
+<h2 id="method-calls" class='section-header'><a
+                           href="#method-calls">Method calls</a></h2>
+<p>Here&#39;s how it works:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Circle</span> {
+    <span class='ident'>x</span>: <span class='ident'>f64</span>,
+    <span class='ident'>y</span>: <span class='ident'>f64</span>,
+    <span class='ident'>radius</span>: <span class='ident'>f64</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>Circle</span> {
+    <span class='kw'>fn</span> <span class='ident'>area</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='ident'>std</span>::<span class='ident'>f64</span>::<span class='ident'>consts</span>::<span class='ident'>PI</span> <span class='op'>*</span> (<span class='self'>self</span>.<span class='ident'>radius</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>radius</span>)
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='ident'>Circle</span> { <span class='ident'>x</span>: <span class='number'>0.0</span>, <span class='ident'>y</span>: <span class='number'>0.0</span>, <span class='ident'>radius</span>: <span class='number'>2.0</span> };
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>c</span>.<span class='ident'>area</span>());
+}
+</pre>
+
+<p>This will print <code>12.566371</code>.</p>
+
+<p>We&#39;ve made a struct that represents a circle. We then write an <code>impl</code> block,
+and inside it, define a method, <code>area</code>. Methods take a  special first
+parameter, <code>&amp;self</code>. There are three variants: <code>self</code>, <code>&amp;self</code>, and <code>&amp;mut self</code>.
+You can think of this first parameter as being the <code>x</code> in <code>x.foo()</code>. The three
+variants correspond to the three kinds of thing <code>x</code> could be: <code>self</code> if it&#39;s
+just a value on the stack, <code>&amp;self</code> if it&#39;s a reference, and <code>&amp;mut self</code> if it&#39;s
+a mutable reference. We should default to using <code>&amp;self</code>, as it&#39;s the most
+common. Here&#39;s an example of all three variants:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Circle</span> {
+    <span class='ident'>x</span>: <span class='ident'>f64</span>,
+    <span class='ident'>y</span>: <span class='ident'>f64</span>,
+    <span class='ident'>radius</span>: <span class='ident'>f64</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>Circle</span> {
+    <span class='kw'>fn</span> <span class='ident'>reference</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
+       <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;taking self by reference!&quot;</span>); 
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>mutable_reference</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+       <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;taking self by mutable reference!&quot;</span>); 
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>takes_ownership</span>(<span class='self'>self</span>) {
+       <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;taking ownership of self!&quot;</span>); 
+    }
+}
+</pre>
+
+<p>Finally, as you may remember, the value of the area of a circle is <code>π*r²</code>.
+Because we took the <code>&amp;self</code> parameter to <code>area</code>, we can use it just like any
+other parameter. Because we know it&#39;s a <code>Circle</code>, we can access the <code>radius</code>
+just like we would with any other struct. An import of π and some
+multiplications later, and we have our area.</p>
+
+<h2 id="chaining-method-calls" class='section-header'><a
+                           href="#chaining-method-calls">Chaining method calls</a></h2>
+<p>So, now we know how to call a method, such as <code>foo.bar()</code>. But what about our
+original example, <code>foo.bar().baz()</code>? This is called &#39;method chaining&#39;, and we
+can do it by returning <code>self</code>.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Circle</span> {
+    <span class='ident'>x</span>: <span class='ident'>f64</span>,
+    <span class='ident'>y</span>: <span class='ident'>f64</span>,
+    <span class='ident'>radius</span>: <span class='ident'>f64</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>Circle</span> {
+    <span class='kw'>fn</span> <span class='ident'>area</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='ident'>std</span>::<span class='ident'>f64</span>::<span class='ident'>consts</span>::<span class='ident'>PI</span> <span class='op'>*</span> (<span class='self'>self</span>.<span class='ident'>radius</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>radius</span>)
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>grow</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Circle</span> {
+        <span class='ident'>Circle</span> { <span class='ident'>x</span>: <span class='self'>self</span>.<span class='ident'>x</span>, <span class='ident'>y</span>: <span class='self'>self</span>.<span class='ident'>y</span>, <span class='ident'>radius</span>: (<span class='self'>self</span>.<span class='ident'>radius</span> <span class='op'>*</span> <span class='number'>10.0</span>) }
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='ident'>Circle</span> { <span class='ident'>x</span>: <span class='number'>0.0</span>, <span class='ident'>y</span>: <span class='number'>0.0</span>, <span class='ident'>radius</span>: <span class='number'>2.0</span> };
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>c</span>.<span class='ident'>area</span>());
+
+    <span class='kw'>let</span> <span class='ident'>d</span> <span class='op'>=</span> <span class='ident'>c</span>.<span class='ident'>grow</span>().<span class='ident'>area</span>();
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>d</span>);
+}
+</pre>
+
+<p>Check the return type:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>grow</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Circle</span> {
+</pre>
+
+<p>We just say we&#39;re returning a <code>Circle</code>. With this method, we can grow a new
+circle with an area that&#39;s 100 times larger than the old one.</p>
+
+<h2 id="static-methods" class='section-header'><a
+                           href="#static-methods">Static methods</a></h2>
+<p>You can also define methods that do not take a <code>self</code> parameter. Here&#39;s a
+pattern that&#39;s very common in Rust code:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Circle</span> {
+    <span class='ident'>x</span>: <span class='ident'>f64</span>,
+    <span class='ident'>y</span>: <span class='ident'>f64</span>,
+    <span class='ident'>radius</span>: <span class='ident'>f64</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>Circle</span> {
+    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>x</span>: <span class='ident'>f64</span>, <span class='ident'>y</span>: <span class='ident'>f64</span>, <span class='ident'>radius</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>Circle</span> {
+        <span class='ident'>Circle</span> {
+            <span class='ident'>x</span>: <span class='ident'>x</span>,
+            <span class='ident'>y</span>: <span class='ident'>y</span>,
+            <span class='ident'>radius</span>: <span class='ident'>radius</span>,
+        }
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='ident'>Circle</span>::<span class='ident'>new</span>(<span class='number'>0.0</span>, <span class='number'>0.0</span>, <span class='number'>2.0</span>);
+}
+</pre>
+
+<p>This <em>static method</em> builds a new <code>Circle</code> for us. Note that static methods
+are called with the <code>Struct::method()</code> syntax, rather than the <code>ref.method()</code>
+syntax.</p>
+
+<h2 id="builder-pattern" class='section-header'><a
+                           href="#builder-pattern">Builder Pattern</a></h2>
+<p>Let&#39;s say that we want our users to be able to create Circles, but we will
+allow them to only set the properties they care about. Otherwise, the <code>x</code>
+and <code>y</code> attributes will be <code>0.0</code>, and the <code>radius</code> will be <code>1.0</code>. Rust doesn&#39;t
+have method overloading, named arguments, or variable arguments. We employ
+the builder pattern instead. It looks like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>Circle</span> {
+    <span class='ident'>x</span>: <span class='ident'>f64</span>,
+    <span class='ident'>y</span>: <span class='ident'>f64</span>,
+    <span class='ident'>radius</span>: <span class='ident'>f64</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>Circle</span> {
+    <span class='kw'>fn</span> <span class='ident'>area</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span> {
+        <span class='ident'>std</span>::<span class='ident'>f64</span>::<span class='ident'>consts</span>::<span class='ident'>PI</span> <span class='op'>*</span> (<span class='self'>self</span>.<span class='ident'>radius</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>radius</span>)
+    }
+}
+
+<span class='kw'>struct</span> <span class='ident'>CircleBuilder</span> {
+    <span class='ident'>coordinate</span>: <span class='ident'>f64</span>,
+    <span class='ident'>radius</span>: <span class='ident'>f64</span>,
+}
+
+<span class='kw'>impl</span> <span class='ident'>CircleBuilder</span> {
+    <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>CircleBuilder</span> {
+        <span class='ident'>CircleBuilder</span> { <span class='ident'>coordinate</span>: <span class='number'>0.0</span>, <span class='ident'>radius</span>: <span class='number'>0.0</span>, }
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>coordinate</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>coordinate</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>CircleBuilder</span> {
+    <span class='self'>self</span>.<span class='ident'>coordinate</span> <span class='op'>=</span> <span class='ident'>coordinate</span>;
+    <span class='self'>self</span>
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>radius</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>radius</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>CircleBuilder</span> {
+    <span class='self'>self</span>.<span class='ident'>radius</span> <span class='op'>=</span> <span class='ident'>radius</span>;
+    <span class='self'>self</span>
+    }
+
+    <span class='kw'>fn</span> <span class='ident'>finalize</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Circle</span> {
+        <span class='ident'>Circle</span> { <span class='ident'>x</span>: <span class='self'>self</span>.<span class='ident'>coordinate</span>, <span class='ident'>y</span>: <span class='self'>self</span>.<span class='ident'>coordinate</span>, <span class='ident'>radius</span>: <span class='self'>self</span>.<span class='ident'>radius</span> }
+    }
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>c</span> <span class='op'>=</span> <span class='ident'>CircleBuilder</span>::<span class='ident'>new</span>()
+                .<span class='ident'>coordinate</span>(<span class='number'>10.0</span>)
+                .<span class='ident'>radius</span>(<span class='number'>5.0</span>)
+                .<span class='ident'>finalize</span>();
+
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;area: {}&quot;</span>, <span class='ident'>c</span>.<span class='ident'>area</span>());
+}
+</pre>
+
+<p>What we&#39;ve done here is make another struct, <code>CircleBuilder</code>. We&#39;ve defined our
+builder methods on it. We&#39;ve also defined our <code>area()</code> method on <code>Circle</code>. We
+also made one more method on <code>CircleBuilder</code>: <code>finalize()</code>. This method creates
+our final <code>Circle</code> from the builder. Now, we&#39;ve used the type system to enforce
+our concerns: we can use the methods on <code>CircleBuilder</code> to constrain making
+<code>Circle</code>s in any way we choose.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

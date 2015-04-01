@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["NodeListMethods",""]],"fn":[["DefineDOMInterface",""],["DefineProxyHandler",""],["GetProtoObject",""],["Wrap",""]],"static":[["sNativePropertyHooks",""]]});

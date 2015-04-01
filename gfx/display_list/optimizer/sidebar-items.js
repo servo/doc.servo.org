@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DisplayListOptimizer","Transforms a display list to produce a visually-equivalent, but cheaper-to-paint, one."]]});

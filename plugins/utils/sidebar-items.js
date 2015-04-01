@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["match_lang_ty","Checks if a type has a #[servo_lang = \"str\"] attribute"],["match_ty_unwrap","Matches a type with a provided string, and returns its type parameters if successful"],["unsafe_context",""]]});

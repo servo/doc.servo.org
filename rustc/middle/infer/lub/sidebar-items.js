@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["Lub",""]],"struct":[["Lub","\"Least upper bound\" (common supertype)"]]});

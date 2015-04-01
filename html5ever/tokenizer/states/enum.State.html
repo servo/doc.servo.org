@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `State` enum in crate `html5ever`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, State">
+
+    <title>html5ever::tokenizer::states::State - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>html5ever</a>::<wbr><a href='../index.html'>tokenizer</a>::<wbr><a href='index.html'>states</a></p><script>window.sidebarCurrent = {name: 'State', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../../index.html'>html5ever</a>::<wbr><a href='../index.html'>tokenizer</a>::<wbr><a href='index.html'>states</a>::<wbr><a class='enum' href=''>State</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-4557' href='../../../src/html5ever/tokenizer/states.rs.html#51-93'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum State {
+    Data,
+    Plaintext,
+    TagOpen,
+    EndTagOpen,
+    TagName,
+    RawData(<a class='enum' href='../../../html5ever/tokenizer/states/enum.RawKind.html' title='html5ever::tokenizer::states::RawKind'>RawKind</a>),
+    RawLessThanSign(<a class='enum' href='../../../html5ever/tokenizer/states/enum.RawKind.html' title='html5ever::tokenizer::states::RawKind'>RawKind</a>),
+    RawEndTagOpen(<a class='enum' href='../../../html5ever/tokenizer/states/enum.RawKind.html' title='html5ever::tokenizer::states::RawKind'>RawKind</a>),
+    RawEndTagName(<a class='enum' href='../../../html5ever/tokenizer/states/enum.RawKind.html' title='html5ever::tokenizer::states::RawKind'>RawKind</a>),
+    ScriptDataEscapeStart(<a class='enum' href='../../../html5ever/tokenizer/states/enum.ScriptEscapeKind.html' title='html5ever::tokenizer::states::ScriptEscapeKind'>ScriptEscapeKind</a>),
+    ScriptDataEscapeStartDash,
+    ScriptDataEscapedDash(<a class='enum' href='../../../html5ever/tokenizer/states/enum.ScriptEscapeKind.html' title='html5ever::tokenizer::states::ScriptEscapeKind'>ScriptEscapeKind</a>),
+    ScriptDataEscapedDashDash(<a class='enum' href='../../../html5ever/tokenizer/states/enum.ScriptEscapeKind.html' title='html5ever::tokenizer::states::ScriptEscapeKind'>ScriptEscapeKind</a>),
+    ScriptDataDoubleEscapeEnd,
+    BeforeAttributeName,
+    AttributeName,
+    AfterAttributeName,
+    BeforeAttributeValue,
+    AttributeValue(<a class='enum' href='../../../html5ever/tokenizer/states/enum.AttrValueKind.html' title='html5ever::tokenizer::states::AttrValueKind'>AttrValueKind</a>),
+    AfterAttributeValueQuoted,
+    SelfClosingStartTag,
+    BogusComment,
+    MarkupDeclarationOpen,
+    CommentStart,
+    CommentStartDash,
+    Comment,
+    CommentEndDash,
+    CommentEnd,
+    CommentEndBang,
+    Doctype,
+    BeforeDoctypeName,
+    DoctypeName,
+    AfterDoctypeName,
+    AfterDoctypeKeyword(<a class='enum' href='../../../html5ever/tokenizer/states/enum.DoctypeIdKind.html' title='html5ever::tokenizer::states::DoctypeIdKind'>DoctypeIdKind</a>),
+    BeforeDoctypeIdentifier(<a class='enum' href='../../../html5ever/tokenizer/states/enum.DoctypeIdKind.html' title='html5ever::tokenizer::states::DoctypeIdKind'>DoctypeIdKind</a>),
+    DoctypeIdentifierDoubleQuoted(<a class='enum' href='../../../html5ever/tokenizer/states/enum.DoctypeIdKind.html' title='html5ever::tokenizer::states::DoctypeIdKind'>DoctypeIdKind</a>),
+    DoctypeIdentifierSingleQuoted(<a class='enum' href='../../../html5ever/tokenizer/states/enum.DoctypeIdKind.html' title='html5ever::tokenizer::states::DoctypeIdKind'>DoctypeIdKind</a>),
+    AfterDoctypeIdentifier(<a class='enum' href='../../../html5ever/tokenizer/states/enum.DoctypeIdKind.html' title='html5ever::tokenizer::states::DoctypeIdKind'>DoctypeIdKind</a>),
+    BetweenDoctypePublicAndSystemIdentifiers,
+    BogusDoctype,
+    CdataSection,
+}</pre><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.Data'><a class='stability Unmarked' title='No stability level'></a><code>Data</code></td><td></td></tr><tr><td id='variant.Plaintext'><a class='stability Unmarked' title='No stability level'></a><code>Plaintext</code></td><td></td></tr><tr><td id='variant.TagOpen'><a class='stability Unmarked' title='No stability level'></a><code>TagOpen</code></td><td></td></tr><tr><td id='variant.EndTagOpen'><a class='stability Unmarked' title='No stability level'></a><code>EndTagOpen</code></td><td></td></tr><tr><td id='variant.TagName'><a class='stability Unmarked' title='No stability level'></a><code>TagName</code></td><td></td></tr><tr><td id='variant.RawData'><a class='stability Unmarked' title='No stability level'></a><code>RawData</code></td><td></td></tr><tr><td id='variant.RawLessThanSign'><a class='stability Unmarked' title='No stability level'></a><code>RawLessThanSign</code></td><td></td></tr><tr><td id='variant.RawEndTagOpen'><a class='stability Unmarked' title='No stability level'></a><code>RawEndTagOpen</code></td><td></td></tr><tr><td id='variant.RawEndTagName'><a class='stability Unmarked' title='No stability level'></a><code>RawEndTagName</code></td><td></td></tr><tr><td id='variant.ScriptDataEscapeStart'><a class='stability Unmarked' title='No stability level'></a><code>ScriptDataEscapeStart</code></td><td></td></tr><tr><td id='variant.ScriptDataEscapeStartDash'><a class='stability Unmarked' title='No stability level'></a><code>ScriptDataEscapeStartDash</code></td><td></td></tr><tr><td id='variant.ScriptDataEscapedDash'><a class='stability Unmarked' title='No stability level'></a><code>ScriptDataEscapedDash</code></td><td></td></tr><tr><td id='variant.ScriptDataEscapedDashDash'><a class='stability Unmarked' title='No stability level'></a><code>ScriptDataEscapedDashDash</code></td><td></td></tr><tr><td id='variant.ScriptDataDoubleEscapeEnd'><a class='stability Unmarked' title='No stability level'></a><code>ScriptDataDoubleEscapeEnd</code></td><td></td></tr><tr><td id='variant.BeforeAttributeName'><a class='stability Unmarked' title='No stability level'></a><code>BeforeAttributeName</code></td><td></td></tr><tr><td id='variant.AttributeName'><a class='stability Unmarked' title='No stability level'></a><code>AttributeName</code></td><td></td></tr><tr><td id='variant.AfterAttributeName'><a class='stability Unmarked' title='No stability level'></a><code>AfterAttributeName</code></td><td></td></tr><tr><td id='variant.BeforeAttributeValue'><a class='stability Unmarked' title='No stability level'></a><code>BeforeAttributeValue</code></td><td></td></tr><tr><td id='variant.AttributeValue'><a class='stability Unmarked' title='No stability level'></a><code>AttributeValue</code></td><td></td></tr><tr><td id='variant.AfterAttributeValueQuoted'><a class='stability Unmarked' title='No stability level'></a><code>AfterAttributeValueQuoted</code></td><td></td></tr><tr><td id='variant.SelfClosingStartTag'><a class='stability Unmarked' title='No stability level'></a><code>SelfClosingStartTag</code></td><td></td></tr><tr><td id='variant.BogusComment'><a class='stability Unmarked' title='No stability level'></a><code>BogusComment</code></td><td></td></tr><tr><td id='variant.MarkupDeclarationOpen'><a class='stability Unmarked' title='No stability level'></a><code>MarkupDeclarationOpen</code></td><td></td></tr><tr><td id='variant.CommentStart'><a class='stability Unmarked' title='No stability level'></a><code>CommentStart</code></td><td></td></tr><tr><td id='variant.CommentStartDash'><a class='stability Unmarked' title='No stability level'></a><code>CommentStartDash</code></td><td></td></tr><tr><td id='variant.Comment'><a class='stability Unmarked' title='No stability level'></a><code>Comment</code></td><td></td></tr><tr><td id='variant.CommentEndDash'><a class='stability Unmarked' title='No stability level'></a><code>CommentEndDash</code></td><td></td></tr><tr><td id='variant.CommentEnd'><a class='stability Unmarked' title='No stability level'></a><code>CommentEnd</code></td><td></td></tr><tr><td id='variant.CommentEndBang'><a class='stability Unmarked' title='No stability level'></a><code>CommentEndBang</code></td><td></td></tr><tr><td id='variant.Doctype'><a class='stability Unmarked' title='No stability level'></a><code>Doctype</code></td><td></td></tr><tr><td id='variant.BeforeDoctypeName'><a class='stability Unmarked' title='No stability level'></a><code>BeforeDoctypeName</code></td><td></td></tr><tr><td id='variant.DoctypeName'><a class='stability Unmarked' title='No stability level'></a><code>DoctypeName</code></td><td></td></tr><tr><td id='variant.AfterDoctypeName'><a class='stability Unmarked' title='No stability level'></a><code>AfterDoctypeName</code></td><td></td></tr><tr><td id='variant.AfterDoctypeKeyword'><a class='stability Unmarked' title='No stability level'></a><code>AfterDoctypeKeyword</code></td><td></td></tr><tr><td id='variant.BeforeDoctypeIdentifier'><a class='stability Unmarked' title='No stability level'></a><code>BeforeDoctypeIdentifier</code></td><td></td></tr><tr><td id='variant.DoctypeIdentifierDoubleQuoted'><a class='stability Unmarked' title='No stability level'></a><code>DoctypeIdentifierDoubleQuoted</code></td><td></td></tr><tr><td id='variant.DoctypeIdentifierSingleQuoted'><a class='stability Unmarked' title='No stability level'></a><code>DoctypeIdentifierSingleQuoted</code></td><td></td></tr><tr><td id='variant.AfterDoctypeIdentifier'><a class='stability Unmarked' title='No stability level'></a><code>AfterDoctypeIdentifier</code></td><td></td></tr><tr><td id='variant.BetweenDoctypePublicAndSystemIdentifiers'><a class='stability Unmarked' title='No stability level'></a><code>BetweenDoctypePublicAndSystemIdentifiers</code></td><td></td></tr><tr><td id='variant.BogusDoctype'><a class='stability Unmarked' title='No stability level'></a><code>BogusDoctype</code></td><td></td></tr><tr><td id='variant.CdataSection'><a class='stability Unmarked' title='No stability level'></a><code>CdataSection</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='../../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a> for <a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a></code></h3><div class='impl-items'><h4 id='method.hash' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.hash' class='fnname'>hash</a>&lt;__H: <a class='trait' href='../../../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a>&gt;(&amp;self, __arg_0: &amp;mut __H)</code></h4>
+<h4 id='method.hash_slice' class='tymethod'><a class='stability Unstable' title='Unstable: module was recently redesigned'></a><code>fn <a href='#tymethod.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a href='../../../core/primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../../../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a></span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a> for <a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a></code></h3><div class='impl-items'><h4 id='method.cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.cmp' class='fnname'>cmp</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a>) -&gt; <a class='enum' href='../../../core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../core/cmp/trait.PartialOrd.html' title='core::cmp::PartialOrd'>PartialOrd</a> for <a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a></code></h3><div class='impl-items'><h4 id='method.partial_cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.partial_cmp' class='fnname'>partial_cmp</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a>) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../../core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a>&gt;</code></h4>
+<h4 id='method.lt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.lt' class='fnname'>lt</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a>) -&gt; <a href='../../../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.le' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.le' class='fnname'>le</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a>) -&gt; <a href='../../../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.gt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.gt' class='fnname'>gt</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a>) -&gt; <a href='../../../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ge' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ge' class='fnname'>ge</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a>) -&gt; <a href='../../../core/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a></code></h3><div class='impl-items'><h4 id='method.assert_receiver_is_total_eq' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.assert_receiver_is_total_eq' class='fnname'>assert_receiver_is_total_eq</a>(&amp;self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a>) -&gt; <a href='../../../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../../html5ever/tokenizer/states/enum.State.html' title='html5ever::tokenizer::states::State'>State</a>) -&gt; <a href='../../../core/primitive.bool.html'>bool</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "html5ever";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

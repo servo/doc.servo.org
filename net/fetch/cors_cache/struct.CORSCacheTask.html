@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `CORSCacheTask` struct in crate `net`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CORSCacheTask">
+
+    <title>net::fetch::cors_cache::CORSCacheTask - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>net</a>::<wbr><a href='../index.html'>fetch</a>::<wbr><a href='index.html'>cors_cache</a></p><script>window.sidebarCurrent = {name: 'CORSCacheTask', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>net</a>::<wbr><a href='../index.html'>fetch</a>::<wbr><a href='index.html'>cors_cache</a>::<wbr><a class='struct' href=''>CORSCacheTask</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-27725' href='../../../src/net/fetch/cors_cache.rs.html#260-264'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct CORSCacheTask {
+    // some fields omitted
+}</pre><div class='docblock'><p>A simple task-based CORS Cache that can be sent messages</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>task</span> <span class='op'>=</span> <span class='ident'>CORSCacheTask</span>::<span class='ident'>new</span>();
+<span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>TaskBuilder</span>::<span class='ident'>new</span>().<span class='ident'>named</span>(<span class='string'>&quot;XHRTask&quot;</span>);
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>sender</span> <span class='op'>=</span> <span class='ident'>task</span>.<span class='ident'>get_sender</span>();
+<span class='ident'>builder</span>.<span class='ident'>spawn</span>(<span class='kw'>move</span> <span class='op'>||</span> { <span class='ident'>task</span>.<span class='ident'>run</span>() });
+<span class='ident'>sender</span>.<span class='ident'>insert</span>(<span class='ident'>CORSCacheEntry</span>::<span class='ident'>new</span>(<span class='comment'>/* parameters here */</span>));
+</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../../net/fetch/cors_cache/struct.CORSCacheTask.html' title='net::fetch::cors_cache::CORSCacheTask'>CORSCacheTask</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../../net/fetch/cors_cache/struct.CORSCacheTask.html' title='net::fetch::cors_cache::CORSCacheTask'>CORSCacheTask</a></code></h4>
+<h4 id='method.get_sender' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_sender' class='fnname'>get_sender</a>(&amp;self) -&gt; <a class='type' href='../../../net/fetch/cors_cache/type.CORSCacheSender.html' title='net::fetch::cors_cache::CORSCacheSender'>CORSCacheSender</a></code></h4>
+<div class='docblock'><p>Provides a sender to the cache task</p>
+</div><h4 id='method.run' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.run' class='fnname'>run</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Runs the cache task
+This blocks the current task, so it is advised
+to spawn a new task for this
+Send ExitMsg to the associated Sender to exit</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "net";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

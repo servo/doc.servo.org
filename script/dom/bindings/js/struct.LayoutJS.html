@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `LayoutJS` struct in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, LayoutJS">
+
+    <title>script::dom::bindings::js::LayoutJS - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a>::<wbr><a href='index.html'>js</a></p><script>window.sidebarCurrent = {name: 'LayoutJS', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a>::<wbr><a href='index.html'>js</a>::<wbr><a class='struct' href=''>LayoutJS</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-3023' href='../../../../src/script/dom/bindings/js.rs.html#215-217'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct LayoutJS&lt;T&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>An unrooted reference to a DOM object for use in layout. <code>Layout*Helpers</code>
+traits must be implemented on this.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T: <a class='trait' href='../../../../script/dom/bindings/utils/trait.Reflectable.html' title='script::dom::bindings::utils::Reflectable'>Reflectable</a>&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.get_jsobject' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_jsobject' class='fnname'>get_jsobject</a>(&amp;self) -&gt; *mut <a class='enum' href='../../../../js/jsapi/enum.JSObject.html' title='js::jsapi::JSObject'>JSObject</a></code></h4>
+<div class='docblock'><p>Get the reflector.</p>
+</div></div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;</code></h3><div class='impl-items'><h4 id='method.from_trusted_node_address' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.from_trusted_node_address' class='fnname'>from_trusted_node_address</a>(inner: <a class='struct' href='../../../../script/dom/node/struct.TrustedNodeAddress.html' title='script::dom::node::TrustedNodeAddress'>TrustedNodeAddress</a>) -&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;</code></h4>
+<div class='docblock'><p>Create a new JS-owned value wrapped from an address known to be a
+<code>Node</code> pointer.</p>
+</div></div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T: <a class='trait' href='../../../../script/dom/bindings/utils/trait.Reflectable.html' title='script::dom::bindings::utils::Reflectable'>Reflectable</a>&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.unsafe_get' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.unsafe_get' class='fnname'>unsafe_get</a>(&amp;self) -&gt; *const T</code></h4>
+<div class='docblock'><p>Returns an unsafe pointer to the interior of this JS object. This is
+the only method that be safely accessed from layout. (The fact that
+this is unsafe is what necessitates the layout wrappers.)</p>
+</div></div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;From&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;From&gt;</code></h3><div class='impl-items'><h4 id='method.transmute_copy' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.transmute_copy' class='fnname'>transmute_copy</a>&lt;To&gt;(&amp;self) -&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;To&gt;</code></h4>
+<div class='docblock'><p>Return <code>self</code> as a <code>LayoutJS</code> of another type.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../../../core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;T&gt;</code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../../../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;T&gt;) -&gt; <a href='../../../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.ne' class='fnname'>ne</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../../../../std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;T&gt;</code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../../script/dom/canvasrenderingcontext2d/trait.LayoutCanvasRenderingContext2DHelpers.html' title='script::dom::canvasrenderingcontext2d::LayoutCanvasRenderingContext2DHelpers'>LayoutCanvasRenderingContext2DHelpers</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/canvasrenderingcontext2d/struct.CanvasRenderingContext2D.html' title='script::dom::canvasrenderingcontext2d::CanvasRenderingContext2D'>CanvasRenderingContext2D</a>&gt;</code></h3><div class='impl-items'><h4 id='method.get_renderer' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_renderer' class='fnname'>get_renderer</a>(&amp;self) -&gt; <a class='struct' href='../../../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='enum' href='../../../../canvas/canvas_paint_task/enum.CanvasMsg.html' title='canvas::canvas_paint_task::CanvasMsg'>CanvasMsg</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../../script/dom/document/trait.LayoutDocumentHelpers.html' title='script::dom::document::LayoutDocumentHelpers'>LayoutDocumentHelpers</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/document/struct.Document.html' title='script::dom::document::Document'>Document</a>&gt;</code></h3><div class='impl-items'><h4 id='method.is_html_document_for_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.is_html_document_for_layout' class='fnname'>is_html_document_for_layout</a>(&amp;self) -&gt; <a href='../../../../std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../../script/dom/element/trait.LayoutElementHelpers.html' title='script::dom::element::LayoutElementHelpers'>LayoutElementHelpers</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/element/struct.Element.html' title='script::dom::element::Element'>Element</a>&gt;</code></h3><div class='impl-items'><h4 id='method.html_element_in_html_document_for_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.html_element_in_html_document_for_layout' class='fnname'>html_element_in_html_document_for_layout</a>(&amp;self) -&gt; <a href='../../../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.has_attr_for_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.has_attr_for_layout' class='fnname'>has_attr_for_layout</a>(&amp;self, namespace: &amp;<a class='struct' href='../../../../string_cache/namespace/struct.Namespace.html' title='string_cache::namespace::Namespace'>Namespace</a>, name: &amp;<a class='struct' href='../../../../string_cache/atom/struct.Atom.html' title='string_cache::atom::Atom'>Atom</a>) -&gt; <a href='../../../../std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../../script/dom/htmlcanvaselement/trait.LayoutHTMLCanvasElementHelpers.html' title='script::dom::htmlcanvaselement::LayoutHTMLCanvasElementHelpers'>LayoutHTMLCanvasElementHelpers</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/htmlcanvaselement/struct.HTMLCanvasElement.html' title='script::dom::htmlcanvaselement::HTMLCanvasElement'>HTMLCanvasElement</a>&gt;</code></h3><div class='impl-items'><h4 id='method.get_renderer' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_renderer' class='fnname'>get_renderer</a>(&amp;self) -&gt; <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='enum' href='../../../../canvas/canvas_paint_task/enum.CanvasMsg.html' title='canvas::canvas_paint_task::CanvasMsg'>CanvasMsg</a>&gt;&gt;</code></h4>
+<h4 id='method.get_canvas_width' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_canvas_width' class='fnname'>get_canvas_width</a>(&amp;self) -&gt; <a href='../../../../std/primitive.u32.html'>u32</a></code></h4>
+<h4 id='method.get_canvas_height' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_canvas_height' class='fnname'>get_canvas_height</a>(&amp;self) -&gt; <a href='../../../../std/primitive.u32.html'>u32</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../../script/dom/htmlimageelement/trait.LayoutHTMLImageElementHelpers.html' title='script::dom::htmlimageelement::LayoutHTMLImageElementHelpers'>LayoutHTMLImageElementHelpers</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/htmlimageelement/struct.HTMLImageElement.html' title='script::dom::htmlimageelement::HTMLImageElement'>HTMLImageElement</a>&gt;</code></h3><div class='impl-items'><h4 id='method.image' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.image' class='fnname'>image</a>(&amp;self) -&gt; <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../../url/struct.Url.html' title='url::Url'>Url</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../../script/dom/htmlinputelement/trait.LayoutHTMLInputElementHelpers.html' title='script::dom::htmlinputelement::LayoutHTMLInputElementHelpers'>LayoutHTMLInputElementHelpers</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/htmlinputelement/struct.HTMLInputElement.html' title='script::dom::htmlinputelement::HTMLInputElement'>HTMLInputElement</a>&gt;</code></h3><div class='impl-items'><h4 id='method.get_value_for_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_value_for_layout' class='fnname'>get_value_for_layout</a>(self) -&gt; <a class='struct' href='../../../../collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<h4 id='method.get_size_for_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_size_for_layout' class='fnname'>get_size_for_layout</a>(self) -&gt; <a href='../../../../std/primitive.u32.html'>u32</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../../script/dom/htmltextareaelement/trait.LayoutHTMLTextAreaElementHelpers.html' title='script::dom::htmltextareaelement::LayoutHTMLTextAreaElementHelpers'>LayoutHTMLTextAreaElementHelpers</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/htmltextareaelement/struct.HTMLTextAreaElement.html' title='script::dom::htmltextareaelement::HTMLTextAreaElement'>HTMLTextAreaElement</a>&gt;</code></h3><div class='impl-items'><h4 id='method.get_value_for_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_value_for_layout' class='fnname'>get_value_for_layout</a>(self) -&gt; <a class='struct' href='../../../../collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../../script/dom/node/trait.LayoutNodeHelpers.html' title='script::dom::node::LayoutNodeHelpers'>LayoutNodeHelpers</a> for <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;</code></h3><div class='impl-items'><h4 id='method.type_id_for_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.type_id_for_layout' class='fnname'>type_id_for_layout</a>(&amp;self) -&gt; <a class='enum' href='../../../../script/dom/node/enum.NodeTypeId.html' title='script::dom::node::NodeTypeId'>NodeTypeId</a></code></h4>
+<h4 id='method.is_element_for_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.is_element_for_layout' class='fnname'>is_element_for_layout</a>(&amp;self) -&gt; <a href='../../../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.parent_node_ref' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.parent_node_ref' class='fnname'>parent_node_ref</a>(&amp;self) -&gt; <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;&gt;</code></h4>
+<h4 id='method.first_child_ref' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.first_child_ref' class='fnname'>first_child_ref</a>(&amp;self) -&gt; <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;&gt;</code></h4>
+<h4 id='method.last_child_ref' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.last_child_ref' class='fnname'>last_child_ref</a>(&amp;self) -&gt; <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;&gt;</code></h4>
+<h4 id='method.prev_sibling_ref' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.prev_sibling_ref' class='fnname'>prev_sibling_ref</a>(&amp;self) -&gt; <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;&gt;</code></h4>
+<h4 id='method.next_sibling_ref' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.next_sibling_ref' class='fnname'>next_sibling_ref</a>(&amp;self) -&gt; <a class='enum' href='../../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;&gt;</code></h4>
+<h4 id='method.owner_doc_for_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.owner_doc_for_layout' class='fnname'>owner_doc_for_layout</a>(&amp;self) -&gt; <a class='struct' href='../../../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../../../script/dom/document/struct.Document.html' title='script::dom::document::Document'>Document</a>&gt;</code></h4>
+<h4 id='method.get_flag' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get_flag' class='fnname'>get_flag</a>(self, flag: <a class='struct' href='../../../../script/dom/node/struct.NodeFlags.html' title='script::dom::node::NodeFlags'>NodeFlags</a>) -&gt; <a href='../../../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.set_flag' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.set_flag' class='fnname'>set_flag</a>(self, flag: <a class='struct' href='../../../../script/dom/node/struct.NodeFlags.html' title='script::dom::node::NodeFlags'>NodeFlags</a>, value: <a href='../../../../std/primitive.bool.html'>bool</a>)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

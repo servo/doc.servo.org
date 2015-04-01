@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `TextRun` struct in crate `gfx`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, TextRun">
+
+    <title>gfx::text::text_run::TextRun - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>gfx</a>::<wbr><a href='../index.html'>text</a>::<wbr><a href='index.html'>text_run</a></p><script>window.sidebarCurrent = {name: 'TextRun', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>gfx</a>::<wbr><a href='../index.html'>text</a>::<wbr><a href='index.html'>text_run</a>::<wbr><a class='struct' href=''>TextRun</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-31122' href='../../../src/gfx/text/text_run.rs.html#18-25'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct TextRun {
+    pub text: <a class='struct' href='../../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
+    pub font_template: <a class='struct' href='../../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../../gfx/platform/freetype/font_template/struct.FontTemplateData.html' title='gfx::platform::freetype::font_template::FontTemplateData'>FontTemplateData</a>&gt;,
+    pub actual_pt_size: <a class='struct' href='../../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>,
+    pub font_metrics: <a class='struct' href='../../../gfx/font/struct.FontMetrics.html' title='gfx::font::FontMetrics'>FontMetrics</a>,
+    pub glyphs: <a class='struct' href='../../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../../gfx/text/text_run/struct.GlyphRun.html' title='gfx::text::text_run::GlyphRun'>GlyphRun</a>&gt;&gt;,
+}</pre><div class='docblock'><p>A single &quot;paragraph&quot; of text in one font size and style.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.text'><a class='stability Unmarked' title='No stability level'></a><code>text</code></td><td></td></tr><tr><td id='structfield.font_template'><a class='stability Unmarked' title='No stability level'></a><code>font_template</code></td><td></td></tr><tr><td id='structfield.actual_pt_size'><a class='stability Unmarked' title='No stability level'></a><code>actual_pt_size</code></td><td></td></tr><tr><td id='structfield.font_metrics'><a class='stability Unmarked' title='No stability level'></a><code>font_metrics</code></td><td></td></tr><tr><td id='structfield.glyphs'><a class='stability Unmarked' title='No stability level'></a><code>glyphs</code></td><td><div class='docblock'><p>The glyph runs that make up this text run.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='struct' href='../../../gfx/text/text_run/struct.TextRun.html' title='gfx::text::text_run::TextRun'>TextRun</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(font: &amp;mut <a class='struct' href='../../../gfx/font/struct.Font.html' title='gfx::font::Font'>Font</a>, text: <a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>, options: &amp;<a class='struct' href='../../../gfx/font/struct.ShapingOptions.html' title='gfx::font::ShapingOptions'>ShapingOptions</a>) -&gt; <a class='struct' href='../../../gfx/text/text_run/struct.TextRun.html' title='gfx::text::text_run::TextRun'>TextRun</a></code></h4>
+<h4 id='method.break_and_shape' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.break_and_shape' class='fnname'>break_and_shape</a>(font: &amp;mut <a class='struct' href='../../../gfx/font/struct.Font.html' title='gfx::font::Font'>Font</a>, text: &amp;<a href='../../../std/primitive.str.html'>str</a>, options: &amp;<a class='struct' href='../../../gfx/font/struct.ShapingOptions.html' title='gfx::font::ShapingOptions'>ShapingOptions</a>) -&gt; <a class='struct' href='../../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../../gfx/text/text_run/struct.GlyphRun.html' title='gfx::text::text_run::GlyphRun'>GlyphRun</a>&gt;</code></h4>
+<h4 id='method.char_len' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.char_len' class='fnname'>char_len</a>(&amp;self) -&gt; <a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a></code></h4>
+<h4 id='method.glyphs' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.glyphs' class='fnname'>glyphs</a>(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../../gfx/text/text_run/struct.GlyphRun.html' title='gfx::text::text_run::GlyphRun'>GlyphRun</a>&gt;</code></h4>
+<h4 id='method.range_is_trimmable_whitespace' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.range_is_trimmable_whitespace' class='fnname'>range_is_trimmable_whitespace</a>(&amp;self, range: &amp;<a class='struct' href='../../../util/range/struct.Range.html' title='util::range::Range'>Range</a>&lt;<a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;) -&gt; <a href='../../../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ascent' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.ascent' class='fnname'>ascent</a>(&amp;self) -&gt; <a class='struct' href='../../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a></code></h4>
+<h4 id='method.descent' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.descent' class='fnname'>descent</a>(&amp;self) -&gt; <a class='struct' href='../../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a></code></h4>
+<h4 id='method.advance_for_range' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.advance_for_range' class='fnname'>advance_for_range</a>(&amp;self, range: &amp;<a class='struct' href='../../../util/range/struct.Range.html' title='util::range::Range'>Range</a>&lt;<a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;) -&gt; <a class='struct' href='../../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a></code></h4>
+<h4 id='method.metrics_for_range' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.metrics_for_range' class='fnname'>metrics_for_range</a>(&amp;self, range: &amp;<a class='struct' href='../../../util/range/struct.Range.html' title='util::range::Range'>Range</a>&lt;<a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;) -&gt; <a class='struct' href='../../../gfx/font/struct.RunMetrics.html' title='gfx::font::RunMetrics'>RunMetrics</a></code></h4>
+<h4 id='method.metrics_for_slice' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.metrics_for_slice' class='fnname'>metrics_for_slice</a>(&amp;self, glyphs: &amp;<a class='struct' href='../../../gfx/text/glyph/struct.GlyphStore.html' title='gfx::text::glyph::GlyphStore'>GlyphStore</a>, slice_range: &amp;<a class='struct' href='../../../util/range/struct.Range.html' title='util::range::Range'>Range</a>&lt;<a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;) -&gt; <a class='struct' href='../../../gfx/font/struct.RunMetrics.html' title='gfx::font::RunMetrics'>RunMetrics</a></code></h4>
+<h4 id='method.min_width_for_range' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.min_width_for_range' class='fnname'>min_width_for_range</a>(&amp;self, range: &amp;<a class='struct' href='../../../util/range/struct.Range.html' title='util::range::Range'>Range</a>&lt;<a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;) -&gt; <a class='struct' href='../../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a></code></h4>
+<h4 id='method.first_glyph_run_containing' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.first_glyph_run_containing' class='fnname'>first_glyph_run_containing</a>(&amp;'a self, index: <a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a <a class='struct' href='../../../gfx/text/text_run/struct.GlyphRun.html' title='gfx::text::text_run::GlyphRun'>GlyphRun</a>&gt;</code></h4>
+<div class='docblock'><p>Returns the first glyph run containing the given character index.</p>
+</div><h4 id='method.natural_word_slices_in_range' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.natural_word_slices_in_range' class='fnname'>natural_word_slices_in_range</a>(&amp;'a self, range: &amp;<a class='struct' href='../../../util/range/struct.Range.html' title='util::range::Range'>Range</a>&lt;<a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;) -&gt; <a class='struct' href='../../../gfx/text/text_run/struct.NaturalWordSliceIterator.html' title='gfx::text::text_run::NaturalWordSliceIterator'>NaturalWordSliceIterator</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Returns an iterator that will iterate over all slices of glyphs that represent natural
+words in the given range.</p>
+</div><h4 id='method.character_slices_in_range' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.character_slices_in_range' class='fnname'>character_slices_in_range</a>(&amp;'a self, range: &amp;<a class='struct' href='../../../util/range/struct.Range.html' title='util::range::Range'>Range</a>&lt;<a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;) -&gt; <a class='struct' href='../../../gfx/text/text_run/struct.CharacterSliceIterator.html' title='gfx::text::text_run::CharacterSliceIterator'>CharacterSliceIterator</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Returns an iterator that will iterate over all slices of glyphs that represent individual
+characters in the given range.</p>
+</div><h4 id='method.iter_natural_lines_for_range' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.iter_natural_lines_for_range' class='fnname'>iter_natural_lines_for_range</a>(&amp;'a self, range: &amp;<a class='struct' href='../../../util/range/struct.Range.html' title='util::range::Range'>Range</a>&lt;<a class='struct' href='../../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;) -&gt; <a class='struct' href='../../../gfx/text/text_run/struct.LineIterator.html' title='gfx::text::text_run::LineIterator'>LineIterator</a>&lt;'a&gt;</code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../../gfx/text/text_run/struct.TextRun.html' title='gfx::text::text_run::TextRun'>TextRun</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../../gfx/text/text_run/struct.TextRun.html' title='gfx::text::text_run::TextRun'>TextRun</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "gfx";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

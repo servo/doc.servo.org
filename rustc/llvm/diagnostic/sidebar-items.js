@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["InlineAsmDiagnostic",""],["OptimizationDiagnostic",""]],"enum":[["Diagnostic",""],["OptimizationDiagnosticKind",""]]});

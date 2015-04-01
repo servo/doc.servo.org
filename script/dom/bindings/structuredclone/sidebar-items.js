@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StructuredCloneData","A buffer for a structured clone."]]});

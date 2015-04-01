@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `logical_geometry` mod in crate `util`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, logical_geometry">
+
+    <title>util::logical_geometry - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>util</a></p><script>window.sidebarCurrent = {name: 'logical_geometry', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>util</a>::<wbr><a class='mod' href=''>logical_geometry</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-7639' href='../../src/util/logical_geometry.rs.html#5-1029'>[src]</a></span></h1>
+<div class='docblock'><p>Geometry in flow-relative space.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.LogicalMargin.html'
+                               title='util::logical_geometry::LogicalMargin'>LogicalMargin</a></td>
+                        <td class='docblock short'><p>A &quot;margin&quot; in flow-relative dimensions
+Represents the four sides of the margins, borders, or padding of a CSS box,
+or a combination of those.
+A positive &quot;margin&quot; can be added to a rectangle to obtain a bigger rectangle.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.LogicalPoint.html'
+                               title='util::logical_geometry::LogicalPoint'>LogicalPoint</a></td>
+                        <td class='docblock short'><p>A 2D point in flow-relative dimensions</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.LogicalRect.html'
+                               title='util::logical_geometry::LogicalRect'>LogicalRect</a></td>
+                        <td class='docblock short'><p>A rectangle in flow-relative dimensions</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.LogicalSize.html'
+                               title='util::logical_geometry::LogicalSize'>LogicalSize</a></td>
+                        <td class='docblock short'><p>A 2D size in flow-relative dimensions</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.WritingMode.html'
+                               title='util::logical_geometry::WritingMode'>WritingMode</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FLAG_RTL.html'
+                               title='util::logical_geometry::FLAG_RTL'>FLAG_RTL</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FLAG_SIDEWAYS_LEFT.html'
+                               title='util::logical_geometry::FLAG_SIDEWAYS_LEFT'>FLAG_SIDEWAYS_LEFT</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FLAG_VERTICAL.html'
+                               title='util::logical_geometry::FLAG_VERTICAL'>FLAG_VERTICAL</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.FLAG_VERTICAL_LR.html'
+                               title='util::logical_geometry::FLAG_VERTICAL_LR'>FLAG_VERTICAL_LR</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "util";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `FontContext` struct in crate `gfx`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, FontContext">
+
+    <title>gfx::font_context::FontContext - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>gfx</a>::<wbr><a href='index.html'>font_context</a></p><script>window.sidebarCurrent = {name: 'FontContext', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>gfx</a>::<wbr><a href='index.html'>font_context</a>::<wbr><a class='struct' href=''>FontContext</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-15639' href='../../src/gfx/font_context.rs.html#67-81'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct FontContext {
+    // some fields omitted
+}</pre><div class='docblock'><p>The FontContext represents the per-thread/task state necessary for
+working with fonts. It is the public API used by the layout and
+paint code. It talks directly to the font cache task where
+required.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../gfx/font_context/struct.FontContext.html' title='gfx::font_context::FontContext'>FontContext</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(font_cache_task: <a class='struct' href='../../gfx/font_cache_task/struct.FontCacheTask.html' title='gfx::font_cache_task::FontCacheTask'>FontCacheTask</a>) -&gt; <a class='struct' href='../../gfx/font_context/struct.FontContext.html' title='gfx::font_context::FontContext'>FontContext</a></code></h4>
+<h4 id='method.get_layout_font_group_for_style' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_layout_font_group_for_style' class='fnname'>get_layout_font_group_for_style</a>(&amp;mut self, style: <a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='type' href='../../gfx/font/type.SpecifiedFontStyle.html' title='gfx::font::SpecifiedFontStyle'>SpecifiedFontStyle</a>&gt;) -&gt; <a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../gfx/font/struct.FontGroup.html' title='gfx::font::FontGroup'>FontGroup</a>&gt;</code></h4>
+<div class='docblock'><p>Create a group of fonts for use in layout calculations. May return
+a cached font if this font instance has already been used by
+this context.</p>
+</div><h4 id='method.get_paint_font_from_template' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_paint_font_from_template' class='fnname'>get_paint_font_from_template</a>(&amp;mut self, template: &amp;<a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../gfx/platform/freetype/font_template/struct.FontTemplateData.html' title='gfx::platform::freetype::font_template::FontTemplateData'>FontTemplateData</a>&gt;, pt_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>) -&gt; <a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../core/cell/struct.RefCell.html' title='core::cell::RefCell'>RefCell</a>&lt;<a class='struct' href='../../azure/scaled_font/struct.ScaledFont.html' title='azure::scaled_font::ScaledFont'>ScaledFont</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Create a paint font for use with azure. May return a cached
+reference if already used by this font context.</p>
+</div><h4 id='method.font_cache_task' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.font_cache_task' class='fnname'>font_cache_task</a>(&amp;self) -&gt; <a class='struct' href='../../gfx/font_cache_task/struct.FontCacheTask.html' title='gfx::font_cache_task::FontCacheTask'>FontCacheTask</a></code></h4>
+<div class='docblock'><p>Returns a reference to the font cache task.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "gfx";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

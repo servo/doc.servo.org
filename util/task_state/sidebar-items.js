@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["IN_GC",""],["IN_HTML_PARSER",""],["IN_WORKER",""],["LAYOUT",""],["PAINT",""],["SCRIPT",""]],"fn":[["enter",""],["exit",""],["get",""],["initialize",""]],"struct":[["TaskState",""]]});

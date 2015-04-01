@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BrowserContext",""],["SessionHistoryEntry",""]],"fn":[["new_window_proxy_handler",""]]});

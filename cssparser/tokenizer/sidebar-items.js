@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Token","One of the pieces the CSS input is broken into."]],"struct":[["NumericValue","The numeric value of `Number` and `Dimension` tokens."],["PercentageValue","The numeric value of `Percentage` tokens."],["SourceLocation","The line and column number for a given position within the input."]]});

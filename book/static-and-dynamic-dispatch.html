@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Static and Dynamic Dispatch</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Static and Dynamic Dispatch</h1>
+    <p>When code involves polymorphism, there needs to be a mechanism to determine
+which specific version is actually run. This is called &#39;dispatch.&#39; There are
+two major forms of dispatch: static dispatch and dynamic dispatch. While Rust
+favors static dispatch, it also supports dynamic dispatch through a mechanism
+called &#39;trait objects.&#39;</p>
+
+<h2 id="background" class='section-header'><a
+                           href="#background">Background</a></h2>
+<p>For the rest of this chapter, we&#39;ll need a trait and some implementations.
+Let&#39;s make a simple one, <code>Foo</code>. It has one method that is expected to return a
+<code>String</code>.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>trait</span> <span class='ident'>Foo</span> {
+    <span class='kw'>fn</span> <span class='ident'>method</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span>;
+}
+</pre>
+
+<p>We&#39;ll also implement this trait for <code>u8</code> and <code>String</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>impl</span> <span class='ident'>Foo</span> <span class='kw'>for</span> <span class='ident'>u8</span> {
+    <span class='kw'>fn</span> <span class='ident'>method</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> { <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;u8: {}&quot;</span>, <span class='op'>*</span><span class='self'>self</span>) }
+}
+
+<span class='kw'>impl</span> <span class='ident'>Foo</span> <span class='kw'>for</span> <span class='ident'>String</span> {
+    <span class='kw'>fn</span> <span class='ident'>method</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> { <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;string: {}&quot;</span>, <span class='op'>*</span><span class='self'>self</span>) }
+}
+</pre>
+
+<h2 id="static-dispatch" class='section-header'><a
+                           href="#static-dispatch">Static dispatch</a></h2>
+<p>We can use this trait to perform static dispatch with trait bounds:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>do_something</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>Foo</span><span class='op'>&gt;</span>(<span class='ident'>x</span>: <span class='ident'>T</span>) {
+    <span class='ident'>x</span>.<span class='ident'>method</span>();
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='number'>5u8</span>;
+    <span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='string'>&quot;Hello&quot;</span>.<span class='ident'>to_string</span>();
+
+    <span class='ident'>do_something</span>(<span class='ident'>x</span>);
+    <span class='ident'>do_something</span>(<span class='ident'>y</span>);
+}
+</pre>
+
+<p>Rust uses &#39;monomorphization&#39; to perform static dispatch here. This means that
+Rust will create a special version of <code>do_something()</code> for both <code>u8</code> and
+<code>String</code>, and then replace the call sites with calls to these specialized
+functions. In other words, Rust generates something like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>do_something_u8</span>(<span class='ident'>x</span>: <span class='ident'>u8</span>) {
+    <span class='ident'>x</span>.<span class='ident'>method</span>();
+}
+
+<span class='kw'>fn</span> <span class='ident'>do_something_string</span>(<span class='ident'>x</span>: <span class='ident'>String</span>) {
+    <span class='ident'>x</span>.<span class='ident'>method</span>();
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='number'>5u8</span>;
+    <span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='string'>&quot;Hello&quot;</span>.<span class='ident'>to_string</span>();
+
+    <span class='ident'>do_something_u8</span>(<span class='ident'>x</span>);
+    <span class='ident'>do_something_string</span>(<span class='ident'>y</span>);
+}
+</pre>
+
+<p>This has a great upside: static dispatch allows function calls to be
+inlined because the callee is known at compile time, and inlining is
+the key to good optimization. Static dispatch is fast, but it comes at
+a tradeoff: &#39;code bloat&#39;, due to many copies of the same function
+existing in the binary, one for each type.</p>
+
+<p>Furthermore, compilers aren’t perfect and may “optimize” code to become slower.
+For example, functions inlined too eagerly will bloat the instruction cache
+(cache rules everything around us). This is part of the reason that <code>#[inline]</code>
+and <code>#[inline(always)]</code> should be used carefully, and one reason why using a
+dynamic dispatch is sometimes more efficient.</p>
+
+<p>However, the common case is that it is more efficient to use static dispatch,
+and one can always have a thin statically-dispatched wrapper function that does
+a dynamic dispatch, but not vice versa, meaning static calls are more flexible.
+The standard library tries to be statically dispatched where possible for this
+reason. </p>
+
+<h2 id="dynamic-dispatch" class='section-header'><a
+                           href="#dynamic-dispatch">Dynamic dispatch</a></h2>
+<p>Rust provides dynamic dispatch through a feature called &#39;trait objects.&#39; Trait
+objects, like <code>&amp;Foo</code> or <code>Box&lt;Foo&gt;</code>, are normal values that store a value of
+<em>any</em> type that implements the given trait, where the precise type can only be
+known at runtime. The methods of the trait can be called on a trait object via
+a special record of function pointers (created and managed by the compiler).</p>
+
+<p>A function that takes a trait object is not specialized to each of the types
+that implements <code>Foo</code>: only one copy is generated, often (but not always)
+resulting in less code bloat. However, this comes at the cost of requiring
+slower virtual function calls, and effectively inhibiting any chance of
+inlining and related optimisations from occurring.</p>
+
+<p>Trait objects are both simple and complicated: their core representation and
+layout is quite straight-forward, but there are some curly error messages and
+surprising behaviors to discover.</p>
+
+<h3 id="obtaining-a-trait-object" class='section-header'><a
+                           href="#obtaining-a-trait-object">Obtaining a trait object</a></h3>
+<p>There&#39;s two similar ways to get a trait object value: casts and coercions. If
+<code>T</code> is a type that implements a trait <code>Foo</code> (e.g. <code>u8</code> for the <code>Foo</code> above),
+then the two ways to get a <code>Foo</code> trait object out of a pointer to <code>T</code> look
+like:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>ref_to_t</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span> <span class='op'>=</span> ...;
+
+<span class='comment'>// `as` keyword for casting</span>
+<span class='kw'>let</span> <span class='ident'>cast</span> <span class='op'>=</span> <span class='ident'>ref_to_t</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span><span class='ident'>Foo</span>;
+
+<span class='comment'>// using a `&amp;T` in a place that has a known type of `&amp;Foo` will implicitly coerce:</span>
+<span class='kw'>let</span> <span class='ident'>coerce</span>: <span class='kw-2'>&amp;</span><span class='ident'>Foo</span> <span class='op'>=</span> <span class='ident'>ref_to_t</span>;
+
+<span class='kw'>fn</span> <span class='ident'>also_coerce</span>(<span class='ident'>_unused</span>: <span class='kw-2'>&amp;</span><span class='ident'>Foo</span>) {}
+<span class='ident'>also_coerce</span>(<span class='ident'>ref_to_t</span>);
+</pre>
+
+<p>These trait object coercions and casts also work for pointers like <code>&amp;mut T</code> to
+<code>&amp;mut Foo</code> and <code>Box&lt;T&gt;</code> to <code>Box&lt;Foo&gt;</code>, but that&#39;s all at the moment. Coercions
+and casts are identical.</p>
+
+<p>This operation can be seen as &quot;erasing&quot; the compiler&#39;s knowledge about the
+specific type of the pointer, and hence trait objects are sometimes referred to
+as &quot;type erasure&quot;.</p>
+
+<h3 id="representation" class='section-header'><a
+                           href="#representation">Representation</a></h3>
+<p>Let&#39;s start simple, with the runtime representation of a trait object. The
+<code>std::raw</code> module contains structs with layouts that are the same as the
+complicated built-in types, <a href="../std/raw/struct.TraitObject.html">including trait objects</a>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TraitObject</span> {
+    <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw-2'>mut</span> (),
+    <span class='kw'>pub</span> <span class='ident'>vtable</span>: <span class='op'>*</span><span class='kw-2'>mut</span> (),
+}
+</pre>
+
+<p>That is, a trait object like <code>&amp;Foo</code> consists of a &quot;data&quot; pointer and a &quot;vtable&quot;
+pointer.</p>
+
+<p>The data pointer addresses the data (of some unknown type <code>T</code>) that the trait
+object is storing, and the vtable pointer points to the vtable (&quot;virtual method
+table&quot;) corresponding to the implementation of <code>Foo</code> for <code>T</code>.</p>
+
+<p>A vtable is essentially a struct of function pointers, pointing to the concrete
+piece of machine code for each method in the implementation. A method call like
+<code>trait_object.method()</code> will retrieve the correct pointer out of the vtable and
+then do a dynamic call of it. For example:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>struct</span> <span class='ident'>FooVtable</span> {
+    <span class='ident'>destructor</span>: <span class='kw'>fn</span>(<span class='op'>*</span><span class='kw-2'>mut</span> ()),
+    <span class='ident'>size</span>: <span class='ident'>usize</span>,
+    <span class='ident'>align</span>: <span class='ident'>usize</span>,
+    <span class='ident'>method</span>: <span class='kw'>fn</span>(<span class='op'>*</span><span class='kw'>const</span> ()) <span class='op'>-&gt;</span> <span class='ident'>String</span>,
+}
+
+<span class='comment'>// u8:</span>
+
+<span class='kw'>fn</span> <span class='ident'>call_method_on_u8</span>(<span class='ident'>x</span>: <span class='op'>*</span><span class='kw'>const</span> ()) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
+    <span class='comment'>// the compiler guarantees that this function is only called</span>
+    <span class='comment'>// with `x` pointing to a u8</span>
+    <span class='kw'>let</span> <span class='ident'>byte</span>: <span class='kw-2'>&amp;</span><span class='ident'>u8</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='kw-2'>&amp;</span><span class='op'>*</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>) };
+
+    <span class='ident'>byte</span>.<span class='ident'>method</span>()
+}
+
+<span class='kw'>static</span> <span class='ident'>Foo_for_u8_vtable</span>: <span class='ident'>FooVtable</span> <span class='op'>=</span> <span class='ident'>FooVtable</span> {
+    <span class='ident'>destructor</span>: <span class='comment'>/* compiler magic */</span>,
+    <span class='ident'>size</span>: <span class='number'>1</span>,
+    <span class='ident'>align</span>: <span class='number'>1</span>,
+
+    <span class='comment'>// cast to a function pointer</span>
+    <span class='ident'>method</span>: <span class='ident'>call_method_on_u8</span> <span class='kw'>as</span> <span class='kw'>fn</span>(<span class='op'>*</span><span class='kw'>const</span> ()) <span class='op'>-&gt;</span> <span class='ident'>String</span>,
+};
+
+
+<span class='comment'>// String:</span>
+
+<span class='kw'>fn</span> <span class='ident'>call_method_on_String</span>(<span class='ident'>x</span>: <span class='op'>*</span><span class='kw'>const</span> ()) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
+    <span class='comment'>// the compiler guarantees that this function is only called</span>
+    <span class='comment'>// with `x` pointing to a String</span>
+    <span class='kw'>let</span> <span class='ident'>string</span>: <span class='kw-2'>&amp;</span><span class='ident'>String</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='kw-2'>&amp;</span><span class='op'>*</span>(<span class='ident'>x</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>String</span>) };
+
+    <span class='ident'>string</span>.<span class='ident'>method</span>()
+}
+
+<span class='kw'>static</span> <span class='ident'>Foo_for_String_vtable</span>: <span class='ident'>FooVtable</span> <span class='op'>=</span> <span class='ident'>FooVtable</span> {
+    <span class='ident'>destructor</span>: <span class='comment'>/* compiler magic */</span>,
+    <span class='comment'>// values for a 64-bit computer, halve them for 32-bit ones</span>
+    <span class='ident'>size</span>: <span class='number'>24</span>,
+    <span class='ident'>align</span>: <span class='number'>8</span>,
+
+    <span class='ident'>method</span>: <span class='ident'>call_method_on_String</span> <span class='kw'>as</span> <span class='kw'>fn</span>(<span class='op'>*</span><span class='kw'>const</span> ()) <span class='op'>-&gt;</span> <span class='ident'>String</span>,
+};
+</pre>
+
+<p>The <code>destructor</code> field in each vtable points to a function that will clean up
+any resources of the vtable&#39;s type, for <code>u8</code> it is trivial, but for <code>String</code> it
+will free the memory. This is necessary for owning trait objects like
+<code>Box&lt;Foo&gt;</code>, which need to clean-up both the <code>Box</code> allocation as well as the
+internal type when they go out of scope. The <code>size</code> and <code>align</code> fields store
+the size of the erased type, and its alignment requirements; these are
+essentially unused at the moment since the information is embedded in the
+destructor, but will be used in the future, as trait objects are progressively
+made more flexible.</p>
+
+<p>Suppose we&#39;ve got some values that implement <code>Foo</code>, then the explicit form of
+construction and use of <code>Foo</code> trait objects might look a bit like (ignoring the
+type mismatches: they&#39;re all just pointers anyway):</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>a</span>: <span class='ident'>String</span> <span class='op'>=</span> <span class='string'>&quot;foo&quot;</span>.<span class='ident'>to_string</span>();
+<span class='kw'>let</span> <span class='ident'>x</span>: <span class='ident'>u8</span> <span class='op'>=</span> <span class='number'>1</span>;
+
+<span class='comment'>// let b: &amp;Foo = &amp;a;</span>
+<span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> <span class='ident'>TraitObject</span> {
+    <span class='comment'>// store the data</span>
+    <span class='ident'>data</span>: <span class='kw-2'>&amp;</span><span class='ident'>a</span>,
+    <span class='comment'>// store the methods</span>
+    <span class='ident'>vtable</span>: <span class='kw-2'>&amp;</span><span class='ident'>Foo_for_String_vtable</span>
+};
+
+<span class='comment'>// let y: &amp;Foo = x;</span>
+<span class='kw'>let</span> <span class='ident'>y</span> <span class='op'>=</span> <span class='ident'>TraitObject</span> {
+    <span class='comment'>// store the data</span>
+    <span class='ident'>data</span>: <span class='kw-2'>&amp;</span><span class='ident'>x</span>,
+    <span class='comment'>// store the methods</span>
+    <span class='ident'>vtable</span>: <span class='kw-2'>&amp;</span><span class='ident'>Foo_for_u8_vtable</span>
+};
+
+<span class='comment'>// b.method();</span>
+(<span class='ident'>b</span>.<span class='ident'>vtable</span>.<span class='ident'>method</span>)(<span class='ident'>b</span>.<span class='ident'>data</span>);
+
+<span class='comment'>// y.method();</span>
+(<span class='ident'>y</span>.<span class='ident'>vtable</span>.<span class='ident'>method</span>)(<span class='ident'>y</span>.<span class='ident'>data</span>);
+</pre>
+
+<p>If <code>b</code> or <code>y</code> were owning trait objects (<code>Box&lt;Foo&gt;</code>), there would be a
+<code>(b.vtable.destructor)(b.data)</code> (respectively <code>y</code>) call when they went out of
+scope.</p>
+
+<h3 id="why-pointers?" class='section-header'><a
+                           href="#why-pointers?">Why pointers?</a></h3>
+<p>The use of language like &quot;fat pointer&quot; implies that a trait object is
+always a pointer of some form, but why?</p>
+
+<p>Rust does not put things behind a pointer by default, unlike many managed
+languages, so types can have different sizes. Knowing the size of the value at
+compile time is important for things like passing it as an argument to a
+function, moving it about on the stack and allocating (and deallocating) space
+on the heap to store it.</p>
+
+<p>For <code>Foo</code>, we would need to have a value that could be at least either a
+<code>String</code> (24 bytes) or a <code>u8</code> (1 byte), as well as any other type for which
+dependent crates may implement <code>Foo</code> (any number of bytes at all). There&#39;s no
+way to guarantee that this last point can work if the values are stored without
+a pointer, because those other types can be arbitrarily large.</p>
+
+<p>Putting the value behind a pointer means the size of the value is not relevant
+when we are tossing a trait object around, only the size of the pointer itself.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

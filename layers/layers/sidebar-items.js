@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BufferRequest","A request from the compositor to the renderer for tiles that need to be (re)displayed."],["ContentAge",""],["Layer",""],["LayerBuffer",""],["LayerBufferSet","A set of layer buffers. This is an atomic unit used to switch between the front and back buffers."]]});

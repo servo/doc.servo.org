@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["SmallVec",""],["SmallVecPrivate",""],["VecLike",""]],"struct":[["SmallVec1",""],["SmallVec16",""],["SmallVec2",""],["SmallVec24",""],["SmallVec32",""],["SmallVec4",""],["SmallVec8",""],["SmallVecIterator",""],["SmallVecMoveIterator",""],["SmallVecMutIterator",""]]});

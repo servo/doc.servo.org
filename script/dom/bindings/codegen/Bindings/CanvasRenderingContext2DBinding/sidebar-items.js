@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["DefineDOMInterface",""],["GetProtoObject",""],["Wrap",""]],"mod":[["CanvasWindingRuleValues",""]],"trait":[["CanvasRenderingContext2DMethods",""]],"enum":[["CanvasWindingRule",""]],"static":[["sNativePropertyHooks",""]]});

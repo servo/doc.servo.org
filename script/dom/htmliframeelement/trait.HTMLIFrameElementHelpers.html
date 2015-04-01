@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `HTMLIFrameElementHelpers` trait in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, HTMLIFrameElementHelpers">
+
+    <title>script::dom::htmliframeelement::HTMLIFrameElementHelpers - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a>::<wbr><a href='index.html'>htmliframeelement</a></p><script>window.sidebarCurrent = {name: 'HTMLIFrameElementHelpers', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a>::<wbr><a href='index.html'>htmliframeelement</a>::<wbr><a class='trait' href=''>HTMLIFrameElementHelpers</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-505355' href='../../../src/script/dom/htmliframeelement.rs.html#68-77'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait HTMLIFrameElementHelpers {
+    fn <a href='#tymethod.is_sandboxed' class='fnname'>is_sandboxed</a>(self) -&gt; <a href='../../../std/primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.get_url' class='fnname'>get_url</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a>&gt;;
+    fn <a href='#tymethod.process_the_iframe_attributes' class='fnname'>process_the_iframe_attributes</a>(self);
+    fn <a href='#tymethod.generate_new_subpage_id' class='fnname'>generate_new_subpage_id</a>(self) -&gt; <a href='../../../std/primitive.tuple.html'>(<a class='struct' href='../../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>, <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>&gt;)</a>;
+    fn <a href='#tymethod.navigate_child_browsing_context' class='fnname'>navigate_child_browsing_context</a>(self, url: <a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a>);
+    fn <a href='#tymethod.dispatch_mozbrowser_event' class='fnname'>dispatch_mozbrowser_event</a>(self, event: <a class='enum' href='../../../msg/constellation_msg/enum.MozBrowserEvent.html' title='msg::constellation_msg::MozBrowserEvent'>MozBrowserEvent</a>);
+    fn <a href='#tymethod.update_subpage_id' class='fnname'>update_subpage_id</a>(self, new_subpage_id: <a class='struct' href='../../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>);
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.is_sandboxed' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.is_sandboxed' class='fnname'>is_sandboxed</a>(self) -&gt; <a href='../../../std/primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.get_url' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.get_url' class='fnname'>get_url</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a>&gt;</code></h3><h3 id='tymethod.process_the_iframe_attributes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.process_the_iframe_attributes' class='fnname'>process_the_iframe_attributes</a>(self)</code></h3><div class='docblock'><p><a href="http://www.whatwg.org/html/#process-the-iframe-attributes">http://www.whatwg.org/html/#process-the-iframe-attributes</a></p>
+</div><h3 id='tymethod.generate_new_subpage_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.generate_new_subpage_id' class='fnname'>generate_new_subpage_id</a>(self) -&gt; <a href='../../../std/primitive.tuple.html'>(<a class='struct' href='../../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>, <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>&gt;)</a></code></h3><h3 id='tymethod.navigate_child_browsing_context' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.navigate_child_browsing_context' class='fnname'>navigate_child_browsing_context</a>(self, url: <a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a>)</code></h3><h3 id='tymethod.dispatch_mozbrowser_event' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.dispatch_mozbrowser_event' class='fnname'>dispatch_mozbrowser_event</a>(self, event: <a class='enum' href='../../../msg/constellation_msg/enum.MozBrowserEvent.html' title='msg::constellation_msg::MozBrowserEvent'>MozBrowserEvent</a>)</code></h3><h3 id='tymethod.update_subpage_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.update_subpage_id' class='fnname'>update_subpage_id</a>(self, new_subpage_id: <a class='struct' href='../../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>)</code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='trait' href='../../../script/dom/htmliframeelement/trait.HTMLIFrameElementHelpers.html' title='script::dom::htmliframeelement::HTMLIFrameElementHelpers'>HTMLIFrameElementHelpers</a> for <a class='struct' href='../../../script/dom/bindings/js/struct.JSRef.html' title='script::dom::bindings::js::JSRef'>JSRef</a>&lt;'a, <a class='struct' href='../../../script/dom/htmliframeelement/struct.HTMLIFrameElement.html' title='script::dom::htmliframeelement::HTMLIFrameElement'>HTMLIFrameElement</a>&gt;</code></li>
+</ul><script type="text/javascript" async
+                              src="../../../implementors/script/dom/htmliframeelement/trait.HTMLIFrameElementHelpers.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

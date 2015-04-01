@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ScriptTask` struct in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ScriptTask">
+
+    <title>script::script_task::ScriptTask - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>script</a>::<wbr><a href='index.html'>script_task</a></p><script>window.sidebarCurrent = {name: 'ScriptTask', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>script</a>::<wbr><a href='index.html'>script_task</a>::<wbr><a class='struct' href=''>ScriptTask</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-565112' href='../../src/script/script_task.rs.html#245-288'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ScriptTask {
+    // some fields omitted
+}</pre><div class='docblock'><p>Information for an entire page. Pages are top-level browsing contexts and can contain multiple
+frames.</p>
+
+<p>FIXME: Rename to <code>Page</code>, following WebKit?</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../script/script_task/struct.ScriptTask.html' title='script::script_task::ScriptTask'>ScriptTask</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(compositor: <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../msg/compositor_msg/trait.ScriptListener.html' title='msg::compositor_msg::ScriptListener'>ScriptListener</a> + 'static&gt;, port: <a class='struct' href='../../std/sync/mpsc/struct.Receiver.html' title='std::sync::mpsc::Receiver'>Receiver</a>&lt;<a class='enum' href='../../script/script_task/enum.ScriptMsg.html' title='script::script_task::ScriptMsg'>ScriptMsg</a>&gt;, chan: <a class='struct' href='../../script/script_task/struct.NonWorkerScriptChan.html' title='script::script_task::NonWorkerScriptChan'>NonWorkerScriptChan</a>, control_chan: <a class='struct' href='../../script_traits/struct.ScriptControlChan.html' title='script_traits::ScriptControlChan'>ScriptControlChan</a>, control_port: <a class='struct' href='../../std/sync/mpsc/struct.Receiver.html' title='std::sync::mpsc::Receiver'>Receiver</a>&lt;<a class='enum' href='../../script_traits/enum.ConstellationControlMsg.html' title='script_traits::ConstellationControlMsg'>ConstellationControlMsg</a>&gt;, constellation_chan: <a class='struct' href='../../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a>, resource_task: <a class='type' href='../../net/resource_task/type.ResourceTask.html' title='net::resource_task::ResourceTask'>ResourceTask</a>, storage_task: <a class='type' href='../../net/storage_task/type.StorageTask.html' title='net::storage_task::StorageTask'>StorageTask</a>, img_cache_task: <a class='struct' href='../../net/image_cache_task/struct.ImageCacheTask.html' title='net::image_cache_task::ImageCacheTask'>ImageCacheTask</a>, devtools_chan: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../../devtools_traits/type.DevtoolsControlChan.html' title='devtools_traits::DevtoolsControlChan'>DevtoolsControlChan</a>&gt;) -&gt; <a class='struct' href='../../script/script_task/struct.ScriptTask.html' title='script::script_task::ScriptTask'>ScriptTask</a></code></h4>
+<div class='docblock'><p>Creates a new script task.</p>
+</div><h4 id='method.new_rt_and_cx' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new_rt_and_cx' class='fnname'>new_rt_and_cx</a>() -&gt; <a href='../../std/primitive.tuple.html'>(<a class='type' href='../../js/rust/type.rt.html' title='js::rust::rt'>rt</a>, <a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../js/rust/struct.Cx.html' title='js::rust::Cx'>Cx</a>&gt;)</a></code></h4>
+<h4 id='method.root_page' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.root_page' class='fnname'>root_page</a>(&amp;self) -&gt; <a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;<a class='struct' href='../../script/page/struct.Page.html' title='script::page::Page'>Page</a>&gt;</code></h4>
+<h4 id='method.get_cx' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_cx' class='fnname'>get_cx</a>(&amp;self) -&gt; *mut <a class='enum' href='../../js/jsapi/enum.JSContext.html' title='js::jsapi::JSContext'>JSContext</a></code></h4>
+<h4 id='method.start' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.start' class='fnname'>start</a>(&amp;self)</code></h4>
+<div class='docblock'><p>Starts the script task. After calling this method, the script task will loop receiving
+messages on its port.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../script_traits/trait.ScriptTaskFactory.html' title='script_traits::ScriptTaskFactory'>ScriptTaskFactory</a> for <a class='struct' href='../../script/script_task/struct.ScriptTask.html' title='script::script_task::ScriptTask'>ScriptTask</a></code></h3><div class='impl-items'><h4 id='method.create_layout_channel' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.create_layout_channel' class='fnname'>create_layout_channel</a>(_phantom: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut <a class='struct' href='../../script/script_task/struct.ScriptTask.html' title='script::script_task::ScriptTask'>ScriptTask</a>&gt;) -&gt; <a class='struct' href='../../script_traits/struct.OpaqueScriptLayoutChannel.html' title='script_traits::OpaqueScriptLayoutChannel'>OpaqueScriptLayoutChannel</a></code></h4>
+<h4 id='method.clone_layout_channel' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.clone_layout_channel' class='fnname'>clone_layout_channel</a>(_phantom: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut <a class='struct' href='../../script/script_task/struct.ScriptTask.html' title='script::script_task::ScriptTask'>ScriptTask</a>&gt;, pair: &amp;<a class='struct' href='../../script_traits/struct.OpaqueScriptLayoutChannel.html' title='script_traits::OpaqueScriptLayoutChannel'>OpaqueScriptLayoutChannel</a>) -&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../core/any/trait.Any.html' title='core::any::Any'>Any</a> + <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a>&gt;</code></h4>
+<h4 id='method.create' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.create' class='fnname'>create</a>&lt;C&gt;(_phantom: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut <a class='struct' href='../../script/script_task/struct.ScriptTask.html' title='script::script_task::ScriptTask'>ScriptTask</a>&gt;, id: <a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, parent_info: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>)</a>&gt;, compositor: C, layout_chan: &amp;<a class='struct' href='../../script_traits/struct.OpaqueScriptLayoutChannel.html' title='script_traits::OpaqueScriptLayoutChannel'>OpaqueScriptLayoutChannel</a>, control_chan: <a class='struct' href='../../script_traits/struct.ScriptControlChan.html' title='script_traits::ScriptControlChan'>ScriptControlChan</a>, control_port: <a class='struct' href='../../std/sync/mpsc/struct.Receiver.html' title='std::sync::mpsc::Receiver'>Receiver</a>&lt;<a class='enum' href='../../script_traits/enum.ConstellationControlMsg.html' title='script_traits::ConstellationControlMsg'>ConstellationControlMsg</a>&gt;, constellation_chan: <a class='struct' href='../../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a>, failure_msg: <a class='struct' href='../../msg/constellation_msg/struct.Failure.html' title='msg::constellation_msg::Failure'>Failure</a>, resource_task: <a class='type' href='../../net/resource_task/type.ResourceTask.html' title='net::resource_task::ResourceTask'>ResourceTask</a>, storage_task: <a class='type' href='../../net/storage_task/type.StorageTask.html' title='net::storage_task::StorageTask'>StorageTask</a>, image_cache_task: <a class='struct' href='../../net/image_cache_task/struct.ImageCacheTask.html' title='net::image_cache_task::ImageCacheTask'>ImageCacheTask</a>, devtools_chan: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../../devtools_traits/type.DevtoolsControlChan.html' title='devtools_traits::DevtoolsControlChan'>DevtoolsControlChan</a>&gt;, window_size: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>&gt;, load_data: <a class='struct' href='../../msg/constellation_msg/struct.LoadData.html' title='msg::constellation_msg::LoadData'>LoadData</a>) <span class='where'>where C: <a class='trait' href='../../msg/compositor_msg/trait.ScriptListener.html' title='msg::compositor_msg::ScriptListener'>ScriptListener</a> + <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + 'static</span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../script/script_task/struct.ScriptTask.html' title='script::script_task::ScriptTask'>ScriptTask</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../script/dom/bindings/trace/trait.JSTraceable.html' title='script::dom::bindings::trace::JSTraceable'>JSTraceable</a> for <a class='struct' href='../../script/script_task/struct.ScriptTask.html' title='script::script_task::ScriptTask'>ScriptTask</a></code></h3><div class='impl-items'><h4 id='method.trace' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.trace' class='fnname'>trace</a>(&amp;self, __arg_0: *mut <a class='struct' href='../../js/jsapi/struct.JSTracer.html' title='js::jsapi::JSTracer'>JSTracer</a>)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

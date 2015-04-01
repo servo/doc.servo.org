@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `bool` primitive in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, bool">
+
+    <title>std::bool - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='index.html'>std</a></p><script>window.sidebarCurrent = {name: 'bool', ty: 'primitive', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content primitive">
+<h1 class='fqn'><span class='in-band'>Primitive Type <a class='primitive' href=''>bool</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span></span></h1>
+<div class='docblock'><p>The boolean type</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/ops/trait.Not.html' title='std::ops::Not'>Not</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.not' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.not' class='fnname'>not</a>(self) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a&gt; <a class='trait' href='../std/ops/trait.Not.html' title='std::ops::Not'>Not</a> for &amp;'a <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.Not.html' title='std::ops::Not'>Not</a>&gt;::Output</code></h4>
+<h4 id='method.not' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.not' class='fnname'>not</a>(self) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.Not.html' title='std::ops::Not'>Not</a>&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;<a href='primitive.bool.html'>bool</a>&gt; for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.bitand' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitand' class='fnname'>bitand</a>(self, rhs: <a href='primitive.bool.html'>bool</a>) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a&gt; <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;<a href='primitive.bool.html'>bool</a>&gt; for &amp;'a <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+<h4 id='method.bitand' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitand' class='fnname'>bitand</a>(self, other: <a href='primitive.bool.html'>bool</a>) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a&gt; <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;&amp;'a <a href='primitive.bool.html'>bool</a>&gt; for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+<h4 id='method.bitand' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitand' class='fnname'>bitand</a>(self, other: &amp;'a <a href='primitive.bool.html'>bool</a>) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a, 'b&gt; <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;&amp;'a <a href='primitive.bool.html'>bool</a>&gt; for &amp;'b <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+<h4 id='method.bitand' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitand' class='fnname'>bitand</a>(self, other: &amp;'a <a href='primitive.bool.html'>bool</a>) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitAnd.html' title='std::ops::BitAnd'>BitAnd</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;<a href='primitive.bool.html'>bool</a>&gt; for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.bitor' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitor' class='fnname'>bitor</a>(self, rhs: <a href='primitive.bool.html'>bool</a>) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a&gt; <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;<a href='primitive.bool.html'>bool</a>&gt; for &amp;'a <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+<h4 id='method.bitor' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitor' class='fnname'>bitor</a>(self, other: <a href='primitive.bool.html'>bool</a>) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a&gt; <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;&amp;'a <a href='primitive.bool.html'>bool</a>&gt; for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+<h4 id='method.bitor' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitor' class='fnname'>bitor</a>(self, other: &amp;'a <a href='primitive.bool.html'>bool</a>) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a, 'b&gt; <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;&amp;'a <a href='primitive.bool.html'>bool</a>&gt; for &amp;'b <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+<h4 id='method.bitor' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitor' class='fnname'>bitor</a>(self, other: &amp;'a <a href='primitive.bool.html'>bool</a>) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitOr.html' title='std::ops::BitOr'>BitOr</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;<a href='primitive.bool.html'>bool</a>&gt; for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.bitxor' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitxor' class='fnname'>bitxor</a>(self, other: <a href='primitive.bool.html'>bool</a>) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a&gt; <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;<a href='primitive.bool.html'>bool</a>&gt; for &amp;'a <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+<h4 id='method.bitxor' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitxor' class='fnname'>bitxor</a>(self, other: <a href='primitive.bool.html'>bool</a>) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a&gt; <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;&amp;'a <a href='primitive.bool.html'>bool</a>&gt; for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+<h4 id='method.bitxor' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitxor' class='fnname'>bitxor</a>(self, other: &amp;'a <a href='primitive.bool.html'>bool</a>) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: recently added, waiting for dust to settle'></a><code>impl&lt;'a, 'b&gt; <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;&amp;'a <a href='primitive.bool.html'>bool</a>&gt; for &amp;'b <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+<h4 id='method.bitxor' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bitxor' class='fnname'>bitxor</a>(self, other: &amp;'a <a href='primitive.bool.html'>bool</a>) -&gt; &lt;<a href='primitive.bool.html'>bool</a> as <a class='trait' href='../std/ops/trait.BitXor.html' title='std::ops::BitXor'>BitXor</a>&lt;<a href='primitive.bool.html'>bool</a>&gt;&gt;::Output</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='primitive.bool.html'>bool</a>&gt; for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='primitive.bool.html'>bool</a>) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='primitive.bool.html'>bool</a>) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/cmp/trait.Eq.html' title='std::cmp::Eq'>Eq</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/cmp/trait.PartialOrd.html' title='std::cmp::PartialOrd'>PartialOrd</a>&lt;<a href='primitive.bool.html'>bool</a>&gt; for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='method.partial_cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.partial_cmp' class='fnname'>partial_cmp</a>(&amp;self, other: &amp;<a href='primitive.bool.html'>bool</a>) -&gt; <a class='enum' href='../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='enum' href='../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a>&gt;</code></h4>
+<h4 id='method.lt' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.lt' class='fnname'>lt</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.le' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.le' class='fnname'>le</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.gt' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.gt' class='fnname'>gt</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ge' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.ge' class='fnname'>ge</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='method.cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.cmp' class='fnname'>cmp</a>(&amp;self, other: &amp;<a href='primitive.bool.html'>bool</a>) -&gt; <a class='enum' href='../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Return a deep copy of the value.</p>
+</div><h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/default/trait.Default.html' title='std::default::Default'>Default</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.default' class='fnname'>default</a>() -&gt; <a href='primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/str/trait.FromStr.html' title='std::str::FromStr'>FromStr</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='assoc_type.Err' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Err = <a class='struct' href='../std/str/struct.ParseBoolError.html' title='std::str::ParseBoolError'>ParseBoolError</a></code></h4>
+<h4 id='method.from_str' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.from_str' class='fnname'>from_str</a>(s: &amp;<a href='primitive.str.html'>str</a>) -&gt; <a class='enum' href='../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='primitive.bool.html'>bool</a>, <a class='struct' href='../std/str/struct.ParseBoolError.html' title='std::str::ParseBoolError'>ParseBoolError</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <code>bool</code> from a string.</p>
+
+<p>Yields a <code>Result&lt;bool, ParseBoolError&gt;</code>, because <code>s</code> may or may not
+actually be parseable.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    use std::str::FromStr;
+    
+    assert_eq!(FromStr::from_str(&quot;true&quot;), Ok(true));
+    assert_eq!(FromStr::from_str(&quot;false&quot;), Ok(false));
+    assert!(&lt;bool as FromStr&gt;::from_str(&quot;not even a boolean&quot;).is_err());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;true&quot;</span>), <span class='prelude-val'>Ok</span>(<span class='boolval'>true</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;false&quot;</span>), <span class='prelude-val'>Ok</span>(<span class='boolval'>false</span>));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>&lt;</span><span class='ident'>bool</span> <span class='kw'>as</span> <span class='ident'>FromStr</span><span class='op'>&gt;</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;not even a boolean&quot;</span>).<span class='ident'>is_err</span>());
+</pre>
+
+<p>Note, in many cases, the StrExt::parse() which is based on
+this FromStr::from_str() is more proper.</p>
+<span class='rusttest'>fn main() {
+    assert_eq!(&quot;true&quot;.parse(), Ok(true));
+    assert_eq!(&quot;false&quot;.parse(), Ok(false));
+    assert!(&quot;not even a boolean&quot;.parse::&lt;bool&gt;().is_err());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;true&quot;</span>.<span class='ident'>parse</span>(), <span class='prelude-val'>Ok</span>(<span class='boolval'>true</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;false&quot;</span>.<span class='ident'>parse</span>(), <span class='prelude-val'>Ok</span>(<span class='boolval'>false</span>));
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='string'>&quot;not even a boolean&quot;</span>.<span class='ident'>parse</span>::<span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span>().<span class='ident'>is_err</span>());
+</pre>
+</div></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/hash/trait.Hash.html' title='std::hash::Hash'>Hash</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='method.hash' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.hash' class='fnname'>hash</a>&lt;H&gt;(&amp;self, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../std/hash/trait.Hasher.html' title='std::hash::Hasher'>Hasher</a></span></code></h4>
+<h4 id='method.hash_slice' class='tymethod'><a class='stability Unstable' title='Unstable: module was recently redesigned'></a><code>fn <a href='#tymethod.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a href='primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../std/hash/trait.Hasher.html' title='std::hash::Hasher'>Hasher</a></span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/fmt/trait.Debug.html' title='std::fmt::Debug'>Debug</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='primitive.tuple.html'>()</a>, <a class='struct' href='../std/fmt/struct.Error.html' title='std::fmt::Error'>Error</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../std/fmt/trait.Display.html' title='std::fmt::Display'>Display</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='primitive.tuple.html'>()</a>, <a class='struct' href='../std/fmt/struct.Error.html' title='std::fmt::Error'>Error</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Deprecated' title='Deprecated: use the crates.io `rand` library instead'></a><code>impl <a class='trait' href='../std/rand/trait.Rand.html' title='std::rand::Rand'>Rand</a> for <a href='primitive.bool.html'>bool</a></code></h3><div class='impl-items'><h4 id='method.rand' class='method'><a class='stability Deprecated' title='Deprecated: use the crates.io `rand` library instead'></a><code>fn <a href='#method.rand' class='fnname'>rand</a>&lt;R&gt;(rng: &amp;mut R) -&gt; <a href='primitive.bool.html'>bool</a> <span class='where'>where R: <a class='trait' href='../std/rand/trait.Rng.html' title='std::rand::Rng'>Rng</a></span></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script src="../playpen.js"></script>
+    <script async src="../search-index.js"></script>
+</body>
+</html>

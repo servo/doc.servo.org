@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `CanvasMsg` enum in crate `canvas`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CanvasMsg">
+
+    <title>canvas::canvas_paint_task::CanvasMsg - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>canvas</a>::<wbr><a href='index.html'>canvas_paint_task</a></p><script>window.sidebarCurrent = {name: 'CanvasMsg', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>canvas</a>::<wbr><a href='index.html'>canvas_paint_task</a>::<wbr><a class='enum' href=''>CanvasMsg</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-43' href='../../src/canvas/canvas_paint_task.rs.html#22-45'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum CanvasMsg {
+    FillRect(<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    ClearRect(<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    StrokeRect(<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    BeginPath,
+    ClosePath,
+    Fill,
+    Stroke,
+    DrawImage(<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.u8.html'>u8</a>&gt;, <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;, <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;, <a href='../../std/primitive.bool.html'>bool</a>),
+    DrawImageSelf(<a class='struct' href='../../geom/size/struct.Size2D.html' title='geom::size::Size2D'>Size2D</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;, <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;, <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;, <a href='../../std/primitive.bool.html'>bool</a>),
+    MoveTo(<a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    LineTo(<a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    QuadraticCurveTo(<a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;, <a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    BezierCurveTo(<a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;, <a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;, <a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    Arc(<a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;, <a href='../../std/primitive.f32.html'>f32</a>, <a href='../../std/primitive.f32.html'>f32</a>, <a href='../../std/primitive.f32.html'>f32</a>, <a href='../../std/primitive.bool.html'>bool</a>),
+    SetFillStyle(<a class='enum' href='../../canvas/canvas_paint_task/enum.FillOrStrokeStyle.html' title='canvas::canvas_paint_task::FillOrStrokeStyle'>FillOrStrokeStyle</a>),
+    SetStrokeStyle(<a class='enum' href='../../canvas/canvas_paint_task/enum.FillOrStrokeStyle.html' title='canvas::canvas_paint_task::FillOrStrokeStyle'>FillOrStrokeStyle</a>),
+    SetTransform(<a class='struct' href='../../geom/matrix2d/struct.Matrix2D.html' title='geom::matrix2d::Matrix2D'>Matrix2D</a>&lt;<a href='../../std/primitive.f32.html'>f32</a>&gt;),
+    Recreate(<a class='struct' href='../../geom/size/struct.Size2D.html' title='geom::size::Size2D'>Size2D</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;),
+    SendPixelContents(<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.u8.html'>u8</a>&gt;&gt;),
+    GetImageData(<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;, <a class='struct' href='../../geom/size/struct.Size2D.html' title='geom::size::Size2D'>Size2D</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;, <a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.u8.html'>u8</a>&gt;&gt;),
+    PutImageData(<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../std/primitive.u8.html'>u8</a>&gt;, <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../std/primitive.i32.html'>i32</a>&gt;&gt;),
+    Close,
+}</pre><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.FillRect'><a class='stability Unmarked' title='No stability level'></a><code>FillRect</code></td><td></td></tr><tr><td id='variant.ClearRect'><a class='stability Unmarked' title='No stability level'></a><code>ClearRect</code></td><td></td></tr><tr><td id='variant.StrokeRect'><a class='stability Unmarked' title='No stability level'></a><code>StrokeRect</code></td><td></td></tr><tr><td id='variant.BeginPath'><a class='stability Unmarked' title='No stability level'></a><code>BeginPath</code></td><td></td></tr><tr><td id='variant.ClosePath'><a class='stability Unmarked' title='No stability level'></a><code>ClosePath</code></td><td></td></tr><tr><td id='variant.Fill'><a class='stability Unmarked' title='No stability level'></a><code>Fill</code></td><td></td></tr><tr><td id='variant.Stroke'><a class='stability Unmarked' title='No stability level'></a><code>Stroke</code></td><td></td></tr><tr><td id='variant.DrawImage'><a class='stability Unmarked' title='No stability level'></a><code>DrawImage</code></td><td></td></tr><tr><td id='variant.DrawImageSelf'><a class='stability Unmarked' title='No stability level'></a><code>DrawImageSelf</code></td><td></td></tr><tr><td id='variant.MoveTo'><a class='stability Unmarked' title='No stability level'></a><code>MoveTo</code></td><td></td></tr><tr><td id='variant.LineTo'><a class='stability Unmarked' title='No stability level'></a><code>LineTo</code></td><td></td></tr><tr><td id='variant.QuadraticCurveTo'><a class='stability Unmarked' title='No stability level'></a><code>QuadraticCurveTo</code></td><td></td></tr><tr><td id='variant.BezierCurveTo'><a class='stability Unmarked' title='No stability level'></a><code>BezierCurveTo</code></td><td></td></tr><tr><td id='variant.Arc'><a class='stability Unmarked' title='No stability level'></a><code>Arc</code></td><td></td></tr><tr><td id='variant.SetFillStyle'><a class='stability Unmarked' title='No stability level'></a><code>SetFillStyle</code></td><td></td></tr><tr><td id='variant.SetStrokeStyle'><a class='stability Unmarked' title='No stability level'></a><code>SetStrokeStyle</code></td><td></td></tr><tr><td id='variant.SetTransform'><a class='stability Unmarked' title='No stability level'></a><code>SetTransform</code></td><td></td></tr><tr><td id='variant.Recreate'><a class='stability Unmarked' title='No stability level'></a><code>Recreate</code></td><td></td></tr><tr><td id='variant.SendPixelContents'><a class='stability Unmarked' title='No stability level'></a><code>SendPixelContents</code></td><td></td></tr><tr><td id='variant.GetImageData'><a class='stability Unmarked' title='No stability level'></a><code>GetImageData</code></td><td></td></tr><tr><td id='variant.PutImageData'><a class='stability Unmarked' title='No stability level'></a><code>PutImageData</code></td><td></td></tr><tr><td id='variant.Close'><a class='stability Unmarked' title='No stability level'></a><code>Close</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../canvas/canvas_paint_task/enum.CanvasMsg.html' title='canvas::canvas_paint_task::CanvasMsg'>CanvasMsg</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../canvas/canvas_paint_task/enum.CanvasMsg.html' title='canvas::canvas_paint_task::CanvasMsg'>CanvasMsg</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "canvas";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

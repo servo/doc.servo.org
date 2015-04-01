@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `DIAGNOSTICS` static in crate `rustc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, DIAGNOSTICS">
+
+    <title>rustc::diagnostics::DIAGNOSTICS - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../rustc/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>rustc</a>::<wbr><a href='index.html'>diagnostics</a></p><script>window.sidebarCurrent = {name: 'DIAGNOSTICS', ty: 'static', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content static">
+<h1 class='fqn'><span class='in-band'><a href='../index.html'>rustc</a>::<wbr><a href='index.html'>diagnostics</a>::<wbr><a class='static' href=''>DIAGNOSTICS</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-186' href='../../src/rustc/diagnostics.rs.html#134'>[src]</a></span></h1>
+<pre class='rust static'>pub static DIAGNOSTICS: <a href='../../std/primitive.slice.html'>[<a href='../../std/primitive.tuple.html'>(&amp;'static <a href='../../std/primitive.str.html'>str</a>, &amp;'static <a href='../../std/primitive.str.html'>str</a>)</a>; 5usize]</a><code> = </code><code>[("E0001",
+  "\n    This error suggests that the expression arm corresponding to the noted pattern\n    will never be reached as for all possible values of the expression being matched,\n    one of the preceding patterns will match.\n\n    This means that perhaps some of the preceding patterns are too general, this\n    one is too specific or the ordering is incorrect.\n"),
+ ("E0003",
+  "\n    Not-a-Number (NaN) values can not be compared for equality and hence can never match\n    the input to a match expression. To match against NaN values, you should instead use\n    the `is_nan` method in a guard, as in: x if x.is_nan() => ...\n"),
+ ("E0004",
+  "\n    This error indicates that the compiler can not guarantee a matching pattern for one\n    or more possible inputs to a match expression. Guaranteed matches are required in order\n    to assign values to match expressions, or alternatively, determine the flow of execution.\n\n    If you encounter this error you must alter your patterns so that every possible value of\n    the input type is matched. For types with a small number of variants (like enums) you\n    should probably cover all cases explicitly. Alternatively, the underscore `_` wildcard\n    pattern can be added after all other patterns to match \"anything else\".\n"),
+ ("E0005",
+  "\n    Patterns used to bind names must be irrefutable, that is, they must guarantee that a\n    name will be extracted in all cases. If you encounter this error you probably need\n    to use a `match` or `if let` to deal with the possibility of failure.\n"),
+ ("E0006",
+  "\n    Patterns used to bind names must be irrefutable, that is, they must guarantee that a\n    name will be extracted in all cases. If you encounter this error you probably need\n    to use a `match` or `if let` to deal with the possibility of failure.\n")]</code></pre></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rustc";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

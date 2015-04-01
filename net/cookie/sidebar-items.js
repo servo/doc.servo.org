@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Cookie","A stored cookie that wraps the definition in cookie-rs. This is used to implement various behaviours defined in the spec that rely on an associated request URL, which cookie-rs and hyper's header parsing do not support."]]});

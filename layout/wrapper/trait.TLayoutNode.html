@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `TLayoutNode` trait in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, TLayoutNode">
+
+    <title>layout::wrapper::TLayoutNode - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a>::<wbr><a href='index.html'>wrapper</a></p><script>window.sidebarCurrent = {name: 'TLayoutNode', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>layout</a>::<wbr><a href='index.html'>wrapper</a>::<wbr><a class='trait' href=''>TLayoutNode</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-73566' href='../../src/layout/wrapper.rs.html#80-167'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait TLayoutNode {
+    unsafe fn <a href='#tymethod.new_with_this_lifetime' class='fnname'>new_with_this_lifetime</a>(&amp;self, node: &amp;<a class='struct' href='../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;) -&gt; Self;
+    fn <a href='#tymethod.type_id' class='fnname'>type_id</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../script/dom/node/enum.NodeTypeId.html' title='script::dom::node::NodeTypeId'>NodeTypeId</a>&gt;;
+    unsafe fn <a href='#tymethod.get_jsmanaged' class='fnname'>get_jsmanaged</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;;
+    fn <a href='#tymethod.text_content' class='fnname'>text_content</a>(&amp;self) -&gt; <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='../../style/properties/longhands/content/computed_value/enum.ContentItem.html' title='style::properties::longhands::content::computed_value::ContentItem'>ContentItem</a>&gt;;
+    fn <a href='#tymethod.first_child' class='fnname'>first_child</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;;
+
+    unsafe fn <a href='#method.get' class='fnname'>get</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a> { ... }
+    fn <a href='#method.node_is_element' class='fnname'>node_is_element</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a> { ... }
+    fn <a href='#method.node_is_document' class='fnname'>node_is_document</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a> { ... }
+    fn <a href='#method.image_url' class='fnname'>image_url</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>&gt; { ... }
+    fn <a href='#method.get_renderer' class='fnname'>get_renderer</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='enum' href='../../canvas/canvas_paint_task/enum.CanvasMsg.html' title='canvas::canvas_paint_task::CanvasMsg'>CanvasMsg</a>&gt;&gt; { ... }
+    fn <a href='#method.get_canvas_width' class='fnname'>get_canvas_width</a>(&amp;self) -&gt; <a href='../../std/primitive.u32.html'>u32</a> { ... }
+    fn <a href='#method.get_canvas_height' class='fnname'>get_canvas_height</a>(&amp;self) -&gt; <a href='../../std/primitive.u32.html'>u32</a> { ... }
+    fn <a href='#method.iframe_pipeline_and_subpage_ids' class='fnname'>iframe_pipeline_and_subpage_ids</a>(&amp;self) -&gt; <a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>)</a> { ... }
+}</pre><div class='docblock'><p>Allows some convenience methods on generic layout nodes.</p>
+</div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.new_with_this_lifetime' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#tymethod.new_with_this_lifetime' class='fnname'>new_with_this_lifetime</a>(&amp;self, node: &amp;<a class='struct' href='../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;) -&gt; Self</code></h3><div class='docblock'><p>Creates a new layout node with the same lifetime as this layout node.</p>
+</div><h3 id='tymethod.type_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.type_id' class='fnname'>type_id</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../script/dom/node/enum.NodeTypeId.html' title='script::dom::node::NodeTypeId'>NodeTypeId</a>&gt;</code></h3><div class='docblock'><p>Returns the type ID of this node. Fails if this node is borrowed mutably. Returns <code>None</code>
+if this is a pseudo-element; otherwise, returns <code>Some</code>.</p>
+</div><h3 id='tymethod.get_jsmanaged' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#tymethod.get_jsmanaged' class='fnname'>get_jsmanaged</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../script/dom/bindings/js/struct.LayoutJS.html' title='script::dom::bindings::js::LayoutJS'>LayoutJS</a>&lt;<a class='struct' href='../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a>&gt;</code></h3><div class='docblock'><p>Returns the interior of this node as a <code>LayoutJS</code>. This is highly unsafe for layout to
+call and as such is marked <code>unsafe</code>.</p>
+</div><h3 id='tymethod.text_content' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.text_content' class='fnname'>text_content</a>(&amp;self) -&gt; <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='../../style/properties/longhands/content/computed_value/enum.ContentItem.html' title='style::properties::longhands::content::computed_value::ContentItem'>ContentItem</a>&gt;</code></h3><div class='docblock'><p>If this is a text node or generated content, copies out its content. If this is not a text
+node, fails.</p>
+
+<p>FIXME(pcwalton): This might have too much copying and/or allocation. Profile this.</p>
+</div><h3 id='tymethod.first_child' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.first_child' class='fnname'>first_child</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Returns the first child of this node.</p>
+</div></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.get' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get' class='fnname'>get</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../script/dom/node/struct.Node.html' title='script::dom::node::Node'>Node</a></code></h3><div class='docblock'><p>Returns the interior of this node as a <code>Node</code>. This is highly unsafe for layout to call
+and as such is marked <code>unsafe</code>.</p>
+</div><h3 id='method.node_is_element' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.node_is_element' class='fnname'>node_is_element</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h3><h3 id='method.node_is_document' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.node_is_document' class='fnname'>node_is_document</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h3><h3 id='method.image_url' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.image_url' class='fnname'>image_url</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>&gt;</code></h3><div class='docblock'><p>If this is an image element, returns its URL. If this is not an image element, fails.</p>
+
+<p>FIXME(pcwalton): Don&#39;t copy URLs.</p>
+</div><h3 id='method.get_renderer' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_renderer' class='fnname'>get_renderer</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='enum' href='../../canvas/canvas_paint_task/enum.CanvasMsg.html' title='canvas::canvas_paint_task::CanvasMsg'>CanvasMsg</a>&gt;&gt;</code></h3><h3 id='method.get_canvas_width' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_canvas_width' class='fnname'>get_canvas_width</a>(&amp;self) -&gt; <a href='../../std/primitive.u32.html'>u32</a></code></h3><h3 id='method.get_canvas_height' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_canvas_height' class='fnname'>get_canvas_height</a>(&amp;self) -&gt; <a href='../../std/primitive.u32.html'>u32</a></code></h3><h3 id='method.iframe_pipeline_and_subpage_ids' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.iframe_pipeline_and_subpage_ids' class='fnname'>iframe_pipeline_and_subpage_ids</a>(&amp;self) -&gt; <a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>)</a></code></h3><div class='docblock'><p>If this node is an iframe element, returns its pipeline and subpage IDs. If this node is
+not an iframe element, fails.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'ln&gt; <a class='trait' href='../../layout/wrapper/trait.TLayoutNode.html' title='layout::wrapper::TLayoutNode'>TLayoutNode</a> for <a class='struct' href='../../layout/wrapper/struct.LayoutNode.html' title='layout::wrapper::LayoutNode'>LayoutNode</a>&lt;'ln&gt;</code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'ln&gt; <a class='trait' href='../../layout/wrapper/trait.TLayoutNode.html' title='layout::wrapper::TLayoutNode'>TLayoutNode</a> for <a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&lt;'ln&gt;</code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/layout/wrapper/trait.TLayoutNode.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

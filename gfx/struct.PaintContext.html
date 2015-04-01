@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `PaintContext` struct in crate `gfx`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, PaintContext">
+
+    <title>gfx::PaintContext - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>gfx</a></p><script>window.sidebarCurrent = {name: 'PaintContext', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>gfx</a>::<wbr><a class='struct' href=''>PaintContext</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-111' href='../src/gfx/paint_context.rs.html#45-58'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct PaintContext&lt;'a&gt; {
+    pub draw_target: <a class='struct' href='../azure/azure_hl/struct.DrawTarget.html' title='azure::azure_hl::DrawTarget'>DrawTarget</a>,
+    pub font_context: &amp;'a mut <a class='struct' href='../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../gfx/font_context/struct.FontContext.html' title='gfx::font_context::FontContext'>FontContext</a>&gt;,
+    pub page_rect: <a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../std/primitive.f32.html'>f32</a>&gt;,
+    pub screen_rect: <a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../std/primitive.usize.html'>usize</a>&gt;,
+    pub clip_rect: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;&gt;,
+    pub transient_clip: <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>&gt;,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.draw_target'><a class='stability Unmarked' title='No stability level'></a><code>draw_target</code></td><td></td></tr><tr><td id='structfield.font_context'><a class='stability Unmarked' title='No stability level'></a><code>font_context</code></td><td></td></tr><tr><td id='structfield.page_rect'><a class='stability Unmarked' title='No stability level'></a><code>page_rect</code></td><td><div class='docblock'><p>The rectangle that this context encompasses in page coordinates.</p>
+</div></td></tr><tr><td id='structfield.screen_rect'><a class='stability Unmarked' title='No stability level'></a><code>screen_rect</code></td><td><div class='docblock'><p>The rectangle that this context encompasses in screen coordinates (pixels).</p>
+</div></td></tr><tr><td id='structfield.clip_rect'><a class='stability Unmarked' title='No stability level'></a><code>clip_rect</code></td><td><div class='docblock'><p>The clipping rect for the stacking context as a whole.</p>
+</div></td></tr><tr><td id='structfield.transient_clip'><a class='stability Unmarked' title='No stability level'></a><code>transient_clip</code></td><td><div class='docblock'><p>The current transient clipping region, if any. A &quot;transient clipping region&quot; is the
+clipping region used by the last display item. We cache the last value so that we avoid
+pushing and popping clipping regions unnecessarily.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='struct' href='../gfx/struct.PaintContext.html' title='gfx::PaintContext'>PaintContext</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.get_draw_target' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_draw_target' class='fnname'>get_draw_target</a>(&amp;self) -&gt; &amp;<a class='struct' href='../azure/azure_hl/struct.DrawTarget.html' title='azure::azure_hl::DrawTarget'>DrawTarget</a></code></h4>
+<h4 id='method.draw_solid_color' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_solid_color' class='fnname'>draw_solid_color</a>(&amp;self, bounds: &amp;<a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, color: <a class='type' href='../azure/azure/type.AzColor.html' title='azure::azure::AzColor'>Color</a>)</code></h4>
+<h4 id='method.draw_border' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_border' class='fnname'>draw_border</a>(&amp;self, bounds: &amp;<a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, border: &amp;<a class='struct' href='../geom/side_offsets/struct.SideOffsets2D.html' title='geom::side_offsets::SideOffsets2D'>SideOffsets2D</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, radius: &amp;<a class='struct' href='../gfx/display_list/struct.BorderRadii.html' title='gfx::display_list::BorderRadii'>BorderRadii</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, color: &amp;<a class='struct' href='../geom/side_offsets/struct.SideOffsets2D.html' title='geom::side_offsets::SideOffsets2D'>SideOffsets2D</a>&lt;<a class='type' href='../azure/azure/type.AzColor.html' title='azure::azure::AzColor'>Color</a>&gt;, style: &amp;<a class='struct' href='../geom/side_offsets/struct.SideOffsets2D.html' title='geom::side_offsets::SideOffsets2D'>SideOffsets2D</a>&lt;<a class='enum' href='../style/values/specified/enum.BorderStyle.html' title='style::values::specified::BorderStyle'>T</a>&gt;)</code></h4>
+<h4 id='method.draw_line' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_line' class='fnname'>draw_line</a>(&amp;self, bounds: &amp;<a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, color: <a class='type' href='../azure/azure/type.AzColor.html' title='azure::azure::AzColor'>Color</a>, style: <a class='enum' href='../style/values/specified/enum.BorderStyle.html' title='style::values::specified::BorderStyle'>T</a>)</code></h4>
+<h4 id='method.draw_push_clip' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_push_clip' class='fnname'>draw_push_clip</a>(&amp;self, bounds: &amp;<a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;)</code></h4>
+<h4 id='method.draw_pop_clip' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_pop_clip' class='fnname'>draw_pop_clip</a>(&amp;self)</code></h4>
+<h4 id='method.draw_image' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_image' class='fnname'>draw_image</a>(&amp;self, bounds: &amp;<a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, image: <a class='struct' href='../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='type' href='../net/image/base/type.Image.html' title='net::image::base::Image'>Image</a>&gt;&gt;, image_rendering: <a class='enum' href='../style/properties/longhands/image_rendering/computed_value/enum.T.html' title='style::properties::longhands::image_rendering::computed_value::T'>T</a>)</code></h4>
+<h4 id='method.clear' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.clear' class='fnname'>clear</a>(&amp;self)</code></h4>
+<h4 id='method.draw_text' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_text' class='fnname'>draw_text</a>(&amp;mut self, text: &amp;<a class='struct' href='../gfx/display_list/struct.TextDisplayItem.html' title='gfx::display_list::TextDisplayItem'>TextDisplayItem</a>)</code></h4>
+<div class='docblock'><p>Draws the given text display item into the current context.</p>
+</div><h4 id='method.draw_linear_gradient' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_linear_gradient' class='fnname'>draw_linear_gradient</a>(&amp;self, bounds: &amp;<a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, start_point: &amp;<a class='struct' href='../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, end_point: &amp;<a class='struct' href='../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, stops: <a href='../std/primitive.slice.html'>&amp;[</a><a class='struct' href='../gfx/display_list/struct.GradientStop.html' title='gfx::display_list::GradientStop'>GradientStop</a><a href='../std/primitive.slice.html'>]</a>)</code></h4>
+<div class='docblock'><p>Draws a linear gradient in the given boundaries from the given start point to the given end
+point with the given stops.</p>
+</div><h4 id='method.get_or_create_temporary_draw_target' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_or_create_temporary_draw_target' class='fnname'>get_or_create_temporary_draw_target</a>(&amp;mut self, filters: &amp;<a class='struct' href='../style/properties/longhands/filter/computed_value/struct.T.html' title='style::properties::longhands::filter::computed_value::T'>T</a>, blend_mode: <a class='enum' href='../style/properties/longhands/mix_blend_mode/computed_value/enum.T.html' title='style::properties::longhands::mix_blend_mode::computed_value::T'>T</a>) -&gt; <a class='struct' href='../azure/azure_hl/struct.DrawTarget.html' title='azure::azure_hl::DrawTarget'>DrawTarget</a></code></h4>
+<h4 id='method.draw_temporary_draw_target_if_necessary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_temporary_draw_target_if_necessary' class='fnname'>draw_temporary_draw_target_if_necessary</a>(&amp;mut self, temporary_draw_target: &amp;<a class='struct' href='../azure/azure_hl/struct.DrawTarget.html' title='azure::azure_hl::DrawTarget'>DrawTarget</a>, filters: &amp;<a class='struct' href='../style/properties/longhands/filter/computed_value/struct.T.html' title='style::properties::longhands::filter::computed_value::T'>T</a>, blend_mode: <a class='enum' href='../style/properties/longhands/mix_blend_mode/computed_value/enum.T.html' title='style::properties::longhands::mix_blend_mode::computed_value::T'>T</a>)</code></h4>
+<div class='docblock'><p>If we created a temporary draw target, then draw it to the main draw target. This is called
+after doing all the painting, and the temporary draw target must not be used afterward.</p>
+</div><h4 id='method.draw_box_shadow' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.draw_box_shadow' class='fnname'>draw_box_shadow</a>(&amp;mut self, box_bounds: &amp;<a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, offset: &amp;<a class='struct' href='../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, color: <a class='type' href='../azure/azure/type.AzColor.html' title='azure::azure::AzColor'>Color</a>, blur_radius: <a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>, spread_radius: <a class='struct' href='../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>, clip_mode: <a class='enum' href='../gfx/display_list/enum.BoxShadowClipMode.html' title='gfx::display_list::BoxShadowClipMode'>BoxShadowClipMode</a>)</code></h4>
+<div class='docblock'><p>Draws a box shadow with the given boundaries, color, offset, blur radius, and spread
+radius. <code>box_bounds</code> represents the boundaries of the box.</p>
+</div><h4 id='method.push_clip_if_applicable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_clip_if_applicable' class='fnname'>push_clip_if_applicable</a>(&amp;self)</code></h4>
+<h4 id='method.pop_clip_if_applicable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.pop_clip_if_applicable' class='fnname'>pop_clip_if_applicable</a>(&amp;self)</code></h4>
+<h4 id='method.remove_transient_clip_if_applicable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.remove_transient_clip_if_applicable' class='fnname'>remove_transient_clip_if_applicable</a>(&amp;mut self)</code></h4>
+<h4 id='method.push_transient_clip' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_transient_clip' class='fnname'>push_transient_clip</a>(&amp;mut self, clip_region: <a class='struct' href='../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<div class='docblock'><p>Sets a new transient clipping region. Automatically calls
+<code>remove_transient_clip_if_applicable()</code> first.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "gfx";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

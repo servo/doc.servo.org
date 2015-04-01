@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MethodViolationCode","Reasons a method might not be object-safe."],["ObjectSafetyViolation",""]],"fn":[["is_object_safe",""],["object_safety_violations",""]]});

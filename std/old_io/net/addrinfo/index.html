@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `addrinfo` mod in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, addrinfo">
+
+    <title>std::old_io::net::addrinfo - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../../../index.html'>std</a>::<wbr><a href='../../index.html'>old_io</a>::<wbr><a href='../index.html'>net</a></p><script>window.sidebarCurrent = {name: 'addrinfo', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../../index.html'>std</a>::<wbr><a href='../../index.html'>old_io</a>::<wbr><a href='../index.html'>net</a>::<wbr><a class='mod' href=''>addrinfo</a><wbr><a class='stability Deprecated' title='replaced with new I/O primitives in `std::net`'>Deprecated</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-16387' href='../../../../src/std/old_io/net/addrinfo.rs.html#11-137'>[src]</a></span></h1>
+<div class='docblock'><p>Synchronous DNS Resolution</p>
+
+<p>Contains the functionality to perform DNS resolution or reverse lookup,
+in a style related to <code>getaddrinfo()</code> and <code>getnameinfo()</code>, respectively.</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use self::<a class='enum' href='../../../../std/old_io/net/addrinfo/enum.SocketType.html' title='std::old_io::net::addrinfo::SocketType'>SocketType</a>::*;</code></td></tr><tr><td><code>pub use self::<a class='enum' href='../../../../std/old_io/net/addrinfo/enum.Flag.html' title='std::old_io::net::addrinfo::Flag'>Flag</a>::*;</code></td></tr><tr><td><code>pub use self::<a class='enum' href='../../../../std/old_io/net/addrinfo/enum.Protocol.html' title='std::old_io::net::addrinfo::Protocol'>Protocol</a>::*;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><a class='struct' href='struct.Hint.html'
+                               title='std::old_io::net::addrinfo::Hint'>Hint</a></td>
+                        <td class='docblock short'><p>This structure is used to provide hints when fetching addresses for a
+remote host to control how the lookup is performed.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><a class='struct' href='struct.Info.html'
+                               title='std::old_io::net::addrinfo::Info'>Info</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><a class='enum' href='enum.Flag.html'
+                               title='std::old_io::net::addrinfo::Flag'>Flag</a></td>
+                        <td class='docblock short'><p>Flags which can be or&#39;d into the <code>flags</code> field of a <code>Hint</code>. These are used
+to manipulate how a query is performed.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><a class='enum' href='enum.Protocol.html'
+                               title='std::old_io::net::addrinfo::Protocol'>Protocol</a></td>
+                        <td class='docblock short'><p>A transport protocol associated with either a hint or a return value of
+<code>lookup</code></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><a class='enum' href='enum.SocketType.html'
+                               title='std::old_io::net::addrinfo::SocketType'>SocketType</a></td>
+                        <td class='docblock short'><p>Hints to the types of sockets that are desired when looking up hosts</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><a class='fn' href='fn.get_address_name.html'
+                               title='std::old_io::net::addrinfo::get_address_name'>get_address_name</a></td>
+                        <td class='docblock short'><p>Reverse name resolution. Given an address, returns the corresponding
+hostname.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Deprecated' title='Deprecated: replaced with new I/O primitives in `std::net`'></a><a class='fn' href='fn.get_host_addresses.html'
+                               title='std::old_io::net::addrinfo::get_host_addresses'>get_host_addresses</a></td>
+                        <td class='docblock short'><p>Easy name resolution. Given a hostname, returns the list of IP addresses for
+that hostname.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    <script src="../../../../playpen.js"></script>
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

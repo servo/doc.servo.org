@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `WindowHelpers` trait in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, WindowHelpers">
+
+    <title>script::dom::window::WindowHelpers - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a>::<wbr><a href='index.html'>window</a></p><script>window.sidebarCurrent = {name: 'WindowHelpers', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a>::<wbr><a href='index.html'>window</a>::<wbr><a class='trait' href=''>WindowHelpers</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-548574' href='../../../src/script/dom/window.rs.html#449-480'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait WindowHelpers {
+    fn <a href='#tymethod.clear_js_context' class='fnname'>clear_js_context</a>(self);
+    fn <a href='#tymethod.init_browser_context' class='fnname'>init_browser_context</a>(self, doc: <a class='struct' href='../../../script/dom/bindings/js/struct.JSRef.html' title='script::dom::bindings::js::JSRef'>JSRef</a>&lt;<a class='struct' href='../../../script/dom/document/struct.Document.html' title='script::dom::document::Document'>Document</a>&gt;, frame_element: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../script/dom/bindings/js/struct.JSRef.html' title='script::dom::bindings::js::JSRef'>JSRef</a>&lt;<a class='struct' href='../../../script/dom/element/struct.Element.html' title='script::dom::element::Element'>Element</a>&gt;&gt;);
+    fn <a href='#tymethod.load_url' class='fnname'>load_url</a>(self, href: <a class='type' href='../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>);
+    fn <a href='#tymethod.handle_fire_timer' class='fnname'>handle_fire_timer</a>(self, timer_id: TimerId);
+    fn <a href='#tymethod.reflow' class='fnname'>reflow</a>(self, goal: <a class='enum' href='../../../script/layout_interface/enum.ReflowGoal.html' title='script::layout_interface::ReflowGoal'>ReflowGoal</a>, query_type: <a class='enum' href='../../../script/layout_interface/enum.ReflowQueryType.html' title='script::layout_interface::ReflowQueryType'>ReflowQueryType</a>, reason: <a class='enum' href='../../../script/dom/window/enum.ReflowReason.html' title='script::dom::window::ReflowReason'>ReflowReason</a>);
+    fn <a href='#tymethod.join_layout' class='fnname'>join_layout</a>(self);
+    fn <a href='#tymethod.layout' class='fnname'>layout</a>(&amp;self) -&gt; &amp;<a class='trait' href='../../../script/layout_interface/trait.LayoutRPC.html' title='script::layout_interface::LayoutRPC'>LayoutRPC</a>;
+    fn <a href='#tymethod.content_box_query' class='fnname'>content_box_query</a>(self, content_box_request: <a class='struct' href='../../../script/dom/node/struct.TrustedNodeAddress.html' title='script::dom::node::TrustedNodeAddress'>TrustedNodeAddress</a>) -&gt; <a class='struct' href='../../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;;
+    fn <a href='#tymethod.content_boxes_query' class='fnname'>content_boxes_query</a>(self, content_boxes_request: <a class='struct' href='../../../script/dom/node/struct.TrustedNodeAddress.html' title='script::dom::node::TrustedNodeAddress'>TrustedNodeAddress</a>) -&gt; <a class='struct' href='../../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;&gt;;
+    fn <a href='#tymethod.handle_reflow_complete_msg' class='fnname'>handle_reflow_complete_msg</a>(self, reflow_id: <a href='../../../std/primitive.u32.html'>u32</a>);
+    fn <a href='#tymethod.handle_resize_inactive_msg' class='fnname'>handle_resize_inactive_msg</a>(self, new_size: <a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>);
+    fn <a href='#tymethod.set_fragment_name' class='fnname'>set_fragment_name</a>(self, fragment: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;);
+    fn <a href='#tymethod.steal_fragment_name' class='fnname'>steal_fragment_name</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;;
+    fn <a href='#tymethod.set_window_size' class='fnname'>set_window_size</a>(self, size: <a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>);
+    fn <a href='#tymethod.window_size' class='fnname'>window_size</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>&gt;;
+    fn <a href='#tymethod.get_url' class='fnname'>get_url</a>(self) -&gt; <a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a>;
+    fn <a href='#tymethod.resource_task' class='fnname'>resource_task</a>(self) -&gt; <a class='type' href='../../../net/resource_task/type.ResourceTask.html' title='net::resource_task::ResourceTask'>ResourceTask</a>;
+    fn <a href='#tymethod.devtools_chan' class='fnname'>devtools_chan</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../../../devtools_traits/type.DevtoolsControlChan.html' title='devtools_traits::DevtoolsControlChan'>DevtoolsControlChan</a>&gt;;
+    fn <a href='#tymethod.layout_chan' class='fnname'>layout_chan</a>(self) -&gt; <a class='struct' href='../../../script/layout_interface/struct.LayoutChan.html' title='script::layout_interface::LayoutChan'>LayoutChan</a>;
+    fn <a href='#tymethod.constellation_chan' class='fnname'>constellation_chan</a>(self) -&gt; <a class='struct' href='../../../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a>;
+    fn <a href='#tymethod.windowproxy_handler' class='fnname'>windowproxy_handler</a>(self) -&gt; <a class='struct' href='../../../script/dom/bindings/utils/struct.WindowProxyHandler.html' title='script::dom::bindings::utils::WindowProxyHandler'>WindowProxyHandler</a>;
+    fn <a href='#tymethod.get_next_subpage_id' class='fnname'>get_next_subpage_id</a>(self) -&gt; <a class='struct' href='../../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>;
+    fn <a href='#tymethod.layout_is_idle' class='fnname'>layout_is_idle</a>(self) -&gt; <a href='../../../std/primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.set_resize_event' class='fnname'>set_resize_event</a>(self, event: <a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>);
+    fn <a href='#tymethod.steal_resize_event' class='fnname'>steal_resize_event</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>&gt;;
+    fn <a href='#tymethod.set_page_clip_rect_with_new_viewport' class='fnname'>set_page_clip_rect_with_new_viewport</a>(self, viewport: <a class='struct' href='../../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../../std/primitive.f32.html'>f32</a>&gt;) -&gt; <a href='../../../std/primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.set_devtools_wants_updates' class='fnname'>set_devtools_wants_updates</a>(self, value: <a href='../../../std/primitive.bool.html'>bool</a>);
+    fn <a href='#tymethod.IndexedGetter' class='fnname'>IndexedGetter</a>(self, _index: <a href='../../../std/primitive.u32.html'>u32</a>, _found: &amp;mut <a href='../../../std/primitive.bool.html'>bool</a>) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../script/dom/bindings/js/struct.Temporary.html' title='script::dom::bindings::js::Temporary'>Temporary</a>&lt;<a class='struct' href='../../../script/dom/window/struct.Window.html' title='script::dom::window::Window'>Window</a>&gt;&gt;;
+    fn <a href='#tymethod.thaw' class='fnname'>thaw</a>(self);
+    fn <a href='#tymethod.freeze' class='fnname'>freeze</a>(self);
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.clear_js_context' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.clear_js_context' class='fnname'>clear_js_context</a>(self)</code></h3><h3 id='tymethod.init_browser_context' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.init_browser_context' class='fnname'>init_browser_context</a>(self, doc: <a class='struct' href='../../../script/dom/bindings/js/struct.JSRef.html' title='script::dom::bindings::js::JSRef'>JSRef</a>&lt;<a class='struct' href='../../../script/dom/document/struct.Document.html' title='script::dom::document::Document'>Document</a>&gt;, frame_element: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../script/dom/bindings/js/struct.JSRef.html' title='script::dom::bindings::js::JSRef'>JSRef</a>&lt;<a class='struct' href='../../../script/dom/element/struct.Element.html' title='script::dom::element::Element'>Element</a>&gt;&gt;)</code></h3><h3 id='tymethod.load_url' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.load_url' class='fnname'>load_url</a>(self, href: <a class='type' href='../../../util/str/type.DOMString.html' title='util::str::DOMString'>DOMString</a>)</code></h3><h3 id='tymethod.handle_fire_timer' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.handle_fire_timer' class='fnname'>handle_fire_timer</a>(self, timer_id: TimerId)</code></h3><h3 id='tymethod.reflow' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.reflow' class='fnname'>reflow</a>(self, goal: <a class='enum' href='../../../script/layout_interface/enum.ReflowGoal.html' title='script::layout_interface::ReflowGoal'>ReflowGoal</a>, query_type: <a class='enum' href='../../../script/layout_interface/enum.ReflowQueryType.html' title='script::layout_interface::ReflowQueryType'>ReflowQueryType</a>, reason: <a class='enum' href='../../../script/dom/window/enum.ReflowReason.html' title='script::dom::window::ReflowReason'>ReflowReason</a>)</code></h3><h3 id='tymethod.join_layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.join_layout' class='fnname'>join_layout</a>(self)</code></h3><h3 id='tymethod.layout' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.layout' class='fnname'>layout</a>(&amp;self) -&gt; &amp;<a class='trait' href='../../../script/layout_interface/trait.LayoutRPC.html' title='script::layout_interface::LayoutRPC'>LayoutRPC</a></code></h3><h3 id='tymethod.content_box_query' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.content_box_query' class='fnname'>content_box_query</a>(self, content_box_request: <a class='struct' href='../../../script/dom/node/struct.TrustedNodeAddress.html' title='script::dom::node::TrustedNodeAddress'>TrustedNodeAddress</a>) -&gt; <a class='struct' href='../../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h3><h3 id='tymethod.content_boxes_query' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.content_boxes_query' class='fnname'>content_boxes_query</a>(self, content_boxes_request: <a class='struct' href='../../../script/dom/node/struct.TrustedNodeAddress.html' title='script::dom::node::TrustedNodeAddress'>TrustedNodeAddress</a>) -&gt; <a class='struct' href='../../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;&gt;</code></h3><h3 id='tymethod.handle_reflow_complete_msg' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.handle_reflow_complete_msg' class='fnname'>handle_reflow_complete_msg</a>(self, reflow_id: <a href='../../../std/primitive.u32.html'>u32</a>)</code></h3><h3 id='tymethod.handle_resize_inactive_msg' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.handle_resize_inactive_msg' class='fnname'>handle_resize_inactive_msg</a>(self, new_size: <a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>)</code></h3><h3 id='tymethod.set_fragment_name' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_fragment_name' class='fnname'>set_fragment_name</a>(self, fragment: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;)</code></h3><h3 id='tymethod.steal_fragment_name' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.steal_fragment_name' class='fnname'>steal_fragment_name</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></h3><h3 id='tymethod.set_window_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_window_size' class='fnname'>set_window_size</a>(self, size: <a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>)</code></h3><h3 id='tymethod.window_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.window_size' class='fnname'>window_size</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>&gt;</code></h3><h3 id='tymethod.get_url' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.get_url' class='fnname'>get_url</a>(self) -&gt; <a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a></code></h3><h3 id='tymethod.resource_task' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.resource_task' class='fnname'>resource_task</a>(self) -&gt; <a class='type' href='../../../net/resource_task/type.ResourceTask.html' title='net::resource_task::ResourceTask'>ResourceTask</a></code></h3><h3 id='tymethod.devtools_chan' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.devtools_chan' class='fnname'>devtools_chan</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../../../devtools_traits/type.DevtoolsControlChan.html' title='devtools_traits::DevtoolsControlChan'>DevtoolsControlChan</a>&gt;</code></h3><h3 id='tymethod.layout_chan' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.layout_chan' class='fnname'>layout_chan</a>(self) -&gt; <a class='struct' href='../../../script/layout_interface/struct.LayoutChan.html' title='script::layout_interface::LayoutChan'>LayoutChan</a></code></h3><h3 id='tymethod.constellation_chan' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.constellation_chan' class='fnname'>constellation_chan</a>(self) -&gt; <a class='struct' href='../../../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a></code></h3><h3 id='tymethod.windowproxy_handler' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.windowproxy_handler' class='fnname'>windowproxy_handler</a>(self) -&gt; <a class='struct' href='../../../script/dom/bindings/utils/struct.WindowProxyHandler.html' title='script::dom::bindings::utils::WindowProxyHandler'>WindowProxyHandler</a></code></h3><h3 id='tymethod.get_next_subpage_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.get_next_subpage_id' class='fnname'>get_next_subpage_id</a>(self) -&gt; <a class='struct' href='../../../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a></code></h3><h3 id='tymethod.layout_is_idle' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.layout_is_idle' class='fnname'>layout_is_idle</a>(self) -&gt; <a href='../../../std/primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.set_resize_event' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_resize_event' class='fnname'>set_resize_event</a>(self, event: <a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>)</code></h3><h3 id='tymethod.steal_resize_event' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.steal_resize_event' class='fnname'>steal_resize_event</a>(self) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>&gt;</code></h3><h3 id='tymethod.set_page_clip_rect_with_new_viewport' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_page_clip_rect_with_new_viewport' class='fnname'>set_page_clip_rect_with_new_viewport</a>(self, viewport: <a class='struct' href='../../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../../../std/primitive.f32.html'>f32</a>&gt;) -&gt; <a href='../../../std/primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.set_devtools_wants_updates' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.set_devtools_wants_updates' class='fnname'>set_devtools_wants_updates</a>(self, value: <a href='../../../std/primitive.bool.html'>bool</a>)</code></h3><h3 id='tymethod.IndexedGetter' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.IndexedGetter' class='fnname'>IndexedGetter</a>(self, _index: <a href='../../../std/primitive.u32.html'>u32</a>, _found: &amp;mut <a href='../../../std/primitive.bool.html'>bool</a>) -&gt; <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../script/dom/bindings/js/struct.Temporary.html' title='script::dom::bindings::js::Temporary'>Temporary</a>&lt;<a class='struct' href='../../../script/dom/window/struct.Window.html' title='script::dom::window::Window'>Window</a>&gt;&gt;</code></h3><h3 id='tymethod.thaw' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.thaw' class='fnname'>thaw</a>(self)</code></h3><h3 id='tymethod.freeze' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.freeze' class='fnname'>freeze</a>(self)</code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='trait' href='../../../script/dom/window/trait.WindowHelpers.html' title='script::dom::window::WindowHelpers'>WindowHelpers</a> for <a class='struct' href='../../../script/dom/bindings/js/struct.JSRef.html' title='script::dom::bindings::js::JSRef'>JSRef</a>&lt;'a, <a class='struct' href='../../../script/dom/window/struct.Window.html' title='script::dom::window::Window'>Window</a>&gt;</code></li>
+</ul><script type="text/javascript" async
+                              src="../../../implementors/script/dom/window/trait.WindowHelpers.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `node` mod in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, node">
+
+    <title>script::dom::node - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a></p><script>window.sidebarCurrent = {name: 'node', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>script</a>::<wbr><a href='../index.html'>dom</a>::<wbr><a class='mod' href=''>node</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-529027' href='../../../src/script/dom/node.rs.html#5-2366'>[src]</a></span></h1>
+<div class='docblock'><p>The core DOM types. Defines the basic DOM hierarchy as well as all the HTML elements.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.AncestorIterator.html'
+                               title='script::dom::node::AncestorIterator'>AncestorIterator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.LayoutData.html'
+                               title='script::dom::node::LayoutData'>LayoutData</a></td>
+                        <td class='docblock short'><p>Encapsulates the abstract layout data.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.LayoutDataRef.html'
+                               title='script::dom::node::LayoutDataRef'>LayoutDataRef</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Node.html'
+                               title='script::dom::node::Node'>Node</a></td>
+                        <td class='docblock short'><p>An HTML node.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.NodeChildrenIterator.html'
+                               title='script::dom::node::NodeChildrenIterator'>NodeChildrenIterator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.NodeFlags.html'
+                               title='script::dom::node::NodeFlags'>NodeFlags</a></td>
+                        <td class='docblock short'><p>Flags for node items.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.QuerySelectorIterator.html'
+                               title='script::dom::node::QuerySelectorIterator'>QuerySelectorIterator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ReverseChildrenIterator.html'
+                               title='script::dom::node::ReverseChildrenIterator'>ReverseChildrenIterator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.SharedLayoutData.html'
+                               title='script::dom::node::SharedLayoutData'>SharedLayoutData</a></td>
+                        <td class='docblock short'><p>Layout data that is shared between the script and layout tasks.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.TreeIterator.html'
+                               title='script::dom::node::TreeIterator'>TreeIterator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.TrustedNodeAddress.html'
+                               title='script::dom::node::TrustedNodeAddress'>TrustedNodeAddress</a></td>
+                        <td class='docblock short'><p>The address of a node known to be valid. These are sent from script to layout,
+and are also used in the HTML parser interface.</p>
+</td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.CloneChildrenFlag.html'
+                               title='script::dom::node::CloneChildrenFlag'>CloneChildrenFlag</a></td>
+                        <td class='docblock short'><p>Specifies whether children must be recursively cloned or not.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.NodeDamage.html'
+                               title='script::dom::node::NodeDamage'>NodeDamage</a></td>
+                        <td class='docblock short'><p>A summary of the changes that happened to a node.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.NodeTypeId.html'
+                               title='script::dom::node::NodeTypeId'>NodeTypeId</a></td>
+                        <td class='docblock short'><p>The different types of nodes.</p>
+</td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.CLICK_IN_PROGRESS.html'
+                               title='script::dom::node::CLICK_IN_PROGRESS'>CLICK_IN_PROGRESS</a></td>
+                        <td class='docblock short'><p>Specifies whether or not there is an authentic click in progress on this element.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.HAS_CHANGED.html'
+                               title='script::dom::node::HAS_CHANGED'>HAS_CHANGED</a></td>
+                        <td class='docblock short'><p>Specifies whether this node <em>must</em> be reflowed regardless of style differences.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.HAS_DIRTY_DESCENDANTS.html'
+                               title='script::dom::node::HAS_DIRTY_DESCENDANTS'>HAS_DIRTY_DESCENDANTS</a></td>
+                        <td class='docblock short'><p>Specifies whether this node has descendants (inclusive of itself) which have changed since the last reflow.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.HAS_DIRTY_SIBLINGS.html'
+                               title='script::dom::node::HAS_DIRTY_SIBLINGS'>HAS_DIRTY_SIBLINGS</a></td>
+                        <td class='docblock short'><p>Specifies whether this node has siblings (inclusive of itself) which changed since the last reflow.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.IN_DISABLED_STATE.html'
+                               title='script::dom::node::IN_DISABLED_STATE'>IN_DISABLED_STATE</a></td>
+                        <td class='docblock short'><p>Specifies whether this node is in disabled state.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.IN_ENABLED_STATE.html'
+                               title='script::dom::node::IN_ENABLED_STATE'>IN_ENABLED_STATE</a></td>
+                        <td class='docblock short'><p>Specifies whether this node is in enabled state.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.IN_HOVER_STATE.html'
+                               title='script::dom::node::IN_HOVER_STATE'>IN_HOVER_STATE</a></td>
+                        <td class='docblock short'><p>Specifies whether this node is in hover state.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.IS_DIRTY.html'
+                               title='script::dom::node::IS_DIRTY'>IS_DIRTY</a></td>
+                        <td class='docblock short'><p>Specifies whether this node needs style recalc on next reflow.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.IS_IN_DOC.html'
+                               title='script::dom::node::IS_IN_DOC'>IS_IN_DOC</a></td>
+                        <td class='docblock short'><p>Specifies whether this node is in a document.</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.DisabledStateHelpers.html'
+                               title='script::dom::node::DisabledStateHelpers'>DisabledStateHelpers</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.LayoutNodeHelpers.html'
+                               title='script::dom::node::LayoutNodeHelpers'>LayoutNodeHelpers</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.NodeHelpers.html'
+                               title='script::dom::node::NodeHelpers'>NodeHelpers</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.RawLayoutNodeHelpers.html'
+                               title='script::dom::node::RawLayoutNodeHelpers'>RawLayoutNodeHelpers</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.document_from_node.html'
+                               title='script::dom::node::document_from_node'>document_from_node</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.from_untrusted_node_address.html'
+                               title='script::dom::node::from_untrusted_node_address'>from_untrusted_node_address</a></td>
+                        <td class='docblock short'><p>If the given untrusted node address represents a valid DOM node in the given runtime,
+returns it.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.window_from_node.html'
+                               title='script::dom::node::window_from_node'>window_from_node</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.ChildElementIterator.html'
+                               title='script::dom::node::ChildElementIterator'>ChildElementIterator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

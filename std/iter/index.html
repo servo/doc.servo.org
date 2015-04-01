@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `iter` mod in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, iter">
+
+    <title>std::iter - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a></p><script>window.sidebarCurrent = {name: 'iter', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>std</a>::<wbr><a class='mod' href=''>iter</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-72587' href='../../core/iter/index.html?gotosrc=72587'>[src]</a></span></h1>
+<div class='docblock'><p>Composable external iterators</p>
+
+<h1 id="the-iterator-trait" class='section-header'><a
+                           href="#the-iterator-trait">The <code>Iterator</code> trait</a></h1>
+<p>This module defines Rust&#39;s core iteration trait. The <code>Iterator</code> trait has one
+unimplemented method, <code>next</code>. All other methods are derived through default
+methods to perform operations such as <code>zip</code>, <code>chain</code>, <code>enumerate</code>, and <code>fold</code>.</p>
+
+<p>The goal of this module is to unify iteration across all containers in Rust.
+An iterator can be considered as a state machine which is used to track which
+element will be yielded next.</p>
+
+<p>There are various extensions also defined in this module to assist with various
+types of iteration, such as the <code>DoubleEndedIterator</code> for iterating in reverse,
+the <code>FromIterator</code> trait for creating a container from an iterator, and much
+more.</p>
+
+<h2 id="rust&#39;s-for-loop" class='section-header'><a
+                           href="#rust&#39;s-for-loop">Rust&#39;s <code>for</code> loop</a></h2>
+<p>The special syntax used by rust&#39;s <code>for</code> loop is based around the <code>Iterator</code>
+trait defined in this module. For loops can be viewed as a syntactical expansion
+into a <code>loop</code>, for example, the <code>for</code> loop in this example is essentially
+translated to the <code>loop</code> below.</p>
+<span class='rusttest'>fn main() {
+    let values = vec![1, 2, 3];
+    
+    // &quot;Syntactical sugar&quot; taking advantage of an iterator
+    for &amp;x in values.iter() {
+        println!(&quot;{}&quot;, x);
+    }
+    
+    // Rough translation of the iteration without a `for` iterator.
+    let mut it = values.iter();
+    loop {
+        match it.next() {
+            Some(&amp;x) =&gt; {
+                println!(&quot;{}&quot;, x);
+            }
+            None =&gt; { break }
+        }
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>values</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+
+<span class='comment'>// &quot;Syntactical sugar&quot; taking advantage of an iterator</span>
+<span class='kw'>for</span> <span class='kw-2'>&amp;</span><span class='ident'>x</span> <span class='kw'>in</span> <span class='ident'>values</span>.<span class='ident'>iter</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+
+<span class='comment'>// Rough translation of the iteration without a `for` iterator.</span>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>it</span> <span class='op'>=</span> <span class='ident'>values</span>.<span class='ident'>iter</span>();
+<span class='kw'>loop</span> {
+    <span class='kw'>match</span> <span class='ident'>it</span>.<span class='ident'>next</span>() {
+        <span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='ident'>x</span>) <span class='op'>=&gt;</span> {
+            <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+        }
+        <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> { <span class='kw'>break</span> }
+    }
+}
+</pre>
+
+<p>This <code>for</code> loop syntax can be applied to any iterator over any type.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: needs review and revision'></a><a class='mod' href='order/index.html'
+                               title='std::iter::order'>order</a></td>
+                        <td class='docblock short'><p>Functions for lexicographical ordering of sequences.</p>
+</td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Chain.html'
+                               title='std::iter::Chain'>Chain</a></td>
+                        <td class='docblock short'><p>An iterator that strings two iterators together</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: recent addition'></a><a class='struct' href='struct.Cloned.html'
+                               title='std::iter::Cloned'>Cloned</a></td>
+                        <td class='docblock short'><p>An iterator that clones the elements of an underlying iterator</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: may be renamed or replaced by range notation adapters'></a><a class='struct' href='struct.Counter.html'
+                               title='std::iter::Counter'>Counter</a></td>
+                        <td class='docblock short'><p>An infinite iterator starting at <code>start</code> and advancing by <code>step</code> with each
+iteration</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Cycle.html'
+                               title='std::iter::Cycle'>Cycle</a></td>
+                        <td class='docblock short'><p>An iterator that repeats endlessly</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Enumerate.html'
+                               title='std::iter::Enumerate'>Enumerate</a></td>
+                        <td class='docblock short'><p>An iterator that yields the current count and the element during iteration</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Filter.html'
+                               title='std::iter::Filter'>Filter</a></td>
+                        <td class='docblock short'><p>An iterator that filters the elements of <code>iter</code> with <code>predicate</code></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.FilterMap.html'
+                               title='std::iter::FilterMap'>FilterMap</a></td>
+                        <td class='docblock short'><p>An iterator that uses <code>f</code> to both filter and map elements from <code>iter</code></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.FlatMap.html'
+                               title='std::iter::FlatMap'>FlatMap</a></td>
+                        <td class='docblock short'><p>An iterator that maps each element to an iterator,
+and yields the elements of the produced iterators</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Fuse.html'
+                               title='std::iter::Fuse'>Fuse</a></td>
+                        <td class='docblock short'><p>An iterator that yields <code>None</code> forever after the underlying iterator
+yields <code>None</code> once.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Inspect.html'
+                               title='std::iter::Inspect'>Inspect</a></td>
+                        <td class='docblock short'><p>An iterator that calls a function with a reference to each
+element before yielding it.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Map.html'
+                               title='std::iter::Map'>Map</a></td>
+                        <td class='docblock short'><p>An iterator that maps the values of <code>iter</code> with <code>f</code></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Peekable.html'
+                               title='std::iter::Peekable'>Peekable</a></td>
+                        <td class='docblock short'><p>An iterator with a <code>peek()</code> that returns an optional reference to the next element.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: will be replaced by range notation'></a><a class='struct' href='struct.Range.html'
+                               title='std::iter::Range'>Range</a></td>
+                        <td class='docblock short'><p>An iterator over the range [start, stop)</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: likely to be replaced by range notation and adapters'></a><a class='struct' href='struct.RangeInclusive.html'
+                               title='std::iter::RangeInclusive'>RangeInclusive</a></td>
+                        <td class='docblock short'><p>An iterator over the range [start, stop]</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: likely to be replaced by range notation and adapters'></a><a class='struct' href='struct.RangeStep.html'
+                               title='std::iter::RangeStep'>RangeStep</a></td>
+                        <td class='docblock short'><p>An iterator over the range [start, stop) by <code>step</code>. It handles overflow by stopping.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: likely to be replaced by range notation and adapters'></a><a class='struct' href='struct.RangeStepInclusive.html'
+                               title='std::iter::RangeStepInclusive'>RangeStepInclusive</a></td>
+                        <td class='docblock short'><p>An iterator over the range [start, stop] by <code>step</code>. It handles overflow by stopping.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Repeat.html'
+                               title='std::iter::Repeat'>Repeat</a></td>
+                        <td class='docblock short'><p>An iterator that repeats an element endlessly</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Rev.html'
+                               title='std::iter::Rev'>Rev</a></td>
+                        <td class='docblock short'><p>An double-ended iterator with the direction inverted</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Scan.html'
+                               title='std::iter::Scan'>Scan</a></td>
+                        <td class='docblock short'><p>An iterator to maintain state while iterating another iterator</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Skip.html'
+                               title='std::iter::Skip'>Skip</a></td>
+                        <td class='docblock short'><p>An iterator that skips over <code>n</code> elements of <code>iter</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.SkipWhile.html'
+                               title='std::iter::SkipWhile'>SkipWhile</a></td>
+                        <td class='docblock short'><p>An iterator that rejects elements while <code>predicate</code> is true</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Take.html'
+                               title='std::iter::Take'>Take</a></td>
+                        <td class='docblock short'><p>An iterator that only iterates over the first <code>n</code> iterations of <code>iter</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.TakeWhile.html'
+                               title='std::iter::TakeWhile'>TakeWhile</a></td>
+                        <td class='docblock short'><p>An iterator that only accepts elements while <code>predicate</code> is true</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='struct' href='struct.Unfold.html'
+                               title='std::iter::Unfold'>Unfold</a></td>
+                        <td class='docblock short'><p>An iterator that passes mutable state to a closure and yields the result.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='struct' href='struct.Zip.html'
+                               title='std::iter::Zip'>Zip</a></td>
+                        <td class='docblock short'><p>An iterator that iterates two other iterators simultaneously</p>
+</td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: unclear whether such a fine-grained result is widely useful'></a><a class='enum' href='enum.MinMaxResult.html'
+                               title='std::iter::MinMaxResult'>MinMaxResult</a></td>
+                        <td class='docblock short'><p><code>MinMaxResult</code> is an enum returned by <code>min_max</code>. See <code>IteratorOrdExt::min_max</code> for more detail.</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: needs to be re-evaluated as part of numerics reform'></a><a class='trait' href='trait.AdditiveIterator.html'
+                               title='std::iter::AdditiveIterator'>AdditiveIterator</a></td>
+                        <td class='docblock short'><p>A trait for iterators over elements which can be added together</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='trait' href='trait.DoubleEndedIterator.html'
+                               title='std::iter::DoubleEndedIterator'>DoubleEndedIterator</a></td>
+                        <td class='docblock short'><p>A range iterator able to yield elements from both ends</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='trait' href='trait.ExactSizeIterator.html'
+                               title='std::iter::ExactSizeIterator'>ExactSizeIterator</a></td>
+                        <td class='docblock short'><p>An iterator that knows its exact length</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='trait' href='trait.Extend.html'
+                               title='std::iter::Extend'>Extend</a></td>
+                        <td class='docblock short'><p>A type growable from an <code>Iterator</code> implementation</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='trait' href='trait.FromIterator.html'
+                               title='std::iter::FromIterator'>FromIterator</a></td>
+                        <td class='docblock short'><p>Conversion from an <code>Iterator</code></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='trait' href='trait.IntoIterator.html'
+                               title='std::iter::IntoIterator'>IntoIterator</a></td>
+                        <td class='docblock short'><p>Conversion into an <code>Iterator</code></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='trait' href='trait.Iterator.html'
+                               title='std::iter::Iterator'>Iterator</a></td>
+                        <td class='docblock short'><p>An interface for dealing with &quot;external iterators&quot;. These types of iterators
+can be resumed at any time as all state is stored internally as opposed to
+being located on the call stack.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='trait' href='trait.IteratorExt.html'
+                               title='std::iter::IteratorExt'>IteratorExt</a></td>
+                        <td class='docblock short'><p>An extension trait providing numerous methods applicable to all iterators.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: needs to be re-evaluated as part of numerics reform'></a><a class='trait' href='trait.MultiplicativeIterator.html'
+                               title='std::iter::MultiplicativeIterator'>MultiplicativeIterator</a></td>
+                        <td class='docblock short'><p>A trait for iterators over elements which can be multiplied together.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: not widely used, may be better decomposed into Index and ExactSizeIterator'></a><a class='trait' href='trait.RandomAccessIterator.html'
+                               title='std::iter::RandomAccessIterator'>RandomAccessIterator</a></td>
+                        <td class='docblock short'><p>An object implementing random access indexing by <code>usize</code></p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: may be renamed or replaced by range notation adapters'></a><a class='fn' href='fn.count.html'
+                               title='std::iter::count'>count</a></td>
+                        <td class='docblock short'><p>Creates a new counter with the specified start/step</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='fn' href='fn.iterate.html'
+                               title='std::iter::iterate'>iterate</a></td>
+                        <td class='docblock short'><p>Create a new iterator that produces an infinite sequence of
+repeated applications of the given function <code>f</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: will be replaced by range notation'></a><a class='fn' href='fn.range.html'
+                               title='std::iter::range'>range</a></td>
+                        <td class='docblock short'><p>Returns an iterator over the given range [start, stop) (that is, starting
+at start (inclusive), and ending at stop (exclusive)).</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: likely to be replaced by range notation and adapters'></a><a class='fn' href='fn.range_inclusive.html'
+                               title='std::iter::range_inclusive'>range_inclusive</a></td>
+                        <td class='docblock short'><p>Return an iterator over the range [start, stop]</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: likely to be replaced by range notation and adapters'></a><a class='fn' href='fn.range_step.html'
+                               title='std::iter::range_step'>range_step</a></td>
+                        <td class='docblock short'><p>Return an iterator over the range [start, stop) by <code>step</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable: likely to be replaced by range notation and adapters'></a><a class='fn' href='fn.range_step_inclusive.html'
+                               title='std::iter::range_step_inclusive'>range_step_inclusive</a></td>
+                        <td class='docblock short'><p>Return an iterator over the range [start, stop] by <code>step</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Stable' title='Stable'></a><a class='fn' href='fn.repeat.html'
+                               title='std::iter::repeat'>repeat</a></td>
+                        <td class='docblock short'><p>Create a new iterator that endlessly repeats the element <code>elt</code>.</p>
+</td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unstable' title='Unstable'></a><a class='type' href='type.Iterate.html'
+                               title='std::iter::Iterate'>Iterate</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

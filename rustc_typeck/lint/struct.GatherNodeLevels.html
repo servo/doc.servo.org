@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `GatherNodeLevels` struct in crate `rustc_typeck`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, GatherNodeLevels">
+
+    <title>rustc_typeck::lint::GatherNodeLevels - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../rustc_typeck/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>rustc_typeck</a>::<wbr><a href='index.html'>lint</a></p><script>window.sidebarCurrent = {name: 'GatherNodeLevels', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rustc_typeck</a>::<wbr><a href='index.html'>lint</a>::<wbr><a class='struct' href=''>GatherNodeLevels</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-307518' href='../../rustc/lint/context/struct.GatherNodeLevels.html?gotosrc=307518'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct GatherNodeLevels;</pre><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../rustc_typeck/lint/trait.LintPass.html' title='rustc_typeck::lint::LintPass'>LintPass</a> for <a class='struct' href='../../rustc_typeck/lint/struct.GatherNodeLevels.html' title='rustc_typeck::lint::GatherNodeLevels'>GatherNodeLevels</a></code></h3><div class='impl-items'><h4 id='method.get_lints' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.get_lints' class='fnname'>get_lints</a>(&amp;self) -&gt; <a href='../../std/primitive.slice.html'>&amp;'static [</a>&amp;'static &amp;'static <a class='struct' href='../../rustc_typeck/lint/struct.Lint.html' title='rustc_typeck::lint::Lint'>Lint</a><a href='../../std/primitive.slice.html'>]</a></code></h4>
+<h4 id='method.check_item' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.check_item' class='fnname'>check_item</a>(&amp;mut self, cx: &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, it: &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Item.html' title='syntax::ast::Item'>Item</a>)</code></h4>
+<h4 id='method.check_crate' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_crate' class='fnname'>check_crate</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Crate.html' title='syntax::ast::Crate'>Crate</a>)</code></h4>
+<h4 id='method.check_ident' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_ident' class='fnname'>check_ident</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Span.html' title='syntax::codemap::Span'>Span</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>)</code></h4>
+<h4 id='method.check_mod' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_mod' class='fnname'>check_mod</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Mod.html' title='syntax::ast::Mod'>Mod</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Span.html' title='syntax::codemap::Span'>Span</a>, <a href='../../std/primitive.u32.html'>u32</a>)</code></h4>
+<h4 id='method.check_foreign_item' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_foreign_item' class='fnname'>check_foreign_item</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.ForeignItem.html' title='syntax::ast::ForeignItem'>ForeignItem</a>)</code></h4>
+<h4 id='method.check_local' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_local' class='fnname'>check_local</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Local.html' title='syntax::ast::Local'>Local</a>)</code></h4>
+<h4 id='method.check_block' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_block' class='fnname'>check_block</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>)</code></h4>
+<h4 id='method.check_stmt' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_stmt' class='fnname'>check_stmt</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='enum' href='http://doc.rust-lang.org/nightly/syntax/ast/enum.Stmt_.html' title='syntax::ast::Stmt_'>Stmt_</a>&gt;)</code></h4>
+<h4 id='method.check_arm' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_arm' class='fnname'>check_arm</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Arm.html' title='syntax::ast::Arm'>Arm</a>)</code></h4>
+<h4 id='method.check_pat' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_pat' class='fnname'>check_pat</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Pat.html' title='syntax::ast::Pat'>Pat</a>)</code></h4>
+<h4 id='method.check_decl' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_decl' class='fnname'>check_decl</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='enum' href='http://doc.rust-lang.org/nightly/syntax/ast/enum.Decl_.html' title='syntax::ast::Decl_'>Decl_</a>&gt;)</code></h4>
+<h4 id='method.check_expr' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_expr' class='fnname'>check_expr</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>)</code></h4>
+<h4 id='method.check_expr_post' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_expr_post' class='fnname'>check_expr_post</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Expr.html' title='syntax::ast::Expr'>Expr</a>)</code></h4>
+<h4 id='method.check_ty' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_ty' class='fnname'>check_ty</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Ty.html' title='syntax::ast::Ty'>Ty</a>)</code></h4>
+<h4 id='method.check_generics' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_generics' class='fnname'>check_generics</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Generics.html' title='syntax::ast::Generics'>Generics</a>)</code></h4>
+<h4 id='method.check_fn' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_fn' class='fnname'>check_fn</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, <a class='enum' href='http://doc.rust-lang.org/nightly/syntax/visit/enum.FnKind.html' title='syntax::visit::FnKind'>FnKind</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.FnDecl.html' title='syntax::ast::FnDecl'>FnDecl</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Block.html' title='syntax::ast::Block'>Block</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Span.html' title='syntax::codemap::Span'>Span</a>, <a href='../../std/primitive.u32.html'>u32</a>)</code></h4>
+<h4 id='method.check_ty_method' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_ty_method' class='fnname'>check_ty_method</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.TypeMethod.html' title='syntax::ast::TypeMethod'>TypeMethod</a>)</code></h4>
+<h4 id='method.check_trait_item' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_trait_item' class='fnname'>check_trait_item</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='enum' href='http://doc.rust-lang.org/nightly/syntax/ast/enum.TraitItem.html' title='syntax::ast::TraitItem'>TraitItem</a>)</code></h4>
+<h4 id='method.check_struct_def' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_struct_def' class='fnname'>check_struct_def</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.StructDef.html' title='syntax::ast::StructDef'>StructDef</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Generics.html' title='syntax::ast::Generics'>Generics</a>, <a href='../../std/primitive.u32.html'>u32</a>)</code></h4>
+<h4 id='method.check_struct_def_post' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_struct_def_post' class='fnname'>check_struct_def_post</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.StructDef.html' title='syntax::ast::StructDef'>StructDef</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Ident.html' title='syntax::ast::Ident'>Ident</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Generics.html' title='syntax::ast::Generics'>Generics</a>, <a href='../../std/primitive.u32.html'>u32</a>)</code></h4>
+<h4 id='method.check_struct_field' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_struct_field' class='fnname'>check_struct_field</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.StructField_.html' title='syntax::ast::StructField_'>StructField_</a>&gt;)</code></h4>
+<h4 id='method.check_variant' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_variant' class='fnname'>check_variant</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Variant_.html' title='syntax::ast::Variant_'>Variant_</a>&gt;, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Generics.html' title='syntax::ast::Generics'>Generics</a>)</code></h4>
+<h4 id='method.check_variant_post' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_variant_post' class='fnname'>check_variant_post</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Variant_.html' title='syntax::ast::Variant_'>Variant_</a>&gt;, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Generics.html' title='syntax::ast::Generics'>Generics</a>)</code></h4>
+<h4 id='method.check_opt_lifetime_ref' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_opt_lifetime_ref' class='fnname'>check_opt_lifetime_ref</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Span.html' title='syntax::codemap::Span'>Span</a>, &amp;<a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Lifetime.html' title='syntax::ast::Lifetime'>Lifetime</a>&gt;)</code></h4>
+<h4 id='method.check_lifetime_ref' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_lifetime_ref' class='fnname'>check_lifetime_ref</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Lifetime.html' title='syntax::ast::Lifetime'>Lifetime</a>)</code></h4>
+<h4 id='method.check_lifetime_def' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_lifetime_def' class='fnname'>check_lifetime_def</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.LifetimeDef.html' title='syntax::ast::LifetimeDef'>LifetimeDef</a>)</code></h4>
+<h4 id='method.check_explicit_self' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_explicit_self' class='fnname'>check_explicit_self</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='enum' href='http://doc.rust-lang.org/nightly/syntax/ast/enum.ExplicitSelf_.html' title='syntax::ast::ExplicitSelf_'>ExplicitSelf_</a>&gt;)</code></h4>
+<h4 id='method.check_mac' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_mac' class='fnname'>check_mac</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='enum' href='http://doc.rust-lang.org/nightly/syntax/ast/enum.Mac_.html' title='syntax::ast::Mac_'>Mac_</a>&gt;)</code></h4>
+<h4 id='method.check_path' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_path' class='fnname'>check_path</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Path.html' title='syntax::ast::Path'>Path</a>, <a href='../../std/primitive.u32.html'>u32</a>)</code></h4>
+<h4 id='method.check_attribute' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.check_attribute' class='fnname'>check_attribute</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Attribute_.html' title='syntax::ast::Attribute_'>Attribute_</a>&gt;)</code></h4>
+<h4 id='method.enter_lint_attrs' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.enter_lint_attrs' class='fnname'>enter_lint_attrs</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, <a href='../../std/primitive.slice.html'>&amp;[</a><a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Attribute_.html' title='syntax::ast::Attribute_'>Attribute_</a>&gt;<a href='../../std/primitive.slice.html'>]</a>)</code></h4>
+<h4 id='method.exit_lint_attrs' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.exit_lint_attrs' class='fnname'>exit_lint_attrs</a>(&amp;mut self, &amp;<a class='struct' href='../../rustc_typeck/lint/struct.Context.html' title='rustc_typeck::lint::Context'>Context</a>, <a href='../../std/primitive.slice.html'>&amp;[</a><a class='struct' href='http://doc.rust-lang.org/nightly/syntax/codemap/struct.Spanned.html' title='syntax::codemap::Spanned'>Spanned</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/syntax/ast/struct.Attribute_.html' title='syntax::ast::Attribute_'>Attribute_</a>&gt;<a href='../../std/primitive.slice.html'>]</a>)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rustc_typeck";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

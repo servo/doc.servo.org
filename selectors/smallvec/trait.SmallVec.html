@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SmallVec` trait in crate `selectors`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SmallVec">
+
+    <title>selectors::smallvec::SmallVec - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>selectors</a>::<wbr><a href='index.html'>smallvec</a></p><script>window.sidebarCurrent = {name: 'SmallVec', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>selectors</a>::<wbr><a href='index.html'>smallvec</a>::<wbr><a class='trait' href=''>SmallVec</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-12572' href='../../src/selectors/smallvec.rs.html#61-245'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait SmallVec&lt;T&gt;: <a class='trait' href='../../selectors/smallvec/trait.SmallVecPrivate.html' title='selectors::smallvec::SmallVecPrivate'>SmallVecPrivate</a>&lt;T&gt; {
+    fn <a href='#tymethod.inline_size' class='fnname'>inline_size</a>(&amp;self) -&gt; <a href='../../std/primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../../std/primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a>;
+    fn <a href='#tymethod.cap' class='fnname'>cap</a>(&amp;self) -&gt; <a href='../../std/primitive.usize.html'>usize</a>;
+
+    fn <a href='#method.spilled' class='fnname'>spilled</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a> { ... }
+    fn <a href='#method.begin' class='fnname'>begin</a>(&amp;self) -&gt; *const T { ... }
+    fn <a href='#method.begin_mut' class='fnname'>begin_mut</a>(&amp;mut self) -&gt; *mut T { ... }
+    fn <a href='#method.end' class='fnname'>end</a>(&amp;self) -&gt; *const T { ... }
+    fn <a href='#method.end_mut' class='fnname'>end_mut</a>(&amp;mut self) -&gt; *mut T { ... }
+    fn <a href='#method.iter' class='fnname'>iter</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../selectors/smallvec/struct.SmallVecIterator.html' title='selectors::smallvec::SmallVecIterator'>SmallVecIterator</a>&lt;'a, T&gt; { ... }
+    fn <a href='#method.mut_iter' class='fnname'>mut_iter</a>&lt;'a&gt;(&amp;'a mut self) -&gt; <a class='struct' href='../../selectors/smallvec/struct.SmallVecMutIterator.html' title='selectors::smallvec::SmallVecMutIterator'>SmallVecMutIterator</a>&lt;'a, T&gt; { ... }
+    fn <a href='#method.into_iter' class='fnname'>into_iter</a>&lt;'a&gt;(&amp;'a mut self) -&gt; <a class='struct' href='../../selectors/smallvec/struct.SmallVecMoveIterator.html' title='selectors::smallvec::SmallVecMoveIterator'>SmallVecMoveIterator</a>&lt;'a, T&gt; { ... }
+    fn <a href='#method.push' class='fnname'>push</a>(&amp;mut self, value: T) { ... }
+    fn <a href='#method.push_all_move' class='fnname'>push_all_move</a>&lt;V: <a class='trait' href='../../selectors/smallvec/trait.SmallVec.html' title='selectors::smallvec::SmallVec'>SmallVec</a>&lt;T&gt;&gt;(&amp;mut self, other: V) { ... }
+    fn <a href='#method.pop' class='fnname'>pop</a>(&amp;mut self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt; { ... }
+    fn <a href='#method.grow' class='fnname'>grow</a>(&amp;mut self, new_cap: <a href='../../std/primitive.usize.html'>usize</a>) { ... }
+    fn <a href='#method.get' class='fnname'>get</a>&lt;'a&gt;(&amp;'a self, index: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; &amp;'a T { ... }
+    fn <a href='#method.get_mut' class='fnname'>get_mut</a>&lt;'a&gt;(&amp;'a mut self, index: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; &amp;'a mut T { ... }
+    fn <a href='#method.slice' class='fnname'>slice</a>&lt;'a&gt;(&amp;'a self, start: <a href='../../std/primitive.usize.html'>usize</a>, end: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a [T]</a> { ... }
+    fn <a href='#method.as_slice' class='fnname'>as_slice</a>&lt;'a&gt;(&amp;'a self) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a [T]</a> { ... }
+    fn <a href='#method.as_slice_mut' class='fnname'>as_slice_mut</a>&lt;'a&gt;(&amp;'a mut self) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a mut [T]</a> { ... }
+    fn <a href='#method.slice_mut' class='fnname'>slice_mut</a>&lt;'a&gt;(&amp;'a mut self, start: <a href='../../std/primitive.usize.html'>usize</a>, end: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a mut [T]</a> { ... }
+    fn <a href='#method.slice_from_mut' class='fnname'>slice_from_mut</a>&lt;'a&gt;(&amp;'a mut self, start: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a mut [T]</a> { ... }
+    fn <a href='#method.fail_bounds_check' class='fnname'>fail_bounds_check</a>(&amp;self, index: <a href='../../std/primitive.usize.html'>usize</a>) { ... }
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.inline_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.inline_size' class='fnname'>inline_size</a>(&amp;self) -&gt; <a href='../../std/primitive.usize.html'>usize</a></code></h3><h3 id='tymethod.len' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../../std/primitive.usize.html'>usize</a></code></h3><h3 id='tymethod.is_empty' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h3><h3 id='tymethod.cap' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.cap' class='fnname'>cap</a>(&amp;self) -&gt; <a href='../../std/primitive.usize.html'>usize</a></code></h3></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.spilled' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.spilled' class='fnname'>spilled</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h3><h3 id='method.begin' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.begin' class='fnname'>begin</a>(&amp;self) -&gt; *const T</code></h3><h3 id='method.begin_mut' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.begin_mut' class='fnname'>begin_mut</a>(&amp;mut self) -&gt; *mut T</code></h3><h3 id='method.end' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.end' class='fnname'>end</a>(&amp;self) -&gt; *const T</code></h3><h3 id='method.end_mut' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.end_mut' class='fnname'>end_mut</a>(&amp;mut self) -&gt; *mut T</code></h3><h3 id='method.iter' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.iter' class='fnname'>iter</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../selectors/smallvec/struct.SmallVecIterator.html' title='selectors::smallvec::SmallVecIterator'>SmallVecIterator</a>&lt;'a, T&gt;</code></h3><h3 id='method.mut_iter' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mut_iter' class='fnname'>mut_iter</a>&lt;'a&gt;(&amp;'a mut self) -&gt; <a class='struct' href='../../selectors/smallvec/struct.SmallVecMutIterator.html' title='selectors::smallvec::SmallVecMutIterator'>SmallVecMutIterator</a>&lt;'a, T&gt;</code></h3><h3 id='method.into_iter' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.into_iter' class='fnname'>into_iter</a>&lt;'a&gt;(&amp;'a mut self) -&gt; <a class='struct' href='../../selectors/smallvec/struct.SmallVecMoveIterator.html' title='selectors::smallvec::SmallVecMoveIterator'>SmallVecMoveIterator</a>&lt;'a, T&gt;</code></h3><div class='docblock'><p>NB: For efficiency reasons (avoiding making a second copy of the inline elements), this
+actually clears out the original array instead of moving it.</p>
+</div><h3 id='method.push' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push' class='fnname'>push</a>(&amp;mut self, value: T)</code></h3><h3 id='method.push_all_move' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_all_move' class='fnname'>push_all_move</a>&lt;V: <a class='trait' href='../../selectors/smallvec/trait.SmallVec.html' title='selectors::smallvec::SmallVec'>SmallVec</a>&lt;T&gt;&gt;(&amp;mut self, other: V)</code></h3><h3 id='method.pop' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.pop' class='fnname'>pop</a>(&amp;mut self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;</code></h3><h3 id='method.grow' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.grow' class='fnname'>grow</a>(&amp;mut self, new_cap: <a href='../../std/primitive.usize.html'>usize</a>)</code></h3><h3 id='method.get' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get' class='fnname'>get</a>&lt;'a&gt;(&amp;'a self, index: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; &amp;'a T</code></h3><h3 id='method.get_mut' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_mut' class='fnname'>get_mut</a>&lt;'a&gt;(&amp;'a mut self, index: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; &amp;'a mut T</code></h3><h3 id='method.slice' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.slice' class='fnname'>slice</a>&lt;'a&gt;(&amp;'a self, start: <a href='../../std/primitive.usize.html'>usize</a>, end: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a [T]</a></code></h3><h3 id='method.as_slice' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_slice' class='fnname'>as_slice</a>&lt;'a&gt;(&amp;'a self) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a [T]</a></code></h3><h3 id='method.as_slice_mut' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_slice_mut' class='fnname'>as_slice_mut</a>&lt;'a&gt;(&amp;'a mut self) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a mut [T]</a></code></h3><h3 id='method.slice_mut' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.slice_mut' class='fnname'>slice_mut</a>&lt;'a&gt;(&amp;'a mut self, start: <a href='../../std/primitive.usize.html'>usize</a>, end: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a mut [T]</a></code></h3><h3 id='method.slice_from_mut' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.slice_from_mut' class='fnname'>slice_from_mut</a>&lt;'a&gt;(&amp;'a mut self, start: <a href='../../std/primitive.usize.html'>usize</a>) -&gt; <a href='../../std/primitive.slice.html'>&amp;'a mut [T]</a></code></h3><h3 id='method.fail_bounds_check' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.fail_bounds_check' class='fnname'>fail_bounds_check</a>(&amp;self, index: <a href='../../std/primitive.usize.html'>usize</a>)</code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../selectors/smallvec/trait.SmallVec.html' title='selectors::smallvec::SmallVec'>SmallVec</a>&lt;T&gt; for <a class='struct' href='../../selectors/smallvec/struct.SmallVec1.html' title='selectors::smallvec::SmallVec1'>SmallVec1</a>&lt;T&gt;</code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../selectors/smallvec/trait.SmallVec.html' title='selectors::smallvec::SmallVec'>SmallVec</a>&lt;T&gt; for <a class='struct' href='../../selectors/smallvec/struct.SmallVec2.html' title='selectors::smallvec::SmallVec2'>SmallVec2</a>&lt;T&gt;</code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../selectors/smallvec/trait.SmallVec.html' title='selectors::smallvec::SmallVec'>SmallVec</a>&lt;T&gt; for <a class='struct' href='../../selectors/smallvec/struct.SmallVec4.html' title='selectors::smallvec::SmallVec4'>SmallVec4</a>&lt;T&gt;</code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../selectors/smallvec/trait.SmallVec.html' title='selectors::smallvec::SmallVec'>SmallVec</a>&lt;T&gt; for <a class='struct' href='../../selectors/smallvec/struct.SmallVec8.html' title='selectors::smallvec::SmallVec8'>SmallVec8</a>&lt;T&gt;</code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../selectors/smallvec/trait.SmallVec.html' title='selectors::smallvec::SmallVec'>SmallVec</a>&lt;T&gt; for <a class='struct' href='../../selectors/smallvec/struct.SmallVec16.html' title='selectors::smallvec::SmallVec16'>SmallVec16</a>&lt;T&gt;</code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../selectors/smallvec/trait.SmallVec.html' title='selectors::smallvec::SmallVec'>SmallVec</a>&lt;T&gt; for <a class='struct' href='../../selectors/smallvec/struct.SmallVec24.html' title='selectors::smallvec::SmallVec24'>SmallVec24</a>&lt;T&gt;</code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../selectors/smallvec/trait.SmallVec.html' title='selectors::smallvec::SmallVec'>SmallVec</a>&lt;T&gt; for <a class='struct' href='../../selectors/smallvec/struct.SmallVec32.html' title='selectors::smallvec::SmallVec32'>SmallVec32</a>&lt;T&gt;</code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/selectors/smallvec/trait.SmallVec.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "selectors";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Parser` struct in crate `cssparser`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Parser">
+
+    <title>cssparser::Parser - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>cssparser</a></p><script>window.sidebarCurrent = {name: 'Parser', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>cssparser</a>::<wbr><a class='struct' href=''>Parser</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-8042' href='../src/cssparser/parser.rs.html#65-71'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Parser&lt;'i, 't&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>A CSS parser that borrows its <code>&amp;str</code> input,
+yields <code>Token</code>s,
+and keeps track of nested blocks and functions.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'i, 't&gt; <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>&lt;'i, 't&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(input: &amp;'i <a href='../std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>&lt;'i, 'i&gt;</code></h4>
+<div class='docblock'><p>Create a new parser</p>
+</div><h4 id='method.is_exhausted' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_exhausted' class='fnname'>is_exhausted</a>(&amp;mut self) -&gt; <a href='../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Check whether the input is exhausted. That is, if <code>.next()</code> would return a token.</p>
+
+<p>This ignores whitespace and comments.</p>
+</div><h4 id='method.expect_exhausted' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_exhausted' class='fnname'>expect_exhausted</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Check whether the input is exhausted. That is, if <code>.next()</code> would return a token.
+Return a <code>Result</code> so that the <code>try!</code> macro can be used: <code>try!(input.expect_exhausted())</code></p>
+
+<p>This ignores whitespace and comments.</p>
+</div><h4 id='method.position' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.position' class='fnname'>position</a>(&amp;self) -&gt; <a class='struct' href='../cssparser/struct.SourcePosition.html' title='cssparser::SourcePosition'>SourcePosition</a></code></h4>
+<div class='docblock'><p>Return the current internal state of the parser (including position within the input).</p>
+
+<p>This state can later be restored with the <code>Parser::reset</code> method.</p>
+</div><h4 id='method.reset' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.reset' class='fnname'>reset</a>(&amp;mut self, new_position: <a class='struct' href='../cssparser/struct.SourcePosition.html' title='cssparser::SourcePosition'>SourcePosition</a>)</code></h4>
+<div class='docblock'><p>Restore the internal state of the parser (including position within the input)
+to what was previously saved by the <code>Parser::position</code> method.</p>
+
+<p>Should only be used with <code>SourcePosition</code> values from the same <code>Parser</code> instance.</p>
+</div><h4 id='method.try' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.try' class='fnname'>try</a>&lt;F, T, E&gt;(&amp;mut self, thing: F) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, E&gt; <span class='where'>where F: <a class='trait' href='../core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>(&amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>&lt;'i, 't&gt;) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, E&gt;</span></code></h4>
+<div class='docblock'><p>Execute the given closure, passing it the parser.
+If the result (returned unchanged) is <code>Err</code>,
+the internal state of the parser  (including position within the input)
+is restored to what it was before the call.</p>
+</div><h4 id='method.slice' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.slice' class='fnname'>slice</a>(&amp;self, range: <a class='struct' href='../core/ops/struct.Range.html' title='core::ops::Range'>Range</a>&lt;<a class='struct' href='../cssparser/struct.SourcePosition.html' title='cssparser::SourcePosition'>SourcePosition</a>&gt;) -&gt; &amp;'i <a href='../std/primitive.str.html'>str</a></code></h4>
+<div class='docblock'><p>Return a slice of the CSS input</p>
+</div><h4 id='method.slice_from' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.slice_from' class='fnname'>slice_from</a>(&amp;self, start_position: <a class='struct' href='../cssparser/struct.SourcePosition.html' title='cssparser::SourcePosition'>SourcePosition</a>) -&gt; &amp;'i <a href='../std/primitive.str.html'>str</a></code></h4>
+<div class='docblock'><p>Return a slice of the CSS input, from the given position to the current one.</p>
+</div><h4 id='method.current_source_location' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.current_source_location' class='fnname'>current_source_location</a>(&amp;self) -&gt; <a class='struct' href='../cssparser/struct.SourceLocation.html' title='cssparser::SourceLocation'>SourceLocation</a></code></h4>
+<div class='docblock'><p>Return the line and column number within the input for the current position.</p>
+</div><h4 id='method.source_location' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.source_location' class='fnname'>source_location</a>(&amp;self, target: <a class='struct' href='../cssparser/struct.SourcePosition.html' title='cssparser::SourcePosition'>SourcePosition</a>) -&gt; <a class='struct' href='../cssparser/struct.SourceLocation.html' title='cssparser::SourceLocation'>SourceLocation</a></code></h4>
+<div class='docblock'><p>Return the line and column number within the input for the given position.</p>
+</div><h4 id='method.next' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.next' class='fnname'>next</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'i&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Return the next token in the input that is neither whitespace or a comment,
+and advance the position accordingly.</p>
+
+<p>After returning a <code>Function</code>, <code>ParenthesisBlock</code>,
+<code>CurlyBracketBlock</code>, or <code>SquareBracketBlock</code> token,
+the next call will skip until after the matching <code>CloseParenthesis</code>,
+<code>CloseCurlyBracket</code>, or <code>CloseSquareBracket</code> token.</p>
+
+<p>See the <code>Parser::parse_nested_block</code> method to parse the content of functions or blocks.</p>
+
+<p>This only returns a closing token when it is unmatched (and therefore an error).</p>
+</div><h4 id='method.next_including_whitespace' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.next_including_whitespace' class='fnname'>next_including_whitespace</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'i&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Same as <code>Parser::next</code>, but does not skip whitespace tokens.</p>
+</div><h4 id='method.next_including_whitespace_and_comments' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.next_including_whitespace_and_comments' class='fnname'>next_including_whitespace_and_comments</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'i&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Same as <code>Parser::next</code>, but does not skip whitespace or comment tokens.</p>
+</div><h4 id='method.parse_entirely' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.parse_entirely' class='fnname'>parse_entirely</a>&lt;F, T&gt;(&amp;mut self, parse: F) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a href='../std/primitive.tuple.html'>()</a>&gt; <span class='where'>where F: <a class='trait' href='../core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>(&amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a href='../std/primitive.tuple.html'>()</a>&gt;</span></code></h4>
+<div class='docblock'><p>Have the given closure parse something, then check the the input is exhausted.
+The result is overridden to <code>Err(())</code> if some input remains.</p>
+
+<p>This can help tell e.g. <code>color: green;</code> from <code>color: green 4px;</code></p>
+</div><h4 id='method.parse_comma_separated' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.parse_comma_separated' class='fnname'>parse_comma_separated</a>&lt;F, T&gt;(&amp;mut self, parse_one: F) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt; <span class='where'>where F: <a class='trait' href='../core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a href='../std/primitive.tuple.html'>()</a>&gt;</span></code></h4>
+<div class='docblock'><p>Parse a list of comma-separated values, all with the same syntax.</p>
+
+<p>The given closure is called repeatedly with a &quot;delimited&quot; parser
+(see the <code>Parser::parse_until_before</code> method)
+so that it can over consume the input past a comma at this block/function nesting level.</p>
+
+<p>Successful results are accumulated in a vector.</p>
+
+<p>This method retuns <code>Err(())</code> the first time that a closure call does,
+or if a closure call leaves some input before the next comma or the end of the input.</p>
+</div><h4 id='method.parse_nested_block' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.parse_nested_block' class='fnname'>parse_nested_block</a>&lt;F, T&gt;(&amp;mut self, parse: F) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a href='../std/primitive.tuple.html'>()</a>&gt; <span class='where'>where F: <a class='trait' href='../core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>(&amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a href='../std/primitive.tuple.html'>()</a>&gt;</span></code></h4>
+<div class='docblock'><p>Parse the content of a block or function.</p>
+
+<p>This method panics if the last token yielded by this parser
+(from one of the <code>next*</code> methods)
+is not a on that marks the start of a block or function:
+a <code>Function</code>, <code>ParenthesisBlock</code>, <code>CurlyBracketBlock</code>, or <code>SquareBracketBlock</code>.</p>
+
+<p>The given closure is called with a &quot;delimited&quot; parser
+that stops at the end of the block or function (at the matching closing token).</p>
+
+<p>The result is overridden to <code>Err(())</code> if the closure leaves some input before that point.</p>
+</div><h4 id='method.parse_until_before' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.parse_until_before' class='fnname'>parse_until_before</a>&lt;F, T&gt;(&amp;mut self, delimiters: <a class='struct' href='../cssparser/struct.Delimiters.html' title='cssparser::Delimiters'>Delimiters</a>, parse: F) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a href='../std/primitive.tuple.html'>()</a>&gt; <span class='where'>where F: <a class='trait' href='../core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>(&amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a href='../std/primitive.tuple.html'>()</a>&gt;</span></code></h4>
+<div class='docblock'><p>Limit parsing to until a given delimiter. (E.g. a semicolon for a property value.)</p>
+
+<p>The given closure is called with a &quot;delimited&quot; parser
+that stops before the first character at this block/function nesting level
+that matches the given set of delimiters.</p>
+
+<p>The result is overridden to <code>Err(())</code> if the closure leaves some input before that point.</p>
+</div><h4 id='method.parse_until_after' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.parse_until_after' class='fnname'>parse_until_after</a>&lt;F, T&gt;(&amp;mut self, delimiters: <a class='struct' href='../cssparser/struct.Delimiters.html' title='cssparser::Delimiters'>Delimiters</a>, parse: F) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a href='../std/primitive.tuple.html'>()</a>&gt; <span class='where'>where F: <a class='trait' href='../core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>(&amp;mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a href='../std/primitive.tuple.html'>()</a>&gt;</span></code></h4>
+<div class='docblock'><p>Like <code>parse_until_before</code>, but also consume the delimiter token.</p>
+
+<p>This can be useful when you don’t need to know which delimiter it was
+(e.g. if these is only one in the given set)
+or if it was there at all (as opposed to reaching the end of the input).</p>
+</div><h4 id='method.expect_ident' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_ident' class='fnname'>expect_ident</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'i, <a href='../std/primitive.str.html'>str</a>&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <ident-token> and return the unescaped value.</p>
+</div><h4 id='method.expect_ident_matching' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_ident_matching' class='fnname'>expect_ident_matching</a>&lt;'a&gt;(&amp;mut self, expected_value: &amp;<a href='../std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <ident-token> whose unescaped value is an ASCII-insensitive match for the given value.</p>
+</div><h4 id='method.expect_string' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_string' class='fnname'>expect_string</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'i, <a href='../std/primitive.str.html'>str</a>&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <string-token> and return the unescaped value.</p>
+</div><h4 id='method.expect_ident_or_string' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_ident_or_string' class='fnname'>expect_ident_or_string</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'i, <a href='../std/primitive.str.html'>str</a>&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse either a <ident-token> or a <string-token>, and return the unescaped value.</p>
+</div><h4 id='method.expect_url' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_url' class='fnname'>expect_url</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'i, <a href='../std/primitive.str.html'>str</a>&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <url-token> and return the unescaped value.</p>
+</div><h4 id='method.expect_url_or_string' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_url_or_string' class='fnname'>expect_url_or_string</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'i, <a href='../std/primitive.str.html'>str</a>&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse either a <url-token> or a <string-token>, and return the unescaped value.</p>
+</div><h4 id='method.expect_number' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_number' class='fnname'>expect_number</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.f64.html'>f64</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <number-token> and return the integer value.</p>
+</div><h4 id='method.expect_integer' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_integer' class='fnname'>expect_integer</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.i64.html'>i64</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <number-token> that does not have a fractional part, and return the integer value.</p>
+</div><h4 id='method.expect_percentage' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_percentage' class='fnname'>expect_percentage</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.f64.html'>f64</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <percentage-token> and return the value.
+<code>0%</code> and <code>100%</code> map to <code>0.0</code> and <code>1.0</code> (not <code>100.0</code>), respectively.</p>
+</div><h4 id='method.expect_colon' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_colon' class='fnname'>expect_colon</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <code>:</code> <colon-token>.</p>
+</div><h4 id='method.expect_semicolon' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_semicolon' class='fnname'>expect_semicolon</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <code>;</code> <semicolon-token>.</p>
+</div><h4 id='method.expect_comma' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_comma' class='fnname'>expect_comma</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <code>,</code> <comma-token>.</p>
+</div><h4 id='method.expect_delim' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_delim' class='fnname'>expect_delim</a>(&amp;mut self, expected_value: <a href='../std/primitive.char.html'>char</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <delim-token> with the given value.</p>
+</div><h4 id='method.expect_curly_bracket_block' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_curly_bracket_block' class='fnname'>expect_curly_bracket_block</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <code>{ /* ... */ }</code> curly brackets block.</p>
+
+<p>If the result is <code>Ok</code>, you can then call the <code>Parser::parse_nested_block</code> method.</p>
+</div><h4 id='method.expect_square_bracket_block' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_square_bracket_block' class='fnname'>expect_square_bracket_block</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <code>[ /* ... */ ]</code> square brackets block.</p>
+
+<p>If the result is <code>Ok</code>, you can then call the <code>Parser::parse_nested_block</code> method.</p>
+</div><h4 id='method.expect_parenthesis_block' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_parenthesis_block' class='fnname'>expect_parenthesis_block</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <code>( /* ... */ )</code> parenthesis block.</p>
+
+<p>If the result is <code>Ok</code>, you can then call the <code>Parser::parse_nested_block</code> method.</p>
+</div><h4 id='method.expect_function' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_function' class='fnname'>expect_function</a>(&amp;mut self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'i, <a href='../std/primitive.str.html'>str</a>&gt;, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <function> token and return its name.</p>
+
+<p>If the result is <code>Ok</code>, you can then call the <code>Parser::parse_nested_block</code> method.</p>
+</div><h4 id='method.expect_function_matching' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.expect_function_matching' class='fnname'>expect_function_matching</a>(&amp;mut self, expected_name: &amp;<a href='../std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../std/primitive.tuple.html'>()</a>, <a href='../std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Parse a <function> token whose name is an ASCII-insensitive match for the given value.</p>
+
+<p>If the result is <code>Ok</code>, you can then call the <code>Parser::parse_nested_block</code> method.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'i, 't&gt; <a class='trait' href='../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>&lt;'i, 't&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>&lt;'i, 't&gt;</code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "cssparser";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

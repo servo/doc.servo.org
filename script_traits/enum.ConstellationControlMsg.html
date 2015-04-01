@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ConstellationControlMsg` enum in crate `script_traits`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ConstellationControlMsg">
+
+    <title>script_traits::ConstellationControlMsg - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>script_traits</a></p><script>window.sidebarCurrent = {name: 'ConstellationControlMsg', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>script_traits</a>::<wbr><a class='enum' href=''>ConstellationControlMsg</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-91' href='../src/script_traits/lib.rs.html#52-79'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum ConstellationControlMsg {
+    AttachLayout(<a class='struct' href='../script_traits/struct.NewLayoutInfo.html' title='script_traits::NewLayoutInfo'>NewLayoutInfo</a>),
+    Resize(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>),
+    ResizeInactive(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../msg/constellation_msg/struct.WindowSizeData.html' title='msg::constellation_msg::WindowSizeData'>WindowSizeData</a>),
+    ExitPipeline(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='enum' href='../msg/constellation_msg/enum.PipelineExitType.html' title='msg::constellation_msg::PipelineExitType'>PipelineExitType</a>),
+    SendEvent(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='enum' href='../script_traits/enum.CompositorEvent.html' title='script_traits::CompositorEvent'>CompositorEvent</a>),
+    ReflowComplete(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a href='../std/primitive.u32.html'>u32</a>),
+    Viewport(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a href='../std/primitive.f32.html'>f32</a>&gt;),
+    GetTitle(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>),
+    Freeze(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>),
+    Thaw(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>),
+    Navigate(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>, <a class='struct' href='../msg/constellation_msg/struct.LoadData.html' title='msg::constellation_msg::LoadData'>LoadData</a>),
+    MozBrowserEventMsg(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>, <a class='enum' href='../msg/constellation_msg/enum.MozBrowserEvent.html' title='msg::constellation_msg::MozBrowserEvent'>MozBrowserEvent</a>),
+    UpdateSubpageId(<a class='struct' href='../msg/constellation_msg/struct.PipelineId.html' title='msg::constellation_msg::PipelineId'>PipelineId</a>, <a class='struct' href='../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>, <a class='struct' href='../msg/constellation_msg/struct.SubpageId.html' title='msg::constellation_msg::SubpageId'>SubpageId</a>),
+}</pre><div class='docblock'><p>Messages sent from the constellation to the script task</p>
+</div><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.AttachLayout'><a class='stability Unmarked' title='No stability level'></a><code>AttachLayout</code></td><td><div class='docblock'><p>Gives a channel and ID to a layout task, as well as the ID of that layout&#39;s parent</p>
+</div></td></tr><tr><td id='variant.Resize'><a class='stability Unmarked' title='No stability level'></a><code>Resize</code></td><td><div class='docblock'><p>Window resized.  Sends a DOM event eventually, but first we combine events.</p>
+</div></td></tr><tr><td id='variant.ResizeInactive'><a class='stability Unmarked' title='No stability level'></a><code>ResizeInactive</code></td><td><div class='docblock'><p>Notifies script that window has been resized but to not take immediate action.</p>
+</div></td></tr><tr><td id='variant.ExitPipeline'><a class='stability Unmarked' title='No stability level'></a><code>ExitPipeline</code></td><td><div class='docblock'><p>Notifies the script that a pipeline should be closed.</p>
+</div></td></tr><tr><td id='variant.SendEvent'><a class='stability Unmarked' title='No stability level'></a><code>SendEvent</code></td><td><div class='docblock'><p>Sends a DOM event.</p>
+</div></td></tr><tr><td id='variant.ReflowComplete'><a class='stability Unmarked' title='No stability level'></a><code>ReflowComplete</code></td><td><div class='docblock'><p>Notifies script that reflow is finished.</p>
+</div></td></tr><tr><td id='variant.Viewport'><a class='stability Unmarked' title='No stability level'></a><code>Viewport</code></td><td><div class='docblock'><p>Notifies script of the viewport.</p>
+</div></td></tr><tr><td id='variant.GetTitle'><a class='stability Unmarked' title='No stability level'></a><code>GetTitle</code></td><td><div class='docblock'><p>Requests that the script task immediately send the constellation the title of a pipeline.</p>
+</div></td></tr><tr><td id='variant.Freeze'><a class='stability Unmarked' title='No stability level'></a><code>Freeze</code></td><td><div class='docblock'><p>Notifies script task to suspend all its timers</p>
+</div></td></tr><tr><td id='variant.Thaw'><a class='stability Unmarked' title='No stability level'></a><code>Thaw</code></td><td><div class='docblock'><p>Notifies script task to resume all its timers</p>
+</div></td></tr><tr><td id='variant.Navigate'><a class='stability Unmarked' title='No stability level'></a><code>Navigate</code></td><td><div class='docblock'><p>Notifies script task that a url should be loaded in this iframe.</p>
+</div></td></tr><tr><td id='variant.MozBrowserEventMsg'><a class='stability Unmarked' title='No stability level'></a><code>MozBrowserEventMsg</code></td><td><div class='docblock'><p>Requests the script task forward a mozbrowser event to an iframe it owns</p>
+</div></td></tr><tr><td id='variant.UpdateSubpageId'><a class='stability Unmarked' title='No stability level'></a><code>UpdateSubpageId</code></td><td><div class='docblock'><p>Updates the current subpage id of a given iframe</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='enum' href='../script_traits/enum.ConstellationControlMsg.html' title='script_traits::ConstellationControlMsg'>ConstellationControlMsg</a></code></h3><div class='impl-items'></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "script_traits";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `DeclarationListParser` struct in crate `cssparser`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, DeclarationListParser">
+
+    <title>cssparser::DeclarationListParser - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>cssparser</a></p><script>window.sidebarCurrent = {name: 'DeclarationListParser', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>cssparser</a>::<wbr><a class='struct' href=''>DeclarationListParser</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-264' href='../src/cssparser/rules_and_declarations.rs.html#188-195'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct DeclarationListParser&lt;'i, 't, 'a, I, P&gt; <span class='where'>where P: <a class='trait' href='../cssparser/trait.DeclarationParser.html' title='cssparser::DeclarationParser'>DeclarationParser</a>&lt;Declaration=I&gt; + <a class='trait' href='../cssparser/trait.AtRuleParser.html' title='cssparser::AtRuleParser'>AtRuleParser</a>&lt;AtRule=I&gt;</span> {
+    pub input: &amp;'a mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>&lt;'i, 't&gt;,
+    pub parser: P,
+}</pre><div class='docblock'><p>Provides an iterator for declaration list parsing.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.input'><a class='stability Unmarked' title='No stability level'></a><code>input</code></td><td><div class='docblock'><p>The input given to <code>DeclarationListParser::new</code></p>
+</div></td></tr><tr><td id='structfield.parser'><a class='stability Unmarked' title='No stability level'></a><code>parser</code></td><td><div class='docblock'><p>The parser given to <code>DeclarationListParser::new</code></p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'i, 't, 'a, I, P&gt; <a class='struct' href='../cssparser/struct.DeclarationListParser.html' title='cssparser::DeclarationListParser'>DeclarationListParser</a>&lt;'i, 't, 'a, I, P&gt; <span class='where'>where P: <a class='trait' href='../cssparser/trait.DeclarationParser.html' title='cssparser::DeclarationParser'>DeclarationParser</a>&lt;Declaration=I&gt; + <a class='trait' href='../cssparser/trait.AtRuleParser.html' title='cssparser::AtRuleParser'>AtRuleParser</a>&lt;AtRule=I&gt;</span></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(input: &amp;'a mut <a class='struct' href='../cssparser/struct.Parser.html' title='cssparser::Parser'>Parser</a>&lt;'i, 't&gt;, parser: P) -&gt; <a class='struct' href='../cssparser/struct.DeclarationListParser.html' title='cssparser::DeclarationListParser'>DeclarationListParser</a>&lt;'i, 't, 'a, I, P&gt;</code></h4>
+<div class='docblock'><p>Create a new <code>DeclarationListParser</code> for the given <code>input</code> and <code>parser</code>.</p>
+
+<p>Note that all CSS declaration lists can on principle contain at-rules.
+Even if no such valid at-rule exists (yet),
+this affects error handling: at-rules end at <code>{}</code> blocks, not just semicolons.</p>
+
+<p>The given <code>parser</code> therefore needs to implement
+both <code>DeclarationParser</code> and <code>AtRuleParser</code> traits.
+However, the latter can be an empty <code>impl</code>
+since <code>AtRuleParser</code> provides default implementations of its methods.</p>
+
+<p>The return type for finished declarations and at-rules also needs to be the same,
+since <code>&lt;DeclarationListParser as Iterator&gt;::next</code> can return either.
+It could be a custom enum.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'i, 't, 'a, I, P&gt; <a class='trait' href='../core/iter/trait.Iterator.html' title='core::iter::Iterator'>Iterator</a> for <a class='struct' href='../cssparser/struct.DeclarationListParser.html' title='cssparser::DeclarationListParser'>DeclarationListParser</a>&lt;'i, 't, 'a, I, P&gt; <span class='where'>where P: <a class='trait' href='../cssparser/trait.DeclarationParser.html' title='cssparser::DeclarationParser'>DeclarationParser</a>&lt;Declaration=I&gt; + <a class='trait' href='../cssparser/trait.AtRuleParser.html' title='cssparser::AtRuleParser'>AtRuleParser</a>&lt;AtRule=I&gt;</span></code></h3><div class='docblock'><p><code>DeclarationListParser</code> is an iterator that yields <code>Ok(_)</code> for a valid declaration or at-rule
+or <code>Err(())</code> for an invalid one.</p>
+</div><div class='impl-items'><h4 id='assoc_type.Item' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Item = <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;I, <a class='struct' href='../core/ops/struct.Range.html' title='core::ops::Range'>Range</a>&lt;<a class='struct' href='../cssparser/struct.SourcePosition.html' title='cssparser::SourcePosition'>SourcePosition</a>&gt;&gt;</code></h4>
+<h4 id='method.next' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.next' class='fnname'>next</a>(&amp;mut self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;I, <a class='struct' href='../core/ops/struct.Range.html' title='core::ops::Range'>Range</a>&lt;<a class='struct' href='../cssparser/struct.SourcePosition.html' title='cssparser::SourcePosition'>SourcePosition</a>&gt;&gt;&gt;</code></h4>
+<h4 id='method.size_hint' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.size_hint' class='fnname'>size_hint</a>(&amp;self) -&gt; <a href='../std/primitive.tuple.html'>(<a href='../std/primitive.usize.html'>usize</a>, <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../std/primitive.usize.html'>usize</a>&gt;)</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "cssparser";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

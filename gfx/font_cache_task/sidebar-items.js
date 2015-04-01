@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FontCacheTask","The public interface to the font cache task, used exclusively by the per-thread/task FontContext structures."]],"enum":[["Command","Commands that the FontContext sends to the font cache task."],["Reply","Reply messages sent from the font cache task to the FontContext caller."]]});

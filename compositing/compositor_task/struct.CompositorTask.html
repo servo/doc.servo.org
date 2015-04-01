@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `CompositorTask` struct in crate `compositing`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CompositorTask">
+
+    <title>compositing::compositor_task::CompositorTask - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>compositing</a>::<wbr><a href='index.html'>compositor_task</a></p><script>window.sidebarCurrent = {name: 'CompositorTask', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>compositing</a>::<wbr><a href='index.html'>compositor_task</a>::<wbr><a class='struct' href=''>CompositorTask</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-1177' href='../../src/compositing/compositor_task.rs.html#250'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct CompositorTask;</pre><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../compositing/compositor_task/struct.CompositorTask.html' title='compositing::compositor_task::CompositorTask'>CompositorTask</a></code></h3><div class='impl-items'><h4 id='method.create_graphics_context' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.create_graphics_context' class='fnname'>create_graphics_context</a>(native_metadata: &amp;<a class='struct' href='../../layers/platform/linux/surface/struct.NativeGraphicsMetadata.html' title='layers::platform::linux::surface::NativeGraphicsMetadata'>NativeGraphicsMetadata</a>) -&gt; <a class='struct' href='../../layers/platform/linux/surface/struct.NativeCompositingGraphicsContext.html' title='layers::platform::linux::surface::NativeCompositingGraphicsContext'>NativeCompositingGraphicsContext</a></code></h4>
+<div class='docblock'><p>Creates a graphics context. Platform-specific.</p>
+
+<p>FIXME(pcwalton): Probably could be less platform-specific, using the metadata abstraction.</p>
+</div><h4 id='method.create' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.create' class='fnname'>create</a>&lt;Window&gt;(window: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/rc/struct.Rc.html' title='alloc::rc::Rc'>Rc</a>&lt;Window&gt;&gt;, sender: <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../compositing/compositor_task/trait.CompositorProxy.html' title='compositing::compositor_task::CompositorProxy'>CompositorProxy</a> + <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a>&gt;, receiver: <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../compositing/compositor_task/trait.CompositorReceiver.html' title='compositing::compositor_task::CompositorReceiver'>CompositorReceiver</a>&gt;, constellation_chan: <a class='struct' href='../../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a>, time_profiler_chan: <a class='struct' href='../../profile/time/struct.ProfilerChan.html' title='profile::time::ProfilerChan'>ProfilerChan</a>, mem_profiler_chan: <a class='struct' href='../../profile/mem/struct.ProfilerChan.html' title='profile::mem::ProfilerChan'>ProfilerChan</a>) -&gt; <a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../compositing/compositor_task/trait.CompositorEventListener.html' title='compositing::compositor_task::CompositorEventListener'>CompositorEventListener</a> + 'static&gt; <span class='where'>where Window: <a class='trait' href='../../compositing/windowing/trait.WindowMethods.html' title='compositing::windowing::WindowMethods'>WindowMethods</a> + 'static</span></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "compositing";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

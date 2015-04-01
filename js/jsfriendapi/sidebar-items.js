@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["JSJitPropertyOp",""]],"mod":[["bindgen",""]],"fn":[["JS_ObjectToOuterObject",""],["JS_WrapPropertyDescriptor",""]],"struct":[["JSJitInfo",""]]});

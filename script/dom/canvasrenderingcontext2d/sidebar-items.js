@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_color",""]],"struct":[["CanvasRenderingContext2D",""]],"trait":[["CanvasRenderingContext2DHelpers",""],["LayoutCanvasRenderingContext2DHelpers",""]]});

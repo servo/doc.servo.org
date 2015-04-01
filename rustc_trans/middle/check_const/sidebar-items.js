@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["check_crate",""]],"constant":[["HAS_STATIC_BORROWS",""],["MUTABLE_MEM",""],["NEEDS_DROP",""],["NON_STATIC_BORROWS",""],["NON_ZERO_SIZED",""],["NOT_CONST",""],["PREFER_IN_PLACE",""],["PURE_CONST",""]],"struct":[["ConstQualif",""]]});

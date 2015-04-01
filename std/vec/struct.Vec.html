@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Vec` struct in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Vec">
+
+    <title>std::vec::Vec - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>vec</a></p><script>window.sidebarCurrent = {name: 'Vec', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>std</a>::<wbr><a href='index.html'>vec</a>::<wbr><a class='struct' href=''>Vec</a><wbr><a class='stability Stable' title=''>Stable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-29463' href='../../collections/vec/struct.Vec.html?gotosrc=29463'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Vec&lt;T&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>A growable list type, written <code>Vec&lt;T&gt;</code> but pronounced &#39;vector.&#39;</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = Vec::new();
+    vec.push(1);
+    vec.push(2);
+    
+    assert_eq!(vec.len(), 2);
+    assert_eq!(vec[0], 1);
+    
+    assert_eq!(vec.pop(), Some(2));
+    assert_eq!(vec.len(), 1);
+    
+    vec[0] = 7;
+    assert_eq!(vec[0], 7);
+    
+    vec.push_all(&amp;[1, 2, 3]);
+    
+    for x in vec.iter() {
+        println!(&quot;{}&quot;, x);
+    }
+    assert_eq!(vec, [7, 1, 2, 3]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+<span class='ident'>vec</span>.<span class='ident'>push</span>(<span class='number'>1</span>);
+<span class='ident'>vec</span>.<span class='ident'>push</span>(<span class='number'>2</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>len</span>(), <span class='number'>2</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>[<span class='number'>0</span>], <span class='number'>1</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>pop</span>(), <span class='prelude-val'>Some</span>(<span class='number'>2</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>len</span>(), <span class='number'>1</span>);
+
+<span class='ident'>vec</span>[<span class='number'>0</span>] <span class='op'>=</span> <span class='number'>7</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>[<span class='number'>0</span>], <span class='number'>7</span>);
+
+<span class='ident'>vec</span>.<span class='ident'>push_all</span>(<span class='kw-2'>&amp;</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]);
+
+<span class='kw'>for</span> <span class='ident'>x</span> <span class='kw'>in</span> <span class='ident'>vec</span>.<span class='ident'>iter</span>() {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>7</span>, <span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]);
+</pre>
+
+<p>The <code>vec!</code> macro is provided to make initialization more convenient:</p>
+<span class='rusttest'>fn main() {
+    let mut vec = vec![1, 2, 3];
+    vec.push(4);
+    assert_eq!(vec, [1, 2, 3, 4]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='ident'>vec</span>.<span class='ident'>push</span>(<span class='number'>4</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>]);
+</pre>
+
+<p>Use a <code>Vec&lt;T&gt;</code> as an efficient stack:</p>
+<span class='rusttest'>fn main() {
+    let mut stack = Vec::new();
+    
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    
+    loop {
+        let top = match stack.pop() {
+            None =&gt; break, // empty
+            Some(x) =&gt; x,
+        };
+        // Prints 3, 2, 1
+        println!(&quot;{}&quot;, top);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>stack</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+
+<span class='ident'>stack</span>.<span class='ident'>push</span>(<span class='number'>1</span>);
+<span class='ident'>stack</span>.<span class='ident'>push</span>(<span class='number'>2</span>);
+<span class='ident'>stack</span>.<span class='ident'>push</span>(<span class='number'>3</span>);
+
+<span class='kw'>loop</span> {
+    <span class='kw'>let</span> <span class='ident'>top</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>stack</span>.<span class='ident'>pop</span>() {
+        <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='kw'>break</span>, <span class='comment'>// empty</span>
+        <span class='prelude-val'>Some</span>(<span class='ident'>x</span>) <span class='op'>=&gt;</span> <span class='ident'>x</span>,
+    };
+    <span class='comment'>// Prints 3, 2, 1</span>
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>top</span>);
+}
+</pre>
+
+<h1 id="capacity-and-reallocation" class='section-header'><a
+                           href="#capacity-and-reallocation">Capacity and reallocation</a></h1>
+<p>The capacity of a vector is the amount of space allocated for any future elements that will be
+added onto the vector. This is not to be confused with the <em>length</em> of a vector, which
+specifies the number of actual elements within the vector. If a vector&#39;s length exceeds its
+capacity, its capacity will automatically be increased, but its elements will have to be
+reallocated.</p>
+
+<p>For example, a vector with capacity 10 and length 0 would be an empty vector with space for 10
+more elements. Pushing 10 or fewer elements onto the vector will not change its capacity or
+cause reallocation to occur. However, if the vector&#39;s length is increased to 11, it will have
+to reallocate, which can be slow. For this reason, it is recommended to use
+<code>Vec::with_capacity</code> whenever possible to specify how big the vector is expected to get.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl&lt;T&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Constructs a new, empty <code>Vec&lt;T&gt;</code>.</p>
+
+<p>The vector will not allocate until elements are pushed onto it.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec: Vec&lt;i32&gt; = Vec::new();
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+</pre>
+</div><h4 id='method.with_capacity' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.with_capacity' class='fnname'>with_capacity</a>(capacity: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Constructs a new, empty <code>Vec&lt;T&gt;</code> with the specified capacity.</p>
+
+<p>The vector will be able to hold exactly <code>capacity</code> elements without reallocating. If
+<code>capacity</code> is 0, the vector will not allocate.</p>
+
+<p>It is important to note that this function does not specify the <em>length</em> of the returned
+vector, but only the <em>capacity</em>. (For an explanation of the difference between length and
+capacity, see the main <code>Vec&lt;T&gt;</code> docs above, &#39;Capacity and reallocation&#39;.)</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec: Vec&lt;_&gt; = Vec::with_capacity(10);
+    
+    // The vector contains no items, even though it has capacity for more
+    assert_eq!(vec.len(), 0);
+    
+    // These are all done without reallocating...
+    for i in 0..10 {
+        vec.push(i);
+    }
+    
+    // ...but this may make the vector reallocate
+    vec.push(11);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='number'>10</span>);
+
+<span class='comment'>// The vector contains no items, even though it has capacity for more</span>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>len</span>(), <span class='number'>0</span>);
+
+<span class='comment'>// These are all done without reallocating...</span>
+<span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>10</span> {
+    <span class='ident'>vec</span>.<span class='ident'>push</span>(<span class='ident'>i</span>);
+}
+
+<span class='comment'>// ...but this may make the vector reallocate</span>
+<span class='ident'>vec</span>.<span class='ident'>push</span>(<span class='number'>11</span>);
+</pre>
+</div><h4 id='method.from_raw_parts' class='method'><a class='stability Stable' title='Stable'></a><code>unsafe fn <a href='#method.from_raw_parts' class='fnname'>from_raw_parts</a>(ptr: *mut T, length: <a href='../primitive.usize.html'>usize</a>, capacity: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Creates a <code>Vec&lt;T&gt;</code> directly from the raw components of another vector.</p>
+
+<p>This is highly unsafe, due to the number of invariants that aren&#39;t checked.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>use std::ptr;
+use std::mem;
+
+fn main() {
+    let mut v = vec![1, 2, 3];
+
+    // Pull out the various important pieces of information about `v`
+    let p = v.as_mut_ptr();
+    let len = v.len();
+    let cap = v.capacity();
+
+    unsafe {
+        // Cast `v` into the void: no destructor run, so we are in
+        // complete control of the allocation to which `p` points.
+        mem::forget(v);
+
+        // Overwrite memory with 4, 5, 6
+        for i in 0..len as isize {
+            ptr::write(p.offset(i), 4 + i);
+        }
+
+        // Put everything back together into a Vec
+        let rebuilt = Vec::from_raw_parts(p, len, cap);
+        assert_eq!(rebuilt, [4, 5, 6]);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+
+    <span class='comment'>// Pull out the various important pieces of information about `v`</span>
+    <span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>as_mut_ptr</span>();
+    <span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>len</span>();
+    <span class='kw'>let</span> <span class='ident'>cap</span> <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>capacity</span>();
+
+    <span class='kw'>unsafe</span> {
+        <span class='comment'>// Cast `v` into the void: no destructor run, so we are in</span>
+        <span class='comment'>// complete control of the allocation to which `p` points.</span>
+        <span class='ident'>mem</span>::<span class='ident'>forget</span>(<span class='ident'>v</span>);
+
+        <span class='comment'>// Overwrite memory with 4, 5, 6</span>
+        <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>len</span> <span class='kw'>as</span> <span class='ident'>isize</span> {
+            <span class='ident'>ptr</span>::<span class='ident'>write</span>(<span class='ident'>p</span>.<span class='ident'>offset</span>(<span class='ident'>i</span>), <span class='number'>4</span> <span class='op'>+</span> <span class='ident'>i</span>);
+        }
+
+        <span class='comment'>// Put everything back together into a Vec</span>
+        <span class='kw'>let</span> <span class='ident'>rebuilt</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>p</span>, <span class='ident'>len</span>, <span class='ident'>cap</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>rebuilt</span>, [<span class='number'>4</span>, <span class='number'>5</span>, <span class='number'>6</span>]);
+    }
+}
+</pre>
+</div><h4 id='method.from_raw_buf' class='method'><a class='stability Unstable' title='Unstable: may be better expressed via composition'></a><code>unsafe fn <a href='#method.from_raw_buf' class='fnname'>from_raw_buf</a>(ptr: *const T, elts: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Creates a vector by copying the elements from a raw pointer.</p>
+
+<p>This function will copy <code>elts</code> contiguous elements starting at <code>ptr</code> into a new allocation
+owned by the returned <code>Vec&lt;T&gt;</code>. The elements of the buffer are copied into the vector
+without cloning, as if <code>ptr::read()</code> were called on them.</p>
+</div><h4 id='method.capacity' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.capacity' class='fnname'>capacity</a>(&amp;self) -&gt; <a href='../primitive.usize.html'>usize</a></code></h4>
+<div class='docblock'><p>Returns the number of elements the vector can hold without
+reallocating.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let vec: Vec&lt;i32&gt; = Vec::with_capacity(10);
+    assert_eq!(vec.capacity(), 10);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>vec</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='number'>10</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>capacity</span>(), <span class='number'>10</span>);
+</pre>
+</div><h4 id='method.reserve' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.reserve' class='fnname'>reserve</a>(&amp;mut self, additional: <a href='../primitive.usize.html'>usize</a>)</code></h4>
+<div class='docblock'><p>Reserves capacity for at least <code>additional</code> more elements to be inserted in the given
+<code>Vec&lt;T&gt;</code>. The collection may reserve more space to avoid frequent reallocations.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if the new capacity overflows <code>usize</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1];
+    vec.reserve(10);
+    assert!(vec.capacity() &gt;= 11);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>];
+<span class='ident'>vec</span>.<span class='ident'>reserve</span>(<span class='number'>10</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>capacity</span>() <span class='op'>&gt;=</span> <span class='number'>11</span>);
+</pre>
+</div><h4 id='method.reserve_exact' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.reserve_exact' class='fnname'>reserve_exact</a>(&amp;mut self, additional: <a href='../primitive.usize.html'>usize</a>)</code></h4>
+<div class='docblock'><p>Reserves the minimum capacity for exactly <code>additional</code> more elements to
+be inserted in the given <code>Vec&lt;T&gt;</code>. Does nothing if the capacity is already
+sufficient.</p>
+
+<p>Note that the allocator may give the collection more space than it
+requests. Therefore capacity can not be relied upon to be precisely
+minimal. Prefer <code>reserve</code> if future insertions are expected.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if the new capacity overflows <code>usize</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1];
+    vec.reserve_exact(10);
+    assert!(vec.capacity() &gt;= 11);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>];
+<span class='ident'>vec</span>.<span class='ident'>reserve_exact</span>(<span class='number'>10</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>capacity</span>() <span class='op'>&gt;=</span> <span class='number'>11</span>);
+</pre>
+</div><h4 id='method.shrink_to_fit' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.shrink_to_fit' class='fnname'>shrink_to_fit</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Shrinks the capacity of the vector as much as possible.</p>
+
+<p>It will drop down as close as possible to the length but the allocator
+may still inform the vector that there is space for a few more elements.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = Vec::with_capacity(10);
+    vec.push_all(&amp;[1, 2, 3]);
+    assert_eq!(vec.capacity(), 10);
+    vec.shrink_to_fit();
+    assert!(vec.capacity() &gt;= 3);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='number'>10</span>);
+<span class='ident'>vec</span>.<span class='ident'>push_all</span>(<span class='kw-2'>&amp;</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>capacity</span>(), <span class='number'>10</span>);
+<span class='ident'>vec</span>.<span class='ident'>shrink_to_fit</span>();
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>capacity</span>() <span class='op'>&gt;=</span> <span class='number'>3</span>);
+</pre>
+</div><h4 id='method.into_boxed_slice' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.into_boxed_slice' class='fnname'>into_boxed_slice</a>(self) -&gt; <a class='struct' href='../../std/boxed/struct.Box.html' title='std::boxed::Box'>Box</a>&lt;<a href='../primitive.slice.html'>[T]</a>&gt;</code></h4>
+<div class='docblock'><p>Convert the vector into Box&lt;[T]&gt;.</p>
+
+<p>Note that this will drop any excess capacity. Calling this and
+converting back to a vector with <code>into_vec()</code> is equivalent to calling
+<code>shrink_to_fit()</code>.</p>
+</div><h4 id='method.truncate' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.truncate' class='fnname'>truncate</a>(&amp;mut self, len: <a href='../primitive.usize.html'>usize</a>)</code></h4>
+<div class='docblock'><p>Shorten a vector, dropping excess elements.</p>
+
+<p>If <code>len</code> is greater than the vector&#39;s current length, this has no
+effect.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1, 2, 3, 4];
+    vec.truncate(2);
+    assert_eq!(vec, [1, 2]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>];
+<span class='ident'>vec</span>.<span class='ident'>truncate</span>(<span class='number'>2</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>2</span>]);
+</pre>
+</div><h4 id='method.as_mut_slice' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.as_mut_slice' class='fnname'>as_mut_slice</a>(&amp;mut self) -&gt; <a href='../primitive.slice.html'>&amp;mut [T]</a></code></h4>
+<div class='docblock'><p>Returns a mutable slice of the elements of <code>self</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    fn foo(slice: &amp;mut [i32]) {}
+    
+    let mut vec = vec![1, 2];
+    foo(vec.as_mut_slice());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>foo</span>(<span class='ident'>slice</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>i32</span>]) {}
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>];
+<span class='ident'>foo</span>(<span class='ident'>vec</span>.<span class='ident'>as_mut_slice</span>());
+</pre>
+</div><h4 id='method.into_iter' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.into_iter' class='fnname'>into_iter</a>(self) -&gt; <a class='struct' href='../../std/vec/struct.IntoIter.html' title='std::vec::IntoIter'>IntoIter</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Creates a consuming iterator, that is, one that moves each value out of
+the vector (from start to end). The vector cannot be used after calling
+this.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = vec![&quot;a&quot;.to_string(), &quot;b&quot;.to_string()];
+    for s in v.into_iter() {
+        // s has type String, not &amp;String
+        println!(&quot;{}&quot;, s);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;a&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;b&quot;</span>.<span class='ident'>to_string</span>()];
+<span class='kw'>for</span> <span class='ident'>s</span> <span class='kw'>in</span> <span class='ident'>v</span>.<span class='ident'>into_iter</span>() {
+    <span class='comment'>// s has type String, not &amp;String</span>
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>s</span>);
+}
+</pre>
+</div><h4 id='method.set_len' class='method'><a class='stability Stable' title='Stable'></a><code>unsafe fn <a href='#method.set_len' class='fnname'>set_len</a>(&amp;mut self, len: <a href='../primitive.usize.html'>usize</a>)</code></h4>
+<div class='docblock'><p>Sets the length of a vector.</p>
+
+<p>This will explicitly set the size of the vector, without actually
+modifying its buffers, so it is up to the caller to ensure that the
+vector is actually the specified size.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut v = vec![1, 2, 3, 4];
+    unsafe {
+        v.set_len(1);
+    }
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>];
+<span class='kw'>unsafe</span> {
+    <span class='ident'>v</span>.<span class='ident'>set_len</span>(<span class='number'>1</span>);
+}
+</pre>
+</div><h4 id='method.swap_remove' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.swap_remove' class='fnname'>swap_remove</a>(&amp;mut self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; T</code></h4>
+<div class='docblock'><p>Removes an element from anywhere in the vector and return it, replacing
+it with the last element.</p>
+
+<p>This does not preserve ordering, but is O(1).</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>index</code> is out of bounds.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut v = vec![&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;, &quot;qux&quot;];
+    
+    assert_eq!(v.swap_remove(1), &quot;bar&quot;);
+    assert_eq!(v, [&quot;foo&quot;, &quot;qux&quot;, &quot;baz&quot;]);
+    
+    assert_eq!(v.swap_remove(0), &quot;foo&quot;);
+    assert_eq!(v, [&quot;baz&quot;, &quot;qux&quot;]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;foo&quot;</span>, <span class='string'>&quot;bar&quot;</span>, <span class='string'>&quot;baz&quot;</span>, <span class='string'>&quot;qux&quot;</span>];
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>swap_remove</span>(<span class='number'>1</span>), <span class='string'>&quot;bar&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>v</span>, [<span class='string'>&quot;foo&quot;</span>, <span class='string'>&quot;qux&quot;</span>, <span class='string'>&quot;baz&quot;</span>]);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>swap_remove</span>(<span class='number'>0</span>), <span class='string'>&quot;foo&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>v</span>, [<span class='string'>&quot;baz&quot;</span>, <span class='string'>&quot;qux&quot;</span>]);
+</pre>
+</div><h4 id='method.insert' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.insert' class='fnname'>insert</a>(&amp;mut self, index: <a href='../primitive.usize.html'>usize</a>, element: T)</code></h4>
+<div class='docblock'><p>Inserts an element at position <code>index</code> within the vector, shifting all
+elements after position <code>i</code> one position to the right.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>index</code> is not between <code>0</code> and the vector&#39;s length (both
+bounds inclusive).</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1, 2, 3];
+    vec.insert(1, 4);
+    assert_eq!(vec, [1, 4, 2, 3]);
+    vec.insert(4, 5);
+    assert_eq!(vec, [1, 4, 2, 3, 5]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='ident'>vec</span>.<span class='ident'>insert</span>(<span class='number'>1</span>, <span class='number'>4</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>4</span>, <span class='number'>2</span>, <span class='number'>3</span>]);
+<span class='ident'>vec</span>.<span class='ident'>insert</span>(<span class='number'>4</span>, <span class='number'>5</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>4</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>5</span>]);
+</pre>
+</div><h4 id='method.remove' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.remove' class='fnname'>remove</a>(&amp;mut self, index: <a href='../primitive.usize.html'>usize</a>) -&gt; T</code></h4>
+<div class='docblock'><p>Removes and returns the element at position <code>index</code> within the vector,
+shifting all elements after position <code>index</code> one position to the left.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>i</code> is out of bounds.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut v = vec![1, 2, 3];
+    assert_eq!(v.remove(1), 2);
+    assert_eq!(v, [1, 3]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>remove</span>(<span class='number'>1</span>), <span class='number'>2</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>v</span>, [<span class='number'>1</span>, <span class='number'>3</span>]);
+</pre>
+</div><h4 id='method.retain' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.retain' class='fnname'>retain</a>&lt;F&gt;(&amp;mut self, f: F) <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;T), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(&amp;T)&gt;::Output == <a href='../primitive.bool.html'>bool</a></span></code></h4>
+<div class='docblock'><p>Retains only the elements specified by the predicate.</p>
+
+<p>In other words, remove all elements <code>e</code> such that <code>f(&amp;e)</code> returns false.
+This method operates in place and preserves the order of the retained
+elements.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1, 2, 3, 4];
+    vec.retain(|&amp;x| x%2 == 0);
+    assert_eq!(vec, [2, 4]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>];
+<span class='ident'>vec</span>.<span class='ident'>retain</span>(<span class='op'>|</span><span class='kw-2'>&amp;</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>x</span><span class='op'>%</span><span class='number'>2</span> <span class='op'>==</span> <span class='number'>0</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>2</span>, <span class='number'>4</span>]);
+</pre>
+</div><h4 id='method.push' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.push' class='fnname'>push</a>(&amp;mut self, value: T)</code></h4>
+<div class='docblock'><p>Appends an element to the back of a collection.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if the number of elements in the vector overflows a <code>usize</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec!(1, 2);
+    vec.push(3);
+    assert_eq!(vec, [1, 2, 3]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>(<span class='number'>1</span>, <span class='number'>2</span>);
+<span class='ident'>vec</span>.<span class='ident'>push</span>(<span class='number'>3</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]);
+</pre>
+</div><h4 id='method.pop' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.pop' class='fnname'>pop</a>(&amp;mut self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Removes the last element from a vector and returns it, or <code>None</code> if it is empty.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1, 2, 3];
+    assert_eq!(vec.pop(), Some(3));
+    assert_eq!(vec, [1, 2]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>.<span class='ident'>pop</span>(), <span class='prelude-val'>Some</span>(<span class='number'>3</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>2</span>]);
+</pre>
+</div><h4 id='method.append' class='method'><a class='stability Unstable' title='Unstable: new API, waiting for dust to settle'></a><code>fn <a href='#method.append' class='fnname'>append</a>(&amp;mut self, other: &amp;mut <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;)</code></h4>
+<div class='docblock'><p>Moves all the elements of <code>other</code> into <code>Self</code>, leaving <code>other</code> empty.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if the number of elements in the vector overflows a <code>usize</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1, 2, 3];
+    let mut vec2 = vec![4, 5, 6];
+    vec.append(&amp;mut vec2);
+    assert_eq!(vec, [1, 2, 3, 4, 5, 6]);
+    assert_eq!(vec2, []);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec2</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>4</span>, <span class='number'>5</span>, <span class='number'>6</span>];
+<span class='ident'>vec</span>.<span class='ident'>append</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>vec2</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>, <span class='number'>6</span>]);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec2</span>, []);
+</pre>
+</div><h4 id='method.drain' class='method'><a class='stability Unstable' title='Unstable: matches collection reform specification, waiting for dust to settle'></a><code>fn <a href='#method.drain' class='fnname'>drain</a>(&amp;mut self) -&gt; <a class='struct' href='../../std/vec/struct.Drain.html' title='std::vec::Drain'>Drain</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Creates a draining iterator that clears the <code>Vec</code> and iterates over
+the removed items from start to end.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut v = vec![&quot;a&quot;.to_string(), &quot;b&quot;.to_string()];
+    for s in v.drain() {
+        // s has type String, not &amp;String
+        println!(&quot;{}&quot;, s);
+    }
+    assert!(v.is_empty());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;a&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;b&quot;</span>.<span class='ident'>to_string</span>()];
+<span class='kw'>for</span> <span class='ident'>s</span> <span class='kw'>in</span> <span class='ident'>v</span>.<span class='ident'>drain</span>() {
+    <span class='comment'>// s has type String, not &amp;String</span>
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>s</span>);
+}
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>is_empty</span>());
+</pre>
+</div><h4 id='method.clear' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clear' class='fnname'>clear</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Clears the vector, removing all values.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut v = vec![1, 2, 3];
+    
+    v.clear();
+    
+    assert!(v.is_empty());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+
+<span class='ident'>v</span>.<span class='ident'>clear</span>();
+
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>is_empty</span>());
+</pre>
+</div><h4 id='method.len' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../primitive.usize.html'>usize</a></code></h4>
+<div class='docblock'><p>Returns the number of elements in the vector.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let a = vec![1, 2, 3];
+    assert_eq!(a.len(), 3);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>a</span>.<span class='ident'>len</span>(), <span class='number'>3</span>);
+</pre>
+</div><h4 id='method.is_empty' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns <code>true</code> if the vector contains no elements.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut v = Vec::new();
+    assert!(v.is_empty());
+    
+    v.push(1);
+    assert!(!v.is_empty());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>v</span>.<span class='ident'>is_empty</span>());
+
+<span class='ident'>v</span>.<span class='ident'>push</span>(<span class='number'>1</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>v</span>.<span class='ident'>is_empty</span>());
+</pre>
+</div><h4 id='method.map_in_place' class='method'><a class='stability Unstable' title='Unstable: API may change to provide stronger guarantees'></a><code>fn <a href='#method.map_in_place' class='fnname'>map_in_place</a>&lt;U, F&gt;(self, f: F) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;U&gt; <span class='where'>where F: <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(T), &lt;F as <a class='trait' href='../../std/ops/trait.FnMut.html' title='std::ops::FnMut'>FnMut</a>(T)&gt;::Output == U</span></code></h4>
+<div class='docblock'><p>Converts a <code>Vec&lt;T&gt;</code> to a <code>Vec&lt;U&gt;</code> where <code>T</code> and <code>U</code> have the same
+size and in case they are not zero-sized the same minimal alignment.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>T</code> and <code>U</code> have differing sizes or are not zero-sized and
+have differing minimal alignments.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let v = vec![0, 1, 2];
+    let w = v.map_in_place(|i| i + 3);
+    assert_eq!(w.as_slice(), [3, 4, 5].as_slice());
+    
+    #[derive(PartialEq, Debug)]
+    struct Newtype(u8);
+    let bytes = vec![0x11, 0x22];
+    let newtyped_bytes = bytes.map_in_place(|x| Newtype(x));
+    assert_eq!(newtyped_bytes.as_slice(), [Newtype(0x11), Newtype(0x22)].as_slice());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>v</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>0</span>, <span class='number'>1</span>, <span class='number'>2</span>];
+<span class='kw'>let</span> <span class='ident'>w</span> <span class='op'>=</span> <span class='ident'>v</span>.<span class='ident'>map_in_place</span>(<span class='op'>|</span><span class='ident'>i</span><span class='op'>|</span> <span class='ident'>i</span> <span class='op'>+</span> <span class='number'>3</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>w</span>.<span class='ident'>as_slice</span>(), [<span class='number'>3</span>, <span class='number'>4</span>, <span class='number'>5</span>].<span class='ident'>as_slice</span>());
+
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Debug</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>Newtype</span>(<span class='ident'>u8</span>);
+<span class='kw'>let</span> <span class='ident'>bytes</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>0x11</span>, <span class='number'>0x22</span>];
+<span class='kw'>let</span> <span class='ident'>newtyped_bytes</span> <span class='op'>=</span> <span class='ident'>bytes</span>.<span class='ident'>map_in_place</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>Newtype</span>(<span class='ident'>x</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>newtyped_bytes</span>.<span class='ident'>as_slice</span>(), [<span class='ident'>Newtype</span>(<span class='number'>0x11</span>), <span class='ident'>Newtype</span>(<span class='number'>0x22</span>)].<span class='ident'>as_slice</span>());
+</pre>
+</div><h4 id='method.split_off' class='method'><a class='stability Unstable' title='Unstable: new API, waiting for dust to settle'></a><code>fn <a href='#method.split_off' class='fnname'>split_off</a>(&amp;mut self, at: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Splits the collection into two at the given index.</p>
+
+<p>Returns a newly allocated <code>Self</code>. <code>self</code> contains elements <code>[0, at)</code>,
+and the returned <code>Self</code> contains elements <code>[at, len)</code>.</p>
+
+<p>Note that the capacity of <code>self</code> does not change.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>Panics if <code>at &gt; len</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1,2,3];
+    let vec2 = vec.split_off(1);
+    assert_eq!(vec, [1]);
+    assert_eq!(vec2, [2, 3]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>,<span class='number'>2</span>,<span class='number'>3</span>];
+<span class='kw'>let</span> <span class='ident'>vec2</span> <span class='op'>=</span> <span class='ident'>vec</span>.<span class='ident'>split_off</span>(<span class='number'>1</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>]);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec2</span>, [<span class='number'>2</span>, <span class='number'>3</span>]);
+</pre>
+</div></div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl&lt;T&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span></code></h3><div class='impl-items'><h4 id='method.resize' class='method'><a class='stability Unstable' title='Unstable: matches collection reform specification; waiting for dust to settle'></a><code>fn <a href='#method.resize' class='fnname'>resize</a>(&amp;mut self, new_len: <a href='../primitive.usize.html'>usize</a>, value: T)</code></h4>
+<div class='docblock'><p>Resizes the <code>Vec</code> in-place so that <code>len()</code> is equal to <code>new_len</code>.</p>
+
+<p>Calls either <code>extend()</code> or <code>truncate()</code> depending on whether <code>new_len</code>
+is larger than the current value of <code>len()</code> or not.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![&quot;hello&quot;];
+    vec.resize(3, &quot;world&quot;);
+    assert_eq!(vec, [&quot;hello&quot;, &quot;world&quot;, &quot;world&quot;]);
+    
+    let mut vec = vec![1, 2, 3, 4];
+    vec.resize(2, 0);
+    assert_eq!(vec, [1, 2]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;hello&quot;</span>];
+<span class='ident'>vec</span>.<span class='ident'>resize</span>(<span class='number'>3</span>, <span class='string'>&quot;world&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='string'>&quot;hello&quot;</span>, <span class='string'>&quot;world&quot;</span>, <span class='string'>&quot;world&quot;</span>]);
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>];
+<span class='ident'>vec</span>.<span class='ident'>resize</span>(<span class='number'>2</span>, <span class='number'>0</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>2</span>]);
+</pre>
+</div><h4 id='method.push_all' class='method'><a class='stability Unstable' title='Unstable: likely to be replaced by a more optimized extend'></a><code>fn <a href='#method.push_all' class='fnname'>push_all</a>(&amp;mut self, other: <a href='../primitive.slice.html'>&amp;[T]</a>)</code></h4>
+<div class='docblock'><p>Appends all elements in a slice to the <code>Vec</code>.</p>
+
+<p>Iterates over the slice <code>other</code>, clones each element, and then appends
+it to this <code>Vec</code>. The <code>other</code> vector is traversed in-order.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1];
+    vec.push_all(&amp;[2, 3, 4]);
+    assert_eq!(vec, [1, 2, 3, 4]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>];
+<span class='ident'>vec</span>.<span class='ident'>push_all</span>(<span class='kw-2'>&amp;</span>[<span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>]);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>4</span>]);
+</pre>
+</div></div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl&lt;T&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;T&gt;</span></code></h3><div class='impl-items'><h4 id='method.dedup' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.dedup' class='fnname'>dedup</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Removes consecutive repeated elements in the vector.</p>
+
+<p>If the vector is sorted, this removes all duplicates.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    let mut vec = vec![1, 2, 2, 3, 2];
+    
+    vec.dedup();
+    
+    assert_eq!(vec, [1, 2, 3, 2]);
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>2</span>];
+
+<span class='ident'>vec</span>.<span class='ident'>dedup</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>vec</span>, [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>, <span class='number'>2</span>]);
+</pre>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/borrow/trait.Borrow.html' title='std::borrow::Borrow'>Borrow</a>&lt;<a href='../primitive.slice.html'>[T]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.borrow' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.borrow' class='fnname'>borrow</a>(&amp;self) -&gt; <a href='../primitive.slice.html'>&amp;[T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/borrow/trait.BorrowMut.html' title='std::borrow::BorrowMut'>BorrowMut</a>&lt;<a href='../primitive.slice.html'>[T]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.borrow_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.borrow_mut' class='fnname'>borrow_mut</a>(&amp;mut self) -&gt; <a href='../primitive.slice.html'>&amp;mut [T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/marker/trait.Send.html' title='std::marker::Send'>Send</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/marker/trait.Send.html' title='std::marker::Send'>Send</a></span></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/marker/trait.Sync.html' title='std::marker::Sync'>Sync</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/marker/trait.Sync.html' title='std::marker::Sync'>Sync</a></span></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+<h4 id='method.clone_from' class='method'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, other: &amp;<a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/hash/trait.Hash.html' title='std::hash::Hash'>Hash</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/hash/trait.Hash.html' title='std::hash::Hash'>Hash</a></span></code></h3><div class='impl-items'><h4 id='method.hash' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.hash' class='fnname'>hash</a>&lt;H&gt;(&amp;self, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../../std/hash/trait.Hasher.html' title='std::hash::Hasher'>Hasher</a></span></code></h4>
+<h4 id='method.hash_slice' class='tymethod'><a class='stability Unstable' title='Unstable: module was recently redesigned'></a><code>fn <a href='#tymethod.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a href='../primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../../std/hash/trait.Hasher.html' title='std::hash::Hasher'>Hasher</a></span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.Index.html' title='std::ops::Index'>Index</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = T</code></h4>
+<h4 id='method.index' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, index: &amp;<a href='../primitive.usize.html'>usize</a>) -&gt; &amp;T</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.IndexMut.html' title='std::ops::IndexMut'>IndexMut</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.index_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index_mut' class='fnname'>index_mut</a>(&amp;mut self, index: &amp;<a href='../primitive.usize.html'>usize</a>) -&gt; &amp;mut T</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.Index.html' title='std::ops::Index'>Index</a>&lt;<a class='struct' href='../../std/ops/struct.Range.html' title='std::ops::Range'>Range</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='../primitive.slice.html'>[T]</a></code></h4>
+<h4 id='method.index' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, index: &amp;<a class='struct' href='../../std/ops/struct.Range.html' title='std::ops::Range'>Range</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;) -&gt; <a href='../primitive.slice.html'>&amp;[T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.Index.html' title='std::ops::Index'>Index</a>&lt;<a class='struct' href='../../std/ops/struct.RangeTo.html' title='std::ops::RangeTo'>RangeTo</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='../primitive.slice.html'>[T]</a></code></h4>
+<h4 id='method.index' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, index: &amp;<a class='struct' href='../../std/ops/struct.RangeTo.html' title='std::ops::RangeTo'>RangeTo</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;) -&gt; <a href='../primitive.slice.html'>&amp;[T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.Index.html' title='std::ops::Index'>Index</a>&lt;<a class='struct' href='../../std/ops/struct.RangeFrom.html' title='std::ops::RangeFrom'>RangeFrom</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='../primitive.slice.html'>[T]</a></code></h4>
+<h4 id='method.index' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, index: &amp;<a class='struct' href='../../std/ops/struct.RangeFrom.html' title='std::ops::RangeFrom'>RangeFrom</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;) -&gt; <a href='../primitive.slice.html'>&amp;[T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.Index.html' title='std::ops::Index'>Index</a>&lt;<a class='struct' href='../../std/ops/struct.RangeFull.html' title='std::ops::RangeFull'>RangeFull</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='../primitive.slice.html'>[T]</a></code></h4>
+<h4 id='method.index' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, _index: &amp;<a class='struct' href='../../std/ops/struct.RangeFull.html' title='std::ops::RangeFull'>RangeFull</a>) -&gt; <a href='../primitive.slice.html'>&amp;[T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.IndexMut.html' title='std::ops::IndexMut'>IndexMut</a>&lt;<a class='struct' href='../../std/ops/struct.Range.html' title='std::ops::Range'>Range</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.index_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index_mut' class='fnname'>index_mut</a>(&amp;mut self, index: &amp;<a class='struct' href='../../std/ops/struct.Range.html' title='std::ops::Range'>Range</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;) -&gt; <a href='../primitive.slice.html'>&amp;mut [T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.IndexMut.html' title='std::ops::IndexMut'>IndexMut</a>&lt;<a class='struct' href='../../std/ops/struct.RangeTo.html' title='std::ops::RangeTo'>RangeTo</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.index_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index_mut' class='fnname'>index_mut</a>(&amp;mut self, index: &amp;<a class='struct' href='../../std/ops/struct.RangeTo.html' title='std::ops::RangeTo'>RangeTo</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;) -&gt; <a href='../primitive.slice.html'>&amp;mut [T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.IndexMut.html' title='std::ops::IndexMut'>IndexMut</a>&lt;<a class='struct' href='../../std/ops/struct.RangeFrom.html' title='std::ops::RangeFrom'>RangeFrom</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.index_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index_mut' class='fnname'>index_mut</a>(&amp;mut self, index: &amp;<a class='struct' href='../../std/ops/struct.RangeFrom.html' title='std::ops::RangeFrom'>RangeFrom</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;) -&gt; <a href='../primitive.slice.html'>&amp;mut [T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.IndexMut.html' title='std::ops::IndexMut'>IndexMut</a>&lt;<a class='struct' href='../../std/ops/struct.RangeFull.html' title='std::ops::RangeFull'>RangeFull</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.index_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index_mut' class='fnname'>index_mut</a>(&amp;mut self, _index: &amp;<a class='struct' href='../../std/ops/struct.RangeFull.html' title='std::ops::RangeFull'>RangeFull</a>) -&gt; <a href='../primitive.slice.html'>&amp;mut [T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.Deref.html' title='std::ops::Deref'>Deref</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Target' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Target = <a href='../primitive.slice.html'>[T]</a></code></h4>
+<h4 id='method.deref' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.deref' class='fnname'>deref</a>(&amp;self) -&gt; <a href='../primitive.slice.html'>&amp;[T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.DerefMut.html' title='std::ops::DerefMut'>DerefMut</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.deref_mut' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.deref_mut' class='fnname'>deref_mut</a>(&amp;mut self) -&gt; <a href='../primitive.slice.html'>&amp;mut [T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/iter/trait.FromIterator.html' title='std::iter::FromIterator'>FromIterator</a>&lt;T&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.from_iter' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.from_iter' class='fnname'>from_iter</a>&lt;I&gt;(iterable: I) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where I: <a class='trait' href='../../std/iter/trait.IntoIterator.html' title='std::iter::IntoIterator'>IntoIterator</a>, &lt;I as <a class='trait' href='../../std/iter/trait.IntoIterator.html' title='std::iter::IntoIterator'>IntoIterator</a>&gt;::Item == T</span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/iter/trait.IntoIterator.html' title='std::iter::IntoIterator'>IntoIterator</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Item' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Item = T</code></h4>
+<h4 id='assoc_type.IntoIter' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type IntoIter = <a class='struct' href='../../std/vec/struct.IntoIter.html' title='std::vec::IntoIter'>IntoIter</a>&lt;T&gt;</code></h4>
+<h4 id='method.into_iter' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.into_iter' class='fnname'>into_iter</a>(self) -&gt; <a class='struct' href='../../std/vec/struct.IntoIter.html' title='std::vec::IntoIter'>IntoIter</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: waiting on Extend stability'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/iter/trait.Extend.html' title='std::iter::Extend'>Extend</a>&lt;T&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.extend' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.extend' class='fnname'>extend</a>&lt;I&gt;(&amp;mut self, iterable: I) <span class='where'>where I: <a class='trait' href='../../std/iter/trait.IntoIterator.html' title='std::iter::IntoIterator'>IntoIterator</a>, &lt;I as <a class='trait' href='../../std/iter/trait.IntoIterator.html' title='std::iter::IntoIterator'>IntoIterator</a>&gt;::Item == T</span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;B&gt;&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;B&gt;) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;B&gt;) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>&amp;'b [B]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>&amp;'b [B]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>&amp;'b [B]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>&amp;'b mut [B]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>&amp;'b mut [B]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>&amp;'b mut [B]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a class='enum' href='../../std/borrow/enum.Cow.html' title='std::borrow::Cow'>Cow</a>&lt;'a, <a href='../primitive.slice.html'>[A]</a>&gt;&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;B&gt; <span class='where'>where A: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a>, B: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;A&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a class='enum' href='../../std/borrow/enum.Cow.html' title='std::borrow::Cow'>Cow</a>&lt;'a, <a href='../primitive.slice.html'>[A]</a>&gt;) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a class='enum' href='../../std/borrow/enum.Cow.html' title='std::borrow::Cow'>Cow</a>&lt;'a, <a href='../primitive.slice.html'>[A]</a>&gt;) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 0]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 0]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 0]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 0]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 0]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 0]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 1]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 1]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 1]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 1]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 1]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 1]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 2]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 2]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 2]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 2]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 2]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 2]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 3]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 3]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 3]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 3]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 3]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 3]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 4]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 4]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 4]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 4]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 4]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 4]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 5]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 5]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 5]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 5]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 5]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 5]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 6]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 6]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 6]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 6]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 6]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 6]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 7]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 7]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 7]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 7]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 7]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 7]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 8]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 8]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 8]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 8]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 8]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 8]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 9]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 9]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 9]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 9]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 9]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 9]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 10]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 10]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 10]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 10]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 10]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 10]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 11]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 11]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 11]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 11]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 11]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 11]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 12]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 12]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 12]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 12]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 12]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 12]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 13]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 13]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 13]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 13]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 13]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 13]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 14]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 14]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 14]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 14]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 14]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 14]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 15]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 15]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 15]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 15]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 15]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 15]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 16]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 16]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 16]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 16]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 16]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 16]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 17]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 17]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 17]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 17]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 17]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 17]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 18]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 18]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 18]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 18]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 18]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 18]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 19]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 19]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 19]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 19]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 19]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 19]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 20]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 20]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 20]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 20]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 20]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 20]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 21]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 21]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 21]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 21]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 21]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 21]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 22]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 22]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 22]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 22]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 22]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 22]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 23]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 23]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 23]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 23]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 23]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 23]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 24]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 24]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 24]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 24]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 24]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 24]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 25]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 25]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 25]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 25]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 25]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 25]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 26]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 26]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 26]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 26]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 26]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 26]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 27]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 27]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 27]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 27]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 27]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 27]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 28]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 28]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 28]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 28]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 28]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 28]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 29]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 29]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 29]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 29]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 29]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 29]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 30]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 30]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 30]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 30]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 30]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 30]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 31]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 31]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 31]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 31]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 31]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 31]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;<a href='../primitive.slice.html'>[B; 32]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 32]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='../primitive.slice.html'>[B; 32]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b, A, B&gt; <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;&amp;'b <a href='../primitive.slice.html'>[B; 32]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;A&gt; <span class='where'>where A: <a class='trait' href='../../std/cmp/trait.PartialEq.html' title='std::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 32]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;&amp;'b <a href='../primitive.slice.html'>[B; 32]</a>) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/cmp/trait.PartialOrd.html' title='std::cmp::PartialOrd'>PartialOrd</a>&lt;<a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/cmp/trait.PartialOrd.html' title='std::cmp::PartialOrd'>PartialOrd</a>&lt;T&gt;</span></code></h3><div class='impl-items'><h4 id='method.partial_cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.partial_cmp' class='fnname'>partial_cmp</a>(&amp;self, other: &amp;<a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='enum' href='../../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a>&gt;</code></h4>
+<h4 id='method.lt' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.lt' class='fnname'>lt</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.le' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.le' class='fnname'>le</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.gt' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.gt' class='fnname'>gt</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ge' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.ge' class='fnname'>ge</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/cmp/trait.Eq.html' title='std::cmp::Eq'>Eq</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/cmp/trait.Eq.html' title='std::cmp::Eq'>Eq</a></span></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a></span></code></h3><div class='impl-items'><h4 id='method.cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.cmp' class='fnname'>cmp</a>(&amp;self, other: &amp;<a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;) -&gt; <a class='enum' href='../../std/cmp/enum.Ordering.html' title='std::cmp::Ordering'>Ordering</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: will be replaced by slice syntax'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/slice/trait.AsSlice.html' title='std::slice::AsSlice'>AsSlice</a>&lt;T&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.as_slice' class='method'><a class='stability Unstable' title='Unstable: will be replaced by slice syntax'></a><code>fn <a href='#method.as_slice' class='fnname'>as_slice</a>(&amp;self) -&gt; <a href='../primitive.slice.html'>&amp;[T]</a></code></h4>
+<div class='docblock'><p>Returns a slice into <code>self</code>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><span class='rusttest'>fn main() {
+    fn foo(slice: &amp;[i32]) {}
+    
+    let vec = vec![1, 2];
+    foo(vec.as_slice());
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>fn</span> <span class='ident'>foo</span>(<span class='ident'>slice</span>: <span class='kw-2'>&amp;</span>[<span class='ident'>i32</span>]) {}
+
+<span class='kw'>let</span> <span class='ident'>vec</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[<span class='number'>1</span>, <span class='number'>2</span>];
+<span class='ident'>foo</span>(<span class='ident'>vec</span>.<span class='ident'>as_slice</span>());
+</pre>
+</div></div><h3 class='impl'><a class='stability Unstable' title='Unstable: recent addition, needs more experience'></a><code>impl&lt;'a, T&gt; <a class='trait' href='../../std/ops/trait.Add.html' title='std::ops::Add'>Add</a>&lt;<a href='../primitive.slice.html'>&amp;'a [T]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+<h4 id='method.add' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.add' class='fnname'>add</a>(self, rhs: <a href='../primitive.slice.html'>&amp;[T]</a>) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/ops/trait.Drop.html' title='std::ops::Drop'>Drop</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.drop' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/default/trait.Default.html' title='std::default::Default'>Default</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.default' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T&gt; <a class='trait' href='../../std/fmt/trait.Debug.html' title='std::fmt::Debug'>Debug</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='../../std/fmt/trait.Debug.html' title='std::fmt::Debug'>Debug</a></span></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='../../std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>, <a class='struct' href='../../std/fmt/struct.Error.html' title='std::fmt::Error'>Error</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, T&gt; <a class='trait' href='../../std/borrow/trait.IntoCow.html' title='std::borrow::IntoCow'>IntoCow</a>&lt;'a, <a href='../primitive.slice.html'>[T]</a>&gt; for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;T&gt; <span class='where'>where T: 'a, T: <a class='trait' href='../../std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a></span></code></h3><div class='impl-items'><h4 id='method.into_cow' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.into_cow' class='fnname'>into_cow</a>(self) -&gt; <a class='enum' href='../../std/borrow/enum.Cow.html' title='std::borrow::Cow'>Cow</a>&lt;'a, <a href='../primitive.slice.html'>[T]</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: would prefer to do this in a more general way'></a><code>impl <a class='trait' href='../../std/ascii/trait.OwnedAsciiExt.html' title='std::ascii::OwnedAsciiExt'>OwnedAsciiExt</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;</code></h3><div class='impl-items'><h4 id='method.into_ascii_uppercase' class='method'><a class='stability Unstable' title='Unstable: would prefer to do this in a more general way'></a><code>fn <a href='#method.into_ascii_uppercase' class='fnname'>into_ascii_uppercase</a>(self) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;</code></h4>
+<h4 id='method.into_ascii_lowercase' class='method'><a class='stability Unstable' title='Unstable: would prefer to do this in a more general way'></a><code>fn <a href='#method.into_ascii_lowercase' class='fnname'>into_ascii_lowercase</a>(self) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/ffi/trait.IntoBytes.html' title='std::ffi::IntoBytes'>IntoBytes</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;</code></h3><div class='impl-items'><h4 id='method.into_bytes' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.into_bytes' class='fnname'>into_bytes</a>(self) -&gt; <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/old_io/trait.Writer.html' title='std::old_io::Writer'>Writer</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;</code></h3><div class='impl-items'><h4 id='method.write_all' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_all' class='fnname'>write_all</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;[</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write' class='method'><a class='stability Deprecated' title='Deprecated: renamed to `write_all`'></a><code>fn <a href='#method.write' class='fnname'>write</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;[</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.flush' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.flush' class='fnname'>flush</a>(&amp;mut self) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_fmt' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_fmt' class='fnname'>write_fmt</a>(&amp;mut self, fmt: <a class='struct' href='../../std/fmt/struct.Arguments.html' title='std::fmt::Arguments'>Arguments</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_str' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_str' class='fnname'>write_str</a>(&amp;mut self, s: &amp;<a href='../primitive.str.html'>str</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_line' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_line' class='fnname'>write_line</a>(&amp;mut self, s: &amp;<a href='../primitive.str.html'>str</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_char' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_char' class='fnname'>write_char</a>(&amp;mut self, c: <a href='../primitive.char.html'>char</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_int' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_int' class='fnname'>write_int</a>(&amp;mut self, n: <a href='../primitive.isize.html'>isize</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_uint' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_uint' class='fnname'>write_uint</a>(&amp;mut self, n: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_uint' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_uint' class='fnname'>write_le_uint</a>(&amp;mut self, n: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_int' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_int' class='fnname'>write_le_int</a>(&amp;mut self, n: <a href='../primitive.isize.html'>isize</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_uint' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_uint' class='fnname'>write_be_uint</a>(&amp;mut self, n: <a href='../primitive.usize.html'>usize</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_int' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_int' class='fnname'>write_be_int</a>(&amp;mut self, n: <a href='../primitive.isize.html'>isize</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_u64' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_u64' class='fnname'>write_be_u64</a>(&amp;mut self, n: <a href='../primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_u32' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_u32' class='fnname'>write_be_u32</a>(&amp;mut self, n: <a href='../primitive.u32.html'>u32</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_u16' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_u16' class='fnname'>write_be_u16</a>(&amp;mut self, n: <a href='../primitive.u16.html'>u16</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_i64' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_i64' class='fnname'>write_be_i64</a>(&amp;mut self, n: <a href='../primitive.i64.html'>i64</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_i32' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_i32' class='fnname'>write_be_i32</a>(&amp;mut self, n: <a href='../primitive.i32.html'>i32</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_i16' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_i16' class='fnname'>write_be_i16</a>(&amp;mut self, n: <a href='../primitive.i16.html'>i16</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_f64' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_f64' class='fnname'>write_be_f64</a>(&amp;mut self, f: <a href='../primitive.f64.html'>f64</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_be_f32' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_be_f32' class='fnname'>write_be_f32</a>(&amp;mut self, f: <a href='../primitive.f32.html'>f32</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_u64' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_u64' class='fnname'>write_le_u64</a>(&amp;mut self, n: <a href='../primitive.u64.html'>u64</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_u32' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_u32' class='fnname'>write_le_u32</a>(&amp;mut self, n: <a href='../primitive.u32.html'>u32</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_u16' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_u16' class='fnname'>write_le_u16</a>(&amp;mut self, n: <a href='../primitive.u16.html'>u16</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_i64' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_i64' class='fnname'>write_le_i64</a>(&amp;mut self, n: <a href='../primitive.i64.html'>i64</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_i32' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_i32' class='fnname'>write_le_i32</a>(&amp;mut self, n: <a href='../primitive.i32.html'>i32</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_i16' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_i16' class='fnname'>write_le_i16</a>(&amp;mut self, n: <a href='../primitive.i16.html'>i16</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_f64' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_f64' class='fnname'>write_le_f64</a>(&amp;mut self, f: <a href='../primitive.f64.html'>f64</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_le_f32' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_le_f32' class='fnname'>write_le_f32</a>(&amp;mut self, f: <a href='../primitive.f32.html'>f32</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_u8' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_u8' class='fnname'>write_u8</a>(&amp;mut self, n: <a href='../primitive.u8.html'>u8</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_i8' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.write_i8' class='fnname'>write_i8</a>(&amp;mut self, n: <a href='../primitive.i8.html'>i8</a>) -&gt; <a class='type' href='../../std/old_io/type.IoResult.html' title='std::old_io::IoResult'>IoResult</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../std/io/trait.Write.html' title='std::io::Write'>Write</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;</code></h3><div class='impl-items'><h4 id='method.write' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.write' class='fnname'>write</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;[</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h4>
+<h4 id='method.write_all' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.write_all' class='fnname'>write_all</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;[</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.flush' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.flush' class='fnname'>flush</a>(&amp;mut self) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_fmt' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.write_fmt' class='fnname'>write_fmt</a>(&amp;mut self, fmt: <a class='struct' href='../../std/fmt/struct.Arguments.html' title='std::fmt::Arguments'>Arguments</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/old_path/trait.BytesContainer.html' title='std::old_path::BytesContainer'>BytesContainer</a> for <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;</code></h3><div class='impl-items'><h4 id='method.container_as_bytes' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.container_as_bytes' class='fnname'>container_as_bytes</a>(&amp;self) -&gt; <a href='../primitive.slice.html'>&amp;[</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a></code></h4>
+<h4 id='method.container_as_str' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.container_as_str' class='fnname'>container_as_str</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;'a <a href='../primitive.str.html'>str</a>&gt;</code></h4>
+<h4 id='method.is_str' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.is_str' class='fnname'>is_str</a>(_: <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;Self&gt;) -&gt; <a href='../primitive.bool.html'>bool</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

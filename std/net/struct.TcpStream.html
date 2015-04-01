@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `TcpStream` struct in crate `std`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, TcpStream">
+
+    <title>std::net::TcpStream - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../../std/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='../index.html'>std</a>::<wbr><a href='index.html'>net</a></p><script>window.sidebarCurrent = {name: 'TcpStream', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>std</a>::<wbr><a href='index.html'>net</a>::<wbr><a class='struct' href=''>TcpStream</a><wbr><a class='stability Unstable' title=''>Unstable</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-49981' href='../../src/std/net/tcp.rs.html#38'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct TcpStream(_);</pre><div class='docblock'><p>A structure which represents a TCP stream between a local socket and a
+remote socket.</p>
+
+<p>The socket will be closed when the value is dropped.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    use std::io::prelude::*;
+    use std::net::TcpStream;
+    
+    {
+        let mut stream = TcpStream::connect(&quot;127.0.0.1:34254&quot;).unwrap();
+    
+        // ignore the Result
+        let _ = stream.write(&amp;[1]);
+        let _ = stream.read(&amp;mut [0; 128]); // ignore here too
+    } // the stream is closed here
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>net</span>::<span class='ident'>TcpStream</span>;
+
+{
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>stream</span> <span class='op'>=</span> <span class='ident'>TcpStream</span>::<span class='ident'>connect</span>(<span class='string'>&quot;127.0.0.1:34254&quot;</span>).<span class='ident'>unwrap</span>();
+
+    <span class='comment'>// ignore the Result</span>
+    <span class='kw'>let</span> _ <span class='op'>=</span> <span class='ident'>stream</span>.<span class='ident'>write</span>(<span class='kw-2'>&amp;</span>[<span class='number'>1</span>]);
+    <span class='kw'>let</span> _ <span class='op'>=</span> <span class='ident'>stream</span>.<span class='ident'>read</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='number'>0</span>; <span class='number'>128</span>]); <span class='comment'>// ignore here too</span>
+} <span class='comment'>// the stream is closed here</span>
+</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='struct' href='../../std/net/struct.TcpStream.html' title='std::net::TcpStream'>TcpStream</a></code></h3><div class='impl-items'><h4 id='method.connect' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.connect' class='fnname'>connect</a>&lt;A: <a class='trait' href='../../std/net/trait.ToSocketAddrs.html' title='std::net::ToSocketAddrs'>ToSocketAddrs</a> + ?<a class='trait' href='../../std/marker/trait.Sized.html' title='std::marker::Sized'>Sized</a>&gt;(addr: &amp;A) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a class='struct' href='../../std/net/struct.TcpStream.html' title='std::net::TcpStream'>TcpStream</a>&gt;</code></h4>
+<div class='docblock'><p>Open a TCP connection to a remote host.</p>
+
+<p><code>addr</code> is an address of the remote host. Anything which implements
+<code>ToSocketAddrs</code> trait can be supplied for the address; see this trait
+documentation for concrete examples.</p>
+</div><h4 id='method.peer_addr' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.peer_addr' class='fnname'>peer_addr</a>(&amp;self) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a class='struct' href='../../std/net/struct.SocketAddr.html' title='std::net::SocketAddr'>SocketAddr</a>&gt;</code></h4>
+<div class='docblock'><p>Returns the socket address of the remote peer of this TCP connection.</p>
+</div><h4 id='method.socket_addr' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.socket_addr' class='fnname'>socket_addr</a>(&amp;self) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a class='struct' href='../../std/net/struct.SocketAddr.html' title='std::net::SocketAddr'>SocketAddr</a>&gt;</code></h4>
+<div class='docblock'><p>Returns the socket address of the local half of this TCP connection.</p>
+</div><h4 id='method.shutdown' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.shutdown' class='fnname'>shutdown</a>(&amp;self, how: <a class='enum' href='../../std/net/enum.Shutdown.html' title='std::net::Shutdown'>Shutdown</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Shut down the read, write, or both halves of this connection.</p>
+
+<p>This function will cause all pending and future I/O on the specified
+portions to return immediately with an appropriate value (see the
+documentation of <code>Shutdown</code>).</p>
+</div><h4 id='method.try_clone' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.try_clone' class='fnname'>try_clone</a>(&amp;self) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a class='struct' href='../../std/net/struct.TcpStream.html' title='std::net::TcpStream'>TcpStream</a>&gt;</code></h4>
+<div class='docblock'><p>Create a new independently owned handle to the underlying socket.</p>
+
+<p>The returned <code>TcpStream</code> is a reference to the same stream that this
+object references. Both handles will read and write the same stream of
+data, and options set on one stream will be propagated to the other
+stream.</p>
+</div><h4 id='method.set_nodelay' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.set_nodelay' class='fnname'>set_nodelay</a>(&amp;self, nodelay: <a href='../primitive.bool.html'>bool</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Sets the nodelay flag on this connection to the boolean specified</p>
+</div><h4 id='method.set_keepalive' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.set_keepalive' class='fnname'>set_keepalive</a>(&amp;self, seconds: <a class='enum' href='../../std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a href='../primitive.u32.html'>u32</a>&gt;) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Sets the keepalive timeout to the timeout specified.</p>
+
+<p>If the value specified is <code>None</code>, then the keepalive flag is cleared on
+this connection. Otherwise, the keepalive timeout will be set to the
+specified time, in seconds.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>impl <a class='trait' href='../../std/io/trait.Read.html' title='std::io::Read'>Read</a> for <a class='struct' href='../../std/net/struct.TcpStream.html' title='std::net::TcpStream'>TcpStream</a></code></h3><div class='impl-items'><h4 id='method.read' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.read' class='fnname'>read</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;mut [</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h4>
+<h4 id='method.read_to_end' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.read_to_end' class='fnname'>read_to_end</a>(&amp;mut self, buf: &amp;mut <a class='struct' href='../../std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;<a href='../primitive.u8.html'>u8</a>&gt;) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.read_to_string' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.read_to_string' class='fnname'>read_to_string</a>(&amp;mut self, buf: &amp;mut <a class='struct' href='../../std/string/struct.String.html' title='std::string::String'>String</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>impl <a class='trait' href='../../std/io/trait.Write.html' title='std::io::Write'>Write</a> for <a class='struct' href='../../std/net/struct.TcpStream.html' title='std::net::TcpStream'>TcpStream</a></code></h3><div class='impl-items'><h4 id='method.write' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.write' class='fnname'>write</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;[</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.usize.html'>usize</a>&gt;</code></h4>
+<h4 id='method.flush' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.flush' class='fnname'>flush</a>(&amp;mut self) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_all' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.write_all' class='fnname'>write_all</a>(&amp;mut self, buf: <a href='../primitive.slice.html'>&amp;[</a><a href='../primitive.u8.html'>u8</a><a href='../primitive.slice.html'>]</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+<h4 id='method.write_fmt' class='method'><a class='stability Unstable' title='Unstable: this new I/O module is still under active development and APIs are subject to tweaks fairly regularly'></a><code>fn <a href='#method.write_fmt' class='fnname'>write_fmt</a>(&amp;mut self, fmt: <a class='struct' href='../../std/fmt/struct.Arguments.html' title='std::fmt::Arguments'>Arguments</a>) -&gt; <a class='type' href='../../std/io/type.Result.html' title='std::io::Result'>Result</a>&lt;<a href='../primitive.tuple.html'>()</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/os/unix/prelude/trait.AsRawFd.html' title='std::os::unix::prelude::AsRawFd'>AsRawFd</a> for <a class='struct' href='../../std/net/struct.TcpStream.html' title='std::net::TcpStream'>TcpStream</a></code></h3><div class='impl-items'><h4 id='method.as_raw_fd' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_raw_fd' class='fnname'>as_raw_fd</a>(&amp;self) -&gt; <a class='type' href='../../std/os/unix/prelude/type.Fd.html' title='std::os::unix::prelude::Fd'>Fd</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../../std/os/unix/prelude/trait.AsRawFd.html' title='std::os::unix::prelude::AsRawFd'>AsRawFd</a> for <a class='struct' href='../../std/net/struct.TcpStream.html' title='std::net::TcpStream'>TcpStream</a></code></h3><div class='impl-items'><h4 id='method.as_raw_fd' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_raw_fd' class='fnname'>as_raw_fd</a>(&amp;self) -&gt; <a class='type' href='../../std/os/unix/prelude/type.Fd.html' title='std::os::unix::prelude::Fd'>Fd</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "std";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script src="../../playpen.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

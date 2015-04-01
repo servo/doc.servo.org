@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["TypedRect",""]],"struct":[["Rect",""]],"fn":[["Rect",""],["max",""],["min",""]]});

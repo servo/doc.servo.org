@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Looping</title>
+
+    <link rel="stylesheet" type="text/css" href="rust-book.css">
+
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="nav">
+                <button id="toggle-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                  <span class="bar"></span>
+                </button>
+              </div>
+<div id='toc' class='mobile-hidden'>
+<ul class='chapter'>
+<li><a href='README.html'><b>1.</b> Introduction</a>
+</li>
+<li><a href='basic.html'><b>2.</b> I: The Basics</a>
+<ul class='section'>
+<li><a href='installing-rust.html'><b>2.1.</b> Installing Rust</a>
+</li>
+<li><a href='hello-world.html'><b>2.2.</b> Hello, world!</a>
+</li>
+<li><a href='hello-cargo.html'><b>2.3.</b> Hello, Cargo!</a>
+</li>
+<li><a href='variable-bindings.html'><b>2.4.</b> Variable Bindings</a>
+</li>
+<li><a href='if.html'><b>2.5.</b> If</a>
+</li>
+<li><a href='functions.html'><b>2.6.</b> Functions</a>
+</li>
+<li><a href='comments.html'><b>2.7.</b> Comments</a>
+</li>
+<li><a href='compound-data-types.html'><b>2.8.</b> Compound Data Types</a>
+</li>
+<li><a href='match.html'><b>2.9.</b> Match</a>
+</li>
+<li><a href='looping.html'><b>2.10.</b> Looping</a>
+</li>
+<li><a href='strings.html'><b>2.11.</b> Strings</a>
+</li>
+<li><a href='arrays-vectors-and-slices.html'><b>2.12.</b> Arrays, Vectors, and Slices</a>
+</li>
+<li><a href='standard-input.html'><b>2.13.</b> Standard Input</a>
+</li>
+<li><a href='guessing-game.html'><b>2.14.</b> Guessing Game</a>
+</li>
+</ul>
+</li>
+<li><a href='intermediate.html'><b>3.</b> II: Intermediate Rust</a>
+<ul class='section'>
+<li><a href='crates-and-modules.html'><b>3.1.</b> Crates and Modules</a>
+</li>
+<li><a href='testing.html'><b>3.2.</b> Testing</a>
+</li>
+<li><a href='pointers.html'><b>3.3.</b> Pointers</a>
+</li>
+<li><a href='ownership.html'><b>3.4.</b> Ownership</a>
+</li>
+<li><a href='more-strings.html'><b>3.5.</b> More Strings</a>
+</li>
+<li><a href='patterns.html'><b>3.6.</b> Patterns</a>
+</li>
+<li><a href='method-syntax.html'><b>3.7.</b> Method Syntax</a>
+</li>
+<li><a href='closures.html'><b>3.8.</b> Closures</a>
+</li>
+<li><a href='iterators.html'><b>3.9.</b> Iterators</a>
+</li>
+<li><a href='generics.html'><b>3.10.</b> Generics</a>
+</li>
+<li><a href='traits.html'><b>3.11.</b> Traits</a>
+</li>
+<li><a href='static-and-dynamic-dispatch.html'><b>3.12.</b> Static and Dynamic Dispatch</a>
+</li>
+<li><a href='macros.html'><b>3.13.</b> Macros</a>
+</li>
+<li><a href='concurrency.html'><b>3.14.</b> Concurrency</a>
+</li>
+<li><a href='error-handling.html'><b>3.15.</b> Error Handling</a>
+</li>
+<li><a href='documentation.html'><b>3.16.</b> Documentation</a>
+</li>
+</ul>
+</li>
+<li><a href='advanced.html'><b>4.</b> III: Advanced Topics</a>
+<ul class='section'>
+<li><a href='ffi.html'><b>4.1.</b> FFI</a>
+</li>
+<li><a href='unsafe.html'><b>4.2.</b> Unsafe Code</a>
+</li>
+<li><a href='advanced-macros.html'><b>4.3.</b> Advanced Macros</a>
+</li>
+<li><a href='plugins.html'><b>4.4.</b> Compiler Plugins</a>
+</li>
+</ul>
+</li>
+<li><a href='conclusion.html'><b>5.</b> Conclusion</a>
+</li>
+<li><a href='glossary.html'><b>6.</b> Glossary</a>
+</li>
+</ul>
+</div>
+<div id='page-wrapper'>
+<div id='page'>
+
+
+    <h1 class="title">Looping</h1>
+    <p>Looping is the last basic construct that we haven&#39;t learned yet in Rust. Rust has
+two main looping constructs: <code>for</code> and <code>while</code>.</p>
+
+<h2 id="for" class='section-header'><a
+                           href="#for"><code>for</code></a></h2>
+<p>The <code>for</code> loop is used to loop a particular number of times. Rust&#39;s <code>for</code> loops
+work a bit differently than in other systems languages, however. Rust&#39;s <code>for</code>
+loop doesn&#39;t look like this &quot;C-style&quot; <code>for</code> loop:</p>
+
+<pre><code class="language-{c}">for (x = 0; x &lt; 10; x++) {
+    printf( &quot;%d\n&quot;, x );
+}
+</code></pre>
+
+<p>Instead, it looks like this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>for</span> <span class='ident'>x</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>10</span> {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>); <span class='comment'>// x: i32</span>
+}
+</pre>
+
+<p>In slightly more abstract terms,</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>for</span> <span class='ident'>var</span> <span class='kw'>in</span> <span class='ident'>expression</span> {
+    <span class='ident'>code</span>
+}
+</pre>
+
+<p>The expression is an iterator, which we will discuss in more depth later in the
+guide. The iterator gives back a series of elements. Each element is one
+iteration of the loop. That value is then bound to the name <code>var</code>, which is
+valid for the loop body. Once the body is over, the next value is fetched from
+the iterator, and we loop another time. When there are no more values, the
+<code>for</code> loop is over.</p>
+
+<p>In our example, <code>0..10</code> is an expression that takes a start and an end position,
+and gives an iterator over those values. The upper bound is exclusive, though,
+so our loop will print <code>0</code> through <code>9</code>, not <code>10</code>.</p>
+
+<p>Rust does not have the &quot;C-style&quot; <code>for</code> loop on purpose. Manually controlling
+each element of the loop is complicated and error prone, even for experienced C
+developers.</p>
+
+<p>We&#39;ll talk more about <code>for</code> when we cover <em>iterators</em>, later in the Guide.</p>
+
+<h2 id="while" class='section-header'><a
+                           href="#while"><code>while</code></a></h2>
+<p>The other kind of looping construct in Rust is the <code>while</code> loop. It looks like
+this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='number'>5</span>; <span class='comment'>// mut x: u32</span>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>done</span> <span class='op'>=</span> <span class='boolval'>false</span>; <span class='comment'>// mut done: bool</span>
+
+<span class='kw'>while</span> <span class='op'>!</span><span class='ident'>done</span> {
+    <span class='ident'>x</span> <span class='op'>+=</span> <span class='ident'>x</span> <span class='op'>-</span> <span class='number'>3</span>;
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>%</span> <span class='number'>5</span> <span class='op'>==</span> <span class='number'>0</span> { <span class='ident'>done</span> <span class='op'>=</span> <span class='boolval'>true</span>; }
+}
+</pre>
+
+<p><code>while</code> loops are the correct choice when you&#39;re not sure how many times
+you need to loop.</p>
+
+<p>If you need an infinite loop, you may be tempted to write this:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>while</span> <span class='boolval'>true</span> {
+</pre>
+
+<p>However, Rust has a dedicated keyword, <code>loop</code>, to handle this case:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>loop</span> {
+</pre>
+
+<p>Rust&#39;s control-flow analysis treats this construct differently than a
+<code>while true</code>, since we know that it will always loop. The details of what
+that <em>means</em> aren&#39;t super important to understand at this stage, but in
+general, the more information we can give to the compiler, the better it
+can do with safety and code generation, so you should always prefer
+<code>loop</code> when you plan to loop infinitely.</p>
+
+<h2 id="ending-iteration-early" class='section-header'><a
+                           href="#ending-iteration-early">Ending iteration early</a></h2>
+<p>Let&#39;s take a look at that <code>while</code> loop we had earlier:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='number'>5</span>;
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>done</span> <span class='op'>=</span> <span class='boolval'>false</span>;
+
+<span class='kw'>while</span> <span class='op'>!</span><span class='ident'>done</span> {
+    <span class='ident'>x</span> <span class='op'>+=</span> <span class='ident'>x</span> <span class='op'>-</span> <span class='number'>3</span>;
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>%</span> <span class='number'>5</span> <span class='op'>==</span> <span class='number'>0</span> { <span class='ident'>done</span> <span class='op'>=</span> <span class='boolval'>true</span>; }
+}
+</pre>
+
+<p>We had to keep a dedicated <code>mut</code> boolean variable binding, <code>done</code>, to know
+when we should exit out of the loop. Rust has two keywords to help us with
+modifying iteration: <code>break</code> and <code>continue</code>.</p>
+
+<p>In this case, we can write the loop in a better way with <code>break</code>:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='number'>5</span>;
+
+<span class='kw'>loop</span> {
+    <span class='ident'>x</span> <span class='op'>+=</span> <span class='ident'>x</span> <span class='op'>-</span> <span class='number'>3</span>;
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>%</span> <span class='number'>5</span> <span class='op'>==</span> <span class='number'>0</span> { <span class='kw'>break</span>; }
+}
+</pre>
+
+<p>We now loop forever with <code>loop</code> and use <code>break</code> to break out early.</p>
+
+<p><code>continue</code> is similar, but instead of ending the loop, goes to the next
+iteration. This will only print the odd numbers:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>for</span> <span class='ident'>x</span> <span class='kw'>in</span> <span class='number'>0u32</span>..<span class='number'>10</span> {
+    <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>%</span> <span class='number'>2</span> <span class='op'>==</span> <span class='number'>0</span> { <span class='kw'>continue</span>; }
+
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>x</span>);
+}
+</pre>
+
+<p>Both <code>continue</code> and <code>break</code> are valid in both kinds of loops.</p>
+
+    <script type="text/javascript">
+        window.playgroundUrl = "";
+    </script>
+    
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById("toggle-nav").onclick = toggleNav;
+  function toggleNav() {
+    var toc = document.getElementById("toc");
+    var pagewrapper = document.getElementById("page-wrapper");
+    toggleClass(toc, "mobile-hidden");
+    toggleClass(pagewrapper, "mobile-hidden");
+  };
+
+  function toggleClass(el, className) {
+     // from http://youmightnotneedjquery.com/
+     if (el.classList) {
+       el.classList.toggle(className);
+     } else {
+       var classes = el.className.split(' ');
+       var existingIndex = classes.indexOf(className);
+
+       if (existingIndex >= 0) {
+         classes.splice(existingIndex, 1);
+       } else {
+         classes.push(className);
+       }
+
+       el.className = classes.join(' ');
+     }
+  }
+
+  // The below code is used to add prev and next navigation links to the bottom
+  // of each of the sections.
+  // It works by extracting the current page based on the url and iterates over
+  // the menu links until it finds the menu item for the current page. We then
+  // create a copy of the preceding and following menu links and add the
+  // correct css class and insert them into the bottom of the page.
+  var toc = document.getElementById('toc').getElementsByTagName('a');
+  var href = document.location.pathname.split('/').pop();
+  if (href === 'index.html' || href === '') {
+    href = 'README.html';
+  }
+
+  for (var i = 0; i < toc.length; i++) {
+    if (toc[i].attributes['href'].value === href) {
+      var nav = document.createElement('p');
+      if (i > 0) {
+        var prevNode = toc[i-1].cloneNode(true);
+        prevNode.className = 'left';
+        nav.appendChild(prevNode);
+      }
+      if (i < toc.length - 1) {
+        var nextNode = toc[i+1].cloneNode(true);
+        nextNode.className = 'right';
+        nav.appendChild(nextNode);
+      }
+      document.getElementById('page').appendChild(nav);
+      break;
+    }
+  }
+
+});
+</script>
+</div></div>
+
+
+</body>
+</html>

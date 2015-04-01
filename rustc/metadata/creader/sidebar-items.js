@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CrateReader",""]],"fn":[["validate_crate_name",""]]});

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `BaseFlow` struct in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, BaseFlow">
+
+    <title>layout::flow::BaseFlow - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a>::<wbr><a href='index.html'>flow</a></p><script>window.sidebarCurrent = {name: 'BaseFlow', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>layout</a>::<wbr><a href='index.html'>flow</a>::<wbr><a class='struct' href=''>BaseFlow</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-28746' href='../../src/layout/flow.rs.html#736-830'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct BaseFlow {
+    pub restyle_damage: <a class='struct' href='../../layout/incremental/struct.RestyleDamage.html' title='layout::incremental::RestyleDamage'>RestyleDamage</a>,
+    pub children: <a class='struct' href='../../layout/flow_list/struct.FlowList.html' title='layout::flow_list::FlowList'>FlowList</a>,
+    pub intrinsic_inline_sizes: <a class='struct' href='../../layout/model/struct.IntrinsicISizes.html' title='layout::model::IntrinsicISizes'>IntrinsicISizes</a>,
+    pub position: <a class='struct' href='../../util/logical_geometry/struct.LogicalRect.html' title='util::logical_geometry::LogicalRect'>LogicalRect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;,
+    pub overflow: <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;,
+    pub parallel: <a class='struct' href='../../layout/parallel/struct.FlowParallelInfo.html' title='layout::parallel::FlowParallelInfo'>FlowParallelInfo</a>,
+    pub floats: <a class='struct' href='../../layout/floats/struct.Floats.html' title='layout::floats::Floats'>Floats</a>,
+    pub collapsible_margins: <a class='enum' href='../../layout/model/enum.CollapsibleMargins.html' title='layout::model::CollapsibleMargins'>CollapsibleMargins</a>,
+    pub stacking_relative_position: <a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;,
+    pub abs_descendants: <a class='type' href='../../layout/flow/type.AbsDescendants.html' title='layout::flow::AbsDescendants'>AbsDescendants</a>,
+    pub block_container_inline_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>,
+    pub block_container_writing_mode: <a class='struct' href='../../util/logical_geometry/struct.WritingMode.html' title='util::logical_geometry::WritingMode'>WritingMode</a>,
+    pub block_container_explicit_block_size: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;,
+    pub absolute_static_i_offset: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>,
+    pub fixed_static_i_offset: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>,
+    pub absolute_cb: <a class='struct' href='../../layout/flow/struct.ContainingBlockLink.html' title='layout::flow::ContainingBlockLink'>ContainingBlockLink</a>,
+    pub absolute_position_info: <a class='struct' href='../../layout/flow/struct.AbsolutePositionInfo.html' title='layout::flow::AbsolutePositionInfo'>AbsolutePositionInfo</a>,
+    pub clip: <a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>,
+    pub display_list_building_result: <a class='enum' href='../../layout/display_list_builder/enum.DisplayListBuildingResult.html' title='layout::display_list_builder::DisplayListBuildingResult'>DisplayListBuildingResult</a>,
+    pub writing_mode: <a class='struct' href='../../util/logical_geometry/struct.WritingMode.html' title='util::logical_geometry::WritingMode'>WritingMode</a>,
+    pub thread_id: <a href='../../std/primitive.u8.html'>u8</a>,
+    pub flags: <a class='struct' href='../../layout/flow/struct.FlowFlags.html' title='layout::flow::FlowFlags'>FlowFlags</a>,
+    // some fields omitted
+}</pre><div class='docblock'><p>Data common to all flows.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.restyle_damage'><a class='stability Unmarked' title='No stability level'></a><code>restyle_damage</code></td><td></td></tr><tr><td id='structfield.children'><a class='stability Unmarked' title='No stability level'></a><code>children</code></td><td><div class='docblock'><p>The children of this flow.</p>
+</div></td></tr><tr><td id='structfield.intrinsic_inline_sizes'><a class='stability Unmarked' title='No stability level'></a><code>intrinsic_inline_sizes</code></td><td><div class='docblock'><p>Intrinsic inline sizes for this flow.</p>
+</div></td></tr><tr><td id='structfield.position'><a class='stability Unmarked' title='No stability level'></a><code>position</code></td><td><div class='docblock'><p>The upper left corner of the box representing this flow, relative to the box representing
+its parent flow.</p>
+
+<p>For absolute flows, this represents the position with respect to its <em>containing block</em>.</p>
+
+<p>This does not include margins in the block flow direction, because those can collapse. So
+for the block direction (usually vertical), this represents the <em>border box</em>. For the
+inline direction (usually horizontal), this represents the <em>margin box</em>.</p>
+</div></td></tr><tr><td id='structfield.overflow'><a class='stability Unmarked' title='No stability level'></a><code>overflow</code></td><td><div class='docblock'><p>The amount of overflow of this flow, relative to the containing block. Must include all the
+pixels of all the display list items for correct invalidation.</p>
+</div></td></tr><tr><td id='structfield.parallel'><a class='stability Unmarked' title='No stability level'></a><code>parallel</code></td><td><div class='docblock'><p>Data used during parallel traversals.</p>
+
+<p>TODO(pcwalton): Group with other transient data to save space.</p>
+</div></td></tr><tr><td id='structfield.floats'><a class='stability Unmarked' title='No stability level'></a><code>floats</code></td><td><div class='docblock'><p>The floats next to this flow.</p>
+</div></td></tr><tr><td id='structfield.collapsible_margins'><a class='stability Unmarked' title='No stability level'></a><code>collapsible_margins</code></td><td><div class='docblock'><p>The collapsible margins for this flow, if any.</p>
+</div></td></tr><tr><td id='structfield.stacking_relative_position'><a class='stability Unmarked' title='No stability level'></a><code>stacking_relative_position</code></td><td><div class='docblock'><p>The position of this flow relative to the start of the nearest ancestor stacking context.
+This is computed during the top-down pass of display list construction.</p>
+</div></td></tr><tr><td id='structfield.abs_descendants'><a class='stability Unmarked' title='No stability level'></a><code>abs_descendants</code></td><td><div class='docblock'><p>Details about descendants with position &#39;absolute&#39; or &#39;fixed&#39; for which we are the
+containing block. This is in tree order. This includes any direct children.</p>
+</div></td></tr><tr><td id='structfield.block_container_inline_size'><a class='stability Unmarked' title='No stability level'></a><code>block_container_inline_size</code></td><td><div class='docblock'><p>The inline-size of the block container of this flow. Used for computing percentage and
+automatic values for <code>width</code>.</p>
+</div></td></tr><tr><td id='structfield.block_container_writing_mode'><a class='stability Unmarked' title='No stability level'></a><code>block_container_writing_mode</code></td><td><div class='docblock'><p>The writing mode of the block container of this flow.</p>
+
+<p>FIXME (mbrubeck): Combine this and block_container_inline_size and maybe
+block_container_explicit_block_size into a struct, to guarantee they are set at the same
+time?  Or just store a link to the containing block flow.</p>
+</div></td></tr><tr><td id='structfield.block_container_explicit_block_size'><a class='stability Unmarked' title='No stability level'></a><code>block_container_explicit_block_size</code></td><td><div class='docblock'><p>The block-size of the block container of this flow, if it is an explicit size (does not
+depend on content heights).  Used for computing percentage values for <code>height</code>.</p>
+</div></td></tr><tr><td id='structfield.absolute_static_i_offset'><a class='stability Unmarked' title='No stability level'></a><code>absolute_static_i_offset</code></td><td><div class='docblock'><p>Offset wrt the nearest positioned ancestor - aka the Containing Block
+for any absolutely positioned elements.</p>
+</div></td></tr><tr><td id='structfield.fixed_static_i_offset'><a class='stability Unmarked' title='No stability level'></a><code>fixed_static_i_offset</code></td><td><div class='docblock'><p>Offset wrt the Initial Containing Block.</p>
+</div></td></tr><tr><td id='structfield.absolute_cb'><a class='stability Unmarked' title='No stability level'></a><code>absolute_cb</code></td><td><div class='docblock'><p>Reference to the Containing Block, if this flow is absolutely positioned.</p>
+</div></td></tr><tr><td id='structfield.absolute_position_info'><a class='stability Unmarked' title='No stability level'></a><code>absolute_position_info</code></td><td><div class='docblock'><p>Information needed to compute absolute (i.e. viewport-relative) flow positions (not to be
+confused with absolutely-positioned flows).</p>
+
+<p>FIXME(pcwalton): Merge with <code>absolute_static_i_offset</code> and <code>fixed_static_i_offset</code> above?</p>
+</div></td></tr><tr><td id='structfield.clip'><a class='stability Unmarked' title='No stability level'></a><code>clip</code></td><td><div class='docblock'><p>The clipping region for this flow and its descendants, in layer coordinates.</p>
+</div></td></tr><tr><td id='structfield.display_list_building_result'><a class='stability Unmarked' title='No stability level'></a><code>display_list_building_result</code></td><td><div class='docblock'><p>The results of display list building for this flow.</p>
+</div></td></tr><tr><td id='structfield.writing_mode'><a class='stability Unmarked' title='No stability level'></a><code>writing_mode</code></td><td><div class='docblock'><p>The writing mode for this flow.</p>
+</div></td></tr><tr><td id='structfield.thread_id'><a class='stability Unmarked' title='No stability level'></a><code>thread_id</code></td><td><div class='docblock'><p>For debugging and profiling, the identifier of the thread that laid out this fragment.</p>
+</div></td></tr><tr><td id='structfield.flags'><a class='stability Unmarked' title='No stability level'></a><code>flags</code></td><td><div class='docblock'><p>Various flags for flows, tightly packed to save space.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../layout/flow/struct.BaseFlow.html' title='layout::flow::BaseFlow'>BaseFlow</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(node: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>&gt;, writing_mode: <a class='struct' href='../../util/logical_geometry/struct.WritingMode.html' title='util::logical_geometry::WritingMode'>WritingMode</a>, force_nonfloated: <a class='enum' href='../../layout/flow/enum.ForceNonfloatedFlag.html' title='layout::flow::ForceNonfloatedFlag'>ForceNonfloatedFlag</a>) -&gt; <a class='struct' href='../../layout/flow/struct.BaseFlow.html' title='layout::flow::BaseFlow'>BaseFlow</a></code></h4>
+<h4 id='method.child_iter' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.child_iter' class='fnname'>child_iter</a>&lt;'a&gt;(&amp;'a mut self) -&gt; <a class='struct' href='../../layout/flow_list/struct.MutFlowListIterator.html' title='layout::flow_list::MutFlowListIterator'>MutFlowListIterator</a>&lt;'a&gt;</code></h4>
+<h4 id='method.strong_ref_count' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.strong_ref_count' class='fnname'>strong_ref_count</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../core/atomic/struct.AtomicUsize.html' title='core::atomic::AtomicUsize'>AtomicUsize</a></code></h4>
+<h4 id='method.weak_ref_count' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.weak_ref_count' class='fnname'>weak_ref_count</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../core/atomic/struct.AtomicUsize.html' title='core::atomic::AtomicUsize'>AtomicUsize</a></code></h4>
+<h4 id='method.debug_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.debug_id' class='fnname'>debug_id</a>(&amp;self) -&gt; <a href='../../std/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.validate_display_list_geometry' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.validate_display_list_geometry' class='fnname'>validate_display_list_geometry</a>(&amp;self)</code></h4>
+<div class='docblock'><p>Ensures that all display list items generated by this flow are within the flow&#39;s overflow
+rect. This should only be used for debugging.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../../layout/flow/struct.BaseFlow.html' title='layout::flow::BaseFlow'>BaseFlow</a></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> for <a class='struct' href='../../layout/flow/struct.BaseFlow.html' title='layout::flow::BaseFlow'>BaseFlow</a></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../layout/flow/struct.BaseFlow.html' title='layout::flow::BaseFlow'>BaseFlow</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../rustc-serialize/serialize/trait.Encodable.html' title='rustc-serialize::serialize::Encodable'>Encodable</a> for <a class='struct' href='../../layout/flow/struct.BaseFlow.html' title='layout::flow::BaseFlow'>BaseFlow</a></code></h3><div class='impl-items'><h4 id='method.encode' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.encode' class='fnname'>encode</a>&lt;S: <a class='trait' href='../../rustc-serialize/serialize/trait.Encoder.html' title='rustc-serialize::serialize::Encoder'>Encoder</a>&gt;(&amp;self, e: &amp;mut S) -&gt; <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>, Error&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../layout/flow/struct.BaseFlow.html' title='layout::flow::BaseFlow'>BaseFlow</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

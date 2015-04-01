@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `utils` mod in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, utils">
+
+    <title>script::dom::bindings::utils - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a></p><script>window.sidebarCurrent = {name: 'utils', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a>::<wbr><a class='mod' href=''>utils</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-5549' href='../../../../src/script/dom/bindings/utils.rs.html#5-684'>[src]</a></span></h1>
+<div class='docblock'><p>Various utilities to glue JavaScript and the DOM implementation together.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ConstantSpec.html'
+                               title='script::dom::bindings::utils::ConstantSpec'>ConstantSpec</a></td>
+                        <td class='docblock short'><p>Representation of an IDL constant.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.DOMClass.html'
+                               title='script::dom::bindings::utils::DOMClass'>DOMClass</a></td>
+                        <td class='docblock short'><p>The struct that holds inheritance information for DOM object reflectors.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.DOMJSClass.html'
+                               title='script::dom::bindings::utils::DOMJSClass'>DOMJSClass</a></td>
+                        <td class='docblock short'><p>The JSClass used for DOM object reflectors.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.GlobalStaticData.html'
+                               title='script::dom::bindings::utils::GlobalStaticData'>GlobalStaticData</a></td>
+                        <td class='docblock short'><p>Static data associated with a global object.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.NativeProperties.html'
+                               title='script::dom::bindings::utils::NativeProperties'>NativeProperties</a></td>
+                        <td class='docblock short'><p>Contains references to lists of methods, attributes, and constants for a
+given interface.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.NativePropertyHooks.html'
+                               title='script::dom::bindings::utils::NativePropertyHooks'>NativePropertyHooks</a></td>
+                        <td class='docblock short'><p>Helper structure for cross-origin wrappers for DOM binding objects.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Reflector.html'
+                               title='script::dom::bindings::utils::Reflector'>Reflector</a></td>
+                        <td class='docblock short'><p>A struct to store a reference to the reflector of a DOM object.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.WindowProxyHandler.html'
+                               title='script::dom::bindings::utils::WindowProxyHandler'>WindowProxyHandler</a></td>
+                        <td class='docblock short'><p>Proxy handler for a WindowProxy.</p>
+</td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.ConstantVal.html'
+                               title='script::dom::bindings::utils::ConstantVal'>ConstantVal</a></td>
+                        <td class='docblock short'><p>Representation of an IDL constant value.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.XMLName.html'
+                               title='script::dom::bindings::utils::XMLName'>XMLName</a></td>
+                        <td class='docblock short'><p>Results of <code>xml_name_type</code>.</p>
+</td>
+                    </tr>
+                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.DOM_PROTOTYPE_SLOT.html'
+                               title='script::dom::bindings::utils::DOM_PROTOTYPE_SLOT'>DOM_PROTOTYPE_SLOT</a></td>
+                        <td class='docblock short'><p>The index of the slot that contains a reference to the ProtoOrIfaceArray.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='constant' href='constant.JSCLASS_DOM_GLOBAL.html'
+                               title='script::dom::bindings::utils::JSCLASS_DOM_GLOBAL'>JSCLASS_DOM_GLOBAL</a></td>
+                        <td class='docblock short'><p>The flag set on the <code>JSClass</code>es for DOM global objects.</p>
+</td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.Reflectable.html'
+                               title='script::dom::bindings::utils::Reflectable'>Reflectable</a></td>
+                        <td class='docblock short'><p>A trait to provide access to the <code>Reflector</code> for a DOM object.</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.create_dom_global.html'
+                               title='script::dom::bindings::utils::create_dom_global'>create_dom_global</a></td>
+                        <td class='docblock short'><p>Create a DOM global object with the given class.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.delete_property_by_id.html'
+                               title='script::dom::bindings::utils::delete_property_by_id'>delete_property_by_id</a></td>
+                        <td class='docblock short'><p>Deletes the property <code>id</code> from <code>object</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.do_create_interface_objects.html'
+                               title='script::dom::bindings::utils::do_create_interface_objects'>do_create_interface_objects</a></td>
+                        <td class='docblock short'><p>Creates the <em>interface prototype object</em> and the <em>interface object</em> (if
+needed).
+Fails on JSAPI failure.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.finalize_global.html'
+                               title='script::dom::bindings::utils::finalize_global'>finalize_global</a></td>
+                        <td class='docblock short'><p>Drop the resources held by reserved slots of a global object</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.find_enum_string_index.html'
+                               title='script::dom::bindings::utils::find_enum_string_index'>find_enum_string_index</a></td>
+                        <td class='docblock short'><p>Find the index of a string given by <code>v</code> in <code>values</code>.
+Returns <code>Err(())</code> on JSAPI failure (there is a pending exception), and
+<code>Ok(None)</code> if there was no matching string.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.get_array_index_from_id.html'
+                               title='script::dom::bindings::utils::get_array_index_from_id'>get_array_index_from_id</a></td>
+                        <td class='docblock short'><p>Get an array index from the given <code>jsid</code>. Returns <code>None</code> if the given
+<code>jsid</code> is not an integer.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.get_dictionary_property.html'
+                               title='script::dom::bindings::utils::get_dictionary_property'>get_dictionary_property</a></td>
+                        <td class='docblock short'><p>Get the property with name <code>property</code> from <code>object</code>.
+Returns <code>Err(())</code> on JSAPI failure (there is a pending exception), and
+<code>Ok(None)</code> if there was no property with the given name.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.get_property_on_prototype.html'
+                               title='script::dom::bindings::utils::get_property_on_prototype'>get_property_on_prototype</a></td>
+                        <td class='docblock short'><p>Gets the property <code>id</code> on  <code>proxy</code>&#39;s prototype. If it exists, <code>*found</code> is
+set to true and <code>*vp</code> to the value, otherwise <code>*found</code> is set to false.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.get_proto_or_iface_array.html'
+                               title='script::dom::bindings::utils::get_proto_or_iface_array'>get_proto_or_iface_array</a></td>
+                        <td class='docblock short'><p>Returns the ProtoOrIfaceArray for the given global object.
+Fails if <code>global</code> is not a DOM global object.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.has_property_on_prototype.html'
+                               title='script::dom::bindings::utils::has_property_on_prototype'>has_property_on_prototype</a></td>
+                        <td class='docblock short'><p>Returns whether <code>proxy</code> has a property <code>id</code> on its prototype.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.initialize_global.html'
+                               title='script::dom::bindings::utils::initialize_global'>initialize_global</a></td>
+                        <td class='docblock short'><p>Construct and cache the ProtoOrIfaceArray for the given global.
+Fails if the argument is not a DOM global.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.is_platform_object.html'
+                               title='script::dom::bindings::utils::is_platform_object'>is_platform_object</a></td>
+                        <td class='docblock short'><p>Returns wether <code>obj</code> is a platform object
+<a href="http://heycam.github.io/webidl/#dfn-platform-object">http://heycam.github.io/webidl/#dfn-platform-object</a></p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.outerize_global.html'
+                               title='script::dom::bindings::utils::outerize_global'>outerize_global</a></td>
+                        <td class='docblock short'><p>Callback to outerize windows.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.pre_wrap.html'
+                               title='script::dom::bindings::utils::pre_wrap'>pre_wrap</a></td>
+                        <td class='docblock short'><p>Callback to outerize windows before wrapping.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.reflect_dom_object.html'
+                               title='script::dom::bindings::utils::reflect_dom_object'>reflect_dom_object</a></td>
+                        <td class='docblock short'><p>Create the reflector for a new DOM object and yield ownership to the
+reflector.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.throwing_constructor.html'
+                               title='script::dom::bindings::utils::throwing_constructor'>throwing_constructor</a></td>
+                        <td class='docblock short'><p>A throwing constructor, for those interfaces that have neither
+<code>NoInterfaceObject</code> nor <code>Constructor</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.wrap_for_same_compartment.html'
+                               title='script::dom::bindings::utils::wrap_for_same_compartment'>wrap_for_same_compartment</a></td>
+                        <td class='docblock short'><p>Callback to outerize windows when wrapping.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.xml_name_type.html'
+                               title='script::dom::bindings::utils::xml_name_type'>xml_name_type</a></td>
+                        <td class='docblock short'><p>Check if an element name is valid. See <a href="http://www.w3.org/TR/xml/#NT-Name">http://www.w3.org/TR/xml/#NT-Name</a>
+for details.</p>
+</td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='type' href='type.NonNullJSNative.html'
+                               title='script::dom::bindings::utils::NonNullJSNative'>NonNullJSNative</a></td>
+                        <td class='docblock short'><p>A JSNative that cannot be null.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

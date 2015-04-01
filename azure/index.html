@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `azure` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, azure">
+
+    <title>azure - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'azure', ty: 'mod', relpath: '../'};</script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>azure</a><wbr></span><span class='out-of-band'><a href='stability.html'>[stability]</a> <span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-0' href='../src/azure/lib.rs.html#5-82'>[src]</a></span></h1>
+<h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use azure::{<a class='type' href='../azure/azure/type.AzFontOptions.html' title='azure::azure::AzFontOptions'>AzFontOptions</a>, <a class='type' href='../azure/azure/type.AzFloat.html' title='azure::azure::AzFloat'>AzFloat</a>, <a class='type' href='../azure/azure/type.enum_AzSurfaceType.html' title='azure::azure::enum_AzSurfaceType'>enum_AzSurfaceType</a>, AZ_SURFACE_DATA, AZ_SURFACE_D2D1_BITMAP, AZ_SURFACE_D2D1_DRAWTARGET, AZ_SURFACE_CAIRO, AZ_SURFACE_CAIRO_IMAGE, AZ_SURFACE_COREGRAPHICS_IMAGE, AZ_SURFACE_COREGRAPHICS_CGCONTEXT, AZ_SURFACE_SKIA, AZ_SURFACE_DUAL_DT, <a class='type' href='../azure/azure/type.enum_AzSurfaceFormat.html' title='azure::azure::enum_AzSurfaceFormat'>enum_AzSurfaceFormat</a>, AZ_FORMAT_B8G8R8A8, AZ_FORMAT_B8G8R8X8, AZ_FORMAT_R5G6B5, AZ_FORMAT_A8, <a class='type' href='../azure/azure/type.AzSurfaceFormat.html' title='azure::azure::AzSurfaceFormat'>AzSurfaceFormat</a>, <a class='type' href='../azure/azure/type.enum_AzBackendType.html' title='azure::azure::enum_AzBackendType'>enum_AzBackendType</a>, AZ_BACKEND_NONE, AZ_BACKEND_DIRECT2D, AZ_BACKEND_COREGRAPHICS, AZ_BACKEND_COREGRAPHICS_ACCELERATED, AZ_BACKEND_CAIRO, AZ_BACKEND_SKIA, AZ_BACKEND_RECORDING, <a class='type' href='../azure/azure/type.AzBackendType.html' title='azure::azure::AzBackendType'>AzBackendType</a>, <a class='type' href='../azure/azure/type.enum_AzFontType.html' title='azure::azure::enum_AzFontType'>enum_AzFontType</a>, AZ_FONT_DWRITE, AZ_FONT_GDI, AZ_FONT_MAC, AZ_FONT_SKIA, AZ_FONT_CAIRO, AZ_FONT_COREGRAPHICS, <a class='type' href='../azure/azure/type.enum_AzNativeSurfaceType.html' title='azure::azure::enum_AzNativeSurfaceType'>enum_AzNativeSurfaceType</a>, AZ_NATIVE_SURFACE_D3D10_TEXTURE, AZ_NATIVE_SURFACE_CAIRO_SURFACE, AZ_NATIVE_SURFACE_CGCONTEXT, <a class='type' href='../azure/azure/type.enum_AzNativeFontType.html' title='azure::azure::enum_AzNativeFontType'>enum_AzNativeFontType</a>, AZ_NATIVE_FONT_DWRITE_FONT_FACE, AZ_NATIVE_FONT_GDI_FONT_FACE, AZ_NATIVE_FONT_MAC_FONT_FACE, AZ_NATIVE_FONT_SKIA_FONT_FACE, AZ_NATIVE_FONT_CAIRO_FONT_FACE, <a class='type' href='../azure/azure/type.enum_AzFontStyle.html' title='azure::azure::enum_AzFontStyle'>enum_AzFontStyle</a>, AZ_FONT_STYLE_NORMAL, AZ_FONT_STYLE_ITALIC, AZ_FONT_STYLE_BOLD, AZ_FONT_STYLE_BOLD_ITALIC, <a class='type' href='../azure/azure/type.enum_AzCompositionOp.html' title='azure::azure::enum_AzCompositionOp'>enum_AzCompositionOp</a>, AZ_OP_OVER, AZ_OP_ADD, AZ_OP_ATOP, AZ_OP_OUT, AZ_OP_IN, AZ_OP_SOURCE, AZ_OP_DEST_IN, AZ_OP_DEST_OUT, AZ_OP_DEST_OVER, AZ_OP_DEST_ATOP, AZ_OP_XOR, AZ_OP_MULTIPLY, AZ_OP_SCREEN, AZ_OP_OVERLAY, AZ_OP_DARKEN, AZ_OP_LIGHTEN, AZ_OP_COLOR_DODGE, AZ_OP_COLOR_BURN, AZ_OP_HARD_LIGHT, AZ_OP_SOFT_LIGHT, AZ_OP_DIFFERENCE, AZ_OP_EXCLUSION, AZ_OP_HUE, AZ_OP_SATURATION, AZ_OP_COLOR, AZ_OP_LUMINOSITY, AZ_OP_COUNT, <a class='type' href='../azure/azure/type.enum_AzExtendMode.html' title='azure::azure::enum_AzExtendMode'>enum_AzExtendMode</a>, AZ_EXTEND_CLAMP, AZ_EXTEND_REPEAT, AZ_EXTEND_REFLECT, <a class='type' href='../azure/azure/type.enum_AzFillRule.html' title='azure::azure::enum_AzFillRule'>enum_AzFillRule</a>, AZ_FILL_WINDING, AZ_FILL_EVEN_ODD, <a class='type' href='../azure/azure/type.enum_AzAntialiasMode.html' title='azure::azure::enum_AzAntialiasMode'>enum_AzAntialiasMode</a>, AZ_AA_NONE, AZ_AA_GRAY, AZ_AA_SUBPIXEL, <a class='type' href='../azure/azure/type.enum_AzFilter.html' title='azure::azure::enum_AzFilter'>enum_AzFilter</a>, AZ_FILTER_LINEAR, AZ_FILTER_POINT, <a class='type' href='../azure/azure/type.AzFilter.html' title='azure::azure::AzFilter'>AzFilter</a>, <a class='type' href='../azure/azure/type.enum_AzPatternType.html' title='azure::azure::enum_AzPatternType'>enum_AzPatternType</a>, AZ_PATTERN_COLOR, AZ_PATTERN_SURFACE, AZ_PATTERN_LINEAR_GRADIENT, AZ_PATTERN_RADIAL_GRADIENT, <a class='type' href='../azure/azure/type.enum_AzJoinStyle.html' title='azure::azure::enum_AzJoinStyle'>enum_AzJoinStyle</a>, AZ_JOIN_BEVEL, AZ_JOIN_ROUND, AZ_JOIN_MITER, AZ_JOIN_MITER_OR_BEVEL, <a class='type' href='../azure/azure/type.enum_AzCapStyle.html' title='azure::azure::enum_AzCapStyle'>enum_AzCapStyle</a>, AZ_CAP_BUTT, AZ_CAP_ROUND, AZ_CAP_SQUARE, <a class='type' href='../azure/azure/type.enum_AzSamplingBounds.html' title='azure::azure::enum_AzSamplingBounds'>enum_AzSamplingBounds</a>, AZ_SAMPLING_UNBOUNDED, AZ_SAMPLING_BOUNDED, <a class='type' href='../azure/azure/type.enum_AzSide.html' title='azure::azure::enum_AzSide'>enum_AzSide</a>, AZ_eSideTop, AZ_eSideRight, AZ_eSideBottom, AZ_eSideLeft, <a class='struct' href='../azure/azure/struct.struct__AzColor.html' title='azure::azure::struct__AzColor'>struct__AzColor</a>, <a class='type' href='../azure/azure/type.AzColor.html' title='azure::azure::AzColor'>AzColor</a>, <a class='struct' href='../azure/azure/struct.struct__AzGradientStop.html' title='azure::azure::struct__AzGradientStop'>struct__AzGradientStop</a>, <a class='type' href='../azure/azure/type.AzGradientStop.html' title='azure::azure::AzGradientStop'>AzGradientStop</a>, <a class='struct' href='../azure/azure/struct.struct__AzIntRect.html' title='azure::azure::struct__AzIntRect'>struct__AzIntRect</a>, <a class='type' href='../azure/azure/type.AzIntRect.html' title='azure::azure::AzIntRect'>AzIntRect</a>, <a class='struct' href='../azure/azure/struct.struct__AzRect.html' title='azure::azure::struct__AzRect'>struct__AzRect</a>, <a class='type' href='../azure/azure/type.AzRect.html' title='azure::azure::AzRect'>AzRect</a>, <a class='struct' href='../azure/azure/struct.struct__AzIntPoint.html' title='azure::azure::struct__AzIntPoint'>struct__AzIntPoint</a>, <a class='type' href='../azure/azure/type.AzIntPoint.html' title='azure::azure::AzIntPoint'>AzIntPoint</a>, <a class='struct' href='../azure/azure/struct.struct__AzPoint.html' title='azure::azure::struct__AzPoint'>struct__AzPoint</a>, <a class='type' href='../azure/azure/type.AzPoint.html' title='azure::azure::AzPoint'>AzPoint</a>, <a class='struct' href='../azure/azure/struct.struct__AzIntSize.html' title='azure::azure::struct__AzIntSize'>struct__AzIntSize</a>, <a class='type' href='../azure/azure/type.AzIntSize.html' title='azure::azure::AzIntSize'>AzIntSize</a>, <a class='struct' href='../azure/azure/struct.struct__AzSize.html' title='azure::azure::struct__AzSize'>struct__AzSize</a>, <a class='type' href='../azure/azure/type.AzSize.html' title='azure::azure::AzSize'>AzSize</a>, <a class='struct' href='../azure/azure/struct.struct__AzMatrix.html' title='azure::azure::struct__AzMatrix'>struct__AzMatrix</a>, <a class='type' href='../azure/azure/type.AzMatrix.html' title='azure::azure::AzMatrix'>AzMatrix</a>, <a class='struct' href='../azure/azure/struct.struct__AzDrawOptions.html' title='azure::azure::struct__AzDrawOptions'>struct__AzDrawOptions</a>, <a class='type' href='../azure/azure/type.AzDrawOptions.html' title='azure::azure::AzDrawOptions'>AzDrawOptions</a>, <a class='struct' href='../azure/azure/struct.struct__AzStrokeOptions.html' title='azure::azure::struct__AzStrokeOptions'>struct__AzStrokeOptions</a>, <a class='type' href='../azure/azure/type.AzStrokeOptions.html' title='azure::azure::AzStrokeOptions'>AzStrokeOptions</a>, <a class='struct' href='../azure/azure/struct.struct__AzDrawSurfaceOptions.html' title='azure::azure::struct__AzDrawSurfaceOptions'>struct__AzDrawSurfaceOptions</a>, <a class='type' href='../azure/azure/type.AzDrawSurfaceOptions.html' title='azure::azure::AzDrawSurfaceOptions'>AzDrawSurfaceOptions</a>, <a class='struct' href='../azure/azure/struct.struct__AzGlyph.html' title='azure::azure::struct__AzGlyph'>struct__AzGlyph</a>, <a class='type' href='../azure/azure/type.AzGlyph.html' title='azure::azure::AzGlyph'>AzGlyph</a>, <a class='struct' href='../azure/azure/struct.struct__AzGlyphBuffer.html' title='azure::azure::struct__AzGlyphBuffer'>struct__AzGlyphBuffer</a>, <a class='type' href='../azure/azure/type.AzGlyphBuffer.html' title='azure::azure::AzGlyphBuffer'>AzGlyphBuffer</a>, <a class='struct' href='../azure/azure/struct.struct__AzNativeFont.html' title='azure::azure::struct__AzNativeFont'>struct__AzNativeFont</a>, <a class='type' href='../azure/azure/type.AzNativeFont.html' title='azure::azure::AzNativeFont'>AzNativeFont</a>, <a class='type' href='../azure/azure/type.AzGradientStopsRef.html' title='azure::azure::AzGradientStopsRef'>AzGradientStopsRef</a>, <a class='type' href='../azure/azure/type.AzDrawTargetRef.html' title='azure::azure::AzDrawTargetRef'>AzDrawTargetRef</a>, <a class='type' href='../azure/azure/type.AzPatternRef.html' title='azure::azure::AzPatternRef'>AzPatternRef</a>, <a class='type' href='../azure/azure/type.AzColorPatternRef.html' title='azure::azure::AzColorPatternRef'>AzColorPatternRef</a>, <a class='type' href='../azure/azure/type.AzScaledFontRef.html' title='azure::azure::AzScaledFontRef'>AzScaledFontRef</a>, <a class='type' href='../azure/azure/type.AzGlyphRenderingOptionsRef.html' title='azure::azure::AzGlyphRenderingOptionsRef'>AzGlyphRenderingOptionsRef</a>, <a class='type' href='../azure/azure/type.AzSourceSurfaceRef.html' title='azure::azure::AzSourceSurfaceRef'>AzSourceSurfaceRef</a>, <a class='type' href='../azure/azure/type.AzDataSourceSurfaceRef.html' title='azure::azure::AzDataSourceSurfaceRef'>AzDataSourceSurfaceRef</a>, <a class='type' href='../azure/azure/type.AzDrawSurfaceOptionsRef.html' title='azure::azure::AzDrawSurfaceOptionsRef'>AzDrawSurfaceOptionsRef</a>, <a class='type' href='../azure/azure/type.AzGLContext.html' title='azure::azure::AzGLContext'>AzGLContext</a>, <a class='type' href='../azure/azure/type.AzGLContextMetadataRef.html' title='azure::azure::AzGLContextMetadataRef'>AzGLContextMetadataRef</a>, <a class='type' href='../azure/azure/type.AzPathRef.html' title='azure::azure::AzPathRef'>AzPathRef</a>, <a class='type' href='../azure/azure/type.AzPathBuilderRef.html' title='azure::azure::AzPathBuilderRef'>AzPathBuilderRef</a>, <a class='fn' href='../azure/azure/fn.AzSanityCheck.html' title='azure::azure::AzSanityCheck'>AzSanityCheck</a>, <a class='fn' href='../azure/azure/fn.AzCreateColorPattern.html' title='azure::azure::AzCreateColorPattern'>AzCreateColorPattern</a>, <a class='fn' href='../azure/azure/fn.AzCreateDrawTarget.html' title='azure::azure::AzCreateDrawTarget'>AzCreateDrawTarget</a>, <a class='fn' href='../azure/azure/fn.AzCreateDrawTargetForData.html' title='azure::azure::AzCreateDrawTargetForData'>AzCreateDrawTargetForData</a>, <a class='fn' href='../azure/azure/fn.AzCreateDrawTargetSkiaWithGrContextAndFBO.html' title='azure::azure::AzCreateDrawTargetSkiaWithGrContextAndFBO'>AzCreateDrawTargetSkiaWithGrContextAndFBO</a>, <a class='fn' href='../azure/azure/fn.AzRetainDrawTarget.html' title='azure::azure::AzRetainDrawTarget'>AzRetainDrawTarget</a>, <a class='fn' href='../azure/azure/fn.AzReleaseDrawTarget.html' title='azure::azure::AzReleaseDrawTarget'>AzReleaseDrawTarget</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetGetSize.html' title='azure::azure::AzDrawTargetGetSize'>AzDrawTargetGetSize</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetFlush.html' title='azure::azure::AzDrawTargetFlush'>AzDrawTargetFlush</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetClearRect.html' title='azure::azure::AzDrawTargetClearRect'>AzDrawTargetClearRect</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetFillRect.html' title='azure::azure::AzDrawTargetFillRect'>AzDrawTargetFillRect</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetStrokeRect.html' title='azure::azure::AzDrawTargetStrokeRect'>AzDrawTargetStrokeRect</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetStrokeLine.html' title='azure::azure::AzDrawTargetStrokeLine'>AzDrawTargetStrokeLine</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetFill.html' title='azure::azure::AzDrawTargetFill'>AzDrawTargetFill</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetStroke.html' title='azure::azure::AzDrawTargetStroke'>AzDrawTargetStroke</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetPushClip.html' title='azure::azure::AzDrawTargetPushClip'>AzDrawTargetPushClip</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetPopClip.html' title='azure::azure::AzDrawTargetPopClip'>AzDrawTargetPopClip</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetFillGlyphs.html' title='azure::azure::AzDrawTargetFillGlyphs'>AzDrawTargetFillGlyphs</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetDrawSurface.html' title='azure::azure::AzDrawTargetDrawSurface'>AzDrawTargetDrawSurface</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetGetSnapshot.html' title='azure::azure::AzDrawTargetGetSnapshot'>AzDrawTargetGetSnapshot</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetCreateSourceSurfaceFromData.html' title='azure::azure::AzDrawTargetCreateSourceSurfaceFromData'>AzDrawTargetCreateSourceSurfaceFromData</a>, <a class='fn' href='../azure/azure/fn.AzReleaseSourceSurface.html' title='azure::azure::AzReleaseSourceSurface'>AzReleaseSourceSurface</a>, <a class='fn' href='../azure/azure/fn.AzSourceSurfaceGetSize.html' title='azure::azure::AzSourceSurfaceGetSize'>AzSourceSurfaceGetSize</a>, <a class='fn' href='../azure/azure/fn.AzSourceSurfaceGetFormat.html' title='azure::azure::AzSourceSurfaceGetFormat'>AzSourceSurfaceGetFormat</a>, <a class='fn' href='../azure/azure/fn.AzSourceSurfaceGetDataSurface.html' title='azure::azure::AzSourceSurfaceGetDataSurface'>AzSourceSurfaceGetDataSurface</a>, <a class='fn' href='../azure/azure/fn.AzDataSourceSurfaceGetData.html' title='azure::azure::AzDataSourceSurfaceGetData'>AzDataSourceSurfaceGetData</a>, <a class='fn' href='../azure/azure/fn.AzDataSourceSurfaceGetStride.html' title='azure::azure::AzDataSourceSurfaceGetStride'>AzDataSourceSurfaceGetStride</a>, <a class='fn' href='../azure/azure/fn.AzCreateScaledFontForNativeFont.html' title='azure::azure::AzCreateScaledFontForNativeFont'>AzCreateScaledFontForNativeFont</a>, <a class='fn' href='../azure/azure/fn.AzReleaseScaledFont.html' title='azure::azure::AzReleaseScaledFont'>AzReleaseScaledFont</a>, <a class='fn' href='../azure/azure/fn.AzDrawTargetSetTransform.html' title='azure::azure::AzDrawTargetSetTransform'>AzDrawTargetSetTransform</a>, <a class='fn' href='../azure/azure/fn.AzCreateFontOptionsForName.html' title='azure::azure::AzCreateFontOptionsForName'>AzCreateFontOptionsForName</a>, <a class='fn' href='../azure/azure/fn.AzDestroyFontOptions.html' title='azure::azure::AzDestroyFontOptions'>AzDestroyFontOptions</a>, <a class='fn' href='../azure/azure/fn.AzCreatePathBuilder.html' title='azure::azure::AzCreatePathBuilder'>AzCreatePathBuilder</a>, <a class='fn' href='../azure/azure/fn.AzReleasePathBuilder.html' title='azure::azure::AzReleasePathBuilder'>AzReleasePathBuilder</a>, <a class='fn' href='../azure/azure/fn.AzPathBuilderMoveTo.html' title='azure::azure::AzPathBuilderMoveTo'>AzPathBuilderMoveTo</a>, <a class='fn' href='../azure/azure/fn.AzPathBuilderLineTo.html' title='azure::azure::AzPathBuilderLineTo'>AzPathBuilderLineTo</a>, <a class='fn' href='../azure/azure/fn.AzPathBuilderFinish.html' title='azure::azure::AzPathBuilderFinish'>AzPathBuilderFinish</a>, <a class='fn' href='../azure/azure/fn.AzReleasePath.html' title='azure::azure::AzReleasePath'>AzReleasePath</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='azure/index.html'
+                               title='azure::azure'>azure</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='azure_hl/index.html'
+                               title='azure::azure_hl'>azure_hl</a></td>
+                        <td class='docblock short'><p>High-level bindings to Azure.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='scaled_font/index.html'
+                               title='azure::scaled_font'>scaled_font</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "azure";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

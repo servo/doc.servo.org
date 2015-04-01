@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Request` struct in crate `net`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Request">
+
+    <title>net::fetch::request::Request - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>net</a>::<wbr><a href='../index.html'>fetch</a>::<wbr><a href='index.html'>request</a></p><script>window.sidebarCurrent = {name: 'Request', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>net</a>::<wbr><a href='../index.html'>fetch</a>::<wbr><a href='index.html'>request</a>::<wbr><a class='struct' href=''>Request</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-25760' href='../../../src/net/fetch/request.rs.html#65-90'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Request {
+    pub method: <a class='enum' href='../../../hyper/method/enum.Method.html' title='hyper::method::Method'>Method</a>,
+    pub url: <a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a>,
+    pub headers: <a class='struct' href='../../../hyper/header/struct.Headers.html' title='hyper::header::Headers'>Headers</a>,
+    pub unsafe_request: <a href='../../../std/primitive.bool.html'>bool</a>,
+    pub body: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='../../../std/primitive.u8.html'>u8</a>&gt;&gt;,
+    pub preserve_content_codings: <a href='../../../std/primitive.bool.html'>bool</a>,
+    pub skip_service_worker: <a href='../../../std/primitive.bool.html'>bool</a>,
+    pub context: <a class='enum' href='../../../net/fetch/request/enum.Context.html' title='net::fetch::request::Context'>Context</a>,
+    pub context_frame_type: <a class='enum' href='../../../net/fetch/request/enum.ContextFrameType.html' title='net::fetch::request::ContextFrameType'>ContextFrameType</a>,
+    pub origin: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a>&gt;,
+    pub force_origin_header: <a href='../../../std/primitive.bool.html'>bool</a>,
+    pub same_origin_data: <a href='../../../std/primitive.bool.html'>bool</a>,
+    pub referer: <a class='enum' href='../../../net/fetch/request/enum.Referer.html' title='net::fetch::request::Referer'>Referer</a>,
+    pub authentication: <a href='../../../std/primitive.bool.html'>bool</a>,
+    pub sync: <a href='../../../std/primitive.bool.html'>bool</a>,
+    pub mode: <a class='enum' href='../../../net/fetch/request/enum.RequestMode.html' title='net::fetch::request::RequestMode'>RequestMode</a>,
+    pub credentials_mode: <a class='enum' href='../../../net/fetch/request/enum.CredentialsMode.html' title='net::fetch::request::CredentialsMode'>CredentialsMode</a>,
+    pub use_url_credentials: <a href='../../../std/primitive.bool.html'>bool</a>,
+    pub manual_redirect: <a href='../../../std/primitive.bool.html'>bool</a>,
+    pub redirect_count: <a href='../../../std/primitive.usize.html'>usize</a>,
+    pub response_tainting: <a class='enum' href='../../../net/fetch/request/enum.ResponseTainting.html' title='net::fetch::request::ResponseTainting'>ResponseTainting</a>,
+    pub cache: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='trait' href='../../../net/fetch/cors_cache/trait.CORSCache.html' title='net::fetch::cors_cache::CORSCache'>CORSCache</a> + 'static&gt;&gt;,
+}</pre><div class='docblock'><p>A <a href="http://fetch.spec.whatwg.org/#requests">Request</a> as defined by the Fetch spec</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.method'><a class='stability Unmarked' title='No stability level'></a><code>method</code></td><td></td></tr><tr><td id='structfield.url'><a class='stability Unmarked' title='No stability level'></a><code>url</code></td><td></td></tr><tr><td id='structfield.headers'><a class='stability Unmarked' title='No stability level'></a><code>headers</code></td><td></td></tr><tr><td id='structfield.unsafe_request'><a class='stability Unmarked' title='No stability level'></a><code>unsafe_request</code></td><td></td></tr><tr><td id='structfield.body'><a class='stability Unmarked' title='No stability level'></a><code>body</code></td><td></td></tr><tr><td id='structfield.preserve_content_codings'><a class='stability Unmarked' title='No stability level'></a><code>preserve_content_codings</code></td><td></td></tr><tr><td id='structfield.skip_service_worker'><a class='stability Unmarked' title='No stability level'></a><code>skip_service_worker</code></td><td></td></tr><tr><td id='structfield.context'><a class='stability Unmarked' title='No stability level'></a><code>context</code></td><td></td></tr><tr><td id='structfield.context_frame_type'><a class='stability Unmarked' title='No stability level'></a><code>context_frame_type</code></td><td></td></tr><tr><td id='structfield.origin'><a class='stability Unmarked' title='No stability level'></a><code>origin</code></td><td></td></tr><tr><td id='structfield.force_origin_header'><a class='stability Unmarked' title='No stability level'></a><code>force_origin_header</code></td><td></td></tr><tr><td id='structfield.same_origin_data'><a class='stability Unmarked' title='No stability level'></a><code>same_origin_data</code></td><td></td></tr><tr><td id='structfield.referer'><a class='stability Unmarked' title='No stability level'></a><code>referer</code></td><td></td></tr><tr><td id='structfield.authentication'><a class='stability Unmarked' title='No stability level'></a><code>authentication</code></td><td></td></tr><tr><td id='structfield.sync'><a class='stability Unmarked' title='No stability level'></a><code>sync</code></td><td></td></tr><tr><td id='structfield.mode'><a class='stability Unmarked' title='No stability level'></a><code>mode</code></td><td></td></tr><tr><td id='structfield.credentials_mode'><a class='stability Unmarked' title='No stability level'></a><code>credentials_mode</code></td><td></td></tr><tr><td id='structfield.use_url_credentials'><a class='stability Unmarked' title='No stability level'></a><code>use_url_credentials</code></td><td></td></tr><tr><td id='structfield.manual_redirect'><a class='stability Unmarked' title='No stability level'></a><code>manual_redirect</code></td><td></td></tr><tr><td id='structfield.redirect_count'><a class='stability Unmarked' title='No stability level'></a><code>redirect_count</code></td><td></td></tr><tr><td id='structfield.response_tainting'><a class='stability Unmarked' title='No stability level'></a><code>response_tainting</code></td><td></td></tr><tr><td id='structfield.cache'><a class='stability Unmarked' title='No stability level'></a><code>cache</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../../net/fetch/request/struct.Request.html' title='net::fetch::request::Request'>Request</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(url: <a class='struct' href='../../../url/struct.Url.html' title='url::Url'>Url</a>, context: <a class='enum' href='../../../net/fetch/request/enum.Context.html' title='net::fetch::request::Context'>Context</a>) -&gt; <a class='struct' href='../../../net/fetch/request/struct.Request.html' title='net::fetch::request::Request'>Request</a></code></h4>
+<h4 id='method.basic_fetch' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.basic_fetch' class='fnname'>basic_fetch</a>(&amp;mut self) -&gt; <a class='struct' href='../../../net/fetch/response/struct.Response.html' title='net::fetch::response::Response'>Response</a></code></h4>
+<div class='docblock'><p><a href="http://fetch.spec.whatwg.org#basic-fetch">Basic fetch</a></p>
+</div><h4 id='method.http_fetch' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.http_fetch' class='fnname'>http_fetch</a>(&amp;mut self, _cors_flag: <a href='../../../std/primitive.bool.html'>bool</a>, cors_preflight_flag: <a href='../../../std/primitive.bool.html'>bool</a>, _authentication_fetch_flag: <a href='../../../std/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../../../net/fetch/response/struct.Response.html' title='net::fetch::response::Response'>Response</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "net";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

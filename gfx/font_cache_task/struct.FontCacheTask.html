@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `FontCacheTask` struct in crate `gfx`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, FontCacheTask">
+
+    <title>gfx::font_cache_task::FontCacheTask - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>gfx</a>::<wbr><a href='index.html'>font_cache_task</a></p><script>window.sidebarCurrent = {name: 'FontCacheTask', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>gfx</a>::<wbr><a href='index.html'>font_cache_task</a>::<wbr><a class='struct' href=''>FontCacheTask</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-17429' href='../../src/gfx/font_cache_task.rs.html#253-255'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct FontCacheTask {
+    // some fields omitted
+}</pre><div class='docblock'><p>The public interface to the font cache task, used exclusively by
+the per-thread/task FontContext structures.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../gfx/font_cache_task/struct.FontCacheTask.html' title='gfx::font_cache_task::FontCacheTask'>FontCacheTask</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(resource_task: <a class='type' href='../../net/resource_task/type.ResourceTask.html' title='net::resource_task::ResourceTask'>ResourceTask</a>) -&gt; <a class='struct' href='../../gfx/font_cache_task/struct.FontCacheTask.html' title='gfx::font_cache_task::FontCacheTask'>FontCacheTask</a></code></h4>
+<h4 id='method.get_font_template' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_font_template' class='fnname'>get_font_template</a>(&amp;self, family: <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>, desc: <a class='struct' href='../../gfx/font_template/struct.FontTemplateDescriptor.html' title='gfx::font_template::FontTemplateDescriptor'>FontTemplateDescriptor</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../gfx/platform/freetype/font_template/struct.FontTemplateData.html' title='gfx::platform::freetype::font_template::FontTemplateData'>FontTemplateData</a>&gt;&gt;</code></h4>
+<h4 id='method.get_last_resort_font_template' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_last_resort_font_template' class='fnname'>get_last_resort_font_template</a>(&amp;self, desc: <a class='struct' href='../../gfx/font_template/struct.FontTemplateDescriptor.html' title='gfx::font_template::FontTemplateDescriptor'>FontTemplateDescriptor</a>) -&gt; <a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../gfx/platform/freetype/font_template/struct.FontTemplateData.html' title='gfx::platform::freetype::font_template::FontTemplateData'>FontTemplateData</a>&gt;</code></h4>
+<h4 id='method.add_web_font' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.add_web_font' class='fnname'>add_web_font</a>(&amp;self, family: <a class='struct' href='../../collections/string/struct.String.html' title='collections::string::String'>String</a>, src: <a class='enum' href='../../style/font_face/enum.Source.html' title='style::font_face::Source'>Source</a>)</code></h4>
+<h4 id='method.exit' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.exit' class='fnname'>exit</a>(&amp;self)</code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../gfx/font_cache_task/struct.FontCacheTask.html' title='gfx::font_cache_task::FontCacheTask'>FontCacheTask</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../gfx/font_cache_task/struct.FontCacheTask.html' title='gfx::font_cache_task::FontCacheTask'>FontCacheTask</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "gfx";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

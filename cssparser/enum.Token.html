@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Token` enum in crate `cssparser`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Token">
+
+    <title>cssparser::Token - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>cssparser</a></p><script>window.sidebarCurrent = {name: 'Token', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>cssparser</a>::<wbr><a class='enum' href=''>Token</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-1301' href='../src/cssparser/tokenizer.rs.html#23-158'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum Token&lt;'a&gt; {
+    Ident(<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='../std/primitive.str.html'>str</a>&gt;),
+    AtKeyword(<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='../std/primitive.str.html'>str</a>&gt;),
+    Hash(<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='../std/primitive.str.html'>str</a>&gt;),
+    IDHash(<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='../std/primitive.str.html'>str</a>&gt;),
+    QuotedString(<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='../std/primitive.str.html'>str</a>&gt;),
+    Url(<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='../std/primitive.str.html'>str</a>&gt;),
+    Delim(<a href='../std/primitive.char.html'>char</a>),
+    Number(<a class='struct' href='../cssparser/struct.NumericValue.html' title='cssparser::NumericValue'>NumericValue</a>),
+    Percentage(<a class='struct' href='../cssparser/struct.PercentageValue.html' title='cssparser::PercentageValue'>PercentageValue</a>),
+    Dimension(<a class='struct' href='../cssparser/struct.NumericValue.html' title='cssparser::NumericValue'>NumericValue</a>, <a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='../std/primitive.str.html'>str</a>&gt;),
+    UnicodeRange(<a href='../std/primitive.u32.html'>u32</a>, <a href='../std/primitive.u32.html'>u32</a>),
+    WhiteSpace(&amp;'a <a href='../std/primitive.str.html'>str</a>),
+    Comment(&amp;'a <a href='../std/primitive.str.html'>str</a>),
+    Colon,
+    Semicolon,
+    Comma,
+    IncludeMatch,
+    DashMatch,
+    PrefixMatch,
+    SuffixMatch,
+    SubstringMatch,
+    Column,
+    CDO,
+    CDC,
+    Function(<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='../std/primitive.str.html'>str</a>&gt;),
+    ParenthesisBlock,
+    SquareBracketBlock,
+    CurlyBracketBlock,
+    BadUrl,
+    BadString,
+    CloseParenthesis,
+    CloseSquareBracket,
+    CloseCurlyBracket,
+}</pre><div class='docblock'><p>One of the pieces the CSS input is broken into.</p>
+
+<p>Some components use <code>CowString</code> in order to borrow from the original input string
+and avoid allocating/copying when possible.</p>
+</div><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.Ident'><a class='stability Unmarked' title='No stability level'></a><code>Ident</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#ident-token-diagram"><code>&lt;ident-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.AtKeyword'><a class='stability Unmarked' title='No stability level'></a><code>AtKeyword</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#at-keyword-token-diagram"><code>&lt;at-keyword-token&gt;</code></a></p>
+
+<p>The value does not include the <code>@</code> marker.</p>
+</div></td></tr><tr><td id='variant.Hash'><a class='stability Unmarked' title='No stability level'></a><code>Hash</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#hash-token-diagram"><code>&lt;hash-token&gt;</code></a> with the type flag set to &quot;unrestricted&quot;</p>
+
+<p>The value does not include the <code>#</code> marker.</p>
+</div></td></tr><tr><td id='variant.IDHash'><a class='stability Unmarked' title='No stability level'></a><code>IDHash</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#hash-token-diagram"><code>&lt;hash-token&gt;</code></a> with the type flag set to &quot;id&quot;</p>
+
+<p>The value does not include the <code>#</code> marker.</p>
+</div></td></tr><tr><td id='variant.QuotedString'><a class='stability Unmarked' title='No stability level'></a><code>QuotedString</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#string-token-diagram"><code>&lt;string-token&gt;</code></a></p>
+
+<p>The value does not include the quotes.</p>
+</div></td></tr><tr><td id='variant.Url'><a class='stability Unmarked' title='No stability level'></a><code>Url</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#url-token-diagram"><code>&lt;url-token&gt;</code></a> or <code>url( &lt;string-token&gt; )</code> function</p>
+
+<p>The value does not include the <code>url(</code> <code>)</code> markers or the quotes.</p>
+</div></td></tr><tr><td id='variant.Delim'><a class='stability Unmarked' title='No stability level'></a><code>Delim</code></td><td><div class='docblock'><p>A <code>&lt;delim-token&gt;</code></p>
+</div></td></tr><tr><td id='variant.Number'><a class='stability Unmarked' title='No stability level'></a><code>Number</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#number-token-diagram"><code>&lt;number-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.Percentage'><a class='stability Unmarked' title='No stability level'></a><code>Percentage</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#percentage-token-diagram"><code>&lt;percentage-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.Dimension'><a class='stability Unmarked' title='No stability level'></a><code>Dimension</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#dimension-token-diagram"><code>&lt;dimension-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.UnicodeRange'><a class='stability Unmarked' title='No stability level'></a><code>UnicodeRange</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#unicode-range-token-diagram"><code>&lt;unicode-range-token&gt;</code></a></p>
+
+<p>Components are the start and end code points, respectively.</p>
+
+<p>The tokenizer only reads up to 6 hex digit (up to 0xFF_FFFF),
+but does not check that code points are within the range of Unicode (up to U+10_FFFF).</p>
+</div></td></tr><tr><td id='variant.WhiteSpace'><a class='stability Unmarked' title='No stability level'></a><code>WhiteSpace</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#whitespace-token-diagram"><code>&lt;whitespace-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.Comment'><a class='stability Unmarked' title='No stability level'></a><code>Comment</code></td><td><div class='docblock'><p>A comment.</p>
+
+<p>The CSS Syntax spec does not generate tokens for comments,
+But we do, because we can (borrowed &amp;str makes it cheap).</p>
+
+<p>The value does not include the <code>/*</code> <code>*/</code> markers.</p>
+</div></td></tr><tr><td id='variant.Colon'><a class='stability Unmarked' title='No stability level'></a><code>Colon</code></td><td><div class='docblock'><p>A <code>:</code> <code>&lt;colon-token&gt;</code></p>
+</div></td></tr><tr><td id='variant.Semicolon'><a class='stability Unmarked' title='No stability level'></a><code>Semicolon</code></td><td><div class='docblock'><p>A <code>;</code> <code>&lt;semicolon-token&gt;</code></p>
+</div></td></tr><tr><td id='variant.Comma'><a class='stability Unmarked' title='No stability level'></a><code>Comma</code></td><td><div class='docblock'><p>A <code>,</code> <code>&lt;comma-token&gt;</code></p>
+</div></td></tr><tr><td id='variant.IncludeMatch'><a class='stability Unmarked' title='No stability level'></a><code>IncludeMatch</code></td><td><div class='docblock'><p>A <code>~=</code> <a href="http://dev.w3.org/csswg/css-syntax/#include-match-token-diagram"><code>&lt;include-match-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.DashMatch'><a class='stability Unmarked' title='No stability level'></a><code>DashMatch</code></td><td><div class='docblock'><p>A <code>|=</code> <a href="http://dev.w3.org/csswg/css-syntax/#dash-match-token-diagram"><code>&lt;dash-match-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.PrefixMatch'><a class='stability Unmarked' title='No stability level'></a><code>PrefixMatch</code></td><td><div class='docblock'><p>A <code>^=</code> <a href="http://dev.w3.org/csswg/css-syntax/#prefix-match-token-diagram"><code>&lt;prefix-match-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.SuffixMatch'><a class='stability Unmarked' title='No stability level'></a><code>SuffixMatch</code></td><td><div class='docblock'><p>A <code>$=</code> <a href="http://dev.w3.org/csswg/css-syntax/#suffix-match-token-diagram"><code>&lt;suffix-match-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.SubstringMatch'><a class='stability Unmarked' title='No stability level'></a><code>SubstringMatch</code></td><td><div class='docblock'><p>A <code>*=</code> <a href="http://dev.w3.org/csswg/css-syntax/#substring-match-token-diagram"><code>&lt;substring-match-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.Column'><a class='stability Unmarked' title='No stability level'></a><code>Column</code></td><td><div class='docblock'><p>A <code>||</code> <a href="http://dev.w3.org/csswg/css-syntax/#column-token-diagram"><code>&lt;column-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.CDO'><a class='stability Unmarked' title='No stability level'></a><code>CDO</code></td><td><div class='docblock'><p>A <code>&lt;!--</code> <a href="http://dev.w3.org/csswg/css-syntax/#CDO-token-diagram"><code>&lt;CDO-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.CDC'><a class='stability Unmarked' title='No stability level'></a><code>CDC</code></td><td><div class='docblock'><p>A <code>--&gt;</code> <a href="http://dev.w3.org/csswg/css-syntax/#CDC-token-diagram"><code>&lt;CDC-token&gt;</code></a></p>
+</div></td></tr><tr><td id='variant.Function'><a class='stability Unmarked' title='No stability level'></a><code>Function</code></td><td><div class='docblock'><p>A <a href="http://dev.w3.org/csswg/css-syntax/#function-token-diagram"><code>&lt;function-token&gt;</code></a></p>
+
+<p>The value (name) does not include the <code>(</code> marker.</p>
+</div></td></tr><tr><td id='variant.ParenthesisBlock'><a class='stability Unmarked' title='No stability level'></a><code>ParenthesisBlock</code></td><td><div class='docblock'><p>A <code>&lt;(-token&gt;</code></p>
+</div></td></tr><tr><td id='variant.SquareBracketBlock'><a class='stability Unmarked' title='No stability level'></a><code>SquareBracketBlock</code></td><td><div class='docblock'><p>A <code>&lt;[-token&gt;</code></p>
+</div></td></tr><tr><td id='variant.CurlyBracketBlock'><a class='stability Unmarked' title='No stability level'></a><code>CurlyBracketBlock</code></td><td><div class='docblock'><p>A <code>&lt;{-token&gt;</code></p>
+</div></td></tr><tr><td id='variant.BadUrl'><a class='stability Unmarked' title='No stability level'></a><code>BadUrl</code></td><td><div class='docblock'><p>A <code>&lt;bad-url-token&gt;</code></p>
+
+<p>This token always indicates a parse error.</p>
+</div></td></tr><tr><td id='variant.BadString'><a class='stability Unmarked' title='No stability level'></a><code>BadString</code></td><td><div class='docblock'><p>A <code>&lt;bad-string-token&gt;</code></p>
+
+<p>This token always indicates a parse error.</p>
+</div></td></tr><tr><td id='variant.CloseParenthesis'><a class='stability Unmarked' title='No stability level'></a><code>CloseParenthesis</code></td><td><div class='docblock'><p>A <code>&lt;)-token&gt;</code></p>
+
+<p>When obtained from one of the <code>Parser::next*</code> methods,
+this token is always unmatched and indicates a parse error.</p>
+</div></td></tr><tr><td id='variant.CloseSquareBracket'><a class='stability Unmarked' title='No stability level'></a><code>CloseSquareBracket</code></td><td><div class='docblock'><p>A <code>&lt;]-token&gt;</code></p>
+
+<p>When obtained from one of the <code>Parser::next*</code> methods,
+this token is always unmatched and indicates a parse error.</p>
+</div></td></tr><tr><td id='variant.CloseCurlyBracket'><a class='stability Unmarked' title='No stability level'></a><code>CloseCurlyBracket</code></td><td><div class='docblock'><p>A <code>&lt;}-token&gt;</code></p>
+
+<p>When obtained from one of the <code>Parser::next*</code> methods,
+this token is always unmatched and indicates a parse error.</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='trait' href='../cssparser/trait.ToCss.html' title='cssparser::ToCss'>ToCss</a> for <a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.to_css' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.to_css' class='fnname'>to_css</a>&lt;W&gt;(&amp;self, dest: &amp;mut W) -&gt; <a class='type' href='../text_writer/type.Result.html' title='text_writer::Result'>Result</a> <span class='where'>where W: <a class='trait' href='../text_writer/trait.TextWriter.html' title='text_writer::TextWriter'>TextWriter</a></span></code></h4>
+<h4 id='method.to_css_string' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.to_css_string' class='fnname'>to_css_string</a>(&amp;self) -&gt; <a class='struct' href='../collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<h4 id='method.fmt_to_css' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.fmt_to_css' class='fnname'>fmt_to_css</a>&lt;W&gt;(&amp;self, dest: &amp;mut W) -&gt; <a class='type' href='../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a> <span class='where'>where W: <a class='trait' href='../text_writer/trait.TextWriter.html' title='text_writer::TextWriter'>TextWriter</a></span></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a&gt; <a class='trait' href='../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'a&gt;</code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a&gt; <a class='trait' href='../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a&gt; <a class='trait' href='../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'a&gt;) -&gt; <a href='../std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../cssparser/enum.Token.html' title='cssparser::Token'>Token</a>&lt;'a&gt;) -&gt; <a href='../std/primitive.bool.html'>bool</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "cssparser";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

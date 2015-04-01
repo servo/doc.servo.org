@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Activatable","Trait for elements with defined activation behavior"]]});

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ToComputedValue` trait in crate `style`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ToComputedValue">
+
+    <title>style::values::computed::ToComputedValue - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>style</a>::<wbr><a href='../index.html'>values</a>::<wbr><a href='index.html'>computed</a></p><script>window.sidebarCurrent = {name: 'ToComputedValue', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>style</a>::<wbr><a href='../index.html'>values</a>::<wbr><a href='index.html'>computed</a>::<wbr><a class='trait' href=''>ToComputedValue</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span></span></h1>
+<pre class='rust trait'>pub trait ToComputedValue {
+    type ComputedValue;
+
+    fn <a href='#tymethod.to_computed_value' class='fnname'>to_computed_value</a>(&amp;self, _context: &amp;<a class='struct' href='../../../style/values/computed/struct.Context.html' title='style::values::computed::Context'>Context</a>) -&gt; Self::ComputedValue;
+}</pre>
+            <h2 id='associated-types'>Associated Types</h2>
+            <div class='methods'>
+        <h3 id='associatedtype.ComputedValue' class='method'><a class='stability Unmarked' title='No stability level'></a><code>type ComputedValue</code></h3></div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.to_computed_value' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.to_computed_value' class='fnname'>to_computed_value</a>(&amp;self, _context: &amp;<a class='struct' href='../../../style/values/computed/struct.Context.html' title='style::values::computed::Context'>Context</a>) -&gt; Self::ComputedValue</code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/values/specified/struct.Time.html' title='style::values::specified::Time'>Time</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for T <span class='where'>where T: <a class='trait' href='../../../style/values/computed/trait.ComputedValueAsSpecified.html' title='style::values::computed::ComputedValueAsSpecified'>ComputedValueAsSpecified</a> + <a class='trait' href='../../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></span></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/values/specified/struct.CSSColor.html' title='style::values::specified::CSSColor'>CSSColor</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/values/specified/enum.Length.html' title='style::values::specified::Length'>Length</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/values/specified/enum.LengthOrPercentage.html' title='style::values::specified::LengthOrPercentage'>LengthOrPercentage</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/values/specified/enum.LengthOrPercentageOrAuto.html' title='style::values::specified::LengthOrPercentageOrAuto'>LengthOrPercentageOrAuto</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/values/specified/enum.LengthOrPercentageOrNone.html' title='style::values::specified::LengthOrPercentageOrNone'>LengthOrPercentageOrNone</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/values/specified/struct.LengthAndPercentage.html' title='style::values::specified::LengthAndPercentage'>LengthAndPercentage</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/values/specified/enum.Image.html' title='style::values::specified::Image'>Image</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/values/specified/struct.LinearGradient.html' title='style::values::specified::LinearGradient'>LinearGradient</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/border_top_width/struct.SpecifiedValue.html' title='style::properties::longhands::border_top_width::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/border_right_width/struct.SpecifiedValue.html' title='style::properties::longhands::border_right_width::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/border_bottom_width/struct.SpecifiedValue.html' title='style::properties::longhands::border_bottom_width::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/border_left_width/struct.SpecifiedValue.html' title='style::properties::longhands::border_left_width::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/properties/longhands/display/computed_value/enum.T.html' title='style::properties::longhands::display::computed_value::T'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/height/struct.SpecifiedValue.html' title='style::properties::longhands::height::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/properties/longhands/line_height/enum.SpecifiedValue.html' title='style::properties::longhands::line_height::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/properties/longhands/vertical_align/enum.SpecifiedValue.html' title='style::properties::longhands::vertical_align::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/properties/longhands/overflow_x/computed_value/enum.T.html' title='style::properties::longhands::overflow_x::computed_value::T'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/overflow_y/computed_value/struct.T.html' title='style::properties::longhands::overflow_y::computed_value::T'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/properties/longhands/list_style_image/enum.SpecifiedValue.html' title='style::properties::longhands::list_style_image::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/background_image/struct.SpecifiedValue.html' title='style::properties::longhands::background_image::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/background_position/struct.SpecifiedValue.html' title='style::properties::longhands::background_position::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/properties/longhands/background_size/enum.SpecifiedValue.html' title='style::properties::longhands::background_size::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='type' href='../../../style/properties/longhands/color/type.SpecifiedValue.html' title='style::properties::longhands::color::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/properties/longhands/font_weight/enum.SpecifiedValue.html' title='style::properties::longhands::font_weight::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/font_size/struct.SpecifiedValue.html' title='style::properties::longhands::font_size::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/properties/longhands/letter_spacing/enum.SpecifiedValue.html' title='style::properties::longhands::letter_spacing::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='enum' href='../../../style/properties/longhands/word_spacing/enum.SpecifiedValue.html' title='style::properties::longhands::word_spacing::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/border_spacing/struct.SpecifiedValue.html' title='style::properties::longhands::border_spacing::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/opacity/struct.SpecifiedValue.html' title='style::properties::longhands::opacity::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='type' href='../../../style/properties/longhands/box_shadow/type.SpecifiedValue.html' title='style::properties::longhands::box_shadow::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='type' href='../../../style/properties/longhands/clip/type.SpecifiedValue.html' title='style::properties::longhands::clip::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/text_shadow/struct.SpecifiedValue.html' title='style::properties::longhands::text_shadow::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/transform/struct.SpecifiedValue.html' title='style::properties::longhands::transform::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/transform_origin/struct.SpecifiedValue.html' title='style::properties::longhands::transform_origin::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='type' href='../../../style/properties/longhands/image_rendering/type.SpecifiedValue.html' title='style::properties::longhands::image_rendering::SpecifiedValue'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/transition_duration/computed_value/struct.T.html' title='style::properties::longhands::transition_duration::computed_value::T'>T</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/transition_timing_function/computed_value/struct.T.html' title='style::properties::longhands::transition_timing_function::computed_value::T'>SpecifiedValue</a></code></li>
+<li><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../../style/values/computed/trait.ToComputedValue.html' title='style::values::computed::ToComputedValue'>ToComputedValue</a> for <a class='struct' href='../../../style/properties/longhands/transition_property/computed_value/struct.T.html' title='style::properties::longhands::transition_property::computed_value::T'>SpecifiedValue</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../../implementors/style/values/computed/trait.ToComputedValue.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "style";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

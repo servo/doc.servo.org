@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `display_list` mod in crate `gfx`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, display_list">
+
+    <title>gfx::display_list - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>gfx</a></p><script>window.sidebarCurrent = {name: 'display_list', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>gfx</a>::<wbr><a class='mod' href=''>display_list</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-5129' href='../../src/gfx/display_list/mod.rs.html#5-1167'>[src]</a></span></h1>
+<div class='docblock'><p>Servo heavily uses display lists, which are retained-mode lists of painting commands to
+perform. Using a list instead of painting elements in immediate mode allows transforms, hit
+testing, and invalidation to be performed using the same primitives as painting. It also allows
+Servo to aggressively cull invisible and out-of-bounds painting elements, to reduce overdraw.
+Finally, display lists allow tiles to be farmed out onto multiple CPUs and painted in parallel
+(although this benefit does not apply to GPU-based painting).</p>
+
+<p>Display items describe relatively high-level drawing operations (for example, entire borders
+and shadows instead of lines and blur operations), to reduce the amount of allocation required.
+They are therefore not exactly analogous to constructs like Skia pictures, which consist of
+low-level drawing primitives.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='mod' href='optimizer/index.html'
+                               title='gfx::display_list::optimizer'>optimizer</a></td>
+                        <td class='docblock short'><p>Transforms a display list to produce a visually-equivalent, but cheaper-to-paint, one.</p>
+</td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BaseDisplayItem.html'
+                               title='gfx::display_list::BaseDisplayItem'>BaseDisplayItem</a></td>
+                        <td class='docblock short'><p>Information common to all display items.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BorderDisplayItem.html'
+                               title='gfx::display_list::BorderDisplayItem'>BorderDisplayItem</a></td>
+                        <td class='docblock short'><p>Paints a border.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BorderRadii.html'
+                               title='gfx::display_list::BorderRadii'>BorderRadii</a></td>
+                        <td class='docblock short'><p>Information about the border radii.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.BoxShadowDisplayItem.html'
+                               title='gfx::display_list::BoxShadowDisplayItem'>BoxShadowDisplayItem</a></td>
+                        <td class='docblock short'><p>Paints a box shadow per CSS-BACKGROUNDS.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ClippingRegion.html'
+                               title='gfx::display_list::ClippingRegion'>ClippingRegion</a></td>
+                        <td class='docblock short'><p>A clipping region for a display item. Currently, this can describe rectangles, rounded
+rectangles (for <code>border-radius</code>), or arbitrary intersections of the two. Arbitrary transforms
+are not supported because those are handled by the higher-level <code>StackingContext</code> abstraction.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ComplexClippingRegion.html'
+                               title='gfx::display_list::ComplexClippingRegion'>ComplexClippingRegion</a></td>
+                        <td class='docblock short'><p>A complex clipping region. These don&#39;t as easily admit arbitrary intersection operations, so
+they&#39;re stored in a list over to the side. Currently a complex clipping region is just a
+rounded rectangle, but the CSS WGs will probably make us throw more stuff in here eventually.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.DisplayItemMetadata.html'
+                               title='gfx::display_list::DisplayItemMetadata'>DisplayItemMetadata</a></td>
+                        <td class='docblock short'><p>Metadata attached to each display item. This is useful for performing auxiliary tasks with
+the display list involving hit testing: finding the originating DOM node and determining the
+cursor to use when the element is hovered over.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.DisplayList.html'
+                               title='gfx::display_list::DisplayList'>DisplayList</a></td>
+                        <td class='docblock short'><p>Display items that make up a stacking context. &quot;Steps&quot; here refer to the steps in CSS 2.1
+Appendix E.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.GradientDisplayItem.html'
+                               title='gfx::display_list::GradientDisplayItem'>GradientDisplayItem</a></td>
+                        <td class='docblock short'><p>Paints a gradient.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.GradientStop.html'
+                               title='gfx::display_list::GradientStop'>GradientStop</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.ImageDisplayItem.html'
+                               title='gfx::display_list::ImageDisplayItem'>ImageDisplayItem</a></td>
+                        <td class='docblock short'><p>Paints an image.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.LineDisplayItem.html'
+                               title='gfx::display_list::LineDisplayItem'>LineDisplayItem</a></td>
+                        <td class='docblock short'><p>Paints a line segment.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.OpaqueNode.html'
+                               title='gfx::display_list::OpaqueNode'>OpaqueNode</a></td>
+                        <td class='docblock short'><p>An opaque handle to a node. The only safe operation that can be performed on this node is to
+compare it to another opaque handle or to another node.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.SolidColorDisplayItem.html'
+                               title='gfx::display_list::SolidColorDisplayItem'>SolidColorDisplayItem</a></td>
+                        <td class='docblock short'><p>Paints a solid color.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.StackingContext.html'
+                               title='gfx::display_list::StackingContext'>StackingContext</a></td>
+                        <td class='docblock short'><p>Represents one CSS stacking context, which may or may not have a hardware layer.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.TextDisplayItem.html'
+                               title='gfx::display_list::TextDisplayItem'>TextDisplayItem</a></td>
+                        <td class='docblock short'><p>Paints text.</p>
+</td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.BoxShadowClipMode.html'
+                               title='gfx::display_list::BoxShadowClipMode'>BoxShadowClipMode</a></td>
+                        <td class='docblock short'><p>How a box shadow should be clipped.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.DisplayItem.html'
+                               title='gfx::display_list::DisplayItem'>DisplayItem</a></td>
+                        <td class='docblock short'><p>One drawing command in the list.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.DisplayItemIterator.html'
+                               title='gfx::display_list::DisplayItemIterator'>DisplayItemIterator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='enum' href='enum.TextOrientation.html'
+                               title='gfx::display_list::TextOrientation'>TextOrientation</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='static' href='static.BLUR_INFLATION_FACTOR.html'
+                               title='gfx::display_list::BLUR_INFLATION_FACTOR'>BLUR_INFLATION_FACTOR</a></td>
+                        <td class='docblock short'><p>The factor that we multiply the blur radius by in order to inflate the boundaries of display
+items that involve a blur. This ensures that the display item boundaries include all the ink.</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.find_stacking_context_with_layer_id.html'
+                               title='gfx::display_list::find_stacking_context_with_layer_id'>find_stacking_context_with_layer_id</a></td>
+                        <td class='docblock short'><p>Returns the stacking context in the given tree of stacking contexts with a specific layer ID.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "gfx";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

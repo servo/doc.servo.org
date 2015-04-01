@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BufReader","Reads from a fixed-size byte slice"],["BufWriter","Writes to a fixed-size byte slice"],["MemReader","Reads from an owned byte vector"],["MemWriter","Writes to an owned, growable byte vector"]]});

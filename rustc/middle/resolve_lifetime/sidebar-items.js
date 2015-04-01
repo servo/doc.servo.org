@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DefRegion",""]],"type":[["NamedRegionMap",""]],"fn":[["early_bound_lifetimes",""],["krate",""]]});

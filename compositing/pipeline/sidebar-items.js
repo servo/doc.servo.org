@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CompositionPipeline","The subset of the pipeline that is needed for layer composition."],["Pipeline","A uniquely-identifiable pipeline of script task, layout task, and paint task."]]});

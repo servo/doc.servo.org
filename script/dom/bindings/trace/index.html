@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `trace` mod in crate `script`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, trace">
+
+    <title>script::dom::bindings::trace - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a></p><script>window.sidebarCurrent = {name: 'trace', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../../index.html'>script</a>::<wbr><a href='../../index.html'>dom</a>::<wbr><a href='../index.html'>bindings</a>::<wbr><a class='mod' href=''>trace</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-15038' href='../../../../src/script/dom/bindings/trace.rs.html#5-427'>[src]</a></span></h1>
+<div class='docblock'><p>Utilities for tracing JS-managed values.</p>
+
+<p>The lifetime of DOM objects is managed by the SpiderMonkey Garbage
+Collector. A rooted DOM object implementing the interface <code>Foo</code> is traced
+as follows:</p>
+
+<ol>
+<li>The GC calls <code>_trace</code> defined in <code>FooBinding</code> during the marking
+phase. (This happens through <code>JSClass.trace</code> for non-proxy bindings, and
+through <code>ProxyTraps.trace</code> otherwise.)</li>
+<li><code>_trace</code> calls <code>Foo::trace()</code> (an implementation of <code>JSTraceable</code>).
+This is typically derived via a <code>#[dom_struct]</code> (implies <code>#[jstraceable]</code>) annotation.
+Non-JS-managed types have an empty inline <code>trace()</code> method,
+achieved via <code>no_jsmanaged_fields!</code> or similar.</li>
+<li>For all fields, <code>Foo::trace()</code>
+calls <code>trace()</code> on the field.
+For example, for fields of type <code>JS&lt;T&gt;</code>, <code>JS&lt;T&gt;::trace()</code> calls
+<code>trace_reflector()</code>.</li>
+<li><code>trace_reflector()</code> calls <code>trace_object()</code> with the <code>JSObject</code> for the
+reflector.</li>
+<li><code>trace_object()</code> calls <code>JS_CallTracer()</code> to notify the GC, which will
+add the object to the graph, and will trace that object as well.</li>
+<li>When the GC finishes tracing, it <a href="../index.html#destruction"><code>finalizes</code></a>
+any reflectors that were not reachable.</li>
+</ol>
+
+<p>The <code>no_jsmanaged_fields!()</code> macro adds an empty implementation of <code>JSTraceable</code> to
+a datatype.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.RootedCollectionSet.html'
+                               title='script::dom::bindings::trace::RootedCollectionSet'>RootedCollectionSet</a></td>
+                        <td class='docblock short'><p>Holds a set of vectors that need to be rooted</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.RootedVec.html'
+                               title='script::dom::bindings::trace::RootedVec'>RootedVec</a></td>
+                        <td class='docblock short'><p>A vector of items that are rooted for the lifetime
+of this struct</p>
+</td>
+                    </tr>
+                </table><h2 id='statics' class='section-header'><a href="#statics">Statics</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='static' href='static.ROOTED_COLLECTIONS.html'
+                               title='script::dom::bindings::trace::ROOTED_COLLECTIONS'>ROOTED_COLLECTIONS</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='trait' href='trait.JSTraceable.html'
+                               title='script::dom::bindings::trace::JSTraceable'>JSTraceable</a></td>
+                        <td class='docblock short'><p>A trait to allow tracing (only) DOM objects.</p>
+</td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.trace_collections.html'
+                               title='script::dom::bindings::trace::trace_collections'>trace_collections</a></td>
+                        <td class='docblock short'><p>SM Callback that traces the rooted collections</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.trace_jsval.html'
+                               title='script::dom::bindings::trace::trace_jsval'>trace_jsval</a></td>
+                        <td class='docblock short'><p>Trace a <code>JSVal</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.trace_object.html'
+                               title='script::dom::bindings::trace::trace_object'>trace_object</a></td>
+                        <td class='docblock short'><p>Trace a <code>JSObject</code>.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='fn' href='fn.trace_reflector.html'
+                               title='script::dom::bindings::trace::trace_reflector'>trace_reflector</a></td>
+                        <td class='docblock short'><p>Trace the <code>JSObject</code> held by <code>reflector</code>.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "script";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"static":[["sNativePropertyHooks",""]],"trait":[["TestBindingMethods",""]],"mod":[["TestEnumValues",""]],"enum":[["TestEnum",""]],"fn":[["DefineDOMInterface",""],["GetProtoObject",""],["Wrap",""]],"struct":[["TestDictionary",""],["TestDictionaryDefaults",""]]});

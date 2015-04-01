@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Fragment` struct in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Fragment">
+
+    <title>layout::fragment::Fragment - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a>::<wbr><a href='index.html'>fragment</a></p><script>window.sidebarCurrent = {name: 'Fragment', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>layout</a>::<wbr><a href='index.html'>fragment</a>::<wbr><a class='struct' href=''>Fragment</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-31888' href='../../src/layout/fragment.rs.html#87-119'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Fragment {
+    pub node: <a class='struct' href='../../gfx/display_list/struct.OpaqueNode.html' title='gfx::display_list::OpaqueNode'>OpaqueNode</a>,
+    pub style: <a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;,
+    pub border_box: <a class='struct' href='../../util/logical_geometry/struct.LogicalRect.html' title='util::logical_geometry::LogicalRect'>LogicalRect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;,
+    pub border_padding: <a class='struct' href='../../util/logical_geometry/struct.LogicalMargin.html' title='util::logical_geometry::LogicalMargin'>LogicalMargin</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;,
+    pub margin: <a class='struct' href='../../util/logical_geometry/struct.LogicalMargin.html' title='util::logical_geometry::LogicalMargin'>LogicalMargin</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;,
+    pub specific: <a class='enum' href='../../layout/fragment/enum.SpecificFragmentInfo.html' title='layout::fragment::SpecificFragmentInfo'>SpecificFragmentInfo</a>,
+    pub inline_context: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layout/inline/struct.InlineFragmentContext.html' title='layout::inline::InlineFragmentContext'>InlineFragmentContext</a>&gt;,
+    pub restyle_damage: <a class='struct' href='../../layout/incremental/struct.RestyleDamage.html' title='layout::incremental::RestyleDamage'>RestyleDamage</a>,
+    pub debug_id: <a href='../../std/primitive.u16.html'>u16</a>,
+}</pre><div class='docblock'><p>Fragments (<code>struct Fragment</code>) are the leaves of the layout tree. They cannot position
+themselves. In general, fragments do not have a simple correspondence with CSS fragments in the
+specification:</p>
+
+<ul>
+<li><p>Several fragments may correspond to the same CSS box or DOM node. For example, a CSS text box
+broken across two lines is represented by two fragments.</p></li>
+<li><p>Some CSS fragments are not created at all, such as some anonymous block fragments induced by
+inline fragments with block-level sibling fragments. In that case, Servo uses an <code>InlineFlow</code>
+with <code>BlockFlow</code> siblings; the <code>InlineFlow</code> is block-level, but not a block container. It is
+positioned as if it were a block fragment, but its children are positioned according to
+inline flow.</p></li>
+</ul>
+
+<p>A <code>SpecificFragmentInfo::Generic</code> is an empty fragment that contributes only borders, margins,
+padding, and backgrounds. It is analogous to a CSS nonreplaced content box.</p>
+
+<p>A fragment&#39;s type influences how its styles are interpreted during layout. For example,
+replaced content such as images are resized differently from tables, text, or other content.
+Different types of fragments may also contain custom data; for example, text fragments contain
+text.</p>
+
+<p>Do not add fields to this structure unless they&#39;re really really mega necessary! Fragments get
+moved around a lot and thus their size impacts performance of layout quite a bit.</p>
+
+<p>FIXME(#2260, pcwalton): This can be slimmed down some by (at least) moving <code>inline_context</code>
+to be on <code>InlineFlow</code> only.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.node'><a class='stability Unmarked' title='No stability level'></a><code>node</code></td><td><div class='docblock'><p>An opaque reference to the DOM node that this <code>Fragment</code> originates from.</p>
+</div></td></tr><tr><td id='structfield.style'><a class='stability Unmarked' title='No stability level'></a><code>style</code></td><td><div class='docblock'><p>The CSS style of this fragment.</p>
+</div></td></tr><tr><td id='structfield.border_box'><a class='stability Unmarked' title='No stability level'></a><code>border_box</code></td><td><div class='docblock'><p>The position of this fragment relative to its owning flow. The size includes padding and
+border, but not margin.</p>
+
+<p>NB: This does not account for relative positioning.</p>
+</div></td></tr><tr><td id='structfield.border_padding'><a class='stability Unmarked' title='No stability level'></a><code>border_padding</code></td><td><div class='docblock'><p>The sum of border and padding; i.e. the distance from the edge of the border box to the
+content edge of the fragment.</p>
+</div></td></tr><tr><td id='structfield.margin'><a class='stability Unmarked' title='No stability level'></a><code>margin</code></td><td><div class='docblock'><p>The margin of the content box.</p>
+</div></td></tr><tr><td id='structfield.specific'><a class='stability Unmarked' title='No stability level'></a><code>specific</code></td><td><div class='docblock'><p>Info specific to the kind of fragment. Keep this enum small.</p>
+</div></td></tr><tr><td id='structfield.inline_context'><a class='stability Unmarked' title='No stability level'></a><code>inline_context</code></td><td><div class='docblock'><p>Holds the style context information for fragments
+that are part of an inline formatting context.</p>
+</div></td></tr><tr><td id='structfield.restyle_damage'><a class='stability Unmarked' title='No stability level'></a><code>restyle_damage</code></td><td><div class='docblock'><p>How damaged this fragment is since last reflow.</p>
+</div></td></tr><tr><td id='structfield.debug_id'><a class='stability Unmarked' title='No stability level'></a><code>debug_id</code></td><td><div class='docblock'><p>A debug ID that is consistent for the life of this fragment (via transform etc).</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>(node: &amp;<a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>, specific: <a class='enum' href='../../layout/fragment/enum.SpecificFragmentInfo.html' title='layout::fragment::SpecificFragmentInfo'>SpecificFragmentInfo</a>) -&gt; <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h4>
+<div class='docblock'><p>Constructs a new <code>Fragment</code> instance.</p>
+</div><h4 id='method.new_anonymous_from_specific_info' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new_anonymous_from_specific_info' class='fnname'>new_anonymous_from_specific_info</a>(node: &amp;<a class='struct' href='../../layout/wrapper/struct.ThreadSafeLayoutNode.html' title='layout::wrapper::ThreadSafeLayoutNode'>ThreadSafeLayoutNode</a>, specific: <a class='enum' href='../../layout/fragment/enum.SpecificFragmentInfo.html' title='layout::fragment::SpecificFragmentInfo'>SpecificFragmentInfo</a>) -&gt; <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h4>
+<div class='docblock'><p>Constructs a new <code>Fragment</code> instance for an anonymous table object.</p>
+</div><h4 id='method.from_opaque_node_and_style' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.from_opaque_node_and_style' class='fnname'>from_opaque_node_and_style</a>(node: <a class='struct' href='../../gfx/display_list/struct.OpaqueNode.html' title='gfx::display_list::OpaqueNode'>OpaqueNode</a>, style: <a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;, restyle_damage: <a class='struct' href='../../layout/incremental/struct.RestyleDamage.html' title='layout::incremental::RestyleDamage'>RestyleDamage</a>, specific: <a class='enum' href='../../layout/fragment/enum.SpecificFragmentInfo.html' title='layout::fragment::SpecificFragmentInfo'>SpecificFragmentInfo</a>) -&gt; <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h4>
+<div class='docblock'><p>Constructs a new <code>Fragment</code> instance from an opaque node.</p>
+</div><h4 id='method.reset_inline_sizes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.reset_inline_sizes' class='fnname'>reset_inline_sizes</a>(&amp;mut self)</code></h4>
+<h4 id='method.save_new_line_pos' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.save_new_line_pos' class='fnname'>save_new_line_pos</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>Saves the new_line_pos vector into a <code>SpecificFragmentInfo::ScannedText</code>. This will fail
+if called on any other type of fragment.</p>
+</div><h4 id='method.restore_new_line_pos' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.restore_new_line_pos' class='fnname'>restore_new_line_pos</a>(&amp;mut self)</code></h4>
+<h4 id='method.debug_id' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.debug_id' class='fnname'>debug_id</a>(&amp;self) -&gt; <a href='../../std/primitive.u16.html'>u16</a></code></h4>
+<div class='docblock'><p>Returns a debug ID of this fragment. This ID should not be considered stable across
+multiple layouts or fragment manipulations.</p>
+</div><h4 id='method.transform' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.transform' class='fnname'>transform</a>(&amp;self, size: <a class='struct' href='../../util/logical_geometry/struct.LogicalSize.html' title='util::logical_geometry::LogicalSize'>LogicalSize</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, info: <a class='enum' href='../../layout/fragment/enum.SpecificFragmentInfo.html' title='layout::fragment::SpecificFragmentInfo'>SpecificFragmentInfo</a>) -&gt; <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h4>
+<div class='docblock'><p>Transforms this fragment into another fragment of the given type, with the given size,
+preserving all the other data.</p>
+</div><h4 id='method.transform_with_split_info' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.transform_with_split_info' class='fnname'>transform_with_split_info</a>(&amp;self, split: &amp;<a class='struct' href='../../layout/fragment/struct.SplitInfo.html' title='layout::fragment::SplitInfo'>SplitInfo</a>, text_run: <a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../gfx/text/text_run/struct.TextRun.html' title='gfx::text::text_run::TextRun'>TextRun</a>&gt;&gt;) -&gt; <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h4>
+<div class='docblock'><p>Transforms this fragment using the given <code>SplitInfo</code>, preserving all the other data.</p>
+</div><h4 id='method.transform_into_ellipsis' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.transform_into_ellipsis' class='fnname'>transform_into_ellipsis</a>(&amp;self, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>) -&gt; <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h4>
+<div class='docblock'><p>Transforms this fragment into an ellipsis fragment, preserving all the other data.</p>
+</div><h4 id='method.restyle_damage' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.restyle_damage' class='fnname'>restyle_damage</a>(&amp;self) -&gt; <a class='struct' href='../../layout/incremental/struct.RestyleDamage.html' title='layout::incremental::RestyleDamage'>RestyleDamage</a></code></h4>
+<h4 id='method.add_inline_context_style' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.add_inline_context_style' class='fnname'>add_inline_context_style</a>(&amp;mut self, style: <a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;, first_frag: <a href='../../std/primitive.bool.html'>bool</a>, last_frag: <a href='../../std/primitive.bool.html'>bool</a>)</code></h4>
+<div class='docblock'><p>Adds a style to the inline context for this fragment. If the inline
+context doesn&#39;t exist yet, it will be created.</p>
+</div><h4 id='method.surrounding_intrinsic_inline_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.surrounding_intrinsic_inline_size' class='fnname'>surrounding_intrinsic_inline_size</a>(&amp;self) -&gt; <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a></code></h4>
+<div class='docblock'><p>Returns the portion of the intrinsic inline-size that consists of borders, padding, and/or
+margins.</p>
+
+<p>FIXME(#2261, pcwalton): This won&#39;t work well for inlines: is this OK?</p>
+</div><h4 id='method.calculate_line_height' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.calculate_line_height' class='fnname'>calculate_line_height</a>(&amp;self, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>) -&gt; <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a></code></h4>
+<h4 id='method.border_width' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.border_width' class='fnname'>border_width</a>(&amp;self) -&gt; <a class='struct' href='../../util/logical_geometry/struct.LogicalMargin.html' title='util::logical_geometry::LogicalMargin'>LogicalMargin</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+<div class='docblock'><p>Returns the sum of the inline-sizes of all the borders of this fragment. Note that this
+can be expensive to compute, so if possible use the <code>border_padding</code> field instead.</p>
+</div><h4 id='method.compute_inline_direction_margins' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compute_inline_direction_margins' class='fnname'>compute_inline_direction_margins</a>(&amp;mut self, containing_block_inline_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>)</code></h4>
+<div class='docblock'><p>Computes the margins in the inline direction from the containing block inline-size and the
+style. After this call, the inline direction of the <code>margin</code> field will be correct.</p>
+
+<p>Do not use this method if the inline direction margins are to be computed some other way
+(for example, via constraint solving for blocks).</p>
+</div><h4 id='method.compute_block_direction_margins' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compute_block_direction_margins' class='fnname'>compute_block_direction_margins</a>(&amp;mut self, containing_block_inline_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>)</code></h4>
+<div class='docblock'><p>Computes the margins in the block direction from the containing block inline-size and the
+style. After this call, the block direction of the <code>margin</code> field will be correct.</p>
+
+<p>Do not use this method if the block direction margins are to be computed some other way
+(for example, via constraint solving for absolutely-positioned flows).</p>
+</div><h4 id='method.compute_border_and_padding' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compute_border_and_padding' class='fnname'>compute_border_and_padding</a>(&amp;mut self, containing_block_inline_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>)</code></h4>
+<div class='docblock'><p>Computes the border and padding in both inline and block directions from the containing
+block inline-size and the style. After this call, the <code>border_padding</code> field will be
+correct.</p>
+</div><h4 id='method.relative_position' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.relative_position' class='fnname'>relative_position</a>(&amp;self, containing_block_size: &amp;<a class='struct' href='../../util/logical_geometry/struct.LogicalSize.html' title='util::logical_geometry::LogicalSize'>LogicalSize</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;) -&gt; <a class='struct' href='../../util/logical_geometry/struct.LogicalSize.html' title='util::logical_geometry::LogicalSize'>LogicalSize</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+<h4 id='method.clear' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.clear' class='fnname'>clear</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../layout/floats/enum.ClearType.html' title='layout::floats::ClearType'>ClearType</a>&gt;</code></h4>
+<div class='docblock'><p>Always inline for SCCP.</p>
+
+<p>FIXME(pcwalton): Just replace with the clear type from the style module for speed?</p>
+</div><h4 id='method.style' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.style' class='fnname'>style</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a></code></h4>
+<h4 id='method.text_align' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.text_align' class='fnname'>text_align</a>(&amp;self) -&gt; <a class='enum' href='../../style/properties/longhands/text_align/computed_value/enum.T.html' title='style::properties::longhands::text_align::computed_value::T'>T</a></code></h4>
+<div class='docblock'><p>Returns the text alignment of the computed style of the nearest ancestor-or-self <code>Element</code>
+node.</p>
+</div><h4 id='method.vertical_align' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.vertical_align' class='fnname'>vertical_align</a>(&amp;self) -&gt; <a class='enum' href='../../style/properties/longhands/vertical_align/computed_value/enum.T.html' title='style::properties::longhands::vertical_align::computed_value::T'>T</a></code></h4>
+<h4 id='method.white_space' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.white_space' class='fnname'>white_space</a>(&amp;self) -&gt; <a class='enum' href='../../style/properties/longhands/white_space/computed_value/enum.T.html' title='style::properties::longhands::white_space::computed_value::T'>T</a></code></h4>
+<h4 id='method.text_decoration' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.text_decoration' class='fnname'>text_decoration</a>(&amp;self) -&gt; <a class='type' href='../../style/properties/longhands/text_decoration/computed_value/type.T.html' title='style::properties::longhands::text_decoration::computed_value::T'>T</a></code></h4>
+<div class='docblock'><p>Returns the text decoration of this fragment, according to the style of the nearest ancestor
+element.</p>
+
+<p>NB: This may not be the actual text decoration, because of the override rules specified in
+CSS 2.1 § 16.3.1. Unfortunately, computing this properly doesn&#39;t really fit into Servo&#39;s
+model. Therefore, this is a best lower bound approximation, but the end result may actually
+have the various decoration flags turned on afterward.</p>
+</div><h4 id='method.inline_start_offset' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.inline_start_offset' class='fnname'>inline_start_offset</a>(&amp;self) -&gt; <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a></code></h4>
+<div class='docblock'><p>Returns the inline-start offset from margin edge to content edge.</p>
+
+<p>FIXME(#2262, pcwalton): I think this method is pretty bogus, because it won&#39;t work for
+inlines.</p>
+</div><h4 id='method.can_split' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.can_split' class='fnname'>can_split</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if this element can be split. This is true for text fragments.</p>
+</div><h4 id='method.newline_positions' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.newline_positions' class='fnname'>newline_positions</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Returns the newline positions of this fragment, if it&#39;s a scanned text fragment.</p>
+</div><h4 id='method.newline_positions_mut' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.newline_positions_mut' class='fnname'>newline_positions_mut</a>(&amp;mut self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut <a class='struct' href='../../collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../gfx/text/glyph/struct.CharIndex.html' title='gfx::text::glyph::CharIndex'>CharIndex</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Returns the newline positions of this fragment, if it&#39;s a scanned text fragment.</p>
+</div><h4 id='method.is_generated_content' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_generated_content' class='fnname'>is_generated_content</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if and only if this fragment is a generated content fragment.</p>
+</div><h4 id='method.is_scanned_text_fragment' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_scanned_text_fragment' class='fnname'>is_scanned_text_fragment</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if and only if this is a scanned text fragment.</p>
+</div><h4 id='method.compute_intrinsic_inline_sizes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compute_intrinsic_inline_sizes' class='fnname'>compute_intrinsic_inline_sizes</a>(&amp;mut self) -&gt; <a class='struct' href='../../layout/model/struct.IntrinsicISizesContribution.html' title='layout::model::IntrinsicISizesContribution'>IntrinsicISizesContribution</a></code></h4>
+<div class='docblock'><p>Computes the intrinsic inline-sizes of this fragment.</p>
+</div><h4 id='method.content_inline_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.content_inline_size' class='fnname'>content_inline_size</a>(&amp;self) -&gt; <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a></code></h4>
+<div class='docblock'><p>TODO: What exactly does this function return? Why is it Au(0) for SpecificFragmentInfo::Generic?</p>
+</div><h4 id='method.content_block_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.content_block_size' class='fnname'>content_block_size</a>(&amp;self, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>) -&gt; <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a></code></h4>
+<div class='docblock'><p>Returns, and computes, the block-size of this fragment.</p>
+</div><h4 id='method.content_box' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.content_box' class='fnname'>content_box</a>(&amp;self) -&gt; <a class='struct' href='../../util/logical_geometry/struct.LogicalRect.html' title='util::logical_geometry::LogicalRect'>LogicalRect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+<div class='docblock'><p>Returns the dimensions of the content box.</p>
+
+<p>This is marked <code>#[inline]</code> because it is frequently called when only one or two of the
+values are needed and that will save computation.</p>
+</div><h4 id='method.find_split_info_by_new_line' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.find_split_info_by_new_line' class='fnname'>find_split_info_by_new_line</a>(&amp;self) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../../std/primitive.tuple.html'>(<a class='struct' href='../../layout/fragment/struct.SplitInfo.html' title='layout::fragment::SplitInfo'>SplitInfo</a>, <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layout/fragment/struct.SplitInfo.html' title='layout::fragment::SplitInfo'>SplitInfo</a>&gt;, <a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../gfx/text/text_run/struct.TextRun.html' title='gfx::text::text_run::TextRun'>TextRun</a>&gt;&gt;)</a>&gt;</code></h4>
+<div class='docblock'><p>Find the split of a fragment that includes a new-line character.</p>
+
+<p>A return value of <code>None</code> indicates that the fragment is not splittable.
+Otherwise the split information is returned. The right information is
+optional due to the possibility of it being whitespace.</p>
+</div><h4 id='method.calculate_split_position' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.calculate_split_position' class='fnname'>calculate_split_position</a>(&amp;self, max_inline_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>, starts_line: <a href='../../std/primitive.bool.html'>bool</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layout/fragment/struct.SplitResult.html' title='layout::fragment::SplitResult'>SplitResult</a>&gt;</code></h4>
+<div class='docblock'><p>Attempts to find the split positions of a text fragment so that its inline-size is no more
+than <code>max_inline_size</code>.</p>
+
+<p>A return value of <code>None</code> indicates that the fragment could not be split. Otherwise the
+information pertaining to the split is returned. The inline-start and inline-end split
+information are both optional due to the possibility of them being whitespace.</p>
+</div><h4 id='method.truncate_to_inline_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.truncate_to_inline_size' class='fnname'>truncate_to_inline_size</a>(&amp;self, max_inline_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>) -&gt; <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layout/fragment/struct.TruncationResult.html' title='layout::fragment::TruncationResult'>TruncationResult</a>&gt;</code></h4>
+<div class='docblock'><p>Truncates this fragment to the given <code>max_inline_size</code>, using a character-based breaking
+strategy. If no characters could fit, returns <code>None</code>.</p>
+</div><h4 id='method.strip_trailing_whitespace_if_necessary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.strip_trailing_whitespace_if_necessary' class='fnname'>strip_trailing_whitespace_if_necessary</a>(&amp;mut self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Attempts to strip trailing whitespace from this fragment by adjusting the text run range.
+Returns true if any modifications were made.</p>
+</div><h4 id='method.is_ignorable_whitespace' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_ignorable_whitespace' class='fnname'>is_ignorable_whitespace</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if this fragment is an unscanned text fragment that consists entirely of
+whitespace that should be stripped.</p>
+</div><h4 id='method.assign_replaced_inline_size_if_necessary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.assign_replaced_inline_size_if_necessary' class='fnname'>assign_replaced_inline_size_if_necessary</a>&lt;'a&gt;(&amp;'a mut self, container_inline_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>)</code></h4>
+<div class='docblock'><p>Assigns replaced inline-size, padding, and margins for this fragment only if it is replaced
+content per CSS 2.1 § 10.3.2.</p>
+</div><h4 id='method.assign_replaced_block_size_if_necessary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.assign_replaced_block_size_if_necessary' class='fnname'>assign_replaced_block_size_if_necessary</a>(&amp;mut self, containing_block_block_size: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>)</code></h4>
+<div class='docblock'><p>Assign block-size for this fragment if it is replaced content. The inline-size must have
+been assigned first.</p>
+
+<p>Ideally, this should follow CSS 2.1 § 10.6.2.</p>
+</div><h4 id='method.inline_metrics' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.inline_metrics' class='fnname'>inline_metrics</a>(&amp;self, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>) -&gt; <a class='struct' href='../../layout/inline/struct.InlineMetrics.html' title='layout::inline::InlineMetrics'>InlineMetrics</a></code></h4>
+<div class='docblock'><p>Calculates block-size above baseline, depth below baseline, and ascent for this fragment
+when used in an inline formatting context. See CSS 2.1 § 10.8.1.</p>
+</div><h4 id='method.is_hypothetical' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_hypothetical' class='fnname'>is_hypothetical</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if this fragment is a hypothetical box. See CSS 2.1 § 10.3.7.</p>
+</div><h4 id='method.can_merge_with_fragment' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.can_merge_with_fragment' class='fnname'>can_merge_with_fragment</a>(&amp;self, other: &amp;<a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a>) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if this fragment can merge with another adjacent fragment or false otherwise.</p>
+</div><h4 id='method.is_primary_fragment' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_primary_fragment' class='fnname'>is_primary_fragment</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if and only if this is the <em>primary fragment</em> for the fragment&#39;s style object
+(conceptually, though style sharing makes this not really true, of course). The primary
+fragment is the one that draws backgrounds, borders, etc., and takes borders, padding and
+margins into account. Every style object has at most one primary fragment.</p>
+
+<p>At present, all fragments are primary fragments except for inline-block and table wrapper
+fragments. Inline-block fragments are not primary fragments because the corresponding block
+flow is the primary fragment, while table wrapper fragments are not primary fragments
+because the corresponding table flow is the primary fragment.</p>
+</div><h4 id='method.update_late_computed_inline_position_if_necessary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.update_late_computed_inline_position_if_necessary' class='fnname'>update_late_computed_inline_position_if_necessary</a>(&amp;mut self)</code></h4>
+<h4 id='method.update_late_computed_block_position_if_necessary' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.update_late_computed_block_position_if_necessary' class='fnname'>update_late_computed_block_position_if_necessary</a>(&amp;mut self)</code></h4>
+<h4 id='method.repair_style' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.repair_style' class='fnname'>repair_style</a>(&amp;mut self, new_style: &amp;<a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>&gt;)</code></h4>
+<h4 id='method.stacking_relative_border_box' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.stacking_relative_border_box' class='fnname'>stacking_relative_border_box</a>(&amp;self, stacking_relative_flow_origin: &amp;<a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, relative_containing_block_size: &amp;<a class='struct' href='../../util/logical_geometry/struct.LogicalSize.html' title='util::logical_geometry::LogicalSize'>LogicalSize</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, relative_containing_block_mode: <a class='struct' href='../../util/logical_geometry/struct.WritingMode.html' title='util::logical_geometry::WritingMode'>WritingMode</a>, coordinate_system: <a class='enum' href='../../layout/fragment/enum.CoordinateSystem.html' title='layout::fragment::CoordinateSystem'>CoordinateSystem</a>) -&gt; <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+<div class='docblock'><p>Given the stacking-context-relative position of the containing flow, returns the border box
+of this fragment relative to the parent stacking context. This takes <code>position: relative</code>
+into account.</p>
+
+<p>If <code>coordinate_system</code> is <code>Parent</code>, this returns the border box in the parent stacking
+context&#39;s coordinate system. Otherwise, if <code>coordinate_system</code> is <code>Own</code> and this fragment
+establishes a stacking context itself, this returns a border box anchored at (0, 0). (If
+this fragment does not establish a stacking context, then it always belongs to its parent
+stacking context and thus <code>coordinate_system</code> is ignored.)</p>
+
+<p>This is the method you should use for display list construction as well as
+<code>getBoundingClientRect()</code> and so forth.</p>
+</div><h4 id='method.stacking_relative_content_box' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.stacking_relative_content_box' class='fnname'>stacking_relative_content_box</a>(&amp;self, stacking_relative_border_box: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;) -&gt; <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+<div class='docblock'><p>Given the stacking-context-relative border box, returns the stacking-context-relative
+content box.</p>
+</div><h4 id='method.establishes_stacking_context' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.establishes_stacking_context' class='fnname'>establishes_stacking_context</a>(&amp;self) -&gt; <a href='../../std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Returns true if this fragment establishes a new stacking context and false otherwise.</p>
+</div><h4 id='method.compute_overflow' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compute_overflow' class='fnname'>compute_overflow</a>(&amp;self) -&gt; <a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+<div class='docblock'><p>Computes the overflow rect of this fragment relative to the start of the flow.</p>
+</div><h4 id='method.remove_compositor_layers' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.remove_compositor_layers' class='fnname'>remove_compositor_layers</a>(&amp;self, constellation_chan: <a class='struct' href='../../msg/constellation_msg/struct.ConstellationChan.html' title='msg::constellation_msg::ConstellationChan'>ConstellationChan</a>)</code></h4>
+<div class='docblock'><p>Remove any compositor layers associated with this fragment - it is being
+removed from the tree or had its display property set to none.
+TODO(gw): This just hides the compositor layer for now. In the future
+it probably makes sense to provide a hint to the compositor whether
+the layers should be destroyed to free memory.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../layout/display_list_builder/trait.FragmentDisplayListBuilding.html' title='layout::display_list_builder::FragmentDisplayListBuilding'>FragmentDisplayListBuilding</a> for <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h3><div class='impl-items'><h4 id='method.build_display_list_for_background_if_applicable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list_for_background_if_applicable' class='fnname'>build_display_list_for_background_if_applicable</a>(&amp;self, style: &amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>, level: <a class='enum' href='../../layout/display_list_builder/enum.StackingLevel.html' title='layout::display_list_builder::StackingLevel'>StackingLevel</a>, absolute_bounds: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<h4 id='method.compute_background_image_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.compute_background_image_size' class='fnname'>compute_background_image_size</a>(&amp;self, style: &amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>, bounds: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, image: &amp;<a class='struct' href='../../png/struct.Image.html' title='png::Image'>Image</a>) -&gt; <a class='struct' href='../../geom/size/struct.Size2D.html' title='geom::size::Size2D'>Size2D</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+<h4 id='method.build_display_list_for_background_image' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list_for_background_image' class='fnname'>build_display_list_for_background_image</a>(&amp;self, style: &amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>, level: <a class='enum' href='../../layout/display_list_builder/enum.StackingLevel.html' title='layout::display_list_builder::StackingLevel'>StackingLevel</a>, absolute_bounds: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>, image_url: &amp;<a class='struct' href='../../url/struct.Url.html' title='url::Url'>Url</a>)</code></h4>
+<h4 id='method.build_display_list_for_background_linear_gradient' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list_for_background_linear_gradient' class='fnname'>build_display_list_for_background_linear_gradient</a>(&amp;self, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, level: <a class='enum' href='../../layout/display_list_builder/enum.StackingLevel.html' title='layout::display_list_builder::StackingLevel'>StackingLevel</a>, absolute_bounds: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>, gradient: &amp;<a class='struct' href='../../style/values/computed/struct.LinearGradient.html' title='style::values::computed::LinearGradient'>LinearGradient</a>, style: &amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>)</code></h4>
+<h4 id='method.build_display_list_for_box_shadow_if_applicable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list_for_box_shadow_if_applicable' class='fnname'>build_display_list_for_box_shadow_if_applicable</a>(&amp;self, style: &amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>, list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, _layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>, level: <a class='enum' href='../../layout/display_list_builder/enum.StackingLevel.html' title='layout::display_list_builder::StackingLevel'>StackingLevel</a>, absolute_bounds: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<h4 id='method.build_display_list_for_borders_if_applicable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list_for_borders_if_applicable' class='fnname'>build_display_list_for_borders_if_applicable</a>(&amp;self, style: &amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, abs_bounds: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, level: <a class='enum' href='../../layout/display_list_builder/enum.StackingLevel.html' title='layout::display_list_builder::StackingLevel'>StackingLevel</a>, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<h4 id='method.build_display_list_for_outline_if_applicable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list_for_outline_if_applicable' class='fnname'>build_display_list_for_outline_if_applicable</a>(&amp;self, style: &amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, bounds: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<h4 id='method.build_debug_borders_around_text_fragments' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_debug_borders_around_text_fragments' class='fnname'>build_debug_borders_around_text_fragments</a>(&amp;self, style: &amp;<a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a>, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, stacking_relative_border_box: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, stacking_relative_content_box: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, text_fragment: &amp;<a class='struct' href='../../layout/fragment/struct.ScannedTextFragmentInfo.html' title='layout::fragment::ScannedTextFragmentInfo'>ScannedTextFragmentInfo</a>, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<h4 id='method.build_debug_borders_around_fragment' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_debug_borders_around_fragment' class='fnname'>build_debug_borders_around_fragment</a>(&amp;self, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, stacking_relative_border_box: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<h4 id='method.calculate_style_specified_clip' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.calculate_style_specified_clip' class='fnname'>calculate_style_specified_clip</a>(&amp;self, parent_clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>, stacking_relative_border_box: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;) -&gt; <a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a></code></h4>
+<h4 id='method.build_display_list' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list' class='fnname'>build_display_list</a>(&amp;mut self, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>, stacking_relative_flow_origin: &amp;<a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, relative_containing_block_size: &amp;<a class='struct' href='../../util/logical_geometry/struct.LogicalSize.html' title='util::logical_geometry::LogicalSize'>LogicalSize</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, relative_containing_block_mode: <a class='struct' href='../../util/logical_geometry/struct.WritingMode.html' title='util::logical_geometry::WritingMode'>WritingMode</a>, background_and_border_level: <a class='enum' href='../../layout/display_list_builder/enum.BackgroundAndBorderLevel.html' title='layout::display_list_builder::BackgroundAndBorderLevel'>BackgroundAndBorderLevel</a>, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<h4 id='method.build_fragment_type_specific_display_items' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_fragment_type_specific_display_items' class='fnname'>build_fragment_type_specific_display_items</a>(&amp;mut self, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, stacking_relative_border_box: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<h4 id='method.finalize_position_and_size_of_iframe' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.finalize_position_and_size_of_iframe' class='fnname'>finalize_position_and_size_of_iframe</a>(&amp;self, iframe_fragment: &amp;<a class='struct' href='../../layout/fragment/struct.IframeFragmentInfo.html' title='layout::fragment::IframeFragmentInfo'>IframeFragmentInfo</a>, offset: <a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, layout_context: &amp;<a class='struct' href='../../layout/context/struct.LayoutContext.html' title='layout::context::LayoutContext'>LayoutContext</a>)</code></h4>
+<h4 id='method.clipping_region_for_children' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.clipping_region_for_children' class='fnname'>clipping_region_for_children</a>(&amp;self, current_clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>, stacking_relative_border_box: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;) -&gt; <a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a></code></h4>
+<h4 id='method.build_display_list_for_text_fragment' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list_for_text_fragment' class='fnname'>build_display_list_for_text_fragment</a>(&amp;self, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, text_fragment: &amp;<a class='struct' href='../../layout/fragment/struct.ScannedTextFragmentInfo.html' title='layout::fragment::ScannedTextFragmentInfo'>ScannedTextFragmentInfo</a>, text_color: <a class='struct' href='../../cssparser/color/struct.RGBA.html' title='cssparser::color::RGBA'>RGBA</a>, stacking_relative_content_box: &amp;<a class='struct' href='../../geom/rect/struct.Rect.html' title='geom::rect::Rect'>Rect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, shadow_blur_radius: <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, offset: &amp;<a class='struct' href='../../geom/point/struct.Point2D.html' title='geom::point::Point2D'>Point2D</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>)</code></h4>
+<h4 id='method.build_display_list_for_text_decoration' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build_display_list_for_text_decoration' class='fnname'>build_display_list_for_text_decoration</a>(&amp;self, display_list: &amp;mut <a class='struct' href='../../gfx/display_list/struct.DisplayList.html' title='gfx::display_list::DisplayList'>DisplayList</a>, color: &amp;<a class='struct' href='../../cssparser/color/struct.RGBA.html' title='cssparser::color::RGBA'>RGBA</a>, stacking_relative_box: &amp;<a class='struct' href='../../util/logical_geometry/struct.LogicalRect.html' title='util::logical_geometry::LogicalRect'>LogicalRect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;, clip: &amp;<a class='struct' href='../../gfx/display_list/struct.ClippingRegion.html' title='gfx::display_list::ClippingRegion'>ClippingRegion</a>, blur_radius: <a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> for <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='trait' href='../../rustc-serialize/serialize/trait.Encodable.html' title='rustc-serialize::serialize::Encodable'>Encodable</a> for <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h3><div class='impl-items'><h4 id='method.encode' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.encode' class='fnname'>encode</a>&lt;S: <a class='trait' href='../../rustc-serialize/serialize/trait.Encoder.html' title='rustc-serialize::serialize::Encoder'>Encoder</a>&gt;(&amp;self, e: &amp;mut S) -&gt; <a class='enum' href='../../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../../std/primitive.tuple.html'>()</a>, Error&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../layout/fragment/struct.Fragment.html' title='layout::fragment::Fragment'>Fragment</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

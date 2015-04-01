@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `MatchMethods` trait in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, MatchMethods">
+
+    <title>layout::css::matching::MatchMethods - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>layout</a>::<wbr><a href='../index.html'>css</a>::<wbr><a href='index.html'>matching</a></p><script>window.sidebarCurrent = {name: 'MatchMethods', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>layout</a>::<wbr><a href='../index.html'>css</a>::<wbr><a href='index.html'>matching</a>::<wbr><a class='trait' href=''>MatchMethods</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-78449' href='../../../src/layout/css/matching.rs.html#373-408'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait MatchMethods {
+    fn <a href='#tymethod.insert_into_bloom_filter' class='fnname'>insert_into_bloom_filter</a>(&amp;self, bf: &amp;mut <a class='struct' href='../../../selectors/bloom/struct.BloomFilter.html' title='selectors::bloom::BloomFilter'>BloomFilter</a>);
+    fn <a href='#tymethod.remove_from_bloom_filter' class='fnname'>remove_from_bloom_filter</a>(&amp;self, bf: &amp;mut <a class='struct' href='../../../selectors/bloom/struct.BloomFilter.html' title='selectors::bloom::BloomFilter'>BloomFilter</a>);
+    fn <a href='#tymethod.match_node' class='fnname'>match_node</a>(&amp;self, stylist: &amp;<a class='struct' href='../../../style/selector_matching/struct.Stylist.html' title='style::selector_matching::Stylist'>Stylist</a>, parent_bf: &amp;<a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../../selectors/bloom/struct.BloomFilter.html' title='selectors::bloom::BloomFilter'>BloomFilter</a>&gt;&gt;, applicable_declarations: &amp;mut <a class='struct' href='../../../layout/css/matching/struct.ApplicableDeclarations.html' title='layout::css::matching::ApplicableDeclarations'>ApplicableDeclarations</a>, shareable: &amp;mut <a href='../../../std/primitive.bool.html'>bool</a>);
+    unsafe fn <a href='#tymethod.share_style_if_possible' class='fnname'>share_style_if_possible</a>(&amp;self, style_sharing_candidate_cache: &amp;mut <a class='struct' href='../../../layout/css/matching/struct.StyleSharingCandidateCache.html' title='layout::css::matching::StyleSharingCandidateCache'>StyleSharingCandidateCache</a>, parent: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../layout/wrapper/struct.LayoutNode.html' title='layout::wrapper::LayoutNode'>LayoutNode</a>&gt;) -&gt; <a class='enum' href='../../../layout/css/matching/enum.StyleSharingResult.html' title='layout::css::matching::StyleSharingResult'>StyleSharingResult</a>;
+    unsafe fn <a href='#tymethod.cascade_node' class='fnname'>cascade_node</a>(&amp;self, layout_context: &amp;<a class='struct' href='../../../layout/context/struct.SharedLayoutContext.html' title='layout::context::SharedLayoutContext'>SharedLayoutContext</a>, parent: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../layout/wrapper/struct.LayoutNode.html' title='layout::wrapper::LayoutNode'>LayoutNode</a>&gt;, applicable_declarations: &amp;<a class='struct' href='../../../layout/css/matching/struct.ApplicableDeclarations.html' title='layout::css::matching::ApplicableDeclarations'>ApplicableDeclarations</a>, applicable_declarations_cache: &amp;mut <a class='struct' href='../../../layout/css/matching/struct.ApplicableDeclarationsCache.html' title='layout::css::matching::ApplicableDeclarationsCache'>ApplicableDeclarationsCache</a>, new_animations_sender: &amp;<a class='struct' href='../../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='struct' href='../../../script/layout_interface/struct.Animation.html' title='script::layout_interface::Animation'>Animation</a>&gt;);
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.insert_into_bloom_filter' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.insert_into_bloom_filter' class='fnname'>insert_into_bloom_filter</a>(&amp;self, bf: &amp;mut <a class='struct' href='../../../selectors/bloom/struct.BloomFilter.html' title='selectors::bloom::BloomFilter'>BloomFilter</a>)</code></h3><div class='docblock'><p>Inserts and removes the matching <code>Descendant</code> selectors from a bloom
+filter. This is used to speed up CSS selector matching to remove
+unnecessary tree climbs for <code>Descendant</code> queries.</p>
+
+<p>A bloom filter of the local names, namespaces, IDs, and classes is kept.
+Therefore, each node must have its matching selectors inserted <em>after</em>
+its own selector matching and <em>before</em> its children start.</p>
+</div><h3 id='tymethod.remove_from_bloom_filter' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.remove_from_bloom_filter' class='fnname'>remove_from_bloom_filter</a>(&amp;self, bf: &amp;mut <a class='struct' href='../../../selectors/bloom/struct.BloomFilter.html' title='selectors::bloom::BloomFilter'>BloomFilter</a>)</code></h3><div class='docblock'><p>After all the children are done css selector matching, this must be
+called to reset the bloom filter after an <code>insert</code>.</p>
+</div><h3 id='tymethod.match_node' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.match_node' class='fnname'>match_node</a>(&amp;self, stylist: &amp;<a class='struct' href='../../../style/selector_matching/struct.Stylist.html' title='style::selector_matching::Stylist'>Stylist</a>, parent_bf: &amp;<a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../alloc/boxed/struct.Box.html' title='alloc::boxed::Box'>Box</a>&lt;<a class='struct' href='../../../selectors/bloom/struct.BloomFilter.html' title='selectors::bloom::BloomFilter'>BloomFilter</a>&gt;&gt;, applicable_declarations: &amp;mut <a class='struct' href='../../../layout/css/matching/struct.ApplicableDeclarations.html' title='layout::css::matching::ApplicableDeclarations'>ApplicableDeclarations</a>, shareable: &amp;mut <a href='../../../std/primitive.bool.html'>bool</a>)</code></h3><h3 id='tymethod.share_style_if_possible' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#tymethod.share_style_if_possible' class='fnname'>share_style_if_possible</a>(&amp;self, style_sharing_candidate_cache: &amp;mut <a class='struct' href='../../../layout/css/matching/struct.StyleSharingCandidateCache.html' title='layout::css::matching::StyleSharingCandidateCache'>StyleSharingCandidateCache</a>, parent: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../layout/wrapper/struct.LayoutNode.html' title='layout::wrapper::LayoutNode'>LayoutNode</a>&gt;) -&gt; <a class='enum' href='../../../layout/css/matching/enum.StyleSharingResult.html' title='layout::css::matching::StyleSharingResult'>StyleSharingResult</a></code></h3><div class='docblock'><p>Attempts to share a style with another node. This method is unsafe because it depends on
+the <code>style_sharing_candidate_cache</code> having only live nodes in it, and we have no way to
+guarantee that at the type system level yet.</p>
+</div><h3 id='tymethod.cascade_node' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#tymethod.cascade_node' class='fnname'>cascade_node</a>(&amp;self, layout_context: &amp;<a class='struct' href='../../../layout/context/struct.SharedLayoutContext.html' title='layout::context::SharedLayoutContext'>SharedLayoutContext</a>, parent: <a class='enum' href='../../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../layout/wrapper/struct.LayoutNode.html' title='layout::wrapper::LayoutNode'>LayoutNode</a>&gt;, applicable_declarations: &amp;<a class='struct' href='../../../layout/css/matching/struct.ApplicableDeclarations.html' title='layout::css::matching::ApplicableDeclarations'>ApplicableDeclarations</a>, applicable_declarations_cache: &amp;mut <a class='struct' href='../../../layout/css/matching/struct.ApplicableDeclarationsCache.html' title='layout::css::matching::ApplicableDeclarationsCache'>ApplicableDeclarationsCache</a>, new_animations_sender: &amp;<a class='struct' href='../../../std/sync/mpsc/struct.Sender.html' title='std::sync::mpsc::Sender'>Sender</a>&lt;<a class='struct' href='../../../script/layout_interface/struct.Animation.html' title='script::layout_interface::Animation'>Animation</a>&gt;)</code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'ln&gt; <a class='trait' href='../../../layout/css/matching/trait.MatchMethods.html' title='layout::css::matching::MatchMethods'>MatchMethods</a> for <a class='struct' href='../../../layout/wrapper/struct.LayoutNode.html' title='layout::wrapper::LayoutNode'>LayoutNode</a>&lt;'ln&gt;</code></li>
+</ul><script type="text/javascript" async
+                              src="../../../implementors/layout/css/matching/trait.MatchMethods.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

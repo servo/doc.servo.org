@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ContainingBlockLink` struct in crate `layout`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ContainingBlockLink">
+
+    <title>layout::flow::ContainingBlockLink - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>layout</a>::<wbr><a href='index.html'>flow</a></p><script>window.sidebarCurrent = {name: 'ContainingBlockLink', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>layout</a>::<wbr><a href='index.html'>flow</a>::<wbr><a class='struct' href=''>ContainingBlockLink</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-30772' href='../../src/layout/flow.rs.html#1343-1346'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ContainingBlockLink {
+    // some fields omitted
+}</pre><div class='docblock'><p>A link to a flow&#39;s containing block.</p>
+
+<p>This cannot safely be a <code>Flow</code> pointer because this is a pointer <em>up</em> the tree, not <em>down</em> the
+tree. A pointer up the tree is unsafe during layout because it can be used to access a node
+with an immutable reference while that same node is being laid out, causing possible iterator
+invalidation and use-after-free.</p>
+
+<p>FIXME(pcwalton): I think this would be better with a borrow flag instead of <code>unsafe</code>.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../layout/flow/struct.ContainingBlockLink.html' title='layout::flow::ContainingBlockLink'>ContainingBlockLink</a></code></h3><div class='impl-items'><h4 id='method.get' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.get' class='fnname'>get</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='enum' href='../../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../layout/flow_ref/struct.WeakFlowRef.html' title='layout::flow_ref::WeakFlowRef'>WeakFlowRef</a>&gt;</code></h4>
+<h4 id='method.generated_containing_block_rect' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.generated_containing_block_rect' class='fnname'>generated_containing_block_rect</a>(&amp;mut self) -&gt; <a class='struct' href='../../util/logical_geometry/struct.LogicalRect.html' title='util::logical_geometry::LogicalRect'>LogicalRect</a>&lt;<a class='struct' href='../../util/geometry/struct.Au.html' title='util::geometry::Au'>Au</a>&gt;</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "layout";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BoundTexture","Encapsulates a bound texture. This ensures that the texture is unbound properly."],["Texture","A texture."]],"enum":[["FilterMode",""],["Flip","Whether a texture should be flipped."],["Format",""],["TextureTarget","The texture target."]]});

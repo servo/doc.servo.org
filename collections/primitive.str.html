@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `str` primitive in crate `collections`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, str">
+
+    <title>collections::str - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    <link rel="shortcut icon" href="http://www.rust-lang.org/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        <a href='../collections/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
+        <p class='location'><a href='index.html'>collections</a></p><script>window.sidebarCurrent = {name: 'str', ty: 'primitive', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content primitive">
+<h1 class='fqn'><span class='in-band'>Primitive Type <a class='primitive' href=''>str</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span></span></h1>
+<div class='docblock'><p>Unicode string manipulation (the <a href="../primitive.str.html"><code>str</code></a> type).</p>
+
+<p>Rust&#39;s <a href="../primitive.str.html"><code>str</code></a> type is one of the core primitive types of the
+language. <code>&amp;str</code> is the borrowed string type. This type of string can only be created
+from other strings, unless it is a <code>&amp;&#39;static str</code> (see below). It is not possible to
+move out of borrowed strings because they are owned elsewhere.</p>
+
+<p>Basic operations are implemented directly by the compiler, but more advanced operations are
+defined on the <a href="trait.StrExt.html"><code>StrExt</code></a> trait.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1>
+<p>Here&#39;s some code that uses a <code>&amp;str</code>:</p>
+<span class='rusttest'>fn main() {
+    let s = &quot;Hello, world.&quot;;
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='string'>&quot;Hello, world.&quot;</span>;
+</pre>
+
+<p>This <code>&amp;str</code> is a <code>&amp;&#39;static str</code>, which is the type of string literals. They&#39;re <code>&#39;static</code>
+because literals are available for the entire lifetime of the program.</p>
+
+<p>You can get a non-<code>&#39;static</code> <code>&amp;str</code> by taking a slice of a <code>String</code>:</p>
+<span class='rusttest'>fn main() {
+    let some_string = &quot;Hello, world.&quot;.to_string();
+    let s = &amp;some_string;
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='ident'>some_string</span>;
+</pre>
+
+<h1 id="representation" class='section-header'><a
+                           href="#representation">Representation</a></h1>
+<p>Rust&#39;s string type, <code>str</code>, is a sequence of Unicode scalar values encoded as a stream of UTF-8
+bytes. All <a href="../../reference.html#literals">strings</a> are guaranteed to be validly encoded UTF-8
+sequences. Additionally, strings are not null-terminated and can thus contain null bytes.</p>
+
+<p>The actual representation of <code>str</code>s have direct mappings to slices: <code>&amp;str</code> is the same as
+<code>&amp;[u8]</code>.</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../core/raw/trait.Repr.html' title='core::raw::Repr'>Repr</a>&lt;<a class='struct' href='../core/raw/struct.Slice.html' title='core::raw::Slice'>Slice</a>&lt;<a href='../core/primitive.u8.html'>u8</a>&gt;&gt; for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl&lt;'a, 'b&gt; <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt; for &amp;'b <a href='primitive.str.html'>str</a></code></h3><div class='docblock'><p>Non-allocating substring search.</p>
+
+<p>Will handle the pattern <code>&quot;&quot;</code> as returning empty matches at each utf8
+boundary.</p>
+</div><div class='impl-items'><h4 id='assoc_type.Searcher' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Searcher = <a class='struct' href='../core/str/pattern/struct.StrSearcher.html' title='core::str::pattern::StrSearcher'>StrSearcher</a>&lt;'a, 'b&gt;</code></h4>
+<h4 id='method.into_searcher' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.into_searcher' class='fnname'>into_searcher</a>(self, haystack: &amp;'a <a href='primitive.str.html'>str</a>) -&gt; <a class='struct' href='../core/str/pattern/struct.StrSearcher.html' title='core::str::pattern::StrSearcher'>StrSearcher</a>&lt;'a, 'b&gt;</code></h4>
+<h4 id='method.is_contained_in' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.is_contained_in' class='fnname'>is_contained_in</a>(self, haystack: &amp;'a <a href='primitive.str.html'>str</a>) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.is_prefix_of' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.is_prefix_of' class='fnname'>is_prefix_of</a>(self, haystack: &amp;'a <a href='primitive.str.html'>str</a>) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.is_suffix_of' class='tymethod'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#tymethod.is_suffix_of' class='fnname'>is_suffix_of</a>(self, haystack: &amp;'a <a href='primitive.str.html'>str</a>) -&gt; <a href='../core/primitive.bool.html'>bool</a> <span class='where'>where &lt;Self as <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;::Searcher: <a class='trait' href='../collections/str/trait.ReverseSearcher.html' title='collections::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.cmp' class='fnname'>cmp</a>(&amp;self, other: &amp;<a href='primitive.str.html'>str</a>) -&gt; <a class='enum' href='../core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&lt;<a href='primitive.str.html'>str</a>&gt; for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a href='primitive.str.html'>str</a>) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a href='primitive.str.html'>str</a>) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.assert_receiver_is_total_eq' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.assert_receiver_is_total_eq' class='fnname'>assert_receiver_is_total_eq</a>(&amp;self)</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/cmp/trait.PartialOrd.html' title='core::cmp::PartialOrd'>PartialOrd</a>&lt;<a href='primitive.str.html'>str</a>&gt; for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.partial_cmp' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.partial_cmp' class='fnname'>partial_cmp</a>(&amp;self, other: &amp;<a href='primitive.str.html'>str</a>) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a>&gt;</code></h4>
+<h4 id='method.lt' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.lt' class='fnname'>lt</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.le' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.le' class='fnname'>le</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.gt' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.gt' class='fnname'>gt</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ge' class='tymethod'><a class='stability Stable' title='Stable'></a><code>fn <a href='#tymethod.ge' class='fnname'>ge</a>(&amp;self, other: &amp;Rhs) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;<a class='struct' href='../core/ops/struct.Range.html' title='core::ops::Range'>Range</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt;&gt; for <a href='primitive.str.html'>str</a></code></h3><div class='docblock'><p>Returns a slice of the given string from the byte range
+[<code>begin</code>..<code>end</code>).</p>
+
+<p>This operation is <code>O(1)</code>.</p>
+
+<p>Panics when <code>begin</code> and <code>end</code> do not point to valid characters
+or point beyond the last character of the string.</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><span class='rusttest'>fn main() {
+    let s = &quot;Löwe 老虎 Léopard&quot;;
+    assert_eq!(&amp;s[0 .. 1], &quot;L&quot;);
+    
+    assert_eq!(&amp;s[1 .. 9], &quot;öwe 老&quot;);
+    
+    // these will panic:
+    // byte 2 lies within `ö`:
+    // &amp;s[2 ..3];
+    
+    // byte 8 lies within `老`
+    // &amp;s[1 .. 8];
+    
+    // byte 100 is outside the string
+    // &amp;s[3 .. 100];
+}</span><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='string'>&quot;Löwe 老虎 Léopard&quot;</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='ident'>s</span>[<span class='number'>0</span> .. <span class='number'>1</span>], <span class='string'>&quot;L&quot;</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='ident'>s</span>[<span class='number'>1</span> .. <span class='number'>9</span>], <span class='string'>&quot;öwe 老&quot;</span>);
+
+<span class='comment'>// these will panic:</span>
+<span class='comment'>// byte 2 lies within `ö`:</span>
+<span class='comment'>// &amp;s[2 ..3];</span>
+
+<span class='comment'>// byte 8 lies within `老`</span>
+<span class='comment'>// &amp;s[1 .. 8];</span>
+
+<span class='comment'>// byte 100 is outside the string</span>
+<span class='comment'>// &amp;s[3 .. 100];</span>
+</pre>
+</div><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.index' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, index: &amp;<a class='struct' href='../core/ops/struct.Range.html' title='core::ops::Range'>Range</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt;) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;<a class='struct' href='../core/ops/struct.RangeTo.html' title='core::ops::RangeTo'>RangeTo</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt;&gt; for <a href='primitive.str.html'>str</a></code></h3><div class='docblock'><p>Returns a slice of the string from the beginning to byte
+<code>end</code>.</p>
+
+<p>Equivalent to <code>self[0 .. end]</code>.</p>
+
+<p>Panics when <code>end</code> does not point to a valid character, or is
+out of bounds.</p>
+</div><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.index' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, index: &amp;<a class='struct' href='../core/ops/struct.RangeTo.html' title='core::ops::RangeTo'>RangeTo</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt;) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;<a class='struct' href='../core/ops/struct.RangeFrom.html' title='core::ops::RangeFrom'>RangeFrom</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt;&gt; for <a href='primitive.str.html'>str</a></code></h3><div class='docblock'><p>Returns a slice of the string from <code>begin</code> to its end.</p>
+
+<p>Equivalent to <code>self[begin .. self.len()]</code>.</p>
+
+<p>Panics when <code>begin</code> does not point to a valid character, or is
+out of bounds.</p>
+</div><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.index' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, index: &amp;<a class='struct' href='../core/ops/struct.RangeFrom.html' title='core::ops::RangeFrom'>RangeFrom</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt;) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;<a class='struct' href='../core/ops/struct.RangeFull.html' title='core::ops::RangeFull'>RangeFull</a>&gt; for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Output = <a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.index' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, _index: &amp;<a class='struct' href='../core/ops/struct.RangeFull.html' title='core::ops::RangeFull'>RangeFull</a>) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable: Instead of taking this bound generically, this trait will be replaced with one of slicing syntax (&amp;foo[..]), deref coercions, or a more generic conversion trait'></a><code>impl <a class='trait' href='../collections/str/trait.Str.html' title='collections::str::Str'>Str</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.as_slice' class='method'><a class='stability Unstable' title='Unstable: Instead of taking this bound generically, this trait will be replaced with one of slicing syntax (&amp;foo[..]), deref coercions, or a more generic conversion trait'></a><code>fn <a href='#method.as_slice' class='fnname'>as_slice</a>(&amp;'a self) -&gt; &amp;'a <a href='primitive.str.html'>str</a></code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../core/str/trait.StrExt.html' title='core::str::StrExt'>StrExt</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.contains' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.contains' class='fnname'>contains</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a href='../core/primitive.bool.html'>bool</a> <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.contains_char' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.contains_char' class='fnname'>contains_char</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a href='../core/primitive.bool.html'>bool</a> <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.chars' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.chars' class='fnname'>chars</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Chars.html' title='collections::str::Chars'>Chars</a></code></h4>
+<h4 id='method.bytes' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.bytes' class='fnname'>bytes</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Bytes.html' title='collections::str::Bytes'>Bytes</a></code></h4>
+<h4 id='method.char_indices' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.char_indices' class='fnname'>char_indices</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.CharIndices.html' title='collections::str::CharIndices'>CharIndices</a></code></h4>
+<h4 id='method.split' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.split' class='fnname'>split</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../collections/str/struct.Split.html' title='collections::str::Split'>Split</a>&lt;'a, P&gt; <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.splitn' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.splitn' class='fnname'>splitn</a>&lt;'a, P&gt;(&amp;'a self, count: <a href='../core/primitive.usize.html'>usize</a>, pat: P) -&gt; <a class='struct' href='../collections/str/struct.SplitN.html' title='collections::str::SplitN'>SplitN</a>&lt;'a, P&gt; <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.split_terminator' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.split_terminator' class='fnname'>split_terminator</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../collections/str/struct.SplitTerminator.html' title='collections::str::SplitTerminator'>SplitTerminator</a>&lt;'a, P&gt; <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.rsplitn' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.rsplitn' class='fnname'>rsplitn</a>&lt;'a, P&gt;(&amp;'a self, count: <a href='../core/primitive.usize.html'>usize</a>, pat: P) -&gt; <a class='struct' href='../collections/str/struct.RSplitN.html' title='collections::str::RSplitN'>RSplitN</a>&lt;'a, P&gt; <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.match_indices' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.match_indices' class='fnname'>match_indices</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../collections/str/struct.MatchIndices.html' title='collections::str::MatchIndices'>MatchIndices</a>&lt;'a, P&gt; <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.split_str' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.split_str' class='fnname'>split_str</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../collections/str/struct.SplitStr.html' title='collections::str::SplitStr'>SplitStr</a>&lt;'a, P&gt; <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.lines' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.lines' class='fnname'>lines</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Lines.html' title='collections::str::Lines'>Lines</a></code></h4>
+<h4 id='method.lines_any' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.lines_any' class='fnname'>lines_any</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.LinesAny.html' title='collections::str::LinesAny'>LinesAny</a></code></h4>
+<h4 id='method.char_len' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.char_len' class='fnname'>char_len</a>(&amp;self) -&gt; <a href='../core/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.slice_chars' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.slice_chars' class='fnname'>slice_chars</a>(&amp;self, begin: <a href='../core/primitive.usize.html'>usize</a>, end: <a href='../core/primitive.usize.html'>usize</a>) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.slice_unchecked' class='method'><a class='stability Unstable' title='Unstable'></a><code>unsafe fn <a href='#method.slice_unchecked' class='fnname'>slice_unchecked</a>(&amp;self, begin: <a href='../core/primitive.usize.html'>usize</a>, end: <a href='../core/primitive.usize.html'>usize</a>) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.starts_with' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.starts_with' class='fnname'>starts_with</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a href='../core/primitive.bool.html'>bool</a> <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.ends_with' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.ends_with' class='fnname'>ends_with</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a href='../core/primitive.bool.html'>bool</a> <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;, &lt;P as <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;::Searcher: <a class='trait' href='../collections/str/trait.ReverseSearcher.html' title='collections::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.trim_matches' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.trim_matches' class='fnname'>trim_matches</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='primitive.str.html'>str</a> <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;, &lt;P as <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;::Searcher: <a class='trait' href='../collections/str/trait.DoubleEndedSearcher.html' title='collections::str::DoubleEndedSearcher'>DoubleEndedSearcher</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.trim_left_matches' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.trim_left_matches' class='fnname'>trim_left_matches</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='primitive.str.html'>str</a> <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.trim_right_matches' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.trim_right_matches' class='fnname'>trim_right_matches</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='primitive.str.html'>str</a> <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;, &lt;P as <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;::Searcher: <a class='trait' href='../collections/str/trait.ReverseSearcher.html' title='collections::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.is_char_boundary' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.is_char_boundary' class='fnname'>is_char_boundary</a>(&amp;self, index: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.char_range_at' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.char_range_at' class='fnname'>char_range_at</a>(&amp;self, i: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../collections/str/struct.CharRange.html' title='collections::str::CharRange'>CharRange</a></code></h4>
+<h4 id='method.char_range_at_reverse' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.char_range_at_reverse' class='fnname'>char_range_at_reverse</a>(&amp;self, start: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../collections/str/struct.CharRange.html' title='collections::str::CharRange'>CharRange</a></code></h4>
+<h4 id='method.char_at' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.char_at' class='fnname'>char_at</a>(&amp;self, i: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a href='../core/primitive.char.html'>char</a></code></h4>
+<h4 id='method.char_at_reverse' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.char_at_reverse' class='fnname'>char_at_reverse</a>(&amp;self, i: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a href='../core/primitive.char.html'>char</a></code></h4>
+<h4 id='method.as_bytes' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_bytes' class='fnname'>as_bytes</a>(&amp;self) -&gt; <a href='primitive.slice.html'>&amp;[</a><a href='../core/primitive.u8.html'>u8</a><a href='primitive.slice.html'>]</a></code></h4>
+<h4 id='method.find' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.find' class='fnname'>find</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt; <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.rfind' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.rfind' class='fnname'>rfind</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt; <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;, &lt;P as <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;::Searcher: <a class='trait' href='../collections/str/trait.ReverseSearcher.html' title='collections::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.find_str' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.find_str' class='fnname'>find_str</a>&lt;'a, P&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt; <span class='where'>where P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.slice_shift_char' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.slice_shift_char' class='fnname'>slice_shift_char</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../core/primitive.tuple.html'>(<a href='../core/primitive.char.html'>char</a>, &amp;<a href='primitive.str.html'>str</a>)</a>&gt;</code></h4>
+<h4 id='method.subslice_offset' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.subslice_offset' class='fnname'>subslice_offset</a>(&amp;self, inner: &amp;<a href='primitive.str.html'>str</a>) -&gt; <a href='../core/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.as_ptr' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.as_ptr' class='fnname'>as_ptr</a>(&amp;self) -&gt; *const <a href='../core/primitive.u8.html'>u8</a></code></h4>
+<h4 id='method.len' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../core/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.is_empty' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.parse' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.parse' class='fnname'>parse</a>&lt;T&gt;(&amp;self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, &lt;T as <a class='trait' href='../collections/str/trait.FromStr.html' title='collections::str::FromStr'>FromStr</a>&gt;::Err&gt; <span class='where'>where T: <a class='trait' href='../collections/str/trait.FromStr.html' title='collections::str::FromStr'>FromStr</a></span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a&gt; <a class='trait' href='../core/default/trait.Default.html' title='core::default::Default'>Default</a> for &amp;'a <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.default' class='fnname'>default</a>() -&gt; &amp;'a <a href='primitive.str.html'>str</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.hash' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.hash' class='fnname'>hash</a>&lt;H&gt;(&amp;self, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a></span></code></h4>
+<h4 id='method.hash_slice' class='tymethod'><a class='stability Unstable' title='Unstable: module was recently redesigned'></a><code>fn <a href='#tymethod.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a href='primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where'>where H: <a class='trait' href='../core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a></span></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../collections/fmt/trait.Debug.html' title='collections::fmt::Debug'>Debug</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../collections/fmt/struct.Formatter.html' title='collections::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../core/primitive.tuple.html'>()</a>, <a class='struct' href='../collections/fmt/struct.Error.html' title='collections::fmt::Error'>Error</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../collections/fmt/trait.Display.html' title='collections::fmt::Display'>Display</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='../collections/fmt/struct.Formatter.html' title='collections::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='../core/primitive.tuple.html'>()</a>, <a class='struct' href='../collections/fmt/struct.Error.html' title='collections::fmt::Error'>Error</a>&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unstable' title='Unstable'></a><code>impl <a class='trait' href='../unicode/u_str/trait.UnicodeStr.html' title='unicode::u_str::UnicodeStr'>UnicodeStr</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.graphemes' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.graphemes' class='fnname'>graphemes</a>(&amp;self, is_extended: <a href='../core/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../collections/str/struct.Graphemes.html' title='collections::str::Graphemes'>Graphemes</a></code></h4>
+<h4 id='method.grapheme_indices' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.grapheme_indices' class='fnname'>grapheme_indices</a>(&amp;self, is_extended: <a href='../core/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../collections/str/struct.GraphemeIndices.html' title='collections::str::GraphemeIndices'>GraphemeIndices</a></code></h4>
+<h4 id='method.words' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.words' class='fnname'>words</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Words.html' title='collections::str::Words'>Words</a></code></h4>
+<h4 id='method.is_whitespace' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.is_whitespace' class='fnname'>is_whitespace</a>(&amp;self) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.is_alphanumeric' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.is_alphanumeric' class='fnname'>is_alphanumeric</a>(&amp;self) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.width' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.width' class='fnname'>width</a>(&amp;self, is_cjk: <a href='../core/primitive.bool.html'>bool</a>) -&gt; <a href='../core/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.trim' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.trim' class='fnname'>trim</a>(&amp;self) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.trim_left' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.trim_left' class='fnname'>trim_left</a>(&amp;self) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.trim_right' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.trim_right' class='fnname'>trim_right</a>(&amp;self) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../collections/borrow/trait.ToOwned.html' title='collections::borrow::ToOwned'>ToOwned</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='assoc_type.Owned' class='type'><a class='stability Unmarked' title='No stability level'></a><code>type Owned = <a class='struct' href='../collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<h4 id='method.to_owned' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.to_owned' class='fnname'>to_owned</a>(&amp;self) -&gt; <a class='struct' href='../collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../collections/str/trait.StrExt.html' title='collections::str::StrExt'>StrExt</a> for <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.slice' class='method'><a class='stability Deprecated' title='Deprecated: use slice notation [a..b] instead'></a><code>fn <a href='#method.slice' class='fnname'>slice</a>(&amp;self, begin: <a href='../core/primitive.usize.html'>usize</a>, end: <a href='../core/primitive.usize.html'>usize</a>) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.slice_from' class='method'><a class='stability Deprecated' title='Deprecated: use slice notation [a..] instead'></a><code>fn <a href='#method.slice_from' class='fnname'>slice_from</a>(&amp;self, begin: <a href='../core/primitive.usize.html'>usize</a>) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.slice_to' class='method'><a class='stability Deprecated' title='Deprecated: use slice notation [..a] instead'></a><code>fn <a href='#method.slice_to' class='fnname'>slice_to</a>(&amp;self, end: <a href='../core/primitive.usize.html'>usize</a>) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.escape_default' class='method'><a class='stability Unstable' title='Unstable: return type may change to be an iterator'></a><code>fn <a href='#method.escape_default' class='fnname'>escape_default</a>(&amp;self) -&gt; <a class='struct' href='../collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<h4 id='method.escape_unicode' class='method'><a class='stability Unstable' title='Unstable: return type may change to be an iterator'></a><code>fn <a href='#method.escape_unicode' class='fnname'>escape_unicode</a>(&amp;self) -&gt; <a class='struct' href='../collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<h4 id='method.replace' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.replace' class='fnname'>replace</a>(&amp;self, from: &amp;<a href='primitive.str.html'>str</a>, to: &amp;<a href='primitive.str.html'>str</a>) -&gt; <a class='struct' href='../collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<h4 id='method.nfd_chars' class='method'><a class='stability Unstable' title='Unstable: this functionality may be moved to libunicode'></a><code>fn <a href='#method.nfd_chars' class='fnname'>nfd_chars</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Decompositions.html' title='collections::str::Decompositions'>Decompositions</a></code></h4>
+<h4 id='method.nfkd_chars' class='method'><a class='stability Unstable' title='Unstable: this functionality may be moved to libunicode'></a><code>fn <a href='#method.nfkd_chars' class='fnname'>nfkd_chars</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Decompositions.html' title='collections::str::Decompositions'>Decompositions</a></code></h4>
+<h4 id='method.nfc_chars' class='method'><a class='stability Unstable' title='Unstable: this functionality may be moved to libunicode'></a><code>fn <a href='#method.nfc_chars' class='fnname'>nfc_chars</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Recompositions.html' title='collections::str::Recompositions'>Recompositions</a></code></h4>
+<h4 id='method.nfkc_chars' class='method'><a class='stability Unstable' title='Unstable: this functionality may be moved to libunicode'></a><code>fn <a href='#method.nfkc_chars' class='fnname'>nfkc_chars</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Recompositions.html' title='collections::str::Recompositions'>Recompositions</a></code></h4>
+<h4 id='method.contains' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.contains' class='fnname'>contains</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.contains_char' class='method'><a class='stability Deprecated' title='Deprecated: use `contains()` with a char'></a><code>fn <a href='#method.contains_char' class='fnname'>contains_char</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.chars' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.chars' class='fnname'>chars</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Chars.html' title='collections::str::Chars'>Chars</a></code></h4>
+<h4 id='method.bytes' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.bytes' class='fnname'>bytes</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Bytes.html' title='collections::str::Bytes'>Bytes</a></code></h4>
+<h4 id='method.char_indices' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.char_indices' class='fnname'>char_indices</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.CharIndices.html' title='collections::str::CharIndices'>CharIndices</a></code></h4>
+<h4 id='method.split' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.split' class='fnname'>split</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../collections/str/struct.Split.html' title='collections::str::Split'>Split</a>&lt;'a, P&gt;</code></h4>
+<h4 id='method.splitn' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.splitn' class='fnname'>splitn</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, count: <a href='../core/primitive.usize.html'>usize</a>, pat: P) -&gt; <a class='struct' href='../collections/str/struct.SplitN.html' title='collections::str::SplitN'>SplitN</a>&lt;'a, P&gt;</code></h4>
+<h4 id='method.split_terminator' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.split_terminator' class='fnname'>split_terminator</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../collections/str/struct.SplitTerminator.html' title='collections::str::SplitTerminator'>SplitTerminator</a>&lt;'a, P&gt;</code></h4>
+<h4 id='method.rsplitn' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.rsplitn' class='fnname'>rsplitn</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, count: <a href='../core/primitive.usize.html'>usize</a>, pat: P) -&gt; <a class='struct' href='../collections/str/struct.RSplitN.html' title='collections::str::RSplitN'>RSplitN</a>&lt;'a, P&gt;</code></h4>
+<h4 id='method.match_indices' class='method'><a class='stability Unstable' title='Unstable: might have its iterator type changed'></a><code>fn <a href='#method.match_indices' class='fnname'>match_indices</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../collections/str/struct.MatchIndices.html' title='collections::str::MatchIndices'>MatchIndices</a>&lt;'a, P&gt;</code></h4>
+<h4 id='method.split_str' class='method'><a class='stability Deprecated' title='Deprecated: use `split()` with a `&amp;str`'></a><code>fn <a href='#method.split_str' class='fnname'>split_str</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='struct' href='../collections/str/struct.SplitStr.html' title='collections::str::SplitStr'>SplitStr</a>&lt;'a, P&gt;</code></h4>
+<h4 id='method.lines' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.lines' class='fnname'>lines</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Lines.html' title='collections::str::Lines'>Lines</a></code></h4>
+<h4 id='method.lines_any' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.lines_any' class='fnname'>lines_any</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.LinesAny.html' title='collections::str::LinesAny'>LinesAny</a></code></h4>
+<h4 id='method.slice_chars' class='method'><a class='stability Unstable' title='Unstable: may have yet to prove its worth'></a><code>fn <a href='#method.slice_chars' class='fnname'>slice_chars</a>(&amp;self, begin: <a href='../core/primitive.usize.html'>usize</a>, end: <a href='../core/primitive.usize.html'>usize</a>) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.slice_unchecked' class='method'><a class='stability Stable' title='Stable'></a><code>unsafe fn <a href='#method.slice_unchecked' class='fnname'>slice_unchecked</a>(&amp;self, begin: <a href='../core/primitive.usize.html'>usize</a>, end: <a href='../core/primitive.usize.html'>usize</a>) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.starts_with' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.starts_with' class='fnname'>starts_with</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ends_with' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ends_with' class='fnname'>ends_with</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a href='../core/primitive.bool.html'>bool</a> <span class='where'>where Searcher: <a class='trait' href='../collections/str/trait.ReverseSearcher.html' title='collections::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.trim_matches' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.trim_matches' class='fnname'>trim_matches</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='primitive.str.html'>str</a> <span class='where'>where Searcher: <a class='trait' href='../collections/str/trait.DoubleEndedSearcher.html' title='collections::str::DoubleEndedSearcher'>DoubleEndedSearcher</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.trim_left_matches' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.trim_left_matches' class='fnname'>trim_left_matches</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.trim_right_matches' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.trim_right_matches' class='fnname'>trim_right_matches</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; &amp;'a <a href='primitive.str.html'>str</a> <span class='where'>where Searcher: <a class='trait' href='../collections/str/trait.ReverseSearcher.html' title='collections::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.is_char_boundary' class='method'><a class='stability Unstable' title='Unstable: naming is uncertain with container conventions'></a><code>fn <a href='#method.is_char_boundary' class='fnname'>is_char_boundary</a>(&amp;self, index: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.char_range_at' class='method'><a class='stability Unstable' title='Unstable: naming is uncertain with container conventions'></a><code>fn <a href='#method.char_range_at' class='fnname'>char_range_at</a>(&amp;self, start: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../collections/str/struct.CharRange.html' title='collections::str::CharRange'>CharRange</a></code></h4>
+<h4 id='method.char_range_at_reverse' class='method'><a class='stability Unstable' title='Unstable: naming is uncertain with container conventions'></a><code>fn <a href='#method.char_range_at_reverse' class='fnname'>char_range_at_reverse</a>(&amp;self, start: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../collections/str/struct.CharRange.html' title='collections::str::CharRange'>CharRange</a></code></h4>
+<h4 id='method.char_at' class='method'><a class='stability Unstable' title='Unstable: naming is uncertain with container conventions'></a><code>fn <a href='#method.char_at' class='fnname'>char_at</a>(&amp;self, i: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a href='../core/primitive.char.html'>char</a></code></h4>
+<h4 id='method.char_at_reverse' class='method'><a class='stability Unstable' title='Unstable: naming is uncertain with container conventions'></a><code>fn <a href='#method.char_at_reverse' class='fnname'>char_at_reverse</a>(&amp;self, i: <a href='../core/primitive.usize.html'>usize</a>) -&gt; <a href='../core/primitive.char.html'>char</a></code></h4>
+<h4 id='method.as_bytes' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.as_bytes' class='fnname'>as_bytes</a>(&amp;self) -&gt; <a href='primitive.slice.html'>&amp;[</a><a href='../core/primitive.u8.html'>u8</a><a href='primitive.slice.html'>]</a></code></h4>
+<h4 id='method.find' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.find' class='fnname'>find</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt;</code></h4>
+<h4 id='method.rfind' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.rfind' class='fnname'>rfind</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, pat: P) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt; <span class='where'>where Searcher: <a class='trait' href='../collections/str/trait.ReverseSearcher.html' title='collections::str::ReverseSearcher'>ReverseSearcher</a>&lt;'a&gt;</span></code></h4>
+<h4 id='method.find_str' class='method'><a class='stability Deprecated' title='Deprecated: use `find()` with a `&amp;str`'></a><code>fn <a href='#method.find_str' class='fnname'>find_str</a>&lt;'a, P: <a class='trait' href='../collections/str/trait.Pattern.html' title='collections::str::Pattern'>Pattern</a>&lt;'a&gt;&gt;(&amp;'a self, needle: P) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../core/primitive.usize.html'>usize</a>&gt;</code></h4>
+<h4 id='method.slice_shift_char' class='method'><a class='stability Unstable' title='Unstable: awaiting conventions about shifting and slices'></a><code>fn <a href='#method.slice_shift_char' class='fnname'>slice_shift_char</a>(&amp;self) -&gt; <a class='enum' href='../core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='../core/primitive.tuple.html'>(<a href='../core/primitive.char.html'>char</a>, &amp;<a href='primitive.str.html'>str</a>)</a>&gt;</code></h4>
+<h4 id='method.subslice_offset' class='method'><a class='stability Unstable' title='Unstable: awaiting convention about comparability of arbitrary slices'></a><code>fn <a href='#method.subslice_offset' class='fnname'>subslice_offset</a>(&amp;self, inner: &amp;<a href='primitive.str.html'>str</a>) -&gt; <a href='../core/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.as_ptr' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.as_ptr' class='fnname'>as_ptr</a>(&amp;self) -&gt; *const <a href='../core/primitive.u8.html'>u8</a></code></h4>
+<h4 id='method.utf16_units' class='method'><a class='stability Unstable' title='Unstable: this functionality may only be provided by libunicode'></a><code>fn <a href='#method.utf16_units' class='fnname'>utf16_units</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Utf16Units.html' title='collections::str::Utf16Units'>Utf16Units</a></code></h4>
+<h4 id='method.len' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.len' class='fnname'>len</a>(&amp;self) -&gt; <a href='../core/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.is_empty' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.parse' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.parse' class='fnname'>parse</a>&lt;F: <a class='trait' href='../collections/str/trait.FromStr.html' title='collections::str::FromStr'>FromStr</a>&gt;(&amp;self) -&gt; <a class='enum' href='../core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;F, Err&gt;</code></h4>
+<h4 id='method.graphemes' class='method'><a class='stability Unstable' title='Unstable: this functionality may only be provided by libunicode'></a><code>fn <a href='#method.graphemes' class='fnname'>graphemes</a>(&amp;self, is_extended: <a href='../core/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../collections/str/struct.Graphemes.html' title='collections::str::Graphemes'>Graphemes</a></code></h4>
+<h4 id='method.grapheme_indices' class='method'><a class='stability Unstable' title='Unstable: this functionality may only be provided by libunicode'></a><code>fn <a href='#method.grapheme_indices' class='fnname'>grapheme_indices</a>(&amp;self, is_extended: <a href='../core/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../collections/str/struct.GraphemeIndices.html' title='collections::str::GraphemeIndices'>GraphemeIndices</a></code></h4>
+<h4 id='method.words' class='method'><a class='stability Unstable' title='Unstable: the precise algorithm to use is unclear'></a><code>fn <a href='#method.words' class='fnname'>words</a>(&amp;self) -&gt; <a class='struct' href='../collections/str/struct.Words.html' title='collections::str::Words'>Words</a></code></h4>
+<h4 id='method.width' class='method'><a class='stability Unstable' title='Unstable: this functionality may only be provided by libunicode'></a><code>fn <a href='#method.width' class='fnname'>width</a>(&amp;self, is_cjk: <a href='../core/primitive.bool.html'>bool</a>) -&gt; <a href='../core/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.trim' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.trim' class='fnname'>trim</a>(&amp;self) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.trim_left' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.trim_left' class='fnname'>trim_left</a>(&amp;self) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+<h4 id='method.trim_right' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.trim_right' class='fnname'>trim_right</a>(&amp;self) -&gt; &amp;<a href='primitive.str.html'>str</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a&gt; <a class='trait' href='../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&lt;<a class='struct' href='../collections/string/struct.String.html' title='collections::string::String'>String</a>&gt; for &amp;'a <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a class='struct' href='../collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a class='struct' href='../collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a, 'b&gt; <a class='trait' href='../core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&lt;<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='primitive.str.html'>str</a>&gt;&gt; for &amp;'b <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='primitive.str.html'>str</a>&gt;) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;<a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='primitive.str.html'>str</a>&gt;) -&gt; <a href='../core/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;'a&gt; <a class='trait' href='../collections/borrow/trait.IntoCow.html' title='collections::borrow::IntoCow'>IntoCow</a>&lt;'a, <a href='primitive.str.html'>str</a>&gt; for &amp;'a <a href='primitive.str.html'>str</a></code></h3><div class='impl-items'><h4 id='method.into_cow' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.into_cow' class='fnname'>into_cow</a>(self) -&gt; <a class='enum' href='../collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'a, <a href='primitive.str.html'>str</a>&gt;</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "collections";
+        window.playgroundUrl = "http://play.rust-lang.org/";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script src="../playpen.js"></script>
+    <script async src="../search-index.js"></script>
+</body>
+</html>

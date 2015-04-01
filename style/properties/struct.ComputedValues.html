@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ComputedValues` struct in crate `style`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ComputedValues">
+
+    <title>style::properties::ComputedValues - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>style</a>::<wbr><a href='index.html'>properties</a></p><script>window.sidebarCurrent = {name: 'ComputedValues', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>style</a>::<wbr><a href='index.html'>properties</a>::<wbr><a class='struct' href=''>ComputedValues</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span></span></h1>
+<pre class='rust struct'>pub struct ComputedValues {
+    pub writing_mode: <a class='struct' href='../../util/logical_geometry/struct.WritingMode.html' title='util::logical_geometry::WritingMode'>WritingMode</a>,
+    pub root_font_size: <a class='struct' href='../../style/properties/longhands/outline_width/computed_value/struct.T.html' title='style::properties::longhands::outline_width::computed_value::T'>Au</a>,
+    // some fields omitted
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.writing_mode'><a class='stability Unmarked' title='No stability level'></a><code>writing_mode</code></td><td></td></tr><tr><td id='structfield.root_font_size'><a class='stability Unmarked' title='No stability level'></a><code>root_font_size</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a></code></h3><div class='impl-items'><h4 id='method.resolve_color' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.resolve_color' class='fnname'>resolve_color</a>(&amp;self, color: <a class='enum' href='../../style/properties/longhands/background_color/computed_value/enum.T.html' title='style::properties::longhands::background_color::computed_value::T'>Color</a>) -&gt; <a class='struct' href='../../style/values/struct.RGBA.html' title='style::values::RGBA'>RGBA</a></code></h4>
+<div class='docblock'><p>Resolves the currentColor keyword.
+Any color value form computed values (except for the &#39;color&#39; property itself)
+should go through this method.</p>
+
+<p>Usage example:
+let top_color = style.resolve_color(style.Border.border_top_color);</p>
+</div><h4 id='method.content_inline_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.content_inline_size' class='fnname'>content_inline_size</a>(&amp;self) -&gt; <a class='enum' href='../../style/values/computed/enum.LengthOrPercentageOrAuto.html' title='style::values::computed::LengthOrPercentageOrAuto'>LengthOrPercentageOrAuto</a></code></h4>
+<h4 id='method.content_block_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.content_block_size' class='fnname'>content_block_size</a>(&amp;self) -&gt; <a class='enum' href='../../style/values/computed/enum.LengthOrPercentageOrAuto.html' title='style::values::computed::LengthOrPercentageOrAuto'>LengthOrPercentageOrAuto</a></code></h4>
+<h4 id='method.min_inline_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.min_inline_size' class='fnname'>min_inline_size</a>(&amp;self) -&gt; <a class='enum' href='../../style/values/computed/enum.LengthOrPercentage.html' title='style::values::computed::LengthOrPercentage'>LengthOrPercentage</a></code></h4>
+<h4 id='method.min_block_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.min_block_size' class='fnname'>min_block_size</a>(&amp;self) -&gt; <a class='enum' href='../../style/values/computed/enum.LengthOrPercentage.html' title='style::values::computed::LengthOrPercentage'>LengthOrPercentage</a></code></h4>
+<h4 id='method.max_inline_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.max_inline_size' class='fnname'>max_inline_size</a>(&amp;self) -&gt; <a class='enum' href='../../style/values/computed/enum.LengthOrPercentageOrNone.html' title='style::values::computed::LengthOrPercentageOrNone'>LengthOrPercentageOrNone</a></code></h4>
+<h4 id='method.max_block_size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.max_block_size' class='fnname'>max_block_size</a>(&amp;self) -&gt; <a class='enum' href='../../style/values/computed/enum.LengthOrPercentageOrNone.html' title='style::values::computed::LengthOrPercentageOrNone'>LengthOrPercentageOrNone</a></code></h4>
+<h4 id='method.logical_padding' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.logical_padding' class='fnname'>logical_padding</a>(&amp;self) -&gt; <a class='struct' href='../../util/logical_geometry/struct.LogicalMargin.html' title='util::logical_geometry::LogicalMargin'>LogicalMargin</a>&lt;<a class='enum' href='../../style/values/computed/enum.LengthOrPercentage.html' title='style::values::computed::LengthOrPercentage'>LengthOrPercentage</a>&gt;</code></h4>
+<h4 id='method.logical_border_width' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.logical_border_width' class='fnname'>logical_border_width</a>(&amp;self) -&gt; <a class='struct' href='../../util/logical_geometry/struct.LogicalMargin.html' title='util::logical_geometry::LogicalMargin'>LogicalMargin</a>&lt;<a class='struct' href='../../style/properties/longhands/outline_width/computed_value/struct.T.html' title='style::properties::longhands::outline_width::computed_value::T'>Au</a>&gt;</code></h4>
+<h4 id='method.logical_margin' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.logical_margin' class='fnname'>logical_margin</a>(&amp;self) -&gt; <a class='struct' href='../../util/logical_geometry/struct.LogicalMargin.html' title='util::logical_geometry::LogicalMargin'>LogicalMargin</a>&lt;<a class='enum' href='../../style/values/computed/enum.LengthOrPercentageOrAuto.html' title='style::values::computed::LengthOrPercentageOrAuto'>LengthOrPercentageOrAuto</a>&gt;</code></h4>
+<h4 id='method.logical_position' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.logical_position' class='fnname'>logical_position</a>(&amp;self) -&gt; <a class='struct' href='../../util/logical_geometry/struct.LogicalMargin.html' title='util::logical_geometry::LogicalMargin'>LogicalMargin</a>&lt;<a class='enum' href='../../style/values/computed/enum.LengthOrPercentageOrAuto.html' title='style::values::computed::LengthOrPercentageOrAuto'>LengthOrPercentageOrAuto</a>&gt;</code></h4>
+<h4 id='method.get_font_arc' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_font_arc' class='fnname'>get_font_arc</a>(&amp;self) -&gt; <a class='struct' href='../../alloc/arc/struct.Arc.html' title='alloc::arc::Arc'>Arc</a>&lt;<a class='struct' href='../../style/properties/style_structs/struct.Font.html' title='style::properties::style_structs::Font'>Font</a>&gt;</code></h4>
+<h4 id='method.get_margin' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_margin' class='fnname'>get_margin</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Margin.html' title='style::properties::style_structs::Margin'>Margin</a></code></h4>
+<h4 id='method.mutate_margin' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_margin' class='fnname'>mutate_margin</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Margin.html' title='style::properties::style_structs::Margin'>Margin</a></code></h4>
+<h4 id='method.get_padding' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_padding' class='fnname'>get_padding</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Padding.html' title='style::properties::style_structs::Padding'>Padding</a></code></h4>
+<h4 id='method.mutate_padding' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_padding' class='fnname'>mutate_padding</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Padding.html' title='style::properties::style_structs::Padding'>Padding</a></code></h4>
+<h4 id='method.get_border' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_border' class='fnname'>get_border</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Border.html' title='style::properties::style_structs::Border'>Border</a></code></h4>
+<h4 id='method.mutate_border' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_border' class='fnname'>mutate_border</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Border.html' title='style::properties::style_structs::Border'>Border</a></code></h4>
+<h4 id='method.get_outline' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_outline' class='fnname'>get_outline</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Outline.html' title='style::properties::style_structs::Outline'>Outline</a></code></h4>
+<h4 id='method.mutate_outline' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_outline' class='fnname'>mutate_outline</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Outline.html' title='style::properties::style_structs::Outline'>Outline</a></code></h4>
+<h4 id='method.get_positionoffsets' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_positionoffsets' class='fnname'>get_positionoffsets</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.PositionOffsets.html' title='style::properties::style_structs::PositionOffsets'>PositionOffsets</a></code></h4>
+<h4 id='method.mutate_positionoffsets' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_positionoffsets' class='fnname'>mutate_positionoffsets</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.PositionOffsets.html' title='style::properties::style_structs::PositionOffsets'>PositionOffsets</a></code></h4>
+<h4 id='method.get_box' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_box' class='fnname'>get_box</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Box.html' title='style::properties::style_structs::Box'>Box</a></code></h4>
+<h4 id='method.mutate_box' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_box' class='fnname'>mutate_box</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Box.html' title='style::properties::style_structs::Box'>Box</a></code></h4>
+<h4 id='method.get_inheritedbox' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_inheritedbox' class='fnname'>get_inheritedbox</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.InheritedBox.html' title='style::properties::style_structs::InheritedBox'>InheritedBox</a></code></h4>
+<h4 id='method.mutate_inheritedbox' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_inheritedbox' class='fnname'>mutate_inheritedbox</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.InheritedBox.html' title='style::properties::style_structs::InheritedBox'>InheritedBox</a></code></h4>
+<h4 id='method.get_list' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_list' class='fnname'>get_list</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.List.html' title='style::properties::style_structs::List'>List</a></code></h4>
+<h4 id='method.mutate_list' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_list' class='fnname'>mutate_list</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.List.html' title='style::properties::style_structs::List'>List</a></code></h4>
+<h4 id='method.get_counters' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_counters' class='fnname'>get_counters</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Counters.html' title='style::properties::style_structs::Counters'>Counters</a></code></h4>
+<h4 id='method.mutate_counters' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_counters' class='fnname'>mutate_counters</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Counters.html' title='style::properties::style_structs::Counters'>Counters</a></code></h4>
+<h4 id='method.get_background' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_background' class='fnname'>get_background</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Background.html' title='style::properties::style_structs::Background'>Background</a></code></h4>
+<h4 id='method.mutate_background' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_background' class='fnname'>mutate_background</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Background.html' title='style::properties::style_structs::Background'>Background</a></code></h4>
+<h4 id='method.get_color' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_color' class='fnname'>get_color</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Color.html' title='style::properties::style_structs::Color'>Color</a></code></h4>
+<h4 id='method.mutate_color' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_color' class='fnname'>mutate_color</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Color.html' title='style::properties::style_structs::Color'>Color</a></code></h4>
+<h4 id='method.get_font' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_font' class='fnname'>get_font</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Font.html' title='style::properties::style_structs::Font'>Font</a></code></h4>
+<h4 id='method.mutate_font' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_font' class='fnname'>mutate_font</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Font.html' title='style::properties::style_structs::Font'>Font</a></code></h4>
+<h4 id='method.get_inheritedtext' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_inheritedtext' class='fnname'>get_inheritedtext</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.InheritedText.html' title='style::properties::style_structs::InheritedText'>InheritedText</a></code></h4>
+<h4 id='method.mutate_inheritedtext' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_inheritedtext' class='fnname'>mutate_inheritedtext</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.InheritedText.html' title='style::properties::style_structs::InheritedText'>InheritedText</a></code></h4>
+<h4 id='method.get_text' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_text' class='fnname'>get_text</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Text.html' title='style::properties::style_structs::Text'>Text</a></code></h4>
+<h4 id='method.mutate_text' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_text' class='fnname'>mutate_text</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Text.html' title='style::properties::style_structs::Text'>Text</a></code></h4>
+<h4 id='method.get_table' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_table' class='fnname'>get_table</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Table.html' title='style::properties::style_structs::Table'>Table</a></code></h4>
+<h4 id='method.mutate_table' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_table' class='fnname'>mutate_table</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Table.html' title='style::properties::style_structs::Table'>Table</a></code></h4>
+<h4 id='method.get_inheritedtable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_inheritedtable' class='fnname'>get_inheritedtable</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.InheritedTable.html' title='style::properties::style_structs::InheritedTable'>InheritedTable</a></code></h4>
+<h4 id='method.mutate_inheritedtable' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_inheritedtable' class='fnname'>mutate_inheritedtable</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.InheritedTable.html' title='style::properties::style_structs::InheritedTable'>InheritedTable</a></code></h4>
+<h4 id='method.get_pointing' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_pointing' class='fnname'>get_pointing</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Pointing.html' title='style::properties::style_structs::Pointing'>Pointing</a></code></h4>
+<h4 id='method.mutate_pointing' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_pointing' class='fnname'>mutate_pointing</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Pointing.html' title='style::properties::style_structs::Pointing'>Pointing</a></code></h4>
+<h4 id='method.get_effects' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_effects' class='fnname'>get_effects</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Effects.html' title='style::properties::style_structs::Effects'>Effects</a></code></h4>
+<h4 id='method.mutate_effects' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_effects' class='fnname'>mutate_effects</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Effects.html' title='style::properties::style_structs::Effects'>Effects</a></code></h4>
+<h4 id='method.get_animation' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.get_animation' class='fnname'>get_animation</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a class='struct' href='../../style/properties/style_structs/struct.Animation.html' title='style::properties::style_structs::Animation'>Animation</a></code></h4>
+<h4 id='method.mutate_animation' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.mutate_animation' class='fnname'>mutate_animation</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &amp;'a mut <a class='struct' href='../../style/properties/style_structs/struct.Animation.html' title='style::properties::style_structs::Animation'>Animation</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='../../core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../style/properties/struct.ComputedValues.html' title='style::properties::ComputedValues'>ComputedValues</a></code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "style";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>
