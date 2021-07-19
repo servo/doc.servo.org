@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StyleSource","A style source for the rule node. It can either be a CSS style rule or a declaration block."]]});

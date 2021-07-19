@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CachedGlyphData",""],["GlyphCacheEntry",""]],"struct":[["CachedGlyphInfo",""],["GlyphCache",""],["GlyphKeyCacheInfo",""]],"type":[["GlyphKeyCache",""]]});

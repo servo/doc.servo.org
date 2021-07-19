@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_MATCH",""],["MIN_MATCH",""]],"fn":[["get_match_length_rle","Simple match function for run-length encoding."],["process_chunk_greedy_rle","L77-Compress data using the RLE(Run-length encoding) strategy"]]});

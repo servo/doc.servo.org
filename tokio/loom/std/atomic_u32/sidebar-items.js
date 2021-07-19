@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AtomicU32","`AtomicU32` providing an additional `load_unsync` function."]]});

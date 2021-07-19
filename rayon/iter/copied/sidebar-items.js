@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Copied","`Copied` is an iterator that copies the elements of an underlying iterator."],["CopiedConsumer","//////////////////////////////////////////////////////////////////////// Consumer implementation"],["CopiedFolder",""],["CopiedProducer","////////////////////////////////////////////////////////////////////////"]]});

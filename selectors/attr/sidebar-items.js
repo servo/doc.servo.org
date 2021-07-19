@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AttrSelectorOperation",""],["AttrSelectorOperator",""],["CaseSensitivity",""],["NamespaceConstraint",""],["ParsedAttrSelectorOperation",""],["ParsedCaseSensitivity",""]],"static":[["SELECTOR_WHITESPACE","The definition of whitespace per CSS Selectors Level 3 § 4."]],"struct":[["AttrSelectorWithOptionalNamespace",""]]});

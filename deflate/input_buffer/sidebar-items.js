@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BUFFER_SIZE","The maximum size of the buffer."],["MAX_MATCH",""]],"struct":[["InputBuffer",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["decoder",""],["encoder",""],["header",""]],"struct":[["TgaDecoder","The representation of a TGA decoder"],["TgaEncoder","TGA encoder."]]});

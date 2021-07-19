@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_DATE","The maximum possible `Date`."],["MIN_DATE","The minimum possible `Date`."]],"fn":[["map_local","Maps the local date to other date with given conversion function."]],"struct":[["Date","ISO 8601 calendar date with time zone."]]});

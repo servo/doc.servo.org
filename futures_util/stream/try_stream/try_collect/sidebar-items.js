@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TryCollect","Future for the `try_collect` method."]]});

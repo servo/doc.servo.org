@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Key","Key represents the meaning of a keypress."]],"fn":[["is_key_string","Check if string can be used as a `Key::Character` keystring."]],"struct":[["UnrecognizedKeyError","Parse from string error, returned when string does not match to any Key variant."]]});

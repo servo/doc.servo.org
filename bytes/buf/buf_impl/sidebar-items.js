@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_assert_trait_object",""]],"trait":[["Buf","Read bytes from a buffer."]]});

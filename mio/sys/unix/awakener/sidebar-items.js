@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["pipe","Default awakener backed by a pipe"]]});

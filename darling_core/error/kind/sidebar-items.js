@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ErrorKind",""]],"fn":[["did_you_mean",""]],"struct":[["ErrorUnknownField","An error for an unknown field, with a possible “did-you-mean” suggestion to get the user back on the right track."]],"type":[["DeriveInputShape",""],["FieldName",""],["MetaFormat",""]]});

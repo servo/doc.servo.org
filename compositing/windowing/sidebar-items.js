@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AnimationState",""],["MouseWindowEvent",""],["WebRenderDebugOption","Various debug and profiling flags that WebRender supports."],["WindowEvent","Events that the windowing system sends to Servo."]],"struct":[["EmbedderCoordinates",""]],"trait":[["EmbedderMethods",""],["WindowMethods",""]]});

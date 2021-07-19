@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["swapper","Create a new pair of swappers."]],"struct":[["SwapError","The error returned when a thread attempts to swap with a thread that has dropped its swapper."],["Swapper","A concurrency control for swapping ownership between threads."]]});

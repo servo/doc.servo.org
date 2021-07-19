@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Cursor","A `Cursor` wraps an in-memory buffer and provides it with a `AsyncSeek` implementation."]]});

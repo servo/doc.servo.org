@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CURRENT_WORKER",""]],"mod":[["entry",""],["stack",""],["state",""]],"struct":[["CurrentTask","Tracks the state related to the currently running task."],["Worker","Thread worker"],["WorkerId","Identifies a thread pool worker."]]});

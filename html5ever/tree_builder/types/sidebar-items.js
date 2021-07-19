@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FormatEntry",""],["InsertionMode",""],["InsertionPoint",""],["ProcessResult",""],["SplitStatus",""],["Token","A subset/refinement of `tokenizer::Token`.  Everything else is handled specially at the beginning of `process_token`."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ReadVectored","Future for the `read_vectored` method."]]});

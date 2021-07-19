@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["bytes_channel",""],["channel",""]],"struct":[["IpcBytesReceiver",""],["IpcReceiver",""]]});

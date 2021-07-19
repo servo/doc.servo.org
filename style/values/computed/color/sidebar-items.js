@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["Color","A computed value for `<color>`."],["ColorOrAuto","auto | "],["ColorPropertyValue","The computed value of the `color` property."],["MozFontSmoothingBackgroundColor","The computed value of `-moz-font-smoothing-background-color`."]]});

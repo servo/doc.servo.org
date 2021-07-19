@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Generation","An mutation identifier for a slot in the slab. The generation helps prevent accessing an entry with an outdated token."]]});

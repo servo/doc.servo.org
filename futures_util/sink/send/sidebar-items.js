@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Send","Future for the `send` method."]]});

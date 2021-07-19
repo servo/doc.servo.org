@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["script"] = [{"text":"impl&lt;'a&gt; <a class=\"trait\" href=\"markup5ever/serialize/trait.Serialize.html\" title=\"trait markup5ever::serialize::Serialize\">Serialize</a> for &amp;'a <a class=\"struct\" href=\"script/dom/node/struct.Node.html\" title=\"struct script::dom::node::Node\">Node</a>","synthetic":false,"types":["script::dom::node::Node"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

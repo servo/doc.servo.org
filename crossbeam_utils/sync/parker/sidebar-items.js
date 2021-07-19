@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["EMPTY",""],["NOTIFIED",""],["PARKED",""]],"struct":[["Inner",""],["Parker","A thread parking primitive."],["Unparker","Unparks a thread parked by the associated [`Parker`]."]]});

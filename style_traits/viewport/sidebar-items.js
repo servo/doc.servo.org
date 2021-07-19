@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Orientation",""],["UserZoom",""],["Zoom","https://drafts.csswg.org/css-device-adapt/#descdef-viewport-zoom"]],"struct":[["ViewportConstraints","A set of viewport descriptors:"]]});

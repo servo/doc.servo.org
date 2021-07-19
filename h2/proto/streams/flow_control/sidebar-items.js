@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["UNCLAIMED_DENOMINATOR",""],["UNCLAIMED_NUMERATOR",""]],"struct":[["FlowControl",""],["Window","The current capacity of a flow-controlled Window."]]});

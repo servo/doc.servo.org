@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ICO_DIRENTRY_SIZE",""],["ICO_ICONDIR_SIZE",""],["ICO_IMAGE_TYPE",""]],"fn":[["write_direntry",""],["write_icondir",""],["write_width_or_height","Encode a width/height value as a single byte, where 0 means 256."]],"struct":[["IcoEncoder","ICO encoder"]],"type":[["ICOEncoder","ICO encoder"]]});

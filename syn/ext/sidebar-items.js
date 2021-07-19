@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["private",""]],"trait":[["IdentExt","Additional methods for `Ident` not provided by proc-macro2 or libproc_macro."]]});

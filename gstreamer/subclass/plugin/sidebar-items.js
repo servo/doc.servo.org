@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAJOR_VERSION",""],["MINOR_VERSION",""]]});

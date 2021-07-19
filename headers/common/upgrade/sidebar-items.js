@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Upgrade","`Upgrade` header, defined in RFC7230"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["digit",""],["kernel_version",""],["parse_kernel_version",""],["socket_atomic_cloexec","Check if the OS supports atomic close-on-exec for sockets"]],"static":[["VERS_2_6_18",""],["VERS_2_6_27",""],["VERS_2_6_28",""],["VERS_3",""],["VERS_UNKNOWN",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["FromField","Creates an instance by parsing an individual field and its attributes."]]});

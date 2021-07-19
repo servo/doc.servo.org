@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Filter","`Filter` takes a predicate `filter_op` and filters out elements that match. This struct is created by the `filter()` method on `ParallelIterator`"],["FilterConsumer","//////////////////////////////////////////////////////////////////////// Consumer implementation"],["FilterFolder",""]]});

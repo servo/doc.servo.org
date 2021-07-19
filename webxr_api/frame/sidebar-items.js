@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FrameUpdateEvent",""]],"struct":[["Frame","The per-frame data that is provided by the device. https://www.w3.org/TR/webxr/#xrframe"],["ViewerPose",""]]});

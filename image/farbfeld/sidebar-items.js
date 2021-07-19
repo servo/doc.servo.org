@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["cache_byte",""],["consume_channel",""]],"struct":[["FarbfeldDecoder","farbfeld decoder"],["FarbfeldEncoder","farbfeld encoder"],["FarbfeldReader","farbfeld Reader"]]});

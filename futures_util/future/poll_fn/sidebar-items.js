@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["poll_fn","Creates a new future wrapping around a function returning [`Poll`]."]],"struct":[["PollFn","Future for the [`poll_fn`] function."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ArrayVec","An array-backed, vector-like data structure."],["ArrayVecIterator","Iterator for consuming an `ArrayVec` and returning owned elements."],["ArrayVecSplice","Splicing iterator for `ArrayVec` See `ArrayVec::splice`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["StylesheetLoader","The stylesheet loader is the abstraction used to trigger network requests for `@import` rules."]]});

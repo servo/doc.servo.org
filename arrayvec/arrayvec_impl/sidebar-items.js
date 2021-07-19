@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["ArrayVecImpl","Implements basic arrayvec methods - based on a few required methods for length and element access."]]});

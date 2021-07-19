@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AnimationTimeline","A `AnimationTimeline` which is used to synchronize animations during the script event loop."]]});

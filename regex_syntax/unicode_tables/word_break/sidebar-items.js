@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ALETTER",""],["BY_NAME",""],["CR",""],["DOUBLE_QUOTE",""],["EXTEND",""],["EXTENDNUMLET",""],["FORMAT",""],["HEBREW_LETTER",""],["KATAKANA",""],["LF",""],["MIDLETTER",""],["MIDNUM",""],["MIDNUMLET",""],["NEWLINE",""],["NUMERIC",""],["REGIONAL_INDICATOR",""],["SINGLE_QUOTE",""],["WSEGSPACE",""],["ZWJ",""]]});

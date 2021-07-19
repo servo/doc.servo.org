@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TableColGroupFlow","A table formatting context."]]});

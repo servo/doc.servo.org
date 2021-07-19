@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["if_alloc",""]],"trait":[["Sink","A `Sink` is a value into which other values can be sent, asynchronously."]]});

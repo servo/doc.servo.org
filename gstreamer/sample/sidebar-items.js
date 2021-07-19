@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Sample",""],["SampleBuilder",""],["SampleRef",""]]});

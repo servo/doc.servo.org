@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["WithFlatMap","Sink for the `with_flat_map` method."]]});

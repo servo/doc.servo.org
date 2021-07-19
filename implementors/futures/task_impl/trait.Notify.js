@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["tokio_threadpool"] = [{"text":"impl <a class=\"trait\" href=\"https://docs.rs/futures/0.1/futures/task_impl/trait.Notify.html\" title=\"trait futures::task_impl::Notify\">Notify</a> for <a class=\"struct\" href=\"tokio_threadpool/notifier/struct.Notifier.html\" title=\"struct tokio_threadpool::notifier::Notifier\">Notifier</a>","synthetic":false,"types":["tokio_threadpool::notifier::Notifier"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

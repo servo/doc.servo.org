@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DedicatedAllocator","Dedicated memory allocator that uses memory object per allocation requested."],["DedicatedBlock","Memory block allocated from `DedicatedAllocator`."]]});

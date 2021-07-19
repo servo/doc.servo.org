@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AudioListenerNode","AudioListeners are fake nodes; from the user’s point of view they’re a non-node entity with zero inputs and outputs, but with AudioParams that can be manipulated."]]});

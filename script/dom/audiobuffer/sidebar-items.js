@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_SAMPLE_RATE",""],["MIN_SAMPLE_RATE",""],["_IMPL_DOMOBJECT_FOR_AudioBuffer",""]],"struct":[["AudioBuffer","The AudioBuffer keeps its data either in js_channels or in shared_channels if js_channels buffers are detached."]],"type":[["JSAudioChannel",""]]});

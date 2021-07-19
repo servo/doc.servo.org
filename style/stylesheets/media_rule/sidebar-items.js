@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MediaRule","An `@media` urle."]]});

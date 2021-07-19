@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_COEFFS",""]],"struct":[["IIRFilter",""],["IIRFilterNode",""],["IIRFilterNodeOptions",""]]});

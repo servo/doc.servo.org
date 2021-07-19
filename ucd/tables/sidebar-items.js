@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["bidi",""],["bool",""],["decomp",""],["function",""],["general",""],["misc",""],["rem",""],["scripts",""]],"trait":[["Search",""]]});

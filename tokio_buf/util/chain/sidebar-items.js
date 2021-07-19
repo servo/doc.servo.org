@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Chain","A buf stream that sequences two buf streams together."]]});

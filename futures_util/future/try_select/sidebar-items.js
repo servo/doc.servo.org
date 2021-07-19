@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["try_select","Waits for either one of two differently-typed futures to complete."]],"struct":[["TrySelect","Future for the [`try_select()`] function."]]});

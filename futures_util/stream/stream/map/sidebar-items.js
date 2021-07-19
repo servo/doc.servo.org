@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Map","Stream for the `map` method."]]});

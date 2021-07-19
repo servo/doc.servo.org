@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["pending","Creates a future which never resolves, representing a computation that never finishes."]],"struct":[["Pending","Future for the [`pending()`] function."]]});

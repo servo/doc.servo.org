@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["EMPTY",""],["NOTIFIED",""],["PARKED_CONDVAR",""],["PARKED_DRIVER",""]],"struct":[["Inner",""],["Parker",""],["Shared","Shared across multiple Parker handles"],["Unparker",""]]});

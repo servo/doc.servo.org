@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["NOOP_WAKER_VTABLE",""]],"fn":[["noop",""],["noop_clone",""],["noop_raw_waker",""],["noop_waker","Create a new [`Waker`] which does nothing when `wake()` is called on it."],["noop_waker_ref","Get a static reference to a [`Waker`] which does nothing when `wake()` is called on it."]]});

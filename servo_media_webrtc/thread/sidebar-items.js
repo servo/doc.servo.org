@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["InternalEvent","To allow everything to occur on the event loop, the backend may need to send signals to itself"],["RtcThreadEvent",""]],"fn":[["handle_rtc_event",""]],"struct":[["WebRtcController","Entry point for all client webrtc interactions."]]});

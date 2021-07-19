@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["shuffle","Randomly shuffles a slice."],["sleep_until","Sleeps until the deadline, or forever if the deadline isn’t specified."]],"struct":[["Spinlock","A simple spinlock."],["SpinlockGuard","A guard holding a spinlock locked."]]});

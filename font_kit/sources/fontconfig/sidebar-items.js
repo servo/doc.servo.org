@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["fc",""]],"struct":[["FontconfigSource","A source that contains the fonts installed on the system, as reported by the Fontconfig library."]]});

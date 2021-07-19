@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["NthIndexCache","A cache to speed up matching of nth-index-like selectors."],["NthIndexCacheInner","The concrete per-pseudo-class cache."]]});

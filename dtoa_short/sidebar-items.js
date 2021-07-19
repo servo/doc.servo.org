@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BUFFER_SIZE",""]],"fn":[["restrict_prec",""],["write","Format the given `value` into `dest` and return the notation it uses."],["write_with_prec",""]],"struct":[["Notation","Form of the formatted floating-point number."]],"trait":[["Floating",""]],"type":[["DtoaResult","Result of formatting the number."]]});

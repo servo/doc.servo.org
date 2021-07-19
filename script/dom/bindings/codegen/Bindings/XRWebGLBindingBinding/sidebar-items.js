@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["XRLayerLayout",""],["XRTextureType",""]],"mod":[["XRLayerLayoutValues",""],["XRTextureTypeValues",""],["XRWebGLBindingBinding",""]],"struct":[["XRCubeLayerInit",""],["XRCylinderLayerInit",""],["XREquirectLayerInit",""],["XRLayerInit",""],["XRProjectionLayerInit",""],["XRQuadLayerInit",""]]});

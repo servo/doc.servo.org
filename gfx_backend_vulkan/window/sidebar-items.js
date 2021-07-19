@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FramebufferCache",""],["FramebufferCachePtr",""],["RawSurface",""],["Surface",""],["SurfaceFrame",""],["SurfaceImage",""],["SurfaceSwapchain",""],["Swapchain",""]]});

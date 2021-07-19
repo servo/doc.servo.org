@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Comma",""],["SemiColon",""]],"struct":[["FlatCsv",""]],"trait":[["Separator",""]]});

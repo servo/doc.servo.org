@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_attributes",""],["parse_define",""],["parse_define_args",""],["parse_enum_hack",""],["parse_export",""],["parse_export_args",""],["parse_fake_call_site",""],["parse_group",""],["parse_ident",""],["parse_input",""],["parse_int",""],["parse_keyword",""],["parse_macro",""],["parse_punct",""],["parse_visibility",""]]});

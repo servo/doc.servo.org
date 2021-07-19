@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["OverrideStatus",""]],"fn":[["compute","Compute explicit embedding levels for one paragraph of text (X1-X8)."]],"struct":[["DirectionalStatusStack",""],["Status","Entries in the directional status stack:"]]});

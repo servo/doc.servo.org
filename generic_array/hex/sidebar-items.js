@@ -1,0 +1,1 @@
+initSidebarItems({"static":[["LOWER_CHARS",""],["UPPER_CHARS",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Value",""]],"fn":[["offset_to_bytes","Extracts a list of BYTE tags stored in an offset"],["offset_to_sbytes","Extracts a list of SBYTE tags stored in an offset"]],"struct":[["Entry",""]],"type":[["Directory","Type representing an Image File Directory"]]});

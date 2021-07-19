@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_FileReader",""]],"enum":[["FileReaderFunction",""],["FileReaderReadyState",""],["FileReaderResult",""]],"struct":[["FileReader",""],["FileReaderSharedFunctionality",""],["GenerationId",""],["ReadMetaData",""]],"type":[["TrustedFileReader",""]]});

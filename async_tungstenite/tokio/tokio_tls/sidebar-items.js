@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["client_async_tls_with_connector_and_config","Creates a WebSocket handshake from a request and a stream, upgrading the stream to TLS if required and using the given connector and WebSocket configuration."],["wrap_stream",""]],"type":[["AutoStream",""],["Connector",""],["MaybeTlsStream","A stream that might be protected with TLS."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Positions","`Positions` takes a predicate `predicate` and filters out elements that match, yielding their indices."],["PositionsConsumer","//////////////////////////////////////////////////////////////////////// Consumer implementation"],["PositionsFolder",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CAPERROR",""]],"struct":[["CapacityError","Error value indicating insufficient capacity"]]});

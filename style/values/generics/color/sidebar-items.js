@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GenericColor","This enum represents a combined color from a numeric color and the current foreground color (currentcolor keyword)."],["GenericColorOrAuto","Either `<color>` or `auto`."]],"struct":[["ComplexColorRatios","Ratios representing the contribution of color and currentcolor to the final color value."]]});

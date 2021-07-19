@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error","Errors."]],"struct":[["DlDescription","A `dlerror` error."],["WindowsError","A Windows API error."]]});

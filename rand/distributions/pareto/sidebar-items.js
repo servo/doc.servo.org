@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Pareto","Samples floating-point numbers according to the Pareto distribution"]]});

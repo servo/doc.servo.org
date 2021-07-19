@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ALT_OFFSET",""],["CONTROL_OFFSET",""],["LOGO_OFFSET",""],["NUM_MODS",""],["SHIFT_OFFSET",""]],"enum":[["Modifier",""]],"fn":[["get_modifier",""],["set_modifier",""]],"struct":[["ModifierKeyState",""],["ModifierKeymap",""]]});

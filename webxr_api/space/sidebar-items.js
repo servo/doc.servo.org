@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BaseSpace",""]],"struct":[["ApiSpace","A stand-in type for “the space isn’t statically known since it comes from client side code”"],["Space",""]]});

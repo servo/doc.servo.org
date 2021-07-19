@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CompressionMethod",""],["PhotometricInterpretation",""],["PlanarConfiguration",""],["Predictor",""],["ResolutionUnit","Type to represent resolution units"],["Tag","TIFF tags"],["Type","The type of an IFD entry (a 2 byte field)."]]});

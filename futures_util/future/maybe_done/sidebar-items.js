@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MaybeDone","A future that may have completed."],["MaybeDoneProj",""],["MaybeDoneProjOwn",""]],"fn":[["maybe_done","Wraps a future into a `MaybeDone`"]]});

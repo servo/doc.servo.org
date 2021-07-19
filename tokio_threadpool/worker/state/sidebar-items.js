@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["LIFECYCLE_MASK","Manages the worker lifecycle part of the state"],["LIFECYCLE_SHIFT",""],["PUSHED_MASK","Set when the worker is pushed onto the scheduler’s stack of sleeping threads."]],"enum":[["Lifecycle",""]],"struct":[["State","Tracks worker state"]]});

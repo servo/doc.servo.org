@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["derive",""],["derive_variant_arm",""]],"struct":[["DistanceFieldAttrs",""]]});

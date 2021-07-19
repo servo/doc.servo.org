@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["msg_type_str",""]],"struct":[["MatchRule","A “match rule”, that can match Messages on its headers."]]});

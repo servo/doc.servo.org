@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CancellableTask","A task that can be cancelled by toggling a shared flag."],["TaskCanceller","Encapsulated state required to create cancellable tasks from non-script threads."]],"trait":[["TaskBox","A boxed version of `TaskOnce`."],["TaskOnce","A task that can be run. The name method is for profiling purposes."]]});

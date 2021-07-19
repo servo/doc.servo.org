@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DispatchData","Holder of global dispatch-related data"],["Filter","An event filter"],["Inner",""]],"type":[["DynInner",""]]});

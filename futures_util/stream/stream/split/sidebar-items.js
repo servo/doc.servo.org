@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["SplitSink",""],["split",""]],"struct":[["ReuniteError","Error indicating a `SplitSink<S>` and `SplitStream<S>` were not two halves of a `Stream + Split`, and thus could not be `reunite`d."],["SplitSink","A `Sink` part of the split pair"],["SplitStream","A `Stream` part of the split pair"]]});

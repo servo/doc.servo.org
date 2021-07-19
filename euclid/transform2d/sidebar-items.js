@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Transform2D","A 2d transform stored as a 3 by 2 matrix in row-major order in memory."]]});

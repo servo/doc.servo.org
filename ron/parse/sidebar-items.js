@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DIGITS",""],["FLOAT_CHARS",""],["IDENT_CHAR",""],["IDENT_FIRST",""],["WHITE_SPACE",""]],"enum":[["AnyNum",""],["ParsedStr",""]],"struct":[["Bytes",""],["Position",""]],"trait":[["Num",""]]});

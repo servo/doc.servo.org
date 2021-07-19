@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["collect_into_vec","Collects the results of the exact iterator into the specified vector."],["special_extend","Collects the results of the iterator into the specified vector."],["unzip_into_vecs","Unzips the results of the exact iterator into the specified vectors."]],"mod":[["consumer",""]],"struct":[["Collect","Manage the collection vector."]]});

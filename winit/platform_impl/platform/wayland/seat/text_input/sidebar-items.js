@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["handlers","Handling of IME events."]],"struct":[["TextInput","A wrapper around text input to automatically destroy the object on `Drop`."],["TextInputHandler","A handler for text input that we’re advertising for `WindowHandle`."],["TextInputInner",""]]});

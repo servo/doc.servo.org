@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["FT_LOAD_TARGET_LIGHT",""],["GLYPH_LOAD_FLAGS",""]],"fn":[["create_face",""],["fixed_to_float_ft",""]],"struct":[["FontHandle",""],["FontTable",""],["OS2Table","Data from the OS/2 table of an OpenType font. See https://www.microsoft.com/typography/otspec/os2.htm"]]});

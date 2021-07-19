@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BASE64_CHUNK_SIZE",""],["BUF_SIZE",""],["DECODED_CHUNK_SIZE",""]],"struct":[["DecoderReader","A `Read` implementation that decodes base64 data read from an underlying reader."]]});

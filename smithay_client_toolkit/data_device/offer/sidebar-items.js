@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DataOffer","A data offer for receiving data though copy/paste or drag and drop"],["Inner",""],["ReadPipe","A file descriptor that can only be read from"]]});

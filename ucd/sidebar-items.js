@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CharIterInternal",""],["Number",""]],"fn":[["cp_decode",""]],"mod":[["tables",""]],"struct":[["CharIter",""]],"trait":[["Codepoint",""]]});

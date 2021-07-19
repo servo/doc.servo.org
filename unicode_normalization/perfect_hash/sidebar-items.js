@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["mph_lookup","Do a lookup using minimal perfect hashing."],["my_hash",""]]});

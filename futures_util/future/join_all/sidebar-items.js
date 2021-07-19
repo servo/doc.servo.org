@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["iter_pin_mut",""],["join_all","Creates a future which represents a collection of the outputs of the futures given."]],"struct":[["JoinAll","Future for the [`join_all`] function."]]});

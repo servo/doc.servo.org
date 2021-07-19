@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Forget","A guard that ensures that the inner value gets forgotten."],["Notifier","Implements the future `Notify` API."]]});

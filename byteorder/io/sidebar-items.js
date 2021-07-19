@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["slice_to_u8_mut","Convert a slice of T (where T is plain old data) to its mutable binary representation."]],"trait":[["ReadBytesExt","Extends `Read` with methods for reading numbers. (For `std::io`.)"],["WriteBytesExt","Extends `Write` with methods for writing numbers. (For `std::io`.)"]]});

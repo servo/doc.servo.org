@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ThreadBound","ThreadBound is a Sync-maker and Send-maker that allows accessing a value of type T only from the original thread on which the ThreadBound was constructed."]]});

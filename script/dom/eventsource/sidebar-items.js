@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_RECONNECTION_TIME",""],["_IMPL_DOMOBJECT_FOR_EventSource",""]],"enum":[["ParserState",""],["ReadyState","https://html.spec.whatwg.org/multipage/#dom-eventsource-readystate"]],"struct":[["EventSource",""],["EventSourceContext",""],["EventSourceTimeoutCallback",""],["GenerationId",""]]});

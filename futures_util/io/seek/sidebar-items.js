@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Seek","Future for the `seek` method."]]});

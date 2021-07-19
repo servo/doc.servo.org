@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["FromTypeParam","Creates an instance by parsing an individual type_param and its attributes."]]});

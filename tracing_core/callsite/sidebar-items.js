@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["rebuild_interest_cache","Clear and reregister interest on every `Callsite`"],["register","Register a new `Callsite` with the global registry."],["register_dispatch",""]],"struct":[["Identifier","Uniquely identifies a `Callsite`"],["REGISTRY",""],["Registry",""]],"trait":[["Callsite","Trait implemented by callsites."]]});

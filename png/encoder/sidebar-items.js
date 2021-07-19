@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_BUFFER_LENGTH",""]],"enum":[["ChunkOutput",""],["EncodingError",""]],"fn":[["write_chunk",""]],"struct":[["ChunkWriter",""],["Encoder","PNG Encoder"],["StreamWriter","Streaming png writer"],["Writer","PNG writer"]],"type":[["Result",""]]});

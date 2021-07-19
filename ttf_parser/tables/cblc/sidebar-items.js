@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BitmapFormat",""]],"fn":[["find_location",""],["select_bitmap_size_table",""],["select_index_subtable",""]],"struct":[["BitmapSizeTable",""],["GlyphIdOffsetPair",""],["IndexSubtableInfo",""],["Location",""],["Metrics",""]]});

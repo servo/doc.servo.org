@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Ratio","A generic value for the `<ratio>` value."]]});

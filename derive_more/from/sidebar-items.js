@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["enum_from",""],["expand","Provides the hook to expand `#[derive(From)]` into an implementation of `From`"],["struct_from",""]]});

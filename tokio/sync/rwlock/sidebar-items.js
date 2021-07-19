@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_READS",""]],"struct":[["ReleasingPermit",""],["RwLock","An asynchronous reader-writer lock"],["RwLockReadGuard","RAII structure used to release the shared read access of a lock when dropped."],["RwLockWriteGuard","RAII structure used to release the exclusive write access of a lock when dropped."]]});

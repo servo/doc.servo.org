@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_GPUCommandEncoder",""]],"enum":[["GPUCommandEncoderState",""]],"fn":[["convert_buffer_cv",""],["convert_texture_cv",""],["convert_texture_data_layout",""]],"struct":[["GPUCommandEncoder",""]]});

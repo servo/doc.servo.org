@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EitherOrBoth","Value that either holds a single A or B, or both."]]});

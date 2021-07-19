@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["free_functions",""],["reader",""]],"struct":[["Reader","A multi-format image reader."]]});

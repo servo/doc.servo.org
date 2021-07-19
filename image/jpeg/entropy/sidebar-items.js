@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["build_huff_lut",""],["derive_codes_and_sizes","Given an array containing the number of codes of each code length, this function generates the huffman codes lengths and their respective code lengths as specified by the JPEG spec."]]});

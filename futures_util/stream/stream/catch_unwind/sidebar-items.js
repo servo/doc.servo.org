@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CatchUnwind","Stream for the `catch_unwind` method."]]});

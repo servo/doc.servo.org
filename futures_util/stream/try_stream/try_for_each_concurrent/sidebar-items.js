@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TryForEachConcurrent","Future for the `try_for_each_concurrent` method."]]});

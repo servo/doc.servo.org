@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["JoinHandle","An owned permission to join on a task (await its termination)."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["BrotliIsMostlyUTF8",""],["BrotliParseAsUTF8",""]],"static":[["kMinUTF8Ratio",""]]});

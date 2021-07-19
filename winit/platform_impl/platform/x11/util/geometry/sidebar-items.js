@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FrameExtentsHeuristicPath",""]],"struct":[["AaRect",""],["FrameExtents",""],["FrameExtentsHeuristic",""],["Geometry",""],["LogicalFrameExtents",""],["TranslatedCoords",""]]});

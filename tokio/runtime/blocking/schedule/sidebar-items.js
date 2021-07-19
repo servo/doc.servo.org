@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["NoopSchedule","`task::Schedule` implementation that does nothing. This is unique to the blocking scheduler as tasks scheduled are not really futures but blocking operations."]]});

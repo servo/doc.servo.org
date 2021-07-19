@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ComputePipelineDesc","A description of the data needed to construct a compute pipeline."]]});

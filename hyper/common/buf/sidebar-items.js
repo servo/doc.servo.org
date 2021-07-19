@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StaticBuf","A `Buf` wrapping a static byte slice."]]});

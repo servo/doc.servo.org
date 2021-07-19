@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BigEndian","Big-endian byte ordering."],["LittleEndian","Little-endian byte ordering."],["NativeEndian","The native byte ordering of the current system."]],"trait":[["BincodeByteOrder",""]]});

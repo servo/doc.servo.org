@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["IntoHeaderName","A marker trait used to identify values that can be used as insert keys to a `HeaderMap`."],["Sealed",""]]});

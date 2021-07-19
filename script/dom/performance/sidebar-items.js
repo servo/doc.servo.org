@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["INVALID_ENTRY_NAMES",""],["_IMPL_DOMOBJECT_FOR_Performance",""]],"fn":[["reduce_timing_resolution",""]],"struct":[["Performance",""],["PerformanceEntryList","Implementation of a list of PerformanceEntry items shared by the Performance and PerformanceObserverEntryList interfaces implementations."],["PerformanceObserver",""]]});

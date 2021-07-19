@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["get_surface_outputs","Returns a list of outputs the surface is displayed on."],["get_surface_scale_factor","Returns the current suggested scale factor of a surface."],["setup_surface",""]],"struct":[["SurfaceUserData",""]]});

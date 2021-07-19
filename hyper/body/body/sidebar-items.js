@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DelayEof",""],["Kind",""]],"struct":[["Body","A stream of `Chunk`s, used when receiving bodies."],["Extra",""],["Sender","A sender half used with `Body::channel()`."]],"type":[["BodySender",""],["DelayEofUntil",""]]});

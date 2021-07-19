@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["VariantTy","Describes `Variant` types."],["VariantType","Describes `Variant` types."]]});

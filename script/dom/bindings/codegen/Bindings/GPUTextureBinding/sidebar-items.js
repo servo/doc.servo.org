@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GPUTextureComponentType",""],["GPUTextureDimension",""],["GPUTextureFormat",""]],"mod":[["GPUTextureBinding",""],["GPUTextureComponentTypeValues",""],["GPUTextureDimensionValues",""],["GPUTextureFormatValues",""]],"struct":[["GPUExtent3DDict",""],["GPUTextureDescriptor",""]],"type":[["GPUIntegerCoordinate",""]]});

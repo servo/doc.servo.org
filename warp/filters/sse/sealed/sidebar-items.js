@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EitherServerSentEvent",""],["SseField","SSE field kind"]],"struct":[["BoxedServerSentEvent",""],["SseError","SSE error type"],["SseWrapper","SSE wrapper to help formatting messages"]],"trait":[["SseFormat","SSE formatter trait"]]});

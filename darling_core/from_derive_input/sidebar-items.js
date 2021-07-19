@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["FromDeriveInput","Creates an instance by parsing an entire proc-macro `derive` input, including the, identity, generics, and visibility of the type."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PathList","A list of `syn::Path` instances. This type is used to extract a list of paths from an attribute."]]});

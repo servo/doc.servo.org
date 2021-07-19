@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MinMaxResult","`MinMaxResult` is an enum returned by `minmax`. See `Itertools::minmax()` for more detail."]],"fn":[["minmax_impl","Implementation guts for `minmax` and `minmax_by_key`."]]});

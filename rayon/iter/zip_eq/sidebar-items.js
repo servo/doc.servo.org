@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ZipEq","An `IndexedParallelIterator` that iterates over two parallel iterators of equal length simultaneously."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ErrorKind","The kind of error that occurred."]],"struct":[["Error","An error that occurred during the construction of an Aho-Corasick automaton."]],"type":[["Result",""]]});

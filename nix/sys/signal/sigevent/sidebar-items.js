@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SigEvent","Used to request asynchronous notification of the completion of certain events, such as POSIX AIO and timers."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAPPINGS_CACHE_SIZE",""]],"enum":[["Symbol",""]],"fn":[["callback",""],["clear_symbol_cache",""],["mmap",""],["native_libraries",""],["resolve",""]],"mod":[["elf",""],["mmap",""],["stash",""]],"struct":[["Cache",""],["Context",""],["Library",""],["LibrarySegment",""],["Mapping",""]]});

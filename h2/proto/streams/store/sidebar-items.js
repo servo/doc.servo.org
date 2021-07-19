@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Entry",""]],"struct":[["Indices","A linked list"],["Key","References an entry in the store."],["OccupiedEntry",""],["Ptr","“Pointer” to an entry in the store"],["Queue",""],["SlabIndex",""],["Store","Storage for streams"],["VacantEntry",""]],"trait":[["Next",""],["Resolve",""]]});

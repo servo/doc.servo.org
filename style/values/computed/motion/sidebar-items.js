@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["is_auto_zero_angle",""]],"struct":[["OffsetRotate","A computed offset-rotate."]],"type":[["OffsetPath","The computed value of `offset-path`."]]});

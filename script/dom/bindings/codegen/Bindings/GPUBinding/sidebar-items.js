@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GPUPowerPreference",""]],"mod":[["GPUBinding",""],["GPUPowerPreferenceValues",""]],"struct":[["GPURequestAdapterOptions",""]]});

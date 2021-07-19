@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SpannedValue","A value and an associated position in source code. The main use case for this is to preserve position information to emit warnings from proc macros. You can use a `SpannedValue<T>` as a field in any struct that implements or derives any of `darling`’s core traits."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Host","The host name of an URL."],["HostInternal",""]],"fn":[["longest_zero_sequence",""],["parse_ipv4addr","https://url.spec.whatwg.org/#concept-ipv4-parser"],["parse_ipv4number","https://url.spec.whatwg.org/#ipv4-number-parser"],["parse_ipv6addr","https://url.spec.whatwg.org/#concept-ipv6-parser"],["write_ipv6",""]]});

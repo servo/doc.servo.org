@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Dyn","A dynamic representation of `Peer`."],["PollMessage",""]],"trait":[["Peer","Either a Client or a Server"]]});

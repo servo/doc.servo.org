@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Token","A subset/refinement of `tokenizer::XToken`.  Everything else is handled specially at the beginning of `process_token`."],["XmlPhase",""],["XmlProcessResult",""]]});

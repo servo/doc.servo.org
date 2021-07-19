@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Triangular","The triangular distribution."]]});

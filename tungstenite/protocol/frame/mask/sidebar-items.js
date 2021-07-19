@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["apply_mask","Mask/unmask a frame."],["apply_mask_fallback","A safe unoptimized mask application."],["apply_mask_fast32","Faster version of `apply_mask()` which operates on 4-byte blocks."],["generate_mask","Generate a random frame mask."]]});

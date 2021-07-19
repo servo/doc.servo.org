@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RigidTransform3D","A rigid transformation. All lengths are preserved under such a transformation."]]});

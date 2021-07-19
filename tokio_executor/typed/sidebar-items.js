@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["TypedExecutor","A value that spawns futures of a specific type."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TryMaybeDone","A future that may have completed with an error."],["TryMaybeDoneProj",""],["TryMaybeDoneProjOwn",""]],"fn":[["try_maybe_done","Wraps a future into a `TryMaybeDone`"]]});

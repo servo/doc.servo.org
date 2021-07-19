@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["keyboard","Wayland keyboard handling."],["pointer","All pointer related handling."],["text_input",""],["touch","Touch handling."]],"struct":[["SeatInfo","Resources associtated with a given seat."],["SeatManager",""],["SeatManagerInner","Inner state of the seat manager."]]});

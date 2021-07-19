@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Event",""],["EventBuffer","Convenience structure for buffering up events when no event callback has been set"],["Visibility",""]]});

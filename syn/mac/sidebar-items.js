@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MacroDelimiter","A grouping token that surrounds a macro body: `m!(...)` or `m!{...}` or `m![...]`."]],"fn":[["delimiter_span_close",""],["parse_delimiter",""]],"mod":[["parsing",""],["printing",""]],"struct":[["Macro","A macro invocation: `println!(\"{}\", mac)`."]]});

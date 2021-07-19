@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["channel",""]],"struct":[["Receiver",""],["Sender",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_STRUCT_NAME","This will be in scope during struct initialization after option parsing."]],"enum":[["DefaultExpression","The fallback value for a field or container."]],"struct":[["DefaultDeclaration","Used only by containers, this wrapper type generates code to declare the fallback instance."]]});

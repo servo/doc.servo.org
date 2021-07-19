@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Scan","Stream for the `scan` method."],["StateFn",""]]});

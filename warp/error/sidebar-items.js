@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Kind",""]],"struct":[["Error","Errors that can happen inside warp."]]});

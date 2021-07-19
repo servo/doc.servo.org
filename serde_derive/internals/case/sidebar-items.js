@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["RenameRule","The different possible ways to change case of fields in a struct, or variants in an enum."]]});

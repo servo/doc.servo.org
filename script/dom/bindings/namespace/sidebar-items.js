@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["create_namespace_object","Create a new namespace object."]],"struct":[["NamespaceObjectClass","The class of a namespace object."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Pattern","A pattern that is used in packed searching."],["PatternIter","An iterator over the patterns in the `Patterns` collection."],["Patterns","A non-empty collection of non-empty patterns to search for."]],"type":[["PatternID","The type used for representing a pattern identifier."]]});

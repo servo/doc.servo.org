@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["OutlineStyle","https://drafts.csswg.org/css-ui/#propdef-outline-style"]]});

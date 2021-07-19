@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Scale","A scaling factor between two different units of measurement."]]});

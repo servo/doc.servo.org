@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_TEXTURE_MAX_ANISOTROPY_EXT",""],["TEXTURE_MAX_ANISOTROPY_EXT",""]]});

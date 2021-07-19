@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OutputBuffer","A wrapper for the output slice used when decompressing."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Core","A struct or enum which should have `FromMeta` or `FromDeriveInput` implementations generated."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["handle_text_input",""]]});

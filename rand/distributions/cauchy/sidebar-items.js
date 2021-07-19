@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Cauchy","The Cauchy distribution `Cauchy(median, scale)`."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["RAND_SIZE",""],["RAND_SIZE_LEN",""]],"struct":[["IsaacCore","The core of [`IsaacRng`], used with [`BlockRng`]."],["IsaacRng","A random number generator that uses the ISAAC algorithm."]],"type":[["w32",""]]});

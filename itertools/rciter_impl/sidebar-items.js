@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["rciter","Return an iterator inside a `Rc<RefCell<_>>` wrapper."]],"struct":[["RcIter","A wrapper for `Rc<RefCell<I>>`, that implements the `Iterator` trait."]]});

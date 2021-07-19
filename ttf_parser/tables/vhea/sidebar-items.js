@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ASCENDER_OFFSET",""],["DESCENDER_OFFSET",""],["LINE_GAP_OFFSET",""],["NUM_OF_LONG_VER_METRICS_OFFSET",""],["TABLE_SIZE",""]],"fn":[["ascender",""],["descender",""],["line_gap",""],["num_of_long_ver_metrics",""],["parse",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AttachedTraits",""],["BrowsingContextActor",""],["BrowsingContextActorMsg",""],["BrowsingContextAttachedReply",""],["BrowsingContextDetachedReply",""],["BrowsingContextTraits",""],["FrameMsg",""],["ListFramesReply",""],["ListWorkersReply",""],["ReconfigureReply",""],["TabNavigated",""],["WorkerMsg",""]]});

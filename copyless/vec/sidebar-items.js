@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["VecEntry","An entry into a vector, similar to `std::collections::hash_map::Entry`."]],"struct":[["VecAllocation","A typesafe helper that separates new value construction from vector growing, allowing LLVM to ideally construct the element in place."]],"trait":[["VecHelper","Helper trait for a `Vec` type that allocates up-front."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BITMAPFILEHEADER_SIZE",""],["BITMAPINFOHEADER_SIZE",""],["BITMAPV4HEADER_SIZE",""]],"fn":[["get_pixel_info","Returns a tuple representing: (dib header size, written pixel size, palette color count)."],["get_unsupported_error_message",""]],"struct":[["BmpEncoder","The representation of a BMP encoder."]],"type":[["BMPEncoder","BMP Encoder"]]});

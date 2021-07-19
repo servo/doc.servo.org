@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ComputedUrl","The computed value of a CSS `url()`, resolved relative to the stylesheet URL."]],"struct":[["CssUrl","A CSS url() value for servo."]],"type":[["ComputedImageUrl","The computed value of a CSS `url()` for image."],["SpecifiedImageUrl","A specified image url() value for servo."],["SpecifiedUrl","A specified url() value for servo."]]});

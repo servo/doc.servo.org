@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["WriteVectored","Future for the `write_vectored` method."]]});

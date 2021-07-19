@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["WithSpan","Support writing `token.span` rather than `token.spans[0]` on tokens that hold a single span."]],"trait":[["Sealed",""]]});

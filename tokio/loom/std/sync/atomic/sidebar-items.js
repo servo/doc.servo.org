@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["spin_loop_hint","Signals the processor that it is inside a busy-wait spin-loop (“spin lock”)."]],"struct":[["AtomicBool","A boolean type which can be safely shared between threads."],["AtomicU64","An integer type which can be safely shared between threads."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["new",""]],"struct":[["Reader","A `Buf` adapter which implements `io::Read` for the inner value."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BiquadFilterNodeMessage",""],["FilterType",""]],"struct":[["BiquadFilterNode","https://webaudio.github.io/web-audio-api/#biquadfilternode"],["BiquadFilterNodeOptions",""],["BiquadState","The last two input and output values, per-channel"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AtomicEpoch","An atomic value that holds an `Epoch`."],["Epoch","An epoch that can be marked as pinned or unpinned."]]});

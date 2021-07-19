@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["empty","Constructs a new handle to an empty reader."]],"struct":[["Empty","Reader for the [`empty()`] function."]]});

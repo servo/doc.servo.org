@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["UnitSphereSurface","Samples uniformly from the surface of the unit sphere in three dimensions."]]});

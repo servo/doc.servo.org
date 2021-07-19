@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["XNotSupported","Error returned if this system doesn’t have XLib or can’t create an X connection."]],"struct":[["XConnection","A connection to an X server."],["XError","Error triggered by xlib."]],"type":[["XErrorHandler",""]]});

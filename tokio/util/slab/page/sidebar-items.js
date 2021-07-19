@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["size","Returns the size of the page at index `n`"]],"struct":[["Local","Data accessed only by the thread that owns the shard."],["Shared","Data accessed by any thread."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CompositeOperatorKey",""],["FilterPrimitiveKey",""],["PictureCompositeKey","Represents a hashable description of how a picture primitive will be composited into its parent."]],"struct":[["Picture",""],["PictureData",""],["PictureKey",""],["PictureTemplate",""]],"type":[["PictureDataHandle",""]]});

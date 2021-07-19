@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Transitioning an existing project to a new edition - The Edition Guide</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="../editions/index.html"><strong aria-hidden="true">1.</strong> What are editions?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../editions/creating-a-new-project.html"><strong aria-hidden="true">1.1.</strong> Creating a new project</a></li><li class="chapter-item expanded "><a href="../editions/transitioning-an-existing-project-to-a-new-edition.html" class="active"><strong aria-hidden="true">1.2.</strong> Transitioning an existing project to a new edition</a></li></ol></li><li class="chapter-item expanded "><a href="../rust-2015/index.html"><strong aria-hidden="true">2.</strong> Rust 2015</a></li><li class="chapter-item expanded "><a href="../rust-2018/index.html"><strong aria-hidden="true">3.</strong> Rust 2018</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rust-2018/path-changes.html"><strong aria-hidden="true">3.1.</strong> Path and module system changes</a></li><li class="chapter-item expanded "><a href="../rust-2018/trait-fn-parameters.html"><strong aria-hidden="true">3.2.</strong> Anonymous trait function parameters deprecated</a></li><li class="chapter-item expanded "><a href="../rust-2018/new-keywords.html"><strong aria-hidden="true">3.3.</strong> New keywords</a></li><li class="chapter-item expanded "><a href="../rust-2018/tyvar-behind-raw-pointer.html"><strong aria-hidden="true">3.4.</strong> Method dispatch for raw pointers to inference variables</a></li><li class="chapter-item expanded "><a href="../rust-2018/cargo.html"><strong aria-hidden="true">3.5.</strong> Cargo changes</a></li></ol></li><li class="chapter-item expanded "><a href="../rust-2021/index.html"><strong aria-hidden="true">4.</strong> Rust 2021 🚧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../rust-2021/prelude.html"><strong aria-hidden="true">4.1.</strong> Additions to the prelude</a></li><li class="chapter-item expanded "><a href="../rust-2021/default-cargo-resolver.html"><strong aria-hidden="true">4.2.</strong> Default Cargo feature resolver</a></li><li class="chapter-item expanded "><a href="../rust-2021/IntoIterator-for-arrays.html"><strong aria-hidden="true">4.3.</strong> IntoIterator for arrays</a></li><li class="chapter-item expanded "><a href="../rust-2021/disjoint-capture-in-closures.html"><strong aria-hidden="true">4.4.</strong> Disjoint capture in closures</a></li><li class="chapter-item expanded "><a href="../rust-2021/panic-macro-consistency.html"><strong aria-hidden="true">4.5.</strong> Panic macro consistency</a></li><li class="chapter-item expanded "><a href="../rust-2021/reserving-syntax.html"><strong aria-hidden="true">4.6.</strong> Reserving syntax</a></li><li class="chapter-item expanded "><a href="../rust-2021/warnings-promoted-to-error.html"><strong aria-hidden="true">4.7.</strong> Warnings promoted to errors</a></li><li class="chapter-item expanded "><a href="../rust-2021/or-patterns-macro-rules.html"><strong aria-hidden="true">4.8.</strong> Or patterns in macro-rules</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Edition Guide</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/rust-lang/edition-guide" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="transitioning-an-existing-project-to-a-new-edition"><a class="header" href="#transitioning-an-existing-project-to-a-new-edition">Transitioning an existing project to a new edition</a></h1>
+<p>New editions might change the way you write Rust – they add new syntax,
+language, and library features, and also remove features. For example, <code>try</code>,
+<code>async</code>, and <code>await</code> are keywords in Rust 2018, but not Rust 2015. If you
+have a project that's using Rust 2015, and you'd like to use Rust 2018 for it
+instead, there's a few steps that you need to take.</p>
+<blockquote>
+<p>It's our intention that the migration to new editions is as smooth an
+experience as possible. If it's difficult for you to upgrade to the latest edition,
+we consider that a bug. If you run into problems with this process, please
+<a href="https://github.com/rust-lang/rust/issues/new">file a bug</a>. Thank you!</p>
+</blockquote>
+<p>Here's an example. Imagine we have a crate that has this code in
+<code>src/lib.rs</code>:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Foo {
+    fn foo(&amp;self, Box&lt;Foo&gt;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This code uses an anonymous parameter, that <code>Box&lt;Foo&gt;</code>. This is <a href="../rust-2018/trait-system/no-anon-params.html">not
+supported in Rust 2018</a>, and
+so this would fail to compile. Let's get this code up to date!</p>
+<h2 id="updating-your-code-to-be-compatible-with-the-new-edition"><a class="header" href="#updating-your-code-to-be-compatible-with-the-new-edition">Updating your code to be compatible with the new edition</a></h2>
+<p>Your code may or may not use features that are incompatible with the new
+edition. In order to help transition to Rust 2018, we've included a new
+subcommand with Cargo. To start, let's run it:</p>
+<pre><code class="language-console">&gt; cargo fix --edition
+</code></pre>
+<p>This will check your code, and automatically fix any issues that it can.
+Let's look at <code>src/lib.rs</code> again:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Foo {
+    fn foo(&amp;self, _: Box&lt;Foo&gt;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>It's re-written our code to introduce a parameter name for that trait object.
+In this case, since it had no name, <code>cargo fix</code> will replace it with <code>_</code>,
+which is conventional for unused variables.</p>
+<p><code>cargo fix</code> can't always fix your code automatically.
+If <code>cargo fix</code> can't fix something, it will print the warning that it cannot fix
+to the console. If you see one of these warnings, you'll have to update your code
+manually. See the corresponding section of this guide for help, and if you have
+problems, please seek help at the <a href="https://users.rust-lang.org/">user's forums</a>.</p>
+<p>Keep running <code>cargo fix --edition</code> until you have no more warnings.</p>
+<p>Congrats! Your code is now valid in both Rust 2015 and Rust 2018!</p>
+<h2 id="enabling-the-new-edition-to-use-new-features"><a class="header" href="#enabling-the-new-edition-to-use-new-features">Enabling the new edition to use new features</a></h2>
+<p>In order to use some new features, you must explicitly opt in to the new
+edition. Once you're ready to commit, change your <code>Cargo.toml</code> to add the new
+<code>edition</code> key/value pair. For example:</p>
+<pre><code class="language-toml">[package]
+name = &quot;foo&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;Your Name &lt;you@example.com&gt;&quot;]
+edition = &quot;2018&quot;
+</code></pre>
+<p>If there's no <code>edition</code> key, Cargo will default to Rust 2015. But in this case,
+we've chosen <code>2018</code>, and so our code is compiling with Rust 2018!</p>
+<h2 id="writing-idiomatic-code-in-a-new-edition"><a class="header" href="#writing-idiomatic-code-in-a-new-edition">Writing idiomatic code in a new edition</a></h2>
+<p>Editions are not only about new features and removing old ones. In any programming
+language, idioms change over time, and Rust is no exception. While old code
+will continue to compile, it might be written with different idioms today.</p>
+<p>Our sample code contains an outdated idiom. Here it is again:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Foo {
+    fn foo(&amp;self, _: Box&lt;Foo&gt;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>In Rust 2018, it's considered idiomatic to use the <a href="../rust-2018/trait-system/dyn-trait-for-trait-objects.html"><code>dyn</code>
+keyword</a> for
+trait objects.</p>
+<p>Eventually, we want <code>cargo fix</code> to fix all these idioms automatically in the same
+manner we did for upgrading to the 2018 edition. <strong>Currently,
+though, the <em>&quot;idiom lints&quot;</em> are not ready for widespread automatic fixing.</strong> The
+compiler isn't making <code>cargo fix</code>-compatible suggestions in many cases right
+now, and it is making incorrect suggestions in others. Enabling the idiom lints,
+even with <code>cargo fix</code>, is likely to leave your crate either broken or with many
+warnings still remaining.</p>
+<p>We have plans to make these idiom migrations a seamless part of the Rust 2018
+experience, but we're not there yet. As a result the following instructions are
+recommended only for the intrepid who are willing to work through a few
+compiler/Cargo bugs!</p>
+<p>With that out of the way, we can instruct Cargo to fix our code snippet with:</p>
+<pre><code class="language-console">$ cargo fix --edition-idioms
+</code></pre>
+<p>Afterwards, <code>src/lib.rs</code> looks like this:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Foo {
+    fn foo(&amp;self, _: Box&lt;dyn Foo&gt;);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>We're now more idiomatic, and we didn't have to fix our code manually!</p>
+<p>Note that <code>cargo fix</code> may still not be able to automatically update our code.
+If <code>cargo fix</code> can't fix something, it will print a warning to the console, and
+you'll have to fix it manually.</p>
+<p>As mentioned before, there are known bugs around the idiom lints which
+means they're not all ready for prime time yet. You may get a scary-looking
+warning to report a bug to Cargo, which happens whenever a fix proposed by
+<code>rustc</code> actually caused code to stop compiling by accident. If you'd like <code>cargo fix</code> to make as much progress as possible, even if it causes code to stop
+compiling, you can execute:</p>
+<pre><code class="language-console">$ cargo fix --edition-idioms --broken-code
+</code></pre>
+<p>This will instruct <code>cargo fix</code> to apply automatic suggestions regardless of
+whether they work or not. Like usual, you'll see the compilation result after
+all fixes are applied. If you notice anything wrong or unusual, please feel free
+to report an issue to Cargo and we'll help prioritize and fix it.</p>
+<p>Enjoy the new edition!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../editions/creating-a-new-project.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../rust-2015/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../editions/creating-a-new-project.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../rust-2015/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

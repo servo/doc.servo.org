@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["FromVariant","Creates an instance from a specified `syn::Variant`."]]});

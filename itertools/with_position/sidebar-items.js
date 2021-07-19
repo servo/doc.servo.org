@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Position","A value yielded by `WithPosition`. Indicates the position of this element in the iterator results."]],"fn":[["with_position","Create a new `WithPosition` iterator."]],"struct":[["WithPosition","An iterator adaptor that wraps each element in an `Position`."]]});

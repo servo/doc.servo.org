@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["rect","Shorthand for `Rect::new(Point2D::new(x, y), Size2D::new(w, h))`."]],"struct":[["Rect","A 2d Rectangle optionally tagged with a unit."]]});

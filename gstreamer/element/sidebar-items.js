@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ElementMessageType",""]],"struct":[["ELEMENT_METADATA_AUTHOR",""],["ELEMENT_METADATA_DESCRIPTION",""],["ELEMENT_METADATA_DOC_URI",""],["ELEMENT_METADATA_ICON_NAME",""],["ELEMENT_METADATA_KLASS",""],["ELEMENT_METADATA_LONGNAME",""],["NotifyWatchId",""]],"trait":[["ElementExtManual",""]]});

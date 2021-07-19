@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Attached","A handle to a proxy that has been attached to an event queue"],["Main","A main handle to a proxy"],["Proxy","An handle to a wayland proxy"]]});

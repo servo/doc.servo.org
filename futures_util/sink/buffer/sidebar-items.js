@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Buffer","Sink for the `buffer` method."]]});

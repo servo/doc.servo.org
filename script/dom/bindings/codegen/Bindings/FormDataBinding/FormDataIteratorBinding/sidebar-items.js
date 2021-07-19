@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["next_methodinfo",""],["sAttributes",""],["sAttributes_specs",""],["sMethods",""],["sMethods_specs",""]],"fn":[["CreateInterfaceObjects",""],["GetProtoObject",""],["Wrap",""],["_finalize",""],["_trace",""],["next",""]],"static":[["CLASS_OPS",""],["Class",""],["PrototypeClass",""]],"trait":[["FormDataIteratorMethods",""]]});

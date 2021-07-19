@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["HandshakeError","An error or intermediate state after a TLS handshake attempt."],["InnerError",""]],"struct":[["Error","An SSL error."],["ErrorCode","An error code returned from SSL functions."]]});

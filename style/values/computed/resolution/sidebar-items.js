@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Resolution","A computed `<resolution>`."]]});

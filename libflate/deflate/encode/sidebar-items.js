@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_BLOCK_SIZE","The default size of a DEFLATE block."],["MAX_NON_COMPRESSED_BLOCK_SIZE",""]],"enum":[["BlockBuf",""]],"struct":[["Block",""],["CompressBuf",""],["EncodeOptions","Options for a DEFLATE encoder."],["Encoder","DEFLATE encoder."],["RawBuf",""]]});

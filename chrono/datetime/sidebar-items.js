@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SecondsFormat","Specific formatting options for seconds. This may be extended in the future, so exhaustive matching in external code is not recommended."]],"fn":[["map_local","Maps the local datetime to other datetime with given conversion function."]],"struct":[["DateTime","ISO 8601 combined date and time with time zone."]]});

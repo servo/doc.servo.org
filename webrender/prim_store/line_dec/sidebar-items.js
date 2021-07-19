@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_LINE_DECORATION_RESOLUTION","Maximum resolution in device pixels at which line decorations are rasterized."]],"struct":[["LineDecoration","Identifying key for a line decoration."],["LineDecorationCacheKey",""],["LineDecorationData",""]],"type":[["LineDecorationDataHandle",""],["LineDecorationKey",""],["LineDecorationTemplate",""]]});

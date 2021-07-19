@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["make_service_fn","Create a `MakeService` from a function."]],"mod":[["sealed",""]],"struct":[["MakeServiceFn",""]],"trait":[["MakeService","An asynchronous constructor of `Service`s."]]});

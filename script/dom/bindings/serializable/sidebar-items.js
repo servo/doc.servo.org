@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StorageKey","The key corresponding to the storage location of a serialized platform object stored in a StructuredDataHolder."]],"trait":[["Serializable","Interface for serializable platform objects. https://html.spec.whatwg.org/multipage/#serializable"]]});

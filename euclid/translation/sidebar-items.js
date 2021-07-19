@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Translation2D","A 2d transformation from a space to another that can only express translations."],["Translation3D","A 3d transformation from a space to another that can only express translations."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ImmutableOrigin","The origin of an URL"]],"struct":[["MutableOrigin","A representation of an origin."],["OpaqueOrigin","Opaque identifier for URLs that have file or other schemes"]]});

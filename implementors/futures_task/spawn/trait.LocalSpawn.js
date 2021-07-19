@@ -1,0 +1,5 @@
+(function() {var implementors = {};
+implementors["futures_executor"] = [{"text":"impl <a class=\"trait\" href=\"futures_task/spawn/trait.LocalSpawn.html\" title=\"trait futures_task::spawn::LocalSpawn\">LocalSpawn</a> for <a class=\"struct\" href=\"futures_executor/local_pool/struct.LocalSpawner.html\" title=\"struct futures_executor::local_pool::LocalSpawner\">LocalSpawner</a>","synthetic":false,"types":["futures_executor::local_pool::LocalSpawner"]}];
+implementors["futures_task"] = [];
+implementors["glib"] = [{"text":"impl <a class=\"trait\" href=\"futures_task/spawn/trait.LocalSpawn.html\" title=\"trait futures_task::spawn::LocalSpawn\">LocalSpawn</a> for <a class=\"struct\" href=\"glib/auto/main_context/struct.MainContext.html\" title=\"struct glib::auto::main_context::MainContext\">MainContext</a>","synthetic":false,"types":["glib::auto::main_context::MainContext"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

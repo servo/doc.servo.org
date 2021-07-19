@@ -1,0 +1,1 @@
+initSidebarItems({"static":[["DIGIT_TABLE",""]]});

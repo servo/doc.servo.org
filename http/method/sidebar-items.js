@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_INLINE",""],["METHOD_CHARS",""]],"enum":[["Inner",""]],"fn":[["write_checked",""]],"struct":[["InvalidMethod","A possible error value when converting `Method` from bytes."],["Method","The Request Method (VERB)"]]});

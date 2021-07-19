@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["split","The `split` function takes arbitrary data and a closure that knows how to split it, and turns this into a `ParallelIterator`."]],"struct":[["Split","`Split` is a parallel iterator using arbitrary data and a splitting function. This struct is created by the `split()` function."],["SplitProducer",""]]});

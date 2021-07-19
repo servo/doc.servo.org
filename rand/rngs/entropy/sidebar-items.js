@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EntropyRng","An interface returning random data from external source(s), provided specifically for securely seeding algorithmic generators (PRNGs)."]]});

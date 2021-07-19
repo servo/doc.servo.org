@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["With","Sink for the `with` method."]]});

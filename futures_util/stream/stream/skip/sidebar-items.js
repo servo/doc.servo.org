@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Skip","Stream for the `skip` method."]]});

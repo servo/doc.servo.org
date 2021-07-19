@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Purpose","The goal of tracing generic parameter usage."]],"struct":[["Options","Control struct for searching type parameters."]]});

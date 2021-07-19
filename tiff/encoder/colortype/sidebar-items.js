@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CMYK16",""],["CMYK32",""],["CMYK64",""],["CMYK8",""],["Gray16",""],["Gray32",""],["Gray64",""],["Gray8",""],["RGB16",""],["RGB32",""],["RGB64",""],["RGB8",""],["RGBA16",""],["RGBA32",""],["RGBA64",""],["RGBA8",""]],"trait":[["ColorType","Trait for different colortypes that can be encoded."]]});

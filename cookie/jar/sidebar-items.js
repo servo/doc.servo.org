@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CookieJar","A collection of cookies that tracks its modifications."],["Delta","Iterator over the changes to a cookie jar."],["Iter","Iterator over all of the cookies in a jar."]]});

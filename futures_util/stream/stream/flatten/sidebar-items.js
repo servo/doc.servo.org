@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Flatten","Stream for the `flatten` method."]]});

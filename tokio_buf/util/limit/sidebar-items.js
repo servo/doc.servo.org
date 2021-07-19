@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Limit","Limits the stream to a maximum amount of data."],["LimitError","Errors returned from `Limit`."]]});

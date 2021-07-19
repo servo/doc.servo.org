@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["TOUCH_PAN_MIN_SCREEN_PX","Minimum number of `DeviceIndependentPixel` to begin touch scrolling."]],"enum":[["TouchAction","The action to take in response to a touch event"],["TouchState","The states of the touch input state machine."]],"struct":[["TouchHandler",""],["TouchPoint",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Dirichlet","The dirichelet distribution `Dirichlet(alpha)`."]]});

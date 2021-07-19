@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ByteInput","An input reader over bytes."],["Char","An inline representation of `Option<char>`."],["CharInput","An input reader over characters."],["InputAt","Represents a location in the input."]],"trait":[["Input","An abstraction over input used in the matching engines."]]});

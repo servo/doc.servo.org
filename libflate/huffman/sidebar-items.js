@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_BITWIDTH",""]],"mod":[["length_limited_huffman_codes",""],["ordinary_huffman_codes",""]],"struct":[["Code",""],["Decoder",""],["DecoderBuilder",""],["Encoder",""],["EncoderBuilder",""]],"trait":[["Builder",""]]});

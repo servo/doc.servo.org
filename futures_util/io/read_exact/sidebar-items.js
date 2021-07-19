@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ReadExact","Future for the `read_exact` method."]]});

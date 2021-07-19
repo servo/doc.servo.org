@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Window","A owned window around an underlying buffer."]]});

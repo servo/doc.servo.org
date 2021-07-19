@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ELAPSED","Flag indicating a timer entry has elapsed"],["ERROR","Flag indicating a timer entry has reached an error state"]],"fn":[["is_elapsed",""]],"struct":[["Entry","Internal state shared between a `Delay` instance and the timer."],["Time","Stores the info for `Delay`."]]});

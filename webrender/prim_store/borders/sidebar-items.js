@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ImageBorder",""],["ImageBorderData",""],["NormalBorderData",""],["NormalBorderPrim",""]],"type":[["ImageBorderDataHandle",""],["ImageBorderKey",""],["ImageBorderTemplate",""],["NormalBorderDataHandle",""],["NormalBorderKey",""],["NormalBorderTemplate",""]]});

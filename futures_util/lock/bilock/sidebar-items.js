@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BiLock","A type of futures-powered synchronization primitive which is a mutex between two possible owners."],["BiLockGuard","Returned RAII guard from the `poll_lock` method."],["Inner",""],["ReuniteError","Error indicating two `BiLock<T>`s were not two halves of a whole, and thus could not be `reunite`d."]]});

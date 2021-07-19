@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["KbState",""],["ModifiersState","Represents the current state of the keyboard modifiers"],["RMLVO","The RMLVO description of a keymap"]]});

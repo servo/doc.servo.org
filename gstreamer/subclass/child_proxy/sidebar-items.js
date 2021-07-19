@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["child_proxy_child_added",""],["child_proxy_child_removed",""],["child_proxy_get_child_by_index",""],["child_proxy_get_child_by_name",""],["child_proxy_get_children_count",""]],"trait":[["ChildProxyImpl",""]]});

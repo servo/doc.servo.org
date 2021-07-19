@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_HTMLIFrameElement",""]],"enum":[["NavigationType",""],["ProcessingMode",""]],"struct":[["HTMLIFrameElement",""],["SandboxAllowance",""]],"trait":[["HTMLIFrameElementLayoutMethods",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["memchr",""],["memchr2",""],["memchr3",""],["memrchr",""],["memrchr2",""],["memrchr3",""]],"mod":[["avx",""],["sse2",""]]});

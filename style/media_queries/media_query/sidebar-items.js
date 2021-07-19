@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MediaQueryType","http://dev.w3.org/csswg/mediaqueries-3/#media0"],["Qualifier","https://drafts.csswg.org/mediaqueries/#mq-prefix"]],"struct":[["MediaQuery","A media query."],["MediaType","https://drafts.csswg.org/mediaqueries/#media-types"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["FLUSH_AT",""]],"type":[["AccType","The data type of the accumulator. a 64-bit value allows us to store more before each push to the vector, but is sub-optimal on 32-bit platforms."]]});

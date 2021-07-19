@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BytesOrWideString","A platform independent representation of a string. When working with `std` enabled it is recommended to the convenience methods for providing conversions to `std` types."]]});

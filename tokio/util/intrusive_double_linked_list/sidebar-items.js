@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["LinkedList","An intrusive linked list of nodes, where each node carries associated data of type `T`."],["ListNode","A node which carries data of type `T` and is stored in an intrusive list"]]});

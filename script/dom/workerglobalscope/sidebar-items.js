@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_WorkerGlobalScope",""]],"fn":[["prepare_workerscope_init",""]],"struct":[["WorkerGlobalScope",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DONE_BIT",""],["LOCKED_BIT",""],["PARKED_BIT",""],["POISON_BIT",""]],"enum":[["OnceState","Current state of a `Once`."]],"struct":[["Once","A synchronization primitive which can be used to run a one-time initialization. Useful for one-time initialization for globals, FFI or related functionality."]]});

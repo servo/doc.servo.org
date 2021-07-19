@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TimeUnit","A time unit."]],"struct":[["Time","A time value according to CSS-VALUES § 6.2."]]});

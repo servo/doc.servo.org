@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["set_if_consistent","Checks if `old` is either empty or has the same value as `new` (i.e. “consistent”), and if it is empty, set `old` to `new` as well."]],"struct":[["Parsed","Parsed parts of date and time. There are two classes of methods:"]]});

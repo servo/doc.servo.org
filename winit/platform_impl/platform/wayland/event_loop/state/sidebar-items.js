@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["WinitState","Wrapper to carry winit’s state."]]});

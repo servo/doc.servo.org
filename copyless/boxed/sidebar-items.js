@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BoxAllocation","A typesafe helper that stores the allocated pointer without the data initialized."]],"trait":[["BoxHelper","Helper trait for a `Box` type that allocates up-front."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["new","Wraps a channel into the reference counter."]],"struct":[["Counter","Reference counter internals."],["Receiver","The receiving side."],["Sender","The sending side."]]});

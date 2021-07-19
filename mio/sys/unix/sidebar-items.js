@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["cvt",""],["pipe",""]],"mod":[["awakener",""],["dlsym",""],["epoll",""],["eventedfd",""],["io",""],["ready",""],["tcp",""],["udp",""],["uds",""],["uio",""]],"struct":[["IoVec","A specialized byte slice type for performing vectored I/O operations."]],"trait":[["IsMinusOne",""]]});

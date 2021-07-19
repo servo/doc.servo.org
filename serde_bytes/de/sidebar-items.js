@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Deserialize","Types that can be deserialized via `#[serde(with = \"serde_bytes\")]`."]]});

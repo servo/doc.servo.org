@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_TestWorkletGlobalScope",""]],"enum":[["TestWorkletTask","Tasks which can be performed by test worklets."]],"struct":[["TestWorkletGlobalScope",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_DOMMatrixReadOnly",""]],"fn":[["create_2d_matrix",""],["create_3d_matrix",""],["dommatrixinit_to_matrix",""],["entries_to_matrix",""],["normalize_point",""],["transform_to_matrix",""]],"struct":[["DOMMatrixReadOnly",""]]});

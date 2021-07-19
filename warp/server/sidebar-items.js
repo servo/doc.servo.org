@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["serve","Create a `Server` with the provided service."]],"struct":[["ReplyFuture",""],["Server","A Warp Server ready to filter requests."]],"trait":[["IntoWarpService",""],["WarpService",""]]});

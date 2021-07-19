@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["AVERAGE_HEADER_SIZE",""],["MAX_HEADERS",""]],"enum":[["Client",""],["Server",""]],"fn":[["extend",""],["record_header_indices",""],["set_content_length",""],["title_case",""],["write_headers",""],["write_headers_title_case",""]],"struct":[["FastWrite",""],["HeaderIndices",""]]});

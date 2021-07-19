@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Factory","The factory is used to create object paths, interfaces, methods etc."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["fontconfig","A source that contains the fonts installed on the system, as reported by the Fontconfig library."],["fs","A source that loads fonts from a directory or directories on disk."],["mem","A source that keeps fonts in memory."],["multi","A source that encapsulates multiple sources and allows them to be queried as a group."]]});

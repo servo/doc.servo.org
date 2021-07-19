@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["layout_thread"] = [{"text":"impl <a class=\"trait\" href=\"script_traits/trait.Painter.html\" title=\"trait script_traits::Painter\">Painter</a> for <a class=\"struct\" href=\"layout_thread/struct.RegisteredPainterImpl.html\" title=\"struct layout_thread::RegisteredPainterImpl\">RegisteredPainterImpl</a>","synthetic":false,"types":["layout_thread::RegisteredPainterImpl"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

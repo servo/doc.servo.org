@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Intersection","Polygon intersection results."]],"struct":[["LineProjection","The projection of a `Polygon` on a line."],["Polygon","A convex polygon with 4 points lying on a plane."]]});

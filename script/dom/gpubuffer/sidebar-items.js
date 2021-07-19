@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["RANGE_OFFSET_ALIGN_MASK",""],["RANGE_SIZE_ALIGN_MASK",""],["_IMPL_DOMOBJECT_FOR_GPUBuffer",""]],"enum":[["GPUBufferState",""]],"struct":[["GPUBuffer",""],["GPUBufferMapInfo",""]]});

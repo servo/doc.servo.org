@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ConnectState",""],["MaybeHttpsStream","A stream which may be wrapped with TLS."]],"externcrate":[["openssl",""]],"mod":[["cache",""]],"struct":[["ConnectFuture","A future connecting to a remote HTTP server."],["HttpsConnector","A Connector using OpenSSL to support `http` and `https` schemes."],["Inner",""],["KEY_INDEX",""]]});

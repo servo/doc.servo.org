@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["HAVE_ALTERNATES",""]],"struct":[["StrftimeItems","Parsing iterator for `strftime`-like format strings."]]});

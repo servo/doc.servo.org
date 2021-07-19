@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CascadeLevel","The cascade level these rules are relevant at, as per13."]],"struct":[["ShadowCascadeOrder","A counter to track how many shadow root rules deep we are. This is used to handle:"]]});

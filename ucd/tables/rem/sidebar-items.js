@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Trilean",""]],"static":[["UCD_CASE_FD",""],["UCD_CASE_FD_CLOS",""],["UCD_CASE_FD_NFKC",""],["UCD_CASE_LW",""],["UCD_CASE_SIMP_FD",""],["UCD_CASE_SIMP_LW",""],["UCD_CASE_SIMP_TI",""],["UCD_CASE_SIMP_UP",""],["UCD_CASE_TI",""],["UCD_CASE_UP",""],["UCD_QNFC",""],["UCD_QNFKC",""]]});

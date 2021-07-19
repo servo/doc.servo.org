@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Arena","An arena holding some kind of component (e.g., type, constant, instruction, etc.) that can be referenced."],["Handle","A strongly typed reference to a SPIR-V element."]],"type":[["Index","An unique index in the arena array that a handle points to."]]});

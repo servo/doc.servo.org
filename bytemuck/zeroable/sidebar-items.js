@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Zeroable","Trait for types that can be safely created with `zeroed`."]]});

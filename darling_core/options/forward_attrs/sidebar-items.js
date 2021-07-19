@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ForwardAttrs","A rule about which attributes to forward to the generated struct."]]});

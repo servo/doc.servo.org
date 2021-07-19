@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Perspective",""],["Transform4F","An transform, optimized with SIMD."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["once","Creates a parallel iterator that produces an element exactly once."]],"struct":[["Once","Iterator adaptor for the `once()` function."]]});

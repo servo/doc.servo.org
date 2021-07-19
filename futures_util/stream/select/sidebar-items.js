@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["poll_inner",""],["select","This function will attempt to pull items from both streams. Each stream will be polled in a round-robin fashion, and whenever a stream is ready to yield an item that item is yielded."]],"struct":[["Select","Stream for the [`select()`] function."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["NOTIFYING","The task currently registered with the `AtomicTask` cell is being notified."],["REGISTERING","A new task value is being registered with the `AtomicTask` cell."],["WAITING","Idle state"]],"struct":[["AtomicTask","A synchronization primitive for task notification."],["CurrentTask",""],["ExactTask",""]],"trait":[["Register",""]]});

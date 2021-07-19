@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["select_all","Creates a new future which will select over a list of futures."]],"struct":[["SelectAll","Future for the [`select_all`] function."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Memory","A memory allocation."]]});

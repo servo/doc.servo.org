@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BUF_SIZE",""]],"fn":[["max_input_length","Calculate the longest input that can be encoded for the given output buffer size."]],"struct":[["ChunkedEncoder","A base64 encoder that emits encoded bytes in chunks without heap allocation."],["StringSink",""]],"trait":[["Sink","The output mechanism for ChunkedEncoder’s encoded bytes."]]});

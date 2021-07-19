@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error","Library-specific error type which is returned by metadata loading operations."]],"struct":[["Dimensions","Represents image dimensions in pixels."]],"type":[["Result","Library-specific result type."]]});

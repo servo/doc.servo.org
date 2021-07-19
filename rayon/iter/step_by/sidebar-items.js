@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StepBy","`StepBy` is an iterator that skips `n` elements between each yield, where `n` is the given step. This struct is created by the `step_by()` method on `IndexedParallelIterator`"],["StepByProducer","//////////////////////////////////////////////////////////////////////// Producer implementation"]]});

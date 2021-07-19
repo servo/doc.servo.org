@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_SCHEME_LEN",""],["SCHEME_CHARS",""]],"enum":[["Protocol",""],["Scheme2",""]],"struct":[["Scheme","Represents the scheme component of a URI"]]});

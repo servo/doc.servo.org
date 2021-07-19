@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["layout_thread"] = [{"text":"impl&lt;'lr&gt; <a class=\"trait\" href=\"style/dom/trait.TShadowRoot.html\" title=\"trait style::dom::TShadowRoot\">TShadowRoot</a> for <a class=\"struct\" href=\"layout_thread/dom_wrapper/struct.ServoShadowRoot.html\" title=\"struct layout_thread::dom_wrapper::ServoShadowRoot\">ServoShadowRoot</a>&lt;'lr&gt;","synthetic":false,"types":["layout_thread::dom_wrapper::ServoShadowRoot"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

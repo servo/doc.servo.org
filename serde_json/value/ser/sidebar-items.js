@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SerializeMap",""]],"fn":[["key_must_be_a_string",""]],"struct":[["MapKeySerializer",""],["SerializeStructVariant",""],["SerializeTupleVariant",""],["SerializeVec",""],["Serializer","Serializer whose output is a `Value`."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Bytes","A shared immutable byte slice (the equivalent of `Rc<[u8]>`)."]]});

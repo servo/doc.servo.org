@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DebugCounter","A counter used for checking values in debug mode. Does nothing when debug assertions are disabled."],["DeflateState","A struct containing all the stored state used for the encoder."],["LengthBuffers",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BufferUnordered","Stream for the `buffer_unordered` method."]]});

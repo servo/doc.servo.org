@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GPUTextureAspect",""],["GPUTextureViewDimension",""]],"mod":[["GPUTextureAspectValues",""],["GPUTextureViewBinding",""],["GPUTextureViewDimensionValues",""]],"struct":[["GPUTextureViewDescriptor",""]]});

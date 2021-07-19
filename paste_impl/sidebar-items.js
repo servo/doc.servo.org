@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Segment",""]],"fn":[["expr",""],["is_paste_operation",""],["is_single_ident",""],["parse_bracket_as_segments",""],["parse_segments",""],["paste_segments",""]],"macro":[["item",""],["item_with_macros",""],["proc_macro_hack_expr",""]],"mod":[["enum_hack",""],["proc_macro_hack_expr",""]],"struct":[["PasteInput",""]]});

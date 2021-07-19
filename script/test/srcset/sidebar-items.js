@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_a_srcset_attribute","Parse an `srcset` attribute - https://html.spec.whatwg.org/multipage/#parsing-a-srcset-attribute."]],"struct":[["Descriptor",""],["ImageSource",""]]});

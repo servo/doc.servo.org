@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["avar",""],["cbdt",""],["cblc",""],["cff",""],["cff2",""],["cmap",""],["fvar",""],["gdef",""],["glyf",""],["gvar",""],["head",""],["hhea",""],["hmtx",""],["hvar",""],["kern","A kerning table implementation."],["loca",""],["maxp",""],["mvar",""],["name",""],["os2",""],["post",""],["sbix",""],["svg",""],["vhea",""],["vorg",""]]});

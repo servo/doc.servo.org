@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StyleRule","A style rule, with selectors and declarations."]]});

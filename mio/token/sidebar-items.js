@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Token","Associates readiness notifications with `Evented` handles."]]});

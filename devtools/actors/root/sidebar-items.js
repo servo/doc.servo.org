@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AddonMsg",""]],"struct":[["ActorTraits",""],["GetProcessResponse",""],["GetRootReply",""],["GetTabReply",""],["ListAddonsReply",""],["ListProcessesResponse",""],["ListServiceWorkerRegistrationsReply",""],["ListTabsReply",""],["ListWorkersReply",""],["ProcessForm",""],["ProtocolDescriptionReply",""],["RootActor",""],["RootActorMsg",""],["Types",""]]});

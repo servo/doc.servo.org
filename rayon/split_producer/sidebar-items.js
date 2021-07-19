@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SplitProducer","Common producer for splitting on a predicate."]],"trait":[["Fissile","Helper trait so `&str`, `&[T]`, and `&mut [T]` can share `SplitProducer`."]]});

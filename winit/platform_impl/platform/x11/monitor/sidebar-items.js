@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DISABLE_MONITOR_LIST_CACHING",""]],"fn":[["invalidate_cached_monitor_list",""]],"struct":[["MONITORS",""],["MonitorHandle",""],["VideoMode",""]]});

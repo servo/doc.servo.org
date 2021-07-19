@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BlobURLStoreError","Errors returned to Blob URL Store request"]],"fn":[["get_blob_origin","Given an URL, returning the Origin that a Blob created under this URL should have."],["parse_blob_url","Parse URL as Blob URL scheme’s definition"]],"struct":[["BlobBuf","Standalone blob buffer object"]]});

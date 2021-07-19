@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SinkMapErr","Sink for the `sink_map_err` method."]]});

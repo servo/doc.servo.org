@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DYNAMIC_FIRST_BYTE",""],["DYNAMIC_FIRST_BYTE_FINAL",""],["FIXED_FIRST_BYTE",""],["FIXED_FIRST_BYTE_FINAL",""]],"enum":[["BType",""]],"struct":[["EncoderState","A struct wrapping a writer that writes data compressed using the provided Huffman table"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Sealed","Sealed stops crates other than byteorder from implementing any traits that use it."]]});

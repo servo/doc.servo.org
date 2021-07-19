@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["unfold","Creates a `Stream` from a seed and a closure returning a `Future`."]],"struct":[["Unfold","Stream for the [`unfold`] function."]]});

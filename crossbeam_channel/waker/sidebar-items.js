@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["current_thread_id","Returns the id of the current thread."]],"struct":[["Entry","Represents a thread blocked on a specific channel operation."],["SyncWaker","A waker that can be shared among threads without locking."],["Waker","A queue of threads blocked on channel operations."]]});

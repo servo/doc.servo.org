@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["map_as_enum",""],["unit_only",""]],"struct":[["MapAsEnum",""],["SeedStructVariant",""],["SeedTupleVariant",""],["UnitOnly",""]],"trait":[["Pair","Avoid having to restate the generic types on `MapDeserializer`. The `Iterator::Item` contains enough information to figure out K and V."]],"type":[["First",""],["Second",""]]});

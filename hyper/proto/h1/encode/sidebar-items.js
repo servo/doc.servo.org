@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CHUNK_SIZE_MAX_BYTES",""],["USIZE_BYTES",""]],"enum":[["BufKind",""],["Kind",""]],"struct":[["ChunkSize",""],["EncodedBuf",""],["Encoder","Encoders to handle different Transfer-Encodings."],["NotEof",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["new",""]],"struct":[["Limit","A `BufMut` adapter which limits the amount of bytes that can be written to an underlying buffer."]]});

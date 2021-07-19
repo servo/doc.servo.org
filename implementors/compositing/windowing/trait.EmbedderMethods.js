@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["servo"] = [{"text":"impl <a class=\"trait\" href=\"compositing/windowing/trait.EmbedderMethods.html\" title=\"trait compositing::windowing::EmbedderMethods\">EmbedderMethods</a> for <a class=\"struct\" href=\"servo/embedder/struct.EmbedderCallbacks.html\" title=\"struct servo::embedder::EmbedderCallbacks\">EmbedderCallbacks</a>","synthetic":false,"types":["servo::embedder::EmbedderCallbacks"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

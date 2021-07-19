@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["RegistryMsg",""]],"struct":[["MainThreadRegistry",""],["MainThreadWakerImpl",""],["Registry",""]],"trait":[["MainThreadWaker",""]]});

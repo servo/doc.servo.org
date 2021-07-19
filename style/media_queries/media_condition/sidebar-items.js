@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AllowOr","Whether to allow an `or` condition or not during parsing."],["MediaCondition","Represents a media condition."],["Operator","A binary `and` or `or` operator."]]});

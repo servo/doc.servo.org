@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["map","Appropriate reexports of hash_map types"]],"struct":[["HashMap",""],["HashSet",""]],"type":[["FxHashMap","Hash map that uses the Fx hasher"],["FxHashSet","Hash set that uses the Fx hasher"]]});

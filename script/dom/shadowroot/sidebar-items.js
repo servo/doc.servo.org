@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_ShadowRoot",""]],"enum":[["IsUserAgentWidget","Whether a shadow root hosts an User Agent widget."]],"struct":[["ShadowRoot",""]],"trait":[["LayoutShadowRootHelpers",""]]});

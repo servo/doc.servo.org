@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Exp","The exponential distribution `Exp(lambda)`."],["Exp1","Samples floating-point numbers according to the exponential distribution, with rate parameter `λ = 1`. This is equivalent to `Exp::new(1.0)` or sampling with `-rng.gen::<f64>().ln()`, but faster."]]});

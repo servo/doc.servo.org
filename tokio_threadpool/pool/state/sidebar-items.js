@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["LIFECYCLE_MASK","Mask used to extract the number of futures from the state"],["MAX_FUTURES","Max number of futures the pool can handle."],["NUM_FUTURES_MASK",""],["NUM_FUTURES_OFFSET",""]],"enum":[["Lifecycle",""]],"struct":[["State","ThreadPool state."]]});

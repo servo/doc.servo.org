@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["getpid",""],["kill",""]],"mod":[["Sig",""]],"type":[["c_int",""],["pid_t",""]]});

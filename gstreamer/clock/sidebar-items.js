@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["destroy_closure_wait_async",""],["into_raw_wait_async",""],["trampoline_wait_async",""]],"struct":[["AtomicClockReturn",""],["ClockId",""]],"trait":[["ClockExtManual",""]]});

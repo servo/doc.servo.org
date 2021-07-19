@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BlobData","Different backends of Blob"]],"struct":[["BlobImpl","The data backing a DOM Blob."],["FileBlob","File-based blob"]]});

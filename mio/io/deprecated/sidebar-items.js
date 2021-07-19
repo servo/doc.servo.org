@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["would_block","Returns a std `WouldBlock` error without allocating"]]});

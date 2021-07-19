@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GLPlayerReceiver",""],["GLPlayerSender",""]],"fn":[["glplayer_channel",""]],"mod":[["ipc",""],["mpsc",""]],"struct":[["GLPlayerChan",""],["GLPlayerPipeline",""],["IS_MULTIPROCESS",""]],"type":[["GLPlayerSendResult",""]]});

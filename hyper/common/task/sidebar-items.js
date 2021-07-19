@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["YieldNow","A type to help “yield” a future, such that it is re-scheduled immediately."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DataSourceEvent","Possible events a data source needs to react to"]],"fn":[["data_source_impl",""]],"struct":[["DataSource","A data source for sending data though copy/paste or drag and drop"],["WritePipe","A file descriptor that can only be written to"]]});

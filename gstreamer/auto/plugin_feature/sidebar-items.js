@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["NONE_PLUGIN_FEATURE",""]],"struct":[["PluginFeature",""],["PluginFeatureClass",""]],"trait":[["PluginFeatureExt",""]]});

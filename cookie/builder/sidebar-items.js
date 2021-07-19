@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CookieBuilder","Structure that follows the builder pattern for building `Cookie` structs."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_INIT_STATE",""]],"enum":[["State",""]],"mod":[["baseline",""],["combine",""],["specialized",""],["table",""]],"struct":[["Hasher","Represents an in-progress CRC32 computation."]]});

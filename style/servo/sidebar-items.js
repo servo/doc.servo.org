@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["media_queries","Servo’s media-query device and expression representation."],["restyle_damage","The restyle damage is a hint that tells layout which kind of operations may be needed in presence of incremental style changes."],["selector_parser","Servo’s selector parser."],["url","Common handling for the specified value CSS url() values."]]});

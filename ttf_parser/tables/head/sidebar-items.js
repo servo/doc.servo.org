@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["INDEX_TO_LOC_FORMAT_OFFSET",""],["TABLE_SIZE",""],["UNITS_PER_EM_OFFSET",""]],"enum":[["IndexToLocationFormat",""]],"fn":[["index_to_loc_format",""],["parse",""],["units_per_em",""]]});

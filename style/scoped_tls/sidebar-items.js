@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ScopedTLS","A scoped TLS set, that is alive during the `'scope` lifetime."]]});

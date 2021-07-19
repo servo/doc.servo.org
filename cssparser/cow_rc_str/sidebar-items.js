@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_static_assert_same_size",""]],"struct":[["CowRcStr","A string that is either shared (heap-allocated and reference-counted) or borrowed."]]});

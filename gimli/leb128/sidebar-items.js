@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CONTINUATION_BIT",""],["SIGN_BIT",""]],"fn":[["low_bits_of_byte",""],["low_bits_of_u64",""]],"mod":[["read","A module for reading signed and unsigned integers that have been LEB128 encoded."]]});

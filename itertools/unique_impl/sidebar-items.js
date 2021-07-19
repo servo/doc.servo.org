@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["count_new_keys",""],["unique",""],["unique_by","Create a new `UniqueBy` iterator."]],"struct":[["Unique","An iterator adapter to filter out duplicate elements."],["UniqueBy","An iterator adapter to filter out duplicate elements."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["err","Create a future that is immediately ready with an error value."],["ok","Create a future that is immediately ready with a success value."],["ready","Creates a future that is immediately ready with a value."]],"struct":[["Ready","Future for the `ready` function."]]});

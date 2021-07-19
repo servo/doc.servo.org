@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["split",""]],"struct":[["ReadHalf","Read half of a `TcpStream`, created by `split`."],["WriteHalf","Write half of a `TcpStream`, created by `split`."]]});

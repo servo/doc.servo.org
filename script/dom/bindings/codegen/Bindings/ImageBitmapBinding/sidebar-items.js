@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ColorSpaceConversion",""],["ImageOrientation",""],["PremultiplyAlpha",""],["ResizeQuality",""]],"mod":[["ColorSpaceConversionValues",""],["ImageBitmapBinding",""],["ImageOrientationValues",""],["PremultiplyAlphaValues",""],["ResizeQualityValues",""]],"struct":[["ImageBitmapOptions",""]]});

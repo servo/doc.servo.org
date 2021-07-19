@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BufReadDecoderError",""]],"struct":[["BufReadDecoder","Wraps a `std::io::BufRead` buffered byte stream and decode it as UTF-8."]]});

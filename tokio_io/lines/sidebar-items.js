@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["lines","Creates a new stream from the I/O object given representing the lines of input that are found on `A`."]],"struct":[["Lines","Combinator created by the top-level `lines` method which is a stream over the lines of text on an I/O object."]]});

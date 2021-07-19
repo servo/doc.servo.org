@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["style"] = [{"text":"impl <a class=\"trait\" href=\"cssparser/from_bytes/trait.EncodingSupport.html\" title=\"trait cssparser::from_bytes::EncodingSupport\">EncodingSupport</a> for <a class=\"struct\" href=\"style/encoding_support/struct.EncodingRs.html\" title=\"struct style::encoding_support::EncodingRs\">EncodingRs</a>","synthetic":false,"types":["style::encoding_support::EncodingRs"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

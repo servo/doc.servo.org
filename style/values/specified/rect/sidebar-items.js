@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["NonNegativeLengthOrNumberRect","A specified rectangle made of four `<length-or-number>` values."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Concat","Future for the `concat` method."]]});

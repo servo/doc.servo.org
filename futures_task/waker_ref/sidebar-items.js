@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["waker_ref","Creates a reference to a [`Waker`] from a reference to `Arc<impl ArcWake>`."]],"struct":[["WakerRef","A [`Waker`] that is only valid for a given lifetime."]]});

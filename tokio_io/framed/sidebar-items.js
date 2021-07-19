@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["framed",""]],"struct":[["FramedParts","`FramedParts` contains an export of the data of a Framed transport. It can be used to construct a new `Framed` with a different codec. It contains all current buffers and the inner transport."]]});

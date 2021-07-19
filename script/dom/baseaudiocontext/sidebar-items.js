@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_BaseAudioContext",""]],"enum":[["BaseAudioContextOptions",""]],"struct":[["BaseAudioContext",""],["DecodeResolver",""]]});

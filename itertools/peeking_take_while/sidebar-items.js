@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["peeking_take_while","Create a PeekingTakeWhile"]],"struct":[["PeekingTakeWhile","An iterator adaptor that takes items while a closure returns `true`."]],"trait":[["PeekingNext","An iterator that allows peeking at an element before deciding to accept it."]]});

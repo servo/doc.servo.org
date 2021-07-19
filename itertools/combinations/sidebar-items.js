@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["combinations","Create a new `Combinations` from a clonable iterator."]],"struct":[["Combinations","An iterator to iterate through all the `n`-length combinations in an iterator."],["LazyBuffer",""]]});

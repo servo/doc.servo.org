@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_DissimilarOriginLocation",""]],"struct":[["DissimilarOriginLocation","Represents a dissimilar-origin `Location` that exists in another script thread."]]});

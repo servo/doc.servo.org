@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error","Errors that can occur when sanitising a font."]],"fn":[["process","Convenience wrapper for `process_and_write` which writes the result to memory."],["process_and_write","Sanitise a font file, writing the result to `output`."]],"mod":[["ffi","Implementation details."]]});

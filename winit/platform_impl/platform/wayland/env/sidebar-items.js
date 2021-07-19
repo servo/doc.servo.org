@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["WindowingFeatures","Set of extra features that are supported by the compositor."],["WinitEnv","The environment that we utilize."]]});

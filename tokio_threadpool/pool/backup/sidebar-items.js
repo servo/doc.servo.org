@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["PUSHED","Set when the worker is pushed onto the scheduler’s stack of sleeping threads."],["RUNNING","Set when the thread is running"],["TERMINATED","Set when the thread pool has terminated"]],"enum":[["Handoff",""]],"struct":[["Backup","State associated with a thread in the thread pool."],["BackupId",""],["State","Tracks thread state."]]});

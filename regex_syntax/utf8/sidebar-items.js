@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_UTF8_BYTES",""]],"enum":[["Utf8Sequence","Utf8Sequence represents a sequence of byte ranges."]],"fn":[["max_scalar_value",""]],"struct":[["ScalarRange",""],["Utf8Range","A single inclusive range of UTF-8 bytes."],["Utf8Sequences","An iterator over ranges of matching UTF-8 byte sequences."]]});

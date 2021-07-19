@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["NONE",""]],"struct":[["PathAndQuery","Represents the path component of a URI"]]});

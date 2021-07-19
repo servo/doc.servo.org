@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EncodingError","Encoding error."],["ExtensionData","Extension data."],["FormatErrorKind",""],["Repeat","Number of repetitions"]],"fn":[["flag_size",""]],"struct":[["BlockWriter",""],["Encoder","GIF encoder."],["EncodingFormatError","The image has incorrect properties, making it impossible to encode as a gif."]]});

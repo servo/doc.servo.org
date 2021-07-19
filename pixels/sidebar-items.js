@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PixelFormat",""]],"fn":[["clip",""],["multiply_u8_color",""],["rgba8_byte_swap_and_premultiply_inplace",""],["rgba8_byte_swap_colors_inplace",""],["rgba8_get_rect",""],["rgba8_premultiply_inplace","Returns true if the pixels were found to be completely opaque."]]});

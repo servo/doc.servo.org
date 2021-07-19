@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["fov_to_projection_matrix","Construct a projection matrix given the four angles from the center for the faces of the viewing frustum"],["frustum_to_projection_matrix","Construct matrix given the actual extent of the viewing frustum on the near plane"]],"struct":[["ClipPlanes",""],["HitTestList","Holds on to hit tests"]]});

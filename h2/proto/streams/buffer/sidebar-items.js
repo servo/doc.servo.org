@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Buffer","Buffers frames for multiple streams."],["Deque","A sequence of frames in a `Buffer`"],["Indices","Tracks the head & tail for a sequence of frames in a `Buffer`."],["Slot",""]]});

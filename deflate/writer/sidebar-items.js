@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ERR_STR",""]],"fn":[["compress_until_done","Keep compressing until all the input has been compressed and output or the writer returns `Err`."]],"struct":[["DeflateEncoder","A DEFLATE encoder/compressor."],["ZlibEncoder","A Zlib encoder/compressor."]]});

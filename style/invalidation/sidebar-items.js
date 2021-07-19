@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["element","Invalidation of element styles due to attribute or style changes."],["media_queries","Code related to the invalidation of media-query-affected rules."],["stylesheets","A collection of invalidations due to changes in which stylesheets affect a document."]]});

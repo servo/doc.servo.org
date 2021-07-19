@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["conn",""],["date",""],["decode",""],["dispatch",""],["encode",""],["io",""],["role",""]],"struct":[["Encode","Passed to Http1Transaction::encode"],["ParseContext",""],["ParsedMessage",""]],"trait":[["Http1Transaction",""]],"type":[["ClientTransaction",""],["ParseResult","Result newtype for Http1Transaction::parse."],["ServerTransaction",""]]});

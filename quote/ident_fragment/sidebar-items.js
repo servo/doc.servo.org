@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["IdentFragment","Specialized formatting trait used by `format_ident!`."]]});

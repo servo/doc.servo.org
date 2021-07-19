@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Marker1",""],["Marker2",""]]});

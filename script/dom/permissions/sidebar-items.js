@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_Permissions",""]],"enum":[["Operation",""]],"fn":[["allowed_in_nonsecure_contexts",""],["get_descriptor_permission_state",""],["prompt_user_from_embedder",""]],"struct":[["Permissions",""]],"trait":[["PermissionAlgorithm",""]]});

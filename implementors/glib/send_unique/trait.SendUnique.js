@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["gstreamer_base"] = [{"text":"impl <a class=\"trait\" href=\"glib/send_unique/trait.SendUnique.html\" title=\"trait glib::send_unique::SendUnique\">SendUnique</a> for <a class=\"struct\" href=\"gstreamer_base/auto/adapter/struct.Adapter.html\" title=\"struct gstreamer_base::auto::adapter::Adapter\">Adapter</a>","synthetic":false,"types":["gstreamer_base::auto::adapter::Adapter"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

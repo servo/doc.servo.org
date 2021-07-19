@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AudioBufferSourceNodeMessage","Control messages directed to AudioBufferSourceNodes."]],"struct":[["AudioBuffer",""],["AudioBufferSourceNode","AudioBufferSourceNode engine. https://webaudio.github.io/web-audio-api/#AudioBufferSourceNode"],["AudioBufferSourceNodeOptions","This specifies options for constructing an AudioBufferSourceNode."]]});

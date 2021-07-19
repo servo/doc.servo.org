@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["point2","Shorthand for `Point2D::new(x, y)`."],["point3","Shorthand for `Point3D::new(x, y)`."]],"struct":[["Point2D","A 2d Point tagged with a unit."],["Point3D","A 3d Point tagged with a unit."]]});

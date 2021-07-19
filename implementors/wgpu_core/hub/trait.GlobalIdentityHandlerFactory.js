@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["webgpu"] = [{"text":"impl <a class=\"trait\" href=\"wgpu_core/hub/trait.GlobalIdentityHandlerFactory.html\" title=\"trait wgpu_core::hub::GlobalIdentityHandlerFactory\">GlobalIdentityHandlerFactory</a> for <a class=\"struct\" href=\"webgpu/identity/struct.IdentityRecyclerFactory.html\" title=\"struct webgpu::identity::IdentityRecyclerFactory\">IdentityRecyclerFactory</a>","synthetic":false,"types":["webgpu::identity::IdentityRecyclerFactory"]}];
+implementors["wgpu_core"] = [];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

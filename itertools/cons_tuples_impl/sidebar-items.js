@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["cons_tuples","Create an iterator that maps for example iterators of `((A, B), C)` to `(A, B, C)`."]],"struct":[["ConsTuples","An iterator that maps an iterator of tuples like `((A, B), C)` to an iterator of `(A, B, C)`."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["f64_to_i64","Convert a `f64` to an `i64`, panicing on overflow."]],"struct":[["Binomial","The binomial distribution `Binomial(n, p)`."]]});

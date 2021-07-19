@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["collect_extended","Creates an empty default collection and extends it."]]});

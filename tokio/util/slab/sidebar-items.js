@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["INITIAL_PAGE_SIZE","Size of first page"],["MAX_PAGES","Max number of pages per slab"],["MAX_THREADS",""]],"mod":[["addr","Tracks the location of an entry in a slab."],["entry",""],["generation",""],["page",""],["shard",""],["slot",""],["stack",""]],"struct":[["Slab","A sharded slab."]]});

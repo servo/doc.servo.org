@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Input",""]],"struct":[["Enum",""],["Field",""],["Struct",""],["Variant",""]]});

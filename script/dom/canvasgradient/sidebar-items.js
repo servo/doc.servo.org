@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_CanvasGradient",""]],"enum":[["CanvasGradientStyle",""]],"struct":[["CanvasGradient",""]],"trait":[["ToFillOrStrokeStyle",""]]});

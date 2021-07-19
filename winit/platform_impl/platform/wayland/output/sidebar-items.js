@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MonitorHandle",""],["OutputManager","Output manager."],["OutputManagerHandle","A handle to output manager."],["VideoMode",""]]});

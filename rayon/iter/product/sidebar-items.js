@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["mul",""],["product",""]],"struct":[["ProductConsumer",""],["ProductFolder",""]]});

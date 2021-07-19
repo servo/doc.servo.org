@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["doctype_error_and_quirks",""]],"static":[["HTML4_PUBLIC_PREFIXES",""],["LIMITED_QUIRKY_PUBLIC_PREFIXES",""],["QUIRKY_PUBLIC_MATCHES",""],["QUIRKY_PUBLIC_PREFIXES",""],["QUIRKY_SYSTEM_MATCHES",""]]});

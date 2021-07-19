@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["GradientBuilder","Construct a gradient to be used in display lists."]]});

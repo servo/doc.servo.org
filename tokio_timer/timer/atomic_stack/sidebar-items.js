@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["SHUTDOWN","Used to indicate that the timer has shutdown."]],"struct":[["AtomicStack","A stack of `Entry` nodes"],["AtomicStackEntries","Entries that were removed from the stack"]]});

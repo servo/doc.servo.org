@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SecWebsocketVersion","The `Sec-Websocket-Version` header."]]});

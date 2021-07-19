@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MachORelocationIterator","An iterator over the relocations in a `MachOSection`."]],"type":[["MachORelocationIterator32","An iterator over the relocations in a `MachOSection32`."],["MachORelocationIterator64","An iterator over the relocations in a `MachOSection64`."]]});

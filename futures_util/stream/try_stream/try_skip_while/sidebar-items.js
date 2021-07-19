@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TrySkipWhile","Stream for the `try_skip_while` method."]]});

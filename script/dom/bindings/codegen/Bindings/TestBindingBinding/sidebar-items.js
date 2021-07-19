@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TestEnum",""]],"mod":[["TestBindingBinding",""],["TestEnumValues",""]],"struct":[["SimpleCallback",""],["TestDictionary",""],["TestDictionaryDefaults",""],["TestDictionaryParent",""],["TestDictionaryWithParent",""],["TestURLLike",""]],"type":[["TestTypedefInterface",""],["TestTypedefNullableUnion",""],["TestTypedefString",""]]});

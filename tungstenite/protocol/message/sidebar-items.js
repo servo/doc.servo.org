@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["IncompleteMessageCollector",""],["IncompleteMessageType","The type of incomplete message."],["Message","An enum representing the various forms of a WebSocket message."]],"mod":[["string_collect",""]],"struct":[["IncompleteMessage","A struct representing the incomplete message."]]});

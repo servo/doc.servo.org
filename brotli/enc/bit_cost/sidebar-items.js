@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BROTLI_CODE_LENGTH_CODES",""],["BROTLI_REPEAT_ZERO_CODE_LENGTH",""],["vectorize_population_cost",""]],"fn":[["BitsEntropy",""],["BrotliPopulationCost",""],["CostComputation",""],["ShannonEntropy",""]],"static":[["kBrotliMaxWindowBits",""],["kBrotliMinWindowBits",""],["kCopyBase",""],["kCopyExtra",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["div_round_up","Divide `n` by `divisor`, and round up to the nearest integer if not evenly divisable."],["simplify_range","Normalize arbitrary `RangeBounds` to a `Range`"]]});

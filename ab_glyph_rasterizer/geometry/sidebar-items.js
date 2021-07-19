@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["lerp","Linear interpolation between points."],["point","`Point` constructor."]],"struct":[["Point","An (x, y) coordinate."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["NEXT_SCRIPT",""],["SCRIPTS",""],["SCRIPT_EXTENSIONS",""],["UNICODE_VERSION","The version of Unicode that this version of unicode-script is based on."]],"enum":[["Script","A value of the `Script` property"]],"fn":[["bsearch_range_value_table",""],["get_script",""],["get_script_extension",""]],"mod":[["script_extensions",""]]});

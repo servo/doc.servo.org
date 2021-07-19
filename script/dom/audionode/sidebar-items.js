@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_CHANNEL_COUNT",""],["_IMPL_DOMOBJECT_FOR_AudioNode",""]],"struct":[["AudioNode",""],["UnwrappedAudioNodeOptions","Each node has a set of defaults, so this lets us work with them easily without having to deal with the Options"]]});

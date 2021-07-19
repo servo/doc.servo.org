@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["SMALL_PUNYCODE_LEN",""]],"fn":[["basic_type",""],["demangle","De-mangles a Rust symbol into a more readable version"]],"struct":[["Demangle","Representation of a demangled symbol name."],["Ident",""],["Invalid",""],["Parser",""],["Printer",""]]});

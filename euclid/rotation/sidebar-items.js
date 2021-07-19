@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Rotation2D","A transform that can represent rotations in 2d, represented as an angle in radians."],["Rotation3D","A transform that can represent rotations in 3d, represented as a quaternion."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Either","A simple binary sum type."]]});

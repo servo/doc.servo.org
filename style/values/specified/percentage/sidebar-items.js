@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Percentage","A percentage value."]]});

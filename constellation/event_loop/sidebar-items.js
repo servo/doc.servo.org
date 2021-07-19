@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EventLoop","https://html.spec.whatwg.org/multipage/#event-loop"]]});

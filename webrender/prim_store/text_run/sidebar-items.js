@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TextRun",""],["TextRunKey","A run of glyphs, with associated font information."],["TextRunPrimitive",""],["TextRunTemplate",""]],"type":[["TextRunDataHandle",""]]});

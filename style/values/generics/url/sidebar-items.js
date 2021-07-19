@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GenericUrlOrNone","An image url or none, used for example in list-style-image"]]});

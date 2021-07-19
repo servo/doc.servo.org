@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SourceSizeOrLength",""]],"struct":[["SourceSize","A value for a `<source-size>`:"],["SourceSizeList","A value for a `<source-size-list>`:"]]});

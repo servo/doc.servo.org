@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OpaqueElement","Opaque representation of an Element, for identity comparisons."]],"trait":[["Element",""]]});

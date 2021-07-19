@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["usable_size","Get the size of a heap block."]],"mod":[["libc_compat","Memory allocation APIs compatible with libc"],["platform",""]],"static":[["ALLOC",""]],"struct":[["Allocator",""]]});

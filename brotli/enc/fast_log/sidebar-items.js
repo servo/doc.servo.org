@@ -1,0 +1,1 @@
+initSidebarItems({"static":[["kLog2Table",""]]});

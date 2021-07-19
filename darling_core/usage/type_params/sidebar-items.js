@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["union_in_place","Insert the contents of `right` into `left`."]],"trait":[["CollectTypeParams","Searcher for finding type params in an iterator."],["UsesTypeParams","Searcher for finding type params in a syntax tree. This can be used to determine if a given type parameter needs to be bounded in a generated impl."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["get_config","Locates fontconfig config"],["parse_config",""]],"struct":[["FontConfig","Represents the main fontconfig config file"]]});

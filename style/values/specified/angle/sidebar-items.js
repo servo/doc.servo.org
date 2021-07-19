@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AllowUnitlessZeroAngle","Whether to allow parsing an unitless zero as a valid angle."],["AngleDimension","A specified angle dimension."]],"struct":[["Angle","A specified Angle value, which is just the angle dimension, plus whether it was specified as `calc()` or not."]]});

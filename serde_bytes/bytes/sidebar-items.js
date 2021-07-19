@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Bytes","Wrapper around `&[u8]` to serialize and deserialize efficiently."],["BytesVisitor",""]]});

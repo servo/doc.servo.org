@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FieldType",""],["MacroArg",""]],"mod":[["kw",""]],"struct":[["ArgInner",""],["Field",""],["MacroInput",""],["NewTypeDef",""],["RootTypeDef",""]]});

@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["script_plugins"] = [{"text":"impl&lt;'a, 'tcx&gt; Visitor&lt;'tcx&gt; for <a class=\"struct\" href=\"script_plugins/struct.FnDefVisitor.html\" title=\"struct script_plugins::FnDefVisitor\">FnDefVisitor</a>&lt;'a, 'tcx&gt;","synthetic":false,"types":["script_plugins::FnDefVisitor"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

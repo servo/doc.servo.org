@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["clone_arc_raw",""],["drop_arc_raw",""],["inc_ref_count",""],["wake_arc_raw",""],["wake_by_ref_arc_raw",""],["waker_ref","Creates a reference to a `Waker` from a reference to `Arc<impl Wake>`."],["waker_vtable",""]],"struct":[["WakerRef","A `Waker` that is only valid for a given lifetime."]],"trait":[["Wake","Simplfied waking interface based on Arcs"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AutomationEvent","https://webaudio.github.io/web-audio-api/#dfn-automation-event"],["ParamDir",""],["ParamRate",""],["ParamType",""],["RampKind",""],["UserAutomationEvent","An AutomationEvent that uses times in s instead of Ticks"]],"struct":[["Param","An AudioParam."]]});

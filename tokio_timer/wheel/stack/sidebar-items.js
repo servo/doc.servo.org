@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Stack","Abstracts the stack operations needed to track timeouts."]]});

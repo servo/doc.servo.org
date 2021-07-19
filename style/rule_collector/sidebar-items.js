@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["containing_shadow_ignoring_svg_use","This is a bit of a hack so svg:use matches the rules of the enclosing tree."]],"struct":[["RuleCollector","An object that we use with all the intermediate state needed for the cascade."]]});

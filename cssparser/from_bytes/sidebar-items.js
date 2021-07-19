@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["stylesheet_encoding","Determine the character encoding of a CSS stylesheet."]],"trait":[["EncodingSupport","Abstraction for avoiding a dependency from cssparser to an encoding library"]]});

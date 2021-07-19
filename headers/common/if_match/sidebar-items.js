@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["IfMatch","`If-Match` header, defined in RFC7232"]]});

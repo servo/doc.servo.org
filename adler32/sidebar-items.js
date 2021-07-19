@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BASE",""],["NMAX",""]],"fn":[["adler32","Consume a Read object and returns the Adler32 hash."],["do1",""],["do16",""],["do2",""],["do4",""],["do8",""]],"struct":[["RollingAdler32","A rolling version of the Adler32 hash, which can ‘forget’ past bytes."]]});

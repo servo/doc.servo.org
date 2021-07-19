@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ErrorKind",""]],"struct":[["Error","A generic “error” for HTTP connections"]],"type":[["Result","A `Result` typedef to use with the `http::Error` type"]]});

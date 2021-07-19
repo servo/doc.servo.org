@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["size2","Shorthand for `Size2D::new(w, h)`."],["size3","Shorthand for `Size3D::new(w, h, d)`."]],"struct":[["Size2D","A 2d size tagged with a unit."],["Size3D","A 3d size tagged with a unit."]]});

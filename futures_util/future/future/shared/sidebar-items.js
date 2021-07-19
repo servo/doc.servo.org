@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["COMPLETE",""],["IDLE",""],["NULL_WAKER_KEY",""],["POISONED",""],["POLLING",""]],"enum":[["FutureOrOutput",""]],"struct":[["Inner",""],["Notifier",""],["Shared","Future for the `shared` method."],["WeakShared","A weak reference to a [`Shared`] that can be upgraded much like an `Arc`."]]});

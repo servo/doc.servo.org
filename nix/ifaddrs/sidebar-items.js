@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["get_ifu_from_sockaddr",""],["getifaddrs","Get interface addresses using libc’s `getifaddrs`"]],"struct":[["InterfaceAddress","Describes a single address for an interface as returned by `getifaddrs`."],["InterfaceAddressIterator","Holds the results of `getifaddrs`."]]});

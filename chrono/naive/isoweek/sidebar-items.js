@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["iso_week_from_yof","Returns the corresponding `IsoWeek` from the year and the `Of` internal value."]],"struct":[["IsoWeek","ISO 8601 week."]]});

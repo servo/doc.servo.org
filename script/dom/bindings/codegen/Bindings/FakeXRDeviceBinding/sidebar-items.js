@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FakeXRRegionType",""]],"mod":[["FakeXRDeviceBinding",""],["FakeXRRegionTypeValues",""]],"struct":[["FakeXRBoundsPoint",""],["FakeXRDeviceResolution",""],["FakeXRFieldOfViewInit",""],["FakeXRRegionInit",""],["FakeXRRigidTransformInit",""],["FakeXRTriangleInit",""],["FakeXRViewInit",""],["FakeXRWorldInit",""]]});

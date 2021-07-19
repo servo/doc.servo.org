@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["derive",""],["derive_struct_fields","Derive from the given fields. Return false if the fields is a Unit, true otherwise."]],"struct":[["ValueInfoFieldAttrs",""],["ValueInfoInputAttrs",""],["ValueInfoVariantAttrs",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Derive",""]],"fn":[["ungroup",""]],"mod":[["ast","A Serde ast, parsed from the Syn ast and ready to generate Rust code."],["attr",""],["case","Code to convert the Rust-styled field/variant (e.g. `my_field`, `MyType`) to the case of the source (e.g. `my-field`, `MY_FIELD`)."],["check",""],["ctxt",""],["symbol",""]]});

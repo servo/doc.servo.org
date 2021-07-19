@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["webrender_traits"] = [{"text":"impl <a class=\"trait\" href=\"webrender_api/image/trait.ExternalImageHandler.html\" title=\"trait webrender_api::image::ExternalImageHandler\">ExternalImageHandler</a> for <a class=\"struct\" href=\"webrender_traits/struct.WebrenderExternalImageHandlers.html\" title=\"struct webrender_traits::WebrenderExternalImageHandlers\">WebrenderExternalImageHandlers</a>","synthetic":false,"types":["webrender_traits::WebrenderExternalImageHandlers"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

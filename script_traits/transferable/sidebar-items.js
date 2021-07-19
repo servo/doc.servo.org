@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MessagePortState",""]],"struct":[["MessagePortImpl","The data and logic backing the DOM managed MessagePort."]]});
