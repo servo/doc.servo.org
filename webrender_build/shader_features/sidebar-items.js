@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["concat_features",""],["get_shader_features","Computes available shaders and their features for the given feature flags."]],"struct":[["ShaderFeatureFlags",""]],"type":[["ShaderFeatures",""]]});

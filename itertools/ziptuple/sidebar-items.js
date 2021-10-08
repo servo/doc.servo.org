@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["multizip","An iterator that generalizes .zip() and allows running multiple iterators in lockstep."]],"struct":[["Zip","See `multizip` for more information."]]});

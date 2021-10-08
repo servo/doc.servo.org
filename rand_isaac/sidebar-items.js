@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["isaac","The ISAAC random number generator."],["isaac64","The ISAAC-64 random number generator."],["isaac_array","ISAAC helper functions for 256-element arrays."]]});

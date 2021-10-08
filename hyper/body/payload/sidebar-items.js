@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Payload","This trait represents a streaming body of a `Request` or `Response`."]]});

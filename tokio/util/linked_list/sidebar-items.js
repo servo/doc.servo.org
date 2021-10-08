@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Iter",""],["LinkedList","An intrusive linked list."],["Pointers","Previous / next pointers"]],"trait":[["Link","Defines how a type is tracked within a linked list."]]});

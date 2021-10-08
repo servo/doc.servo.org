@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["LengthFormat","Handling of the length format."]],"struct":[["CloseFrame","A struct representing the close command."],["Frame","A struct representing a WebSocket frame."],["FrameHeader","A struct representing a WebSocket frame header."]]});

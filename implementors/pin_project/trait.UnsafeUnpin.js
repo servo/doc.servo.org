@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["async_tungstenite"] = [{"text":"impl&lt;T&gt; <a class=\"trait\" href=\"pin_project/trait.UnsafeUnpin.html\" title=\"trait pin_project::UnsafeUnpin\">UnsafeUnpin</a> for <a class=\"struct\" href=\"async_tungstenite/tokio/struct.TokioAdapter.html\" title=\"struct async_tungstenite::tokio::TokioAdapter\">TokioAdapter</a>&lt;T&gt;","synthetic":false,"types":["async_tungstenite::tokio::TokioAdapter"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

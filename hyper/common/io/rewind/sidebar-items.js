@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Rewind","Combine a buffer with an IO, rewinding reads to use the buffer."]]});

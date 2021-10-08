@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BlockingTask","Converts a function to a future that completes on poll"]]});

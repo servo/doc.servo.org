@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AddrStream","A transport returned yieled by `AddrIncoming`."]]});

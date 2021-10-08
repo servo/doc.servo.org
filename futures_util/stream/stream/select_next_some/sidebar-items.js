@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SelectNextSome","Future for the `select_next_some` method."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Serialize","Types that can be serialized via `#[serde(with = \"serde_bytes\")]`."]]});

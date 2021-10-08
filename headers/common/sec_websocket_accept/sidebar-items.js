@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["sign",""]],"struct":[["SecWebsocketAccept","The `Sec-Websocket-Accept` header."]]});

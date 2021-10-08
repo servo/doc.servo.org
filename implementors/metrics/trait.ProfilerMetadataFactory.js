@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["layout_thread"] = [{"text":"impl <a class=\"trait\" href=\"metrics/trait.ProfilerMetadataFactory.html\" title=\"trait metrics::ProfilerMetadataFactory\">ProfilerMetadataFactory</a> for <a class=\"struct\" href=\"layout_thread/struct.LayoutThread.html\" title=\"struct layout_thread::LayoutThread\">LayoutThread</a>","synthetic":false,"types":["layout_thread::LayoutThread"]}];
+implementors["script"] = [{"text":"impl <a class=\"trait\" href=\"metrics/trait.ProfilerMetadataFactory.html\" title=\"trait metrics::ProfilerMetadataFactory\">ProfilerMetadataFactory</a> for <a class=\"struct\" href=\"script/dom/document/struct.Document.html\" title=\"struct script::dom::document::Document\">Document</a>","synthetic":false,"types":["script::dom::document::Document"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

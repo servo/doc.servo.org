@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EndianSlice","A `&[u8]` slice with endianity metadata."]]});

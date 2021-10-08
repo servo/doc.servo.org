@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["FromMeta","Create an instance from an item in an attribute declaration."]]});

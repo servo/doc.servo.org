@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["generated_impl",""]],"trait":[["Array","A trait for types that are an array."]]});

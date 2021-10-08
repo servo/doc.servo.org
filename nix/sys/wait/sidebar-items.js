@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WaitStatus","Possible return values from `wait()` or `waitpid()`."]],"fn":[["continued",""],["dumped_core",""],["exit_status",""],["exited",""],["signaled",""],["stop_additional",""],["stop_signal",""],["stopped",""],["syscall_stop",""],["term_signal",""],["wait",""],["waitpid",""]],"struct":[["WaitPidFlag",""]]});

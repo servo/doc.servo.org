@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Slot","Stores an entry in the slab."]]});

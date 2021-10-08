@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Clipper","A helper object to clip polygons by a number of planes."]]});

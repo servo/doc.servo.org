@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["bufread",""],["read",""],["write",""]],"static":[["FCOMMENT",""],["FEXTRA",""],["FHCRC",""],["FNAME",""]],"struct":[["GzBuilder","A builder structure to create a new gzip Encoder."],["GzHeader","A structure representing the header of a gzip stream."]]});

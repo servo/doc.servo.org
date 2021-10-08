@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["REGISTERING","A new waker value is being registered with the `AtomicWaker` cell."],["WAITING","Idle state"],["WAKING","The task currently registered with the `AtomicWaker` cell is being woken."]],"struct":[["AtomicWaker","A synchronization primitive for task waking."]],"trait":[["WakerRef",""]]});

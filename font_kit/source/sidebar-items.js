@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_FONT_FAMILY_CURSIVE",""],["DEFAULT_FONT_FAMILY_FANTASY",""],["DEFAULT_FONT_FAMILY_MONOSPACE",""],["DEFAULT_FONT_FAMILY_SANS_SERIF",""],["DEFAULT_FONT_FAMILY_SERIF",""]],"trait":[["Source","A database of installed fonts that can be queried."]]});

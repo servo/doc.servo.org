@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GenericCalcNode","A generic node in a calc expression."],["MinMaxOp","Whether we’re a `min` or `max` function."],["SortKey","This determines the order in which we serialize members of a calc() sum."]],"trait":[["CalcNodeLeaf","A trait that represents all the stuff a valid leaf of a calc expression."]]});

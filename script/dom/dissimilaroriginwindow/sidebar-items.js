@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_DissimilarOriginWindow",""]],"struct":[["DissimilarOriginWindow","Represents a dissimilar-origin `Window` that exists in another script thread."]]});

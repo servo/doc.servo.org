@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BspSplitter","Binary Space Partitioning splitter, uses a BSP tree."]]});

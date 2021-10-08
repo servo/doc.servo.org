@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DeflateDecoder","A DEFLATE decoder, or decompressor."],["DeflateEncoder","A DEFLATE encoder, or compressor."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PollReset","A value to detect which public API has called `poll_reset`."]],"struct":[["Send","Manages state transitions related to outbound frames."]]});

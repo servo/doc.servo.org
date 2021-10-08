@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RuleCache","A TLS cache from rules matched to computed values."],["RuleCacheConditions","The conditions for caching and matching a style in the rule cache."]]});

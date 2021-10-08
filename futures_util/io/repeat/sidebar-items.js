@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["repeat","Creates an instance of a reader that infinitely repeats one byte."]],"struct":[["Repeat","Reader for the [`repeat()`] function."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["LUT_BITS",""]],"enum":[["HuffmanTableClass",""]],"fn":[["derive_huffman_codes",""],["extend",""],["fill_default_mjpeg_tables",""]],"struct":[["HuffmanDecoder",""],["HuffmanTable",""]]});

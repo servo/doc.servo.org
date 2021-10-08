@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["imp",""]],"trait":[["ThreadParkerT","Trait for the platform thread parker implementation."],["UnparkHandleT","Handle for a thread that is about to be unparked. We need to mark the thread as unparked while holding the queue lock, but we delay the actual unparking until after the queue lock is released."]]});

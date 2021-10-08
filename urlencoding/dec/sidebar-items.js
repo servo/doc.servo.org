@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FromUrlEncodingError","Error when decoding invalid UTF-8"]],"fn":[["decode","Decode percent-encoded string assuming UTF-8 encoding."],["decode_binary","Decode percent-encoded string as binary data, in any encoding."],["from_hex_digit",""]]});

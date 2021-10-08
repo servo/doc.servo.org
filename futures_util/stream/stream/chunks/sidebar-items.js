@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Chunks","Stream for the `chunks` method."]]});

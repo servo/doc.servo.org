@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["atomic_task",""]],"struct":[["AtomicTask","A synchronization primitive for task notification."]]});

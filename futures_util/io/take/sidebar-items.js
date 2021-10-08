@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Take","Reader for the `take` method."]]});

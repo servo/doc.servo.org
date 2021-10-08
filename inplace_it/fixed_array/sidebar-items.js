@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["indirect",""],["try_inplace_array","`try_inplace_array` trying to place an array of `T` on the stack and pass the guard of memory into the `consumer` closure. `consumer`’s result will be returned as `Ok(result)`."]],"trait":[["FixedArray","This trait is a extended copy of unstable core::array::FixedSizeArray."]]});

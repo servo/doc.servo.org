@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["NUM_LEAF_NODES",""],["NUM_LEVELS",""],["NUM_NODES",""],["NUM_STRIDES",""]],"fn":[["HuffmanCost",""]],"struct":[["BucketPopIndex",""],["EntropyBucketPopulation",""],["EntropyPyramid",""],["EntropyTally",""]],"type":[["floatY",""]]});

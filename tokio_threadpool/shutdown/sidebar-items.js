@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Inner","Shared state between `Shutdown` and `ShutdownTrigger`."],["Shutdown","Future that resolves when the thread pool is shutdown."],["ShutdownTrigger","When dropped, cleans up threadpool’s resources and completes the shutdown process."]]});

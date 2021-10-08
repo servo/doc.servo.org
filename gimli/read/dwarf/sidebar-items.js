@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["RangeIterInner",""]],"struct":[["Dwarf","All of the commonly used DWARF sections, and other common information."],["RangeIter","An iterator for the address ranges of a `DebuggingInformationEntry`."],["Unit","All of the commonly used information for a unit in the `.debug_info` or `.debug_types` sections."]]});

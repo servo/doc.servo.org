@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["N",""]],"struct":[["Number","Represents a JSON number, whether integer or floating point."]]});

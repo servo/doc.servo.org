@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Object","An object file."],["ObjectComdat","A COMDAT section group defined in an object file."],["ObjectSection","A section defined in an object file."],["ObjectSegment","A loadable segment defined in an object file."],["ObjectSymbol","A symbol table entry."],["ObjectSymbolTable","A symbol table."]]});

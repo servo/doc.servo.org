@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Size2D","A generic size, for `border-*-radius` longhand properties, or `border-spacing`."]]});

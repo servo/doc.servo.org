@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_header",""],["parse_img",""],["parse_toc",""],["parse_xcursor","Parse an XCursor file into its images."],["rgba_to_argb","Converts a RGBA slice into an ARGB vec"]],"struct":[["Image","A struct representing an image. Pixels are in ARGB format, with each byte representing a single channel."],["TOC",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AttachmentClear","Attachment clear description for the current subpass."]],"struct":[["ClearDepthStencil","A combination of depth and stencil clear values."]],"union":[["ClearColor","A clear color union, which can be either `f32`, `i32`, or `u32`."],["ClearValue","A set of clear values for a single attachment."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Intersperse","`Intersperse` is an iterator that inserts a particular item between each item of the adapted iterator.  This struct is created by the `intersperse()` method on `ParallelIterator`"],["IntersperseConsumer",""],["IntersperseFolder",""],["IntersperseIter",""],["IntersperseProducer",""]]});

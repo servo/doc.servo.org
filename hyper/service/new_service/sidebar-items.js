@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["NewService","An asynchronous constructor of `Service`s."]]});

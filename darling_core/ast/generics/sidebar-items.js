@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GenericParam","A mirror of `syn::GenericParam` which is generic over all its contents."]],"struct":[["Generics","A mirror of the `syn::Generics` type which can contain arbitrary representations of params and where clauses."],["TypeParams",""]],"trait":[["GenericParamExt","Extension trait for `GenericParam` to support getting values by variant."]]});

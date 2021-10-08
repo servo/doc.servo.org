@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TransferStack","Concurrent stack of tasks, used to pass ownership of a task from one worker to another."]]});

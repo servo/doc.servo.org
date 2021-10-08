@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Open01","A distribution to sample floating point numbers uniformly in the open interval `(0, 1)`, i.e. not including either endpoint."],["OpenClosed01","A distribution to sample floating point numbers uniformly in the half-open interval `(0, 1]`, i.e. including 1 but not 0."]]});

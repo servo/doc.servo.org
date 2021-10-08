@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TryNext","Future for the `try_next` method."]]});

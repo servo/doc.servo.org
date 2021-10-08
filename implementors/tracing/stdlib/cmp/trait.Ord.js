@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["tracing"] = [{"text":"impl <a class=\"trait\" href=\"tracing/stdlib/cmp/trait.Ord.html\" title=\"trait tracing::stdlib::cmp::Ord\">Ord</a> for <a class=\"struct\" href=\"tracing/level_filters/struct.LevelFilter.html\" title=\"struct tracing::level_filters::LevelFilter\">LevelFilter</a>","synthetic":false,"types":["tracing::level_filters::LevelFilter"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

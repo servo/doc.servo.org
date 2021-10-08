@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RestyleHint","The kind of restyle we need to do for a given element."]]});

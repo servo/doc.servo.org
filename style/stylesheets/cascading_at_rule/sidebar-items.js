@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["cascade_precendence","Computes the cascade precedence as according to http://dev.w3.org/csswg/css-cascade/#cascade-origin"]],"struct":[["DescriptorDeclaration","Cascading rule descriptor implementation. This is only used for at-rules which can cascade. These are @viewport and @page, although we don’t currently implement @page as such."]]});

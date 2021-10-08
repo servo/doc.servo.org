@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["new2",""],["new_at",""]],"struct":[["Error","Error returned when a Syn parser cannot parse the input tokens."],["ErrorMessage",""],["IntoIter",""],["Iter",""]],"type":[["Result","The result of a Syn parser."]]});

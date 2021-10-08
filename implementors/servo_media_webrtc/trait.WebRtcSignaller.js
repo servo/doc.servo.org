@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["script"] = [{"text":"impl <a class=\"trait\" href=\"servo_media_webrtc/trait.WebRtcSignaller.html\" title=\"trait servo_media_webrtc::WebRtcSignaller\">WebRtcSignaller</a> for <a class=\"struct\" href=\"script/dom/rtcpeerconnection/struct.RTCSignaller.html\" title=\"struct script::dom::rtcpeerconnection::RTCSignaller\">RTCSignaller</a>","synthetic":false,"types":["script::dom::rtcpeerconnection::RTCSignaller"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EventQueue","An event queue for protocol messages"],["QueueToken","A token representing this event queue"],["ReadEventsGuard","A guard over a read intention."]]});

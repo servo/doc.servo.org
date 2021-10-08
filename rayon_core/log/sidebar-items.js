@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["LOG_ENABLED","True if logs are compiled in."]],"enum":[["Event",""],["State",""]],"struct":[["Logger","Handle to the logging thread, if any. You can use this to deliver logs. You can also clone it freely."],["SimulatorState",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DATA_WORDS","Number of words a piece of `Data` can hold."]],"struct":[["Deferred","A `FnOnce()` that is stored inline if small, or otherwise boxed on the heap."]],"type":[["Data","Some space to keep a `FnOnce()` object on the stack."]]});

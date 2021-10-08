@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["gstreamer_gl"] = [{"text":"impl <a class=\"trait\" href=\"gstreamer_gl/prelude/trait.MetaAPI.html\" title=\"trait gstreamer_gl::prelude::MetaAPI\">MetaAPI</a> for <a class=\"struct\" href=\"gstreamer_gl/gl_sync_meta/struct.GLSyncMeta.html\" title=\"struct gstreamer_gl::gl_sync_meta::GLSyncMeta\">GLSyncMeta</a>","synthetic":false,"types":["gstreamer_gl::gl_sync_meta::GLSyncMeta"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

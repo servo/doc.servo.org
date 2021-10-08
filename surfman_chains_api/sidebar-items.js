@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["SwapChainAPI","The consumer’s view of a swap chain"],["SwapChainsAPI","The consumer’s view of a collection of swap chains"]]});

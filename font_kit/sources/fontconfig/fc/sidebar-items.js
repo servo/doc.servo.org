@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error",""],["MatchKind",""],["Object",""]],"struct":[["Config",""],["FontSet",""],["ObjectSet",""],["Pattern",""],["PatternRef",""]]});

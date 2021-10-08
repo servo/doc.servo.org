@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PlatformId","A platform ID."]],"fn":[["is_unicode_encoding",""],["parse",""]],"mod":[["name_id","A list of name ID’s."]],"struct":[["Name","A Name Record."],["NameRecord",""],["Names","An iterator over font’s names."]]});

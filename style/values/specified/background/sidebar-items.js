@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BackgroundRepeatKeyword","One of the keywords for `background-repeat`."]],"struct":[["BackgroundRepeat","The value of the `background-repeat` property, with `repeat-x` / `repeat-y` represented as the combination of `no-repeat` and `repeat` in the opposite axes."]],"type":[["BackgroundSize","A specified value for the `background-size` property."]]});

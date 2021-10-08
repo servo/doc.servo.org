@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DecoderState",""]],"struct":[["BlockDecoder",""],["Decoder","DEFLATE decoder which supports non-blocking I/O."]]});

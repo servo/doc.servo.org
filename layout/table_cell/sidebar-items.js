@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CollapsedBordersForCell",""],["TableCellFlow","A table formatting context."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["INFINITY",""],["NAN",""],["NEG_INFINITY",""]],"struct":[["Buffer","Safe API for formatting floating point numbers to text."]],"trait":[["Float","A floating point number, f32 or f64, that can be written into a [`ryu::Buffer`][Buffer]."],["Sealed",""]]});

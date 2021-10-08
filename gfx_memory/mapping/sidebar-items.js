@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Flush",""],["MappedRange","Represents range of the memory mapped to the host. Provides methods for safer host access to the memory."],["Writer","Wrapper structure for a mutable slice with deferred flushing for non-coherent memory."]]});

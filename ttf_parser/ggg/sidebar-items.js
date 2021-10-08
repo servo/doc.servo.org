@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Class","A value of Class Definition Table."],["ClassDefinitionTable","A Class Definition Table."],["CoverageTable","A Coverage Table."],["RangeRecord",""]]});

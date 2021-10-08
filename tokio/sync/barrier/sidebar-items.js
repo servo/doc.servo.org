@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Barrier","A barrier enables multiple threads to synchronize the beginning of some computation."],["BarrierState",""],["BarrierWaitResult","A `BarrierWaitResult` is returned by `wait` when all threads in the `Barrier` have rendezvoused."]]});

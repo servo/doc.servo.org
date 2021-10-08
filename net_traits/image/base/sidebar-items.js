@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["detect_image_format",""],["is_bmp",""],["is_gif",""],["is_ico",""],["is_jpeg",""],["is_png",""],["load_from_memory",""]],"struct":[["Image",""],["ImageMetadata",""]]});

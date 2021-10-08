@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["servo_media_gstreamer"] = [{"text":"impl <a class=\"trait\" href=\"servo_media_audio/decoder/trait.AudioDecoder.html\" title=\"trait servo_media_audio::decoder::AudioDecoder\">AudioDecoder</a> for <a class=\"struct\" href=\"servo_media_gstreamer/audio_decoder/struct.GStreamerAudioDecoder.html\" title=\"struct servo_media_gstreamer::audio_decoder::GStreamerAudioDecoder\">GStreamerAudioDecoder</a>","synthetic":false,"types":["servo_media_gstreamer::audio_decoder::GStreamerAudioDecoder"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

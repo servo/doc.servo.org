@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SeqLock","A simple stamped lock."],["SeqLockWriteGuard","An RAII guard that releases the lock and increments the stamp when dropped."]]});

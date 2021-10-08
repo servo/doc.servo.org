@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["UnsafeBox","An unsafe box, derefs to `T`."]]});

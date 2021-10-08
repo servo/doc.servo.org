@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AddressFamily","These constants specify the protocol family to be used in `socket` and `socketpair`"],["InetAddr",""],["IpAddr",""],["SockAddr","Represents a socket address"]],"mod":[["alg",""],["datalink",""],["netlink",""],["vsock",""]],"struct":[["Ipv4Addr",""],["Ipv6Addr",""],["UnixAddr","A wrapper around `sockaddr_un`."]]});

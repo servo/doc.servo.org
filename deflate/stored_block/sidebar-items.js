@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_STORED_BLOCK_LENGTH",""],["STORED_FIRST_BYTE",""],["STORED_FIRST_BYTE_FINAL",""]],"fn":[["compress_block_stored",""],["write_stored_header",""]]});

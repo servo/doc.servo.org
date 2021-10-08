@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["KEYCODE_OFFSET","The X11 documentation states: “Keycodes lie in the inclusive range [8,255]”."]],"fn":[["is_first_touch",""]],"struct":[["EventProcessor",""]]});

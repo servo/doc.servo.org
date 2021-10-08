@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["WithOriginal","A container to parse some syntax and retain access to the original."]]});

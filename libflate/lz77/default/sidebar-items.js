@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PrefixTable",""]],"fn":[["longest_common_prefix",""],["prefix",""]],"struct":[["DefaultLz77Encoder","A `Lz77Encode` implementation used by default."],["LargePrefixTable",""]]});

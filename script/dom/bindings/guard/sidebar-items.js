@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Condition","A condition to expose things."]],"fn":[["is_secure_context",""]],"struct":[["Guard","A container with a condition."]]});

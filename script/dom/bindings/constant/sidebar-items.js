@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ConstantVal","Representation of an IDL constant value."]],"fn":[["define_constants","Defines constants on `obj`. Fails on JSAPI failure."]],"struct":[["ConstantSpec","Representation of an IDL constant."]]});

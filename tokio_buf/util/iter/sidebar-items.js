@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Never",""]],"fn":[["iter","Converts an `Iterator` into a `BufStream` which is always ready to yield the next value."]],"struct":[["Iter","`BufStream` returned by the [`iter`] function."]]});

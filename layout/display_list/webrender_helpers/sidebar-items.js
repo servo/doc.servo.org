@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["build_common_item_properties",""]],"struct":[["ClipScrollState",""],["IsContentful","Contentful paint, for the purpose of https://w3c.github.io/paint-timing/#first-contentful-paint (i.e. the display list contains items of type text, image, non-white canvas or SVG). Used by metrics."]]});

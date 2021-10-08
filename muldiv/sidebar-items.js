@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["MulDiv","Trait for calculating `val * num / denom` with different rounding modes and overflow protection."]]});

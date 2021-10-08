@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["GENERATION","Masks the generation"],["PAGE_INDEX_SHIFT",""],["RESERVED",""],["SLOT","Address in the shard"],["THREAD","Masks the thread identifier"]],"struct":[["Address","References the location at which an entry is stored in a slab."]]});

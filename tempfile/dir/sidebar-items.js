@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["create",""],["tempdir","Create a new temporary directory."],["tempdir_in","Create a new temporary directory."]],"struct":[["TempDir","A directory in the filesystem that is automatically deleted when it goes out of scope."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["LineCap",""],["LineJoin",""]],"fn":[["arc",""],["arc_segment",""],["bevel",""],["bisect",""],["cap_line",""],["compute_normal",""],["dot",""],["flip",""],["is_interior_angle",""],["join_line",""],["join_round",""],["line_intersection",""],["perp",""],["stroke_to_path",""],["swap",""],["unperp",""]],"struct":[["StrokeStyle",""]]});

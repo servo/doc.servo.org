@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MatchPosition",""]],"fn":[["better_position","Returns true if pos1 is a better match than pos2 according to MatchPosition"],["find_first",""],["find_last",""]],"struct":[["FindConsumer",""],["FindFolder",""],["FindReducer",""]]});

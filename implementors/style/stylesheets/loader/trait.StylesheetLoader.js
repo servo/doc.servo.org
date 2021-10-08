@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["script"] = [{"text":"impl&lt;'a&gt; <a class=\"trait\" href=\"style/stylesheets/loader/trait.StylesheetLoader.html\" title=\"trait style::stylesheets::loader::StylesheetLoader\">StylesheetLoader</a> for <a class=\"struct\" href=\"script/stylesheet_loader/struct.StylesheetLoader.html\" title=\"struct script::stylesheet_loader::StylesheetLoader\">StylesheetLoader</a>&lt;'a&gt;","synthetic":false,"types":["script::stylesheet_loader::StylesheetLoader"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

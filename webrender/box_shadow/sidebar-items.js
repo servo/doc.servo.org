@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BLUR_SAMPLE_SCALE",""],["MAX_BLUR_RADIUS",""]],"fn":[["adjust_border_radius_for_box_shadow",""],["adjust_corner_for_box_shadow",""],["adjust_radius_for_box_shadow",""]],"struct":[["BoxShadowCacheKey",""],["BoxShadowClipSource",""]]});

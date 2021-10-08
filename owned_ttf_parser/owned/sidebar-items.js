@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OwnedFont","An owned version of `Font`."],["SelfRefVecFont",""]]});

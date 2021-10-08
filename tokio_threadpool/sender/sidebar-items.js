@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Sender","Submit futures to the associated thread pool for execution."]]});

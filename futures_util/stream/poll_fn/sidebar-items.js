@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["poll_fn","Creates a new stream wrapping a function returning `Poll<Option<T>>`."]],"struct":[["PollFn","Stream for the [`poll_fn`] function."]]});

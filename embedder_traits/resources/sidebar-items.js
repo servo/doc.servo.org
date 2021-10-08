@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Resource",""]],"fn":[["read_bytes",""],["read_string",""],["resources_for_tests",""],["sandbox_access_files",""],["sandbox_access_files_dirs",""],["set",""],["set_for_tests",""]],"struct":[["RES",""]],"trait":[["ResourceReaderMethods",""]]});

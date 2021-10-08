@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["thread_name",""],["thread_shutdown",""],["thread_startup",""]],"static":[["ALIVE_WORKER_THREADS",""]],"struct":[["GLOBAL_STYLE_DATA","Global style data"],["GlobalStyleData","Global style data"],["STYLE_THREAD_POOL","Global thread pool"],["StyleThreadPool","Global thread pool."]]});

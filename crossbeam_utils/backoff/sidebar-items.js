@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["SPIN_LIMIT",""],["YIELD_LIMIT",""]],"struct":[["Backoff","Performs exponential backoff in spin loops."]]});

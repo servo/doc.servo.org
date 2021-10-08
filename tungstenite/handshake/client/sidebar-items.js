@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["generate_key","Generate a random key for the `Sec-WebSocket-Key` header."],["generate_request","Generate client request."]],"struct":[["ClientHandshake","Client handshake role."],["VerifyData","Information for handshake verification."]],"type":[["Request","Client request type."],["Response","Client response type."]]});

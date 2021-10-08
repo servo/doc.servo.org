@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["if_alloc",""]],"struct":[["SpawnError","An error that occurred during spawning."]],"trait":[["LocalSpawn","The `LocalSpawn` is similar to [`Spawn`], but allows spawning futures that don’t implement `Send`."],["Spawn","The `Spawn` trait allows for pushing futures onto an executor that will run them to completion."]]});

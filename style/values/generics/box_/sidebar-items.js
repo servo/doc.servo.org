@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_NUM_FromPrimitive_FOR_VerticalAlignKeyword",""]],"enum":[["AnimationIterationCount","https://drafts.csswg.org/css-animations/#animation-iteration-count"],["GenericPerspective","A generic value for the `perspective` property."],["GenericVerticalAlign","A generic value for the `vertical-align` property."],["VerticalAlignKeyword",""]]});

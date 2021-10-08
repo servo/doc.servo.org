@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DebugPubNames","The `DebugPubNames` struct represents the DWARF public names information found in the `.debug_pubnames` section."],["PubNamesEntry","A single parsed pubname."],["PubNamesEntryIter","An iterator over the pubnames from a `.debug_pubnames` section."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["new",""]],"struct":[["Tee","One half of an iterator pair where both return the same elements."],["TeeBuffer","Common buffer object for the two tee halves"]]});

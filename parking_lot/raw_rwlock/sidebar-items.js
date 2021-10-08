@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ONE_READER",""],["PARKED_BIT",""],["READERS_MASK",""],["TOKEN_EXCLUSIVE",""],["TOKEN_SHARED",""],["TOKEN_UPGRADABLE",""],["UPGRADABLE_BIT",""],["WRITER_BIT",""],["WRITER_PARKED_BIT",""]],"struct":[["RawRwLock","Raw reader-writer lock type backed by the parking lot."]]});

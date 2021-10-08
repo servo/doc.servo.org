@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["background_hang_monitor"] = [{"text":"impl <a class=\"trait\" href=\"msg/constellation_msg/trait.BackgroundHangMonitorClone.html\" title=\"trait msg::constellation_msg::BackgroundHangMonitorClone\">BackgroundHangMonitorClone</a> for <a class=\"struct\" href=\"background_hang_monitor/background_hang_monitor/struct.HangMonitorRegister.html\" title=\"struct background_hang_monitor::background_hang_monitor::HangMonitorRegister\">HangMonitorRegister</a>","synthetic":false,"types":["background_hang_monitor::background_hang_monitor::HangMonitorRegister"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

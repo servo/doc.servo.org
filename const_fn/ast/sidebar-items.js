@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_attrs",""],["parse_input",""],["parse_signature",""]],"struct":[["Attribute",""],["Func",""],["LitStr",""]]});

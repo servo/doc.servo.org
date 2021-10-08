@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["JSCLASS_GLOBAL_SLOT_COUNT",""],["JSCLASS_HIGH_FLAGS_SHIFT",""],["JSCLASS_IS_DOMJSCLASS",""],["JSCLASS_IS_GLOBAL",""],["JSCLASS_IS_PROXY",""],["JSCLASS_RESERVED_SLOTS_MASK",""],["JSCLASS_USERBIT1",""],["default_heapsize",""]]});

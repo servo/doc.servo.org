@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["State",""]],"fn":[["read_to_end","Creates a future which will read all the bytes associated with the I/O object `A` into the buffer provided."]],"struct":[["ReadToEnd","A future which can be used to easily read the entire contents of a stream into a vector."]]});

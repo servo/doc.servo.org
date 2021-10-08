@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["AIO",""],["ERROR",""],["HUP",""],["LIO",""],["PRI",""],["READY_ALL",""]],"struct":[["UnixReady","Unix specific extensions to `Ready`"]]});

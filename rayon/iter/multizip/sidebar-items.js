@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MultiZip","`MultiZip` is an iterator that zips up a tuple of parallel iterators to produce tuples of their items."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SpooledInner",""]],"fn":[["spooled_tempfile","Create a new spooled temporary file."]],"struct":[["SpooledTempFile","An object that behaves like a regular temporary file, but keeps data in memory until it reaches a configured size, at which point the data is written to a temporary file on disk, and further operations use the file on disk."]]});

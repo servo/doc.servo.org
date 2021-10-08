@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["STREAM_ID_MASK",""]],"struct":[["StreamId","A stream identifier, as described in Section 5.1.1 of RFC 7540."],["StreamIdOverflow",""]]});

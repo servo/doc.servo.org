@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_counters",""]],"type":[["Content","The specified value for the `content` property."],["ContentItem","The specified value for a content item in the `content` property."],["CounterIncrement","A specified value for the `counter-increment` property."],["CounterSetOrReset","A specified value for the `counter-set` and `counter-reset` properties."]]});

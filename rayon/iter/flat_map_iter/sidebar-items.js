@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FlatMapIter","`FlatMapIter` maps each element to a serial iterator, then flattens these iterators together. This struct is created by the `flat_map_iter()` method on `ParallelIterator`"],["FlatMapIterConsumer","//////////////////////////////////////////////////////////////////////// Consumer implementation"],["FlatMapIterFolder",""]]});

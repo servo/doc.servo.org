@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["invoke_passwd_cb","Password callback function, passed to private key loading functions."]],"struct":[["CallbackState","Wraps a user-supplied callback and a slot for panics thrown inside the callback (while FFI frames are on the stack)."]],"trait":[["ForeignTypeExt",""],["ForeignTypeRefExt",""]]});

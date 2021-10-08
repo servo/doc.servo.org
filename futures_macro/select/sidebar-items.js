@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CaseKind",""]],"fn":[["declare_result_enum",""],["select","The `select!` macro."],["select_biased","The `select_biased!` macro."],["select_inner",""]],"mod":[["kw",""]],"struct":[["Select",""]]});

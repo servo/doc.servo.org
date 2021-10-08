@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["bind_futures",""],["join","The `join!` macro."],["try_join","The `try_join!` macro."]],"struct":[["Join",""]]});

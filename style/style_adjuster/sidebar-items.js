@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["StyleAdjuster","A struct that implements all the adjustment methods."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Builder","Builds a thread pool with custom configuration values."]]});

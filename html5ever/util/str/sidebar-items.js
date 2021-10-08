@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["is_ascii_alnum","Is the character an ASCII alphanumeric character?"],["is_ascii_whitespace","ASCII whitespace characters, as defined by tree construction modes that treat them specially."],["lower_ascii_letter","If `c` is an ASCII letter, return the corresponding lowercase letter, otherwise None."],["to_escaped_string",""]]});

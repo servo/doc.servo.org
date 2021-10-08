@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OptionFuture","A future representing a value which may or may not be present."]]});

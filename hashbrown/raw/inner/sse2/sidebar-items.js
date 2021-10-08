@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BITMASK_MASK",""],["BITMASK_STRIDE",""]],"struct":[["Group","Abstraction over a group of control bytes which can be scanned in parallel."]],"type":[["BitMaskWord",""]]});

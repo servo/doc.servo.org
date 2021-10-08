@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OwnedSemaphorePermit","An owned permit from the semaphore."],["Semaphore","Counting semaphore performing asynchronous permit aquisition."],["SemaphorePermit","A permit from the semaphore."],["TryAcquireError","Error returned from the `Semaphore::try_acquire` function."]]});

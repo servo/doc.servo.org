@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Now","Returns `Instant` values representing the current instant in time."]]});

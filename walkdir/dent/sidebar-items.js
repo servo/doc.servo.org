@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DirEntry","A directory entry."]],"trait":[["DirEntryExt","Unix-specific extension methods for `walkdir::DirEntry`"]]});

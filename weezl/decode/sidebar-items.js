@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Buffer",""],["DecodeState",""],["Decoder","The state for decoding data with an LZW algorithm."],["IntoStream","A decoding stream sink."],["Link",""],["LsbBuffer",""],["MsbBuffer",""],["Table",""]],"trait":[["CodeBuffer",""],["Stateful",""]]});

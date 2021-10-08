@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["compute_damage",""]],"struct":[["ServoRestyleDamage","Individual layout actions that may be necessary after restyling."]]});

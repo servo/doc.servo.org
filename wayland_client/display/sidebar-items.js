@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ConnectError","Enum representing the possible reasons why connecting to the wayland server failed"]],"struct":[["Display","A connection to a wayland server"],["ProtocolError","A protocol error"]]});

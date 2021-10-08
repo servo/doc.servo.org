@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["stream","Converts a `Stream` of `Buf` types into a `BufStream`."]],"struct":[["FromStream","`BufStream` returned by the [`stream`] function."],["IntoStream","Converts a `BufStream` into a `Stream`."]]});

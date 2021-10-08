@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["cubic_polynomial_roots",""],["directed_angle","Angle between vectors v1 and v2 (oriented clockwise assyming y points downwards). The result is a number between `0` and `2 * PI`."],["directed_angle2",""],["min_max",""],["normalized_tangent",""],["tangent",""]]});

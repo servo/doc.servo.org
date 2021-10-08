@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ConnectFutureState",""]],"mod":[["sys",""]],"struct":[["ConnectFuture","Future returned by `TcpStream::connect` which will resolve to a `TcpStream` when the stream is connected."],["TcpStream","An I/O object representing a TCP stream connected to a remote endpoint."]]});

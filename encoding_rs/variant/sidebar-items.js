@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["VariantDecoder",""],["VariantEncoder",""],["VariantEncoding",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["remote_handle",""]],"struct":[["Remote","A future which sends its output to the corresponding `RemoteHandle`. Created by `remote_handle`."],["RemoteHandle","The handle to a remote future returned by `remote_handle`. When you drop this, the remote future will be woken up to be dropped by the executor."]],"type":[["SendMsg",""]]});

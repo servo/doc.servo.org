@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CRC_BYTES_LEN",""]],"fn":[["gz_encoder",""]],"struct":[["Counter",""],["GzDecoder","A gzip streaming decoder"],["GzEncoder","A gzip streaming encoder"]]});

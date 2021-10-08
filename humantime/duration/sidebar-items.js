@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error","Error parsing human-friendly duration"]],"fn":[["format_duration","Formats duration into a human-readable string"],["item",""],["item_plural",""],["parse_duration","Parse duration object `1hour 12min 5s`"]],"struct":[["FormattedDuration","A wrapper type that allows you to Display a Duration"],["Parser",""]],"trait":[["OverflowOp",""]]});

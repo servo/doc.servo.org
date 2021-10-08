@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["read_to_end_internal",""]],"struct":[["Guard",""],["ReadToEnd","Future for the `read_to_end` method."]]});

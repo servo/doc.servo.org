@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BUF_SIZE",""],["MAX_INPUT_LEN","The most bytes whose encoding will fit in `BUF_SIZE`"],["MIN_ENCODE_CHUNK_SIZE",""]],"struct":[["EncoderWriter","A `Write` implementation that base64 encodes data before delegating to the wrapped writer."]]});

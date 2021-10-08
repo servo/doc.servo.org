@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ENTERED",""]],"fn":[["enter","Marks the current thread as being within the dynamic extent of an executor."]],"struct":[["Enter","Represents an executor context."],["EnterError","An error returned by `enter` if an execution scope has already been entered."]]});

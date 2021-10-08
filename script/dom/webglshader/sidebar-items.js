@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_WebGLShader",""]],"enum":[["ShaderCompilationStatus",""]],"fn":[["default_validator",""]],"static":[["GLSLANG_INITIALIZATION",""]],"struct":[["WebGLShader",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ArrayVecDrain","Draining iterator for [`ArrayVec`]"]]});

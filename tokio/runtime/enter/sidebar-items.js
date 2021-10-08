@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ENTERED",""]],"enum":[["EnterContext",""]],"fn":[["enter","Marks the current thread as being within the dynamic extent of an executor."],["try_enter","Tries to enter a runtime context, returns `None` if already in a runtime context."]],"struct":[["Enter","Represents an executor context."]]});

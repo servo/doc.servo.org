@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Write","Future for the `write` method."]]});

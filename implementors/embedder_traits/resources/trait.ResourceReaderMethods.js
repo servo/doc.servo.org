@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["servo"] = [{"text":"impl <a class=\"trait\" href=\"embedder_traits/resources/trait.ResourceReaderMethods.html\" title=\"trait embedder_traits::resources::ResourceReaderMethods\">ResourceReaderMethods</a> for <a class=\"struct\" href=\"servo/resources/struct.ResourceReader.html\" title=\"struct servo::resources::ResourceReader\">ResourceReader</a>","synthetic":false,"types":["servo::resources::ResourceReader"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

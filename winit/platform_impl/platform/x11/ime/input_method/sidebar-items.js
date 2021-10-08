@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GetXimServersError",""],["InputMethodResult",""]],"fn":[["get_xim_servers",""],["open_im",""]],"struct":[["GLOBAL_LOCK",""],["InputMethod",""],["InputMethodName",""],["PotentialInputMethod",""],["PotentialInputMethods",""]]});

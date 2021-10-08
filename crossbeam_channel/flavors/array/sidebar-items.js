@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ArrayToken","The token type for the array flavor."],["Channel","Bounded channel based on a preallocated array."],["Receiver","Receiver handle to a channel."],["Sender","Sender handle to a channel."],["Slot","A slot in a channel."]]});

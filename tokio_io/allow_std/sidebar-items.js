@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AllowStdIo","A simple wrapper type which allows types that only implement `std::io::Read` or `std::io::Write` to be used in contexts which expect an `AsyncRead` or `AsyncWrite`."]]});

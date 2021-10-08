@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Readable",""],["Writable",""]],"struct":[["BUFFER_COPY_ALL",""],["BUFFER_COPY_METADATA",""],["Buffer",""],["BufferMap",""],["BufferRef",""],["Iter",""],["IterMut",""],["IterOwned",""],["MappedBuffer",""],["MetaIter",""],["MetaIterMut",""]]});

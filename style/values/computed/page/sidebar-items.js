@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["PageSize","Computed value of the @page size descriptor"]]});

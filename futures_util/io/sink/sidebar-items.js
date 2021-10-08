@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["sink","Creates an instance of a writer which will successfully consume all data."]],"struct":[["Sink","Writer for the [`sink()`] function."]]});

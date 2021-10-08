@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["repeat","Create a stream which produces the same item repeatedly."]],"struct":[["Repeat","Stream for the [`repeat`] function."]]});

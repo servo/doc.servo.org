@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["HomogeneousVector","Homogeneous vector in 3D space."]]});

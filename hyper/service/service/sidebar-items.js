@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_assert_fn_mut",""],["service_fn","Create a `Service` from a function."],["service_fn_ok","Create a `Service` from a function that never errors."]],"struct":[["ServiceFn",""],["ServiceFnOk",""]],"trait":[["Service","An asynchronous function from `Request` to `Response`."]]});

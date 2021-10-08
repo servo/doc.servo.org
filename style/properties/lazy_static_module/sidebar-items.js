@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["INITIAL_SERVO_VALUES","The initial values for all style structs as defined by the specification."]]});

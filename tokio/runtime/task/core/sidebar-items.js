@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Stage","Either the future or the output."]],"struct":[["Cell","The task cell. Contains the components of the task."],["Core","The core of the task."],["Header","Crate public as this is also needed by the pool."],["Trailer","Cold data is stored after the future."]]});

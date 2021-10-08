@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["inflate","Try to decompress from `input` to `output` with the given `InflateState`"],["inflate_loop",""],["push_dict_out",""]],"struct":[["InflateState","A struct that compbines a decompressor with extra data for streaming decompression."]]});

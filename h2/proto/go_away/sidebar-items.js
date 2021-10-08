@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["GoAway","Manages our sending of GOAWAY frames."],["GoingAway","Keeps a memory of any GOAWAY frames we’ve sent before."]]});

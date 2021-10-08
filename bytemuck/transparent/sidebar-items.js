@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["TransparentWrapper","A trait which indicates that a type is a `repr(transparent)` wrapper around the `Wrapped` value."]]});

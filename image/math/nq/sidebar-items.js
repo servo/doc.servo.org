@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ALPHA_BIASSHIFT",""],["BETA",""],["BETAGAMMA",""],["CHANNELS",""],["GAMMA",""],["INIT_ALPHA",""],["PRIMES",""],["RADIUS_DEC",""]],"struct":[["NeuQuant","Neural network color quantizer"],["Quad",""]],"type":[["Color",""],["Neuron",""]]});

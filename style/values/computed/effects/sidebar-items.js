@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["BoxShadow","A computed value for a single shadow of the `box-shadow` property."],["Filter","A computed value for a single `filter`."],["SimpleShadow","A computed value for the `drop-shadow()` filter."]]});

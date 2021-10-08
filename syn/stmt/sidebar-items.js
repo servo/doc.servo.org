@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Stmt","A statement, usually ending in a semicolon."]],"mod":[["parsing",""],["printing",""]],"struct":[["Block","A braced block containing Rust statements."],["Local","A local `let` binding: `let x: u64 = s.parse()?`."]]});

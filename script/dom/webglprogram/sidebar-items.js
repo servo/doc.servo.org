@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_UNIFORM_AND_ATTRIBUTE_LEN",""],["_IMPL_DOMOBJECT_FOR_WebGLProgram",""]],"fn":[["parse_uniform_name",""],["validate_glsl_char",""],["validate_glsl_name",""]],"struct":[["WebGLProgram",""]]});

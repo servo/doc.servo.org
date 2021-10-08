@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["UnitCircle","Samples uniformly from the edge of the unit circle in two dimensions."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Handle","Handle to the runtime."],["TryCurrentError","Error returned by `try_current` when no Runtime has been started"]]});

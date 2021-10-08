@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Block",""],["IntoSink","Sink for the `into_sink` method."]]});

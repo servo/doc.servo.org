@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ErrorCheck","Returns early if attribute or body parsing has caused any errors."],["ErrorDeclaration","Declares the local variable into which errors will be accumulated."]]});

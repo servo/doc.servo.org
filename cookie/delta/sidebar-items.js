@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DeltaCookie","A `DeltaCookie` is a helper structure used in a cookie jar. It wraps a `Cookie` so that it can be hashed and compared purely by name. It further records whether the wrapped cookie is a “removal” cookie, that is, a cookie that when sent to the client removes the named cookie on the client’s machine."]]});

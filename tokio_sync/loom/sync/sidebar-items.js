@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["atomic","Atomic types"]],"struct":[["Arc","A thread-safe reference-counting pointer. ‘Arc’ stands for ‘Atomically Reference Counted’."],["CausalCell",""]]});

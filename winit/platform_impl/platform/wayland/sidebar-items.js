@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["make_wid",""]],"mod":[["env","SCTK environment setup."],["event_loop",""],["output",""],["seat","Seat handling and managing."],["window",""]],"struct":[["DeviceId",""],["WindowId",""]]});

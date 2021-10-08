@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_COEFF_SHIFT",""],["SAMPLE_SHIFT",""],["SAMPLE_SIZE",""]],"fn":[["cheap_distance",""],["compute_curve_steps",""],["diff_to_shift",""],["div_fixed16_fixed16",""]],"struct":[["ActiveEdge",""],["Edge",""],["Rasterizer",""]]});

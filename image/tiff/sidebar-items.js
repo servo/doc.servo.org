@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["err_unknown_color_type",""],["u8_slice_as_u16",""]],"struct":[["TiffDecoder","Decoder for TIFF images."],["TiffEncoder","Encoder for tiff images"],["TiffReader","Wrapper struct around a `Cursor<Vec<u8>>`"]]});

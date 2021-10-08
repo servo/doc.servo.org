@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Interest","Interest to register regarding the file descriptor"],["Mode","Possible modes for registering a file descriptor"]],"mod":[["epoll",""]],"struct":[["Poll","The polling system"],["PollEvent",""],["Readiness","Readiness for a file descriptor notification"],["Token","A Token for registration"]]});

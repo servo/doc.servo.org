@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A pure Rust 2D Graphics Library."><meta name="keywords" content="rust, rustlang, rust-lang, raqote"><title>raqote - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg"><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../raqote/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><h2 class="location">Crate raqote</h2><div class="block version"><div class="narrow-helper"></div><p>Version 0.8.1-alpha.0</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all raqote's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="raqote" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">raqote</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/raqote/lib.rs.html#1-122" title="goto source code">[src]</a></span></h1><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A pure Rust 2D Graphics Library.</p>
+<p>Raqote is a small, simple, fast software 2D graphics library.</p>
+<p>Current functionality</p>
+<ul>
+<li>path filling</li>
+<li>stroking</li>
+<li>dashing</li>
+<li>image, solid, and gradient fills</li>
+<li>rectangular and path clipping</li>
+<li>blend modes</li>
+<li>layers</li>
+<li>repeat modes for images</li>
+<li>global alpha</li>
+</ul>
+<h3 id="notable-users" class="section-header"><a href="#notable-users">Notable users</a></h3>
+<ul>
+<li><a href="https://github.com/RazrFalcon/resvg">resvg</a> supports using raqote as a backend.</li>
+<li><a href="https://github.com/servo/servo">Servo</a> uses raqote as its canvas backend.</li>
+<li><a href="https://gitlab.redox-os.org/redox-os/orbtk/tree/master/crates/render">orbtk</a> uses raqote.</li>
+</ul>
+<p>Example:</p>
+<p><a href="https://github.com/jrmuizel/raqote-examples/blob/master/examples/minifb.rs">A simple example drawing to a window</a></p>
+<p>Another example drawing to a png follows:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">raqote</span>::<span class="kw-2">*</span>;
+
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dt</span> <span class="op">=</span> <span class="ident">DrawTarget::new</span>(<span class="number">400</span>, <span class="number">400</span>);
+
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pb</span> <span class="op">=</span> <span class="ident">PathBuilder::new</span>();
+<span class="ident">pb</span>.<span class="ident">move_to</span>(<span class="number">100.</span>, <span class="number">10.</span>);
+<span class="ident">pb</span>.<span class="ident">cubic_to</span>(<span class="number">150.</span>, <span class="number">40.</span>, <span class="number">175.</span>, <span class="number">0.</span>, <span class="number">200.</span>, <span class="number">10.</span>);
+<span class="ident">pb</span>.<span class="ident">quad_to</span>(<span class="number">120.</span>, <span class="number">100.</span>, <span class="number">80.</span>, <span class="number">200.</span>);
+<span class="ident">pb</span>.<span class="ident">quad_to</span>(<span class="number">150.</span>, <span class="number">180.</span>, <span class="number">300.</span>, <span class="number">300.</span>);
+<span class="ident">pb</span>.<span class="ident">close</span>();
+<span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">pb</span>.<span class="ident">finish</span>();
+
+<span class="kw">let</span> <span class="ident">gradient</span> <span class="op">=</span> <span class="ident">Source::new_radial_gradient</span>(
+    <span class="ident">Gradient</span> {
+        <span class="ident">stops</span>: <span class="macro">vec!</span>[
+            <span class="ident">GradientStop</span> {
+                <span class="ident">position</span>: <span class="number">0.2</span>,
+                <span class="ident">color</span>: <span class="ident">Color::new</span>(<span class="number">0xff</span>, <span class="number">0</span>, <span class="number">0xff</span>, <span class="number">0</span>),
+            },
+            <span class="ident">GradientStop</span> {
+                <span class="ident">position</span>: <span class="number">0.8</span>,
+                <span class="ident">color</span>: <span class="ident">Color::new</span>(<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>),
+            },
+            <span class="ident">GradientStop</span> {
+                <span class="ident">position</span>: <span class="number">1.</span>,
+                <span class="ident">color</span>: <span class="ident">Color::new</span>(<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0</span>, <span class="number">0xff</span>),
+            },
+        ],
+    },
+    <span class="ident">Point::new</span>(<span class="number">150.</span>, <span class="number">150.</span>),
+    <span class="number">128.</span>,
+    <span class="ident">Spread::Pad</span>,
+);
+<span class="ident">dt</span>.<span class="ident">fill</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>, <span class="kw-2">&amp;</span><span class="ident">gradient</span>, <span class="kw-2">&amp;</span><span class="ident">DrawOptions::new</span>());
+
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pb</span> <span class="op">=</span> <span class="ident">PathBuilder::new</span>();
+<span class="ident">pb</span>.<span class="ident">move_to</span>(<span class="number">100.</span>, <span class="number">100.</span>);
+<span class="ident">pb</span>.<span class="ident">line_to</span>(<span class="number">300.</span>, <span class="number">300.</span>);
+<span class="ident">pb</span>.<span class="ident">line_to</span>(<span class="number">200.</span>, <span class="number">300.</span>);
+<span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">pb</span>.<span class="ident">finish</span>();
+
+<span class="ident">dt</span>.<span class="ident">stroke</span>(
+    <span class="kw-2">&amp;</span><span class="ident">path</span>,
+    <span class="kw-2">&amp;</span><span class="ident">Source::Solid</span>(<span class="ident">SolidSource</span> {
+        <span class="ident">r</span>: <span class="number">0x0</span>,
+        <span class="ident">g</span>: <span class="number">0x0</span>,
+        <span class="ident">b</span>: <span class="number">0x80</span>,
+        <span class="ident">a</span>: <span class="number">0x80</span>,
+    }),
+    <span class="kw-2">&amp;</span><span class="ident">StrokeStyle</span> {
+        <span class="ident">cap</span>: <span class="ident">LineCap::Round</span>,
+        <span class="ident">join</span>: <span class="ident">LineJoin::Round</span>,
+        <span class="ident">width</span>: <span class="number">10.</span>,
+        <span class="ident">miter_limit</span>: <span class="number">2.</span>,
+        <span class="ident">dash_array</span>: <span class="macro">vec!</span>[<span class="number">10.</span>, <span class="number">18.</span>],
+        <span class="ident">dash_offset</span>: <span class="number">16.</span>,
+    },
+    <span class="kw-2">&amp;</span><span class="ident">DrawOptions::new</span>()
+);
+
+<span class="ident">dt</span>.<span class="ident">write_png</span>(<span class="string">&quot;example.png&quot;</span>);</pre></div>
+<p>Produces:</p>
+<p><img src="https://github.com/jrmuizel/raqote/raw/master/example.png" alt="example.png" /></p>
+</div></details><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
+<div class="item-table"><div class="item-left module-item"><a class="mod" href="blitter/index.html" title="raqote::blitter mod">blitter</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="mod" href="dash/index.html" title="raqote::dash mod">dash</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="mod" href="draw_target/index.html" title="raqote::draw_target mod">draw_target</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="mod" href="geom/index.html" title="raqote::geom mod">geom</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="mod" href="path_builder/index.html" title="raqote::path_builder mod">path_builder</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="mod" href="rasterizer/index.html" title="raqote::rasterizer mod">rasterizer</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="mod" href="stroke/index.html" title="raqote::stroke mod">stroke</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="mod" href="tests/index.html" title="raqote::tests mod">tests</a></div><div class="item-right docblock-short"></div></div><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-left module-item"><a class="struct" href="struct.Color.html" title="raqote::Color struct">Color</a></div><div class="item-right docblock-short"><p>A unpremultiplied color.</p>
+</div><div class="item-left module-item"><a class="struct" href="struct.DrawOptions.html" title="raqote::DrawOptions struct">DrawOptions</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="struct" href="struct.DrawTarget.html" title="raqote::DrawTarget struct">DrawTarget</a></div><div class="item-right docblock-short"><p>The main type used for drawing</p>
+</div><div class="item-left module-item"><a class="struct" href="struct.Gradient.html" title="raqote::Gradient struct">Gradient</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="struct" href="struct.GradientStop.html" title="raqote::GradientStop struct">GradientStop</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="struct" href="struct.Image.html" title="raqote::Image struct">Image</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="struct" href="struct.Path.html" title="raqote::Path struct">Path</a></div><div class="item-right docblock-short"><p>Represents a complete path usable for filling or stroking.</p>
+</div><div class="item-left module-item"><a class="struct" href="struct.PathBuilder.html" title="raqote::PathBuilder struct">PathBuilder</a></div><div class="item-right docblock-short"><p>A helper struct used for constructing a <code>Path</code>.</p>
+</div><div class="item-left module-item"><a class="struct" href="struct.SolidSource.html" title="raqote::SolidSource struct">SolidSource</a></div><div class="item-right docblock-short"><p>A premultiplied color. i.e. r,b,g &lt;= a</p>
+</div><div class="item-left module-item"><a class="struct" href="struct.StrokeStyle.html" title="raqote::StrokeStyle struct">StrokeStyle</a></div><div class="item-right docblock-short"></div></div><h2 id="enums" class="section-header"><a href="#enums">Enums</a></h2>
+<div class="item-table"><div class="item-left module-item"><a class="enum" href="enum.AntialiasMode.html" title="raqote::AntialiasMode enum">AntialiasMode</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="enum" href="enum.BlendMode.html" title="raqote::BlendMode enum">BlendMode</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="enum" href="enum.ExtendMode.html" title="raqote::ExtendMode enum">ExtendMode</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="enum" href="enum.FilterMode.html" title="raqote::FilterMode enum">FilterMode</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="enum" href="enum.LineCap.html" title="raqote::LineCap enum">LineCap</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="enum" href="enum.LineJoin.html" title="raqote::LineJoin enum">LineJoin</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="enum" href="enum.PathOp.html" title="raqote::PathOp enum">PathOp</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="enum" href="enum.Source.html" title="raqote::Source enum">Source</a></div><div class="item-right docblock-short"><p>LinearGradients have an implicit start point at 0,0 and an end point at 256,0. The transform
+parameter can be used to adjust them to the desired location.
+RadialGradients have an implict center at 0,0 and a radius of 128.
+The helper functions: <code>new_linear_gradient</code>, <code>new_radial_gradient</code> and <code>new_two_circle_radial_gradient</code>
+allow the gradients to be constructed with easier to understand inputs.
+The <code>transform</code> parameter maps user space to source space. This means that setting the same transform
+on the draw target as the source will have the effect of canceling out.</p>
+</div><div class="item-left module-item"><a class="enum" href="enum.Spread.html" title="raqote::Spread enum">Spread</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="enum" href="enum.Winding.html" title="raqote::Winding enum">Winding</a></div><div class="item-right docblock-short"></div></div><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-left module-item"><a class="fn" href="fn.stroke_to_path.html" title="raqote::stroke_to_path fn">stroke_to_path</a></div><div class="item-right docblock-short"></div></div><h2 id="types" class="section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-left module-item"><a class="type" href="type.IntPoint.html" title="raqote::IntPoint type">IntPoint</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="type" href="type.IntRect.html" title="raqote::IntRect type">IntRect</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="type" href="type.Point.html" title="raqote::Point type">Point</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="type" href="type.Transform.html" title="raqote::Transform type">Transform</a></div><div class="item-right docblock-short"></div><div class="item-left module-item"><a class="type" href="type.Vector.html" title="raqote::Vector type">Vector</a></div><div class="item-right docblock-short"></div></div></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="raqote" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
+    <script src="../main.js"></script>
+</body></html>

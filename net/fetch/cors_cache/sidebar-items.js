@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["HeaderOrMethod","Union type for CORS cache entries"]],"fn":[["match_headers",""]],"struct":[["CorsCache","A simple, vector-based CORS Cache"],["CorsCacheEntry","An entry in the CORS cache"]]});

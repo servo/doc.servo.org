@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EncoderError","Errors that can occur during encoding and saving of a TGA image."]],"struct":[["TgaEncoder","TGA encoder."]]});

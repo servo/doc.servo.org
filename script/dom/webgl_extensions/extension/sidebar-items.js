@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WebGLExtensionSpec",""]],"trait":[["WebGLExtension","Trait implemented by WebGL extensions."]]});

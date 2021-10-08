@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["init_confined_pointer",""],["init_relative_pointer",""]],"mod":[["data","Data which is used in pointer callbacks."],["handlers","Handlers for the pointers we’re using."]],"struct":[["Pointers","A pointer wrapper for easy releasing and managing pointers."],["WinitPointer","A proxy to Wayland pointer, which serves requests from a `WindowHandle`."]]});

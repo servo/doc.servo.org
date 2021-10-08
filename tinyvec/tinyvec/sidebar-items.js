@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TinyVec","A vector that starts inline, but can automatically move to the heap."],["TinyVecDrain","Draining iterator for `TinyVecDrain`"],["TinyVecIterator","Iterator for consuming an `TinyVec` and returning owned elements."]],"struct":[["TinyVecSplice","Splicing iterator for `TinyVec` See `TinyVec::splice`"]]});

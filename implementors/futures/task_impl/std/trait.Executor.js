@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["futures_cpupool"] = [{"text":"impl <a class=\"trait\" href=\"https://docs.rs/futures/0.1/futures/task_impl/std/trait.Executor.html\" title=\"trait futures::task_impl::std::Executor\">Executor</a> for <a class=\"struct\" href=\"futures_cpupool/struct.Inner.html\" title=\"struct futures_cpupool::Inner\">Inner</a>","synthetic":false,"types":["futures_cpupool::Inner"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["empty","Creates a stream which contains no elements."]],"struct":[["Empty","Stream for the [`empty`] function."]]});

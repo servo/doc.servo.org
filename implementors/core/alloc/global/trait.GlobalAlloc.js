@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["servo_allocator"] = [{"text":"impl <a class=\"trait\" href=\"core/alloc/global/trait.GlobalAlloc.html\" title=\"trait core::alloc::global::GlobalAlloc\">GlobalAlloc</a> for <a class=\"struct\" href=\"servo_allocator/platform/struct.Allocator.html\" title=\"struct servo_allocator::platform::Allocator\">Allocator</a>","synthetic":false,"types":["servo_allocator::platform::Allocator"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

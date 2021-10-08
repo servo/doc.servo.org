@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TrySendError",""]],"fn":[["channel",""]],"struct":[["Chan",""],["Rx","Channel receiver"],["RxFields","Fields only accessed by `Rx` handle."],["Tx","Channel sender"]],"trait":[["Semaphore",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AtomicUsize","`AtomicUsize` providing an additional `load_unsync` function."]]});

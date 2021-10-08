@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ServiceWorkerUnprivilegedContent","Conceptually, this is glue to start an agent-cluster for a service worker agent. https://html.spec.whatwg.org/multipage/#obtain-a-service-worker-agent"]]});

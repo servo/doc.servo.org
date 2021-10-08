@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ShadowRootMode",""]],"mod":[["ShadowRootBinding",""],["ShadowRootModeValues",""]]});

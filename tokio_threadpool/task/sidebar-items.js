@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Run",""]],"mod":[["blocking",""],["blocking_state",""],["state",""]],"struct":[["Task","Harness around a future."]],"type":[["BoxFuture",""]]});

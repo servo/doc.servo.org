@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DrainGuard","A proxy for draining a collection by converting to a `Vec` and back."]]});

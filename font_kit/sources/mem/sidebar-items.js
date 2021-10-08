@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FamilyEntry",""],["MemSource","A source that keeps fonts in memory."]]});

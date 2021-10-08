@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Windows-specific extensions to the primitives in the `std::ffi` module."><meta name="keywords" content="rust, rustlang, rust-lang, ffi"><title>std::os::windows::ffi - Rust</title><link rel="stylesheet" type="text/css" href="../../../../normalize1.56.0.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc1.56.0.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../light1.56.0.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark1.56.0.css" disabled ><link rel="stylesheet" type="text/css" href="../../../../ayu1.56.0.css" disabled ><script id="default-settings" ></script><script src="../../../../storage1.56.0.js"></script><script src="../../../../crates1.56.0.js"></script><noscript><link rel="stylesheet" href="../../../../noscript1.56.0.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../../favicon1.56.0.svg"><link rel="alternate icon" type="image/png" href="../../../../favicon-16x161.56.0.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x321.56.0.png"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow1.56.0.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../../std/index.html'><div class='logo-container rust-logo'><img src='../../../../rust-logo1.56.0.png' alt='logo'></div></a><h2 class="location">Module ffi</h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li></ul></div><div id="sidebar-vars" data-name="ffi" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../../brush1.56.0.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../../wheel1.56.0.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Module <a href="../../../index.html">std</a>::<wbr><a href="../../index.html">os</a>::<wbr><a href="../index.html">windows</a>::<wbr><a class="mod" href="#">ffi</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../../../../clipboard1.56.0.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../../../src/std/os/windows/ffi.rs.html#1-134" title="goto source code">[src]</a></span></h1><div class="item-info"><div class="stab portability">This is supported on <strong>Windows</strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Windows-specific extensions to the primitives in the <code>std::ffi</code> module.</p>
+<h1 id="overview" class="section-header"><a href="#overview">Overview</a></h1>
+<p>For historical reasons, the Windows API uses a form of potentially
+ill-formed UTF-16 encoding for strings. Specifically, the 16-bit
+code units in Windows strings may contain <a href="https://simonsapin.github.io/wtf-8/#ill-formed-utf-16">isolated surrogate code
+points which are not paired together</a>. The
+Unicode standard requires that surrogate code points (those in the
+range U+D800 to U+DFFF) always be <em>paired</em>, because in the UTF-16
+encoding a <em>surrogate code unit pair</em> is used to encode a single
+character. For compatibility with code that does not enforce
+these pairings, Windows does not enforce them, either.</p>
+<p>While it is not always possible to convert such a string losslessly into
+a valid UTF-16 string (or even UTF-8), it is often desirable to be
+able to round-trip such a string from and to Windows APIs
+losslessly. For example, some Rust code may be “bridging” some
+Windows APIs together, just passing <code>WCHAR</code> strings among those
+APIs without ever really looking into the strings.</p>
+<p>If Rust code <em>does</em> need to look into those strings, it can
+convert them to valid UTF-8, possibly lossily, by substituting
+invalid sequences with <a href="../../../char/constant.REPLACEMENT_CHARACTER.html"><code>U+FFFD REPLACEMENT CHARACTER</code></a>, as is
+conventionally done in other Rust APIs that deal with string
+encodings.</p>
+<h1 id="osstringext-and-osstrext" class="section-header"><a href="#osstringext-and-osstrext"><code>OsStringExt</code> and <code>OsStrExt</code></a></h1>
+<p><a href="../../../ffi/struct.OsString.html" title="OsString"><code>OsString</code></a> is the Rust wrapper for owned strings in the
+preferred representation of the operating system. On Windows,
+this struct gets augmented with an implementation of the
+<a href="trait.OsStringExt.html" title="OsStringExt"><code>OsStringExt</code></a> trait, which has a <a href="trait.OsStringExt.html#tymethod.from_wide" title="OsStringExt::from_wide"><code>OsStringExt::from_wide</code></a> method. This
+lets you create an <a href="../../../ffi/struct.OsString.html" title="OsString"><code>OsString</code></a> from a <code>&amp;[u16]</code> slice; presumably
+you get such a slice out of a <code>WCHAR</code> Windows API.</p>
+<p>Similarly, <a href="../../../ffi/struct.OsStr.html" title="OsStr"><code>OsStr</code></a> is the Rust wrapper for borrowed strings from
+preferred representation of the operating system. On Windows, the
+<a href="trait.OsStrExt.html" title="OsStrExt"><code>OsStrExt</code></a> trait provides the <a href="trait.OsStrExt.html#tymethod.encode_wide" title="OsStrExt::encode_wide"><code>OsStrExt::encode_wide</code></a> method, which
+outputs an <a href="struct.EncodeWide.html" title="EncodeWide"><code>EncodeWide</code></a> iterator. You can <a href="../../../iter/trait.Iterator.html#method.collect"><code>collect</code></a> this
+iterator, for example, to obtain a <code>Vec&lt;u16&gt;</code>; you can later get a
+pointer to this vector’s contents and feed it to Windows APIs.</p>
+<p>These traits, along with <a href="../../../ffi/struct.OsString.html" title="OsString"><code>OsString</code></a> and <a href="../../../ffi/struct.OsStr.html" title="OsStr"><code>OsStr</code></a>, work in
+conjunction so that it is possible to <strong>round-trip</strong> strings from
+Windows and back, with no loss of data, even if the strings are
+ill-formed UTF-16.</p>
+</div></details><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-left module-item"><a class="struct" href="struct.EncodeWide.html" title="std::os::windows::ffi::EncodeWide struct">EncodeWide</a></div><div class="item-right docblock-short"><p>Generates a wide character sequence for potentially ill-formed UTF-16.</p>
+</div></div><h2 id="traits" class="section-header"><a href="#traits">Traits</a></h2>
+<div class="item-table"><div class="item-left module-item"><a class="trait" href="trait.OsStrExt.html" title="std::os::windows::ffi::OsStrExt trait">OsStrExt</a></div><div class="item-right docblock-short"><p>Windows-specific extensions to <a href="../../../ffi/struct.OsStr.html" title="OsStr"><code>OsStr</code></a>.</p>
+</div><div class="item-left module-item"><a class="trait" href="trait.OsStringExt.html" title="std::os::windows::ffi::OsStringExt trait">OsStringExt</a></div><div class="item-right docblock-short"><p>Windows-specific extensions to <a href="../../../ffi/struct.OsString.html" title="OsString"><code>OsString</code></a>.</p>
+</div></div></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="std" data-search-index-js="../../../../search-index1.56.0.js" data-search-js="../../../../search1.56.0.js"></div>
+    <script src="../../../../main1.56.0.js"></script>
+</body></html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Instance","https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInstance.html"]],"trait":[["InstanceV1_0",""],["InstanceV1_1",""],["InstanceV1_2",""]]});

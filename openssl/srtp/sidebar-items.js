@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["free","fake free method, since SRTP_PROTECTION_PROFILE is static"]],"struct":[["SrtpProfileId","An identifier of an SRTP protection profile."],["SrtpProtectionProfile",""],["SrtpProtectionProfileRef","Reference to `SrtpProtectionProfile`."]]});

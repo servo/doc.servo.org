@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Channel","Zero-capacity channel."],["Inner","Inner representation of a zero-capacity channel."],["Packet","A slot for passing one message from a sender to a receiver."],["Receiver","Receiver handle to a channel."],["Sender","Sender handle to a channel."]],"type":[["ZeroToken","A pointer to a packet."]]});

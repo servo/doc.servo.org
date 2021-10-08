@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Generics</title>
+
+    <link rel="stylesheet" type="text/css" href="../rust.css">
+
+    <meta name="robots" content="noindex,follow">
+<link rel="shortcut icon" href="https://www.rust-lang.org/favicon.ico">
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="versioninfo">
+  <img src="https://www.rust-lang.org/logos/rust-logo-32x32-blk.png" width="32" height="32" alt="Rust logo"><br>
+  <span class="white-sticker"><a href="https://www.rust-lang.org">Rust</a> 1.56.0-nightly</span><br>
+  <a href="https://github.com/rust-lang/rust/commit/0fa3190394475a84360b34e074e719d519bc40f1"
+    class="hash white-sticker">0fa319039</a>
+</div>
+
+
+    <h1 class="title">Generics</h1>
+    <p><small>There is a new edition of the book and this is an old link.</small></p>
+<blockquote>
+<p>Generics are abstract stand-ins for concrete types or other properties.</p>
+</blockquote>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">struct</span> <span class="ident">Point</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">U</span><span class="op">&gt;</span> {
+    <span class="ident">x</span>: <span class="ident">T</span>,
+    <span class="ident">y</span>: <span class="ident">U</span>,
+}
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="kw">let</span> <span class="ident">both_integer</span> <span class="op">=</span> <span class="ident">Point</span> { <span class="ident">x</span>: <span class="number">5</span>, <span class="ident">y</span>: <span class="number">10</span> };
+    <span class="kw">let</span> <span class="ident">both_float</span> <span class="op">=</span> <span class="ident">Point</span> { <span class="ident">x</span>: <span class="number">1.0</span>, <span class="ident">y</span>: <span class="number">4.0</span> };
+    <span class="kw">let</span> <span class="ident">integer_and_float</span> <span class="op">=</span> <span class="ident">Point</span> { <span class="ident">x</span>: <span class="number">5</span>, <span class="ident">y</span>: <span class="number">4.0</span> };
+}</pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Astruct%20Point%3CT%2C%20U%3E%20%7B%0A%20%20%20%20x%3A%20T%2C%0A%20%20%20%20y%3A%20U%2C%0A%7D%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20both_integer%20%3D%20Point%20%7B%20x%3A%205%2C%20y%3A%2010%20%7D%3B%0A%20%20%20%20let%20both_float%20%3D%20Point%20%7B%20x%3A%201.0%2C%20y%3A%204.0%20%7D%3B%0A%20%20%20%20let%20integer_and_float%20%3D%20Point%20%7B%20x%3A%205%2C%20y%3A%204.0%20%7D%3B%0A%7D&amp;edition=2015">Run</a></div>
+<hr />
+<p>Here are the relevant sections in the new and old books:</p>
+<ul>
+<li><strong><a href="ch10-00-generics.html">in the current edition: Ch 10.00 — Generic Types, Traits, and Lifetimes</a></strong></li>
+<li><small><a href="https://doc.rust-lang.org/1.30.0/book/first-edition/generics.html">In the first edition: Ch 3.18 — Generics</a></small></li>
+</ul>
+
+    <footer><p>
+Copyright &copy; 2011 The Rust Project Developers. Licensed under the
+<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
+or the <a href="https://opensource.org/licenses/MIT">MIT license</a>, at your option.
+</p><p>
+This file may not be copied, modified, or distributed except according to those terms.
+</p></footer>
+
+
+</body>
+</html>

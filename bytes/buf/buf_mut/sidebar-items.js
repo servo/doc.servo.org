@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_assert_trait_object",""]],"struct":[["IoSliceMut","A buffer type used for `readv`."]],"trait":[["BufMut","A trait for values that provide sequential write access to bytes."]]});

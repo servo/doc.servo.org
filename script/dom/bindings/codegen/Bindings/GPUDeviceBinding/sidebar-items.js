@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["GPUDeviceBinding",""]],"struct":[["GPUCommandEncoderDescriptor",""]]});

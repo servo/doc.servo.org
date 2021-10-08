@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Kind",""],["Parse",""],["User",""]],"struct":[["Error","Represents errors that can occur handling HTTP streams."],["ErrorImpl",""]],"type":[["Cause",""],["Result","Result type often returned from methods that can have hyper `Error`s."]]});

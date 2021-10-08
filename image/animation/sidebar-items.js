@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Delay","The delay of a frame relative to the previous one."],["Frame","A single animation frame"],["Frames","An implementation dependent iterator, reading the frames as requested"]]});

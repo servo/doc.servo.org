@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["split",""],["would_block",""],["wrap_as_io",""]],"struct":[["ReadHalf","The readable half of an object returned from `AsyncRead::split`."],["WriteHalf","The writable half of an object returned from `AsyncRead::split`."]]});

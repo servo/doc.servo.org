@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["zip_longest","Create a new `ZipLongest` iterator."]],"struct":[["ZipLongest","An iterator which iterates two other iterators simultaneously"]]});

@@ -1,0 +1,1380 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Unstable Features - The Cargo Book</title>
+        <!-- Custom HTML head -->
+        <style>
+    dd {
+        margin-bottom: 1em;
+    }
+</style>
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../getting-started/index.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting-started/installation.html"><strong aria-hidden="true">1.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting-started/first-steps.html"><strong aria-hidden="true">1.2.</strong> First Steps with Cargo</a></li></ol></li><li class="chapter-item expanded "><a href="../guide/index.html"><strong aria-hidden="true">2.</strong> Cargo Guide</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guide/why-cargo-exists.html"><strong aria-hidden="true">2.1.</strong> Why Cargo Exists</a></li><li class="chapter-item expanded "><a href="../guide/creating-a-new-project.html"><strong aria-hidden="true">2.2.</strong> Creating a New Package</a></li><li class="chapter-item expanded "><a href="../guide/working-on-an-existing-project.html"><strong aria-hidden="true">2.3.</strong> Working on an Existing Package</a></li><li class="chapter-item expanded "><a href="../guide/dependencies.html"><strong aria-hidden="true">2.4.</strong> Dependencies</a></li><li class="chapter-item expanded "><a href="../guide/project-layout.html"><strong aria-hidden="true">2.5.</strong> Package Layout</a></li><li class="chapter-item expanded "><a href="../guide/cargo-toml-vs-cargo-lock.html"><strong aria-hidden="true">2.6.</strong> Cargo.toml vs Cargo.lock</a></li><li class="chapter-item expanded "><a href="../guide/tests.html"><strong aria-hidden="true">2.7.</strong> Tests</a></li><li class="chapter-item expanded "><a href="../guide/continuous-integration.html"><strong aria-hidden="true">2.8.</strong> Continuous Integration</a></li><li class="chapter-item expanded "><a href="../guide/cargo-home.html"><strong aria-hidden="true">2.9.</strong> Cargo Home</a></li><li class="chapter-item expanded "><a href="../guide/build-cache.html"><strong aria-hidden="true">2.10.</strong> Build Cache</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/index.html"><strong aria-hidden="true">3.</strong> Cargo Reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/specifying-dependencies.html"><strong aria-hidden="true">3.1.</strong> Specifying Dependencies</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/overriding-dependencies.html"><strong aria-hidden="true">3.1.1.</strong> Overriding Dependencies</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/manifest.html"><strong aria-hidden="true">3.2.</strong> The Manifest Format</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/cargo-targets.html"><strong aria-hidden="true">3.2.1.</strong> Cargo Targets</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/workspaces.html"><strong aria-hidden="true">3.3.</strong> Workspaces</a></li><li class="chapter-item expanded "><a href="../reference/features.html"><strong aria-hidden="true">3.4.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/features-examples.html"><strong aria-hidden="true">3.4.1.</strong> Features Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/profiles.html"><strong aria-hidden="true">3.5.</strong> Profiles</a></li><li class="chapter-item expanded "><a href="../reference/config.html"><strong aria-hidden="true">3.6.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="../reference/environment-variables.html"><strong aria-hidden="true">3.7.</strong> Environment Variables</a></li><li class="chapter-item expanded "><a href="../reference/build-scripts.html"><strong aria-hidden="true">3.8.</strong> Build Scripts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../reference/build-script-examples.html"><strong aria-hidden="true">3.8.1.</strong> Build Script Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../reference/publishing.html"><strong aria-hidden="true">3.9.</strong> Publishing on crates.io</a></li><li class="chapter-item expanded "><a href="../reference/pkgid-spec.html"><strong aria-hidden="true">3.10.</strong> Package ID Specifications</a></li><li class="chapter-item expanded "><a href="../reference/source-replacement.html"><strong aria-hidden="true">3.11.</strong> Source Replacement</a></li><li class="chapter-item expanded "><a href="../reference/external-tools.html"><strong aria-hidden="true">3.12.</strong> External Tools</a></li><li class="chapter-item expanded "><a href="../reference/registries.html"><strong aria-hidden="true">3.13.</strong> Registries</a></li><li class="chapter-item expanded "><a href="../reference/resolver.html"><strong aria-hidden="true">3.14.</strong> Dependency Resolution</a></li><li class="chapter-item expanded "><a href="../reference/semver.html"><strong aria-hidden="true">3.15.</strong> SemVer Compatibility</a></li><li class="chapter-item expanded "><a href="../reference/unstable.html" class="active"><strong aria-hidden="true">3.16.</strong> Unstable Features</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/index.html"><strong aria-hidden="true">4.</strong> Cargo Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/general-commands.html"><strong aria-hidden="true">4.1.</strong> General Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo.html"><strong aria-hidden="true">4.1.1.</strong> cargo</a></li><li class="chapter-item expanded "><a href="../commands/cargo-help.html"><strong aria-hidden="true">4.1.2.</strong> cargo help</a></li><li class="chapter-item expanded "><a href="../commands/cargo-version.html"><strong aria-hidden="true">4.1.3.</strong> cargo version</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/build-commands.html"><strong aria-hidden="true">4.2.</strong> Build Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-bench.html"><strong aria-hidden="true">4.2.1.</strong> cargo bench</a></li><li class="chapter-item expanded "><a href="../commands/cargo-build.html"><strong aria-hidden="true">4.2.2.</strong> cargo build</a></li><li class="chapter-item expanded "><a href="../commands/cargo-check.html"><strong aria-hidden="true">4.2.3.</strong> cargo check</a></li><li class="chapter-item expanded "><a href="../commands/cargo-clean.html"><strong aria-hidden="true">4.2.4.</strong> cargo clean</a></li><li class="chapter-item expanded "><a href="../commands/cargo-doc.html"><strong aria-hidden="true">4.2.5.</strong> cargo doc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fetch.html"><strong aria-hidden="true">4.2.6.</strong> cargo fetch</a></li><li class="chapter-item expanded "><a href="../commands/cargo-fix.html"><strong aria-hidden="true">4.2.7.</strong> cargo fix</a></li><li class="chapter-item expanded "><a href="../commands/cargo-run.html"><strong aria-hidden="true">4.2.8.</strong> cargo run</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustc.html"><strong aria-hidden="true">4.2.9.</strong> cargo rustc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-rustdoc.html"><strong aria-hidden="true">4.2.10.</strong> cargo rustdoc</a></li><li class="chapter-item expanded "><a href="../commands/cargo-test.html"><strong aria-hidden="true">4.2.11.</strong> cargo test</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/manifest-commands.html"><strong aria-hidden="true">4.3.</strong> Manifest Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-generate-lockfile.html"><strong aria-hidden="true">4.3.1.</strong> cargo generate-lockfile</a></li><li class="chapter-item expanded "><a href="../commands/cargo-locate-project.html"><strong aria-hidden="true">4.3.2.</strong> cargo locate-project</a></li><li class="chapter-item expanded "><a href="../commands/cargo-metadata.html"><strong aria-hidden="true">4.3.3.</strong> cargo metadata</a></li><li class="chapter-item expanded "><a href="../commands/cargo-pkgid.html"><strong aria-hidden="true">4.3.4.</strong> cargo pkgid</a></li><li class="chapter-item expanded "><a href="../commands/cargo-tree.html"><strong aria-hidden="true">4.3.5.</strong> cargo tree</a></li><li class="chapter-item expanded "><a href="../commands/cargo-update.html"><strong aria-hidden="true">4.3.6.</strong> cargo update</a></li><li class="chapter-item expanded "><a href="../commands/cargo-vendor.html"><strong aria-hidden="true">4.3.7.</strong> cargo vendor</a></li><li class="chapter-item expanded "><a href="../commands/cargo-verify-project.html"><strong aria-hidden="true">4.3.8.</strong> cargo verify-project</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/package-commands.html"><strong aria-hidden="true">4.4.</strong> Package Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-init.html"><strong aria-hidden="true">4.4.1.</strong> cargo init</a></li><li class="chapter-item expanded "><a href="../commands/cargo-install.html"><strong aria-hidden="true">4.4.2.</strong> cargo install</a></li><li class="chapter-item expanded "><a href="../commands/cargo-new.html"><strong aria-hidden="true">4.4.3.</strong> cargo new</a></li><li class="chapter-item expanded "><a href="../commands/cargo-search.html"><strong aria-hidden="true">4.4.4.</strong> cargo search</a></li><li class="chapter-item expanded "><a href="../commands/cargo-uninstall.html"><strong aria-hidden="true">4.4.5.</strong> cargo uninstall</a></li></ol></li><li class="chapter-item expanded "><a href="../commands/publishing-commands.html"><strong aria-hidden="true">4.5.</strong> Publishing Commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../commands/cargo-login.html"><strong aria-hidden="true">4.5.1.</strong> cargo login</a></li><li class="chapter-item expanded "><a href="../commands/cargo-owner.html"><strong aria-hidden="true">4.5.2.</strong> cargo owner</a></li><li class="chapter-item expanded "><a href="../commands/cargo-package.html"><strong aria-hidden="true">4.5.3.</strong> cargo package</a></li><li class="chapter-item expanded "><a href="../commands/cargo-publish.html"><strong aria-hidden="true">4.5.4.</strong> cargo publish</a></li><li class="chapter-item expanded "><a href="../commands/cargo-yank.html"><strong aria-hidden="true">4.5.5.</strong> cargo yank</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">6.</strong> Appendix: Glossary</a></li><li class="chapter-item expanded "><a href="../appendix/git-authentication.html"><strong aria-hidden="true">7.</strong> Appendix: Git Authentication</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cargo Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/tree/master/src/doc/src" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="unstable-features"><a class="header" href="#unstable-features">Unstable Features</a></h2>
+<p>Experimental Cargo features are only available on the <a href="../../book/appendix-07-nightly-rust.html">nightly channel</a>. You
+are encouraged to experiment with these features to see if they meet your
+needs, and if there are any issues or problems. Check the linked tracking
+issues listed below for more information on the feature, and click the GitHub
+subscribe button if you want future updates.</p>
+<p>After some period of time, if the feature does not have any major concerns, it
+can be <a href="https://doc.crates.io/contrib/process/unstable.html#stabilization">stabilized</a>, which will make it available on stable once the current
+nightly release reaches the stable channel (anywhere from 6 to 12 weeks).</p>
+<p>There are three different ways that unstable features can be enabled based on
+how the feature works:</p>
+<ul>
+<li>
+<p>New syntax in <code>Cargo.toml</code> requires a <code>cargo-features</code> key at the top of
+<code>Cargo.toml</code>, before any tables. For example:</p>
+<pre><code class="language-toml"># This specifies which new Cargo.toml features are enabled.
+cargo-features = [&quot;test-dummy-unstable&quot;]
+
+[package]
+name = &quot;my-package&quot;
+version = &quot;0.1.0&quot;
+im-a-teapot = true  # This is a new option enabled by test-dummy-unstable.
+</code></pre>
+</li>
+<li>
+<p>New command-line flags, options, and subcommands require the <code>-Z unstable-options</code> CLI option to also be included. For example, the new
+<code>--out-dir</code> option is only available on nightly:</p>
+<p><code>cargo +nightly build --out-dir=out -Z unstable-options</code></p>
+</li>
+<li>
+<p><code>-Z</code> command-line flags are used to enable new functionality that may not
+have an interface, or the interface has not yet been designed, or for more
+complex features that affect multiple parts of Cargo. For example, the
+<a href="#timings">timings</a> feature can be enabled with:</p>
+<p><code>cargo +nightly build -Z timings</code></p>
+<p>Run <code>cargo -Z help</code> to see a list of flags available.</p>
+<p>Anything which can be configured with a <code>-Z</code> flag can also be set in the
+cargo <a href="config.html">config file</a> (<code>.cargo/config.toml</code>) in the <code>unstable</code> table. For
+example:</p>
+<pre><code class="language-toml">[unstable]
+mtime-on-use = true
+multitarget = true
+timings = [&quot;html&quot;]
+</code></pre>
+</li>
+</ul>
+<p>Each new feature described below should explain how to use it.</p>
+<h3 id="list-of-unstable-features"><a class="header" href="#list-of-unstable-features">List of unstable features</a></h3>
+<ul>
+<li>Unstable-specific features
+<ul>
+<li><a href="#allow-features">-Z allow-features</a> — Provides a way to restrict which unstable features are used.</li>
+</ul>
+</li>
+<li>Build scripts and linking
+<ul>
+<li><a href="#metabuild">Metabuild</a> — Provides declarative build scripts.</li>
+</ul>
+</li>
+<li>Resolver and features
+<ul>
+<li><a href="#no-index-update">no-index-update</a> — Prevents cargo from updating the index cache.</li>
+<li><a href="#avoid-dev-deps">avoid-dev-deps</a> — Prevents the resolver from including dev-dependencies during resolution.</li>
+<li><a href="#minimal-versions">minimal-versions</a> — Forces the resolver to use the lowest compatible version instead of the highest.</li>
+<li><a href="#public-dependency">public-dependency</a> — Allows dependencies to be classified as either public or private.</li>
+<li><a href="#namespaced-features">Namespaced features</a> — Separates optional dependencies into a separate namespace from regular features, and allows feature names to be the same as some dependency name.</li>
+<li><a href="#weak-dependency-features">Weak dependency features</a> — Allows setting features for dependencies without enabling optional dependencies.</li>
+</ul>
+</li>
+<li>Output behavior
+<ul>
+<li><a href="#out-dir">out-dir</a> — Adds a directory where artifacts are copied to.</li>
+<li><a href="#terminal-width">terminal-width</a> — Tells rustc the width of the terminal so that long diagnostic messages can be truncated to be more readable.</li>
+</ul>
+</li>
+<li>Compile behavior
+<ul>
+<li><a href="#mtime-on-use">mtime-on-use</a> — Updates the last-modified timestamp on every dependency every time it is used, to provide a mechanism to delete unused artifacts.</li>
+<li><a href="#doctest-xcompile">doctest-xcompile</a> — Supports running doctests with the <code>--target</code> flag.</li>
+<li><a href="#multitarget">multitarget</a> — Supports building for multiple targets at the same time.</li>
+<li><a href="#build-std">build-std</a> — Builds the standard library instead of using pre-built binaries.</li>
+<li><a href="#build-std-features">build-std-features</a> — Sets features to use with the standard library.</li>
+<li><a href="#binary-dep-depinfo">binary-dep-depinfo</a> — Causes the dep-info file to track binary dependencies.</li>
+<li><a href="#panic-abort-tests">panic-abort-tests</a> — Allows running tests with the &quot;abort&quot; panic strategy.</li>
+</ul>
+</li>
+<li>rustdoc
+<ul>
+<li><a href="#doctest-in-workspace"><code>doctest-in-workspace</code></a> — Fixes workspace-relative paths when running doctests.</li>
+<li><a href="#rustdoc-map">rustdoc-map</a> — Provides mappings for documentation to link to external sites like <a href="https://docs.rs/">docs.rs</a>.</li>
+</ul>
+</li>
+<li><code>Cargo.toml</code> extensions
+<ul>
+<li><a href="#custom-named-profiles">Custom named profiles</a> — Adds custom named profiles in addition to the standard names.</li>
+<li><a href="#profile-strip-option">Profile <code>strip</code> option</a> — Forces the removal of debug information and symbols from executables.</li>
+<li><a href="#per-package-target">per-package-target</a> — Sets the <code>--target</code> to use for each individual package.</li>
+<li><a href="#edition-2021">Edition 2021</a> — Adds support for the 2021 Edition.</li>
+</ul>
+</li>
+<li>Information and metadata
+<ul>
+<li><a href="#build-plan">Build-plan</a> — Emits JSON information on which commands will be run.</li>
+<li><a href="#timings">timings</a> — Generates a report on how long individual dependencies took to run.</li>
+<li><a href="#unit-graph">unit-graph</a> — Emits JSON for Cargo's internal graph structure.</li>
+<li><a href="#future-incompat-report">future incompat report</a> — Displays a report for future incompatibilities that may error in the future.</li>
+<li><a href="#rustc---print"><code>cargo rustc --print</code></a> — Calls rustc with <code>--print</code> to display information from rustc.</li>
+</ul>
+</li>
+<li>Configuration
+<ul>
+<li><a href="#config-cli">config-cli</a> — Adds the ability to pass configuration options on the command-line.</li>
+<li><a href="#config-include">config-include</a> — Adds the ability for config files to include other files.</li>
+<li><a href="#patch-in-config">patch-in-config</a> — Adds support for specifying the <code>[patch]</code> table in config files.</li>
+<li><a href="#cargo-config"><code>cargo config</code></a> — Adds a new subcommand for viewing config files.</li>
+</ul>
+</li>
+<li>Registries
+<ul>
+<li><a href="#credential-process">credential-process</a> — Adds support for fetching registry tokens from an external authentication program.</li>
+<li><a href="#cargo-logout"><code>cargo logout</code></a> — Adds the <code>logout</code> command to remove the currently saved registry token.</li>
+</ul>
+</li>
+</ul>
+<h3 id="allow-features"><a class="header" href="#allow-features">allow-features</a></h3>
+<p>This permanently-unstable flag makes it so that only a listed set of
+unstable features can be used. Specifically, if you pass
+<code>-Zallow-features=foo,bar</code>, you'll continue to be able to pass <code>-Zfoo</code>
+and <code>-Zbar</code> to <code>cargo</code>, but you will be unable to pass <code>-Zbaz</code>. You can
+pass an empty string (<code>-Zallow-features=</code>) to disallow all unstable
+features.</p>
+<p><code>-Zallow-features</code> also restricts which unstable features can be passed
+to the <code>cargo-features</code> entry in <code>Cargo.toml</code>. If, for example, you want
+to allow</p>
+<pre><code class="language-toml">cargo-features = [&quot;test-dummy-unstable&quot;]
+</code></pre>
+<p>where <code>test-dummy-unstable</code> is unstable, that features would also be
+disallowed by <code>-Zallow-features=</code>, and allowed with
+<code>-Zallow-features=test-dummy-unstable</code>.</p>
+<p>The list of features passed to cargo's <code>-Zallow-features</code> is also passed
+to any Rust tools that cargo ends up calling (like <code>rustc</code> or
+<code>rustdoc</code>). Thus, if you run <code>cargo -Zallow-features=</code>, no unstable
+Cargo <em>or</em> Rust features can be used.</p>
+<h3 id="no-index-update"><a class="header" href="#no-index-update">no-index-update</a></h3>
+<ul>
+<li>Original Issue: <a href="https://github.com/rust-lang/cargo/issues/3479">#3479</a></li>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/7404">#7404</a></li>
+</ul>
+<p>The <code>-Z no-index-update</code> flag ensures that Cargo does not attempt to update
+the registry index. This is intended for tools such as Crater that issue many
+Cargo commands, and you want to avoid the network latency for updating the
+index each time.</p>
+<h3 id="mtime-on-use"><a class="header" href="#mtime-on-use">mtime-on-use</a></h3>
+<ul>
+<li>Original Issue: <a href="https://github.com/rust-lang/cargo/pull/6477">#6477</a></li>
+<li>Cache usage meta tracking issue: <a href="https://github.com/rust-lang/cargo/issues/7150">#7150</a></li>
+</ul>
+<p>The <code>-Z mtime-on-use</code> flag is an experiment to have Cargo update the mtime of
+used files to make it easier for tools like cargo-sweep to detect which files
+are stale. For many workflows this needs to be set on <em>all</em> invocations of cargo.
+To make this more practical setting the <code>unstable.mtime_on_use</code> flag in <code>.cargo/config.toml</code>
+or the corresponding ENV variable will apply the <code>-Z mtime-on-use</code> to all
+invocations of nightly cargo. (the config flag is ignored by stable)</p>
+<h3 id="avoid-dev-deps"><a class="header" href="#avoid-dev-deps">avoid-dev-deps</a></h3>
+<ul>
+<li>Original Issue: <a href="https://github.com/rust-lang/cargo/issues/4988">#4988</a></li>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/5133">#5133</a></li>
+</ul>
+<p>When running commands such as <code>cargo install</code> or <code>cargo build</code>, Cargo
+currently requires dev-dependencies to be downloaded, even if they are not
+used. The <code>-Z avoid-dev-deps</code> flag allows Cargo to avoid downloading
+dev-dependencies if they are not needed. The <code>Cargo.lock</code> file will not be
+generated if dev-dependencies are skipped.</p>
+<h3 id="minimal-versions"><a class="header" href="#minimal-versions">minimal-versions</a></h3>
+<ul>
+<li>Original Issue: <a href="https://github.com/rust-lang/cargo/issues/4100">#4100</a></li>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/5657">#5657</a></li>
+</ul>
+<blockquote>
+<p>Note: It is not recommended to use this feature. Because it enforces minimal
+versions for all transitive dependencies, its usefulness is limited since
+not all external dependencies declare proper lower version bounds. It is
+intended that it will be changed in the future to only enforce minimal
+versions for direct dependencies.</p>
+</blockquote>
+<p>When a <code>Cargo.lock</code> file is generated, the <code>-Z minimal-versions</code> flag will
+resolve the dependencies to the minimum SemVer version that will satisfy the
+requirements (instead of the greatest version).</p>
+<p>The intended use-case of this flag is to check, during continuous integration,
+that the versions specified in Cargo.toml are a correct reflection of the
+minimum versions that you are actually using. That is, if Cargo.toml says
+<code>foo = &quot;1.0.0&quot;</code> that you don't accidentally depend on features added only in
+<code>foo 1.5.0</code>.</p>
+<h3 id="out-dir"><a class="header" href="#out-dir">out-dir</a></h3>
+<ul>
+<li>Original Issue: <a href="https://github.com/rust-lang/cargo/issues/4875">#4875</a></li>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/6790">#6790</a></li>
+</ul>
+<p>This feature allows you to specify the directory where artifacts will be
+copied to after they are built. Typically artifacts are only written to the
+<code>target/release</code> or <code>target/debug</code> directories. However, determining the
+exact filename can be tricky since you need to parse JSON output. The
+<code>--out-dir</code> flag makes it easier to predictably access the artifacts. Note
+that the artifacts are copied, so the originals are still in the <code>target</code>
+directory. Example:</p>
+<pre><code class="language-sh">cargo +nightly build --out-dir=out -Z unstable-options
+</code></pre>
+<p>This can also be specified in <code>.cargo/config.toml</code> files.</p>
+<pre><code class="language-toml">[build]
+out-dir = &quot;out&quot;
+</code></pre>
+<h3 id="doctest-xcompile"><a class="header" href="#doctest-xcompile">doctest-xcompile</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/7040">#7040</a></li>
+<li>Tracking Rustc Issue: <a href="https://github.com/rust-lang/rust/issues/64245">#64245</a></li>
+</ul>
+<p>This flag changes <code>cargo test</code>'s behavior when handling doctests when
+a target is passed. Currently, if a target is passed that is different
+from the host cargo will simply skip testing doctests. If this flag is
+present, cargo will continue as normal, passing the tests to doctest,
+while also passing it a <code>--target</code> option, as well as enabling
+<code>-Zunstable-features --enable-per-target-ignores</code> and passing along
+information from <code>.cargo/config.toml</code>. See the rustc issue for more information.</p>
+<pre><code class="language-sh">cargo test --target foo -Zdoctest-xcompile
+</code></pre>
+<h3 id="multitarget"><a class="header" href="#multitarget">multitarget</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/8176">#8176</a></li>
+</ul>
+<p>This flag allows passing multiple <code>--target</code> flags to the <code>cargo</code> subcommand
+selected. When multiple <code>--target</code> flags are passed the selected build targets
+will be built for each of the selected architectures.</p>
+<p>For example to compile a library for both 32 and 64-bit:</p>
+<pre><code>cargo build --target x86_64-unknown-linux-gnu --target i686-unknown-linux-gnu
+</code></pre>
+<p>or running tests for both targets:</p>
+<pre><code>cargo test --target x86_64-unknown-linux-gnu --target i686-unknown-linux-gnu
+</code></pre>
+<h3 id="custom-named-profiles"><a class="header" href="#custom-named-profiles">Custom named profiles</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/6988">rust-lang/cargo#6988</a></li>
+<li>RFC: <a href="https://github.com/rust-lang/rfcs/pull/2678">#2678</a></li>
+</ul>
+<p>With this feature you can define custom profiles having new names. With the
+custom profile enabled, build artifacts can be emitted by default to
+directories other than <code>release</code> or <code>debug</code>, based on the custom profile's
+name.</p>
+<p>For example:</p>
+<pre><code class="language-toml">cargo-features = [&quot;named-profiles&quot;]
+
+[profile.release-lto]
+inherits = &quot;release&quot;
+lto = true
+</code></pre>
+<p>An <code>inherits</code> key is used in order to receive attributes from other profiles,
+so that a new custom profile can be based on the standard <code>dev</code> or <code>release</code>
+profile presets. Cargo emits errors in case <code>inherits</code> loops are detected. When
+considering inheritance hierarchy, all profiles directly or indirectly inherit
+from either from <code>release</code> or from <code>dev</code>.</p>
+<p>Valid profile names are: must not be empty, use only alphanumeric characters or
+<code>-</code> or <code>_</code>.</p>
+<p>Passing <code>--profile</code> with the profile's name to various Cargo commands, directs
+operations to use the profile's attributes. Overrides that are specified in the
+profiles from which the custom profile inherits are inherited too.</p>
+<p>For example, using <code>cargo build</code> with <code>--profile</code> and the manifest from above:</p>
+<pre><code class="language-sh">cargo +nightly build --profile release-lto -Z unstable-options
+</code></pre>
+<p>When a custom profile is used, build artifacts go to a different target by
+default. In the example above, you can expect to see the outputs under
+<code>target/release-lto</code>.</p>
+<h4 id="new-dir-name-attribute"><a class="header" href="#new-dir-name-attribute">New <code>dir-name</code> attribute</a></h4>
+<p>Some of the paths generated under <code>target/</code> have resulted in a de-facto &quot;build
+protocol&quot;, where <code>cargo</code> is invoked as a part of a larger project build. So, to
+preserve the existing behavior, there is also a new attribute <code>dir-name</code>, which
+when left unspecified, defaults to the name of the profile. For example:</p>
+<pre><code class="language-toml">[profile.release-lto]
+inherits = &quot;release&quot;
+dir-name = &quot;lto&quot;  # Emits to target/lto instead of target/release-lto
+lto = true
+</code></pre>
+<h3 id="namespaced-features"><a class="header" href="#namespaced-features">Namespaced features</a></h3>
+<ul>
+<li>Original issue: <a href="https://github.com/rust-lang/cargo/issues/1286">#1286</a></li>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/5565">#5565</a></li>
+</ul>
+<p>The <code>namespaced-features</code> option makes two changes to how features can be
+specified:</p>
+<ul>
+<li>Features may now be defined with the same name as a dependency.</li>
+<li>Optional dependencies can be explicitly enabled in the <code>[features]</code> table
+with the <code>dep:</code> prefix, which enables the dependency without enabling a
+feature of the same name.</li>
+</ul>
+<p>By default, an optional dependency <code>foo</code> will define a feature <code>foo = [&quot;dep:foo&quot;]</code> <em>unless</em> <code>dep:foo</code> is mentioned in any other feature, or the
+<code>foo</code> feature is already defined. This helps prevent unnecessary boilerplate
+of listing every optional dependency, but still allows you to override the
+implicit feature.</p>
+<p>This allows two use cases that were previously not possible:</p>
+<ul>
+<li>You can &quot;hide&quot; an optional dependency, so that external users cannot
+explicitly enable that optional dependency.</li>
+<li>There is no longer a need to create &quot;funky&quot; feature names to work around the
+restriction that features cannot shadow dependency names.</li>
+</ul>
+<p>To enable namespaced-features, use the <code>-Z namespaced-features</code> command-line
+flag.</p>
+<p>An example of hiding an optional dependency:</p>
+<pre><code class="language-toml">[dependencies]
+regex = { version = &quot;1.4.1&quot;, optional = true }
+lazy_static = { version = &quot;1.4.0&quot;, optional = true }
+
+[features]
+regex = [&quot;dep:regex&quot;, &quot;dep:lazy_static&quot;]
+</code></pre>
+<p>In this example, the &quot;regex&quot; feature enables both <code>regex</code> and <code>lazy_static</code>.
+The <code>lazy_static</code> feature does not exist, and a user cannot explicitly enable
+it. This helps hide internal details of how your package is implemented.</p>
+<p>An example of avoiding &quot;funky&quot; names:</p>
+<pre><code class="language-toml">[dependencies]
+bigdecimal = &quot;0.1&quot;
+chrono = &quot;0.4&quot;
+num-bigint = &quot;0.2&quot;
+serde = {version = &quot;1.0&quot;, optional = true }
+
+[features]
+serde = [&quot;dep:serde&quot;, &quot;bigdecimal/serde&quot;, &quot;chrono/serde&quot;, &quot;num-bigint/serde&quot;]
+</code></pre>
+<p>In this case, <code>serde</code> is a natural name to use for a feature, because it is
+relevant to your exported API. However, previously you would need to use a
+name like <code>serde1</code> to work around the naming limitation if you wanted to also
+enable other features.</p>
+<h3 id="build-plan"><a class="header" href="#build-plan">Build-plan</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/5579">#5579</a></li>
+</ul>
+<p>The <code>--build-plan</code> argument for the <code>build</code> command will output JSON with
+information about which commands would be run without actually executing
+anything. This can be useful when integrating with another build tool.
+Example:</p>
+<pre><code class="language-sh">cargo +nightly build --build-plan -Z unstable-options
+</code></pre>
+<h3 id="metabuild"><a class="header" href="#metabuild">Metabuild</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/rust/issues/49803">rust-lang/rust#49803</a></li>
+<li>RFC: <a href="https://github.com/rust-lang/rfcs/blob/master/text/2196-metabuild.md">#2196</a></li>
+</ul>
+<p>Metabuild is a feature to have declarative build scripts. Instead of writing
+a <code>build.rs</code> script, you specify a list of build dependencies in the
+<code>metabuild</code> key in <code>Cargo.toml</code>. A build script is automatically generated
+that runs each build dependency in order. Metabuild packages can then read
+metadata from <code>Cargo.toml</code> to specify their behavior.</p>
+<p>Include <code>cargo-features</code> at the top of <code>Cargo.toml</code>, a <code>metabuild</code> key in the
+<code>package</code>, list the dependencies in <code>build-dependencies</code>, and add any metadata
+that the metabuild packages require under <code>package.metadata</code>. Example:</p>
+<pre><code class="language-toml">cargo-features = [&quot;metabuild&quot;]
+
+[package]
+name = &quot;mypackage&quot;
+version = &quot;0.0.1&quot;
+metabuild = [&quot;foo&quot;, &quot;bar&quot;]
+
+[build-dependencies]
+foo = &quot;1.0&quot;
+bar = &quot;1.0&quot;
+
+[package.metadata.foo]
+extra-info = &quot;qwerty&quot;
+</code></pre>
+<p>Metabuild packages should have a public function called <code>metabuild</code> that
+performs the same actions as a regular <code>build.rs</code> script would perform.</p>
+<h3 id="public-dependency"><a class="header" href="#public-dependency">public-dependency</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/rust/issues/44663">#44663</a></li>
+</ul>
+<p>The 'public-dependency' feature allows marking dependencies as 'public'
+or 'private'. When this feature is enabled, additional information is passed to rustc to allow
+the 'exported_private_dependencies' lint to function properly.</p>
+<p>This requires the appropriate key to be set in <code>cargo-features</code>:</p>
+<pre><code class="language-toml">cargo-features = [&quot;public-dependency&quot;]
+
+[dependencies]
+my_dep = { version = &quot;1.2.3&quot;, public = true }
+private_dep = &quot;2.0.0&quot; # Will be 'private' by default
+</code></pre>
+<h3 id="build-std"><a class="header" href="#build-std">build-std</a></h3>
+<ul>
+<li>Tracking Repository: https://github.com/rust-lang/wg-cargo-std-aware</li>
+</ul>
+<p>The <code>build-std</code> feature enables Cargo to compile the standard library itself as
+part of a crate graph compilation. This feature has also historically been known
+as &quot;std-aware Cargo&quot;. This feature is still in very early stages of development,
+and is also a possible massive feature addition to Cargo. This is a very large
+feature to document, even in the minimal form that it exists in today, so if
+you're curious to stay up to date you'll want to follow the <a href="https://github.com/rust-lang/wg-cargo-std-aware">tracking
+repository</a> and its set of
+issues.</p>
+<p>The functionality implemented today is behind a flag called <code>-Z build-std</code>. This
+flag indicates that Cargo should compile the standard library from source code
+using the same profile as the main build itself. Note that for this to work you
+need to have the source code for the standard library available, and at this
+time the only supported method of doing so is to add the <code>rust-src</code> rust rustup
+component:</p>
+<pre><code class="language-console">$ rustup component add rust-src --toolchain nightly
+</code></pre>
+<p>It is also required today that the <code>-Z build-std</code> flag is combined with the
+<code>--target</code> flag. Note that you're not forced to do a cross compilation, you're
+just forced to pass <code>--target</code> in one form or another.</p>
+<p>Usage looks like:</p>
+<pre><code class="language-console">$ cargo new foo
+$ cd foo
+$ cargo +nightly run -Z build-std --target x86_64-unknown-linux-gnu
+   Compiling core v0.0.0 (...)
+   ...
+   Compiling foo v0.1.0 (...)
+    Finished dev [unoptimized + debuginfo] target(s) in 21.00s
+     Running `target/x86_64-unknown-linux-gnu/debug/foo`
+Hello, world!
+</code></pre>
+<p>Here we recompiled the standard library in debug mode with debug assertions
+(like <code>src/main.rs</code> is compiled) and everything was linked together at the end.</p>
+<p>Using <code>-Z build-std</code> will implicitly compile the stable crates <code>core</code>, <code>std</code>,
+<code>alloc</code>, and <code>proc_macro</code>. If you're using <code>cargo test</code> it will also compile the
+<code>test</code> crate. If you're working with an environment which does not support some
+of these crates, then you can pass an argument to <code>-Zbuild-std</code> as well:</p>
+<pre><code class="language-console">$ cargo +nightly build -Z build-std=core,alloc
+</code></pre>
+<p>The value here is a comma-separated list of standard library crates to build.</p>
+<h4 id="requirements"><a class="header" href="#requirements">Requirements</a></h4>
+<p>As a summary, a list of requirements today to use <code>-Z build-std</code> are:</p>
+<ul>
+<li>You must install libstd's source code through <code>rustup component add rust-src</code></li>
+<li>You must pass <code>--target</code></li>
+<li>You must use both a nightly Cargo and a nightly rustc</li>
+<li>The <code>-Z build-std</code> flag must be passed to all <code>cargo</code> invocations.</li>
+</ul>
+<h4 id="reporting-bugs-and-helping-out"><a class="header" href="#reporting-bugs-and-helping-out">Reporting bugs and helping out</a></h4>
+<p>The <code>-Z build-std</code> feature is in the very early stages of development! This
+feature for Cargo has an extremely long history and is very large in scope, and
+this is just the beginning. If you'd like to report bugs please either report
+them to:</p>
+<ul>
+<li>Cargo - https://github.com/rust-lang/cargo/issues/new - for implementation bugs</li>
+<li>The tracking repository -
+https://github.com/rust-lang/wg-cargo-std-aware/issues/new - for larger design
+questions.</li>
+</ul>
+<p>Also if you'd like to see a feature that's not yet implemented and/or if
+something doesn't quite work the way you'd like it to, feel free to check out
+the <a href="https://github.com/rust-lang/wg-cargo-std-aware/issues">issue tracker</a> of
+the tracking repository, and if it's not there please file a new issue!</p>
+<h3 id="build-std-features"><a class="header" href="#build-std-features">build-std-features</a></h3>
+<ul>
+<li>Tracking Repository: https://github.com/rust-lang/wg-cargo-std-aware</li>
+</ul>
+<p>This flag is a sibling to the <code>-Zbuild-std</code> feature flag. This will configure
+the features enabled for the standard library itself when building the standard
+library. The default enabled features, at this time, are <code>backtrace</code> and
+<code>panic_unwind</code>. This flag expects a comma-separated list and, if provided, will
+override the default list of features enabled.</p>
+<h3 id="timings"><a class="header" href="#timings">timings</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/7405">#7405</a></li>
+</ul>
+<p>The <code>timings</code> feature gives some information about how long each compilation
+takes, and tracks concurrency information over time.</p>
+<pre><code class="language-sh">cargo +nightly build -Z timings
+</code></pre>
+<p>The <code>-Ztimings</code> flag can optionally take a comma-separated list of the
+following values:</p>
+<ul>
+<li><code>html</code> — Saves a file called <code>cargo-timing.html</code> to the current directory
+with a report of the compilation. Files are also saved with a timestamp in
+the filename if you want to look at older runs.</li>
+<li><code>info</code> — Displays a message to stdout after each compilation finishes with
+how long it took.</li>
+<li><code>json</code> — Emits some JSON information about timing information.</li>
+</ul>
+<p>The default if none are specified is <code>html,info</code>.</p>
+<h4 id="reading-the-graphs"><a class="header" href="#reading-the-graphs">Reading the graphs</a></h4>
+<p>There are two graphs in the output. The &quot;unit&quot; graph shows the duration of
+each unit over time. A &quot;unit&quot; is a single compiler invocation. There are lines
+that show which additional units are &quot;unlocked&quot; when a unit finishes. That is,
+it shows the new units that are now allowed to run because their dependencies
+are all finished. Hover the mouse over a unit to highlight the lines. This can
+help visualize the critical path of dependencies. This may change between runs
+because the units may finish in different orders.</p>
+<p>The &quot;codegen&quot; times are highlighted in a lavender color. In some cases, build
+pipelining allows units to start when their dependencies are performing code
+generation. This information is not always displayed (for example, binary
+units do not show when code generation starts).</p>
+<p>The &quot;custom build&quot; units are <code>build.rs</code> scripts, which when run are
+highlighted in orange.</p>
+<p>The second graph shows Cargo's concurrency over time. The three lines are:</p>
+<ul>
+<li>&quot;Waiting&quot; (red) — This is the number of units waiting for a CPU slot to
+open.</li>
+<li>&quot;Inactive&quot; (blue) — This is the number of units that are waiting for their
+dependencies to finish.</li>
+<li>&quot;Active&quot; (green) — This is the number of units currently running.</li>
+</ul>
+<p>Note: This does not show the concurrency in the compiler itself. <code>rustc</code>
+coordinates with Cargo via the &quot;job server&quot; to stay within the concurrency
+limit. This currently mostly applies to the code generation phase.</p>
+<p>Tips for addressing compile times:</p>
+<ul>
+<li>Look for slow dependencies.
+<ul>
+<li>Check if they have features that you may wish to consider disabling.</li>
+<li>Consider trying to remove the dependency completely.</li>
+</ul>
+</li>
+<li>Look for a crate being built multiple times with different versions. Try to
+remove the older versions from the dependency graph.</li>
+<li>Split large crates into smaller pieces.</li>
+<li>If there are a large number of crates bottlenecked on a single crate, focus
+your attention on improving that one crate to improve parallelism.</li>
+</ul>
+<h3 id="binary-dep-depinfo"><a class="header" href="#binary-dep-depinfo">binary-dep-depinfo</a></h3>
+<ul>
+<li>Tracking rustc issue: <a href="https://github.com/rust-lang/rust/issues/63012">#63012</a></li>
+</ul>
+<p>The <code>-Z binary-dep-depinfo</code> flag causes Cargo to forward the same flag to
+<code>rustc</code> which will then cause <code>rustc</code> to include the paths of all binary
+dependencies in the &quot;dep info&quot; file (with the <code>.d</code> extension). Cargo then uses
+that information for change-detection (if any binary dependency changes, then
+the crate will be rebuilt). The primary use case is for building the compiler
+itself, which has implicit dependencies on the standard library that would
+otherwise be untracked for change-detection.</p>
+<h3 id="panic-abort-tests"><a class="header" href="#panic-abort-tests">panic-abort-tests</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/rust/issues/67650">#67650</a></li>
+<li>Original Pull Request: <a href="https://github.com/rust-lang/cargo/pull/7460">#7460</a></li>
+</ul>
+<p>The <code>-Z panic-abort-tests</code> flag will enable nightly support to compile test
+harness crates with <code>-Cpanic=abort</code>. Without this flag Cargo will compile tests,
+and everything they depend on, with <code>-Cpanic=unwind</code> because it's the only way
+<code>test</code>-the-crate knows how to operate. As of <a href="https://github.com/rust-lang/rust/pull/64158">rust-lang/rust#64158</a>, however,
+the <code>test</code> crate supports <code>-C panic=abort</code> with a test-per-process, and can help
+avoid compiling crate graphs multiple times.</p>
+<p>It's currently unclear how this feature will be stabilized in Cargo, but we'd
+like to stabilize it somehow!</p>
+<h3 id="config-cli"><a class="header" href="#config-cli">config-cli</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/7722">#7722</a></li>
+</ul>
+<p>The <code>--config</code> CLI option allows arbitrary config values to be passed
+in via the command-line. The argument should be in TOML syntax of KEY=VALUE:</p>
+<pre><code class="language-console">cargo +nightly -Zunstable-options --config net.git-fetch-with-cli=true fetch
+</code></pre>
+<p>The <code>--config</code> option may be specified multiple times, in which case the
+values are merged in left-to-right order, using the same merging logic that
+multiple config files use. CLI values take precedence over environment
+variables, which take precedence over config files.</p>
+<p>Some examples of what it looks like using Bourne shell syntax:</p>
+<pre><code class="language-console"># Most shells will require escaping.
+cargo --config http.proxy=\&quot;http://example.com\&quot; …
+
+# Spaces may be used.
+cargo --config &quot;net.git-fetch-with-cli = true&quot; …
+
+# TOML array example. Single quotes make it easier to read and write.
+cargo --config 'build.rustdocflags = [&quot;--html-in-header&quot;, &quot;header.html&quot;]' …
+
+# Example of a complex TOML key.
+cargo --config &quot;target.'cfg(all(target_arch = \&quot;arm\&quot;, target_os = \&quot;none\&quot;))'.runner = 'my-runner'&quot; …
+
+# Example of overriding a profile setting.
+cargo --config profile.dev.package.image.opt-level=3 …
+</code></pre>
+<h3 id="config-include"><a class="header" href="#config-include">config-include</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/7723">#7723</a></li>
+</ul>
+<p>The <code>include</code> key in a config file can be used to load another config file. It
+takes a string for a path to another file relative to the config file, or a
+list of strings. It requires the <code>-Zconfig-include</code> command-line option.</p>
+<pre><code class="language-toml"># .cargo/config
+include = '../../some-common-config.toml'
+</code></pre>
+<p>The config values are first loaded from the include path, and then the config
+file's own values are merged on top of it.</p>
+<p>This can be paired with <a href="#config-cli">config-cli</a> to specify a file to load
+from the command-line. Pass a path to a config file as the argument to
+<code>--config</code>:</p>
+<pre><code class="language-console">cargo +nightly -Zunstable-options -Zconfig-include --config somefile.toml build
+</code></pre>
+<p>CLI paths are relative to the current working directory.</p>
+<h3 id="target-applies-to-host"><a class="header" href="#target-applies-to-host">target-applies-to-host</a></h3>
+<ul>
+<li>Original Pull Request: <a href="https://github.com/rust-lang/cargo/pull/9322">#9322</a></li>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/9453">#9453</a></li>
+</ul>
+<p>The <code>target-applies-to-host</code> key in a config file can be used set the desired
+behavior for passing target config flags to build scripts.</p>
+<p>It requires the <code>-Ztarget-applies-to-host</code> command-line option.</p>
+<p>The current default for <code>target-applies-to-host</code> is <code>true</code>, which will be
+changed to <code>false</code> in the future, if <code>-Zhost-config</code> is used the new <code>false</code>
+default will be set for <code>target-applies-to-host</code>.</p>
+<pre><code class="language-toml"># config.toml
+target-applies-to-host = false
+</code></pre>
+<pre><code class="language-console">cargo +nightly -Ztarget-applies-to-host build --target x86_64-unknown-linux-gnu
+</code></pre>
+<h3 id="host-config"><a class="header" href="#host-config">host-config</a></h3>
+<ul>
+<li>Original Pull Request: <a href="https://github.com/rust-lang/cargo/pull/9322">#9322</a></li>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/9452">#9452</a></li>
+</ul>
+<p>The <code>host</code> key in a config file can be used pass flags to host build targets
+such as build scripts that must run on the host system instead of the target
+system when cross compiling. It supports both generic and host arch specific
+tables. Matching host arch tables take precedence over generic host tables.</p>
+<p>It requires the <code>-Zhost-config</code> and <code>-Ztarget-applies-to-host</code> command-line
+options to be set.</p>
+<pre><code class="language-toml"># config.toml
+[host]
+linker = &quot;/path/to/host/linker&quot;
+[host.x86_64-unknown-linux-gnu]
+linker = &quot;/path/to/host/arch/linker&quot;
+[target.x86_64-unknown-linux-gnu]
+linker = &quot;/path/to/target/linker&quot;
+</code></pre>
+<p>The generic <code>host</code> table above will be entirely ignored when building on a
+<code>x86_64-unknown-linux-gnu</code> host as the <code>host.x86_64-unknown-linux-gnu</code> table
+takes precedence.</p>
+<p>Setting <code>-Zhost-config</code> changes the default for <code>target-applies-to-host</code> to
+<code>false</code> from <code>true</code>.</p>
+<pre><code class="language-console">cargo +nightly -Ztarget-applies-to-host -Zhost-config build --target x86_64-unknown-linux-gnu
+</code></pre>
+<h3 id="unit-graph"><a class="header" href="#unit-graph">unit-graph</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/8002">#8002</a></li>
+</ul>
+<p>The <code>--unit-graph</code> flag can be passed to any build command (<code>build</code>, <code>check</code>,
+<code>run</code>, <code>test</code>, <code>bench</code>, <code>doc</code>, etc.) to emit a JSON object to stdout which
+represents Cargo's internal unit graph. Nothing is actually built, and the
+command returns immediately after printing. Each &quot;unit&quot; corresponds to an
+execution of the compiler. These objects also include which unit each unit
+depends on.</p>
+<pre><code>cargo +nightly build --unit-graph -Z unstable-options
+</code></pre>
+<p>This structure provides a more complete view of the dependency relationship as
+Cargo sees it. In particular, the &quot;features&quot; field supports the new feature
+resolver where a dependency can be built multiple times with different
+features. <code>cargo metadata</code> fundamentally cannot represent the relationship of
+features between different dependency kinds, and features now depend on which
+command is run and which packages and targets are selected. Additionally it
+can provide details about intra-package dependencies like build scripts or
+tests.</p>
+<p>The following is a description of the JSON structure:</p>
+<pre><code class="language-javascript">{
+  /* Version of the JSON output structure. If any backwards incompatible
+     changes are made, this value will be increased.
+  */
+  &quot;version&quot;: 1,
+  /* Array of all build units. */
+  &quot;units&quot;: [
+    {
+      /* An opaque string which indicates the package.
+         Information about the package can be obtained from `cargo metadata`.
+      */
+      &quot;pkg_id&quot;: &quot;my-package 0.1.0 (path+file:///path/to/my-package)&quot;,
+      /* The Cargo target. See the `cargo metadata` documentation for more
+         information about these fields.
+         https://doc.rust-lang.org/cargo/commands/cargo-metadata.html
+      */
+      &quot;target&quot;: {
+        &quot;kind&quot;: [&quot;lib&quot;],
+        &quot;crate_types&quot;: [&quot;lib&quot;],
+        &quot;name&quot;: &quot;my-package&quot;,
+        &quot;src_path&quot;: &quot;/path/to/my-package/src/lib.rs&quot;,
+        &quot;edition&quot;: &quot;2018&quot;,
+        &quot;test&quot;: true,
+        &quot;doctest&quot;: true
+      },
+      /* The profile settings for this unit.
+         These values may not match the profile defined in the manifest.
+         Units can use modified profile settings. For example, the &quot;panic&quot;
+         setting can be overridden for tests to force it to &quot;unwind&quot;.
+      */
+      &quot;profile&quot;: {
+        /* The profile name these settings are derived from. */
+        &quot;name&quot;: &quot;dev&quot;,
+        /* The optimization level as a string. */
+        &quot;opt_level&quot;: &quot;0&quot;,
+        /* The LTO setting as a string. */
+        &quot;lto&quot;: &quot;false&quot;,
+        /* The codegen units as an integer.
+           `null` if it should use the compiler's default.
+        */
+        &quot;codegen_units&quot;: null,
+        /* The debug information level as an integer.
+           `null` if it should use the compiler's default (0).
+        */
+        &quot;debuginfo&quot;: 2,
+        /* Whether or not debug-assertions are enabled. */
+        &quot;debug_assertions&quot;: true,
+        /* Whether or not overflow-checks are enabled. */
+        &quot;overflow_checks&quot;: true,
+        /* Whether or not rpath is enabled. */
+        &quot;rpath&quot;: false,
+        /* Whether or not incremental is enabled. */
+        &quot;incremental&quot;: true,
+        /* The panic strategy, &quot;unwind&quot; or &quot;abort&quot;. */
+        &quot;panic&quot;: &quot;unwind&quot;
+      },
+      /* Which platform this target is being built for.
+         A value of `null` indicates it is for the host.
+         Otherwise it is a string of the target triple (such as
+         &quot;x86_64-unknown-linux-gnu&quot;).
+      */
+      &quot;platform&quot;: null,
+      /* The &quot;mode&quot; for this unit. Valid values:
+
+         * &quot;test&quot; — Build using `rustc` as a test.
+         * &quot;build&quot; — Build using `rustc`.
+         * &quot;check&quot; — Build using `rustc` in &quot;check&quot; mode.
+         * &quot;doc&quot; — Build using `rustdoc`.
+         * &quot;doctest&quot; — Test using `rustdoc`.
+         * &quot;run-custom-build&quot; — Represents the execution of a build script.
+      */
+      &quot;mode&quot;: &quot;build&quot;,
+      /* Array of features enabled on this unit as strings. */
+      &quot;features&quot;: [&quot;somefeat&quot;],
+      /* Whether or not this is a standard-library unit,
+         part of the unstable build-std feature.
+         If not set, treat as `false`.
+      */
+      &quot;is_std&quot;: false,
+      /* Array of dependencies of this unit. */
+      &quot;dependencies&quot;: [
+        {
+          /* Index in the &quot;units&quot; array for the dependency. */
+          &quot;index&quot;: 1,
+          /* The name that this dependency will be referred as. */
+          &quot;extern_crate_name&quot;: &quot;unicode_xid&quot;,
+          /* Whether or not this dependency is &quot;public&quot;,
+             part of the unstable public-dependency feature.
+             If not set, the public-dependency feature is not enabled.
+          */
+          &quot;public&quot;: false,
+          /* Whether or not this dependency is injected into the prelude,
+             currently used by the build-std feature.
+             If not set, treat as `false`.
+          */
+          &quot;noprelude&quot;: false
+        }
+      ]
+    },
+    // ...
+  ],
+  /* Array of indices in the &quot;units&quot; array that are the &quot;roots&quot; of the
+     dependency graph.
+  */
+  &quot;roots&quot;: [0],
+}
+</code></pre>
+<h3 id="profile-strip-option"><a class="header" href="#profile-strip-option">Profile <code>strip</code> option</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/rust/issues/72110">rust-lang/rust#72110</a></li>
+</ul>
+<p>This feature provides a new option in the <code>[profile]</code> section to strip either
+symbols or debuginfo from a binary. This can be enabled like so:</p>
+<pre><code class="language-toml">cargo-features = [&quot;strip&quot;]
+
+[package]
+# ...
+
+[profile.release]
+strip = &quot;debuginfo&quot;
+</code></pre>
+<p>Other possible string values of <code>strip</code> are <code>none</code>, <code>symbols</code>, and <code>off</code>. The default is <code>none</code>.</p>
+<p>You can also configure this option with the two absolute boolean values
+<code>true</code> and <code>false</code>. The former enables <code>strip</code> at its higher level, <code>symbols</code>,
+while the latter disables <code>strip</code> completely.</p>
+<h3 id="rustdoc-map"><a class="header" href="#rustdoc-map">rustdoc-map</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/8296">#8296</a></li>
+</ul>
+<p>This feature adds configuration settings that are passed to <code>rustdoc</code> so that
+it can generate links to dependencies whose documentation is hosted elsewhere
+when the dependency is not documented. First, add this to <code>.cargo/config</code>:</p>
+<pre><code class="language-toml">[doc.extern-map.registries]
+crates-io = &quot;https://docs.rs/&quot;
+</code></pre>
+<p>Then, when building documentation, use the following flags to cause links
+to dependencies to link to <a href="https://docs.rs/">docs.rs</a>:</p>
+<pre><code>cargo +nightly doc --no-deps -Zrustdoc-map
+</code></pre>
+<p>The <code>registries</code> table contains a mapping of registry name to the URL to link
+to. The URL may have the markers <code>{pkg_name}</code> and <code>{version}</code> which will get
+replaced with the corresponding values. If neither are specified, then Cargo
+defaults to appending <code>{pkg_name}/{version}/</code> to the end of the URL.</p>
+<p>Another config setting is available to redirect standard library links. By
+default, rustdoc creates links to <a href="https://doc.rust-lang.org/nightly/">https://doc.rust-lang.org/nightly/</a>. To
+change this behavior, use the <code>doc.extern-map.std</code> setting:</p>
+<pre><code class="language-toml">[doc.extern-map]
+std = &quot;local&quot;
+</code></pre>
+<p>A value of <code>&quot;local&quot;</code> means to link to the documentation found in the <code>rustc</code>
+sysroot. If you are using rustup, this documentation can be installed with
+<code>rustup component add rust-docs</code>.</p>
+<p>The default value is <code>&quot;remote&quot;</code>.</p>
+<p>The value may also take a URL for a custom location.</p>
+<h3 id="terminal-width"><a class="header" href="#terminal-width">terminal-width</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/rust/issues/84673">#84673</a></li>
+</ul>
+<p>This feature provides a new flag, <code>-Z terminal-width</code>, which is used to pass
+a terminal width to <code>rustc</code> so that error messages containing long lines
+can be intelligently truncated.</p>
+<p>For example, passing <code>-Z terminal-width=20</code> (an arbitrarily low value) might
+produce the following error:</p>
+<pre><code class="language-text">error[E0308]: mismatched types
+  --&gt; src/main.rs:2:17
+  |
+2 | ..._: () = 42;
+  |       --   ^^ expected `()`, found integer
+  |       |
+  |       expected due to this
+
+error: aborting due to previous error
+</code></pre>
+<p>In contrast, without <code>-Z terminal-width</code>, the error would look as shown below:</p>
+<pre><code class="language-text">error[E0308]: mismatched types
+ --&gt; src/main.rs:2:17
+  |
+2 |     let _: () = 42;
+  |            --   ^^ expected `()`, found integer
+  |            |
+  |            expected due to this
+
+error: aborting due to previous error
+</code></pre>
+<h3 id="weak-dependency-features"><a class="header" href="#weak-dependency-features">Weak dependency features</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/8832">#8832</a></li>
+</ul>
+<p>The <code>-Z weak-dep-features</code> command-line options enables the ability to use
+<code>dep_name?/feat_name</code> syntax in the <code>[features]</code> table. The <code>?</code> indicates that
+the optional dependency <code>dep_name</code> will not be automatically enabled. The
+feature <code>feat_name</code> will only be added if something else enables the
+<code>dep_name</code> dependency.</p>
+<p>Example:</p>
+<pre><code class="language-toml">[dependencies]
+serde = { version = &quot;1.0.117&quot;, optional = true, default-features = false }
+
+[features]
+std = [&quot;serde?/std&quot;]
+</code></pre>
+<p>In this example, the <code>std</code> feature enables the <code>std</code> feature on the <code>serde</code>
+dependency. However, unlike the normal <code>serde/std</code> syntax, it will not enable
+the optional dependency <code>serde</code> unless something else has included it.</p>
+<h3 id="per-package-target"><a class="header" href="#per-package-target">per-package-target</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/pull/9406">#9406</a></li>
+<li>Original Pull Request: <a href="https://github.com/rust-lang/cargo/pull/9030">#9030</a></li>
+<li>Original Issue: <a href="https://github.com/rust-lang/cargo/pull/7004">#7004</a></li>
+</ul>
+<p>The <code>per-package-target</code> feature adds two keys to the manifest:
+<code>package.default-target</code> and <code>package.forced-target</code>. The first makes
+the package be compiled by default (ie. when no <code>--target</code> argument is
+passed) for some target. The second one makes the package always be
+compiled for the target.</p>
+<p>Example:</p>
+<pre><code class="language-toml">[package]
+forced-target = &quot;wasm32-unknown-unknown&quot;
+</code></pre>
+<p>In this example, the crate is always built for
+<code>wasm32-unknown-unknown</code>, for instance because it is going to be used
+as a plugin for a main program that runs on the host (or provided on
+the command line) target.</p>
+<h3 id="credential-process"><a class="header" href="#credential-process">credential-process</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/8933">#8933</a></li>
+<li>RFC: <a href="https://github.com/rust-lang/rfcs/pull/2730">#2730</a></li>
+</ul>
+<p>The <code>credential-process</code> feature adds a config setting to fetch registry
+authentication tokens by calling an external process.</p>
+<p>Token authentication is used by the <a href="../commands/cargo-login.html"><code>cargo login</code></a>, <a href="../commands/cargo-publish.html"><code>cargo publish</code></a>,
+<a href="../commands/cargo-owner.html"><code>cargo owner</code></a>, and <a href="../commands/cargo-yank.html"><code>cargo yank</code></a> commands. Additionally, this feature adds
+a new <code>cargo logout</code> command.</p>
+<p>To use this feature, you must pass the <code>-Z credential-process</code> flag on the
+command-line. Additionally, you must remove any current tokens currently saved
+in the <a href="config.html#credentials"><code>credentials</code> file</a> (which can be done with the new <code>logout</code> command).</p>
+<h4 id="credential-process-configuration"><a class="header" href="#credential-process-configuration"><code>credential-process</code> Configuration</a></h4>
+<p>To configure which process to run to fetch the token, specify the process in
+the <code>registry</code> table in a <a href="config.html">config file</a>:</p>
+<pre><code class="language-toml">[registry]
+credential-process = &quot;/usr/bin/cargo-creds&quot;
+</code></pre>
+<p>If you want to use a different process for a specific registry, it can be
+specified in the <code>registries</code> table:</p>
+<pre><code class="language-toml">[registries.my-registry]
+credential-process = &quot;/usr/bin/cargo-creds&quot;
+</code></pre>
+<p>The value can be a string with spaces separating arguments or it can be a TOML
+array of strings.</p>
+<p>Command-line arguments allow special placeholders which will be replaced with
+the corresponding value:</p>
+<ul>
+<li><code>{name}</code> — The name of the registry.</li>
+<li><code>{api_url}</code> — The base URL of the registry API endpoints.</li>
+<li><code>{action}</code> — The authentication action (described below).</li>
+</ul>
+<p>Process names with the prefix <code>cargo:</code> are loaded from the <code>libexec</code> directory
+next to cargo. Several experimental credential wrappers are included with
+Cargo, and this provides convenient access to them:</p>
+<pre><code class="language-toml">[registry]
+credential-process = &quot;cargo:macos-keychain&quot;
+</code></pre>
+<p>The current wrappers are:</p>
+<ul>
+<li><code>cargo:macos-keychain</code>: Uses the macOS Keychain to store the token.</li>
+<li><code>cargo:wincred</code>: Uses the Windows Credential Manager to store the token.</li>
+<li><code>cargo:1password</code>: Uses the 1password <code>op</code> CLI to store the token. You must
+install the <code>op</code> CLI from the <a href="https://1password.com/downloads/command-line/">1password
+website</a>. You must run <code>op signin</code> at least once with the appropriate arguments (such as <code>op signin my.1password.com user@example.com</code>), unless you provide the sign-in-address
+and email arguments. The master password will be required on each request
+unless the appropriate <code>OP_SESSION</code> environment variable is set. It supports
+the following command-line arguments:
+<ul>
+<li><code>--account</code>: The account shorthand name to use.</li>
+<li><code>--vault</code>: The vault name to use.</li>
+<li><code>--sign-in-address</code>: The sign-in-address, which is a web address such as <code>my.1password.com</code>.</li>
+<li><code>--email</code>: The email address to sign in with.</li>
+</ul>
+</li>
+</ul>
+<p>A wrapper is available for GNOME
+<a href="https://wiki.gnome.org/Projects/Libsecret">libsecret</a> to store tokens on
+Linux systems. Due to build limitations, this wrapper is not available as a
+pre-compiled binary. This can be built and installed manually. First, install
+libsecret using your system package manager (for example, <code>sudo apt install libsecret-1-dev</code>). Then build and install the wrapper with <code>cargo install cargo-credential-gnome-secret</code>.
+In the config, use a path to the binary like this:</p>
+<pre><code class="language-toml">[registry]
+credential-process = &quot;cargo-credential-gnome-secret {action}&quot;
+</code></pre>
+<h4 id="credential-process-interface"><a class="header" href="#credential-process-interface"><code>credential-process</code> Interface</a></h4>
+<p>There are two different kinds of token processes that Cargo supports. The
+simple &quot;basic&quot; kind will only be called by Cargo when it needs a token. This
+is intended for simple and easy integration with password managers, that can
+often use pre-existing tooling. The more advanced &quot;Cargo&quot; kind supports
+different actions passed as a command-line argument. This is intended for more
+pleasant integration experience, at the expense of requiring a Cargo-specific
+process to glue to the password manager. Cargo will determine which kind is
+supported by the <code>credential-process</code> definition. If it contains the
+<code>{action}</code> argument, then it uses the advanced style, otherwise it assumes it
+only supports the &quot;basic&quot; kind.</p>
+<h5 id="basic-authenticator"><a class="header" href="#basic-authenticator">Basic authenticator</a></h5>
+<p>A basic authenticator is a process that returns a token on stdout. Newlines
+will be trimmed. The process inherits the user's stdin and stderr. It should
+exit 0 on success, and nonzero on error.</p>
+<p>With this form, <a href="../commands/cargo-login.html"><code>cargo login</code></a> and <code>cargo logout</code> are not supported and
+return an error if used.</p>
+<h5 id="cargo-authenticator"><a class="header" href="#cargo-authenticator">Cargo authenticator</a></h5>
+<p>The protocol between the Cargo and the process is very basic, intended to
+ensure the credential process is kept as simple as possible. Cargo will
+execute the process with the <code>{action}</code> argument indicating which action to
+perform:</p>
+<ul>
+<li><code>store</code> — Store the given token in secure storage.</li>
+<li><code>get</code> — Get a token from storage.</li>
+<li><code>erase</code> — Remove a token from storage.</li>
+</ul>
+<p>The <code>cargo login</code> command uses <code>store</code> to save a token. Commands that require
+authentication, like <code>cargo publish</code>, uses <code>get</code> to retrieve a token. <code>cargo logout</code> uses the <code>erase</code> command to remove a token.</p>
+<p>The process inherits the user's stderr, so the process can display messages.
+Some values are passed in via environment variables (see below). The expected
+interactions are:</p>
+<ul>
+<li>
+<p><code>store</code> — The token is sent to the process's stdin, terminated by a newline.
+The process should store the token keyed off the registry name. If the
+process fails, it should exit with a nonzero exit status.</p>
+</li>
+<li>
+<p><code>get</code> — The process should send the token to its stdout (trailing newline
+will be trimmed). The process inherits the user's stdin, should it need to
+receive input.</p>
+<p>If the process is unable to fulfill the request, it should exit with a
+nonzero exit code.</p>
+</li>
+<li>
+<p><code>erase</code> — The process should remove the token associated with the registry
+name. If the token is not found, the process should exit with a 0 exit
+status.</p>
+</li>
+</ul>
+<h5 id="environment"><a class="header" href="#environment">Environment</a></h5>
+<p>The following environment variables will be provided to the executed command:</p>
+<ul>
+<li><code>CARGO</code> — Path to the <code>cargo</code> binary executing the command.</li>
+<li><code>CARGO_REGISTRY_NAME</code> — Name of the registry the authentication token is for.</li>
+<li><code>CARGO_REGISTRY_API_URL</code> — The URL of the registry API.</li>
+</ul>
+<h4 id="cargo-logout"><a class="header" href="#cargo-logout"><code>cargo logout</code></a></h4>
+<p>A new <code>cargo logout</code> command has been added to make it easier to remove a
+token from storage. This supports both <a href="config.html#credentials"><code>credentials</code> file</a> tokens and
+<code>credential-process</code> tokens.</p>
+<p>When used with <code>credentials</code> file tokens, it needs the <code>-Z unstable-options</code>
+command-line option:</p>
+<pre><code class="language-console">cargo logout -Z unstable-options
+</code></pre>
+<p>When used with the <code>credential-process</code> config, use the <code>-Z credential-process</code> command-line option:</p>
+<pre><code class="language-console">cargo logout -Z credential-process
+</code></pre>
+<h3 id="edition-2021"><a class="header" href="#edition-2021">edition 2021</a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/rust/issues/85811">rust-lang/rust#85811</a></li>
+</ul>
+<p>Support for the 2021 <a href="../../edition-guide/index.html">edition</a> can be enabled by adding the <code>edition2021</code>
+unstable feature to the top of <code>Cargo.toml</code>:</p>
+<pre><code class="language-toml">cargo-features = [&quot;edition2021&quot;]
+
+[package]
+name = &quot;my-package&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
+</code></pre>
+<p>If you want to transition an existing project from a previous edition, then
+<code>cargo fix --edition</code> can be used on the nightly channel. After running <code>cargo fix</code>, you can switch the edition to 2021 as illustrated above.</p>
+<p>This feature is very unstable, and is only intended for early testing and
+experimentation. Future nightly releases may introduce changes for the 2021
+edition that may break your build.</p>
+<p>The 2021 edition will set the default <a href="resolver.html#resolver-versions">resolver version</a> to &quot;2&quot;.</p>
+<h3 id="future-incompat-report"><a class="header" href="#future-incompat-report">future incompat report</a></h3>
+<ul>
+<li>RFC: <a href="https://github.com/rust-lang/rfcs/blob/master/text/2834-cargo-report-future-incompat.md">#2834</a></li>
+<li>rustc Tracking Issue: <a href="https://github.com/rust-lang/rust/issues/71249">#71249</a></li>
+</ul>
+<p>The <code>-Z future-incompat-report</code> flag causes Cargo to check for
+future-incompatible warnings in all dependencies. These are warnings for
+changes that may become hard errors in the future, causing the dependency to
+stop building in a future version of rustc. If any warnings are found, a small
+notice is displayed indicating that the warnings were found, and provides
+instructions on how to display a full report.</p>
+<p>A full report can be displayed with the <code>cargo report future-incompatibilities -Z future-incompat-report --id ID</code> command, or by running the build again with
+the <code>--future-incompat-report</code> flag. The developer should then update their
+dependencies to a version where the issue is fixed, or work with the
+developers of the dependencies to help resolve the issue.</p>
+<h3 id="patch-in-config"><a class="header" href="#patch-in-config">patch-in-config</a></h3>
+<ul>
+<li>Original Pull Request: <a href="https://github.com/rust-lang/cargo/pull/9204">#9204</a></li>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/9269">#9269</a></li>
+</ul>
+<p>The <code>-Z patch-in-config</code> flag enables the use of <code>[patch]</code> sections in
+cargo configuration files (<code>.cargo/config.toml</code>). The format of such
+<code>[patch]</code> sections is identical to the one used in <code>Cargo.toml</code>.</p>
+<p>Since <code>.cargo/config.toml</code> files are not usually checked into source
+control, you should prefer patching using <code>Cargo.toml</code> where possible to
+ensure that other developers can compile your crate in their own
+environments. Patching through cargo configuration files is generally
+only appropriate when the patch section is automatically generated by an
+external build tool.</p>
+<p>If a given dependency is patched both in a cargo configuration file and
+a <code>Cargo.toml</code> file, the patch in <code>Cargo.toml</code> is used. If multiple
+configuration files patch the same dependency, standard cargo
+configuration merging is used, which prefers the value defined closest
+to the current directory, with <code>$HOME/.cargo/config.toml</code> taking the
+lowest precedence.</p>
+<p>Relative <code>path</code> dependencies in such a <code>[patch]</code> section are resolved
+relative to the configuration file they appear in.</p>
+<h3 id="cargo-config"><a class="header" href="#cargo-config"><code>cargo config</code></a></h3>
+<ul>
+<li>Original Issue: <a href="https://github.com/rust-lang/cargo/issues/2362">#2362</a></li>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/9301">#9301</a></li>
+</ul>
+<p>The <code>cargo config</code> subcommand provides a way to display the configuration
+files that cargo loads. It currently includes the <code>get</code> subcommand which
+can take an optional config value to display.</p>
+<pre><code class="language-console">cargo +nightly -Zunstable-options config get build.rustflags
+</code></pre>
+<p>If no config value is included, it will display all config values. See the
+<code>--help</code> output for more options available.</p>
+<h3 id="doctest-in-workspace"><a class="header" href="#doctest-in-workspace"><code>doctest-in-workspace</code></a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/9427">#9427</a></li>
+</ul>
+<p>The <code>-Z doctest-in-workspace</code> flag changes the behavior of the current working
+directory used when running doctests. Historically, Cargo has run <code>rustdoc --test</code> relative to the root of the package, with paths relative from that
+root. However, this is inconsistent with how <code>rustc</code> and <code>rustdoc</code> are
+normally run in a workspace, where they are run relative to the workspace
+root. This inconsistency causes problems in various ways, such as when passing
+RUSTDOCFLAGS with relative paths, or dealing with diagnostic output.</p>
+<p>The <code>-Z doctest-in-workspace</code> flag causes cargo to switch to running <code>rustdoc</code>
+from the root of the workspace. It also passes the <code>--test-run-directory</code> to
+<code>rustdoc</code> so that when <em>running</em> the tests, they are run from the root of the
+package. This preserves backwards compatibility and is consistent with how
+normal unittests are run.</p>
+<h3 id="rustc---print"><a class="header" href="#rustc---print">rustc <code>--print</code></a></h3>
+<ul>
+<li>Tracking Issue: <a href="https://github.com/rust-lang/cargo/issues/9357">#9357</a></li>
+</ul>
+<p><code>cargo rustc --print=VAL</code> forwards the <code>--print</code> flag to <code>rustc</code> in order to
+extract information from <code>rustc</code>. This runs <code>rustc</code> with the corresponding
+<a href="https://doc.rust-lang.org/rustc/command-line-arguments.html#--print-print-compiler-information"><code>--print</code></a>
+flag, and then immediately exits without compiling. Exposing this as a cargo
+flag allows cargo to inject the correct target and RUSTFLAGS based on the
+current configuration.</p>
+<p>The primary use case is to run <code>cargo rustc --print=cfg</code> to get config values
+for the appropriate target and influenced by any other RUSTFLAGS.</p>
+<h2 id="stabilized-and-removed-features"><a class="header" href="#stabilized-and-removed-features">Stabilized and removed features</a></h2>
+<h3 id="compile-progress"><a class="header" href="#compile-progress">Compile progress</a></h3>
+<p>The compile-progress feature has been stabilized in the 1.30 release.
+Progress bars are now enabled by default.
+See <a href="config.html#termprogresswhen"><code>term.progress</code></a> for more information about
+controlling this feature.</p>
+<h3 id="edition"><a class="header" href="#edition">Edition</a></h3>
+<p>Specifying the <code>edition</code> in <code>Cargo.toml</code> has been stabilized in the 1.31 release.
+See <a href="manifest.html#the-edition-field">the edition field</a> for more information
+about specifying this field.</p>
+<h3 id="rename-dependency"><a class="header" href="#rename-dependency">rename-dependency</a></h3>
+<p>Specifying renamed dependencies in <code>Cargo.toml</code> has been stabilized in the 1.31 release.
+See <a href="specifying-dependencies.html#renaming-dependencies-in-cargotoml">renaming dependencies</a>
+for more information about renaming dependencies.</p>
+<h3 id="alternate-registries"><a class="header" href="#alternate-registries">Alternate Registries</a></h3>
+<p>Support for alternate registries has been stabilized in the 1.34 release.
+See the <a href="registries.html">Registries chapter</a> for more information about alternate registries.</p>
+<h3 id="offline-mode"><a class="header" href="#offline-mode">Offline Mode</a></h3>
+<p>The offline feature has been stabilized in the 1.36 release.
+See the <a href="../commands/cargo.html#option-cargo---offline"><code>--offline</code> flag</a> for
+more information on using the offline mode.</p>
+<h3 id="publish-lockfile"><a class="header" href="#publish-lockfile">publish-lockfile</a></h3>
+<p>The <code>publish-lockfile</code> feature has been removed in the 1.37 release.
+The <code>Cargo.lock</code> file is always included when a package is published if the
+package contains a binary target. <code>cargo install</code> requires the <code>--locked</code> flag
+to use the <code>Cargo.lock</code> file.
+See <a href="../commands/cargo-package.html"><code>cargo package</code></a> and
+<a href="../commands/cargo-install.html"><code>cargo install</code></a> for more information.</p>
+<h3 id="default-run"><a class="header" href="#default-run">default-run</a></h3>
+<p>The <code>default-run</code> feature has been stabilized in the 1.37 release.
+See <a href="manifest.html#the-default-run-field">the <code>default-run</code> field</a> for more
+information about specifying the default target to run.</p>
+<h3 id="cache-messages"><a class="header" href="#cache-messages">cache-messages</a></h3>
+<p>Compiler message caching has been stabilized in the 1.40 release.
+Compiler warnings are now cached by default and will be replayed automatically
+when re-running Cargo.</p>
+<h3 id="install-upgrade"><a class="header" href="#install-upgrade">install-upgrade</a></h3>
+<p>The <code>install-upgrade</code> feature has been stabilized in the 1.41 release.
+<a href="../commands/cargo-install.html"><code>cargo install</code></a> will now automatically upgrade packages if they appear to be
+out-of-date. See the <a href="../commands/cargo-install.html"><code>cargo install</code></a> documentation for more information.</p>
+<h3 id="profile-overrides"><a class="header" href="#profile-overrides">Profile Overrides</a></h3>
+<p>Profile overrides have been stabilized in the 1.41 release.
+See <a href="profiles.html#overrides">Profile Overrides</a> for more information on using
+overrides.</p>
+<h3 id="config-profiles"><a class="header" href="#config-profiles">Config Profiles</a></h3>
+<p>Specifying profiles in Cargo config files and environment variables has been
+stabilized in the 1.43 release.
+See the <a href="config.html#profile">config <code>[profile]</code> table</a> for more information
+about specifying <a href="profiles.html">profiles</a> in config files.</p>
+<h3 id="crate-versions"><a class="header" href="#crate-versions">crate-versions</a></h3>
+<p>The <code>-Z crate-versions</code> flag has been stabilized in the 1.47 release.
+The crate version is now automatically included in the
+<a href="../commands/cargo-doc.html"><code>cargo doc</code></a> documentation sidebar.</p>
+<h3 id="features"><a class="header" href="#features">Features</a></h3>
+<p>The <code>-Z features</code> flag has been stabilized in the 1.51 release.
+See <a href="features.html#feature-resolver-version-2">feature resolver version 2</a>
+for more information on using the new feature resolver.</p>
+<h3 id="package-features"><a class="header" href="#package-features">package-features</a></h3>
+<p>The <code>-Z package-features</code> flag has been stabilized in the 1.51 release.
+See the <a href="features.html#resolver-version-2-command-line-flags">resolver version 2 command-line flags</a>
+for more information on using the features CLI options.</p>
+<h3 id="resolver"><a class="header" href="#resolver">Resolver</a></h3>
+<p>The <code>resolver</code> feature in <code>Cargo.toml</code> has been stabilized in the 1.51 release.
+See the <a href="resolver.html#resolver-versions">resolver versions</a> for more
+information about specifying resolvers.</p>
+<h3 id="extra-link-arg"><a class="header" href="#extra-link-arg">extra-link-arg</a></h3>
+<p>The <code>extra-link-arg</code> feature to specify additional linker arguments in build
+scripts has been stabilized in the 1.56 release. See the <a href="build-scripts.html#outputs-of-the-build-script">build script
+documentation</a> for more
+information on specifying extra linker arguments.</p>
+<h3 id="configurable-env"><a class="header" href="#configurable-env">configurable-env</a></h3>
+<p>The <code>configurable-env</code> feature to specify environment variables in Cargo
+configuration has been stabilized in the 1.56 release. See the <a href="config.html#env">config
+documentation</a> for more information about configuring
+environment variables.</p>
+<h3 id="rust-version"><a class="header" href="#rust-version">rust-version</a></h3>
+<p>The <code>rust-version</code> field in <code>Cargo.toml</code> has been stabilized in the 1.56 release.
+See the <a href="manifest.html#the-rust-version-field">rust-version field</a> for more
+information on using the <code>rust-version</code> field and the <code>--ignore-rust-version</code> option.</p>
+<h3 id="codegen-backend"><a class="header" href="#codegen-backend">codegen-backend</a></h3>
+<p>The <code>codegen-backend</code> feature makes it possible to select the codegen backend used by rustc using a
+profile.</p>
+<p>Example:</p>
+<pre><code class="language-toml">[package]
+name = &quot;foo&quot;
+
+[dependencies]
+serde = &quot;1.0.117&quot;
+
+[profile.dev.package.foo]
+codegen-backend = &quot;cranelift&quot;
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../reference/semver.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../commands/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../reference/semver.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../commands/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

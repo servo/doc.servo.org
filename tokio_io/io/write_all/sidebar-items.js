@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["State",""]],"fn":[["write_all","Creates a future that will write the entire contents of the buffer `buf` to the stream `a` provided."],["zero_write",""]],"struct":[["WriteAll","A future used to write the entire contents of some data to a stream."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["call_html_constructor",""],["get_constructor_object_from_local_name","Returns the constructor object for the element associated with the given local name. This list should only include elements marked with the [HTMLConstructor] extended attribute."],["html_constructor",""],["pop_current_element_queue",""],["push_new_element_queue",""]]});

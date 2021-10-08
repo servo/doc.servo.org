@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error",""]],"struct":[["Collect","Consumes a buf stream, collecting the data into a single byte container."],["CollectError","Errors returned from `Collect` future."]]});

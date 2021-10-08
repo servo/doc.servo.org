@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["XREnvironmentBlendMode",""],["XRVisibilityState",""]],"mod":[["XREnvironmentBlendModeValues",""],["XRSessionBinding",""],["XRVisibilityStateValues",""]],"struct":[["XRFrameRequestCallback",""]]});

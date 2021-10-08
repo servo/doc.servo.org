@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BidiClass",""],["BidiPairedBracketType",""]],"static":[["UCD_BIDI_BRATYPE",""],["UCD_BIDI_CLASS",""],["UCD_BIDI_MIRROR",""],["UCD_BIDI_MIRRORED",""],["UCD_BIDI_PAIRED",""]]});

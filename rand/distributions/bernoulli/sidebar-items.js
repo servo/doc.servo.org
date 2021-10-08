@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ALWAYS_TRUE",""],["SCALE",""]],"enum":[["BernoulliError","Error type returned from `Bernoulli::new`."]],"struct":[["Bernoulli","The Bernoulli distribution."]]});

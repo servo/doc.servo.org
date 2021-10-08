@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["IntoStream","Stream for the `into_stream` method."]]});

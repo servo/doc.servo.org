@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["pending",""]],"struct":[["OnUpgrade","A future for a possible HTTP upgrade."],["Parts","The deconstructed parts of an `Upgraded` type."],["Pending",""],["UpgradeExpected","Error cause returned when an upgrade was expected but canceled for whatever reason."],["Upgraded","An upgraded HTTP connection."]],"trait":[["Io",""]]});

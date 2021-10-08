@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FollowEpsilon","A representation of an explicit stack frame when following epsilon transitions. This is used to avoid recursion."]],"struct":[["Cache","A cached allocation that can be reused on each execution."],["Fsm","An NFA simulation matching engine."],["Threads","An ordered set of NFA states and their captures."]]});

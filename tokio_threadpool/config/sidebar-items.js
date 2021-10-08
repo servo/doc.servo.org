@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_WORKERS","Max number of workers that can be part of a pool. This is the most that can fit in the scheduler state. Note, that this is the max number of active threads. There can be more standby threads."]],"struct":[["Config","Thread pool specific configuration values"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["decode_block","Decodes a base64-encoded string to bytes."],["decoded_len",""],["encode_block","Encodes a slice of bytes to a base64 string."],["encoded_len",""]]});

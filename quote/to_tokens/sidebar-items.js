@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["ToTokens","Types that can be interpolated inside a `quote!` invocation."]]});

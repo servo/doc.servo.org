@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TryFilterMap","Stream for the `try_filter_map` method."]]});

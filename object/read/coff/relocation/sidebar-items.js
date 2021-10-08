@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CoffRelocationIterator","An iterator over the relocations in a `CoffSection`."]]});

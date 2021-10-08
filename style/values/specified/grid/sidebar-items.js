@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["RepeatType","The type of `repeat` function (only used in parsing)."]],"fn":[["allow_grid_template_masonry",""],["allow_grid_template_subgrids",""],["parse_flex","Parse a single flexible length."],["parse_line_names","Parse the grid line names into a vector of owned strings."]]});

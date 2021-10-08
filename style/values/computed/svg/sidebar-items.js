@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["SVGLength"," |  |  | context-value"],["SVGOpacity"," | context-fill-opacity | context-stroke-opacity"],["SVGPaint","Computed SVG Paint value"],["SVGPaintKind","Computed SVG Paint Kind value"],["SVGStrokeDashArray","[  |  |  ]# | context-value"],["SVGWidth","An non-negative wrapper of SVGLength."]]});

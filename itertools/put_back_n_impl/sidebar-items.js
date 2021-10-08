@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["put_back_n","Create an iterator where you can put back multiple values to the front of the iteration."]],"struct":[["PutBackN","An iterator adaptor that allows putting multiple items in front of the iterator."]]});

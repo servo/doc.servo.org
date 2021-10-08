@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FastRand","Fast random number generate"]]});

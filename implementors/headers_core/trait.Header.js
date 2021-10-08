@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["net"] = [{"text":"impl <a class=\"trait\" href=\"headers_core/trait.Header.html\" title=\"trait headers_core::Header\">Header</a> for <a class=\"struct\" href=\"net/hsts/struct.StrictTransportSecurity.html\" title=\"struct net::hsts::StrictTransportSecurity\">StrictTransportSecurity</a>","synthetic":false,"types":["net::hsts::StrictTransportSecurity"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

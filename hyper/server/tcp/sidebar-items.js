@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["is_connection_error","This function defines errors that are per-connection. Which basically means that if we get this error from `accept()` system call it means next connection might be ready to be accepted."]],"mod":[["addr_stream",""]],"struct":[["AddrIncoming","A stream of connections from binding to an address."]]});

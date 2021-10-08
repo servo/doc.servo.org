@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CollectBytesError","Error returned from collecting into a `Bytes`"],["CollectVecError","Error returned from collecting into a `Vec<u8>`"]],"trait":[["FromBufStream","Conversion from a `BufStream`."]]});

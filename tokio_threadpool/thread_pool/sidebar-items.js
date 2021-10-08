@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Inner",""],["SpawnHandle","Handle returned from ThreadPool::spawn_handle."],["ThreadPool","Work-stealing based thread pool for executing futures."]]});

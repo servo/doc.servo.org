@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["ComputedTimingFunction","A computed timing function."],["TimingFunction","An alias of the computed timing function."]]});

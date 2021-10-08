@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["HEADER_LEN",""]],"enum":[["Error","Errors that can occur during parsing an HTTP/2 frame."],["Frame",""]],"mod":[["data",""],["go_away",""],["head",""],["headers",""],["ping",""],["priority",""],["reason",""],["reset",""],["settings",""],["stream_id",""],["util",""],["window_update",""]],"type":[["FrameSize",""]]});

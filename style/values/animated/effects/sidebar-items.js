@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["AnimatedFilter","An animated value for a single `filter`."],["AnimatedSimpleShadow","An animated value for the `drop-shadow()` filter."]]});

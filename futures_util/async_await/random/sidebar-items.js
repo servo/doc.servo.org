@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["gen_index","Return a value from `0..n`."],["random","Pseudorandom number generator based on xorshift*."]]});

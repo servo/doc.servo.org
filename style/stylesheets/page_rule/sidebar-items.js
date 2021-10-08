@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PageRule","A `@page` rule."]]});

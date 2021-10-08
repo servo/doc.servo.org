@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Ctxt","A type to collect errors together and format them."]]});

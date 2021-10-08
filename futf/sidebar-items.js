@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Byte",""],["Meaning","Meaning of a complete or partial UTF-8 codepoint."]],"fn":[["all_cont",""],["classify","Describes the UTF-8 codepoint containing the byte at index `idx` within `buf`."],["decode",""],["unsafe_slice",""]],"struct":[["Codepoint","Represents a complete or partial UTF-8 codepoint."]]});

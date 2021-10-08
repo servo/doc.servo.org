@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CARDINAL_SIZE",""],["PROPERTY_BUFFER_SIZE",""]],"enum":[["GetPropertyError",""],["PropMode",""]],"type":[["Cardinal",""]]});

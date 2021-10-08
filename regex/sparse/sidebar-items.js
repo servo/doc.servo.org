@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SparseSet","A sparse set used for representing ordered NFA states."]]});

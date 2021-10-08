@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["LocalSpawnExt","Extension trait for `LocalSpawn`."],["SpawnExt","Extension trait for `Spawn`."]]});

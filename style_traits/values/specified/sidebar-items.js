@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AllowedNumericType","Whether to allow negative lengths or not."]]});
