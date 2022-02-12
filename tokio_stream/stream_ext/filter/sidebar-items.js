@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Filter","Stream returned by the `filter` method."]]});

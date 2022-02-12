@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A picture represents a dynamically rendered image."><meta name="keywords" content="rust, rustlang, rust-lang, picture"><title>webrender::picture - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../webrender/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../webrender/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Module picture</a></h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#statics">Statics</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="picture" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../webrender/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Module <a href="../index.html">webrender</a>::<wbr><a class="mod" href="#">picture</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/webrender/picture.rs.html#5-7185" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A picture represents a dynamically rendered image.</p>
+<h2 id="overview" class="section-header"><a href="#overview">Overview</a></h2>
+<p>Pictures consists of:</p>
+<ul>
+<li>A number of primitives that are drawn onto the picture.</li>
+<li>A composite operation describing how to composite this
+picture into its parent.</li>
+<li>A configuration describing how to draw the primitives on
+this picture (e.g. in screen space or local space).</li>
+</ul>
+<p>The tree of pictures are generated during scene building.</p>
+<p>Depending on their composite operations pictures can be rendered into
+intermediate targets or folded into their parent picture.</p>
+<h3 id="picture-caching" class="section-header"><a href="#picture-caching">Picture caching</a></h3>
+<p>Pictures can be cached to reduce the amount of rasterization happening per
+frame.</p>
+<p>When picture caching is enabled, the scene is cut into a small number of slices,
+typically:</p>
+<ul>
+<li>content slice</li>
+<li>UI slice</li>
+<li>background UI slice which is hidden by the other two slices most of the time.</li>
+</ul>
+<p>Each of these slice is made up of fixed-size large tiles of 2048x512 pixels
+(or 128x128 for the UI slice).</p>
+<p>Tiles can be either cached rasterized content into a texture or “clear tiles”
+that contain only a solid color rectangle rendered directly during the composite
+pass.</p>
+<h3 id="invalidation" class="section-header"><a href="#invalidation">Invalidation</a></h3>
+<p>Each tile keeps track of the elements that affect it, which can be:</p>
+<ul>
+<li>primitives</li>
+<li>clips</li>
+<li>image keys</li>
+<li>opacity bindings</li>
+<li>transforms</li>
+</ul>
+<p>These dependency lists are built each frame and compared to the previous frame to
+see if the tile changed.</p>
+<p>The tile’s primitive dependency information is organized in a quadtree, each node
+storing an index buffer of tile primitive dependencies.</p>
+<p>The union of the invalidated leaves of each quadtree produces a per-tile dirty rect
+which defines the scissor rect used when replaying the tile’s drawing commands and
+can be used for partial present.</p>
+<h3 id="display-list-shape" class="section-header"><a href="#display-list-shape">Display List shape</a></h3>
+<p>WR will first look for an iframe item in the root stacking context to apply
+picture caching to. If that’s not found, it will apply to the entire root
+stacking context of the display list. Apart from that, the format of the
+display list is not important to picture caching. Each time a new scroll root
+is encountered, a new picture cache slice will be created. If the display
+list contains more than some arbitrary number of slices (currently 8), the
+content will all be squashed into a single slice, in order to save GPU memory
+and compositing performance.</p>
+<h3 id="compositor-surfaces" class="section-header"><a href="#compositor-surfaces">Compositor Surfaces</a></h3>
+<p>Sometimes, a primitive would prefer to exist as a native compositor surface.
+This allows a large and/or regularly changing primitive (such as a video, or
+webgl canvas) to be updated each frame without invalidating the content of
+tiles, and can provide a significant performance win and battery saving.</p>
+<p>Since drawing a primitive as a compositor surface alters the ordering of
+primitives in a tile, we use ‘overlay tiles’ to ensure correctness. If a
+tile has a compositor surface, <em>and</em> that tile has primitives that overlap
+the compositor surface rect, the tile switches to be drawn in alpha mode.</p>
+<p>We rely on only promoting compositor surfaces that are opaque primitives.
+With this assumption, the tile(s) that intersect the compositor surface get
+a ‘cutout’ in the rectangle where the compositor surface exists (not the
+entire tile), allowing that tile to be drawn as an alpha tile after the
+compositor surface.</p>
+<p>Tiles are only drawn in overlay mode if there is content that exists on top
+of the compositor surface. Otherwise, we can draw the tiles in the normal fast
+path before the compositor surface is drawn. Use of the per-tile valid and
+dirty rects ensure that we do a minimal amount of per-pixel work here to
+blend the overlay tile (this is not always optimal right now, but will be
+improved as a follow up).</p>
+</div></details><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.declare_tile_cache_logger_updatelists.html" title="webrender::picture::declare_tile_cache_logger_updatelists macro">declare_tile_cache_logger_updatelists</a></div><div class="item-right docblock-short"></div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.BackdropInfo.html" title="webrender::picture::BackdropInfo struct">BackdropInfo</a></div><div class="item-right docblock-short"><p>Stores information about the calculated opaque backdrop of this slice.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.BindingInfo.html" title="webrender::picture::BindingInfo struct">BindingInfo</a></div><div class="item-right docblock-short"><p>Information about the state of a binding.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.BlitReason.html" title="webrender::picture::BlitReason struct">BlitReason</a></div><div class="item-right docblock-short"><p>A set of flags describing why a picture may need a backing surface.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ClusterFlags.html" title="webrender::picture::ClusterFlags struct">ClusterFlags</a></div><div class="item-right docblock-short"><p>A set of flags describing why a picture may need a backing surface.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.CompareHelper.html" title="webrender::picture::CompareHelper struct">CompareHelper</a></div><div class="item-right docblock-short"><p>A small helper to compare two arrays of primitive dependencies.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.DirtyRegion.html" title="webrender::picture::DirtyRegion struct">DirtyRegion</a></div><div class="item-right docblock-short"><p>Represents the dirty region of a tile cache picture.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.DirtyRegionRect.html" title="webrender::picture::DirtyRegionRect struct">DirtyRegionRect</a></div><div class="item-right docblock-short"><p>Stores both the world and devices rects for a single dirty rect.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ExternalNativeSurface.html" title="webrender::picture::ExternalNativeSurface struct">ExternalNativeSurface</a></div><div class="item-right docblock-short"><p>Information about a native compositor surface cached between frames.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ExternalNativeSurfaceKey.html" title="webrender::picture::ExternalNativeSurfaceKey struct">ExternalNativeSurfaceKey</a></div><div class="item-right docblock-short"><p>Hash key for an external native compositor surface</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ImageDependency.html" title="webrender::picture::ImageDependency struct">ImageDependency</a></div><div class="item-right docblock-short"><p>Information stored an image dependency</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.MatrixKey.html" title="webrender::picture::MatrixKey struct">MatrixKey</a></div><div class="item-right docblock-short"><p>A comparable transform matrix, that compares with epsilon checks.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.NativeSurface.html" title="webrender::picture::NativeSurface struct">NativeSurface</a></div><div class="item-right docblock-short"><p>Represents the native surfaces created for a picture cache, if using
+a native compositor. An opaque and alpha surface is always created,
+but tiles are added to a surface based on current opacity. If the
+calculated opacity of a tile changes, the tile is invalidated and
+attached to a different native surface. This means that we don’t
+need to invalidate the entire surface if only some tiles are changing
+opacity. It also means we can take advantage of opaque tiles on cache
+slices where only some of the tiles are opaque. There is an assumption
+that creating a native surface is cheap, and only when a tile is added
+to a surface is there a significant cost. This assumption holds true
+for the current native compositor implementations on Windows and Mac.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OrderedPictureChild.html" title="webrender::picture::OrderedPictureChild struct">OrderedPictureChild</a></div><div class="item-right docblock-short"><p>Information about a preserve-3D hierarchy child that has been plane-split
+and ordered according to the view direction.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PictureCacheRecycledAllocations.html" title="webrender::picture::PictureCacheRecycledAllocations struct">PictureCacheRecycledAllocations</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PictureCacheState.html" title="webrender::picture::PictureCacheState struct">PictureCacheState</a></div><div class="item-right docblock-short"><p>Picture-caching state to keep between scenes.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PictureInfo.html" title="webrender::picture::PictureInfo struct">PictureInfo</a></div><div class="item-right docblock-short"><p>Information about a picture that is pushed / popped on the
+PictureUpdateState during picture traversal pass.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PictureOptions.html" title="webrender::picture::PictureOptions struct">PictureOptions</a></div><div class="item-right docblock-short"><p>Defines configuration options for a given picture primitive.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PicturePrimitive.html" title="webrender::picture::PicturePrimitive struct">PicturePrimitive</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PictureUpdateState.html" title="webrender::picture::PictureUpdateState struct">PictureUpdateState</a></div><div class="item-right docblock-short"><p>Maintains a stack of picture and surface information, that
+is used during the initial picture traversal.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PrimitiveCluster.html" title="webrender::picture::PrimitiveCluster struct">PrimitiveCluster</a></div><div class="item-right docblock-short"><p>Descriptor for a cluster of primitives. For now, this is quite basic but will be
+extended to handle more spatial clustering of primitives.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PrimitiveComparer.html" title="webrender::picture::PrimitiveComparer struct">PrimitiveComparer</a></div><div class="item-right docblock-short"><p>A helper struct to compare a primitive and all its sub-dependencies.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PrimitiveComparisonKey.html" title="webrender::picture::PrimitiveComparisonKey struct">PrimitiveComparisonKey</a></div><div class="item-right docblock-short"><p>A key for storing primitive comparison results during tile dependency tests.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PrimitiveDependencyIndex.html" title="webrender::picture::PrimitiveDependencyIndex struct">PrimitiveDependencyIndex</a></div><div class="item-right docblock-short"><p>An index into the prims array in a TileDescriptor.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PrimitiveDependencyInfo.html" title="webrender::picture::PrimitiveDependencyInfo struct">PrimitiveDependencyInfo</a></div><div class="item-right docblock-short"><p>Information about the dependencies of a single primitive instance.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PrimitiveDescriptor.html" title="webrender::picture::PrimitiveDescriptor struct">PrimitiveDescriptor</a></div><div class="item-right docblock-short"><p>Defines a key that uniquely identifies a primitive instance.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PrimitiveList.html" title="webrender::picture::PrimitiveList struct">PrimitiveList</a></div><div class="item-right docblock-short"><p>A list of primitive instances that are added to a picture
+This ensures we can keep a list of primitives that
+are pictures, for a fast initial traversal of the picture
+tree without walking the instance list.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RasterConfig.html" title="webrender::picture::RasterConfig struct">RasterConfig</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RecordedDirtyRegion.html" title="webrender::picture::RecordedDirtyRegion struct">RecordedDirtyRegion</a></div><div class="item-right docblock-short"><p>A recorded copy of the dirty region for exporting to test infrastructure.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RetainedTiles.html" title="webrender::picture::RetainedTiles struct">RetainedTiles</a></div><div class="item-right docblock-short"><p>Stores a list of cached picture tiles that are retained
+between new scenes.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SpatialNodeComparer.html" title="webrender::picture::SpatialNodeComparer struct">SpatialNodeComparer</a></div><div class="item-right docblock-short"><p>A helper for comparing spatial nodes between frames. The comparisons
+are done by-value, so that if the shape of the spatial node tree
+changes, invalidations aren’t done simply due to the spatial node
+index changing between display lists.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SpatialNodeKey.html" title="webrender::picture::SpatialNodeKey struct">SpatialNodeKey</a></div><div class="item-right docblock-short"><p>A dependency for a transform is defined by the spatial node index + frame it was used</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SurfaceIndex.html" title="webrender::picture::SurfaceIndex struct">SurfaceIndex</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SurfaceInfo.html" title="webrender::picture::SurfaceInfo struct">SurfaceInfo</a></div><div class="item-right docblock-short"><p>Information about an offscreen surface. For now,
+it contains information about the size and coordinate
+system of the surface. In the future, it will contain
+information about the contents of the surface, which
+will allow surfaces to be cached / retained between
+frames and display lists.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SurfaceRenderTasks.html" title="webrender::picture::SurfaceRenderTasks struct">SurfaceRenderTasks</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Tile.html" title="webrender::picture::Tile struct">Tile</a></div><div class="item-right docblock-short"><p>Information about a cached tile.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileCacheInstance.html" title="webrender::picture::TileCacheInstance struct">TileCacheInstance</a></div><div class="item-right docblock-short"><p>Represents a cache of tiles that make up a picture primitives.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileCacheInstanceSerializer.html" title="webrender::picture::TileCacheInstanceSerializer struct">TileCacheInstanceSerializer</a></div><div class="item-right docblock-short"><p>A minimal subset of TileCacheInstance for debug capturing</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileCacheLogger.html" title="webrender::picture::TileCacheLogger struct">TileCacheLogger</a></div><div class="item-right docblock-short"><p>Log tile cache activity whenever anything happens in take_context.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileCacheLoggerFrame.html" title="webrender::picture::TileCacheLoggerFrame struct">TileCacheLoggerFrame</a></div><div class="item-right docblock-short"><p>Log tile cache activity for one single frame.
+Also stores the commands sent to the interning data_stores
+so we can see which items were created or destroyed this frame,
+and correlate that with tile invalidation activity.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileCacheLoggerSlice.html" title="webrender::picture::TileCacheLoggerSlice struct">TileCacheLoggerSlice</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileCacheLoggerUpdateLists.html" title="webrender::picture::TileCacheLoggerUpdateLists struct">TileCacheLoggerUpdateLists</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileCacheLoggerUpdateListsSerializer.html" title="webrender::picture::TileCacheLoggerUpdateListsSerializer struct">TileCacheLoggerUpdateListsSerializer</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileCoordinate.html" title="webrender::picture::TileCoordinate struct">TileCoordinate</a></div><div class="item-right docblock-short"><p>Unit for tile coordinates.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileDescriptor.html" title="webrender::picture::TileDescriptor struct">TileDescriptor</a></div><div class="item-right docblock-short"><p>Uniquely describes the content of this tile, in a way that can be
+(reasonably) efficiently hashed and compared.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileId.html" title="webrender::picture::TileId struct">TileId</a></div><div class="item-right docblock-short"><p>A stable ID for a given tile, to help debugging. These are also used
+as unique identifiers for tile surfaces when using a native compositor.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileNode.html" title="webrender::picture::TileNode struct">TileNode</a></div><div class="item-right docblock-short"><p>A node in the dirty rect tracking quadtree.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TilePostUpdateContext.html" title="webrender::picture::TilePostUpdateContext struct">TilePostUpdateContext</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TilePostUpdateState.html" title="webrender::picture::TilePostUpdateState struct">TilePostUpdateState</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TilePreUpdateContext.html" title="webrender::picture::TilePreUpdateContext struct">TilePreUpdateContext</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TileSerializer.html" title="webrender::picture::TileSerializer struct">TileSerializer</a></div><div class="item-right docblock-short"><p>A minimal subset of Tile for debug capturing</p>
+</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.BackdropKind.html" title="webrender::picture::BackdropKind enum">BackdropKind</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Binding.html" title="webrender::picture::Binding enum">Binding</a></div><div class="item-right docblock-short"><p>Information stored in a tile descriptor for a binding.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.CompareHelperResult.html" title="webrender::picture::CompareHelperResult enum">CompareHelperResult</a></div><div class="item-right docblock-short"><p>Optional extra information returned by is_same when
+logging is enabled.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.InvalidationReason.html" title="webrender::picture::InvalidationReason enum">InvalidationReason</a></div><div class="item-right docblock-short"><p>Debugging information about why a tile was invalidated</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Picture3DContext.html" title="webrender::picture::Picture3DContext enum">Picture3DContext</a></div><div class="item-right docblock-short"><p>Enum value describing the place of a picture in a 3D context.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.PictureCompositeMode.html" title="webrender::picture::PictureCompositeMode enum">PictureCompositeMode</a></div><div class="item-right docblock-short"><p>Specifies how this Picture should be composited
+onto the target it belongs to.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.PrimitiveCompareResult.html" title="webrender::picture::PrimitiveCompareResult enum">PrimitiveCompareResult</a></div><div class="item-right docblock-short"><p>The result of a primitive dependency comparison. Size is a u8
+since this is a hot path in the code, and keeping the data small
+is a performance win.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.PrimitiveCompareResultDetail.html" title="webrender::picture::PrimitiveCompareResultDetail enum">PrimitiveCompareResultDetail</a></div><div class="item-right docblock-short"><p>A more detailed version of PrimitiveCompareResult used when
+debug logging is enabled.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.PrimitiveListPosition.html" title="webrender::picture::PrimitiveListPosition enum">PrimitiveListPosition</a></div><div class="item-right docblock-short"><p>Where to insert a prim instance in a primitive list.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ResolvedSurfaceTexture.html" title="webrender::picture::ResolvedSurfaceTexture enum">ResolvedSurfaceTexture</a></div><div class="item-right docblock-short"><p>This is the same as a <code>SurfaceTextureDescriptor</code> but has been resolved
+into a texture cache handle (if appropriate) that can be used by the
+batching and compositing code in the renderer.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.SubpixelMode.html" title="webrender::picture::SubpixelMode enum">SubpixelMode</a></div><div class="item-right docblock-short"><p>Specify whether a surface allows subpixel AA text rendering.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.SurfacePromotionResult.html" title="webrender::picture::SurfacePromotionResult enum">SurfacePromotionResult</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.SurfaceTextureDescriptor.html" title="webrender::picture::SurfaceTextureDescriptor enum">SurfaceTextureDescriptor</a></div><div class="item-right docblock-short"><p>A descriptor for the kind of texture that a picture cache tile will
+be drawn into.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.TileModification.html" title="webrender::picture::TileModification enum">TileModification</a></div><div class="item-right docblock-short"><p>The kind of modification that a tile wants to do</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.TileNodeKind.html" title="webrender::picture::TileNodeKind enum">TileNodeKind</a></div><div class="item-right docblock-short"><p>Details for a node in a quadtree that tracks dirty rects for a tile.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.TileSurface.html" title="webrender::picture::TileSurface enum">TileSurface</a></div><div class="item-right docblock-short"><p>The backing surface for this tile.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.TransformKey.html" title="webrender::picture::TransformKey enum">TransformKey</a></div><div class="item-right docblock-short"><p>A comparable / hashable version of a coordinate space mapping. Used to determine
+if a transform dependency for a tile has changed.</p>
+</div></div></div><h2 id="constants" class="small-section-header"><a href="#constants">Constants</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.MAX_BLUR_RADIUS.html" title="webrender::picture::MAX_BLUR_RADIUS constant">MAX_BLUR_RADIUS</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.MAX_COMPOSITOR_SURFACES.html" title="webrender::picture::MAX_COMPOSITOR_SURFACES constant">MAX_COMPOSITOR_SURFACES</a></div><div class="item-right docblock-short"><p>The maximum number of compositor surfaces that are allowed per picture cache. This
+is an arbitrary number that should be enough for common cases, but low enough to
+prevent performance and memory usage drastically degrading in pathological cases.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.MAX_COMPOSITOR_SURFACES_SIZE.html" title="webrender::picture::MAX_COMPOSITOR_SURFACES_SIZE constant">MAX_COMPOSITOR_SURFACES_SIZE</a></div><div class="item-right docblock-short"><p>Maximum size of a compositor surface.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.MAX_PRIM_SUB_DEPS.html" title="webrender::picture::MAX_PRIM_SUB_DEPS constant">MAX_PRIM_SUB_DEPS</a></div><div class="item-right docblock-short"><p>The maximum number of sub-dependencies (e.g. clips, transforms) we can handle
+per-primitive. If a primitive has more than this, it will invalidate every frame.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.MAX_SURFACE_SIZE.html" title="webrender::picture::MAX_SURFACE_SIZE constant">MAX_SURFACE_SIZE</a></div><div class="item-right docblock-short"><p>The maximum size per axis of a surface,
+in WorldPixel coordinates.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.ROOT_SURFACE_INDEX.html" title="webrender::picture::ROOT_SURFACE_INDEX constant">ROOT_SURFACE_INDEX</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.TILE_SIZE_DEFAULT.html" title="webrender::picture::TILE_SIZE_DEFAULT constant">TILE_SIZE_DEFAULT</a></div><div class="item-right docblock-short"><p>The size in device pixels of a normal cached tile.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.TILE_SIZE_FOR_TESTS.html" title="webrender::picture::TILE_SIZE_FOR_TESTS constant">TILE_SIZE_FOR_TESTS</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.TILE_SIZE_SCROLLBAR_HORIZONTAL.html" title="webrender::picture::TILE_SIZE_SCROLLBAR_HORIZONTAL constant">TILE_SIZE_SCROLLBAR_HORIZONTAL</a></div><div class="item-right docblock-short"><p>The size in device pixels of a tile for horizontal scroll bars</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.TILE_SIZE_SCROLLBAR_VERTICAL.html" title="webrender::picture::TILE_SIZE_SCROLLBAR_VERTICAL constant">TILE_SIZE_SCROLLBAR_VERTICAL</a></div><div class="item-right docblock-short"><p>The size in device pixels of a tile for vertical scroll bars</p>
+</div></div></div><h2 id="statics" class="small-section-header"><a href="#statics">Statics</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="static" href="static.NEXT_TILE_ID.html" title="webrender::picture::NEXT_TILE_ID static">NEXT_TILE_ID</a></div><div class="item-right docblock-short"><p>Used to get unique tile IDs, even when the tile cache is
+destroyed between display lists / scenes.</p>
+</div></div></div><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.calculate_screen_uv.html" title="webrender::picture::calculate_screen_uv fn">calculate_screen_uv</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.calculate_uv_rect_kind.html" title="webrender::picture::calculate_uv_rect_kind fn">calculate_uv_rect_kind</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.clamp.html" title="webrender::picture::clamp fn">clamp</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.clamp_blur_radius.html" title="webrender::picture::clamp_blur_radius fn">clamp_blur_radius</a></div><div class="item-right docblock-short"><p>Clamps the blur radius depending on scale factors.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.clampf.html" title="webrender::picture::clampf fn">clampf</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.create_raster_mappers.html" title="webrender::picture::create_raster_mappers fn">create_raster_mappers</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.get_transform_key.html" title="webrender::picture::get_transform_key fn">get_transform_key</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.tile_cache_sizes.html" title="webrender::picture::tile_cache_sizes fn">tile_cache_sizes</a></div><div class="item-right docblock-short"></div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.ColorBinding.html" title="webrender::picture::ColorBinding type">ColorBinding</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.ColorBindingInfo.html" title="webrender::picture::ColorBindingInfo type">ColorBindingInfo</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.OpacityBinding.html" title="webrender::picture::OpacityBinding type">OpacityBinding</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.OpacityBindingInfo.html" title="webrender::picture::OpacityBindingInfo type">OpacityBindingInfo</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.TileOffset.html" title="webrender::picture::TileOffset type">TileOffset</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.TileRect.html" title="webrender::picture::TileRect type">TileRect</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.TileSize.html" title="webrender::picture::TileSize type">TileSize</a></div><div class="item-right docblock-short"></div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="webrender" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

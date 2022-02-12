@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["VariableOutput","Trait for returning digest result with the variable size"],["VariableOutputDirty","Trait for variable-sized output digest implementations to use to retrieve the hash output."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Chain","Stream returned by the `chain` method."]]});

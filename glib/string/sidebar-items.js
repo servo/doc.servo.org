@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["String","A mutable text buffer that grows automatically."]]});

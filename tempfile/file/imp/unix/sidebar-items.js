@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["create",""],["create_named",""],["create_unix",""],["create_unlinked",""],["cstr",""],["cvt_err",""],["keep",""],["persist",""],["reopen",""]]});

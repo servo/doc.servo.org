@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["make_service_fn","Create a `MakeService` from a function."],["service_fn","Create a `Service` from a function."]],"mod":[["http",""],["make",""],["oneshot",""],["util",""]],"trait":[["Service","An asynchronous function from a `Request` to a `Response`."]]});

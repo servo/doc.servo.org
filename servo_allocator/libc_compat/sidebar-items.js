@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["free","Deallocates previously-allocated memory region referenced by `ptr`."],["malloc","Allocates `size` bytes of uninitialized memory."],["realloc","Resizes the previously-allocated memory region referenced by `ptr` to `size` bytes."]]});

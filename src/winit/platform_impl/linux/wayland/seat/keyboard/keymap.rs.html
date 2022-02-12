@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/winit-c2fdb27092aba5a7/4192d04/src/platform_impl/linux/wayland/seat/keyboard/keymap.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>keymap.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../../../../storage.js"></script><script src="../../../../../../../crates.js"></script><script defer src="../../../../../../../main.js"></script><script defer src="../../../../../../../source-script.js"></script><script defer src="../../../../../../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../../../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../../../../winit/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../../../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../../../../../../winit/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../../../../rust-logo.svg" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../../../../winit/index.html"><img class="rust-logo" src="../../../../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../../../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../../../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../../../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<span id="2">  2</span>
+<span id="3">  3</span>
+<span id="4">  4</span>
+<span id="5">  5</span>
+<span id="6">  6</span>
+<span id="7">  7</span>
+<span id="8">  8</span>
+<span id="9">  9</span>
+<span id="10"> 10</span>
+<span id="11"> 11</span>
+<span id="12"> 12</span>
+<span id="13"> 13</span>
+<span id="14"> 14</span>
+<span id="15"> 15</span>
+<span id="16"> 16</span>
+<span id="17"> 17</span>
+<span id="18"> 18</span>
+<span id="19"> 19</span>
+<span id="20"> 20</span>
+<span id="21"> 21</span>
+<span id="22"> 22</span>
+<span id="23"> 23</span>
+<span id="24"> 24</span>
+<span id="25"> 25</span>
+<span id="26"> 26</span>
+<span id="27"> 27</span>
+<span id="28"> 28</span>
+<span id="29"> 29</span>
+<span id="30"> 30</span>
+<span id="31"> 31</span>
+<span id="32"> 32</span>
+<span id="33"> 33</span>
+<span id="34"> 34</span>
+<span id="35"> 35</span>
+<span id="36"> 36</span>
+<span id="37"> 37</span>
+<span id="38"> 38</span>
+<span id="39"> 39</span>
+<span id="40"> 40</span>
+<span id="41"> 41</span>
+<span id="42"> 42</span>
+<span id="43"> 43</span>
+<span id="44"> 44</span>
+<span id="45"> 45</span>
+<span id="46"> 46</span>
+<span id="47"> 47</span>
+<span id="48"> 48</span>
+<span id="49"> 49</span>
+<span id="50"> 50</span>
+<span id="51"> 51</span>
+<span id="52"> 52</span>
+<span id="53"> 53</span>
+<span id="54"> 54</span>
+<span id="55"> 55</span>
+<span id="56"> 56</span>
+<span id="57"> 57</span>
+<span id="58"> 58</span>
+<span id="59"> 59</span>
+<span id="60"> 60</span>
+<span id="61"> 61</span>
+<span id="62"> 62</span>
+<span id="63"> 63</span>
+<span id="64"> 64</span>
+<span id="65"> 65</span>
+<span id="66"> 66</span>
+<span id="67"> 67</span>
+<span id="68"> 68</span>
+<span id="69"> 69</span>
+<span id="70"> 70</span>
+<span id="71"> 71</span>
+<span id="72"> 72</span>
+<span id="73"> 73</span>
+<span id="74"> 74</span>
+<span id="75"> 75</span>
+<span id="76"> 76</span>
+<span id="77"> 77</span>
+<span id="78"> 78</span>
+<span id="79"> 79</span>
+<span id="80"> 80</span>
+<span id="81"> 81</span>
+<span id="82"> 82</span>
+<span id="83"> 83</span>
+<span id="84"> 84</span>
+<span id="85"> 85</span>
+<span id="86"> 86</span>
+<span id="87"> 87</span>
+<span id="88"> 88</span>
+<span id="89"> 89</span>
+<span id="90"> 90</span>
+<span id="91"> 91</span>
+<span id="92"> 92</span>
+<span id="93"> 93</span>
+<span id="94"> 94</span>
+<span id="95"> 95</span>
+<span id="96"> 96</span>
+<span id="97"> 97</span>
+<span id="98"> 98</span>
+<span id="99"> 99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Convert Wayland keys to winit keys.</span>
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::event::VirtualKeyCode</span>;
+
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">keysym_to_vkey</span>(<span class="ident">keysym</span>: <span class="ident">u32</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">VirtualKeyCode</span><span class="op">&gt;</span> {
+    <span class="kw">use</span> <span class="ident">sctk::seat::keyboard::keysyms</span>;
+    <span class="kw">match</span> <span class="ident">keysym</span> {
+        <span class="comment">// Numbers.</span>
+        <span class="ident">keysyms::XKB_KEY_1</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key1</span>),
+        <span class="ident">keysyms::XKB_KEY_2</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key2</span>),
+        <span class="ident">keysyms::XKB_KEY_3</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key3</span>),
+        <span class="ident">keysyms::XKB_KEY_4</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key4</span>),
+        <span class="ident">keysyms::XKB_KEY_5</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key5</span>),
+        <span class="ident">keysyms::XKB_KEY_6</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key6</span>),
+        <span class="ident">keysyms::XKB_KEY_7</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key7</span>),
+        <span class="ident">keysyms::XKB_KEY_8</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key8</span>),
+        <span class="ident">keysyms::XKB_KEY_9</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key9</span>),
+        <span class="ident">keysyms::XKB_KEY_0</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Key0</span>),
+        <span class="comment">// Letters.</span>
+        <span class="ident">keysyms::XKB_KEY_A</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_a</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::A</span>),
+        <span class="ident">keysyms::XKB_KEY_B</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_b</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::B</span>),
+        <span class="ident">keysyms::XKB_KEY_C</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_c</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::C</span>),
+        <span class="ident">keysyms::XKB_KEY_D</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_d</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::D</span>),
+        <span class="ident">keysyms::XKB_KEY_E</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_e</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::E</span>),
+        <span class="ident">keysyms::XKB_KEY_F</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_f</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F</span>),
+        <span class="ident">keysyms::XKB_KEY_G</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_g</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::G</span>),
+        <span class="ident">keysyms::XKB_KEY_H</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_h</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::H</span>),
+        <span class="ident">keysyms::XKB_KEY_I</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_i</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::I</span>),
+        <span class="ident">keysyms::XKB_KEY_J</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_j</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::J</span>),
+        <span class="ident">keysyms::XKB_KEY_K</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_k</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::K</span>),
+        <span class="ident">keysyms::XKB_KEY_L</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_l</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::L</span>),
+        <span class="ident">keysyms::XKB_KEY_M</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_m</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::M</span>),
+        <span class="ident">keysyms::XKB_KEY_N</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_n</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::N</span>),
+        <span class="ident">keysyms::XKB_KEY_O</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_o</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::O</span>),
+        <span class="ident">keysyms::XKB_KEY_P</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_p</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::P</span>),
+        <span class="ident">keysyms::XKB_KEY_Q</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_q</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Q</span>),
+        <span class="ident">keysyms::XKB_KEY_R</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_r</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::R</span>),
+        <span class="ident">keysyms::XKB_KEY_S</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_s</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::S</span>),
+        <span class="ident">keysyms::XKB_KEY_T</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_t</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::T</span>),
+        <span class="ident">keysyms::XKB_KEY_U</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_u</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::U</span>),
+        <span class="ident">keysyms::XKB_KEY_V</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_v</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::V</span>),
+        <span class="ident">keysyms::XKB_KEY_W</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_w</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::W</span>),
+        <span class="ident">keysyms::XKB_KEY_X</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_x</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::X</span>),
+        <span class="ident">keysyms::XKB_KEY_Y</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_y</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Y</span>),
+        <span class="ident">keysyms::XKB_KEY_Z</span> <span class="op">|</span> <span class="ident">keysyms::XKB_KEY_z</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Z</span>),
+        <span class="comment">// Escape.</span>
+        <span class="ident">keysyms::XKB_KEY_Escape</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Escape</span>),
+        <span class="comment">// Function keys.</span>
+        <span class="ident">keysyms::XKB_KEY_F1</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F1</span>),
+        <span class="ident">keysyms::XKB_KEY_F2</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F2</span>),
+        <span class="ident">keysyms::XKB_KEY_F3</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F3</span>),
+        <span class="ident">keysyms::XKB_KEY_F4</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F4</span>),
+        <span class="ident">keysyms::XKB_KEY_F5</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F5</span>),
+        <span class="ident">keysyms::XKB_KEY_F6</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F6</span>),
+        <span class="ident">keysyms::XKB_KEY_F7</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F7</span>),
+        <span class="ident">keysyms::XKB_KEY_F8</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F8</span>),
+        <span class="ident">keysyms::XKB_KEY_F9</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F9</span>),
+        <span class="ident">keysyms::XKB_KEY_F10</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F10</span>),
+        <span class="ident">keysyms::XKB_KEY_F11</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F11</span>),
+        <span class="ident">keysyms::XKB_KEY_F12</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F12</span>),
+        <span class="ident">keysyms::XKB_KEY_F13</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F13</span>),
+        <span class="ident">keysyms::XKB_KEY_F14</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F14</span>),
+        <span class="ident">keysyms::XKB_KEY_F15</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F15</span>),
+        <span class="ident">keysyms::XKB_KEY_F16</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F16</span>),
+        <span class="ident">keysyms::XKB_KEY_F17</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F17</span>),
+        <span class="ident">keysyms::XKB_KEY_F18</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F18</span>),
+        <span class="ident">keysyms::XKB_KEY_F19</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F19</span>),
+        <span class="ident">keysyms::XKB_KEY_F20</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F20</span>),
+        <span class="ident">keysyms::XKB_KEY_F21</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F21</span>),
+        <span class="ident">keysyms::XKB_KEY_F22</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F22</span>),
+        <span class="ident">keysyms::XKB_KEY_F23</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F23</span>),
+        <span class="ident">keysyms::XKB_KEY_F24</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::F24</span>),
+        <span class="comment">// Flow control.</span>
+        <span class="ident">keysyms::XKB_KEY_Print</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Snapshot</span>),
+        <span class="ident">keysyms::XKB_KEY_Scroll_Lock</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Scroll</span>),
+        <span class="ident">keysyms::XKB_KEY_Pause</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Pause</span>),
+        <span class="ident">keysyms::XKB_KEY_Insert</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Insert</span>),
+        <span class="ident">keysyms::XKB_KEY_Home</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Home</span>),
+        <span class="ident">keysyms::XKB_KEY_Delete</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Delete</span>),
+        <span class="ident">keysyms::XKB_KEY_End</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::End</span>),
+        <span class="ident">keysyms::XKB_KEY_Page_Down</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::PageDown</span>),
+        <span class="ident">keysyms::XKB_KEY_Page_Up</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::PageUp</span>),
+        <span class="comment">// Arrows.</span>
+        <span class="ident">keysyms::XKB_KEY_Left</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Left</span>),
+        <span class="ident">keysyms::XKB_KEY_Up</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Up</span>),
+        <span class="ident">keysyms::XKB_KEY_Right</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Right</span>),
+        <span class="ident">keysyms::XKB_KEY_Down</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Down</span>),
+
+        <span class="ident">keysyms::XKB_KEY_BackSpace</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Back</span>),
+        <span class="ident">keysyms::XKB_KEY_Return</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Return</span>),
+        <span class="ident">keysyms::XKB_KEY_space</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Space</span>),
+
+        <span class="ident">keysyms::XKB_KEY_Multi_key</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Compose</span>),
+        <span class="ident">keysyms::XKB_KEY_caret</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Caret</span>),
+
+        <span class="comment">// Keypad.</span>
+        <span class="ident">keysyms::XKB_KEY_Num_Lock</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numlock</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_0</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad0</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_1</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad1</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_2</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad2</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_3</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad3</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_4</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad4</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_5</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad5</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_6</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad6</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_7</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad7</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_8</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad8</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_9</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Numpad9</span>),
+        <span class="comment">// Misc.</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::AbntC1),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::AbntC2),</span>
+        <span class="ident">keysyms::XKB_KEY_plus</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Plus</span>),
+        <span class="ident">keysyms::XKB_KEY_apostrophe</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Apostrophe</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Apps),</span>
+        <span class="ident">keysyms::XKB_KEY_at</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::At</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Ax),</span>
+        <span class="ident">keysyms::XKB_KEY_backslash</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Backslash</span>),
+        <span class="ident">keysyms::XKB_KEY_XF86Calculator</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Calculator</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Capital),</span>
+        <span class="ident">keysyms::XKB_KEY_colon</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Colon</span>),
+        <span class="ident">keysyms::XKB_KEY_comma</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Comma</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Convert),</span>
+        <span class="ident">keysyms::XKB_KEY_equal</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Equals</span>),
+        <span class="ident">keysyms::XKB_KEY_grave</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Grave</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Kana),</span>
+        <span class="ident">keysyms::XKB_KEY_Kanji</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Kanji</span>),
+        <span class="ident">keysyms::XKB_KEY_Alt_L</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::LAlt</span>),
+        <span class="ident">keysyms::XKB_KEY_bracketleft</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::LBracket</span>),
+        <span class="ident">keysyms::XKB_KEY_Control_L</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::LControl</span>),
+        <span class="ident">keysyms::XKB_KEY_Shift_L</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::LShift</span>),
+        <span class="ident">keysyms::XKB_KEY_Super_L</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::LWin</span>),
+        <span class="ident">keysyms::XKB_KEY_XF86Mail</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Mail</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::MediaSelect),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::MediaStop),</span>
+        <span class="ident">keysyms::XKB_KEY_minus</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Minus</span>),
+        <span class="ident">keysyms::XKB_KEY_asterisk</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Asterisk</span>),
+        <span class="ident">keysyms::XKB_KEY_XF86AudioMute</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Mute</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::MyComputer),</span>
+        <span class="ident">keysyms::XKB_KEY_XF86AudioNext</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::NextTrack</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::NoConvert),</span>
+        <span class="ident">keysyms::XKB_KEY_KP_Separator</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::NumpadComma</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Enter</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::NumpadEnter</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Equal</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::NumpadEquals</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Add</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::NumpadAdd</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Subtract</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::NumpadSubtract</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Multiply</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::NumpadMultiply</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Divide</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::NumpadDivide</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Decimal</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::NumpadDecimal</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Page_Up</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::PageUp</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Page_Down</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::PageDown</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Home</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Home</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_End</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::End</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Left</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Left</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Up</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Up</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Right</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Right</span>),
+        <span class="ident">keysyms::XKB_KEY_KP_Down</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Down</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::OEM102),</span>
+        <span class="ident">keysyms::XKB_KEY_period</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Period</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Playpause),</span>
+        <span class="ident">keysyms::XKB_KEY_XF86PowerOff</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Power</span>),
+        <span class="ident">keysyms::XKB_KEY_XF86AudioPrev</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::PrevTrack</span>),
+        <span class="ident">keysyms::XKB_KEY_Alt_R</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::RAlt</span>),
+        <span class="ident">keysyms::XKB_KEY_bracketright</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::RBracket</span>),
+        <span class="ident">keysyms::XKB_KEY_Control_R</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::RControl</span>),
+        <span class="ident">keysyms::XKB_KEY_Shift_R</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::RShift</span>),
+        <span class="ident">keysyms::XKB_KEY_Super_R</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::RWin</span>),
+        <span class="ident">keysyms::XKB_KEY_semicolon</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Semicolon</span>),
+        <span class="ident">keysyms::XKB_KEY_slash</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Slash</span>),
+        <span class="ident">keysyms::XKB_KEY_XF86Sleep</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Sleep</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Stop),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Sysrq),</span>
+        <span class="ident">keysyms::XKB_KEY_Tab</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Tab</span>),
+        <span class="ident">keysyms::XKB_KEY_ISO_Left_Tab</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Tab</span>),
+        <span class="ident">keysyms::XKB_KEY_underscore</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Underline</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Unlabeled),</span>
+        <span class="ident">keysyms::XKB_KEY_XF86AudioLowerVolume</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::VolumeDown</span>),
+        <span class="ident">keysyms::XKB_KEY_XF86AudioRaiseVolume</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::VolumeUp</span>),
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Wake),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::Webback),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::WebFavorites),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::WebForward),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::WebHome),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::WebRefresh),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::WebSearch),</span>
+        <span class="comment">// =&gt; Some(VirtualKeyCode::WebStop),</span>
+        <span class="ident">keysyms::XKB_KEY_yen</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Yen</span>),
+        <span class="ident">keysyms::XKB_KEY_XF86Copy</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Copy</span>),
+        <span class="ident">keysyms::XKB_KEY_XF86Paste</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Paste</span>),
+        <span class="ident">keysyms::XKB_KEY_XF86Cut</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">VirtualKeyCode::Cut</span>),
+        <span class="comment">// Fallback.</span>
+        <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
+    }
+}
+</code></pre></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../../../" data-current-crate="winit" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

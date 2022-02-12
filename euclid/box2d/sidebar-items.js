@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Box2D","An axis aligned rectangle represented by its minimum and maximum coordinates."]]});

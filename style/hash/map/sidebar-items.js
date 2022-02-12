@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Entry","A view into a single entry in a map, which may either be vacant or occupied."]],"struct":[["Iter","An iterator over the entries of a `HashMap`."]]});

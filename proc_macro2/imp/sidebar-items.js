@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Group",""],["Ident",""],["LexError",""],["Literal",""],["Span",""],["TokenStream",""],["TokenTreeIter",""]],"fn":[["debug_span_field_if_nontrivial",""],["into_compiler_token",""],["mismatch",""],["proc_macro_parse",""]],"macro":[["suffixed_numbers",""],["unsuffixed_integers",""]],"struct":[["DeferredTokenStream",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["prepend_from","Prepends the items in the other list to this one, leaving the other list empty."],["split_off_head","Splits the head off a list in O(1) time, and returns the head."]]});

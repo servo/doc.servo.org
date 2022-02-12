@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["H2_PREFACE",""]],"enum":[["KA",""],["Reading",""],["Writing",""]],"struct":[["Conn","This handles a connection, which will have been established over an `AsyncRead + AsyncWrite` (like a socket), and will likely include multiple `Transaction`s over HTTP."],["State",""]]});

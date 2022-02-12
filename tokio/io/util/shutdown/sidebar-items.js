@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["shutdown","Creates a future which will shutdown an I/O object."]],"struct":[["Shutdown","A future used to shutdown an I/O object."]]});

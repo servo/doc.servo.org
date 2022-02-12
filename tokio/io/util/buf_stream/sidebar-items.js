@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BufStream","Wraps a type that is [`AsyncWrite`] and [`AsyncRead`], and buffers its input and output."]]});

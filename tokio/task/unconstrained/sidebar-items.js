@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["unconstrained","Turn off cooperative scheduling for a future. The future will never be forced to yield by Tokio. Using this exposes your service to starvation if the unconstrained future never yields otherwise."]],"struct":[["Unconstrained","Future for the `unconstrained` method."]]});

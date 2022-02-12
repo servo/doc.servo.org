@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["sort","Sort a slice of floats."]],"macro":[["float_ord_impl",""]],"struct":[["FloatOrd","A wrapper for floats, that implements total equality and ordering and hashing."]]});

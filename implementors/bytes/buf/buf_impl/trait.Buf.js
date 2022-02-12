@@ -1,0 +1,5 @@
+(function() {var implementors = {};
+implementors["bytes"] = [];
+implementors["h2"] = [{"text":"impl&lt;B&gt; <a class=\"trait\" href=\"bytes/buf/buf_impl/trait.Buf.html\" title=\"trait bytes::buf::buf_impl::Buf\">Buf</a> for <a class=\"struct\" href=\"h2/proto/streams/prioritize/struct.Prioritized.html\" title=\"struct h2::proto::streams::prioritize::Prioritized\">Prioritized</a>&lt;B&gt; <span class=\"where fmt-newline\">where<br>&nbsp;&nbsp;&nbsp;&nbsp;B: <a class=\"trait\" href=\"bytes/buf/buf_impl/trait.Buf.html\" title=\"trait bytes::buf::buf_impl::Buf\">Buf</a>,&nbsp;</span>","synthetic":false,"types":["h2::proto::streams::prioritize::Prioritized"]}];
+implementors["input_buffer"] = [{"text":"impl <a class=\"trait\" href=\"bytes/buf/buf_impl/trait.Buf.html\" title=\"trait bytes::buf::buf_impl::Buf\">Buf</a> for <a class=\"struct\" href=\"input_buffer/struct.InputBuffer.html\" title=\"struct input_buffer::InputBuffer\">InputBuffer</a>","synthetic":false,"types":["input_buffer::InputBuffer"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

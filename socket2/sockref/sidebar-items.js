@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SockRef","A reference to a [`Socket`] that can be used to configure socket types other than the `Socket` type itself."]]});

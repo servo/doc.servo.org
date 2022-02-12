@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["PTR_HIGH",""],["PTR_MASK",""],["TAG_LIMIT",""],["TAG_MASK",""],["TAG_SHIFT",""]],"enum":[["Storage",""]],"struct":[["ThinBoxedSlice","An owned slice that tries to use only one word of storage."]]});

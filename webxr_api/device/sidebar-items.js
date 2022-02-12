@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["DeviceAPI","A trait for using an XR device"],["DiscoveryAPI","A trait for discovering XR devices"]]});

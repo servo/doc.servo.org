@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["KEEP_ALIVE",""]],"fn":[["spawn_blocking","Runs the provided function on an executor dedicated to blocking operations."]],"struct":[["BlockingPool",""],["Inner",""],["Shared",""],["Spawner",""]],"type":[["Task",""]]});

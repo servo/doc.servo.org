@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PathOp",""],["Winding",""]],"struct":[["Path","Represents a complete path usable for filling or stroking."],["PathBuilder","A helper struct used for constructing a `Path`."]]});

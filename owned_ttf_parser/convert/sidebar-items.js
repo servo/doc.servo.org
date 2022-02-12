@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["AsFontRef","Used to perform a cheap conversion to a `Font` reference."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FlatMap","`FlatMap` maps each element to a parallel iterator, then flattens these iterators together. This struct is created by the `flat_map()` method on `ParallelIterator`"],["FlatMapConsumer","//////////////////////////////////////////////////////////////////////// Consumer implementation"],["FlatMapFolder",""]]});

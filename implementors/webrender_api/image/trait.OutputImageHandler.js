@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["canvas"] = [{"text":"impl <a class=\"trait\" href=\"webrender_api/image/trait.OutputImageHandler.html\" title=\"trait webrender_api::image::OutputImageHandler\">OutputImageHandler</a> for <a class=\"struct\" href=\"canvas/webgl_mode/inprocess/struct.OutputHandler.html\" title=\"struct canvas::webgl_mode::inprocess::OutputHandler\">OutputHandler</a>","synthetic":false,"types":["canvas::webgl_mode::inprocess::OutputHandler"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["servo_media_gstreamer"] = [{"text":"impl <a class=\"trait\" href=\"servo_media_streams/trait.MediaOutput.html\" title=\"trait servo_media_streams::MediaOutput\">MediaOutput</a> for <a class=\"struct\" href=\"servo_media_gstreamer/media_stream/struct.MediaSink.html\" title=\"struct servo_media_gstreamer::media_stream::MediaSink\">MediaSink</a>","synthetic":false,"types":["servo_media_gstreamer::media_stream::MediaSink"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

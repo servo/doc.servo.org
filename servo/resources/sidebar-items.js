@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["filename",""],["init",""],["resources_dir_path",""]],"struct":[["CMD_RESOURCE_DIR",""],["ResourceReader",""]]});

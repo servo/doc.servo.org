@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_assert_send",""]],"struct":[["BoxedFilter","A type representing a boxed `Filter` trait object."],["BoxingFilter",""]]});

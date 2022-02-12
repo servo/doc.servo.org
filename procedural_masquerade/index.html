@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Custom `derive` pretending to be functional procedural macros on Rust 1.15"><meta name="keywords" content="rust, rustlang, rust-lang, procedural_masquerade"><title>procedural_masquerade - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../procedural_masquerade/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../procedural_masquerade/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Crate procedural_masquerade</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.1.7</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><div class="block items"><ul><li><a href="#macros">Macros</a></li></ul></div><div id="sidebar-vars" data-name="procedural_masquerade" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../procedural_masquerade/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">procedural_masquerade</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/procedural_masquerade/lib.rs.html#1-285" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="custom-derive-pretending-to-be-functional-procedural-macros-on-rust-115" class="section-header"><a href="#custom-derive-pretending-to-be-functional-procedural-macros-on-rust-115">Custom <code>derive</code> pretending to be functional procedural macros on Rust 1.15</a></h2>
+<p>This crate enables creating function-like macros (invoked as <code>foo!(...)</code>)
+with a procedural component,
+based on both custom <code>derive</code> (a.k.a. <em>Macros 1.1</em>) and <code>macro_rules!</code>.</p>
+<p>This convoluted mechanism enables such macros to run on stable Rust 1.15,
+even though functional procedural macros (a.k.a. <em>Macros 2.0</em>) are not available yet.</p>
+<p>A library defining such a macro needs two crates: a “normal” one, and a <code>proc-macro</code> one.
+In the example below we’ll call them <code>libfoo</code> and <code>libfoo-macros</code>, respectively.</p>
+<h2 id="credits" class="section-header"><a href="#credits">Credits</a></h2>
+<p>The trick that makes this crate work
+is based on an idea from <a href="https://github.com/dtolnay">David Tolnay</a>.
+Many thanks!</p>
+<h2 id="example" class="section-header"><a href="#example">Example</a></h2>
+<p>As a simple example, we’re going to re-implement the <code>stringify!</code> macro.
+This is useless since <code>stringify!</code> already exists in the standard library,
+and a bit absurd since this crate uses <code>stringify!</code> internally.</p>
+<p>Nevertheless, it serves as a simple example to demonstrate the use of this crate.</p>
+<h3 id="the-proc-macro-crate" class="section-header"><a href="#the-proc-macro-crate">The <code>proc-macro</code> crate</a></h3>
+<p>The minimal <code>Cargo.toml</code> file is typical for Macros 1.1:</p>
+<div class="example-wrap"><pre class="language-toml"><code>[package]
+name = &quot;libfoo-macros&quot;
+version = &quot;1.0.0&quot;
+
+[lib]
+proc-macro = true</code></pre></div>
+<p>In the code, we define the procedural part of our macro in a function.
+This function will not be used directly by end users,
+but it still needs to be re-exported to them
+(because of limitations in <code>macro_rules!</code>).</p>
+<p>To avoid name collisions, we include a long and explicit prefix in the function’s name.</p>
+<p>The function takes a string containing arbitrary Rust tokens,
+and returns a string that is parsed as <em>items</em>.
+The returned string can contain constants, statics, functions, <code>impl</code>s, etc.,
+but not expressions directly.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">procedural_masquerade</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">proc_macro</span>;
+
+<span class="macro">define_proc_macros!</span> {
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">foo_internal__stringify_const</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">String</span> {
+        <span class="macro">format!</span>(<span class="string">&quot;const STRINGIFIED: &amp;&#39;static str = {:?};&quot;</span>, <span class="ident">input</span>)
+    }
+}</code></pre></div>
+<p>A less trivial macro would probably use
+the <a href="https://github.com/dtolnay/syn/"><code>syn</code></a> crate to parse its input
+and the <a href="https://github.com/dtolnay/quote"><code>quote</code></a> crate to generate its output.</p>
+<h3 id="the-library-crate" class="section-header"><a href="#the-library-crate">The library crate</a></h3><div class="example-wrap"><pre class="language-toml"><code>[package]
+name = &quot;libfoo&quot;
+version = &quot;1.0.0&quot;
+
+[dependencies]
+libfoo-macros = {path = &quot;./macros&quot;, version = &quot;1.0&quot;}</code></pre></div>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libfoo_macros</span>;  <span class="comment">// (1)</span>
+
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">libfoo_macros</span>::<span class="kw-2">*</span>;  <span class="comment">// (2)</span>
+
+<span class="macro">define_invoke_proc_macro!</span>(<span class="ident">libfoo__invoke_proc_macro</span>);  <span class="comment">// (3)</span>
+
+<span class="attribute">#[<span class="ident">macro_export</span>]</span>
+<span class="macro">macro_rules!</span> <span class="ident">foo_stringify</span> {  <span class="comment">// (4)</span>
+    ( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">tts</span>: <span class="ident">tt</span> ) ) =&gt; {
+        {  <span class="comment">// (5)</span>
+            <span class="macro">libfoo__invoke_proc_macro!</span> {  <span class="comment">// (6)</span>
+                <span class="macro">foo_internal__stringify_const!</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">tts</span> ) )  <span class="comment">// (7)</span>
+            }
+            <span class="ident">STRINGIFIED</span>  <span class="comment">// (8)</span>
+        }
+    }
+}</code></pre></div>
+<p>Let’s go trough the numbered lines one by one:</p>
+<ol>
+<li><code>libfoo</code> depends on <code>libfoo-macros</code>, and imports its macros.</li>
+<li>Everything exported by <code>libfoo-macros</code> (which is one custom <code>derive</code>)
+is re-exported to users of <code>libfoo</code>.
+They’re not expected to use it directly,
+but expansion of the <code>foo_stringify</code> macro needs it.</li>
+<li>This macro invocation defines yet another macro, called <code>libfoo__invoke_proc_macro</code>,
+which is also exported.
+This indirection is necessary
+because re-exporting <code>macro_rules!</code> macros doesn’t work currently,
+and once again it is used by the expansion of <code>foo_stringify</code>.
+Again, we use a long prefix to avoid name collisions.</li>
+<li>Finally, we define the macro that we really want.
+This one has a name that users will use.</li>
+<li>The expansion of this macro will define some items,
+whose names are not hygienic in <code>macro_rules</code>.
+So we wrap everything in an extra <code>{…}</code> block to prevent these names for leaking.</li>
+<li>Here we use the macro defined in (3),
+which allows us to write something that look like invoking a functional procedural macro,
+but really uses a custom <code>derive</code>.
+This will define a type called <code>ProceduralMasqueradeDummyType</code>,
+as a placeholder to use <code>derive</code>.
+If <code>libfoo__invoke_proc_macro!</code> is to be used more than once,
+each use needs to be nested in another block
+so that the names of multiple dummy types don’t collide.</li>
+<li>In addition to the dummy type,
+the items returned by our procedural component are inserted here.
+(In this case the <code>STRINGIFIED</code> constant.)</li>
+<li>Finally, we write the expression that we want the macro to evaluate to.
+This expression can use parts of <code>foo_stringify</code>’s input,
+it can contain control-flow statements like <code>return</code> or <code>continue</code>,
+and of course refer to procedurally-defined items.</li>
+</ol>
+<p>This macro can be used in an expression context.
+It expands to a block-expression that contains some items (as an implementation detail)
+and ends with another expression.</p>
+<h3 id="for-users" class="section-header"><a href="#for-users">For users</a></h3>
+<p>Users of <code>libfoo</code> don’t need to worry about any of these implementation details.
+They can use the <code>foo_stringify</code> macro as if it were a simle <code>macro_rules</code> macro:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[<span class="ident">macro_use</span>]</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">libfoo</span>;
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="ident">do_something</span>(<span class="macro">foo_stringify!</span>(<span class="number">1</span> <span class="op">+</span> <span class="number">2</span>));
+}
+
+<span class="kw">fn</span> <span class="ident">do_something</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) { <span class="comment">/* ... */</span> }</code></pre></div>
+<h2 id="more" class="section-header"><a href="#more">More</a></h2>
+<p>To see a more complex example, look at
+<a href="https://github.com/servo/rust-cssparser/blob/master/src/macros.rs"><code>cssparser</code>’s <code>src/macros.rs</code></a>
+and
+<a href="https://github.com/servo/rust-cssparser/blob/master/macros/lib.rs"><code>cssparser-macros</code>’s <code>macros/lib.rs</code></a>.</p>
+</div></details><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.define_invoke_proc_macro.html" title="procedural_masquerade::define_invoke_proc_macro macro">define_invoke_proc_macro</a></div><div class="item-right docblock-short"><p>This macro expands to the definition of another macro (whose name is given as a parameter).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.define_proc_macros.html" title="procedural_masquerade::define_proc_macros macro">define_proc_macros</a></div><div class="item-right docblock-short"><p>This macro wraps <code>&amp;str -&gt; String</code> functions
+in custom <code>derive</code> implementations with <code>#[proc_macro_derive]</code>.</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="procedural_masquerade" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

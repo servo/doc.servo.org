@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OwnedSlice","A struct that basically replaces a `Box<[T]>`, but which cbindgen can understand."]]});

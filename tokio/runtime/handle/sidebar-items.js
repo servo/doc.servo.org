@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TryCurrentErrorKind",""]],"struct":[["EnterGuard","Runtime context guard."],["Handle","Handle to the runtime."],["TryCurrentError","Error returned by `try_current` when no Runtime has been started"]]});

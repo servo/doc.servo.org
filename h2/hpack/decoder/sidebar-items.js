@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DecoderError","Represents all errors that can be encountered while performing the decoding of an HPACK header set."],["NeedMore",""],["Representation",""]],"fn":[["consume",""],["decode_int",""],["get_static","Get an entry from the static table"],["peek_u8",""],["take",""]],"struct":[["Decoder","Decodes headers using HPACK"],["Table",""]]});

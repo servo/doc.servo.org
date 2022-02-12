@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DndEvent","Possible events generated during a drag’n’drop session"]],"fn":[["data_device_implem",""]],"struct":[["DataDevice","Handle to support data exchange on a given seat"],["Inner",""]]});

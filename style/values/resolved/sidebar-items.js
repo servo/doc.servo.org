@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["trivial_to_resolved_value",""]],"mod":[["color","Resolved color values."],["counters","Resolved values for counter properties"]],"struct":[["Context","Information needed to resolve a given value."]],"trait":[["ToResolvedValue","A trait to represent the conversion between resolved and resolved values."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WebGLReceiver",""],["WebGLSender",""]],"fn":[["webgl_channel",""]],"mod":[["ipc",""],["mpsc",""]],"struct":[["IS_MULTIPROCESS",""],["WebGLChan",""],["WebGLPipeline",""]],"type":[["WebGLSendResult",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["ident_fragment_display",""]],"trait":[["IdentFragment","Specialized formatting trait used by `format_ident!`."]]});

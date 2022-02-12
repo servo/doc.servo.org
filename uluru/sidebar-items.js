@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Entry","An entry in an LRUCache."],["Iter","Iterator over values in an LRUCache, from most-recently-used to least-recently-used."],["IterMut","Mutable iterator over values in an LRUCache, from most-recently-used to least-recently-used."],["LRUCache","A LRU cache using a statically-sized array for storage."]]});

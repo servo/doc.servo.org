@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["sealed",""]],"struct":[["Collect","Future returned by the `collect` method."]],"trait":[["FromStream","Convert from a `Stream`."]]});

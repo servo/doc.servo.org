@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["IntervalStream","A wrapper around `Interval` that implements `Stream`."]]});

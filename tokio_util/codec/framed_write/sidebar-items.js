@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FramedWrite","A `Sink` of frames encoded to an `AsyncWrite`."]]});

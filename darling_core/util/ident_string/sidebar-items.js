@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["IdentString","A wrapper for an `Ident` which also keeps the value as a string."]]});

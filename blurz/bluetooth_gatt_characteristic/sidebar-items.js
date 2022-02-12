@@ -1,0 +1,1 @@
+initSidebarItems({"static":[["GATT_CHARACTERISTIC_INTERFACE",""],["SERVICE_NAME",""]],"struct":[["BluetoothGATTCharacteristic",""]]});

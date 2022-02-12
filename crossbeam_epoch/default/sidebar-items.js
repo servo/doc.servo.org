@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["HANDLE","The per-thread participant for the default garbage collector."]],"fn":[["default_collector","Returns the default global collector."],["is_pinned","Returns `true` if the current thread is pinned."],["pin","Pins the current thread."],["with_handle",""]],"struct":[["COLLECTOR","The global data for the default garbage collector."]]});

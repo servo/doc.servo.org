@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AuthorStyles","A set of author stylesheets and their computed representation, such as the ones used for ShadowRoot."]]});

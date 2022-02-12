@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["timeout","Requires a `Future` to complete before the specified duration has elapsed."],["timeout_at","Requires a `Future` to complete before the specified instant in time."]],"struct":[["Timeout","Future returned by `timeout` and `timeout_at`."]]});

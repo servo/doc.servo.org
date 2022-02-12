@@ -1,0 +1,1 @@
+initSidebarItems({"static":[["GATT_SERVICE_INTERFACE",""]],"struct":[["BluetoothGATTService",""]]});

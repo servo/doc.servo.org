@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MapData","Body returned by the `map_data` combinator."]]});

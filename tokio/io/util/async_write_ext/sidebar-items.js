@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["write_impl","Defines numeric writer."]],"trait":[["AsyncWriteExt","Writes bytes to a sink."]]});

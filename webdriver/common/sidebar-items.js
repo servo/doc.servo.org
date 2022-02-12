@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FrameId",""],["LocatorStrategy",""]],"fn":[["serialize_webelement_id",""]],"static":[["ELEMENT_KEY",""],["FRAME_KEY",""],["MAX_SAFE_INTEGER",""],["WINDOW_KEY",""]],"struct":[["Cookie",""],["Date",""],["WebElement",""],["WebElementObject",""],["WebFrame",""],["WebFrameObject",""],["WebWindow",""],["WebWindowObject",""]],"type":[["Parameters",""]]});

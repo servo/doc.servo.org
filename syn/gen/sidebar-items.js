@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["clone",""],["debug",""],["eq",""],["fold","Syntax tree traversal to transform the nodes of an owned syntax tree."],["hash",""],["helper",""],["visit","Syntax tree traversal to walk a shared borrow of a syntax tree."],["visit_mut","Syntax tree traversal to mutate an exclusive borrow of a syntax tree in place."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["intersperse","Create a new Intersperse iterator"]],"struct":[["Intersperse","An iterator adaptor to insert a particular value between each element of the adapted iterator."]]});

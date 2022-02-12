@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GPUExtensionName",""]],"mod":[["GPUAdapterBinding",""],["GPUExtensionNameValues",""]],"struct":[["GPUDeviceDescriptor",""],["GPULimits",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["THREAD_ID",""]],"struct":[["AtomicOptThreadId","A type for atomic storage of thread ids."],["HandOverHandMutex","A type for hand-over-hand mutexes."],["ReentrantMutex","A type for re-entrant mutexes."],["ReentrantMutexGuard",""],["THREAD_COUNT",""],["ThreadId","A type for thread ids."]]});

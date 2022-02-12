@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["benchmark",""],["black_box","An identity function that hints to the compiler to be maximally pessimistic about what `black_box` could do."],["fmt_bench_samples",""],["iter",""],["run_once",""]],"struct":[["BenchSamples",""],["Bencher","Manager of the benchmarking runs."]]});

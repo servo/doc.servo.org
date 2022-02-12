@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_assert_trait_object",""]],"macro":[["deref_forward_bufmut",""]],"trait":[["BufMut","A trait for values that provide sequential write access to bytes."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["is_valid",""],["is_visible_ascii",""]],"macro":[["from_integers",""]],"struct":[["HeaderValue","Represents an HTTP header field value."],["InvalidHeaderValue","A possible error when converting a `HeaderValue` from a string or byte slice."],["ToStrError","A possible error when converting a `HeaderValue` to a string representation."]]});

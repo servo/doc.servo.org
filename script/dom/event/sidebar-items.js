@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_Event",""]],"enum":[["EventBubbles",""],["EventCancelable",""],["EventDefault","An enum to indicate whether the default action of an event is allowed."],["EventPhase",""],["EventStatus",""]],"fn":[["inner_invoke",""],["invoke",""]],"struct":[["Event",""],["EventTask",""],["SimpleEventTask",""]]});

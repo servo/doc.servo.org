@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Flag","repr(u8) - Make sure the non-nullable pointer optimization does not occur!"]],"fn":[["debug_assert_unreachable",""],["needs_drop",""]],"struct":[["NoDrop","A type holding T that will not call its destructor on drop"]]});

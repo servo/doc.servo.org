@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["LazyGlobal","An utility for lazy-loading globals."]]});

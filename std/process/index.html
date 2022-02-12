@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A module for working with processes."><meta name="keywords" content="rust, rustlang, rust-lang, process"><title>std::process - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize1.60.0.css"><link rel="stylesheet" type="text/css" href="../../rustdoc1.60.0.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu1.60.0.css" disabled><link rel="stylesheet" type="text/css" href="../../dark1.60.0.css" disabled><link rel="stylesheet" type="text/css" href="../../light1.60.0.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage1.60.0.js"></script><script src="../../crates1.60.0.js"></script><script defer src="../../main1.60.0.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript1.60.0.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x161.60.0.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x321.60.0.png"><link rel="icon" type="image/svg+xml" href="../../favicon1.60.0.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../std/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo1.60.0.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../std/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo1.60.0.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Module process</a></h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li></ul></div><div id="sidebar-vars" data-name="process" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items1.60.0.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../std/index.html"><img class="rust-logo" src="../../rust-logo1.60.0.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush1.60.0.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel1.60.0.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Module <a href="../index.html">std</a>::<wbr><a class="mod" href="#">process</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard1.60.0.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span>· <a class="srclink" href="../../src/std/process.rs.html#1-2070" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A module for working with processes.</p>
+<p>This module is mostly concerned with spawning and interacting with child
+processes, but it also provides <a href="fn.abort.html" title="abort"><code>abort</code></a> and <a href="fn.exit.html" title="exit"><code>exit</code></a> for terminating the
+current process.</p>
+<h2 id="spawning-a-process" class="section-header"><a href="#spawning-a-process">Spawning a process</a></h2>
+<p>The <a href="struct.Command.html" title="Command"><code>Command</code></a> struct is used to configure and spawn processes:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::process::Command</span>;
+
+<span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">Command::new</span>(<span class="string">&quot;echo&quot;</span>)
+                     .<span class="ident">arg</span>(<span class="string">&quot;Hello world&quot;</span>)
+                     .<span class="ident">output</span>()
+                     .<span class="ident">expect</span>(<span class="string">&quot;Failed to execute command&quot;</span>);
+
+<span class="macro">assert_eq!</span>(<span class="string">b&quot;Hello world\n&quot;</span>, <span class="ident">output</span>.<span class="ident">stdout</span>.<span class="ident">as_slice</span>());</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Ause%20std%3A%3Aprocess%3A%3ACommand%3B%0A%0Alet%20output%20%3D%20Command%3A%3Anew(%22echo%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.arg(%22Hello%20world%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.output()%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20.expect(%22Failed%20to%20execute%20command%22)%3B%0A%0Aassert_eq!(b%22Hello%20world%5Cn%22%2C%20output.stdout.as_slice())%3B%0A%7D&amp;edition=2021">Run</a></div>
+<p>Several methods on <a href="struct.Command.html" title="Command"><code>Command</code></a>, such as <a href="struct.Command.html#method.spawn"><code>spawn</code></a> or <a href="struct.Command.html#method.output"><code>output</code></a>, can be used
+to spawn a process. In particular, <a href="struct.Command.html#method.output"><code>output</code></a> spawns the child process and
+waits until the process terminates, while <a href="struct.Command.html#method.spawn"><code>spawn</code></a> will return a <a href="struct.Child.html" title="Child"><code>Child</code></a>
+that represents the spawned child process.</p>
+<h2 id="handling-io" class="section-header"><a href="#handling-io">Handling I/O</a></h2>
+<p>The <a href="struct.Command.html#method.stdout"><code>stdout</code></a>, <a href="struct.Command.html#method.stdin"><code>stdin</code></a>, and <a href="struct.Command.html#method.stderr"><code>stderr</code></a> of a child process can be
+configured by passing an <a href="struct.Stdio.html" title="Stdio"><code>Stdio</code></a> to the corresponding method on
+<a href="struct.Command.html" title="Command"><code>Command</code></a>. Once spawned, they can be accessed from the <a href="struct.Child.html" title="Child"><code>Child</code></a>. For
+example, piping output from one command into another command can be done
+like so:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::process</span>::{<span class="ident">Command</span>, <span class="ident">Stdio</span>};
+
+<span class="comment">// stdout must be configured with `Stdio::piped` in order to use</span>
+<span class="comment">// `echo_child.stdout`</span>
+<span class="kw">let</span> <span class="ident">echo_child</span> <span class="op">=</span> <span class="ident">Command::new</span>(<span class="string">&quot;echo&quot;</span>)
+    .<span class="ident">arg</span>(<span class="string">&quot;Oh no, a tpyo!&quot;</span>)
+    .<span class="ident">stdout</span>(<span class="ident">Stdio::piped</span>())
+    .<span class="ident">spawn</span>()
+    .<span class="ident">expect</span>(<span class="string">&quot;Failed to start echo process&quot;</span>);
+
+<span class="comment">// Note that `echo_child` is moved here, but we won&#39;t be needing</span>
+<span class="comment">// `echo_child` anymore</span>
+<span class="kw">let</span> <span class="ident">echo_out</span> <span class="op">=</span> <span class="ident">echo_child</span>.<span class="ident">stdout</span>.<span class="ident">expect</span>(<span class="string">&quot;Failed to open echo stdout&quot;</span>);
+
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sed_child</span> <span class="op">=</span> <span class="ident">Command::new</span>(<span class="string">&quot;sed&quot;</span>)
+    .<span class="ident">arg</span>(<span class="string">&quot;s/tpyo/typo/&quot;</span>)
+    .<span class="ident">stdin</span>(<span class="ident">Stdio::from</span>(<span class="ident">echo_out</span>))
+    .<span class="ident">stdout</span>(<span class="ident">Stdio::piped</span>())
+    .<span class="ident">spawn</span>()
+    .<span class="ident">expect</span>(<span class="string">&quot;Failed to start sed process&quot;</span>);
+
+<span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">sed_child</span>.<span class="ident">wait_with_output</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to wait on sed&quot;</span>);
+<span class="macro">assert_eq!</span>(<span class="string">b&quot;Oh no, a typo!\n&quot;</span>, <span class="ident">output</span>.<span class="ident">stdout</span>.<span class="ident">as_slice</span>());</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Ause%20std%3A%3Aprocess%3A%3A%7BCommand%2C%20Stdio%7D%3B%0A%0A%2F%2F%20stdout%20must%20be%20configured%20with%20%60Stdio%3A%3Apiped%60%20in%20order%20to%20use%0A%2F%2F%20%60echo_child.stdout%60%0Alet%20echo_child%20%3D%20Command%3A%3Anew(%22echo%22)%0A%20%20%20%20.arg(%22Oh%20no%2C%20a%20tpyo!%22)%0A%20%20%20%20.stdout(Stdio%3A%3Apiped())%0A%20%20%20%20.spawn()%0A%20%20%20%20.expect(%22Failed%20to%20start%20echo%20process%22)%3B%0A%0A%2F%2F%20Note%20that%20%60echo_child%60%20is%20moved%20here%2C%20but%20we%20won't%20be%20needing%0A%2F%2F%20%60echo_child%60%20anymore%0Alet%20echo_out%20%3D%20echo_child.stdout.expect(%22Failed%20to%20open%20echo%20stdout%22)%3B%0A%0Alet%20mut%20sed_child%20%3D%20Command%3A%3Anew(%22sed%22)%0A%20%20%20%20.arg(%22s%2Ftpyo%2Ftypo%2F%22)%0A%20%20%20%20.stdin(Stdio%3A%3Afrom(echo_out))%0A%20%20%20%20.stdout(Stdio%3A%3Apiped())%0A%20%20%20%20.spawn()%0A%20%20%20%20.expect(%22Failed%20to%20start%20sed%20process%22)%3B%0A%0Alet%20output%20%3D%20sed_child.wait_with_output().expect(%22Failed%20to%20wait%20on%20sed%22)%3B%0Aassert_eq!(b%22Oh%20no%2C%20a%20typo!%5Cn%22%2C%20output.stdout.as_slice())%3B%0A%7D&amp;edition=2021">Run</a></div>
+<p>Note that <a href="struct.ChildStderr.html" title="ChildStderr"><code>ChildStderr</code></a> and <a href="struct.ChildStdout.html" title="ChildStdout"><code>ChildStdout</code></a> implement <a href="../io/trait.Read.html"><code>Read</code></a> and
+<a href="struct.ChildStdin.html" title="ChildStdin"><code>ChildStdin</code></a> implements <a href="../io/trait.Write.html"><code>Write</code></a>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::process</span>::{<span class="ident">Command</span>, <span class="ident">Stdio</span>};
+<span class="kw">use</span> <span class="ident">std::io::Write</span>;
+
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">child</span> <span class="op">=</span> <span class="ident">Command::new</span>(<span class="string">&quot;/bin/cat&quot;</span>)
+    .<span class="ident">stdin</span>(<span class="ident">Stdio::piped</span>())
+    .<span class="ident">stdout</span>(<span class="ident">Stdio::piped</span>())
+    .<span class="ident">spawn</span>()
+    .<span class="ident">expect</span>(<span class="string">&quot;failed to execute child&quot;</span>);
+
+<span class="comment">// If the child process fills its stdout buffer, it may end up</span>
+<span class="comment">// waiting until the parent reads the stdout, and not be able to</span>
+<span class="comment">// read stdin in the meantime, causing a deadlock.</span>
+<span class="comment">// Writing from another thread ensures that stdout is being read</span>
+<span class="comment">// at the same time, avoiding the problem.</span>
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stdin</span> <span class="op">=</span> <span class="ident">child</span>.<span class="ident">stdin</span>.<span class="ident">take</span>().<span class="ident">expect</span>(<span class="string">&quot;failed to get stdin&quot;</span>);
+<span class="ident">std::thread::spawn</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
+    <span class="ident">stdin</span>.<span class="ident">write_all</span>(<span class="string">b&quot;test&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;failed to write to stdin&quot;</span>);
+});
+
+<span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">child</span>
+    .<span class="ident">wait_with_output</span>()
+    .<span class="ident">expect</span>(<span class="string">&quot;failed to wait on child&quot;</span>);
+
+<span class="macro">assert_eq!</span>(<span class="string">b&quot;test&quot;</span>, <span class="ident">output</span>.<span class="ident">stdout</span>.<span class="ident">as_slice</span>());</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Ause%20std%3A%3Aprocess%3A%3A%7BCommand%2C%20Stdio%7D%3B%0Ause%20std%3A%3Aio%3A%3AWrite%3B%0A%0Alet%20mut%20child%20%3D%20Command%3A%3Anew(%22%2Fbin%2Fcat%22)%0A%20%20%20%20.stdin(Stdio%3A%3Apiped())%0A%20%20%20%20.stdout(Stdio%3A%3Apiped())%0A%20%20%20%20.spawn()%0A%20%20%20%20.expect(%22failed%20to%20execute%20child%22)%3B%0A%0A%2F%2F%20If%20the%20child%20process%20fills%20its%20stdout%20buffer%2C%20it%20may%20end%20up%0A%2F%2F%20waiting%20until%20the%20parent%20reads%20the%20stdout%2C%20and%20not%20be%20able%20to%0A%2F%2F%20read%20stdin%20in%20the%20meantime%2C%20causing%20a%20deadlock.%0A%2F%2F%20Writing%20from%20another%20thread%20ensures%20that%20stdout%20is%20being%20read%0A%2F%2F%20at%20the%20same%20time%2C%20avoiding%20the%20problem.%0Alet%20mut%20stdin%20%3D%20child.stdin.take().expect(%22failed%20to%20get%20stdin%22)%3B%0Astd%3A%3Athread%3A%3Aspawn(move%20%7C%7C%20%7B%0A%20%20%20%20stdin.write_all(b%22test%22).expect(%22failed%20to%20write%20to%20stdin%22)%3B%0A%7D)%3B%0A%0Alet%20output%20%3D%20child%0A%20%20%20%20.wait_with_output()%0A%20%20%20%20.expect(%22failed%20to%20wait%20on%20child%22)%3B%0A%0Aassert_eq!(b%22test%22%2C%20output.stdout.as_slice())%3B%0A%7D&amp;edition=2021">Run</a></div>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left unstable module-item"><a class="struct" href="struct.ExitCode.html" title="std::process::ExitCode struct">ExitCode</a><span class="stab unstable" title="">Experimental</span></div><div class="item-right docblock-short"><p>This type represents the status code a process can return to its
+parent under normal termination.</p>
+</div></div><div class="item-row"><div class="item-left unstable module-item"><a class="struct" href="struct.ExitStatusError.html" title="std::process::ExitStatusError struct">ExitStatusError</a><span class="stab unstable" title="">Experimental</span></div><div class="item-right docblock-short"><p>Describes the result of a process after it has failed</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Child.html" title="std::process::Child struct">Child</a></div><div class="item-right docblock-short"><p>Representation of a running or exited child process.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ChildStderr.html" title="std::process::ChildStderr struct">ChildStderr</a></div><div class="item-right docblock-short"><p>A handle to a child process’s stderr.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ChildStdin.html" title="std::process::ChildStdin struct">ChildStdin</a></div><div class="item-right docblock-short"><p>A handle to a child process’s standard input (stdin).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ChildStdout.html" title="std::process::ChildStdout struct">ChildStdout</a></div><div class="item-right docblock-short"><p>A handle to a child process’s standard output (stdout).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Command.html" title="std::process::Command struct">Command</a></div><div class="item-right docblock-short"><p>A process builder, providing fine-grained control
+over how a new process should be spawned.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.CommandArgs.html" title="std::process::CommandArgs struct">CommandArgs</a></div><div class="item-right docblock-short"><p>An iterator over the command arguments.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.CommandEnvs.html" title="std::process::CommandEnvs struct">CommandEnvs</a></div><div class="item-right docblock-short"><p>An iterator over the command environment variables.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ExitStatus.html" title="std::process::ExitStatus struct">ExitStatus</a></div><div class="item-right docblock-short"><p>Describes the result of a process after it has terminated.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Output.html" title="std::process::Output struct">Output</a></div><div class="item-right docblock-short"><p>The output of a finished process.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Stdio.html" title="std::process::Stdio struct">Stdio</a></div><div class="item-right docblock-short"><p>Describes what to do with a standard I/O stream for a child process when
+passed to the <a href="struct.Command.html#method.stdin"><code>stdin</code></a>, <a href="struct.Command.html#method.stdout"><code>stdout</code></a>, and <a href="struct.Command.html#method.stderr"><code>stderr</code></a> methods of <a href="struct.Command.html" title="Command"><code>Command</code></a>.</p>
+</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left unstable module-item"><a class="trait" href="trait.Termination.html" title="std::process::Termination trait">Termination</a><span class="stab unstable" title="">Experimental</span></div><div class="item-right docblock-short"><p>A trait for implementing arbitrary return types in the <code>main</code> function.</p>
+</div></div></div><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.abort.html" title="std::process::abort fn">abort</a></div><div class="item-right docblock-short"><p>Terminates the process in an abnormal fashion.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.exit.html" title="std::process::exit fn">exit</a></div><div class="item-right docblock-short"><p>Terminates the current process with the specified exit code.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.id.html" title="std::process::id fn">id</a></div><div class="item-right docblock-short"><p>Returns the OS-assigned process identifier associated with this process.</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="std" data-themes="ayu,dark,light" data-resource-suffix="1.60.0" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ChunkedState",""],["Kind",""]],"macro":[["byte",""]],"struct":[["Decoder","Decoders to handle different Transfer-Encodings."],["IncompleteBody",""]]});

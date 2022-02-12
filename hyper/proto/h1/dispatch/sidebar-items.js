@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Client",""],["Dispatcher",""],["OptGuard","A drop guard to allow a mutable borrow of an Option while being able to set whether the `Option` should be cleared on drop."]],"trait":[["Dispatch",""]],"type":[["ClientRx",""]]});

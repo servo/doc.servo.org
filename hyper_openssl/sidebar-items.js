@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MaybeHttpsStream","A stream which may be wrapped with TLS."]],"fn":[["key_index",""]],"mod":[["cache",""]],"struct":[["ConnectError",""],["HttpsConnector","A Connector using OpenSSL to support `http` and `https` schemes."],["HttpsLayer","A layer which wraps services in an `HttpsConnector`."],["Inner",""]]});

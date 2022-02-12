@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["IterBridge","`IterBridge` is a parallel iterator that wraps a sequential iterator."],["IterParallelProducer",""]],"trait":[["ParallelBridge","Conversion trait to convert an `Iterator` to a `ParallelIterator`."]]});

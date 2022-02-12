@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Flatten","`Flatten` turns each element to a parallel iterator, then flattens these iterators together. This struct is created by the `flatten()` method on `ParallelIterator`."],["FlattenConsumer","//////////////////////////////////////////////////////////////////////// Consumer implementation"],["FlattenFolder",""]]});

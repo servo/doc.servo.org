@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["take",""]],"struct":[["Take","Stream for the `take` method."]]});

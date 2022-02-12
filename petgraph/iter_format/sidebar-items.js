@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["impl_format",""]],"struct":[["DebugMap","Format the iterator like a map"],["Format","Format all iterator elements lazily, separated by `sep`."],["NoPretty","Avoid “pretty” debug"]],"trait":[["IterFormatExt",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["InterleaveShortest","`InterleaveShortest` is an iterator that works similarly to `Interleave`, but this version stops returning elements once one of the iterators run out."]]});

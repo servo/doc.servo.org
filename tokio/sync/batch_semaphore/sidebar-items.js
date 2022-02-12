@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TryAcquireError","Error returned from the `Semaphore::try_acquire` function."]],"struct":[["Acquire",""],["AcquireError","Error returned from the `Semaphore::acquire` function."],["Semaphore","An asynchronous counting semaphore which permits waiting on multiple permits at once."],["Waiter","An entry in the wait queue."],["Waitlist",""]]});

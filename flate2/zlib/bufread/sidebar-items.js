@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["reset_decoder_data",""],["reset_encoder_data",""]],"struct":[["ZlibDecoder","A ZLIB decoder, or decompressor."],["ZlibEncoder","A ZLIB encoder, or compressor."]]});

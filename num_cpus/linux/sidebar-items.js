@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["cgroups_num_cpus",""],["get_num_cpus",""],["get_num_physical_cpus",""],["init_cgroups",""],["load_cgroups",""],["logical_cpus",""]],"macro":[["debug",""],["some",""]],"static":[["CGROUPS_CPUS","Cached CPUs calculated from cgroups."]],"struct":[["Cgroup",""],["MountInfo",""],["Subsys",""]]});

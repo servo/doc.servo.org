@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SameSite","The `SameSite` cookie attribute."]]});

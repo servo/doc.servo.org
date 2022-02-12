@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OwnedRwLockReadGuard","Owned RAII structure used to release the shared read access of a lock when dropped."]]});

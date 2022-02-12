@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Gif",""],["Jpeg",""],["Png",""],["Webp",""]],"macro":[["impl_metadata_marker",""]],"trait":[["MetadataMarker","A marker trait for a specific metadata type."]]});

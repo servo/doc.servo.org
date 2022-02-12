@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_HTMLFontElement",""]],"fn":[["parse_size","https://html.spec.whatwg.org/multipage/#rules-for-parsing-a-legacy-font-size"]],"struct":[["HTMLFontElement",""]],"trait":[["HTMLFontElementLayoutHelpers",""]]});

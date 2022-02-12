@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CoffCommon","The common parts of `PeFile` and `CoffFile`."],["CoffFile","A COFF object file."]]});

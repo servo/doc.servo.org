@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["tracing_futures"] = [{"text":"impl&lt;T:&nbsp;<a class=\"trait\" href=\"tracing_futures/stdlib/no_std/future/trait.Future.html\" title=\"trait tracing_futures::stdlib::no_std::future::Future\">Future</a>&gt; <a class=\"trait\" href=\"tracing_futures/stdlib/no_std/future/trait.Future.html\" title=\"trait tracing_futures::stdlib::no_std::future::Future\">Future</a> for <a class=\"struct\" href=\"tracing_futures/struct.Instrumented.html\" title=\"struct tracing_futures::Instrumented\">Instrumented</a>&lt;T&gt;","synthetic":false,"types":["tracing_futures::Instrumented"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TryFold","Future for the `try_fold` method."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ElementRareData",""],["NodeRareData",""]]});

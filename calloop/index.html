@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Calloop, a Callback-based Event Loop"><meta name="keywords" content="rust, rustlang, rust-lang, calloop"><title>calloop - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../calloop/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../calloop/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Crate calloop</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.6.5</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li></ul></div><div id="sidebar-vars" data-name="calloop" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../calloop/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">calloop</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/calloop/lib.rs.html#1-98" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Calloop, a Callback-based Event Loop</p>
+<p>This crate provides an <code>EventLoop</code> type, which is a small abstraction
+over a polling system. The main difference between this crate
+and other traditional rust event loops is that it is based on callbacks:
+you can register several event sources, each being associated with a callback
+closure that will be invoked whenever the associated event source generates
+events.</p>
+<p>This crate was initially an implementation detail of <code>wayland-server</code>, and has been
+split-off for reuse. I expect it to be more useful for GUI programs or graphical
+servers (like wayland-based apps) than performance critial networking code, which are
+more versed towards <code>tokio</code> and async-await. It mostly shines in the conception of
+modular infrastructures, allowing different modules to use the same event loop without
+needing to know about each other.</p>
+<h3 id="how-to-use-it" class="section-header"><a href="#how-to-use-it">How to use it</a></h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">calloop</span>;
+
+<span class="kw">use</span> <span class="ident">std::time::Duration</span>;
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="comment">// Create the event loop</span>
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">event_loop</span> <span class="op">=</span> <span class="ident">calloop::EventLoop::new</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to initialize the event loop!&quot;</span>);
+    <span class="comment">// Retrieve an handle. It is used to insert new sources into the event loop</span>
+    <span class="comment">// It can be cloned, allowing you to insert sources from within sources</span>
+    <span class="kw">let</span> <span class="ident">handle</span> <span class="op">=</span> <span class="ident">event_loop</span>.<span class="ident">handle</span>();
+
+    <span class="comment">/*
+     * Setup your program, inserting event sources in the loop
+     */</span>
+
+    <span class="comment">// Actual run of your loop</span>
+    <span class="kw">loop</span> {
+        <span class="comment">// Dispatch received events to their callbacks, waiting at most 20 ms for</span>
+        <span class="comment">// new events</span>
+        <span class="comment">//</span>
+        <span class="comment">// The `&amp;mut shared_data` is a mutable reference that will be forwarded to all</span>
+        <span class="comment">// your callbacks, allowing them to easily share some state</span>
+        <span class="ident">event_loop</span>.<span class="ident">dispatch</span>(<span class="ident">Duration::from_millis</span>(<span class="number">20</span>), <span class="kw-2">&amp;mut</span> <span class="ident">shared_data</span>);
+
+        <span class="comment">/*
+         * Insert here the processing you need to do do between each event loop run
+         * like your drawing logic if you&#39;re doing a GUI app for example.
+         */</span>
+
+    }
+}</code></pre></div>
+<h3 id="event-source-types" class="section-header"><a href="#event-source-types">Event source types</a></h3>
+<p>The event loop is backed by an OS provided polling selector (epoll on Linux).</p>
+<p>This crate also provide some adapters for common event sources such as:</p>
+<ul>
+<li>MPSC channels</li>
+<li>Timers</li>
+<li>unix signals</li>
+</ul>
+<p>As well as generic objects backed by file descriptors.</p>
+<p>It is also possible to insert “idle” callbacks. These callbacks represent computations that
+need to be done at some point, but are not as urgent as processing the events. These callbacks
+are stored and then executed during <code>EventLoop::dispatch(..)</code>, once all events from the sources
+have been processed.</p>
+<h3 id="custom-event-sources" class="section-header"><a href="#custom-event-sources">Custom event sources</a></h3>
+<p>You can create custom event sources can will be inserted in the event loop by
+implementing the <code>EventSource</code> trait. This can be done either directly from the file
+descriptors of your source of interest, or by wrapping an other event source and further
+processing its events. An <code>EventSource</code> can register more than one file descriptor and
+aggregate them.</p>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="channel/index.html" title="calloop::channel mod">channel</a></div><div class="item-right docblock-short"><p>An MPSC channel whose receiving end is an event source</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="generic/index.html" title="calloop::generic mod">generic</a></div><div class="item-right docblock-short"><p>A generic event source wrapping a file descriptor</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="list/index.html" title="calloop::list mod">list</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="loop_logic/index.html" title="calloop::loop_logic mod">loop_logic</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="ping/index.html" title="calloop::ping mod">ping</a></div><div class="item-right docblock-short"><p>Ping to the event loop</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="signals/index.html" title="calloop::signals mod">signals</a></div><div class="item-right docblock-short"><p>Event source for tracking Unix signals</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="sources/index.html" title="calloop::sources mod">sources</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="sys/index.html" title="calloop::sys mod">sys</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="timer/index.html" title="calloop::timer mod">timer</a></div><div class="item-right docblock-short"><p>Timer-based event sources</p>
+</div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EventLoop.html" title="calloop::EventLoop struct">EventLoop</a></div><div class="item-right docblock-short"><p>An event loop</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Idle.html" title="calloop::Idle struct">Idle</a></div><div class="item-right docblock-short"><p>An idle callback that was inserted in this loop</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.InsertError.html" title="calloop::InsertError struct">InsertError</a></div><div class="item-right docblock-short"><p>An error generated when trying to insert an event source</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.LoopHandle.html" title="calloop::LoopHandle struct">LoopHandle</a></div><div class="item-right docblock-short"><p>An handle to an event loop</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.LoopSignal.html" title="calloop::LoopSignal struct">LoopSignal</a></div><div class="item-right docblock-short"><p>A signal that can be shared between thread to stop or wakeup a running
+event loop</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Poll.html" title="calloop::Poll struct">Poll</a></div><div class="item-right docblock-short"><p>The polling system</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Readiness.html" title="calloop::Readiness struct">Readiness</a></div><div class="item-right docblock-short"><p>Readiness for a file descriptor notification</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Source.html" title="calloop::Source struct">Source</a></div><div class="item-right docblock-short"><p>A token representing an event source inserted in the event loop</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Token.html" title="calloop::Token struct">Token</a></div><div class="item-right docblock-short"><p>A Token for registration</p>
+</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Interest.html" title="calloop::Interest enum">Interest</a></div><div class="item-right docblock-short"><p>Interest to register regarding the file descriptor</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Mode.html" title="calloop::Mode enum">Mode</a></div><div class="item-right docblock-short"><p>Possible modes for registering a file descriptor</p>
+</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.EventSource.html" title="calloop::EventSource trait">EventSource</a></div><div class="item-right docblock-short"><p>Trait representing an event source</p>
+</div></div></div><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.no_nix_err.html" title="calloop::no_nix_err fn">no_nix_err</a></div><div class="item-right docblock-short"></div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="calloop" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Stash","A simple arena allocator for byte buffers."]]});

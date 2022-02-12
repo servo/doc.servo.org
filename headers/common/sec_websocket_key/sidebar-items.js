@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SecWebsocketKey","The `Sec-Websocket-Key` header."]]});

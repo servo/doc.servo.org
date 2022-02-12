@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ElfNote","A parsed `NoteHeader`."],["ElfNoteIterator","An iterator over the notes in an `ElfSegment` or `ElfSection`."]],"trait":[["NoteHeader","A trait for generic access to `NoteHeader32` and `NoteHeader64`."]],"type":[["ElfNote32","A parsed `NoteHeader32`."],["ElfNote64","A parsed `NoteHeader64`."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["GLAPI",""],["GLDisplayType",""],["GLPlatform",""],["GLSLProfile",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["make_future",""]],"struct":[["PollSender","A wrapper around `mpsc::Sender` that can be polled."]]});

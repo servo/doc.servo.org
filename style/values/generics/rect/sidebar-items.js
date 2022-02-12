@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Rect","A CSS value made of four components, where its `ToCss` impl will try to serialize as few components as possible, like for example in `border-width`."]]});

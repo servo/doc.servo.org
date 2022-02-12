@@ -1,0 +1,1 @@
+initSidebarItems({"static":[["ADAPTER_INTERFACE",""],["SERVICE_NAME",""]],"struct":[["BluetoothDiscoverySession",""]]});

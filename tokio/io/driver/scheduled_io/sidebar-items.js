@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["GENERATION",""],["READINESS",""],["TICK",""]],"enum":[["State",""]],"struct":[["Readiness","Future returned by `readiness()`."],["ScheduledIo","Stored in the I/O driver resource slab."],["Waiter",""],["Waiters",""]],"type":[["WaitList",""]]});

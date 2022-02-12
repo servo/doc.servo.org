@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OwnedList","The generic type defining the animated and resolved values for this property."]],"type":[["AnimatedList",""],["ComputedList","The computed value for this property."],["Iter",""],["UnderlyingList",""],["UnderlyingOwnedList",""]]});

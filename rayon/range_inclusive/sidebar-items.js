@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["convert",""],["convert_char",""],["indexed_range_impl",""],["parallel_range_impl",""]],"struct":[["Iter","Parallel iterator over an inclusive range, implemented for all integer types."]]});

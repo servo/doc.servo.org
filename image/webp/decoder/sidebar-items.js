@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DecoderError","All errors that can occur when attempting to parse a WEBP container"]],"struct":[["WebPDecoder","WebP Image format decoder. Currently only supportes the luma channel (meaning that decoded images will be grayscale)."],["WebpReader","Wrapper struct around a `Cursor<Vec<u8>>`"]]});

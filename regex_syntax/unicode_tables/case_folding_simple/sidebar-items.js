@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CASE_FOLDING_SIMPLE",""]]});

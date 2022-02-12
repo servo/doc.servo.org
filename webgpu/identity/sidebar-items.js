@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WebGPUMsg",""],["WebGPUOpResult",""]],"macro":[["impl_identity_handler",""]],"struct":[["IdentityRecycler",""],["IdentityRecyclerFactory",""]]});

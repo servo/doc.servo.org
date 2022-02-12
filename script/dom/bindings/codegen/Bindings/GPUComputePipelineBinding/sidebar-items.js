@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["GPUComputePipelineBinding",""]],"struct":[["GPUComputePipelineDescriptor",""],["GPUPipelineDescriptorBase",""],["GPUProgrammableStageDescriptor",""]]});

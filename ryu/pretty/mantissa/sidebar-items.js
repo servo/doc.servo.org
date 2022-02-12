@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["write_mantissa",""],["write_mantissa_long",""]]});

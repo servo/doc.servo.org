@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["constant",""],["forward","Forward a method to an inherent method or a base trait method."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Pattern",""],["Repetition",""]],"fn":[["create_gradient_stops",""]],"struct":[["LinearGradientPattern",""],["PathBuilder",""],["RadialGradientPattern",""],["RaqoteBackend",""],["SurfacePattern",""]],"trait":[["ToRaqoteGradientStop",""],["ToRaqotePattern",""],["ToRaqoteStyle",""]]});

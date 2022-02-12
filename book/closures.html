@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Closures</title>
+
+    <link rel="stylesheet" type="text/css" href="../rust.css">
+
+    <meta name="robots" content="noindex,follow">
+<link rel="shortcut icon" href="https://www.rust-lang.org/favicon.ico">
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="versioninfo">
+  <img src="https://www.rust-lang.org/logos/rust-logo-32x32-blk.png" width="32" height="32" alt="Rust logo"><br>
+  <span class="white-sticker"><a href="https://www.rust-lang.org">Rust</a> 1.60.0-nightly</span><br>
+  <a href="https://github.com/rust-lang/rust/commit/5e57faa78aa7661c6000204591558f6665f11abc"
+    class="hash white-sticker">5e57faa78</a>
+</div>
+
+
+    <h1 class="title">Closures</h1>
+    <p><small>There is a new edition of the book and this is an old link.</small></p>
+<blockquote>
+<p>Anonymous functions you can save in a variable or pass as arguments to other functions.</p>
+</blockquote>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="kw">let</span> <span class="ident">expensive_closure</span> <span class="op">=</span> <span class="op">|</span><span class="ident">num</span><span class="op">|</span> {
+    <span class="macro">println!</span>(<span class="string">&quot;calculating slowly...&quot;</span>);
+    <span class="ident">thread::sleep</span>(<span class="ident">Duration::from_secs</span>(<span class="number">2</span>));
+    <span class="ident">num</span>
+};</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Ause%20std%3A%3Athread%3B%0Ause%20std%3A%3Atime%3A%3ADuration%3B%0A%0Alet%20expensive_closure%20%3D%20%7Cnum%7C%20%7B%0A%20%20%20%20println!(%22calculating%20slowly...%22)%3B%0A%20%20%20%20thread%3A%3Asleep(Duration%3A%3Afrom_secs(2))%3B%0A%20%20%20%20num%0A%7D%3B%0Aexpensive_closure(5)%3B%0A%7D&amp;edition=2015">Run</a></div>
+<hr />
+<p>Here are the relevant sections in the new and old books:</p>
+<ul>
+<li><strong><a href="ch13-01-closures.html">in the current edition: Ch 13.01 — Closures</a></strong></li>
+<li><small><a href="https://doc.rust-lang.org/1.30.0/book/first-edition/closures.html">In the first edition: Ch 3.23 — Closures</a></small></li>
+</ul>
+
+    <footer><p>
+Copyright &copy; 2011 The Rust Project Developers. Licensed under the
+<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
+or the <a href="https://opensource.org/licenses/MIT">MIT license</a>, at your option.
+</p><p>
+This file may not be copied, modified, or distributed except according to those terms.
+</p></footer>
+
+
+</body>
+</html>

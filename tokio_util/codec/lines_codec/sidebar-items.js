@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["LinesCodecError","An error occurred while encoding or decoding a line."]],"fn":[["utf8",""],["without_carriage_return",""]],"struct":[["LinesCodec","A simple `Decoder` and `Encoder` implementation that splits up data into lines."]]});

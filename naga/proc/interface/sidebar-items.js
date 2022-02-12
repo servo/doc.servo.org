@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["GlobalUseVisitor",""],["Interface",""]],"trait":[["Visitor",""]]});

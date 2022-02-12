@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DocumentMatchingFunction","A matching function for a `@document` rule’s condition."],["MediaDocumentKind","The kind of media document that the rule will match."]],"macro":[["parse_quoted_or_unquoted_string",""]],"struct":[["DocumentCondition","A `@document` rule’s condition."],["DocumentRule","A @-moz-document rule"]]});

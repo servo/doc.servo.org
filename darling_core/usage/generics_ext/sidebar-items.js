@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["GenericsExt","Extension trait for pulling specific generics data from a generics AST representation."]]});

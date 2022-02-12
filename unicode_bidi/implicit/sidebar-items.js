@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["is_NI","Neutral or Isolate formatting character (B, S, WS, ON, FSI, LRI, RLI, PDI)"],["resolve_levels","3.3.6 Resolving Implicit Levels"],["resolve_neutral","3.3.5 Resolving Neutral Types"],["resolve_weak","3.3.4 Resolving Weak Types"]]});

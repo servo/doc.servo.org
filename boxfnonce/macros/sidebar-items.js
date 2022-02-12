@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["build_n_args",""],["impl_trait_n_args",""]]});

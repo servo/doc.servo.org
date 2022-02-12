@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GlyphClass","A glyph class."]],"fn":[["is_mark_glyph_impl",""]],"struct":[["Table",""]]});

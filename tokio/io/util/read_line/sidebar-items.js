@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["finish_string_read","This handles the various failure cases and puts the string back into `output`."],["put_back_original_data",""],["read_line",""],["read_line_internal",""]],"struct":[["ReadLine","Future for the `read_line` method."]]});

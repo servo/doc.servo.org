@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["consume_hex",""],["consume_question_marks",""],["parse_concatenated",""],["parse_question_marks","Consume as many ‘?’ as possible"],["parse_tokens",""]],"struct":[["UnicodeRange","One contiguous range of code points."]]});

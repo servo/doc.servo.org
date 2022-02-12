@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Poisson","The Poisson distribution `Poisson(lambda)`."]]});

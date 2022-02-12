@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["gz_encoder",""]],"struct":[["GzDecoder","A gzip streaming decoder"],["GzEncoder","A gzip streaming encoder"],["MultiGzDecoder","A gzip streaming decoder that decodes all members of a multistream"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["impl_cmp",""]],"struct":[["Bytes","A shared immutable byte slice (the equivalent of `Rc<[u8]>`)."]]});

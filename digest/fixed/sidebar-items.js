@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["FixedOutput","Trait for returning digest result with the fixed size"],["FixedOutputDirty","Trait for fixed-output digest implementations to use to retrieve the hash output."]]});

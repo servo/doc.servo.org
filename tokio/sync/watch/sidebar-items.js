@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["channel","Creates a new watch channel, returning the “send” and “receive” handles."],["maybe_changed",""]],"mod":[["error","Watch error types."],["state",""]],"struct":[["Receiver","Receives values from the associated `Sender`."],["Ref","Returns a reference to the inner value."],["Sender","Sends values to the associated `Receiver`."],["Shared",""]]});

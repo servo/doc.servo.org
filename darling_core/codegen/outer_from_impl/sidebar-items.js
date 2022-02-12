@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["compute_impl_bounds",""]],"trait":[["OuterFromImpl","Wrapper for “outer From” traits, such as `FromDeriveInput`, `FromVariant`, and `FromField`."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["RunTimeEndian","Byte order that is selectable at runtime."]],"struct":[["BigEndian","Big endian byte order."],["LittleEndian","Little endian byte order."]],"trait":[["Endianity","A trait describing the endianity of some buffer."]],"type":[["NativeEndian","The native endianity for the target platform."]]});

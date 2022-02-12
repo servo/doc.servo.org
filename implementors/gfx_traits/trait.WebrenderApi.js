@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["servo"] = [{"text":"impl <a class=\"trait\" href=\"gfx_traits/trait.WebrenderApi.html\" title=\"trait gfx_traits::WebrenderApi\">WebrenderApi</a> for <a class=\"struct\" href=\"servo/struct.FontCacheWR.html\" title=\"struct servo::FontCacheWR\">FontCacheWR</a>","synthetic":false,"types":["servo::FontCacheWR"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

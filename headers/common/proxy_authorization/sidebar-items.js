@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ProxyAuthorization","`Proxy-Authorization` header, defined in RFC7235"]]});

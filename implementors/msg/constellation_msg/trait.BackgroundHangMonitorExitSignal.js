@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["script"] = [{"text":"impl <a class=\"trait\" href=\"msg/constellation_msg/trait.BackgroundHangMonitorExitSignal.html\" title=\"trait msg::constellation_msg::BackgroundHangMonitorExitSignal\">BackgroundHangMonitorExitSignal</a> for <a class=\"struct\" href=\"script/script_thread/struct.BHMExitSignal.html\" title=\"struct script::script_thread::BHMExitSignal\">BHMExitSignal</a>","synthetic":false,"types":["script::script_thread::BHMExitSignal"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

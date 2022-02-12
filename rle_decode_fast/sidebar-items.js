@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["append_from_within","Copy of `vec::append_from_within()` proposed for inclusion in stdlib, see https://github.com/rust-lang/rfcs/pull/2714 Heavily based on the implementation of `slice::copy_within()`, so we’re pretty sure the implementation is sound"],["lookbehind_length_fail",""],["rle_decode","Fast decoding of run length encoded data"]]});

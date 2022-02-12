@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["write_vectored",""]],"struct":[["WriteVectored","A future to write a slice of buffers to an `AsyncWrite`."]]});

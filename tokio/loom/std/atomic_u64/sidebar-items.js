@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AtomicU64","An integer type which can be safely shared between threads."]]});

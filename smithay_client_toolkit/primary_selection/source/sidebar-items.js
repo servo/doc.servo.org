@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PrimarySelectionSourceEvent","Possible events a primary selection source needs to react to."],["PrimarySelectionSourceImpl","Possible supported primary selection sources."]],"fn":[["gtk_primary_source_imp",""],["zwp_primary_source_imp",""]],"struct":[["PrimarySelectionSource","A primary selection source for sending data through copy/paste."]]});

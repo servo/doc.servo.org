@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_HTMLAreaElement",""]],"enum":[["Area",""],["Shape",""]],"struct":[["HTMLAreaElement",""]]});

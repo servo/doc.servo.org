@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["GarbageCollectionEvent",""],["GarbageCollectionEvent_Collection",""]],"type":[["GarbageCollectionEvent_Ptr",""]]});

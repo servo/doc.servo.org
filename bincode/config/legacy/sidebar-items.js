@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EndianOption",""],["LimitOption",""]],"macro":[["config_map",""]],"struct":[["Config","A configuration builder whose options Bincode will use while serializing and deserializing."]]});

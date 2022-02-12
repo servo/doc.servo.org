@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["gen_setter",""],["gen_setters",""]]});

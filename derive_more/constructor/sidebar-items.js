@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["expand","Provides the hook to expand `#[derive(Constructor)]` into an implementation of `Constructor`"],["struct_body",""],["tuple_body",""]]});

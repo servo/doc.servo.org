@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["glyph",""],["shaping","Shaper encapsulates a specific shaper, such as Harfbuzz, Uniscribe, Pango, or Coretext."],["text_run",""],["util",""]]});

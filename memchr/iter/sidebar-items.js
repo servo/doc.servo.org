@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["iter_next",""],["iter_next_back",""]],"struct":[["Memchr","An iterator for `memchr`."],["Memchr2","An iterator for `memchr2`."],["Memchr3","An iterator for `memchr3`."]]});

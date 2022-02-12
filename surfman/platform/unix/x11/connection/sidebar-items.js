@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["create_egl_display",""]],"struct":[["Connection","A connection to the X11 display server."],["DisplayGuard",""],["NativeConnection","Wrapper for an X11 and EGL display."],["NativeConnectionWrapper",""],["X_THREADS_INIT",""]]});

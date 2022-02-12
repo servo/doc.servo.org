@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["AsyncSeekExt","An extension trait that adds utility methods to `AsyncSeek` types."]]});

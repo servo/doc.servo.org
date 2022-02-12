@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EventedFd","Adapter for `RawFd` providing an `Evented` implementation."]]});

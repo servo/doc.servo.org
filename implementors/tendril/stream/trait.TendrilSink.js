@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["script"] = [{"text":"impl <a class=\"trait\" href=\"tendril/stream/trait.TendrilSink.html\" title=\"trait tendril::stream::TendrilSink\">TendrilSink</a>&lt;<a class=\"struct\" href=\"tendril/fmt/struct.UTF8.html\" title=\"struct tendril::fmt::UTF8\">UTF8</a>, <a class=\"struct\" href=\"tendril/tendril/struct.NonAtomic.html\" title=\"struct tendril::tendril::NonAtomic\">NonAtomic</a>&gt; for <a class=\"struct\" href=\"script/dom/servoparser/struct.NetworkSink.html\" title=\"struct script::dom::servoparser::NetworkSink\">NetworkSink</a>","synthetic":false,"types":["script::dom::servoparser::NetworkSink"]}];
+implementors["tendril"] = [];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["block_on",""],["maybe_done","Definition of the MaybeDone combinator."],["poll_fn","Definition of the `PollFn` adapter combinator."],["ready",""]],"trait":[["Future","A future represents an asynchronous computation."]]});

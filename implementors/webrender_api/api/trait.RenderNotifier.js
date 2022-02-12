@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["servo"] = [{"text":"impl <a class=\"trait\" href=\"webrender_api/api/trait.RenderNotifier.html\" title=\"trait webrender_api::api::RenderNotifier\">RenderNotifier</a> for <a class=\"struct\" href=\"servo/struct.RenderNotifier.html\" title=\"struct servo::RenderNotifier\">RenderNotifier</a>","synthetic":false,"types":["servo::RenderNotifier"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

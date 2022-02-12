@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["empty","Creates a new empty async reader."],["poll_proceed_and_make_progress",""]],"struct":[["Empty","An async reader which is always at EOF."]]});

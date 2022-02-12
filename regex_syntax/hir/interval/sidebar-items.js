@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["IntervalSet",""],["IntervalSetIter","An iterator over intervals."]],"trait":[["Bound",""],["Interval",""]]});

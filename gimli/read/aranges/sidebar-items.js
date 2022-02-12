@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ArangeEntry","A single parsed arange."],["ArangeEntryIter","An iterator over the aranges from a `.debug_aranges` section."],["ArangeHeader",""],["ArangeParser",""],["DebugAranges","The `DebugAranges` struct represents the DWARF address range information found in the `.debug_aranges` section."]]});

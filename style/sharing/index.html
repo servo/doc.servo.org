@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Code related to the style sharing cache, an optimization that allows similar nodes to share style without having to run selector matching twice."><meta name="keywords" content="rust, rustlang, rust-lang, sharing"><title>style::sharing - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../style/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../style/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Module sharing</a></h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#constants">Constants</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="sharing" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../style/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Module <a href="../index.html">style</a>::<wbr><a class="mod" href="#">sharing</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/style/sharing/mod.rs.html#5-899" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Code related to the style sharing cache, an optimization that allows similar
+nodes to share style without having to run selector matching twice.</p>
+<p>The basic setup is as follows.  We have an LRU cache of style sharing
+candidates.  When we try to style a target element, we first check whether
+we can quickly determine that styles match something in this cache, and if
+so we just use the cached style information.  This check is done with a
+StyleBloom filter set up for the target element, which may not be a correct
+state for the cached candidate element if they’re cousins instead of
+siblings.</p>
+<p>The complicated part is determining that styles match.  This is subject to
+the following constraints:</p>
+<ol>
+<li>The target and candidate must be inheriting the same styles.</li>
+<li>The target and candidate must have exactly the same rules matching them.</li>
+<li>The target and candidate must have exactly the same non-selector-based
+style information (inline styles, presentation hints).</li>
+<li>The target and candidate must have exactly the same rules matching their
+pseudo-elements, because an element’s style data points to the style
+data for its pseudo-elements.</li>
+</ol>
+<p>These constraints are satisfied in the following ways:</p>
+<ul>
+<li>
+<p>We check that the parents of the target and the candidate have the same
+computed style.  This addresses constraint 1.</p>
+</li>
+<li>
+<p>We check that the target and candidate have the same inline style and
+presentation hint declarations.  This addresses constraint 3.</p>
+</li>
+<li>
+<p>We ensure that a target matches a candidate only if they have the same
+matching result for all selectors that target either elements or the
+originating elements of pseudo-elements.  This addresses constraint 4
+(because it prevents a target that has pseudo-element styles from matching
+a candidate that has different pseudo-element styles) as well as
+constraint 2.</p>
+</li>
+</ul>
+<p>The actual checks that ensure that elements match the same rules are
+conceptually split up into two pieces.  First, we do various checks on
+elements that make sure that the set of possible rules in all selector maps
+in the stylist (for normal styling and for pseudo-elements) that might match
+the two elements is the same.  For example, we enforce that the target and
+candidate must have the same localname and namespace.  Second, we have a
+selector map of “revalidation selectors” that the stylist maintains that we
+actually match against the target and candidate and then check whether the
+two sets of results were the same.  Due to the up-front selector map checks,
+we know that the target and candidate will be matched against the same exact
+set of revalidation selectors, so the match result arrays can be compared
+directly.</p>
+<p>It’s very important that a selector be added to the set of revalidation
+selectors any time there are two elements that could pass all the up-front
+checks but match differently against some ComplexSelector in the selector.
+If that happens, then they can have descendants that might themselves pass
+the up-front checks but would have different matching results for the
+selector in question.  In this case, “descendants” includes pseudo-elements,
+so there is a single selector map of revalidation selectors that includes
+both selectors targeting elements and selectors targeting pseudo-element
+originating elements.  We ensure that the pseudo-element parts of all these
+selectors are effectively stripped off, so that matching them all against
+elements makes sense.</p>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="checks/index.html" title="style::sharing::checks mod">checks</a></div><div class="item-right docblock-short"><p>Different checks done during the style sharing process in order to determine
+quickly whether it’s worth to share style, and whether two different
+elements can indeed share the same style.</p>
+</div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.FakeCandidate.html" title="style::sharing::FakeCandidate struct">FakeCandidate</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OpaqueComputedValues.html" title="style::sharing::OpaqueComputedValues struct">OpaqueComputedValues</a></div><div class="item-right docblock-short"><p>Opaque pointer type to compare ComputedValues identities.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SharingCacheBase.html" title="style::sharing::SharingCacheBase struct">SharingCacheBase</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StyleSharingCache.html" title="style::sharing::StyleSharingCache struct">StyleSharingCache</a></div><div class="item-right docblock-short"><p>An LRU cache of the last few nodes seen, so that we can aggressively try to
+reuse their styles.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StyleSharingCandidate.html" title="style::sharing::StyleSharingCandidate struct">StyleSharingCandidate</a></div><div class="item-right docblock-short"><p>Information regarding a style sharing candidate, that is, an entry in the
+style sharing cache.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StyleSharingTarget.html" title="style::sharing::StyleSharingTarget struct">StyleSharingTarget</a></div><div class="item-right docblock-short"><p>An element we want to test against the style sharing cache.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ValidationData.html" title="style::sharing::ValidationData struct">ValidationData</a></div><div class="item-right docblock-short"><p>Some data we want to avoid recomputing all the time while trying to share
+style.</p>
+</div></div></div><h2 id="constants" class="small-section-header"><a href="#constants">Constants</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.SHARING_CACHE_KEY.html" title="style::sharing::SHARING_CACHE_KEY constant">SHARING_CACHE_KEY</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.SHARING_CACHE_SIZE.html" title="style::sharing::SHARING_CACHE_SIZE constant">SHARING_CACHE_SIZE</a></div><div class="item-right docblock-short"><p>The amount of nodes that the style sharing candidate cache should hold at
+most.</p>
+</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.SharingCache.html" title="style::sharing::SharingCache type">SharingCache</a></div><div class="item-right docblock-short"><p>Style sharing caches are are large allocations, so we store them in thread-local
+storage such that they can be reused across style traversals. Ideally, we’d just
+stack-allocate these buffers with uninitialized memory, but right now rustc can’t
+avoid memmoving the entire cache during setup, which gets very expensive. See
+issues like [1] and [2].</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.StoredSharingCache.html" title="style::sharing::StoredSharingCache type">StoredSharingCache</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.TypelessSharingCache.html" title="style::sharing::TypelessSharingCache type">TypelessSharingCache</a></div><div class="item-right docblock-short"></div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="style" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

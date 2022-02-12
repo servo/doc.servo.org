@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DecoderError","Errors that can occur during decoding and parsing a DDS image"]],"struct":[["DdsDecoder","The representation of a DDS decoder"],["Header","Header used by DDS image files"],["PixelFormat","DDS pixel format"]]});

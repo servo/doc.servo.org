@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DrawError","Error validating a draw call."],["RenderCommandError","Error encountered when encoding a render command. This is the shared error set between render bundles and passes."]],"struct":[["Rect",""]],"type":[["BufferError",""]]});

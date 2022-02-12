@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ImportRule","The `@import` at-rule."],["ImportSheet","A sheet that is held from an import rule."]]});

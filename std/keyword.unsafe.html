@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Code or interfaces whose memory safety cannot be verified by the type system."><meta name="keywords" content="rust, rustlang, rust-lang, unsafe"><title>unsafe - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize1.60.0.css"><link rel="stylesheet" type="text/css" href="../rustdoc1.60.0.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu1.60.0.css" disabled><link rel="stylesheet" type="text/css" href="../dark1.60.0.css" disabled><link rel="stylesheet" type="text/css" href="../light1.60.0.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage1.60.0.js"></script><script src="../crates1.60.0.js"></script><script defer src="../main1.60.0.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript1.60.0.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x161.60.0.png"><link rel="alternate icon" type="image/png" href="../favicon-32x321.60.0.png"><link rel="icon" type="image/svg+xml" href="../favicon1.60.0.svg"></head><body class="rustdoc keyword"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../std/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo1.60.0.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../std/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo1.60.0.svg" alt="logo"></div>
+        </a><div class="sidebar-elems"><h2 class="location">In <a href="index.html">std</a></h2><div id="sidebar-vars" data-name="unsafe" data-ty="keyword" data-relpath=""></div><script defer src="sidebar-items1.60.0.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../std/index.html"><img class="rust-logo" src="../rust-logo1.60.0.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush1.60.0.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel1.60.0.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Keyword <a class="keyword" href="#">unsafe</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard1.60.0.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/std/keyword_docs.rs.html#2034" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Code or interfaces whose <a href="../book/ch19-01-unsafe-rust.html">memory safety</a> cannot be verified by the type
+system.</p>
+<p>The <code>unsafe</code> keyword has two uses: to declare the existence of contracts the
+compiler can’t check (<code>unsafe fn</code> and <code>unsafe trait</code>), and to declare that a
+programmer has checked that these contracts have been upheld (<code>unsafe {}</code>
+and <code>unsafe impl</code>, but also <code>unsafe fn</code> – see below). They are not mutually
+exclusive, as can be seen in <code>unsafe fn</code>.</p>
+<h2 id="unsafe-abilities" class="section-header"><a href="#unsafe-abilities">Unsafe abilities</a></h2>
+<p><strong>No matter what, Safe Rust can’t cause Undefined Behavior</strong>. This is
+referred to as <a href="https://rust-lang.github.io/unsafe-code-guidelines/glossary.html#soundness-of-code--of-a-library">soundness</a>: a well-typed program actually has the desired
+properties. The <a href="../nomicon/safe-unsafe-meaning.html">Nomicon</a> has a more detailed explanation
+on the subject.</p>
+<p>To ensure soundness, Safe Rust is restricted enough that it can be
+automatically checked. Sometimes, however, it is necessary to write code
+that is correct for reasons which are too clever for the compiler to
+understand. In those cases, you need to use Unsafe Rust.</p>
+<p>Here are the abilities Unsafe Rust has in addition to Safe Rust:</p>
+<ul>
+<li>Dereference <a href="../reference/types/pointer.html">raw pointers</a></li>
+<li>Implement <code>unsafe</code> <a href="keyword.trait.html"><code>trait</code></a>s</li>
+<li>Call <code>unsafe</code> functions</li>
+<li>Mutate <a href="keyword.static.html"><code>static</code></a>s (including <a href="keyword.extern.html"><code>extern</code></a>al ones)</li>
+<li>Access fields of <a href="keyword.union.html"><code>union</code></a>s</li>
+</ul>
+<p>However, this extra power comes with extra responsibilities: it is now up to
+you to ensure soundness. The <code>unsafe</code> keyword helps by clearly marking the
+pieces of code that need to worry about this.</p>
+<h3 id="the-different-meanings-of-unsafe" class="section-header"><a href="#the-different-meanings-of-unsafe">The different meanings of <code>unsafe</code></a></h3>
+<p>Not all uses of <code>unsafe</code> are equivalent: some are here to mark the existence
+of a contract the programmer must check, others are to say “I have checked
+the contract, go ahead and do this”. The following
+<a href="https://internals.rust-lang.org/t/what-does-unsafe-mean/6696">discussion on Rust Internals</a> has more in-depth explanations about this but
+here is a summary of the main points:</p>
+<ul>
+<li><code>unsafe fn</code>: calling this function means abiding by a contract the
+compiler cannot enforce.</li>
+<li><code>unsafe trait</code>: implementing the <a href="keyword.trait.html"><code>trait</code></a> means abiding by a
+contract the compiler cannot enforce.</li>
+<li><code>unsafe {}</code>: the contract necessary to call the operations inside the
+block has been checked by the programmer and is guaranteed to be respected.</li>
+<li><code>unsafe impl</code>: the contract necessary to implement the trait has been
+checked by the programmer and is guaranteed to be respected.</li>
+</ul>
+<p><code>unsafe fn</code> also acts like an <code>unsafe {}</code> block
+around the code inside the function. This means it is not just a signal to
+the caller, but also promises that the preconditions for the operations
+inside the function are upheld. Mixing these two meanings can be confusing
+and <a href="https://github.com/rust-lang/rfcs/pull/2585">proposal</a>s exist to use <code>unsafe {}</code> blocks inside such functions when
+making <code>unsafe</code> operations.</p>
+<p>See the <a href="../nomicon/index.html">Rustnomicon</a> and the <a href="../reference/unsafety.html">Reference</a> for more informations.</p>
+<h2 id="examples" class="section-header"><a href="#examples">Examples</a></h2><h3 id="marking-elements-as-unsafe" class="section-header"><a href="#marking-elements-as-unsafe">Marking elements as <code>unsafe</code></a></h3>
+<p><code>unsafe</code> can be used on functions. Note that functions and statics declared
+in <a href="keyword.extern.html"><code>extern</code></a> blocks are implicitly marked as <code>unsafe</code> (but not functions
+declared as <code>extern &quot;something&quot; fn ...</code>). Mutable statics are always unsafe,
+wherever they are declared. Methods can also be declared as <code>unsafe</code>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">FOO</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;hello&quot;</span>;
+
+<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_fn</span>() {}
+
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> {
+    <span class="kw">fn</span> <span class="ident">unsafe_extern_fn</span>();
+    <span class="kw">static</span> <span class="ident">BAR</span>: <span class="kw-2">*mut</span> <span class="ident">u32</span>;
+}
+
+<span class="kw">trait</span> <span class="ident">SafeTraitWithUnsafeMethod</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_method</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
+}
+
+<span class="kw">struct</span> <span class="ident">S</span>;
+
+<span class="kw">impl</span> <span class="ident">S</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_method_on_struct</span>() {}
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(dead_code)%5D%0Afn%20main()%20%7B%0Astatic%20mut%20FOO%3A%20%26str%20%3D%20%22hello%22%3B%0A%0Aunsafe%20fn%20unsafe_fn()%20%7B%7D%0A%0Aextern%20%22C%22%20%7B%0A%20%20%20%20fn%20unsafe_extern_fn()%3B%0A%20%20%20%20static%20BAR%3A%20*mut%20u32%3B%0A%7D%0A%0Atrait%20SafeTraitWithUnsafeMethod%20%7B%0A%20%20%20%20unsafe%20fn%20unsafe_method(%26self)%3B%0A%7D%0A%0Astruct%20S%3B%0A%0Aimpl%20S%20%7B%0A%20%20%20%20unsafe%20fn%20unsafe_method_on_struct()%20%7B%7D%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p>Traits can also be declared as <code>unsafe</code>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">UnsafeTrait</span> {}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Aunsafe%20trait%20UnsafeTrait%20%7B%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p>Since <code>unsafe fn</code> and <code>unsafe trait</code> indicate that there is a safety
+contract that the compiler cannot enforce, documenting it is important. The
+standard library has many examples of this, like the following which is an
+extract from <a href="vec/struct.Vec.html#method.set_len" title="Vec::set_len"><code>Vec::set_len</code></a>. The <code># Safety</code> section explains the contract
+that must be fulfilled to safely call the function.</p>
+
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore"><code><span class="doccomment">/// Forces the length of the vector to `new_len`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This is a low-level operation that maintains none of the normal</span>
+<span class="doccomment">/// invariants of the type. Normally changing the length of a vector</span>
+<span class="doccomment">/// is done using one of the safe operations instead, such as</span>
+<span class="doccomment">/// `truncate`, `resize`, `extend`, or `clear`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Safety</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// - `new_len` must be less than or equal to `capacity()`.</span>
+<span class="doccomment">/// - The elements at `old_len..new_len` must be initialized.</span>
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_len</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">new_len</span>: <span class="ident">usize</span>)</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0A%2F%2F%2F%20Forces%20the%20length%20of%20the%20vector%20to%20%60new_len%60.%0A%2F%2F%2F%0A%2F%2F%2F%20This%20is%20a%20low-level%20operation%20that%20maintains%20none%20of%20the%20normal%0A%2F%2F%2F%20invariants%20of%20the%20type.%20Normally%20changing%20the%20length%20of%20a%20vector%0A%2F%2F%2F%20is%20done%20using%20one%20of%20the%20safe%20operations%20instead%2C%20such%20as%0A%2F%2F%2F%20%60truncate%60%2C%20%60resize%60%2C%20%60extend%60%2C%20or%20%60clear%60.%0A%2F%2F%2F%0A%2F%2F%2F%20%23%20Safety%0A%2F%2F%2F%0A%2F%2F%2F%20-%20%60new_len%60%20must%20be%20less%20than%20or%20equal%20to%20%60capacity()%60.%0A%2F%2F%2F%20-%20The%20elements%20at%20%60old_len..new_len%60%20must%20be%20initialized.%0Apub%20unsafe%20fn%20set_len(%26mut%20self%2C%20new_len%3A%20usize)%0A%7D&amp;edition=2021">Run</a></div>
+<h3 id="using-unsafe--blocks-and-impls" class="section-header"><a href="#using-unsafe--blocks-and-impls">Using <code>unsafe {}</code> blocks and <code>impl</code>s</a></h3>
+<p>Performing <code>unsafe</code> operations requires an <code>unsafe {}</code> block:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="doccomment">/// Dereference the given pointer.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Safety</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// `ptr` must be aligned and must not be dangling.</span>
+<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">deref_unchecked</span>(<span class="ident">ptr</span>: <span class="kw-2">*const</span> <span class="ident">i32</span>) -&gt; <span class="ident">i32</span> {
+    <span class="kw-2">*</span><span class="ident">ptr</span>
+}
+
+<span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="number">3</span>;
+<span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">a</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span>;
+<span class="comment">// SAFETY: `a` has not been dropped and references are always aligned,</span>
+<span class="comment">// so `b` is a valid address.</span>
+<span class="kw">unsafe</span> { <span class="macro">assert_eq!</span>(<span class="kw-2">*</span><span class="ident">b</span>, <span class="ident">deref_unchecked</span>(<span class="ident">b</span>)); };</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(dead_code)%5D%0Afn%20main()%20%7B%0A%2F%2F%2F%20Dereference%20the%20given%20pointer.%0A%2F%2F%2F%0A%2F%2F%2F%20%23%20Safety%0A%2F%2F%2F%0A%2F%2F%2F%20%60ptr%60%20must%20be%20aligned%20and%20must%20not%20be%20dangling.%0Aunsafe%20fn%20deref_unchecked(ptr%3A%20*const%20i32)%20-%3E%20i32%20%7B%0A%20%20%20%20*ptr%0A%7D%0A%0Alet%20a%20%3D%203%3B%0Alet%20b%20%3D%20%26a%20as%20*const%20_%3B%0A%2F%2F%20SAFETY%3A%20%60a%60%20has%20not%20been%20dropped%20and%20references%20are%20always%20aligned%2C%0A%2F%2F%20so%20%60b%60%20is%20a%20valid%20address.%0Aunsafe%20%7B%20assert_eq!(*b%2C%20deref_unchecked(b))%3B%20%7D%3B%0A%7D&amp;edition=2021">Run</a></div>
+<p>Traits marked as <code>unsafe</code> must be <a href="keyword.impl.html"><code>impl</code></a>emented using <code>unsafe impl</code>. This
+makes a guarantee to other <code>unsafe</code> code that the implementation satisfies
+the trait’s safety contract. The <a href="marker/trait.Send.html" title="Send">Send</a> and <a href="marker/trait.Sync.html" title="Sync">Sync</a> traits are examples of
+this behaviour in the standard library.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="doccomment">/// Implementors of this trait must guarantee an element is always</span>
+<span class="doccomment">/// accessible with index 3.</span>
+<span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">ThreeIndexable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Returns a reference to the element with index 3 in `&amp;self`.</span>
+    <span class="kw">fn</span> <span class="ident">three</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">T</span>;
+}
+
+<span class="comment">// The implementation of `ThreeIndexable` for `[T; 4]` is `unsafe`</span>
+<span class="comment">// because the implementor must abide by a contract the compiler cannot</span>
+<span class="comment">// check but as a programmer we know there will always be a valid element</span>
+<span class="comment">// at index 3 to access.</span>
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">ThreeIndexable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> [<span class="ident">T</span>; <span class="number">4</span>] {
+    <span class="kw">fn</span> <span class="ident">three</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">T</span> {
+        <span class="comment">// SAFETY: implementing the trait means there always is an element</span>
+        <span class="comment">// with index 3 accessible.</span>
+        <span class="kw">unsafe</span> { <span class="self">self</span>.<span class="ident">get_unchecked</span>(<span class="number">3</span>) }
+    }
+}
+
+<span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>];
+<span class="macro">assert_eq!</span>(<span class="ident">a</span>.<span class="ident">three</span>(), <span class="kw-2">&amp;</span><span class="number">8</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0A%2F%2F%2F%20Implementors%20of%20this%20trait%20must%20guarantee%20an%20element%20is%20always%0A%2F%2F%2F%20accessible%20with%20index%203.%0Aunsafe%20trait%20ThreeIndexable%3CT%3E%20%7B%0A%20%20%20%20%2F%2F%2F%20Returns%20a%20reference%20to%20the%20element%20with%20index%203%20in%20%60%26self%60.%0A%20%20%20%20fn%20three(%26self)%20-%3E%20%26T%3B%0A%7D%0A%0A%2F%2F%20The%20implementation%20of%20%60ThreeIndexable%60%20for%20%60%5BT%3B%204%5D%60%20is%20%60unsafe%60%0A%2F%2F%20because%20the%20implementor%20must%20abide%20by%20a%20contract%20the%20compiler%20cannot%0A%2F%2F%20check%20but%20as%20a%20programmer%20we%20know%20there%20will%20always%20be%20a%20valid%20element%0A%2F%2F%20at%20index%203%20to%20access.%0Aunsafe%20impl%3CT%3E%20ThreeIndexable%3CT%3E%20for%20%5BT%3B%204%5D%20%7B%0A%20%20%20%20fn%20three(%26self)%20-%3E%20%26T%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20SAFETY%3A%20implementing%20the%20trait%20means%20there%20always%20is%20an%20element%0A%20%20%20%20%20%20%20%20%2F%2F%20with%20index%203%20accessible.%0A%20%20%20%20%20%20%20%20unsafe%20%7B%20self.get_unchecked(3)%20%7D%0A%20%20%20%20%7D%0A%7D%0A%0Alet%20a%20%3D%20%5B1%2C%202%2C%204%2C%208%5D%3B%0Aassert_eq!(a.three()%2C%20%268)%3B%0A%7D&amp;edition=2021">Run</a></div>
+</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="std" data-themes="ayu,dark,light" data-resource-suffix="1.60.0" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

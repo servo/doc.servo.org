@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Mutex","Adapter for `std::Mutex` that removes the poisoning aspects from its api."]]});

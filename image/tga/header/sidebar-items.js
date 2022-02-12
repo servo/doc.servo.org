@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ALPHA_BIT_MASK",""],["SCREEN_ORIGIN_BIT_MASK",""]],"enum":[["ImageType",""]],"struct":[["Header","Header used by TGA image files."]]});

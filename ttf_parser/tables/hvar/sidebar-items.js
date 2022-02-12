@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["glyph_advance_offset",""],["glyph_side_bearing_offset",""]],"struct":[["DeltaSetIndexMap",""],["Table",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SizeUpdate",""]],"fn":[["encode_int","Encode an integer into the given destination buffer"],["encode_int_one_byte","Returns true if the in the int can be fully encoded in the first byte."],["encode_not_indexed",""],["encode_not_indexed2",""],["encode_size_update",""],["encode_str",""],["position",""]],"struct":[["Encoder",""]]});

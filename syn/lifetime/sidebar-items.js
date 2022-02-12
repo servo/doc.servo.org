@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["parsing",""],["printing",""]],"struct":[["Lifetime","A Rust lifetime: `'a`."]]});

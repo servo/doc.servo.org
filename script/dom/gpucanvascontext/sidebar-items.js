@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_GPUCanvasContext",""]],"struct":[["GPUCanvasContext",""],["WebGPUContextId",""]]});

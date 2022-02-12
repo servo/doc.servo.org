@@ -1,0 +1,1427 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `components/profile/mem.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mem.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../profile/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../profile/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../profile/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<span id="2">  2</span>
+<span id="3">  3</span>
+<span id="4">  4</span>
+<span id="5">  5</span>
+<span id="6">  6</span>
+<span id="7">  7</span>
+<span id="8">  8</span>
+<span id="9">  9</span>
+<span id="10"> 10</span>
+<span id="11"> 11</span>
+<span id="12"> 12</span>
+<span id="13"> 13</span>
+<span id="14"> 14</span>
+<span id="15"> 15</span>
+<span id="16"> 16</span>
+<span id="17"> 17</span>
+<span id="18"> 18</span>
+<span id="19"> 19</span>
+<span id="20"> 20</span>
+<span id="21"> 21</span>
+<span id="22"> 22</span>
+<span id="23"> 23</span>
+<span id="24"> 24</span>
+<span id="25"> 25</span>
+<span id="26"> 26</span>
+<span id="27"> 27</span>
+<span id="28"> 28</span>
+<span id="29"> 29</span>
+<span id="30"> 30</span>
+<span id="31"> 31</span>
+<span id="32"> 32</span>
+<span id="33"> 33</span>
+<span id="34"> 34</span>
+<span id="35"> 35</span>
+<span id="36"> 36</span>
+<span id="37"> 37</span>
+<span id="38"> 38</span>
+<span id="39"> 39</span>
+<span id="40"> 40</span>
+<span id="41"> 41</span>
+<span id="42"> 42</span>
+<span id="43"> 43</span>
+<span id="44"> 44</span>
+<span id="45"> 45</span>
+<span id="46"> 46</span>
+<span id="47"> 47</span>
+<span id="48"> 48</span>
+<span id="49"> 49</span>
+<span id="50"> 50</span>
+<span id="51"> 51</span>
+<span id="52"> 52</span>
+<span id="53"> 53</span>
+<span id="54"> 54</span>
+<span id="55"> 55</span>
+<span id="56"> 56</span>
+<span id="57"> 57</span>
+<span id="58"> 58</span>
+<span id="59"> 59</span>
+<span id="60"> 60</span>
+<span id="61"> 61</span>
+<span id="62"> 62</span>
+<span id="63"> 63</span>
+<span id="64"> 64</span>
+<span id="65"> 65</span>
+<span id="66"> 66</span>
+<span id="67"> 67</span>
+<span id="68"> 68</span>
+<span id="69"> 69</span>
+<span id="70"> 70</span>
+<span id="71"> 71</span>
+<span id="72"> 72</span>
+<span id="73"> 73</span>
+<span id="74"> 74</span>
+<span id="75"> 75</span>
+<span id="76"> 76</span>
+<span id="77"> 77</span>
+<span id="78"> 78</span>
+<span id="79"> 79</span>
+<span id="80"> 80</span>
+<span id="81"> 81</span>
+<span id="82"> 82</span>
+<span id="83"> 83</span>
+<span id="84"> 84</span>
+<span id="85"> 85</span>
+<span id="86"> 86</span>
+<span id="87"> 87</span>
+<span id="88"> 88</span>
+<span id="89"> 89</span>
+<span id="90"> 90</span>
+<span id="91"> 91</span>
+<span id="92"> 92</span>
+<span id="93"> 93</span>
+<span id="94"> 94</span>
+<span id="95"> 95</span>
+<span id="96"> 96</span>
+<span id="97"> 97</span>
+<span id="98"> 98</span>
+<span id="99"> 99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+<span id="555">555</span>
+<span id="556">556</span>
+<span id="557">557</span>
+<span id="558">558</span>
+<span id="559">559</span>
+<span id="560">560</span>
+<span id="561">561</span>
+<span id="562">562</span>
+<span id="563">563</span>
+<span id="564">564</span>
+<span id="565">565</span>
+<span id="566">566</span>
+<span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
+<span id="577">577</span>
+<span id="578">578</span>
+<span id="579">579</span>
+<span id="580">580</span>
+<span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
+<span id="594">594</span>
+<span id="595">595</span>
+<span id="596">596</span>
+<span id="597">597</span>
+<span id="598">598</span>
+<span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
+<span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
+<span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
+<span id="642">642</span>
+<span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
+<span id="649">649</span>
+<span id="650">650</span>
+<span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
+<span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
+<span id="660">660</span>
+<span id="661">661</span>
+<span id="662">662</span>
+<span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
+<span id="666">666</span>
+<span id="667">667</span>
+<span id="668">668</span>
+<span id="669">669</span>
+<span id="670">670</span>
+<span id="671">671</span>
+<span id="672">672</span>
+<span id="673">673</span>
+<span id="674">674</span>
+<span id="675">675</span>
+<span id="676">676</span>
+<span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
+<span id="680">680</span>
+<span id="681">681</span>
+<span id="682">682</span>
+<span id="683">683</span>
+<span id="684">684</span>
+<span id="685">685</span>
+<span id="686">686</span>
+<span id="687">687</span>
+<span id="688">688</span>
+<span id="689">689</span>
+<span id="690">690</span>
+<span id="691">691</span>
+<span id="692">692</span>
+<span id="693">693</span>
+<span id="694">694</span>
+<span id="695">695</span>
+<span id="696">696</span>
+<span id="697">697</span>
+<span id="698">698</span>
+<span id="699">699</span>
+<span id="700">700</span>
+<span id="701">701</span>
+<span id="702">702</span>
+<span id="703">703</span>
+<span id="704">704</span>
+<span id="705">705</span>
+<span id="706">706</span>
+<span id="707">707</span>
+<span id="708">708</span>
+<span id="709">709</span>
+</pre><pre class="rust"><code><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */</span>
+
+<span class="doccomment">//! Memory profiling functions.</span>
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::time::duration_from_seconds</span>;
+<span class="kw">use</span> <span class="ident">ipc_channel::ipc</span>::{<span class="self">self</span>, <span class="ident">IpcReceiver</span>};
+<span class="kw">use</span> <span class="ident">ipc_channel::router::ROUTER</span>;
+<span class="kw">use</span> <span class="ident">profile_traits::mem::ReportsChan</span>;
+<span class="kw">use</span> <span class="ident">profile_traits::mem</span>::{<span class="ident">ProfilerChan</span>, <span class="ident">ProfilerMsg</span>, <span class="ident">ReportKind</span>, <span class="ident">Reporter</span>, <span class="ident">ReporterRequest</span>};
+<span class="kw">use</span> <span class="ident">std::borrow::ToOwned</span>;
+<span class="kw">use</span> <span class="ident">std::cmp::Ordering</span>;
+<span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
+<span class="kw">use</span> <span class="ident">std::thread</span>;
+<span class="kw">use</span> <span class="ident">std::time::Instant</span>;
+
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Profiler</span> {
+    <span class="doccomment">/// The port through which messages are received.</span>
+    <span class="kw">pub</span> <span class="ident">port</span>: <span class="ident">IpcReceiver</span><span class="op">&lt;</span><span class="ident">ProfilerMsg</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Registered memory reporters.</span>
+    <span class="ident">reporters</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Reporter</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Instant at which this profiler was created.</span>
+    <span class="ident">created</span>: <span class="ident">Instant</span>,
+}
+
+<span class="kw">const</span> <span class="ident">JEMALLOC_HEAP_ALLOCATED_STR</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;jemalloc-heap-allocated&quot;</span>;
+<span class="kw">const</span> <span class="ident">SYSTEM_HEAP_ALLOCATED_STR</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;system-heap-allocated&quot;</span>;
+
+<span class="kw">impl</span> <span class="ident">Profiler</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create</span>(<span class="ident">period</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>) -&gt; <span class="ident">ProfilerChan</span> {
+        <span class="kw">let</span> (<span class="ident">chan</span>, <span class="ident">port</span>) <span class="op">=</span> <span class="ident">ipc::channel</span>().<span class="ident">unwrap</span>();
+
+        <span class="comment">// Create the timer thread if a period was provided.</span>
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">period</span>) <span class="op">=</span> <span class="ident">period</span> {
+            <span class="kw">let</span> <span class="ident">chan</span> <span class="op">=</span> <span class="ident">chan</span>.<span class="ident">clone</span>();
+            <span class="ident">thread::Builder::new</span>()
+                .<span class="ident">name</span>(<span class="string">&quot;MemoryProfTimer&quot;</span>.<span class="ident">to_owned</span>())
+                .<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> <span class="kw">loop</span> {
+                    <span class="ident">thread::sleep</span>(<span class="ident">duration_from_seconds</span>(<span class="ident">period</span>));
+                    <span class="kw">if</span> <span class="ident">chan</span>.<span class="ident">send</span>(<span class="ident">ProfilerMsg::Print</span>).<span class="ident">is_err</span>() {
+                        <span class="kw">break</span>;
+                    }
+                })
+                .<span class="ident">expect</span>(<span class="string">&quot;Thread spawning failed&quot;</span>);
+        }
+
+        <span class="comment">// Always spawn the memory profiler. If there is no timer thread it won&#39;t receive regular</span>
+        <span class="comment">// `Print` events, but it will still receive the other events.</span>
+        <span class="ident">thread::Builder::new</span>()
+            .<span class="ident">name</span>(<span class="string">&quot;MemoryProfiler&quot;</span>.<span class="ident">to_owned</span>())
+            .<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mem_profiler</span> <span class="op">=</span> <span class="ident">Profiler::new</span>(<span class="ident">port</span>);
+                <span class="ident">mem_profiler</span>.<span class="ident">start</span>();
+            })
+            .<span class="ident">expect</span>(<span class="string">&quot;Thread spawning failed&quot;</span>);
+
+        <span class="kw">let</span> <span class="ident">mem_profiler_chan</span> <span class="op">=</span> <span class="ident">ProfilerChan</span>(<span class="ident">chan</span>);
+
+        <span class="comment">// Register the system memory reporter, which will run on its own thread. It never needs to</span>
+        <span class="comment">// be unregistered, because as long as the memory profiler is running the system memory</span>
+        <span class="comment">// reporter can make measurements.</span>
+        <span class="kw">let</span> (<span class="ident">system_reporter_sender</span>, <span class="ident">system_reporter_receiver</span>) <span class="op">=</span> <span class="ident">ipc::channel</span>().<span class="ident">unwrap</span>();
+        <span class="ident">ROUTER</span>.<span class="ident">add_route</span>(
+            <span class="ident">system_reporter_receiver</span>.<span class="ident">to_opaque</span>(),
+            <span class="ident">Box::new</span>(<span class="op">|</span><span class="ident">message</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="ident">request</span>: <span class="ident">ReporterRequest</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">to</span>().<span class="ident">unwrap</span>();
+                <span class="ident">system_reporter::collect_reports</span>(<span class="ident">request</span>)
+            }),
+        );
+        <span class="ident">mem_profiler_chan</span>.<span class="ident">send</span>(<span class="ident">ProfilerMsg::RegisterReporter</span>(
+            <span class="string">&quot;system&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">Reporter</span>(<span class="ident">system_reporter_sender</span>),
+        ));
+
+        <span class="ident">mem_profiler_chan</span>
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">port</span>: <span class="ident">IpcReceiver</span><span class="op">&lt;</span><span class="ident">ProfilerMsg</span><span class="op">&gt;</span>) -&gt; <span class="ident">Profiler</span> {
+        <span class="ident">Profiler</span> {
+            <span class="ident">port</span>: <span class="ident">port</span>,
+            <span class="ident">reporters</span>: <span class="ident">HashMap::new</span>(),
+            <span class="ident">created</span>: <span class="ident">Instant::now</span>(),
+        }
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
+        <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">msg</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">port</span>.<span class="ident">recv</span>() {
+            <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">handle_msg</span>(<span class="ident">msg</span>) {
+                <span class="kw">break</span>;
+            }
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">handle_msg</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">msg</span>: <span class="ident">ProfilerMsg</span>) -&gt; <span class="ident">bool</span> {
+        <span class="kw">match</span> <span class="ident">msg</span> {
+            <span class="ident">ProfilerMsg::RegisterReporter</span>(<span class="ident">name</span>, <span class="ident">reporter</span>) =&gt; {
+                <span class="comment">// Panic if it has already been registered.</span>
+                <span class="kw">let</span> <span class="ident">name_clone</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">clone</span>();
+                <span class="kw">match</span> <span class="self">self</span>.<span class="ident">reporters</span>.<span class="ident">insert</span>(<span class="ident">name</span>, <span class="ident">reporter</span>) {
+                    <span class="prelude-val">None</span> =&gt; <span class="bool-val">true</span>,
+                    <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;RegisterReporter: &#39;{}&#39; name is already in use&quot;</span>, <span class="ident">name_clone</span>),
+                }
+            },
+
+            <span class="ident">ProfilerMsg::UnregisterReporter</span>(<span class="ident">name</span>) =&gt; {
+                <span class="comment">// Panic if it hasn&#39;t previously been registered.</span>
+                <span class="kw">match</span> <span class="self">self</span>.<span class="ident">reporters</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">name</span>) {
+                    <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="bool-val">true</span>,
+                    <span class="prelude-val">None</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;UnregisterReporter: &#39;{}&#39; name is unknown&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">name</span>),
+                }
+            },
+
+            <span class="ident">ProfilerMsg::Print</span> =&gt; {
+                <span class="self">self</span>.<span class="ident">handle_print_msg</span>();
+                <span class="bool-val">true</span>
+            },
+
+            <span class="ident">ProfilerMsg::Exit</span> =&gt; <span class="bool-val">false</span>,
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">handle_print_msg</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">let</span> <span class="ident">elapsed</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">created</span>.<span class="ident">elapsed</span>();
+        <span class="macro">println!</span>(<span class="string">&quot;Begin memory reports {}&quot;</span>, <span class="ident">elapsed</span>.<span class="ident">as_secs</span>());
+        <span class="macro">println!</span>(<span class="string">&quot;|&quot;</span>);
+
+        <span class="comment">// Collect reports from memory reporters.</span>
+        <span class="comment">//</span>
+        <span class="comment">// This serializes the report-gathering. It might be worth creating a new scoped thread for</span>
+        <span class="comment">// each reporter once we have enough of them.</span>
+        <span class="comment">//</span>
+        <span class="comment">// If anything goes wrong with a reporter, we just skip it.</span>
+        <span class="comment">//</span>
+        <span class="comment">// We also track the total memory reported on the jemalloc heap and the system heap, and</span>
+        <span class="comment">// use that to compute the special &quot;jemalloc-heap-unclassified&quot; and</span>
+        <span class="comment">// &quot;system-heap-unclassified&quot; values.</span>
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">forest</span> <span class="op">=</span> <span class="ident">ReportsForest::new</span>();
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">jemalloc_heap_reported_size</span> <span class="op">=</span> <span class="number">0</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">system_heap_reported_size</span> <span class="op">=</span> <span class="number">0</span>;
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">jemalloc_heap_allocated_size</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">system_heap_allocated_size</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+
+        <span class="kw">for</span> <span class="ident">reporter</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">reporters</span>.<span class="ident">values</span>() {
+            <span class="kw">let</span> (<span class="ident">chan</span>, <span class="ident">port</span>) <span class="op">=</span> <span class="ident">ipc::channel</span>().<span class="ident">unwrap</span>();
+            <span class="ident">reporter</span>.<span class="ident">collect_reports</span>(<span class="ident">ReportsChan</span>(<span class="ident">chan</span>));
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">reports</span>) <span class="op">=</span> <span class="ident">port</span>.<span class="ident">recv</span>() {
+                <span class="kw">for</span> <span class="ident">report</span> <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="ident">reports</span> {
+                    <span class="comment">// Add &quot;explicit&quot; to the start of the path, when appropriate.</span>
+                    <span class="kw">match</span> <span class="ident">report</span>.<span class="ident">kind</span> {
+                        <span class="ident">ReportKind::ExplicitJemallocHeapSize</span> <span class="op">|</span>
+                        <span class="ident">ReportKind::ExplicitSystemHeapSize</span> <span class="op">|</span>
+                        <span class="ident">ReportKind::ExplicitNonHeapSize</span> <span class="op">|</span>
+                        <span class="ident">ReportKind::ExplicitUnknownLocationSize</span> =&gt; {
+                            <span class="ident">report</span>.<span class="ident">path</span>.<span class="ident">insert</span>(<span class="number">0</span>, <span class="ident">String::from</span>(<span class="string">&quot;explicit&quot;</span>))
+                        },
+                        <span class="ident">ReportKind::NonExplicitSize</span> =&gt; {},
+                    }
+
+                    <span class="comment">// Update the reported fractions of the heaps, when appropriate.</span>
+                    <span class="kw">match</span> <span class="ident">report</span>.<span class="ident">kind</span> {
+                        <span class="ident">ReportKind::ExplicitJemallocHeapSize</span> =&gt; {
+                            <span class="ident">jemalloc_heap_reported_size</span> <span class="op">+</span><span class="op">=</span> <span class="ident">report</span>.<span class="ident">size</span>
+                        },
+                        <span class="ident">ReportKind::ExplicitSystemHeapSize</span> =&gt; {
+                            <span class="ident">system_heap_reported_size</span> <span class="op">+</span><span class="op">=</span> <span class="ident">report</span>.<span class="ident">size</span>
+                        },
+                        <span class="kw">_</span> =&gt; {},
+                    }
+
+                    <span class="comment">// Record total size of the heaps, when we see them.</span>
+                    <span class="kw">if</span> <span class="ident">report</span>.<span class="ident">path</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span> {
+                        <span class="kw">if</span> <span class="ident">report</span>.<span class="ident">path</span>[<span class="number">0</span>] <span class="op">==</span> <span class="ident">JEMALLOC_HEAP_ALLOCATED_STR</span> {
+                            <span class="macro">assert!</span>(<span class="ident">jemalloc_heap_allocated_size</span>.<span class="ident">is_none</span>());
+                            <span class="ident">jemalloc_heap_allocated_size</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">report</span>.<span class="ident">size</span>);
+                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">report</span>.<span class="ident">path</span>[<span class="number">0</span>] <span class="op">==</span> <span class="ident">SYSTEM_HEAP_ALLOCATED_STR</span> {
+                            <span class="macro">assert!</span>(<span class="ident">system_heap_allocated_size</span>.<span class="ident">is_none</span>());
+                            <span class="ident">system_heap_allocated_size</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">report</span>.<span class="ident">size</span>);
+                        }
+                    }
+
+                    <span class="comment">// Insert the report.</span>
+                    <span class="ident">forest</span>.<span class="ident">insert</span>(<span class="kw-2">&amp;</span><span class="ident">report</span>.<span class="ident">path</span>, <span class="ident">report</span>.<span class="ident">size</span>);
+                }
+            }
+        }
+
+        <span class="comment">// Compute and insert the heap-unclassified values.</span>
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">jemalloc_heap_allocated_size</span>) <span class="op">=</span> <span class="ident">jemalloc_heap_allocated_size</span> {
+            <span class="ident">forest</span>.<span class="ident">insert</span>(
+                <span class="kw-2">&amp;</span><span class="macro">path!</span>[<span class="string">&quot;explicit&quot;</span>, <span class="string">&quot;jemalloc-heap-unclassified&quot;</span>],
+                <span class="ident">jemalloc_heap_allocated_size</span> <span class="op">-</span> <span class="ident">jemalloc_heap_reported_size</span>,
+            );
+        }
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">system_heap_allocated_size</span>) <span class="op">=</span> <span class="ident">system_heap_allocated_size</span> {
+            <span class="ident">forest</span>.<span class="ident">insert</span>(
+                <span class="kw-2">&amp;</span><span class="macro">path!</span>[<span class="string">&quot;explicit&quot;</span>, <span class="string">&quot;system-heap-unclassified&quot;</span>],
+                <span class="ident">system_heap_allocated_size</span> <span class="op">-</span> <span class="ident">system_heap_reported_size</span>,
+            );
+        }
+
+        <span class="ident">forest</span>.<span class="ident">print</span>();
+
+        <span class="macro">println!</span>(<span class="string">&quot;|&quot;</span>);
+        <span class="macro">println!</span>(<span class="string">&quot;End memory reports&quot;</span>);
+        <span class="macro">println!</span>(<span class="string">&quot;&quot;</span>);
+    }
+}
+
+<span class="doccomment">/// A collection of one or more reports with the same initial path segment. A ReportsTree</span>
+<span class="doccomment">/// containing a single node is described as &quot;degenerate&quot;.</span>
+<span class="kw">struct</span> <span class="ident">ReportsTree</span> {
+    <span class="doccomment">/// For leaf nodes, this is the sum of the sizes of all reports that mapped to this location.</span>
+    <span class="doccomment">/// For interior nodes, this is the sum of the sizes of all its child nodes.</span>
+    <span class="ident">size</span>: <span class="ident">usize</span>,
+
+    <span class="doccomment">/// For leaf nodes, this is the count of all reports that mapped to this location.</span>
+    <span class="doccomment">/// For interor nodes, this is always zero.</span>
+    <span class="ident">count</span>: <span class="ident">u32</span>,
+
+    <span class="doccomment">/// The segment from the report path that maps to this node.</span>
+    <span class="ident">path_seg</span>: <span class="ident">String</span>,
+
+    <span class="doccomment">/// Child nodes.</span>
+    <span class="ident">children</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ReportsTree</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">ReportsTree</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">path_seg</span>: <span class="ident">String</span>) -&gt; <span class="ident">ReportsTree</span> {
+        <span class="ident">ReportsTree</span> {
+            <span class="ident">size</span>: <span class="number">0</span>,
+            <span class="ident">count</span>: <span class="number">0</span>,
+            <span class="ident">path_seg</span>: <span class="ident">path_seg</span>,
+            <span class="ident">children</span>: <span class="macro">vec!</span>[],
+        }
+    }
+
+    <span class="comment">// Searches the tree&#39;s children for a path_seg match, and returns the index if there is a</span>
+    <span class="comment">// match.</span>
+    <span class="kw">fn</span> <span class="ident">find_child</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">path_seg</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">child</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="ident">children</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+            <span class="kw">if</span> <span class="ident">child</span>.<span class="ident">path_seg</span> <span class="op">==</span> <span class="kw-2">*</span><span class="ident">path_seg</span> {
+                <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">i</span>);
+            }
+        }
+        <span class="prelude-val">None</span>
+    }
+
+    <span class="comment">// Insert the path and size into the tree, adding any nodes as necessary.</span>
+    <span class="kw">fn</span> <span class="ident">insert</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span>[<span class="ident">String</span>], <span class="ident">size</span>: <span class="ident">usize</span>) {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">t</span>: <span class="kw-2">&amp;mut</span> <span class="ident">ReportsTree</span> <span class="op">=</span> <span class="self">self</span>;
+        <span class="kw">for</span> <span class="ident">path_seg</span> <span class="kw">in</span> <span class="ident">path</span> {
+            <span class="kw">let</span> <span class="ident">i</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">t</span>.<span class="ident">find_child</span>(<span class="kw-2">&amp;</span><span class="ident">path_seg</span>) {
+                <span class="prelude-val">Some</span>(<span class="ident">i</span>) =&gt; <span class="ident">i</span>,
+                <span class="prelude-val">None</span> =&gt; {
+                    <span class="kw">let</span> <span class="ident">new_t</span> <span class="op">=</span> <span class="ident">ReportsTree::new</span>(<span class="ident">path_seg</span>.<span class="ident">clone</span>());
+                    <span class="ident">t</span>.<span class="ident">children</span>.<span class="ident">push</span>(<span class="ident">new_t</span>);
+                    <span class="ident">t</span>.<span class="ident">children</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="number">1</span>
+                },
+            };
+            <span class="kw">let</span> <span class="ident">tmp</span> <span class="op">=</span> <span class="ident">t</span>; <span class="comment">// this temporary is needed to satisfy the borrow checker</span>
+            <span class="ident">t</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">tmp</span>.<span class="ident">children</span>[<span class="ident">i</span>];
+        }
+
+        <span class="ident">t</span>.<span class="ident">size</span> <span class="op">+</span><span class="op">=</span> <span class="ident">size</span>;
+        <span class="ident">t</span>.<span class="ident">count</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+    }
+
+    <span class="comment">// Fill in sizes for interior nodes and sort sub-trees accordingly. Should only be done once</span>
+    <span class="comment">// all the reports have been inserted.</span>
+    <span class="kw">fn</span> <span class="ident">compute_interior_node_sizes_and_sort</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">usize</span> {
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">children</span>.<span class="ident">is_empty</span>() {
+            <span class="comment">// Interior node. Derive its size from its children.</span>
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">size</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+                <span class="comment">// This will occur if e.g. we have paths [&quot;a&quot;, &quot;b&quot;] and [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;].</span>
+                <span class="macro">panic!</span>(<span class="string">&quot;one report&#39;s path is a sub-path of another report&#39;s path&quot;</span>);
+            }
+            <span class="kw">for</span> <span class="ident">child</span> <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">children</span> {
+                <span class="self">self</span>.<span class="ident">size</span> <span class="op">+</span><span class="op">=</span> <span class="ident">child</span>.<span class="ident">compute_interior_node_sizes_and_sort</span>();
+            }
+            <span class="comment">// Now that child sizes have been computed, we can sort the children.</span>
+            <span class="self">self</span>.<span class="ident">children</span>.<span class="ident">sort_by</span>(<span class="op">|</span><span class="ident">t1</span>, <span class="ident">t2</span><span class="op">|</span> <span class="ident">t2</span>.<span class="ident">size</span>.<span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="ident">t1</span>.<span class="ident">size</span>));
+        }
+        <span class="self">self</span>.<span class="ident">size</span>
+    }
+
+    <span class="kw">fn</span> <span class="ident">print</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">depth</span>: <span class="ident">i32</span>) {
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">children</span>.<span class="ident">is_empty</span>() {
+            <span class="macro">assert_eq!</span>(<span class="self">self</span>.<span class="ident">count</span>, <span class="number">0</span>);
+        }
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">indent_str</span> <span class="op">=</span> <span class="ident">String::new</span>();
+        <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">depth</span> {
+            <span class="ident">indent_str</span>.<span class="ident">push_str</span>(<span class="string">&quot;   &quot;</span>);
+        }
+
+        <span class="kw">let</span> <span class="ident">mebi</span> <span class="op">=</span> <span class="number">1024f64</span> <span class="op">*</span> <span class="number">1024f64</span>;
+        <span class="kw">let</span> <span class="ident">count_str</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">count</span> <span class="op">&gt;</span> <span class="number">1</span> {
+            <span class="macro">format!</span>(<span class="string">&quot; [{}]&quot;</span>, <span class="self">self</span>.<span class="ident">count</span>)
+        } <span class="kw">else</span> {
+            <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()
+        };
+        <span class="macro">println!</span>(
+            <span class="string">&quot;|{}{:8.2} MiB -- {}{}&quot;</span>,
+            <span class="ident">indent_str</span>,
+            (<span class="self">self</span>.<span class="ident">size</span> <span class="kw">as</span> <span class="ident">f64</span>) <span class="op">/</span> <span class="ident">mebi</span>,
+            <span class="self">self</span>.<span class="ident">path_seg</span>,
+            <span class="ident">count_str</span>
+        );
+
+        <span class="kw">for</span> <span class="ident">child</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">children</span> {
+            <span class="ident">child</span>.<span class="ident">print</span>(<span class="ident">depth</span> <span class="op">+</span> <span class="number">1</span>);
+        }
+    }
+}
+
+<span class="doccomment">/// A collection of ReportsTrees. It represents the data from multiple memory reports in a form</span>
+<span class="doccomment">/// that&#39;s good to print.</span>
+<span class="kw">struct</span> <span class="ident">ReportsForest</span> {
+    <span class="ident">trees</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ReportsTree</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">ReportsForest</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">ReportsForest</span> {
+        <span class="ident">ReportsForest</span> {
+            <span class="ident">trees</span>: <span class="ident">HashMap::new</span>(),
+        }
+    }
+
+    <span class="comment">// Insert the path and size into the forest, adding any trees and nodes as necessary.</span>
+    <span class="kw">fn</span> <span class="ident">insert</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span>[<span class="ident">String</span>], <span class="ident">size</span>: <span class="ident">usize</span>) {
+        <span class="kw">let</span> (<span class="ident">head</span>, <span class="ident">tail</span>) <span class="op">=</span> <span class="ident">path</span>.<span class="ident">split_first</span>().<span class="ident">unwrap</span>();
+        <span class="comment">// Get the right tree, creating it if necessary.</span>
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">trees</span>.<span class="ident">contains_key</span>(<span class="ident">head</span>) {
+            <span class="self">self</span>.<span class="ident">trees</span>
+                .<span class="ident">insert</span>(<span class="ident">head</span>.<span class="ident">clone</span>(), <span class="ident">ReportsTree::new</span>(<span class="ident">head</span>.<span class="ident">clone</span>()));
+        }
+        <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">trees</span>.<span class="ident">get_mut</span>(<span class="ident">head</span>).<span class="ident">unwrap</span>();
+
+        <span class="comment">// Use tail because the 0th path segment was used to find the right tree in the forest.</span>
+        <span class="ident">t</span>.<span class="ident">insert</span>(<span class="ident">tail</span>, <span class="ident">size</span>);
+    }
+
+    <span class="kw">fn</span> <span class="ident">print</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
+        <span class="comment">// Fill in sizes of interior nodes, and recursively sort the sub-trees.</span>
+        <span class="kw">for</span> (<span class="kw">_</span>, <span class="ident">tree</span>) <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">trees</span> {
+            <span class="ident">tree</span>.<span class="ident">compute_interior_node_sizes_and_sort</span>();
+        }
+
+        <span class="comment">// Put the trees into a sorted vector. Primary sort: degenerate trees (those containing a</span>
+        <span class="comment">// single node) come after non-degenerate trees. Secondary sort: alphabetical order of the</span>
+        <span class="comment">// root node&#39;s path_seg.</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">v</span> <span class="op">=</span> <span class="macro">vec!</span>[];
+        <span class="kw">for</span> (<span class="kw">_</span>, <span class="ident">tree</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">trees</span> {
+            <span class="ident">v</span>.<span class="ident">push</span>(<span class="ident">tree</span>);
+        }
+        <span class="ident">v</span>.<span class="ident">sort_by</span>(<span class="op">|</span><span class="ident">a</span>, <span class="ident">b</span><span class="op">|</span> {
+            <span class="kw">if</span> <span class="ident">a</span>.<span class="ident">children</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">b</span>.<span class="ident">children</span>.<span class="ident">is_empty</span>() {
+                <span class="ident">Ordering::Greater</span>
+            } <span class="kw">else</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">a</span>.<span class="ident">children</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">b</span>.<span class="ident">children</span>.<span class="ident">is_empty</span>() {
+                <span class="ident">Ordering::Less</span>
+            } <span class="kw">else</span> {
+                <span class="ident">a</span>.<span class="ident">path_seg</span>.<span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="ident">b</span>.<span class="ident">path_seg</span>)
+            }
+        });
+
+        <span class="comment">// Print the forest.</span>
+        <span class="kw">for</span> <span class="ident">tree</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">v</span> {
+            <span class="ident">tree</span>.<span class="ident">print</span>(<span class="number">0</span>);
+            <span class="comment">// Print a blank line after non-degenerate trees.</span>
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">tree</span>.<span class="ident">children</span>.<span class="ident">is_empty</span>() {
+                <span class="macro">println!</span>(<span class="string">&quot;|&quot;</span>);
+            }
+        }
+    }
+}
+
+<span class="comment">//---------------------------------------------------------------------------</span>
+
+<span class="kw">mod</span> <span class="ident">system_reporter</span> {
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">JEMALLOC_HEAP_ALLOCATED_STR</span>, <span class="ident">SYSTEM_HEAP_ALLOCATED_STR</span>};
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+    <span class="kw">use</span> <span class="ident">libc::c_int</span>;
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
+    <span class="kw">use</span> <span class="ident">libc</span>::{<span class="ident">c_void</span>, <span class="ident">size_t</span>};
+    <span class="kw">use</span> <span class="ident">profile_traits::mem</span>::{<span class="ident">Report</span>, <span class="ident">ReportKind</span>, <span class="ident">ReporterRequest</span>};
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
+    <span class="kw">use</span> <span class="ident">std::ffi::CString</span>;
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
+    <span class="kw">use</span> <span class="ident">std::mem::size_of</span>;
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
+    <span class="kw">use</span> <span class="ident">std::ptr::null_mut</span>;
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>)]</span>
+    <span class="kw">use</span> <span class="ident">task_info::task_basic_info</span>::{<span class="ident">resident_size</span>, <span class="ident">virtual_size</span>};
+
+    <span class="doccomment">/// Collects global measurements from the OS and heap allocators.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">collect_reports</span>(<span class="ident">request</span>: <span class="ident">ReporterRequest</span>) {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reports</span> <span class="op">=</span> <span class="macro">vec!</span>[];
+        {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">report</span> <span class="op">=</span> <span class="op">|</span><span class="ident">path</span>, <span class="ident">size</span><span class="op">|</span> {
+                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">size</span>) <span class="op">=</span> <span class="ident">size</span> {
+                    <span class="ident">reports</span>.<span class="ident">push</span>(<span class="ident">Report</span> {
+                        <span class="ident">path</span>: <span class="ident">path</span>,
+                        <span class="ident">kind</span>: <span class="ident">ReportKind::NonExplicitSize</span>,
+                        <span class="ident">size</span>: <span class="ident">size</span>,
+                    });
+                }
+            };
+
+            <span class="comment">// Virtual and physical memory usage, as reported by the OS.</span>
+            <span class="ident">report</span>(<span class="macro">path!</span>[<span class="string">&quot;vsize&quot;</span>], <span class="ident">vsize</span>());
+            <span class="ident">report</span>(<span class="macro">path!</span>[<span class="string">&quot;resident&quot;</span>], <span class="ident">resident</span>());
+
+            <span class="comment">// Memory segments, as reported by the OS.</span>
+            <span class="kw">for</span> <span class="ident">seg</span> <span class="kw">in</span> <span class="ident">resident_segments</span>() {
+                <span class="ident">report</span>(<span class="macro">path!</span>[<span class="string">&quot;resident-according-to-smaps&quot;</span>, <span class="ident">seg</span>.<span class="number">0</span>], <span class="prelude-val">Some</span>(<span class="ident">seg</span>.<span class="number">1</span>));
+            }
+
+            <span class="comment">// Total number of bytes allocated by the application on the system</span>
+            <span class="comment">// heap.</span>
+            <span class="ident">report</span>(<span class="macro">path!</span>[<span class="ident">SYSTEM_HEAP_ALLOCATED_STR</span>], <span class="ident">system_heap_allocated</span>());
+
+            <span class="comment">// The descriptions of the following jemalloc measurements are taken</span>
+            <span class="comment">// directly from the jemalloc documentation.</span>
+
+            <span class="comment">// &quot;Total number of bytes allocated by the application.&quot;</span>
+            <span class="ident">report</span>(
+                <span class="macro">path!</span>[<span class="ident">JEMALLOC_HEAP_ALLOCATED_STR</span>],
+                <span class="ident">jemalloc_stat</span>(<span class="string">&quot;stats.allocated&quot;</span>),
+            );
+
+            <span class="comment">// &quot;Total number of bytes in active pages allocated by the application.</span>
+            <span class="comment">// This is a multiple of the page size, and greater than or equal to</span>
+            <span class="comment">// |stats.allocated|.&quot;</span>
+            <span class="ident">report</span>(<span class="macro">path!</span>[<span class="string">&quot;jemalloc-heap-active&quot;</span>], <span class="ident">jemalloc_stat</span>(<span class="string">&quot;stats.active&quot;</span>));
+
+            <span class="comment">// &quot;Total number of bytes in chunks mapped on behalf of the application.</span>
+            <span class="comment">// This is a multiple of the chunk size, and is at least as large as</span>
+            <span class="comment">// |stats.active|. This does not include inactive chunks.&quot;</span>
+            <span class="ident">report</span>(<span class="macro">path!</span>[<span class="string">&quot;jemalloc-heap-mapped&quot;</span>], <span class="ident">jemalloc_stat</span>(<span class="string">&quot;stats.mapped&quot;</span>));
+        }
+
+        <span class="ident">request</span>.<span class="ident">reports_channel</span>.<span class="ident">send</span>(<span class="ident">reports</span>);
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+    <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> {
+        <span class="kw">fn</span> <span class="ident">mallinfo</span>() -&gt; <span class="ident">struct_mallinfo</span>;
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">struct_mallinfo</span> {
+        <span class="ident">arena</span>: <span class="ident">c_int</span>,
+        <span class="ident">ordblks</span>: <span class="ident">c_int</span>,
+        <span class="ident">smblks</span>: <span class="ident">c_int</span>,
+        <span class="ident">hblks</span>: <span class="ident">c_int</span>,
+        <span class="ident">hblkhd</span>: <span class="ident">c_int</span>,
+        <span class="ident">usmblks</span>: <span class="ident">c_int</span>,
+        <span class="ident">fsmblks</span>: <span class="ident">c_int</span>,
+        <span class="ident">uordblks</span>: <span class="ident">c_int</span>,
+        <span class="ident">fordblks</span>: <span class="ident">c_int</span>,
+        <span class="ident">keepcost</span>: <span class="ident">c_int</span>,
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">system_heap_allocated</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">info</span>: <span class="ident">struct_mallinfo</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">mallinfo</span>() };
+
+        <span class="comment">// The documentation in the glibc man page makes it sound like |uordblks| would suffice,</span>
+        <span class="comment">// but that only gets the small allocations that are put in the brk heap. We need |hblkhd|</span>
+        <span class="comment">// as well to get the larger allocations that are mmapped.</span>
+        <span class="comment">//</span>
+        <span class="comment">// These fields are unfortunately |int| and so can overflow (becoming negative) if memory</span>
+        <span class="comment">// usage gets high enough. So don&#39;t report anything in that case. In the non-overflow case</span>
+        <span class="comment">// we cast the two values to usize before adding them to make sure the sum also doesn&#39;t</span>
+        <span class="comment">// overflow.</span>
+        <span class="kw">if</span> <span class="ident">info</span>.<span class="ident">hblkhd</span> <span class="op">&lt;</span> <span class="number">0</span> <span class="op">|</span><span class="op">|</span> <span class="ident">info</span>.<span class="ident">uordblks</span> <span class="op">&lt;</span> <span class="number">0</span> {
+            <span class="prelude-val">None</span>
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Some</span>(<span class="ident">info</span>.<span class="ident">hblkhd</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">+</span> <span class="ident">info</span>.<span class="ident">uordblks</span> <span class="kw">as</span> <span class="ident">usize</span>)
+        }
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>))]</span>
+    <span class="kw">fn</span> <span class="ident">system_heap_allocated</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="prelude-val">None</span>
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
+    <span class="kw">use</span> <span class="ident">servo_allocator::jemalloc_sys::mallctl</span>;
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
+    <span class="kw">fn</span> <span class="ident">jemalloc_stat</span>(<span class="ident">value_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="comment">// Before we request the measurement of interest, we first send an &quot;epoch&quot;</span>
+        <span class="comment">// request. Without that jemalloc gives cached statistics(!) which can be</span>
+        <span class="comment">// highly inaccurate.</span>
+        <span class="kw">let</span> <span class="ident">epoch_name</span> <span class="op">=</span> <span class="string">&quot;epoch&quot;</span>;
+        <span class="kw">let</span> <span class="ident">epoch_c_name</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">epoch_name</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">epoch</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">0</span>;
+        <span class="kw">let</span> <span class="ident">epoch_ptr</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">epoch</span> <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="ident">c_void</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">epoch_len</span> <span class="op">=</span> <span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>() <span class="kw">as</span> <span class="ident">size_t</span>;
+
+        <span class="kw">let</span> <span class="ident">value_c_name</span> <span class="op">=</span> <span class="ident">CString::new</span>(<span class="ident">value_name</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value</span>: <span class="ident">size_t</span> <span class="op">=</span> <span class="number">0</span>;
+        <span class="kw">let</span> <span class="ident">value_ptr</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">value</span> <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="ident">c_void</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">value_len</span> <span class="op">=</span> <span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">size_t</span><span class="op">&gt;</span>() <span class="kw">as</span> <span class="ident">size_t</span>;
+
+        <span class="comment">// Using the same values for the `old` and `new` parameters is enough</span>
+        <span class="comment">// to get the statistics updated.</span>
+        <span class="kw">let</span> <span class="ident">rv</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+            <span class="ident">mallctl</span>(
+                <span class="ident">epoch_c_name</span>.<span class="ident">as_ptr</span>(),
+                <span class="ident">epoch_ptr</span>,
+                <span class="kw-2">&amp;mut</span> <span class="ident">epoch_len</span>,
+                <span class="ident">epoch_ptr</span>,
+                <span class="ident">epoch_len</span>,
+            )
+        };
+        <span class="kw">if</span> <span class="ident">rv</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+            <span class="kw">return</span> <span class="prelude-val">None</span>;
+        }
+
+        <span class="kw">let</span> <span class="ident">rv</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+            <span class="ident">mallctl</span>(
+                <span class="ident">value_c_name</span>.<span class="ident">as_ptr</span>(),
+                <span class="ident">value_ptr</span>,
+                <span class="kw-2">&amp;mut</span> <span class="ident">value_len</span>,
+                <span class="ident">null_mut</span>(),
+                <span class="number">0</span>,
+            )
+        };
+        <span class="kw">if</span> <span class="ident">rv</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+            <span class="kw">return</span> <span class="prelude-val">None</span>;
+        }
+
+        <span class="prelude-val">Some</span>(<span class="ident">value</span> <span class="kw">as</span> <span class="ident">usize</span>)
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">jemalloc_stat</span>(<span class="ident">_value_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="prelude-val">None</span>
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">page_size</span>() -&gt; <span class="ident">usize</span> {
+        <span class="kw">unsafe</span> { <span class="ident">::libc::sysconf</span>(<span class="ident">::libc::_SC_PAGESIZE</span>) <span class="kw">as</span> <span class="ident">usize</span> }
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">proc_self_statm_field</span>(<span class="ident">field</span>: <span class="ident">usize</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="kw">use</span> <span class="ident">std::fs::File</span>;
+        <span class="kw">use</span> <span class="ident">std::io::Read</span>;
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">File::open</span>(<span class="string">&quot;/proc/self/statm&quot;</span>).<span class="ident">ok</span>()<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">contents</span> <span class="op">=</span> <span class="ident">String::new</span>();
+        <span class="ident">f</span>.<span class="ident">read_to_string</span>(<span class="kw-2">&amp;mut</span> <span class="ident">contents</span>).<span class="ident">ok</span>()<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">contents</span>.<span class="ident">split_whitespace</span>().<span class="ident">nth</span>(<span class="ident">field</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">npages</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>().<span class="ident">ok</span>()<span class="question-mark">?</span>;
+        <span class="prelude-val">Some</span>(<span class="ident">npages</span> <span class="op">*</span> <span class="ident">page_size</span>())
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">vsize</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="ident">proc_self_statm_field</span>(<span class="number">0</span>)
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">resident</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="ident">proc_self_statm_field</span>(<span class="number">1</span>)
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">vsize</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="ident">virtual_size</span>()
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">resident</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="ident">resident_size</span>()
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>)))]</span>
+    <span class="kw">fn</span> <span class="ident">vsize</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="prelude-val">None</span>
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>)))]</span>
+    <span class="kw">fn</span> <span class="ident">resident</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="prelude-val">None</span>
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">resident_segments</span>() -&gt; <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">usize</span>)<span class="op">&gt;</span> {
+        <span class="kw">use</span> <span class="ident">regex::Regex</span>;
+        <span class="kw">use</span> <span class="ident">std::collections::hash_map::Entry</span>;
+        <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
+        <span class="kw">use</span> <span class="ident">std::fs::File</span>;
+        <span class="kw">use</span> <span class="ident">std::io</span>::{<span class="ident">BufRead</span>, <span class="ident">BufReader</span>};
+
+        <span class="comment">// The first line of an entry in /proc/&lt;pid&gt;/smaps looks just like an entry</span>
+        <span class="comment">// in /proc/&lt;pid&gt;/maps:</span>
+        <span class="comment">//</span>
+        <span class="comment">//   address           perms offset  dev   inode  pathname</span>
+        <span class="comment">//   02366000-025d8000 rw-p 00000000 00:00 0      [heap]</span>
+        <span class="comment">//</span>
+        <span class="comment">// Each of the following lines contains a key and a value, separated</span>
+        <span class="comment">// by &quot;: &quot;, where the key does not contain either of those characters.</span>
+        <span class="comment">// For example:</span>
+        <span class="comment">//</span>
+        <span class="comment">//   Rss:           132 kB</span>
+
+        <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">File::open</span>(<span class="string">&quot;/proc/self/smaps&quot;</span>) {
+            <span class="prelude-val">Ok</span>(<span class="ident">f</span>) =&gt; <span class="ident">BufReader::new</span>(<span class="ident">f</span>),
+            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="macro">vec!</span>[],
+        };
+
+        <span class="kw">let</span> <span class="ident">seg_re</span> <span class="op">=</span> <span class="ident">Regex::new</span>(
+            <span class="string">r&quot;^[:xdigit:]+-[:xdigit:]+ (....) [:xdigit:]+ [:xdigit:]+:[:xdigit:]+ \d+ +(.*)&quot;</span>,
+        )
+        .<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">rss_re</span> <span class="op">=</span> <span class="ident">Regex::new</span>(<span class="string">r&quot;^Rss: +(\d+) kB&quot;</span>).<span class="ident">unwrap</span>();
+
+        <span class="comment">// We record each segment&#39;s resident size.</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">seg_map</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">usize</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap::new</span>();
+
+        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>)]</span>
+        <span class="kw">enum</span> <span class="ident">LookingFor</span> {
+            <span class="ident">Segment</span>,
+            <span class="ident">Rss</span>,
+        }
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">looking_for</span> <span class="op">=</span> <span class="ident">LookingFor::Segment</span>;
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">curr_seg_name</span> <span class="op">=</span> <span class="ident">String::new</span>();
+
+        <span class="comment">// Parse the file.</span>
+        <span class="kw">for</span> <span class="ident">line</span> <span class="kw">in</span> <span class="ident">f</span>.<span class="ident">lines</span>() {
+            <span class="kw">let</span> <span class="ident">line</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">line</span> {
+                <span class="prelude-val">Ok</span>(<span class="ident">line</span>) =&gt; <span class="ident">line</span>,
+                <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">continue</span>,
+            };
+            <span class="kw">if</span> <span class="ident">looking_for</span> <span class="op">==</span> <span class="ident">LookingFor::Segment</span> {
+                <span class="comment">// Look for a segment info line.</span>
+                <span class="kw">let</span> <span class="ident">cap</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">seg_re</span>.<span class="ident">captures</span>(<span class="kw-2">&amp;</span><span class="ident">line</span>) {
+                    <span class="prelude-val">Some</span>(<span class="ident">cap</span>) =&gt; <span class="ident">cap</span>,
+                    <span class="prelude-val">None</span> =&gt; <span class="kw">continue</span>,
+                };
+                <span class="kw">let</span> <span class="ident">perms</span> <span class="op">=</span> <span class="ident">cap</span>.<span class="ident">get</span>(<span class="number">1</span>).<span class="ident">unwrap</span>().<span class="ident">as_str</span>();
+                <span class="kw">let</span> <span class="ident">pathname</span> <span class="op">=</span> <span class="ident">cap</span>.<span class="ident">get</span>(<span class="number">2</span>).<span class="ident">unwrap</span>().<span class="ident">as_str</span>();
+
+                <span class="comment">// Construct the segment name from its pathname and permissions.</span>
+                <span class="ident">curr_seg_name</span>.<span class="ident">clear</span>();
+                <span class="kw">if</span> <span class="ident">pathname</span> <span class="op">==</span> <span class="string">&quot;&quot;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">pathname</span>.<span class="ident">starts_with</span>(<span class="string">&quot;[stack:&quot;</span>) {
+                    <span class="comment">// Anonymous memory. Entries marked with &quot;[stack:nnn]&quot;</span>
+                    <span class="comment">// look like thread stacks but they may include other</span>
+                    <span class="comment">// anonymous mappings, so we can&#39;t trust them and just</span>
+                    <span class="comment">// treat them as entirely anonymous.</span>
+                    <span class="ident">curr_seg_name</span>.<span class="ident">push_str</span>(<span class="string">&quot;anonymous&quot;</span>);
+                } <span class="kw">else</span> {
+                    <span class="ident">curr_seg_name</span>.<span class="ident">push_str</span>(<span class="ident">pathname</span>);
+                }
+                <span class="ident">curr_seg_name</span>.<span class="ident">push_str</span>(<span class="string">&quot; (&quot;</span>);
+                <span class="ident">curr_seg_name</span>.<span class="ident">push_str</span>(<span class="ident">perms</span>);
+                <span class="ident">curr_seg_name</span>.<span class="ident">push_str</span>(<span class="string">&quot;)&quot;</span>);
+
+                <span class="ident">looking_for</span> <span class="op">=</span> <span class="ident">LookingFor::Rss</span>;
+            } <span class="kw">else</span> {
+                <span class="comment">// Look for an &quot;Rss:&quot; line.</span>
+                <span class="kw">let</span> <span class="ident">cap</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">rss_re</span>.<span class="ident">captures</span>(<span class="kw-2">&amp;</span><span class="ident">line</span>) {
+                    <span class="prelude-val">Some</span>(<span class="ident">cap</span>) =&gt; <span class="ident">cap</span>,
+                    <span class="prelude-val">None</span> =&gt; <span class="kw">continue</span>,
+                };
+                <span class="kw">let</span> <span class="ident">rss</span> <span class="op">=</span> <span class="ident">cap</span>.<span class="ident">get</span>(<span class="number">1</span>).<span class="ident">unwrap</span>().<span class="ident">as_str</span>().<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>() <span class="op">*</span> <span class="number">1024</span>;
+
+                <span class="kw">if</span> <span class="ident">rss</span> <span class="op">&gt;</span> <span class="number">0</span> {
+                    <span class="comment">// Aggregate small segments into &quot;other&quot;.</span>
+                    <span class="kw">let</span> <span class="ident">seg_name</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">rss</span> <span class="op">&lt;</span> <span class="number">512</span> <span class="op">*</span> <span class="number">1024</span> {
+                        <span class="string">&quot;other&quot;</span>.<span class="ident">to_owned</span>()
+                    } <span class="kw">else</span> {
+                        <span class="ident">curr_seg_name</span>.<span class="ident">clone</span>()
+                    };
+                    <span class="kw">match</span> <span class="ident">seg_map</span>.<span class="ident">entry</span>(<span class="ident">seg_name</span>) {
+                        <span class="ident">Entry::Vacant</span>(<span class="ident">entry</span>) =&gt; {
+                            <span class="ident">entry</span>.<span class="ident">insert</span>(<span class="ident">rss</span>);
+                        },
+                        <span class="ident">Entry::Occupied</span>(<span class="kw-2">mut</span> <span class="ident">entry</span>) =&gt; <span class="kw-2">*</span><span class="ident">entry</span>.<span class="ident">get_mut</span>() <span class="op">+</span><span class="op">=</span> <span class="ident">rss</span>,
+                    }
+                }
+
+                <span class="ident">looking_for</span> <span class="op">=</span> <span class="ident">LookingFor::Segment</span>;
+            }
+        }
+
+        <span class="comment">// Note that the sum of all these segments&#39; RSS values differs from the &quot;resident&quot;</span>
+        <span class="comment">// measurement obtained via /proc/&lt;pid&gt;/statm in resident(). It&#39;s unclear why this</span>
+        <span class="comment">// difference occurs; for some processes the measurements match, but for Servo they do not.</span>
+        <span class="ident">seg_map</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>()
+    }
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>))]</span>
+    <span class="kw">fn</span> <span class="ident">resident_segments</span>() -&gt; <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">usize</span>)<span class="op">&gt;</span> {
+        <span class="macro">vec!</span>[]
+    }
+}
+</code></pre></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="profile" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Rasterizer","Coverage rasterizer for lines, quadratic & cubic beziers."]]});

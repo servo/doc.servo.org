@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["VecDequeCell","This type is like VecDeque, except that it is not Sync and can be modified through immutable references."]]});

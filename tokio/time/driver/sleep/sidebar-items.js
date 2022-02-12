@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["sleep","Waits until `duration` has elapsed."],["sleep_until","Waits until `deadline` is reached."]],"struct":[["Inner",""],["Sleep","Future returned by `sleep` and `sleep_until`."]]});

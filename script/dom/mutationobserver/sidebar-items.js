@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_MutationObserver",""]],"enum":[["Mutation",""]],"struct":[["MutationObserver",""],["ObserverOptions",""],["RegisteredObserver",""]]});

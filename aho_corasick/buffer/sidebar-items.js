@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_BUFFER_CAPACITY","The default buffer capacity that we use for the stream buffer."]],"struct":[["Buffer","A fairly simple roll buffer for supporting stream searches."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TryPopResult","Return value of `Rx::try_pop`."]],"fn":[["channel",""]],"struct":[["Rx","List queue receive handle"],["Tx","List queue transmit handle."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["wayland_protocol",""],["wayland_protocol_versioned",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["access0",""]],"struct":[["Reversed","An edge-reversing graph adaptor."],["ReversedEdgeReference","A reversed edge reference"],["ReversedEdgeReferences","A reversed edge references iterator."],["ReversedEdges","A reversed edges iterator."]]});

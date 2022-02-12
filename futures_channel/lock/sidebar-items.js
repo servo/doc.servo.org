@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Lock","A “mutex” around a value, similar to `std::sync::Mutex<T>`."],["TryLock","Sentinel representing an acquired lock through which the data can be accessed."]]});

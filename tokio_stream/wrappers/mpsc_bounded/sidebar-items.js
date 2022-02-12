@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ReceiverStream","A wrapper around `tokio::sync::mpsc::Receiver` that implements `Stream`."]]});

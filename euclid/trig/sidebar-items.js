@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["trig",""]],"trait":[["Trig","Trait for basic trigonometry functions, so they can be used on generic numeric types"]]});

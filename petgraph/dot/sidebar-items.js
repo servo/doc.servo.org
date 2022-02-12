@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Config","`Dot` configuration."]],"static":[["EDGE",""],["INDENT",""],["TYPE",""]],"struct":[["DebugFmt","Pass Debug formatting to Display"],["Dot","`Dot` implements output to graphviz .dot format for a graph."],["Escaped","Pass Display formatting through a simple escaping filter"],["Escaper","Escape for Graphviz"]]});

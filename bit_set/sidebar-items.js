@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["blocks_for_bits","Computes how many blocks are needed to store that many bits"],["match_words",""]],"struct":[["BitSet",""],["BlockIter",""],["Difference",""],["Intersection",""],["Iter","An iterator for `BitSet`."],["SymmetricDifference",""],["TwoBitPositions","An iterator combining two `BitSet` iterators."],["Union",""]],"type":[["MatchWords",""]]});

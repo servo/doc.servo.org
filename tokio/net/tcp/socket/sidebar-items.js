@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TcpSocket","A TCP socket that has not yet been converted to a `TcpStream` or `TcpListener`."]]});

@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Primitive segmentation"><meta name="keywords" content="rust, rustlang, rust-lang, segment"><title>webrender::segment - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../webrender/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../webrender/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Module segment</a></h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#functions">Functions</a></li></ul></div><div id="sidebar-vars" data-name="segment" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../webrender/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Module <a href="../index.html">webrender</a>::<wbr><a class="mod" href="#">segment</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/webrender/segment.rs.html#5-1326" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Primitive segmentation</p>
+<h2 id="overview" class="section-header"><a href="#overview">Overview</a></h2>
+<p>Segmenting is the process of breaking rectangular primitives into smaller rectangular
+primitives in order to extract parts that could benefit from a fast paths.</p>
+<p>Typically this is used to allow fully opaque segments to be rendered in the opaque
+pass. For example when an opaque rectangle has a non-axis-aligned transform applied,
+we usually have to apply some anti-aliasing around the edges which requires alpha
+blending. By segmenting the edges out of the center of the primitive, we can keep a
+large amount of pixels in the opaque pass.
+Segmenting also lets us avoids rasterizing parts of clip masks that we know to have
+no effect or to be fully masking. For example by segmenting the corners of a rounded
+rectangle clip, we can optimize both rendering the mask and the primitive by only
+rasterize the corners in the mask and not applying any clipping to the segments of
+the primitive that don’t overlap the borders. </p>
+<p>It is a flexible system in the sense that different sources of segmentation (for
+example two rounded rectangle clips) can affect the segmentation, and the possibility
+to segment some effects such as specific clip kinds does not necessarily mean the
+primitive will actually be segmented.</p>
+<h3 id="segments-and-clipping" class="section-header"><a href="#segments-and-clipping">Segments and clipping</a></h3>
+<p>Segments of a primitive can be either not clipped, fully clipped, or partially clipped.
+In the first two case we don’t need a clip mask. For each partially masked segments, a
+mask is rasterized using a render task. All of the interesting steps happen during frame
+building.</p>
+<ul>
+<li>The first step is to determine the segmentation and write the associated GPU data.
+See <code>PrimitiveInstance::build_segments_if_needed</code> and <code>write_brush_segment_description</code>
+in <code>prim_store/mod.rs</code> which uses the segment builder of this module.</li>
+<li>The second step is to generate the mask render tasks.
+See <code>BrushSegment::update_clip_task</code> and <code>RenderTask::new_mask</code>. For each segment that
+needs a mask, the contribution of all clips that affect the segment is added to the
+mask’s render task.</li>
+<li>Segments are assigned to batches (See <code>batch.rs</code>). Segments of a given primitive can
+be assigned to different batches.</li>
+</ul>
+<p>See also the <a href="../clip/index.html"><code>clip</code> module documentation</a> for details about how clipping
+information is represented.</p>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Event.html" title="webrender::segment::Event struct">Event</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Item.html" title="webrender::segment::Item struct">Item</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ItemFlags.html" title="webrender::segment::ItemFlags struct">ItemFlags</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ItemIndex.html" title="webrender::segment::ItemIndex struct">ItemIndex</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Segment.html" title="webrender::segment::Segment struct">Segment</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SegmentBuilder.html" title="webrender::segment::SegmentBuilder struct">SegmentBuilder</a></div><div class="item-right docblock-short"></div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.EventKind.html" title="webrender::segment::EventKind enum">EventKind</a></div><div class="item-right docblock-short"></div></div></div><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.clamp.html" title="webrender::segment::clamp fn">clamp</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.emit_segment_if_needed.html" title="webrender::segment::emit_segment_if_needed fn">emit_segment_if_needed</a></div><div class="item-right docblock-short"></div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="webrender" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

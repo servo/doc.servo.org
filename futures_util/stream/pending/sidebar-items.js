@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["pending","Creates a stream which never returns any elements."]],"struct":[["Pending","Stream for the [`pending()`] function."]]});

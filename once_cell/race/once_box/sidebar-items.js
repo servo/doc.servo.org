@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["_dummy",""]],"struct":[["OnceBox","A thread-safe cell which can be written to only once."]]});

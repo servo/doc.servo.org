@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["datetime_to_timespec","Converts a local `NaiveDateTime` to the `time::Timespec`."],["tm_to_datetime","Converts a `time::Tm` struct into the timezone-aware `DateTime`. This assumes that `time` is working correctly, i.e. any error is fatal."]],"struct":[["Local","The local timescale. This is implemented via the standard `time` crate."]]});

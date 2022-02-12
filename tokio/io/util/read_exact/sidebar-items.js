@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["eof",""],["read_exact","A future which can be used to easily read exactly enough bytes to fill a buffer."]],"struct":[["ReadExact","Creates a future which will read exactly enough bytes to fill `buf`, returning an error if EOF is hit sooner."]]});

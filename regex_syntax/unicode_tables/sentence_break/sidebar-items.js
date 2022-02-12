@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ATERM",""],["BY_NAME",""],["CLOSE",""],["CR",""],["EXTEND",""],["FORMAT",""],["LF",""],["LOWER",""],["NUMERIC",""],["OLETTER",""],["SCONTINUE",""],["SEP",""],["SP",""],["STERM",""],["UPPER",""]]});

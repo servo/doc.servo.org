@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["misc","Sandboxing on Linux via miscellaneous kernel features."],["namespace","Sandboxing on Linux via namespaces."],["seccomp","`seccomp-bpf` support on recent Linux kernels."]],"struct":[["ChildSandbox",""],["Operation",""],["Sandbox",""]]});

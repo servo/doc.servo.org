@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Merge","A custom iterator that goes through two `RangedStates` and process a merge."],["RangedStates","Structure that keeps track of a I -> T mapping, optimized for a case where keys of the same values are often grouped together linearly."]]});

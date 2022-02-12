@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CLOSED",""]],"fn":[["channel",""]],"struct":[["Receiver",""],["Sender",""],["Shared",""]],"type":[["Value",""]]});

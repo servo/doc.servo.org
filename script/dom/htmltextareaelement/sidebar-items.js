@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_COLS",""],["DEFAULT_MAX_LENGTH",""],["DEFAULT_MIN_LENGTH",""],["DEFAULT_ROWS",""],["_IMPL_DOMOBJECT_FOR_HTMLTextAreaElement",""]],"struct":[["HTMLTextAreaElement",""]],"trait":[["LayoutHTMLTextAreaElementHelpers",""]]});

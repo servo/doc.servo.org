@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["get_next",""],["set_next",""]],"struct":[["Inject","Growable, MPMC queue used to inject new tasks into the scheduler and as an overflow queue when the local, fixed-size, array queue overflows."],["Pointers",""]]});

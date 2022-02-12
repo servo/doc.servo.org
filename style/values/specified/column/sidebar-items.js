@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["ColumnCount","A specified type for `column-count` values."]]});

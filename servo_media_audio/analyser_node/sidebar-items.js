@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_BLOCK_COUNT",""],["MAX_FFT_SIZE","From https://webaudio.github.io/web-audio-api/#dom-analysernode-fftsize"]],"fn":[["clamp_255",""]],"struct":[["AnalyserNode",""],["AnalysisEngine","The actual analysis is done on the DOM side. We provide the actual base functionality in this struct, so the DOM just has to do basic shimming"]]});

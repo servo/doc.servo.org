@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CoffSymbol","A symbol of a `CoffFile`."],["CoffSymbolIterator","An iterator over the symbols of a `CoffFile`."],["CoffSymbolTable","A symbol table of a `CoffFile`."],["SymbolTable","A table of symbol entries in a COFF or PE file."]]});

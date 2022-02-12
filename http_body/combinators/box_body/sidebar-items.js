@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BoxBody","A boxed [`Body`] trait object."],["UnsyncBoxBody","A boxed [`Body`] trait object that is !Sync."]]});

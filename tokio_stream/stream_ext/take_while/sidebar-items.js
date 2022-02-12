@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TakeWhile","Stream for the `take_while` method."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MapErr","Body returned by the `map_err` combinator."]]});

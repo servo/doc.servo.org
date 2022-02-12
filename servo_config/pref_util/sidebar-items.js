@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PrefError",""],["PrefValue",""]],"macro":[["impl_from_pref",""],["impl_pref_from",""]],"struct":[["Accessor",""],["Preferences",""]]});

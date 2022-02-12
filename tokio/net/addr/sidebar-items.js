@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["to_socket_addrs",""]],"mod":[["sealed","The contents of this trait are intended to remain private and not part of the `ToSocketAddrs` public API. The details will change over time."]],"trait":[["ToSocketAddrs","Converts or resolves without blocking to one or more `SocketAddr` values."]],"type":[["ReadyFuture",""]]});

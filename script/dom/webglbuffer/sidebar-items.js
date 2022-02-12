@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_WebGLBuffer",""]],"fn":[["target_is_copy_buffer",""]],"struct":[["WebGLBuffer",""]]});

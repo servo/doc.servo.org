@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AnyFuture","Future for the `any` method."]]});

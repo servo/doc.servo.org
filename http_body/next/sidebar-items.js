@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Data","Future that resolves to the next data chunk from `Body`"],["Trailers","Future that resolves to the optional trailers from `Body`"]]});

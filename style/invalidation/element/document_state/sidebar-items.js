@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DocumentStateInvalidationProcessor","An invalidation processor for style changes due to state and attribute changes."],["InvalidationMatchingData","A struct holding the members necessary to invalidate document state selectors."]]});

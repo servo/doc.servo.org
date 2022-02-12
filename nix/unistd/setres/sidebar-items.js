@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["setresgid","Sets the real, effective, and saved gid. (see setresuid(2))"],["setresuid","Sets the real, effective, and saved uid. (see setresuid(2))"]]});

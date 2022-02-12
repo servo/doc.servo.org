@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["EGL_FUNCTIONS",""]],"fn":[["get_proc_address",""],["lookup_egl_extension",""]],"struct":[["EGLLibraryWrapper",""],["EGL_LIBRARY",""]]});

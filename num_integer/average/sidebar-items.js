@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["average_ceil","Returns the ceiling value of the average of `x` and `y` – see Average::average_ceil."],["average_floor","Returns the floor value of the average of `x` and `y` – see Average::average_floor."]],"trait":[["Average","Provides methods to compute the average of two integers, without overflows."]]});

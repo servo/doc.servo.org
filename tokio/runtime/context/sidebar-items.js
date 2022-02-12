@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CONTEXT",""]],"fn":[["current",""],["enter","Sets this `Handle` as the current active `Handle`."],["io_handle",""],["spawn_handle",""],["time_handle",""],["try_current",""],["try_enter","Sets this `Handle` as the current active `Handle`."]],"struct":[["EnterGuard",""]]});

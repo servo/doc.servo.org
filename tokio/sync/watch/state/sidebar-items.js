@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CLOSED",""]],"struct":[["AtomicState","The state stored in an atomic integer."],["StateSnapshot","Snapshot of the state. The first bit is used as the CLOSED bit. The remaining bits are used as the version."],["Version","The version part of the state. The lowest bit is always zero."]]});

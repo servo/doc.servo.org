@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CollectConsumer",""],["CollectFolder",""],["CollectReducer","CollectReducer combines adjacent chunks; the result must always be contiguous so that it is one combined slice."],["CollectResult","CollectResult represents an initialized part of the target slice."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["read_impl","Defines numeric reader"]],"trait":[["AsyncReadExt","Reads bytes from a source."]]});

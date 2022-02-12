@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["process_results","“Lift” a function of the values of an iterator so that it can process an iterator of `Result` values instead."]],"struct":[["ProcessResults","An iterator that produces only the `T` values as long as the inner iterator produces `Ok(T)`."]]});

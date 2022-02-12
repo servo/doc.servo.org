@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_TILE_SIZE",""]],"fn":[["compute_valid_tiles_if_bounds_change",""]],"struct":[["ApiResources",""],["BlobImageTemplate","We use this to generate the async blob rendering requests."],["FontResources",""]]});

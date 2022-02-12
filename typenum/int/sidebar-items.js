@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["impl_int_div",""],["impl_int_rem",""]],"struct":[["NInt","Type-level signed integers with negative sign."],["PInt","Type-level signed integers with positive sign."],["Z0","The type-level signed integer 0."]]});

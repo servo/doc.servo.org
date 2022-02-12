@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AccessError","An error returned by `LocalKey::try_with`."],["LocalKey","A key for task-local data."],["TaskLocalFuture","A future that sets a value `T` of a task local for the future `F` during its execution."]]});

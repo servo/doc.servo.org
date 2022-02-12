@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["READABLE",""],["READ_CLOSED",""],["WRITABLE",""],["WRITE_CLOSED",""]],"struct":[["Ready","Describes the readiness state of an I/O resources."]]});

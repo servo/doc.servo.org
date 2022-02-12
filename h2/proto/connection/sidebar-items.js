@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ReceivedFrame",""],["State",""]],"struct":[["Config",""],["Connection","An H2 connection"],["ConnectionInner",""],["DynConnection",""]]});

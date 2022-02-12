@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["WANT_PENDING",""],["WANT_READY",""]],"enum":[["DelayEof",""],["Kind",""]],"struct":[["Body","A stream of `Bytes`, used when receiving bodies."],["Extra",""],["Sender","A sender half created through `Body::channel()`."]],"type":[["BodySender",""],["DelayEofUntil",""],["TrailersSender",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["AsyncBufReadExt","An extension trait which adds utility methods to `AsyncBufRead` types."]]});

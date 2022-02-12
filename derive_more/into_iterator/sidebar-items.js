@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["expand","Provides the hook to expand `#[derive(IntoIterator)]` into an implementation of `IntoIterator`"]]});

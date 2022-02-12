@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PollSemaphore","A wrapper around `Semaphore` that provides a `poll_acquire` method."]]});

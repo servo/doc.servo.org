@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TransferState",""]],"fn":[["copy_bidirectional","Copies data in both directions between `a` and `b`."],["transfer_one_direction",""]],"struct":[["CopyBidirectional",""]]});

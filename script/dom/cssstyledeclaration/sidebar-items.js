@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_CSSStyleDeclaration",""]],"enum":[["CSSModificationAccess",""],["CSSStyleOwner",""]],"fn":[["remove_property",""]],"macro":[["css_properties",""]],"struct":[["CSSStyleDeclaration",""]]});

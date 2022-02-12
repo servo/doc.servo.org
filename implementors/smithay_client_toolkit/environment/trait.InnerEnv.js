@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["winit"] = [{"text":"impl <a class=\"trait\" href=\"smithay_client_toolkit/environment/trait.InnerEnv.html\" title=\"trait smithay_client_toolkit::environment::InnerEnv\">InnerEnv</a> for <a class=\"struct\" href=\"winit/platform_impl/platform/wayland/env/struct.WinitEnv.html\" title=\"struct winit::platform_impl::platform::wayland::env::WinitEnv\">WinitEnv</a>","synthetic":false,"types":["winit::platform_impl::platform::wayland::env::WinitEnv"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

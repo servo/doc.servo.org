@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["webrender"] = [{"text":"impl <a class=\"trait\" href=\"webrender_api/image/trait.BlobImageResources.html\" title=\"trait webrender_api::image::BlobImageResources\">BlobImageResources</a> for <a class=\"struct\" href=\"webrender/resource_cache/struct.Resources.html\" title=\"struct webrender::resource_cache::Resources\">Resources</a>","synthetic":false,"types":["webrender::resource_cache::Resources"]}];
+implementors["webrender_api"] = [];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

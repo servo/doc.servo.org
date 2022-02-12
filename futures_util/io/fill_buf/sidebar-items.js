@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FillBuf","Future for the `fill_buf` method."]]});

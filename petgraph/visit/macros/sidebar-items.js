@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["delegate_impl","Implement a trait by delegation. By default as if we are delegating from &G to G."],["deref",""],["deref_twice",""],["remove_sections",""],["remove_sections_inner",""],["trait_template","Define a trait as usual, and a macro that can be used to instantiate implementations of it."]]});

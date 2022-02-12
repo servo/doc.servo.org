@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["copy_buf","Asynchronously copies the entire contents of a reader into a writer."]],"struct":[["CopyBuf","A future that asynchronously copies the entire contents of a reader into a writer."]]});

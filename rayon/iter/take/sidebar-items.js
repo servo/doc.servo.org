@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Take","`Take` is an iterator that iterates over the first `n` elements. This struct is created by the `take()` method on `IndexedParallelIterator`"]]});

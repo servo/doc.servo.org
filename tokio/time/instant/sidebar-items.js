@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["variant",""]],"struct":[["Instant","A measurement of a monotonically nondecreasing clock. Opaque and useful only with `Duration`."]]});

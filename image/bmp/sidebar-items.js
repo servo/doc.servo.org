@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["decoder",""],["encoder",""]],"struct":[["BmpDecoder","A bmp decoder"],["BmpEncoder","The representation of a BMP encoder."]],"type":[["BMPEncoder","BMP Encoder"]]});

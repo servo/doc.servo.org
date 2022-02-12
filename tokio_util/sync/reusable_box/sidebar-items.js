@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ReusableBoxFuture","A reusable `Pin<Box<dyn Future<Output = T> + Send>>`."]]});

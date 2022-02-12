@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["dealloc",""],["drop_join_handle_slow",""],["poll",""],["remote_abort",""],["shutdown",""],["try_read_output",""],["vtable","Get the vtable for the requested `T` and `S` generics."]],"struct":[["RawTask","Raw task handle"],["Vtable",""]]});

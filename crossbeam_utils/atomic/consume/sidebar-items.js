@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["impl_atomic",""],["impl_consume",""]],"trait":[["AtomicConsume","Trait which allows reading from primitive atomic types with “consume” ordering."]]});

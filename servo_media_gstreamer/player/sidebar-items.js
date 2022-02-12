@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_BUFFER_SIZE",""]],"enum":[["PlayerSource",""]],"fn":[["metadata_from_media_info",""]],"macro":[["inner_player_proxy",""],["notify",""],["player",""]],"struct":[["GStreamerAudioChunk",""],["GStreamerPlayer",""],["PlayerInner",""],["SeekChannel",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DropGuard","A wrapper for cancellation token which automatically cancels it on drop. It is created using `drop_guard` method on the `CancellationToken`."]]});

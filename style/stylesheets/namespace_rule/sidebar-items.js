@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["NamespaceRule","A `@namespace` rule."]]});

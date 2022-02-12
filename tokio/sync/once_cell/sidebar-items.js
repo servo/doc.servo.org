@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SetError","Errors that can be returned from `OnceCell::set`."]],"struct":[["OnceCell","A thread-safe cell that can be written to only once."]]});

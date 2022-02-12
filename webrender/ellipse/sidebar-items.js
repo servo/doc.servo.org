@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["STEP_COUNT","Number of steps to integrate arc length over."]],"fn":[["get_simpson_length","Use Simpsons rule to approximate the arc length of part of an ellipse. Note that this only works over the range of [0, pi/2]."]],"struct":[["Ellipse","Represents an ellipse centred at a local space origin."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SendError","Errors caused by sending a message"],["UserError","Errors caused by users of the library"]]});

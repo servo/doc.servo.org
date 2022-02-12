@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["Encoder","Trait of helper objects to write out messages as bytes, for use with `FramedWrite`."]]});

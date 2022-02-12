@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OpaqueNode","An opaque handle to a node, which, unlike UnsafeNode, cannot be transformed back into a non-opaque representation. The only safe operation that can be performed on this node is to compare it to another opaque handle or to another OpaqueNode."]]});

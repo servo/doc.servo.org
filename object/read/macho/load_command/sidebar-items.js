@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MachOLoadCommand","A parsed `LoadCommand`."],["MachOLoadCommandIterator","An iterator over the load commands of a `MachHeader`."]]});

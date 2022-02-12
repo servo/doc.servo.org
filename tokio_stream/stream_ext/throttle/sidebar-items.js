@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["is_zero",""],["throttle",""]],"struct":[["Throttle","Stream for the `throttle` function. This object is `!Unpin`. If you need it to implement `Unpin` you can pin your throttle like this: `Box::pin(your_throttle)`."]]});

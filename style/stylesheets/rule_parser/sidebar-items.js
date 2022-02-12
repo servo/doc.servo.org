@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AtRulePrelude","A rule prelude for at-rule with block."],["State","The current state of the parser."],["VendorPrefix","Vendor prefix."]],"struct":[["InsertRuleContext","The information we need particularly to do CSSOM insertRule stuff."],["NestedRuleParser",""],["TopLevelRuleParser","The parser for the top-level rules in a stylesheet."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["from_meta_float","Generate an impl of `FromMeta` that will accept strings which parse to floats or float literals."],["from_meta_lit",""],["from_meta_num","Generate an impl of `FromMeta` that will accept strings which parse to numbers or integer literals."]],"trait":[["FromMeta","Create an instance from an item in an attribute declaration."]]});

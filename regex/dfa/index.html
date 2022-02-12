@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The DFA matching engine."><meta name="keywords" content="rust, rustlang, rust-lang, dfa"><title>regex::dfa - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../regex/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../regex/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Module dfa</a></h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="dfa" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../regex/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Module <a href="../index.html">regex</a>::<wbr><a class="mod" href="#">dfa</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/regex/dfa.rs.html#1-1952" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The DFA matching engine.</p>
+<p>A DFA provides faster matching because the engine is in exactly one state at
+any point in time. In the NFA, there may be multiple active states, and
+considerable CPU cycles are spent shuffling them around. In finite automata
+speak, the DFA follows epsilon transitions in the regex far less than the NFA.</p>
+<p>A DFA is a classic trade off between time and space. The NFA is slower, but
+its memory requirements are typically small and predictable. The DFA is faster,
+but given the right regex and the right input, the number of states in the
+DFA can grow exponentially. To mitigate this space problem, we do two things:</p>
+<ol>
+<li>We implement an <em>online</em> DFA. That is, the DFA is constructed from the NFA
+during a search. When a new state is computed, it is stored in a cache so
+that it may be reused. An important consequence of this implementation
+is that states that are never reached for a particular input are never
+computed. (This is impossible in an “offline” DFA which needs to compute
+all possible states up front.)</li>
+<li>If the cache gets too big, we wipe it and continue matching.</li>
+</ol>
+<p>In pathological cases, a new state can be created for every byte of input.
+(e.g., The regex <code>(a|b)*a(a|b){20}</code> on a long sequence of a’s and b’s.)
+In this case, performance regresses to slightly slower than the full NFA
+simulation, in large part because the cache becomes useless. If the cache
+is wiped too frequently, the DFA quits and control falls back to one of the
+NFA simulations.</p>
+<p>Because of the “lazy” nature of this DFA, the inner matching loop is
+considerably more complex than one might expect out of a DFA. A number of
+tricks are employed to make it fast. Tread carefully.</p>
+<p>N.B. While this implementation is heavily commented, Russ Cox’s series of
+articles on regexes is strongly recommended: https://swtch.com/~rsc/regexp/
+(As is the DFA implementation in RE2, which heavily influenced this
+implementation.)</p>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Byte.html" title="regex::dfa::Byte struct">Byte</a></div><div class="item-right docblock-short"><p>Byte is a u8 in spirit, but a u16 in practice so that we can represent the
+special EOF sentinel value.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Cache.html" title="regex::dfa::Cache struct">Cache</a></div><div class="item-right docblock-short"><p>A reusable cache of DFA states.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.CacheInner.html" title="regex::dfa::CacheInner struct">CacheInner</a></div><div class="item-right docblock-short"><p><code>CacheInner</code> is logically just a part of Cache, but groups together fields
+that aren’t passed as function parameters throughout search. (This split
+is mostly an artifact of the borrow checker. It is happily paid.)</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EmptyFlags.html" title="regex::dfa::EmptyFlags struct">EmptyFlags</a></div><div class="item-right docblock-short"><p>A set of flags for zero-width assertions.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Fsm.html" title="regex::dfa::Fsm struct">Fsm</a></div><div class="item-right docblock-short"><p>Fsm encapsulates the actual execution of the DFA.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.InstPtrs.html" title="regex::dfa::InstPtrs struct">InstPtrs</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.State.html" title="regex::dfa::State struct">State</a></div><div class="item-right docblock-short"><p><code>State</code> is a DFA state. It contains an ordered set of NFA states (not
+necessarily complete) and a smattering of flags.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StateFlags.html" title="regex::dfa::StateFlags struct">StateFlags</a></div><div class="item-right docblock-short"><p>A set of flags describing various configurations of a DFA state. This is
+represented by a <code>u8</code> so that it is compact.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StateMap.html" title="regex::dfa::StateMap struct">StateMap</a></div><div class="item-right docblock-short"><p>An abstraction for representing a map of states. The map supports two
+different ways of state lookup. One is fast constant time access via a
+state pointer. The other is a hashmap lookup based on the DFA’s
+constituent NFA states.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Transitions.html" title="regex::dfa::Transitions struct">Transitions</a></div><div class="item-right docblock-short"><p>The transition table.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TransitionsRow.html" title="regex::dfa::TransitionsRow struct">TransitionsRow</a></div><div class="item-right docblock-short"></div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Result.html" title="regex::dfa::Result enum">Result</a></div><div class="item-right docblock-short"><p>The result of running the DFA.</p>
+</div></div></div><h2 id="constants" class="small-section-header"><a href="#constants">Constants</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.STATE_DEAD.html" title="regex::dfa::STATE_DEAD constant">STATE_DEAD</a></div><div class="item-right docblock-short"><p>A dead state means that the state has been computed and it is known that
+once it is entered, no future match can ever occur.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.STATE_MATCH.html" title="regex::dfa::STATE_MATCH constant">STATE_MATCH</a></div><div class="item-right docblock-short"><p>A match state means that the regex has successfully matched.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.STATE_MAX.html" title="regex::dfa::STATE_MAX constant">STATE_MAX</a></div><div class="item-right docblock-short"><p>The maximum state pointer. This is useful to mask out the “valid” state
+pointer from a state with the “start” or “match” bits set.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.STATE_QUIT.html" title="regex::dfa::STATE_QUIT constant">STATE_QUIT</a></div><div class="item-right docblock-short"><p>A quit state means that the DFA came across some input that it doesn’t
+know how to process correctly. The DFA should quit and another matching
+engine should be run in its place.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.STATE_START.html" title="regex::dfa::STATE_START constant">STATE_START</a></div><div class="item-right docblock-short"><p>A start state is a state that the DFA can start in.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.STATE_UNKNOWN.html" title="regex::dfa::STATE_UNKNOWN constant">STATE_UNKNOWN</a></div><div class="item-right docblock-short"><p>An unknown state means that the state has not been computed yet, and that
+the only way to progress is to compute it.</p>
+</div></div></div><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.can_exec.html" title="regex::dfa::can_exec fn">can_exec</a></div><div class="item-right docblock-short"><p>Return true if and only if the given program can be executed by a DFA.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.push_inst_ptr.html" title="regex::dfa::push_inst_ptr fn">push_inst_ptr</a></div><div class="item-right docblock-short"><p>Adds ip to data using delta encoding with respect to prev.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.read_vari32.html" title="regex::dfa::read_vari32 fn">read_vari32</a></div><div class="item-right docblock-short"><p>https://developers.google.com/protocol-buffers/docs/encoding#varints</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.read_varu32.html" title="regex::dfa::read_varu32 fn">read_varu32</a></div><div class="item-right docblock-short"><p>https://developers.google.com/protocol-buffers/docs/encoding#varints</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.show_state_ptr.html" title="regex::dfa::show_state_ptr fn">show_state_ptr</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.usize_to_u32.html" title="regex::dfa::usize_to_u32 fn">usize_to_u32</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.vb.html" title="regex::dfa::vb fn">vb</a></div><div class="item-right docblock-short"><p>Helper function for formatting a byte as a nice-to-read escaped string.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.write_vari32.html" title="regex::dfa::write_vari32 fn">write_vari32</a></div><div class="item-right docblock-short"><p>https://developers.google.com/protocol-buffers/docs/encoding#varints</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.write_varu32.html" title="regex::dfa::write_varu32 fn">write_varu32</a></div><div class="item-right docblock-short"><p>https://developers.google.com/protocol-buffers/docs/encoding#varints</p>
+</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.InstPtr.html" title="regex::dfa::InstPtr type">InstPtr</a></div><div class="item-right docblock-short"><p><code>InstPtr</code> is a 32 bit pointer into a sequence of opcodes (i.e., it indexes
+an NFA state).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.StatePtr.html" title="regex::dfa::StatePtr type">StatePtr</a></div><div class="item-right docblock-short"><p><code>StatePtr</code> is a 32 bit pointer to the start of a row in the transition
+table.</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="regex" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

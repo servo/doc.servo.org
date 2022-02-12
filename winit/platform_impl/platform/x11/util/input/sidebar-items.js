@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["TEXT_BUFFER_SIZE",""],["VIRTUAL_CORE_KEYBOARD",""],["VIRTUAL_CORE_POINTER",""]],"struct":[["PointerState",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["select_ok","Creates a new future which will select the first successful future over a list of futures."]],"struct":[["SelectOk","Future for the [`select_ok`] function."]]});

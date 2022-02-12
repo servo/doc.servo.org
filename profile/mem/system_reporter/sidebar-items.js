@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["collect_reports","Collects global measurements from the OS and heap allocators."],["jemalloc_stat",""],["mallinfo",""],["page_size",""],["proc_self_statm_field",""],["resident",""],["resident_segments",""],["system_heap_allocated",""],["vsize",""]],"struct":[["struct_mallinfo",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DEFAULT_SEEK_DELIMITERS",""],["DEFAULT_SEQUENCE_WRITER",""]],"enum":[["AnyDelimiterCodecError","An error occurred while encoding or decoding a chunk."]],"struct":[["AnyDelimiterCodec","A simple `Decoder` and `Encoder` implementation that splits up data into chunks based on any character in the given delimiter string."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Peek","Future for the `Peekable::peek()` function from [`Peekable`]"],["Peekable","A `Stream` that implements a `peek` method."]]});

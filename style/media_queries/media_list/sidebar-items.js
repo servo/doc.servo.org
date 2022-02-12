@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["MediaList","A type that encapsulates a media query list."]]});

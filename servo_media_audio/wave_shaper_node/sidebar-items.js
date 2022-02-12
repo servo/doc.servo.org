@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["OVERSAMPLING_QUALITY",""]],"enum":[["OverSampleType",""],["TailtimeBlocks",""],["WaveShaperNodeMessage",""]],"struct":[["WaveShaperNode",""],["WaveShaperNodeOptions",""]],"type":[["WaveShaperCurve",""]]});

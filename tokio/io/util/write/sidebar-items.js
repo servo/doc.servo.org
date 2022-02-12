@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["write","Tries to write some bytes from the given `buf` to the writer in an asynchronous manner, returning a future."]],"struct":[["Write","A future to write some of the buffer to an `AsyncWrite`."]]});

@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A scheduler is initialized with a fixed number of workers. Each worker is driven by a thread. Each worker has a “core” which contains data such as the run queue and other state. When `block_in_place` is called, the worker’s “core” is handed off to a new thread allowing the scheduler to continue to make progress while the originating thread blocks."><meta name="keywords" content="rust, rustlang, rust-lang, worker"><title>tokio::runtime::thread_pool::worker - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script src="../../../../crates.js"></script><script defer src="../../../../main.js"></script>
+    <noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Module worker</a></h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#constants">Constants</a></li><li><a href="#statics">Statics</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="worker" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../tokio/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Module <a href="../../../index.html">tokio</a>::<wbr><a href="../../index.html">runtime</a>::<wbr><a href="../index.html">thread_pool</a>::<wbr><a class="mod" href="#">worker</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../../../src/tokio/runtime/thread_pool/worker.rs.html#1-825" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A scheduler is initialized with a fixed number of workers. Each worker is
+driven by a thread. Each worker has a “core” which contains data such as the
+run queue and other state. When <code>block_in_place</code> is called, the worker’s
+“core” is handed off to a new thread allowing the scheduler to continue to
+make progress while the originating thread blocks.</p>
+<h2 id="shutdown" class="section-header"><a href="#shutdown">Shutdown</a></h2>
+<p>Shutting down the runtime involves the following steps:</p>
+<ol>
+<li>
+<p>The Shared::close method is called. This closes the inject queue and
+OwnedTasks instance and wakes up all worker threads.</p>
+</li>
+<li>
+<p>Each worker thread observes the close signal next time it runs
+Core::maintenance by checking whether the inject queue is closed.
+The Core::is_shutdown flag is set to true.</p>
+</li>
+<li>
+<p>The worker thread calls <code>pre_shutdown</code> in parallel. Here, the worker
+will keep removing tasks from OwnedTasks until it is empty. No new
+tasks can be pushed to the OwnedTasks during or after this step as it
+was closed in step 1.</p>
+</li>
+<li>
+<p>The workers call Shared::shutdown to enter the single-threaded phase of
+shutdown. These calls will push their core to Shared::shutdown_cores,
+and the last thread to push its core will finish the shutdown procedure.</p>
+</li>
+<li>
+<p>The local run queue of each core is emptied, then the inject queue is
+emptied.</p>
+</li>
+</ol>
+<p>At this point, shutdown has completed. It is not possible for any of the
+collections to contain any tasks at this point, as each collection was
+closed first, then emptied afterwards.</p>
+<h3 id="spawns-during-shutdown" class="section-header"><a href="#spawns-during-shutdown">Spawns during shutdown</a></h3>
+<p>When spawning tasks during shutdown, there are two cases:</p>
+<ul>
+<li>The spawner observes the OwnedTasks being open, and the inject queue is
+closed.</li>
+<li>The spawner observes the OwnedTasks being closed and doesn’t check the
+inject queue.</li>
+</ul>
+<p>The first case can only happen if the OwnedTasks::bind call happens before
+or during step 1 of shutdown. In this case, the runtime will clean up the
+task in step 3 of shutdown.</p>
+<p>In the latter case, the task was not spawned and the task is immediately
+cancelled by the spawner.</p>
+<p>The correctness of shutdown requires both the inject queue and OwnedTasks
+collection to have a closed bit. With a close bit on only the inject queue,
+spawning could run in to a situation where a task is successfully bound long
+after the runtime has shut down. With a close bit on only the OwnedTasks,
+the first spawning situation could result in the notification being pushed
+to the inject queue after step 6 of shutdown, which would leave a task in
+the inject queue indefinitely. This would be a ref-count cycle and a memory
+leak.</p>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Context.html" title="tokio::runtime::thread_pool::worker::Context struct">Context</a></div><div class="item-right docblock-short"><p>Thread-local context</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Core.html" title="tokio::runtime::thread_pool::worker::Core struct">Core</a></div><div class="item-right docblock-short"><p>Core data</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Launch.html" title="tokio::runtime::thread_pool::worker::Launch struct">Launch</a></div><div class="item-right docblock-short"><p>Starts the workers</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Remote.html" title="tokio::runtime::thread_pool::worker::Remote struct">Remote</a></div><div class="item-right docblock-short"><p>Used to communicate with a worker from other threads.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Shared.html" title="tokio::runtime::thread_pool::worker::Shared struct">Shared</a></div><div class="item-right docblock-short"><p>State shared across all workers</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Worker.html" title="tokio::runtime::thread_pool::worker::Worker struct">Worker</a></div><div class="item-right docblock-short"><p>A scheduler worker</p>
+</div></div></div><h2 id="constants" class="small-section-header"><a href="#constants">Constants</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.GLOBAL_POLL_INTERVAL.html" title="tokio::runtime::thread_pool::worker::GLOBAL_POLL_INTERVAL constant">GLOBAL_POLL_INTERVAL</a></div><div class="item-right docblock-short"><p>After how many ticks is the global queue polled. This helps to ensure
+fairness.</p>
+</div></div></div><h2 id="statics" class="small-section-header"><a href="#statics">Statics</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="static" href="static.CURRENT.html" title="tokio::runtime::thread_pool::worker::CURRENT static">CURRENT</a></div><div class="item-right docblock-short"></div></div></div><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.block_in_place.html" title="tokio::runtime::thread_pool::worker::block_in_place fn">block_in_place</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.create.html" title="tokio::runtime::thread_pool::worker::create fn">create</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.run.html" title="tokio::runtime::thread_pool::worker::run fn">run</a></div><div class="item-right docblock-short"></div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.Notified.html" title="tokio::runtime::thread_pool::worker::Notified type">Notified</a></div><div class="item-right docblock-short"><p>A notified task handle</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.RunResult.html" title="tokio::runtime::thread_pool::worker::RunResult type">RunResult</a></div><div class="item-right docblock-short"><p>Running a task may consume the core. If the core is still available when
+running the task completes, it is returned. Otherwise, the worker will need
+to stop processing.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.Task.html" title="tokio::runtime::thread_pool::worker::Task type">Task</a></div><div class="item-right docblock-short"><p>A task handle</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

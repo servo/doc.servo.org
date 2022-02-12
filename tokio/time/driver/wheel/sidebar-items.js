@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_DURATION","The maximum duration of a `Sleep`."],["NUM_LEVELS","Number of levels. Each level has 64 slots. By using 6 levels with 64 slots each, the timer is able to track time up to 2 years into the future with a precision of 1 millisecond."]],"fn":[["level_for",""]],"mod":[["level",""]],"struct":[["Wheel","Timing wheel implementation."]]});

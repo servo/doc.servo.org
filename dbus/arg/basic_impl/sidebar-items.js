@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["arg_append_basic",""],["arg_append_f64",""],["arg_append_str",""],["arg_get_basic",""],["arg_get_f64",""],["arg_get_str",""]],"macro":[["integer_impl",""],["refarg_impl",""],["string_impl",""]]});

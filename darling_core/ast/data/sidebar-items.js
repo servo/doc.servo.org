@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Data","A struct or enum body."],["Style",""]],"struct":[["Fields","Equivalent to `syn::Fields`, but replaces the AST element with a generic."]]});

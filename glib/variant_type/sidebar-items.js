@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["impl_eq",""],["impl_str_eq",""]],"struct":[["VariantTy","Describes `Variant` types."],["VariantType","Describes `Variant` types."]]});

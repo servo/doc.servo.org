@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["reset_decoder_data",""],["reset_encoder_data",""]],"struct":[["DeflateDecoder","A DEFLATE decoder, or decompressor."],["DeflateEncoder","A DEFLATE encoder, or compressor."]]});

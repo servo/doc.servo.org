@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["multipeek","An iterator adaptor that allows the user to peek at multiple `.next()` values without advancing the base iterator."]],"struct":[["MultiPeek","See `multipeek()` for more information."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EventKind",""]],"fn":[["clamp",""],["emit_segment_if_needed",""]],"struct":[["Event",""],["Item",""],["ItemFlags",""],["ItemIndex",""],["Segment",""],["SegmentBuilder",""]]});

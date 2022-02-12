@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["FromGenerics","Creates an instance by parsing an entire generics declaration, including the `where` clause."]]});

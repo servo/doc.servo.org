@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BitMask","A bit mask which contains the result of a `Match` operation on a `Group` and allows iterating through them."],["BitMaskIter","Iterator over the contents of a `BitMask`, returning the indicies of set bits."]]});

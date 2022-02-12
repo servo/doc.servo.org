@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EnvVarDPI","Represents values of `WINIT_HIDPI_FACTOR`."]],"fn":[["calc_dpi_factor",""]]});

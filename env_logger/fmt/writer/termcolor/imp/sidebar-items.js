@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Color","The set of available colors for the terminal foreground/background."]],"macro":[["impl_styled_value_fmt",""]],"mod":[["glob",""]],"struct":[["Buffer",""],["BufferWriter",""],["Style","A set of styles to apply to the terminal output."],["StyledValue","A value that can be printed using the given styles."]]});

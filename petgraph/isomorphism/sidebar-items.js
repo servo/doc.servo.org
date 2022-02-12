@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["is_isomorphic","[Graph] Return `true` if the graphs `g0` and `g1` are isomorphic."],["is_isomorphic_matching","[Graph] Return `true` if the graphs `g0` and `g1` are isomorphic."],["try_match","Return Some(bool) if isomorphism is decided, else None."]],"struct":[["NoSemanticMatch",""],["Vf2State",""]],"trait":[["SemanticMatcher",""]]});

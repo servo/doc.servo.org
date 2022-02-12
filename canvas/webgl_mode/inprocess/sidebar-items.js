@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OutputHandler","struct used to implement DOMToTexture feature and webrender::OutputImageHandler trait."],["WebGLComm",""],["WebGLExternalImages","Bridge between the webrender::ExternalImage callbacks and the WebGLThreads."]]});

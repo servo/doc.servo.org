@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["wrap_fn","Function that receives a filter to be combined with pre and after filters"]],"struct":[["WrapFn",""]],"trait":[["Wrap",""],["WrapSealed",""]]});

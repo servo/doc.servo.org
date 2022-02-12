@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RwLockWriteGuard","RAII structure used to release the exclusive write access of a lock when dropped."]]});

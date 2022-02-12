@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["extend_panic",""],["raw_ptr_add","Rawptr add but uses arithmetic distance for ZST"]],"macro":[["panic_oob",""]],"struct":[["ArrayVec","A vector with a fixed capacity."],["Drain","A draining iterator for `ArrayVec`."],["IntoIter","By-value iterator for `ArrayVec`."],["ScopeExitGuard",""]]});

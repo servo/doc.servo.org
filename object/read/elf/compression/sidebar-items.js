@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["CompressionHeader","A trait for generic access to `CompressionHeader32` and `CompressionHeader64`."]]});

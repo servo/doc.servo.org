@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["define_keyword_type",""],["exclusive_value",""],["local_name",""],["ns",""],["trivial_to_computed_value",""],["try_match_ident_ignore_ascii_case","A macro to parse an identifier, or return an `UnexpectedIdent` error otherwise."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["FakeXRButtonType",""]],"mod":[["FakeXRButtonTypeValues",""],["FakeXRInputControllerBinding",""]],"struct":[["FakeXRButtonStateInit",""],["FakeXRInputSourceInit",""]]});

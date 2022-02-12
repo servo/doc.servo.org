@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OwnedStr","A struct that basically replaces a Box, but with a defined layout, suitable for FFI."]]});

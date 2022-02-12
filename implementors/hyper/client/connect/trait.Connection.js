@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["hyper"] = [];
+implementors["hyper_openssl"] = [{"text":"impl&lt;T&gt; <a class=\"trait\" href=\"hyper/client/connect/trait.Connection.html\" title=\"trait hyper::client::connect::Connection\">Connection</a> for <a class=\"enum\" href=\"hyper_openssl/enum.MaybeHttpsStream.html\" title=\"enum hyper_openssl::MaybeHttpsStream\">MaybeHttpsStream</a>&lt;T&gt; <span class=\"where fmt-newline\">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class=\"trait\" href=\"hyper/client/connect/trait.Connection.html\" title=\"trait hyper::client::connect::Connection\">Connection</a>,&nbsp;</span>","synthetic":false,"types":["hyper_openssl::MaybeHttpsStream"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

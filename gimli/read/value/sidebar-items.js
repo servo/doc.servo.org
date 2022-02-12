@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Value","The value of an entry on the DWARF stack."],["ValueType","The type of an entry on the DWARF stack."]],"fn":[["mask_bit_size",""],["sign_extend","Convert a u64 to an i64, with sign extension if required."]]});

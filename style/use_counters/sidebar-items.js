@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BITS_PER_ENTRY",""]],"macro":[["property_use_counters_methods",""]],"struct":[["CountedUnknownPropertyUseCounters","One bit per each non-custom CSS property."],["NonCustomPropertyUseCounters","One bit per each non-custom CSS property."],["UseCounters","The use-counter data related to a given document we want to store."]]});

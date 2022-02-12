@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`font-kit` provides a common interface to the various system font libraries and provides services such as finding fonts on the system, performing nearest-font matching, and rasterizing glyphs."><meta name="keywords" content="rust, rustlang, rust-lang, font_kit"><title>font_kit - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../font_kit/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../font_kit/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Crate font_kit</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.10.0</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><div class="block items"><ul><li><a href="#modules">Modules</a></li></ul></div><div id="sidebar-vars" data-name="font_kit" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../font_kit/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">font_kit</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/font_kit/lib.rs.html#11-148" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><code>font-kit</code> provides a common interface to the various system font libraries and provides
+services such as finding fonts on the system, performing nearest-font matching, and rasterizing
+glyphs.</p>
+<h3 id="synopsis" class="section-header"><a href="#synopsis">Synopsis</a></h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">font_kit::canvas</span>::{<span class="ident">Canvas</span>, <span class="ident">Format</span>, <span class="ident">RasterizationOptions</span>};
+<span class="kw">use</span> <span class="ident">font_kit::family_name::FamilyName</span>;
+<span class="kw">use</span> <span class="ident">font_kit::hinting::HintingOptions</span>;
+<span class="kw">use</span> <span class="ident">font_kit::properties::Properties</span>;
+<span class="kw">use</span> <span class="ident">font_kit::source::SystemSource</span>;
+<span class="kw">use</span> <span class="ident">pathfinder_geometry::transform2d::Transform2F</span>;
+<span class="kw">use</span> <span class="ident">pathfinder_geometry::vector</span>::{<span class="ident">Vector2F</span>, <span class="ident">Vector2I</span>};
+
+<span class="kw">let</span> <span class="ident">font</span> <span class="op">=</span> <span class="ident">SystemSource::new</span>().<span class="ident">select_best_match</span>(<span class="kw-2">&amp;</span>[<span class="ident">FamilyName::SansSerif</span>],
+                                                 <span class="kw-2">&amp;</span><span class="ident">Properties::new</span>())
+                              .<span class="ident">unwrap</span>()
+                              .<span class="ident">load</span>()
+                              .<span class="ident">unwrap</span>();
+<span class="kw">let</span> <span class="ident">glyph_id</span> <span class="op">=</span> <span class="ident">font</span>.<span class="ident">glyph_for_char</span>(<span class="string">&#39;A&#39;</span>).<span class="ident">unwrap</span>();
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">canvas</span> <span class="op">=</span> <span class="ident">Canvas::new</span>(<span class="ident">Vector2I::splat</span>(<span class="number">32</span>), <span class="ident">Format::A8</span>);
+<span class="ident">font</span>.<span class="ident">rasterize_glyph</span>(<span class="kw-2">&amp;mut</span> <span class="ident">canvas</span>,
+                     <span class="ident">glyph_id</span>,
+                     <span class="number">32.0</span>,
+                     <span class="ident">Transform2F::from_translation</span>(<span class="ident">Vector2F::new</span>(<span class="number">0.0</span>, <span class="number">32.0</span>)),
+                     <span class="ident">HintingOptions::None</span>,
+                     <span class="ident">RasterizationOptions::GrayscaleAa</span>)
+    .<span class="ident">unwrap</span>();</code></pre></div>
+<h3 id="backends" class="section-header"><a href="#backends">Backends</a></h3>
+<p><code>font-kit</code> delegates to system libraries to perform tasks. It has two types of backends: a
+<em>source</em> and a <em>loader</em>. Sources are platform font databases; they allow lookup of installed
+fonts by name or attributes. Loaders are font loading libraries; they allow font files (TTF,
+OTF, etc.) to be loaded from a file on disk or from bytes in memory. Sources and loaders can be
+freely intermixed at runtime; fonts can be looked up via DirectWrite and rendered via FreeType,
+for example.</p>
+<p>Available loaders:</p>
+<ul>
+<li>
+<p>Core Text (macOS): The system font loader on macOS. Does not do hinting except when bilevel
+rendering is in use.</p>
+</li>
+<li>
+<p>DirectWrite (Windows): The newer system framework for text rendering on Windows. Does
+vertical hinting but not full hinting.</p>
+</li>
+<li>
+<p>FreeType (cross-platform): A full-featured font rendering framework.</p>
+</li>
+</ul>
+<p>Available sources:</p>
+<ul>
+<li>
+<p>Core Text (macOS): The system font database on macOS.</p>
+</li>
+<li>
+<p>DirectWrite (Windows): The newer API to query the system font database on Windows.</p>
+</li>
+<li>
+<p>Fontconfig (cross-platform): A technically platform-neutral, but in practice Unix-specific,
+API to query and match fonts.</p>
+</li>
+<li>
+<p>Filesystem (cross-platform): A simple source that reads fonts from a path on disk. This is
+the default on Android.</p>
+</li>
+<li>
+<p>Memory (cross-platform): A source that reads from a fixed set of fonts in memory.</p>
+</li>
+<li>
+<p>Multi (cross-platform): A source that allows multiple sources to be queried at once.</p>
+</li>
+</ul>
+<p>On Windows and macOS, the FreeType loader and the Fontconfig source are not built by default.
+To build them, use the <code>loader-freetype</code> and <code>source-fontconfig</code> Cargo features respectively.
+If you want them to be the default, instead use the <code>loader-freetype-default</code> and
+<code>source-fontconfig-default</code> Cargo features respectively. Beware that
+<code>source-fontconfig-default</code> is rarely what you want on those two platforms!</p>
+<h3 id="features" class="section-header"><a href="#features">Features</a></h3>
+<p><code>font-kit</code> is capable of doing the following:</p>
+<ul>
+<li>
+<p>Loading fonts from files or memory.</p>
+</li>
+<li>
+<p>Determining whether files on disk or in memory represent fonts.</p>
+</li>
+<li>
+<p>Interoperating with native font APIs.</p>
+</li>
+<li>
+<p>Querying various metadata about fonts.</p>
+</li>
+<li>
+<p>Doing simple glyph-to-character mapping. (For more complex use cases, a shaper is required;
+proper shaping is beyond the scope of <code>font-kit</code>.)</p>
+</li>
+<li>
+<p>Reading unhinted or hinted vector outlines from glyphs.</p>
+</li>
+<li>
+<p>Calculating glyph and font metrics.</p>
+</li>
+<li>
+<p>Looking up glyph advances and origins.</p>
+</li>
+<li>
+<p>Rasterizing glyphs using the native rasterizer, optionally using hinting. (Custom
+rasterizers, such as Pathfinder, can be used in conjuction with the outline API.)</p>
+</li>
+<li>
+<p>Looking up all fonts on the system.</p>
+</li>
+<li>
+<p>Searching for specific fonts by family or PostScript name.</p>
+</li>
+<li>
+<p>Performing font matching according to the <a href="https://drafts.csswg.org/css-fonts-3/#font-matching-algorithm">CSS Fonts Module Level 3</a> specification.</p>
+</li>
+</ul>
+<h3 id="license" class="section-header"><a href="#license">License</a></h3>
+<p><code>font-kit</code> is licensed under the same terms as Rust itself.</p>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="canvas/index.html" title="font_kit::canvas mod">canvas</a></div><div class="item-right docblock-short"><p>An in-memory bitmap surface for glyph rasterization.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="error/index.html" title="font_kit::error mod">error</a></div><div class="item-right docblock-short"><p>Various types of errors that <code>font-kit</code> can return.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="family/index.html" title="font_kit::family mod">family</a></div><div class="item-right docblock-short"><p>Defines a set of faces that vary in weight, width or slope.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="family_handle/index.html" title="font_kit::family_handle mod">family_handle</a></div><div class="item-right docblock-short"><p>Encapsulates the information needed to locate and open the fonts in a family.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="family_name/index.html" title="font_kit::family_name mod">family_name</a></div><div class="item-right docblock-short"><p>A possible value for the <code>font-family</code> CSS property.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="file_type/index.html" title="font_kit::file_type mod">file_type</a></div><div class="item-right docblock-short"><p>The type of a font file: either a single font or a TrueType/OpenType collection.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="font/index.html" title="font_kit::font mod">font</a></div><div class="item-right docblock-short"><p>A font face loaded into memory.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="handle/index.html" title="font_kit::handle mod">handle</a></div><div class="item-right docblock-short"><p>Encapsulates the information needed to locate and open a font.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="hinting/index.html" title="font_kit::hinting mod">hinting</a></div><div class="item-right docblock-short"><p>Specifies how hinting (grid fitting) is to be performed (or not performed) for a glyph.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="loader/index.html" title="font_kit::loader mod">loader</a></div><div class="item-right docblock-short"><p>Provides a common interface to the platform-specific API that loads, parses, and rasterizes
+fonts.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="loaders/index.html" title="font_kit::loaders mod">loaders</a></div><div class="item-right docblock-short"><p>The different system services that can load and rasterize fonts.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="matching/index.html" title="font_kit::matching mod">matching</a></div><div class="item-right docblock-short"><p>Determines the closest font matching a description per the CSS Fonts Level 3 specification.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="metrics/index.html" title="font_kit::metrics mod">metrics</a></div><div class="item-right docblock-short"><p>Various metrics that apply to the entire font.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="outline/index.html" title="font_kit::outline mod">outline</a></div><div class="item-right docblock-short"><p>Bézier paths.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="properties/index.html" title="font_kit::properties mod">properties</a></div><div class="item-right docblock-short"><p>Properties that specify which font in a family to use: e.g. style, weight, and stretchiness.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="source/index.html" title="font_kit::source mod">source</a></div><div class="item-right docblock-short"><p>A database of installed fonts that can be queried.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="sources/index.html" title="font_kit::sources mod">sources</a></div><div class="item-right docblock-short"><p>Various databases of installed fonts that can be queried.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="utils/index.html" title="font_kit::utils mod">utils</a></div><div class="item-right docblock-short"><p>Miscellaneous utilities for use in this crate.</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="font_kit" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

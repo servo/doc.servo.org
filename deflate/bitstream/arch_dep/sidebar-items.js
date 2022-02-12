@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["FLUSH_AT",""]],"macro":[["push","Push pending bits to vector. Using a macro here since an inline function. didn’t optimise properly. TODO June 2019: See if it’s still needed."]],"type":[["AccType","The data type of the accumulator. a 64-bit value allows us to store more before each push to the vector, but is sub-optimal on 32-bit platforms."]]});

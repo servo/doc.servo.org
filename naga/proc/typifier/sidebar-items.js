@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Resolution",""],["ResolveError",""]],"fn":[["check_constant_type",""]],"struct":[["Typifier",""]]});

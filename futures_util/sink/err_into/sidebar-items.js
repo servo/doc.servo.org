@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SinkErrInto","Sink for the `sink_err_into` method."]]});

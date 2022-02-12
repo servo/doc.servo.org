@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The `Constellation`, Servo’s Grand Central Station"><meta name="keywords" content="rust, rustlang, rust-lang, constellation"><title>constellation::constellation - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../constellation/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../constellation/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Module constellation</a></h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="constellation" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../constellation/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Module <a href="../index.html">constellation</a>::<wbr><a class="mod" href="#">constellation</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/constellation/constellation.rs.html#5-5578" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The <code>Constellation</code>, Servo’s Grand Central Station</p>
+<p>The constellation tracks all information kept globally by the
+browser engine, which includes:</p>
+<ul>
+<li>
+<p>The set of all <code>EventLoop</code> objects. Each event loop is
+the constellation’s view of a script thread. The constellation
+interacts with a script thread by message-passing.</p>
+</li>
+<li>
+<p>The set of all <code>Pipeline</code> objects.  Each pipeline gives the
+constellation’s view of a <code>Window</code>, with its script thread and
+layout threads.  Pipelines may share script threads, but not
+layout threads.</p>
+</li>
+<li>
+<p>The set of all <code>BrowsingContext</code> objects. Each browsing context
+gives the constellation’s view of a <code>WindowProxy</code>.
+Each browsing context stores an independent
+session history, created by navigation. The session
+history can be traversed, for example by the back and forwards UI,
+so each session history maintains a list of past and future pipelines,
+as well as the current active pipeline.</p>
+</li>
+</ul>
+<p>There are two kinds of browsing context: top-level ones (for
+example tabs in a browser UI), and nested ones (typically caused
+by <code>iframe</code> elements). Browsing contexts have a hierarchy
+(typically caused by <code>iframe</code>s containing <code>iframe</code>s), giving rise
+to a forest whose roots are top-level browsing context.  The logical
+relationship between these types is:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="op">+</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">+</span>                      <span class="op">+</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">+</span>                 <span class="op">+</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">+</span>
+<span class="op">|</span>  <span class="ident">Browsing</span>  <span class="op">|</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="ident">parent</span><span class="question-mark">?</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>-&gt; <span class="op">|</span>  <span class="ident">Pipeline</span>  <span class="op">|</span> <span class="op">-</span><span class="op">-</span><span class="ident">event_loop</span><span class="op">-</span>-&gt; <span class="op">|</span>  <span class="ident">Event</span>  <span class="op">|</span>
+<span class="op">|</span>  <span class="ident">Context</span>   <span class="op">|</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="ident">current</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>-&gt; <span class="op">|</span>            <span class="op">|</span>                 <span class="op">|</span>  <span class="ident">Loop</span>   <span class="op">|</span>
+<span class="op">|</span>            <span class="op">|</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="ident">prev</span><span class="kw-2">*</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>-&gt; <span class="op">|</span>            <span class="op">|</span> <span class="op">&lt;</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="ident">pipeline</span><span class="kw-2">*</span><span class="op">-</span><span class="op">-</span> <span class="op">|</span>         <span class="op">|</span>
+<span class="op">|</span>            <span class="op">|</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="ident">next</span><span class="kw-2">*</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>-&gt; <span class="op">|</span>            <span class="op">|</span>                 <span class="op">+</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">+</span>
+<span class="op">|</span>            <span class="op">|</span>                      <span class="op">|</span>            <span class="op">|</span>
+<span class="op">|</span>            <span class="op">|</span> <span class="op">&lt;</span><span class="op">-</span><span class="ident">top_level</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="op">|</span>            <span class="op">|</span>
+<span class="op">|</span>            <span class="op">|</span> <span class="op">&lt;</span><span class="op">-</span><span class="ident">browsing_context</span><span class="op">-</span><span class="op">-</span> <span class="op">|</span>            <span class="op">|</span>
+<span class="op">+</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">+</span>                      <span class="op">+</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">+</span></code></pre></div>
+<p>The constellation also maintains channels to threads, including:</p>
+<ul>
+<li>The script and layout threads.</li>
+<li>The graphics compositor.</li>
+<li>The font cache, image cache, and resource manager, which load
+and cache shared fonts, images, or other resources.</li>
+<li>The service worker manager.</li>
+<li>The devtools and webdriver servers.</li>
+</ul>
+<p>The constellation passes messages between the threads, and updates its state
+to track the evolving state of the browsing context tree.</p>
+<p>The constellation acts as a logger, tracking any <code>warn!</code> messages from threads,
+and converting any <code>error!</code> or <code>panic!</code> into a crash report.</p>
+<p>Since there is only one constellation, and its responsibilities include crash reporting,
+it is very important that it does not panic.</p>
+<p>It’s also important that the constellation not deadlock. In particular, we need
+to be careful that we don’t introduce any cycles in the can-block-on relation.
+Blocking is typically introduced by <code>receiver.recv()</code>, which blocks waiting for the
+sender to send some data. Servo tries to achieve deadlock-freedom by using the following
+can-block-on relation:</p>
+<ul>
+<li>Layout can block on canvas</li>
+<li>Layout can block on font cache</li>
+<li>Layout can block on image cache</li>
+<li>Constellation can block on compositor</li>
+<li>Constellation can block on embedder</li>
+<li>Constellation can block on layout</li>
+<li>Script can block on anything (other than script)</li>
+<li>Blocking is transitive (if T1 can block on T2 and T2 can block on T3 then T1 can block on T3)</li>
+<li>Nothing can block on itself!</li>
+</ul>
+<p>There is a complexity intoduced by IPC channels, since they do not support
+non-blocking send. This means that as well as <code>receiver.recv()</code> blocking,
+<code>sender.send(data)</code> can also block when the IPC buffer is full. For this reason it is
+very important that all IPC receivers where we depend on non-blocking send
+use a router to route IPC messages to an mpsc channel. The reason why that solves
+the problem is that under the hood, the router uses a dedicated thread to forward
+messages, and:</p>
+<ul>
+<li>Anything (other than a routing thread) can block on a routing thread</li>
+</ul>
+<p>See https://github.com/servo/servo/issues/14704</p>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Browser.html" title="constellation::constellation::Browser struct">Browser</a></div><div class="item-right docblock-short"><p>Servo supports tabs (referred to as browsers), so <code>Constellation</code> needs to
+store browser specific data for bookkeeping.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.BrowsingContextGroup.html" title="constellation::constellation::BrowsingContextGroup struct">BrowsingContextGroup</a></div><div class="item-right docblock-short"><p>A browsing context group.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Constellation.html" title="constellation::constellation::Constellation struct">Constellation</a></div><div class="item-right docblock-short"><p>The <code>Constellation</code> itself. In the servo browser, there is one
+constellation, which maintains all of the browser global data.
+In embedded applications, there may be more than one constellation,
+which are independent of each other.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.FromCompositorLogger.html" title="constellation::constellation::FromCompositorLogger struct">FromCompositorLogger</a></div><div class="item-right docblock-short"><p>A logger directed at the constellation from the compositor</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.FromScriptLogger.html" title="constellation::constellation::FromScriptLogger struct">FromScriptLogger</a></div><div class="item-right docblock-short"><p>The constellation uses logging to perform crash reporting.
+The constellation receives all <code>warn!</code>, <code>error!</code> and <code>panic!</code> messages,
+and generates a crash report when it receives a panic.
+A logger directed at the constellation from content processes</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.InitialConstellationState.html" title="constellation::constellation::InitialConstellationState struct">InitialConstellationState</a></div><div class="item-right docblock-short"><p>State needed to construct a constellation.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.MessagePortInfo.html" title="constellation::constellation::MessagePortInfo struct">MessagePortInfo</a></div><div class="item-right docblock-short"><p>Info related to a message-port tracked by the constellation.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.WebDriverData.html" title="constellation::constellation::WebDriverData struct">WebDriverData</a></div><div class="item-right docblock-short"><p>Data needed for webdriver</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.WebrenderWGPU.html" title="constellation::constellation::WebrenderWGPU struct">WebrenderWGPU</a></div><div class="item-right docblock-short"><p>Webrender related objects required by WebGPU threads</p>
+</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ExitPipelineMode.html" title="constellation::constellation::ExitPipelineMode enum">ExitPipelineMode</a></div><div class="item-right docblock-short"><p>When we are exiting a pipeline, we can either force exiting or not.
+A normal exit waits for the compositor to update its state before
+exiting, and delegates layout exit to script. A forced exit does
+not notify the compositor, and exits layout without involving script.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ReadyToSave.html" title="constellation::constellation::ReadyToSave enum">ReadyToSave</a></div><div class="item-right docblock-short"><p>When we are running reftests, we save an image to compare against a reference.
+This enum gives the possible states of preparing such an image.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.TransferState.html" title="constellation::constellation::TransferState enum">TransferState</a></div><div class="item-right docblock-short"><p>The state used by MessagePortInfo to represent the various states the port can be in.</p>
+</div></div></div><h2 id="constants" class="small-section-header"><a href="#constants">Constants</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="constant" href="constant.WARNINGS_BUFFER_SIZE.html" title="constellation::constellation::WARNINGS_BUFFER_SIZE constant">WARNINGS_BUFFER_SIZE</a></div><div class="item-right docblock-short"><p>The number of warnings to include in each crash report.</p>
+</div></div></div><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.log_entry.html" title="constellation::constellation::log_entry fn">log_entry</a></div><div class="item-right docblock-short"><p>Rust uses <code>Record</code> for storing logging, but servo converts that to
+a <code>LogEntry</code>. We do this so that we can record panics as well as log
+messages, and because <code>Record</code> does not implement serde (de)serialization,
+so cannot be used over an IPC channel.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.route_ipc_receiver_to_new_mpsc_receiver_preserving_errors.html" title="constellation::constellation::route_ipc_receiver_to_new_mpsc_receiver_preserving_errors fn">route_ipc_receiver_to_new_mpsc_receiver_preserving_errors</a></div><div class="item-right docblock-short"><p>Route an ipc receiver to an mpsc receiver, preserving any errors.
+This is the same as <code>route_ipc_receiver_to_new_mpsc_receiver</code>,
+but does not panic on deserializtion errors.</p>
+</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.PendingApprovalNavigations.html" title="constellation::constellation::PendingApprovalNavigations type">PendingApprovalNavigations</a></div><div class="item-right docblock-short"></div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="constellation" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

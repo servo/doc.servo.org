@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["handle_touch","Handle WlTouch events."]]});

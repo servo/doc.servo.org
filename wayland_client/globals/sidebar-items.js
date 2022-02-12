@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GlobalError","An error that occurred trying to bind a global"],["GlobalEvent","Event provided to the user callback of GlobalManager"]],"struct":[["GlobalManager","An utility to manage global objects"],["Inner",""]],"trait":[["GlobalImplementor","A trait for implementation of the global advertisement"]]});

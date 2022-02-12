@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["expand","Provides the hook to expand `#[derive(TryInto)]` into an implementation of `TryInto`"]]});

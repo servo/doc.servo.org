@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["impl_contiguous",""]],"trait":[["Contiguous","A trait indicating that:"]]});

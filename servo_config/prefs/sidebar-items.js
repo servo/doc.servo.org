@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["add_user_prefs",""],["pref_map","Access preferences using their `String` keys. Note that the key may be different from the static path because legacy keys contain hyphens, or because a preference name has been renamed."],["read_prefs_map",""]],"mod":[["gen",""]],"struct":[["PREFS",""]]});

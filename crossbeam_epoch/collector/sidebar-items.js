@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Collector","An epoch-based garbage collector."],["LocalHandle","A handle to a garbage collector."]]});

@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["net"] = [{"text":"impl <a class=\"trait\" href=\"net_traits/image_cache/trait.ImageCache.html\" title=\"trait net_traits::image_cache::ImageCache\">ImageCache</a> for <a class=\"struct\" href=\"net/image_cache/struct.ImageCacheImpl.html\" title=\"struct net::image_cache::ImageCacheImpl\">ImageCacheImpl</a>","synthetic":false,"types":["net::image_cache::ImageCacheImpl"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["impl_from_primitive_for_float",""],["impl_from_primitive_for_int",""],["impl_from_primitive_for_uint",""],["int_to_int",""],["int_to_uint",""],["uint_to",""]],"trait":[["FromPrimitive",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["N_CHANNELS",""]],"enum":[["ColorOutput","Output mode for the image data"]],"mod":[["decoder",""]],"struct":[["DecodeOptions","Options for opening a GIF decoder."],["Decoder","GIF decoder"],["InterlaceIterator",""],["MemoryLimit","Memory limit in bytes. `MemoryLimit::Some(0)` means that there is no memory limit set."],["ReadDecoder",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["flush","Creates a future which will entirely flush an I/O object."]],"struct":[["Flush","A future used to fully flush an I/O object."]]});

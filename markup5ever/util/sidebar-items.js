@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["buffer_queue","The `BufferQueue` struct and helper types."],["smallcharset","This module contains a single struct `SmallCharSet`. See its documentation for details."]]});

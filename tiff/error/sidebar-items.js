@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TiffError","Tiff error kinds."],["TiffFormatError","The image is not formatted properly."],["TiffUnsupportedError","The Decoder does not support features required by the image."]],"struct":[["InflateError","Decompression failed due to faulty compressed data."]],"type":[["TiffResult","Result of an image decoding/encoding process"]]});

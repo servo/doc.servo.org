@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Bind by reference during pattern matching."><meta name="keywords" content="rust, rustlang, rust-lang, ref"><title>ref - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize1.60.0.css"><link rel="stylesheet" type="text/css" href="../rustdoc1.60.0.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu1.60.0.css" disabled><link rel="stylesheet" type="text/css" href="../dark1.60.0.css" disabled><link rel="stylesheet" type="text/css" href="../light1.60.0.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage1.60.0.js"></script><script src="../crates1.60.0.js"></script><script defer src="../main1.60.0.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript1.60.0.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x161.60.0.png"><link rel="alternate icon" type="image/png" href="../favicon-32x321.60.0.png"><link rel="icon" type="image/svg+xml" href="../favicon1.60.0.svg"></head><body class="rustdoc keyword"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../std/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo1.60.0.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../std/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo1.60.0.svg" alt="logo"></div>
+        </a><div class="sidebar-elems"><h2 class="location">In <a href="index.html">std</a></h2><div id="sidebar-vars" data-name="ref" data-ty="keyword" data-relpath=""></div><script defer src="sidebar-items1.60.0.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../std/index.html"><img class="rust-logo" src="../rust-logo1.60.0.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush1.60.0.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel1.60.0.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Keyword <a class="keyword" href="#">ref</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard1.60.0.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/std/keyword_docs.rs.html#1160" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Bind by reference during pattern matching.</p>
+<p><code>ref</code> annotates pattern bindings to make them borrow rather than move.
+It is <strong>not</strong> a part of the pattern as far as matching is concerned: it does
+not affect <em>whether</em> a value is matched, only <em>how</em> it is matched.</p>
+<p>By default, <a href="keyword.match.html"><code>match</code></a> statements consume all they can, which can sometimes
+be a problem, when you don’t really need the value to be moved and owned:</p>
+
+<div class='information'><div class='tooltip compile_fail'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered compile_fail"><code><span class="kw">let</span> <span class="ident">maybe_name</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">String::from</span>(<span class="string">&quot;Alice&quot;</span>));
+<span class="comment">// The variable &#39;maybe_name&#39; is consumed here ...</span>
+<span class="kw">match</span> <span class="ident">maybe_name</span> {
+    <span class="prelude-val">Some</span>(<span class="ident">n</span>) =&gt; <span class="macro">println!</span>(<span class="string">&quot;Hello, {}&quot;</span>, <span class="ident">n</span>),
+    <span class="kw">_</span> =&gt; <span class="macro">println!</span>(<span class="string">&quot;Hello, world&quot;</span>),
+}
+<span class="comment">// ... and is now unavailable.</span>
+<span class="macro">println!</span>(<span class="string">&quot;Hello again, {}&quot;</span>, <span class="ident">maybe_name</span>.<span class="ident">unwrap_or</span>(<span class="string">&quot;world&quot;</span>.<span class="ident">into</span>()));</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Alet%20maybe_name%20%3D%20Some(String%3A%3Afrom(%22Alice%22))%3B%0A%2F%2F%20The%20variable%20'maybe_name'%20is%20consumed%20here%20...%0Amatch%20maybe_name%20%7B%0A%20%20%20%20Some(n)%20%3D%3E%20println!(%22Hello%2C%20%7B%7D%22%2C%20n)%2C%0A%20%20%20%20_%20%3D%3E%20println!(%22Hello%2C%20world%22)%2C%0A%7D%0A%2F%2F%20...%20and%20is%20now%20unavailable.%0Aprintln!(%22Hello%20again%2C%20%7B%7D%22%2C%20maybe_name.unwrap_or(%22world%22.into()))%3B%0A%7D&amp;edition=2021">Run</a></div>
+<p>Using the <code>ref</code> keyword, the value is only borrowed, not moved, making it
+available for use after the <a href="keyword.match.html"><code>match</code></a> statement:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let</span> <span class="ident">maybe_name</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">String::from</span>(<span class="string">&quot;Alice&quot;</span>));
+<span class="comment">// Using `ref`, the value is borrowed, not moved ...</span>
+<span class="kw">match</span> <span class="ident">maybe_name</span> {
+    <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">n</span>) =&gt; <span class="macro">println!</span>(<span class="string">&quot;Hello, {}&quot;</span>, <span class="ident">n</span>),
+    <span class="kw">_</span> =&gt; <span class="macro">println!</span>(<span class="string">&quot;Hello, world&quot;</span>),
+}
+<span class="comment">// ... so it&#39;s available here!</span>
+<span class="macro">println!</span>(<span class="string">&quot;Hello again, {}&quot;</span>, <span class="ident">maybe_name</span>.<span class="ident">unwrap_or</span>(<span class="string">&quot;world&quot;</span>.<span class="ident">into</span>()));</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Alet%20maybe_name%20%3D%20Some(String%3A%3Afrom(%22Alice%22))%3B%0A%2F%2F%20Using%20%60ref%60%2C%20the%20value%20is%20borrowed%2C%20not%20moved%20...%0Amatch%20maybe_name%20%7B%0A%20%20%20%20Some(ref%20n)%20%3D%3E%20println!(%22Hello%2C%20%7B%7D%22%2C%20n)%2C%0A%20%20%20%20_%20%3D%3E%20println!(%22Hello%2C%20world%22)%2C%0A%7D%0A%2F%2F%20...%20so%20it's%20available%20here!%0Aprintln!(%22Hello%20again%2C%20%7B%7D%22%2C%20maybe_name.unwrap_or(%22world%22.into()))%3B%0A%7D&amp;edition=2021">Run</a></div>
+<h2 id="-vs-ref" class="section-header"><a href="#-vs-ref"><code>&amp;</code> vs <code>ref</code></a></h2>
+<ul>
+<li>
+<p><code>&amp;</code> denotes that your pattern expects a reference to an object. Hence <code>&amp;</code>
+is a part of said pattern: <code>&amp;Foo</code> matches different objects than <code>Foo</code> does.</p>
+</li>
+<li>
+<p><code>ref</code> indicates that you want a reference to an unpacked value. It is not
+matched against: <code>Foo(ref foo)</code> matches the same objects as <code>Foo(foo)</code>.</p>
+</li>
+</ul>
+<p>See also the <a href="../reference/patterns.html#identifier-patterns">Reference</a> for more information.</p>
+</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="std" data-themes="ayu,dark,light" data-resource-suffix="1.60.0" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

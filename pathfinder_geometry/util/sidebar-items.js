@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["EPSILON",""]],"fn":[["alignup_i32","Divides `a` by `b`, rounding up."],["approx_eq","Approximate equality."],["clamp","Clamping."],["lerp","Linear interpolation."]]});

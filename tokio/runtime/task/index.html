@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The task module."><meta name="keywords" content="rust, rustlang, rust-lang, task"><title>tokio::runtime::task - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script>
+    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../../tokio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Module task</a></h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="task" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../tokio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Module <a href="../../index.html">tokio</a>::<wbr><a href="../index.html">runtime</a>::<wbr><a class="mod" href="#">task</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../../src/tokio/runtime/task/mod.rs.html#1-440" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The task module.</p>
+<p>The task module contains the code that manages spawned tasks and provides a
+safe API for the rest of the runtime to use. Each task in a runtime is
+stored in an OwnedTasks or LocalOwnedTasks object.</p>
+<h2 id="task-reference-types" class="section-header"><a href="#task-reference-types">Task reference types</a></h2>
+<p>A task is usually referenced by multiple handles, and there are several
+types of handles.</p>
+<ul>
+<li>
+<p>OwnedTask - tasks stored in an OwnedTasks or LocalOwnedTasks are of this
+reference type.</p>
+</li>
+<li>
+<p>JoinHandle - each task has a JoinHandle that allows access to the output
+of the task.</p>
+</li>
+<li>
+<p>Waker - every waker for a task has this reference type. There can be any
+number of waker references.</p>
+</li>
+<li>
+<p>Notified - tracks whether the task is notified.</p>
+</li>
+<li>
+<p>Unowned - this task reference type is used for tasks not stored in any
+runtime. Mainly used for blocking tasks, but also in tests.</p>
+</li>
+</ul>
+<p>The task uses a reference count to keep track of how many active references
+exist. The Unowned reference type takes up two ref-counts. All other
+reference types take up a single ref-count.</p>
+<p>Besides the waker type, each task has at most one of each reference type.</p>
+<h2 id="state" class="section-header"><a href="#state">State</a></h2>
+<p>The task stores its state in an atomic usize with various bitfields for the
+necessary information. The state has the following bitfields:</p>
+<ul>
+<li>
+<p>RUNNING - Tracks whether the task is currently being polled or cancelled.
+This bit functions as a lock around the task.</p>
+</li>
+<li>
+<p>COMPLETE - Is one once the future has fully completed and has been
+dropped. Never unset once set. Never set together with RUNNING.</p>
+</li>
+<li>
+<p>NOTIFIED - Tracks whether a Notified object currently exists.</p>
+</li>
+<li>
+<p>CANCELLED - Is set to one for tasks that should be cancelled as soon as
+possible. May take any value for completed tasks.</p>
+</li>
+<li>
+<p>JOIN_INTEREST - Is set to one if there exists a JoinHandle.</p>
+</li>
+<li>
+<p>JOIN_WAKER - Is set to one if the JoinHandle has set a waker.</p>
+</li>
+</ul>
+<p>The rest of the bits are used for the ref-count.</p>
+<h2 id="fields-in-the-task" class="section-header"><a href="#fields-in-the-task">Fields in the task</a></h2>
+<p>The task has various fields. This section describes how and when it is safe
+to access a field.</p>
+<ul>
+<li>
+<p>The state field is accessed with atomic instructions.</p>
+</li>
+<li>
+<p>The OwnedTask reference has exclusive access to the <code>owned</code> field.</p>
+</li>
+<li>
+<p>The Notified reference has exclusive access to the <code>queue_next</code> field.</p>
+</li>
+<li>
+<p>The <code>owner_id</code> field can be set as part of construction of the task, but
+is otherwise immutable and anyone can access the field immutably without
+synchronization.</p>
+</li>
+<li>
+<p>If COMPLETE is one, then the JoinHandle has exclusive access to the
+stage field. If COMPLETE is zero, then the RUNNING bitfield functions as
+a lock for the stage field, and it can be accessed only by the thread
+that set RUNNING to one.</p>
+</li>
+<li>
+<p>If JOIN_WAKER is zero, then the JoinHandle has exclusive access to the
+join handle waker. If JOIN_WAKER and COMPLETE are both one, then the
+thread that set COMPLETE to one has exclusive access to the join handle
+waker.</p>
+</li>
+</ul>
+<p>All other fields are immutable and can be accessed immutably without
+synchronization by anyone.</p>
+<h2 id="safety" class="section-header"><a href="#safety">Safety</a></h2>
+<p>This section goes through various situations and explains why the API is
+safe in that situation.</p>
+<h3 id="polling-or-dropping-the-future" class="section-header"><a href="#polling-or-dropping-the-future">Polling or dropping the future</a></h3>
+<p>Any mutable access to the future happens after obtaining a lock by modifying
+the RUNNING field, so exclusive access is ensured.</p>
+<p>When the task completes, exclusive access to the output is transferred to
+the JoinHandle. If the JoinHandle is already dropped when the transition to
+complete happens, the thread performing that transition retains exclusive
+access to the output and should immediately drop it.</p>
+<h3 id="non-send-futures" class="section-header"><a href="#non-send-futures">Non-Send futures</a></h3>
+<p>If a future is not Send, then it is bound to a LocalOwnedTasks.  The future
+will only ever be polled or dropped given a LocalNotified or inside a call
+to LocalOwnedTasks::shutdown_all. In either case, it is guaranteed that the
+future is on the right thread.</p>
+<p>If the task is never removed from the LocalOwnedTasks, then it is leaked, so
+there is no risk that the task is dropped on some other thread when the last
+ref-count drops.</p>
+<h3 id="non-send-output" class="section-header"><a href="#non-send-output">Non-Send output</a></h3>
+<p>When a task completes, the output is placed in the stage of the task. Then,
+a transition that sets COMPLETE to true is performed, and the value of
+JOIN_INTEREST when this transition happens is read.</p>
+<p>If JOIN_INTEREST is zero when the transition to COMPLETE happens, then the
+output is immediately dropped.</p>
+<p>If JOIN_INTEREST is one when the transition to COMPLETE happens, then the
+JoinHandle is responsible for cleaning up the output. If the output is not
+Send, then this happens:</p>
+<ol>
+<li>The output is created on the thread that the future was polled on. Since
+only non-Send futures can have non-Send output, the future was polled on
+the thread that the future was spawned from.</li>
+<li>Since JoinHandle<Output> is not Send if Output is not Send, the
+JoinHandle is also on the thread that the future was spawned from.</li>
+<li>Thus, the JoinHandle will not move the output across threads when it
+takes or drops the output.</li>
+</ol>
+<h3 id="recursive-pollshutdown" class="section-header"><a href="#recursive-pollshutdown">Recursive poll/shutdown</a></h3>
+<p>Calling poll from inside a shutdown call or vice-versa is not prevented by
+the API exposed by the task module, so this has to be safe. In either case,
+the lock in the RUNNING bitfield makes the inner call return immediately. If
+the inner call is a <code>shutdown</code> call, then the CANCELLED bit is set, and the
+poll call will notice it when the poll finishes, and the task is cancelled
+at that point.</p>
+</div></details><h2 id="reexports" class="small-section-header"><a href="#reexports">Re-exports</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left import-item"><code>pub use self::error::<a class="struct" href="error/struct.JoinError.html" title="struct tokio::runtime::task::error::JoinError">JoinError</a>;</code></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left import-item"><code>pub use self::join::<a class="struct" href="join/struct.JoinHandle.html" title="struct tokio::runtime::task::join::JoinHandle">JoinHandle</a>;</code></div><div class="item-right docblock-short"></div></div></div><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="core/index.html" title="tokio::runtime::task::core mod">core</a></div><div class="item-right docblock-short"><p>Core task module.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="error/index.html" title="tokio::runtime::task::error mod">error</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="harness/index.html" title="tokio::runtime::task::harness mod">harness</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="inject/index.html" title="tokio::runtime::task::inject mod">inject</a></div><div class="item-right docblock-short"><p>Inject queue used to send wakeups to a work-stealing scheduler</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="join/index.html" title="tokio::runtime::task::join mod">join</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="list/index.html" title="tokio::runtime::task::list mod">list</a></div><div class="item-right docblock-short"><p>This module has containers for storing the tasks spawned on a scheduler. The
+<code>OwnedTasks</code> container is thread-safe but can only store tasks that
+implement Send. The <code>LocalOwnedTasks</code> container is not thread safe, but can
+store non-Send tasks.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="raw/index.html" title="tokio::runtime::task::raw mod">raw</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="state/index.html" title="tokio::runtime::task::state mod">state</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="waker/index.html" title="tokio::runtime::task::waker mod">waker</a></div><div class="item-right docblock-short"></div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.LocalNotified.html" title="tokio::runtime::task::LocalNotified struct">LocalNotified</a></div><div class="item-right docblock-short"><p>A non-Send variant of Notified with the invariant that it is on a thread
+where it is safe to poll it.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Notified.html" title="tokio::runtime::task::Notified struct">Notified</a></div><div class="item-right docblock-short"><p>A task was notified.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Task.html" title="tokio::runtime::task::Task struct">Task</a></div><div class="item-right docblock-short"><p>An owned handle to the task, tracked by ref count.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UnownedTask.html" title="tokio::runtime::task::UnownedTask struct">UnownedTask</a></div><div class="item-right docblock-short"><p>A task that is not owned by any OwnedTasks. Used for blocking tasks.
+This type holds two ref-counts.</p>
+</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Schedule.html" title="tokio::runtime::task::Schedule trait">Schedule</a></div><div class="item-right docblock-short"></div></div></div><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.new_task.html" title="tokio::runtime::task::new_task fn">new_task</a></div><div class="item-right docblock-short"><p>This is the constructor for a new task. Three references to the task are
+created. The first task reference is usually put into an OwnedTasks
+immediately. The Notified is sent to the scheduler as an ordinary
+notification.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.unowned.html" title="tokio::runtime::task::unowned fn">unowned</a></div><div class="item-right docblock-short"><p>Creates a new task with an associated join handle. This method is used
+only when the task is not going to be stored in an <code>OwnedTasks</code> list.</p>
+</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.Result.html" title="tokio::runtime::task::Result type">Result</a></div><div class="item-right docblock-short"><p>Task result sent back.</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tokio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

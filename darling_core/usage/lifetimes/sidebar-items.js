@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["CollectLifetimes","Searcher for finding lifetimes in an iterator."],["UsesLifetimes","Searcher for finding lifetimes in a syntax tree. This can be used to determine which lifetimes must be emitted in generated code."]],"type":[["LifetimeRefSet","A set of references to lifetimes."],["LifetimeSet","A set of lifetimes."]]});

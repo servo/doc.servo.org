@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SyncWrapper","A mutual exclusion primitive that relies on static type information only"]]});

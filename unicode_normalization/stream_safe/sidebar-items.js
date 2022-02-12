@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["COMBINING_GRAPHEME_JOINER",""],["MAX_NONSTARTERS",""]],"fn":[["classify_nonstarters",""]],"struct":[["Decomposition",""],["StreamSafe","UAX15-D4: This iterator keeps track of how many non-starters there have been since the last starter in NFKD and will emit a Combining Grapheme Joiner (U+034F) if the count exceeds 30."]]});

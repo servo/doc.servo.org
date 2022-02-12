@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["duplex","Create a new pair of `DuplexStream`s that act like a pair of connected sockets."]],"struct":[["DuplexStream","A bidirectional pipe to read and write bytes in memory."],["Pipe","A unidirectional IO over a piece of memory."]]});

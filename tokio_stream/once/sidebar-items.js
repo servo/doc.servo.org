@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["once","Creates a stream that emits an element exactly once."]],"struct":[["Once","Stream for the `once` function."]]});

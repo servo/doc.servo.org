@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["ffi","WASI-specific extensions to primitives in the `std::ffi` module"],["fs","WASI-specific extensions to primitives in the `std::fs` module."],["io","WASI-specific extensions to general I/O primitives."],["net","WASI-specific networking functionality"],["prelude","A prelude for conveniently writing platform-specific code."]]});

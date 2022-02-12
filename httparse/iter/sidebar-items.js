@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["bytes8_methods",""]],"struct":[["Bytes",""],["Bytes8",""]]});

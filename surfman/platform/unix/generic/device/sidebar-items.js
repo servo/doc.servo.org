@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Adapter","Represents a hardware display adapter that can be used for rendering (including the CPU)."]],"static":[["MESA_DRI_PRIME_ENV_VAR",""],["MESA_SOFTWARE_RENDERING_ENV_VAR",""]],"struct":[["Device","A thread-local handle to a device."],["NativeDevice","Wraps an adapter."]]});

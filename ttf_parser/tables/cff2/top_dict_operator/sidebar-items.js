@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["CHAR_STRINGS_OFFSET",""],["FONT_DICT_INDEX_OFFSET",""],["VARIATION_STORE_OFFSET",""]]});

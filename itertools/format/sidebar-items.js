@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["new_format",""],["new_format_default",""]],"macro":[["impl_format",""]],"struct":[["Format","Format all iterator elements lazily, separated by `sep`."],["FormatWith","Format all iterator elements lazily, separated by `sep`."]]});

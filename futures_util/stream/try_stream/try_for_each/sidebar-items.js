@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TryForEach","Future for the `try_for_each` method."]]});

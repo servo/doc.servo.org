@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["serve","Create a `Server` with the provided `Filter`."]],"macro":[["addr_incoming",""],["bind",""],["bind_inner",""],["into_service",""],["try_bind",""]],"struct":[["Server","A Warp Server ready to filter requests."]]});

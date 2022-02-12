@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DecompositionType",""],["GraphemeClusterBreak",""],["SentenceBreak",""],["WordBreak",""]],"static":[["UCD_DECOMP_MAP",""],["UCD_DECOMP_TYPE",""],["UCD_GCB",""],["UCD_SBRK",""],["UCD_WBRK",""]]});

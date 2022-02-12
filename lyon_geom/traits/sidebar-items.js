@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["FlatteningStep","Types that implement local flattening approximation at the start of the curve."],["Segment","Common APIs to segment types."],["Transformation",""]]});

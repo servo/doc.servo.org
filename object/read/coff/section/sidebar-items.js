@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CoffSection","A section of a `CoffFile`."],["CoffSectionIterator","An iterator over the sections of a `CoffFile`."],["CoffSegment","A loadable section of a `CoffFile`."],["CoffSegmentIterator","An iterator over the loadable sections of a `CoffFile`."],["SectionTable","The table of section headers in a COFF or PE file."]]});

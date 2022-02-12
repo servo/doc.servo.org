@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EntityTagRange",""]],"fn":[["check_slice_validity","check that each char in the slice is either:"]],"struct":[["EntityTag","An entity tag, defined in RFC7232"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["unbounded_channel","Creates an unbounded mpsc channel for communicating between asynchronous tasks without backpressure."]],"struct":[["UnboundedReceiver","Receive values from the associated `UnboundedSender`."],["UnboundedSender","Send values to the associated `UnboundedReceiver`."]],"type":[["Semaphore","No capacity"]]});

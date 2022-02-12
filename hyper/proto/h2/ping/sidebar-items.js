@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["BDP_LIMIT","Any higher than this likely will be hitting the TCP flow control."]],"enum":[["Ponged",""]],"fn":[["channel",""],["disabled",""],["seconds",""]],"struct":[["Bdp",""],["Config",""],["Ponger",""],["Recorder",""],["Shared",""]],"type":[["WindowSize",""]]});

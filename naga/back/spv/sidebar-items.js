@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["helpers",""],["instructions",""],["layout",""],["writer","Standard Portable Intermediate Representation (SPIR-V) backend !"]],"struct":[["Instruction",""],["LogicalLayout",""],["PhysicalLayout",""],["Writer",""],["WriterFlags",""]]});

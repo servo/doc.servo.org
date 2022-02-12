@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["pow_signed_impl",""],["pow_unsigned_impl",""]]});

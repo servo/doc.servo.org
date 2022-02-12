@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SizeHint","A `Body` size hint"]]});

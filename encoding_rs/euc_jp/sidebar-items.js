@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EucJpPending",""]],"fn":[["encode_kanji",""]],"struct":[["EucJpDecoder",""],["EucJpEncoder",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Stack","Two middlewares chained together."]]});

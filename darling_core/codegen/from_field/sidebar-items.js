@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FromFieldImpl","`impl FromField` generator. This is used for parsing an individual field and its attributes."]]});

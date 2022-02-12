@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["service_fn","Create a `Service` from a function."]],"struct":[["ServiceFn","Service returned by [`service_fn`]"]]});

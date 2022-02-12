@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CAPS_FEATURES_MEMORY_GL_MEMORY",""],["CAPS_FEATURE_MEMORY_GL_MEMORY",""]]});

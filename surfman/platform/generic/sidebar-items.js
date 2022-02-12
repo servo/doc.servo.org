@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["egl","Functionality common to EGL-based backends."],["multi","An abstraction that allows the choice of backends dynamically."]]});

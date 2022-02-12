@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DescriptorPool","Dummy descriptor pool."],["DescriptorSet",""],["DescriptorSetLayout",""]]});

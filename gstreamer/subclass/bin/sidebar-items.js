@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["bin_add_element",""],["bin_handle_message",""],["bin_remove_element",""]],"trait":[["BinImpl",""],["BinImplExt",""]]});

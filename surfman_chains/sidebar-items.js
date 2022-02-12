@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BackBuffer",""],["PreserveBuffer",""]],"struct":[["SwapChain","A thread-safe swap chain."],["SwapChainData",""],["SwapChains","A thread-safe collection of swap chains."]],"trait":[["SwapChainAPI","The consumer’s view of a swap chain"],["SwapChainsAPI","The consumer’s view of a collection of swap chains"]]});

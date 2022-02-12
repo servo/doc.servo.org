@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GenericFormattedValue",""]],"macro":[["impl_format_value_traits",""],["impl_op_same",""],["impl_op_u64",""]],"struct":[["Buffers",""],["Bytes",""],["Default",""],["Percent",""],["TryFromGenericFormattedValueError",""],["TryPercentFromFloatError",""],["Undefined",""]],"trait":[["FormattedValue",""],["SpecificFormattedValue",""]],"type":[["Time",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["SPEC_WINDOW_SIZE","Default initial stream window size defined in HTTP2 spec."]],"fn":[["decode_content_length",""],["strip_connection_headers",""]],"mod":[["client",""],["ping",""]],"struct":[["PipeToSendStream",""],["SendBuf",""]],"trait":[["SendStreamExt",""]]});

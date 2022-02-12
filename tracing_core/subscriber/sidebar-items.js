@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["InterestKind",""]],"struct":[["Interest","Indicates a `Subscriber`’s interest in a particular callsite."],["NoSubscriber","A no-op [`Subscriber`]."]],"trait":[["Subscriber","Trait representing the functions required to collect trace data."]]});

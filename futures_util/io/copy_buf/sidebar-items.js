@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["copy_buf","Creates a future which copies all the bytes from one object to another."]],"struct":[["CopyBuf","Future for the [`copy_buf()`] function."]]});

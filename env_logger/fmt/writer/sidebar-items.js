@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Target","Log target, either `stdout` or `stderr`."],["WriteStyle","Whether or not to print styles to the target."]],"fn":[["parse_write_style",""]],"mod":[["atty",""],["glob",""],["termcolor",""]],"struct":[["Builder","A builder for a terminal writer."],["Writer","A terminal target with color awareness."]]});

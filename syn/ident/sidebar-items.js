@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["accept_as_ident",""],["xid_ok",""]],"macro":[["ident_from_token",""]],"struct":[["Ident","A word of Rust code, which may be a keyword or legal variable name."]]});

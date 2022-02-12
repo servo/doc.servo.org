@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A crate for measuring the heap usage of data structures in a way that integrates with Firefox’s memory reporting, particularly the use of mozjemalloc and DMD. In particular, it has the following features."><meta name="keywords" content="rust, rustlang, rust-lang, malloc_size_of"><title>malloc_size_of - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../malloc_size_of/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../malloc_size_of/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Crate malloc_size_of</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.0.1</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><div class="block items"><ul><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="malloc_size_of" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../malloc_size_of/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
+                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">malloc_size_of</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/malloc_size_of/lib.rs.html#11-990" title="goto source code">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A crate for measuring the heap usage of data structures in a way that
+integrates with Firefox’s memory reporting, particularly the use of
+mozjemalloc and DMD. In particular, it has the following features.</p>
+<ul>
+<li>It isn’t bound to a particular heap allocator.</li>
+<li>It provides traits for both “shallow” and “deep” measurement, which gives
+flexibility in the cases where the traits can’t be used.</li>
+<li>It allows for measuring blocks even when only an interior pointer can be
+obtained for heap allocations, e.g. <code>HashSet</code> and <code>HashMap</code>. (This relies
+on the heap allocator having suitable support, which mozjemalloc has.)</li>
+<li>It allows handling of types like <code>Rc</code> and <code>Arc</code> by providing traits that
+are different to the ones for non-graph structures.</li>
+</ul>
+<p>Suggested uses are as follows.</p>
+<ul>
+<li>
+<p>When possible, use the <code>MallocSizeOf</code> trait. (Deriving support is
+provided by the <code>malloc_size_of_derive</code> crate.)</p>
+</li>
+<li>
+<p>If you need an additional synchronization argument, provide a function
+that is like the standard trait method, but with the extra argument.</p>
+</li>
+<li>
+<p>If you need multiple measurements for a type, provide a function named
+<code>add_size_of</code> that takes a mutable reference to a struct that contains
+the multiple measurement fields.</p>
+</li>
+<li>
+<p>When deep measurement (via <code>MallocSizeOf</code>) cannot be implemented for a
+type, shallow measurement (via <code>MallocShallowSizeOf</code>) in combination with
+iteration can be a useful substitute.</p>
+</li>
+<li>
+<p><code>Rc</code> and <code>Arc</code> are always tricky, which is why <code>MallocSizeOf</code> is not (and
+should not be) implemented for them.</p>
+</li>
+<li>
+<p>If an <code>Rc</code> or <code>Arc</code> is known to be a “primary” reference and can always
+be measured, it should be measured via the <code>MallocUnconditionalSizeOf</code>
+trait.</p>
+</li>
+<li>
+<p>If an <code>Rc</code> or <code>Arc</code> should be measured only if it hasn’t been seen
+before, it should be measured via the <code>MallocConditionalSizeOf</code> trait.</p>
+</li>
+<li>
+<p>Using universal function call syntax is a good idea when measuring boxed
+fields in structs, because it makes it clear that the Box is being
+measured as well as the thing it points to. E.g.
+<code>&lt;Box&lt;_&gt; as MallocSizeOf&gt;::size_of(field, ops)</code>.</p>
+<p>Note: WebRender has a reduced fork of this crate, so that we can avoid
+publishing this crate on crates.io.</p>
+</li>
+</ul>
+</div></details><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.malloc_size_of_hash_map.html" title="malloc_size_of::malloc_size_of_hash_map macro">malloc_size_of_hash_map</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.malloc_size_of_hash_set.html" title="malloc_size_of::malloc_size_of_hash_set macro">malloc_size_of_hash_set</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.malloc_size_of_is_0.html" title="malloc_size_of::malloc_size_of_is_0 macro">malloc_size_of_is_0</a></div><div class="item-right docblock-short"><p>For use on types where size_of() returns 0.</p>
+</div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.MallocSizeOfOps.html" title="malloc_size_of::MallocSizeOfOps struct">MallocSizeOfOps</a></div><div class="item-right docblock-short"><p>Operations used when measuring heap usage of data structures.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Measurable.html" title="malloc_size_of::Measurable struct">Measurable</a></div><div class="item-right docblock-short"><p>Measurable that defers to inner value and used to verify MallocSizeOf implementation in a
+struct.</p>
+</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.MallocConditionalShallowSizeOf.html" title="malloc_size_of::MallocConditionalShallowSizeOf trait">MallocConditionalShallowSizeOf</a></div><div class="item-right docblock-short"><p><code>MallocConditionalSizeOf</code> combined with <code>MallocShallowSizeOf</code>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.MallocConditionalSizeOf.html" title="malloc_size_of::MallocConditionalSizeOf trait">MallocConditionalSizeOf</a></div><div class="item-right docblock-short"><p>Like <code>MallocSizeOf</code>, but only measures if the value hasn’t already been
+measured. For use with types like <code>Rc</code> and <code>Arc</code> when appropriate (e.g.
+when there is no “primary” reference).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.MallocShallowSizeOf.html" title="malloc_size_of::MallocShallowSizeOf trait">MallocShallowSizeOf</a></div><div class="item-right docblock-short"><p>Trait for measuring the “shallow” heap usage of a container.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.MallocSizeOf.html" title="malloc_size_of::MallocSizeOf trait">MallocSizeOf</a></div><div class="item-right docblock-short"><p>Trait for measuring the “deep” heap usage of a data structure. This is the
+most commonly-used of the traits.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.MallocUnconditionalShallowSizeOf.html" title="malloc_size_of::MallocUnconditionalShallowSizeOf trait">MallocUnconditionalShallowSizeOf</a></div><div class="item-right docblock-short"><p><code>MallocUnconditionalSizeOf</code> combined with <code>MallocShallowSizeOf</code>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.MallocUnconditionalSizeOf.html" title="malloc_size_of::MallocUnconditionalSizeOf trait">MallocUnconditionalSizeOf</a></div><div class="item-right docblock-short"><p>Like <code>MallocSizeOf</code>, but with a different name so it cannot be used
+accidentally with derive(MallocSizeOf). For use with types like <code>Rc</code> and
+<code>Arc</code> when appropriate (e.g. when measuring a “primary” reference).</p>
+</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.VoidPtrToBoolFnMut.html" title="malloc_size_of::VoidPtrToBoolFnMut type">VoidPtrToBoolFnMut</a></div><div class="item-right docblock-short"><p>A closure implementing a stateful predicate on pointers.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.VoidPtrToSizeFn.html" title="malloc_size_of::VoidPtrToSizeFn type">VoidPtrToSizeFn</a></div><div class="item-right docblock-short"><p>A C function that takes a pointer to a heap allocation and returns its size.</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="malloc_size_of" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (5e57faa78 2022-01-19)" ></div>
+</body></html>

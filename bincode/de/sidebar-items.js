@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["utf8_char_width",""]],"macro":[["impl_deserialize_int",""],["impl_deserialize_literal",""]],"mod":[["read","Specialized ways to read data into bincode."]],"static":[["UTF8_CHAR_WIDTH",""]],"struct":[["Deserializer","A Deserializer that reads bytes from a buffer."]]});

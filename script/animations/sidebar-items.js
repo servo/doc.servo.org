@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TransitionOrAnimationEventType","The type of transition event to trigger. These are defined by CSS Transitions § 6.1 and CSS Animations § 4.2"]],"struct":[["Animations","The set of animations for a document."],["TransitionOrAnimationEvent","A transition or animation event."]]});

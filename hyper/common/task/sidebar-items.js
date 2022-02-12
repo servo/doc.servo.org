@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Poll","Indicates whether a value is available or if the current task has been scheduled to receive a wakeup instead."]],"fn":[["yield_now","A function to help “yield” a future, such that it is re-scheduled immediately."]],"struct":[["Context","The `Context` of an asynchronous task."]]});

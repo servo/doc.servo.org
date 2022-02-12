@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Resolution","A specified resolution."]]});

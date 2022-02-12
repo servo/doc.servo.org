@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["sealed",""]],"trait":[["HttpService","An asynchronous function from `Request` to `Response`."]]});

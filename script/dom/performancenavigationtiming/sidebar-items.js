@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DOMOBJECT_FOR_PerformanceNavigationTiming",""]],"struct":[["PerformanceNavigationTiming","Only the current document resource is included in the performance timeline; there is only one PerformanceNavigationTiming object in the performance timeline."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Close","Future for the `close` method."]]});

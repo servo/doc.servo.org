@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["tracing"] = [{"text":"impl <a class=\"trait\" href=\"tracing/stdlib/ops/trait.Deref.html\" title=\"trait tracing::stdlib::ops::Deref\">Deref</a> for <a class=\"struct\" href=\"tracing/span/struct.EnteredSpan.html\" title=\"struct tracing::span::EnteredSpan\">EnteredSpan</a>","synthetic":false,"types":["tracing::span::EnteredSpan"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

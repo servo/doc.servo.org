@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Patterns</title>
+
+    <link rel="stylesheet" type="text/css" href="../rust.css">
+
+    <meta name="robots" content="noindex,follow">
+<link rel="shortcut icon" href="https://www.rust-lang.org/favicon.ico">
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <div id="versioninfo">
+  <img src="https://www.rust-lang.org/logos/rust-logo-32x32-blk.png" width="32" height="32" alt="Rust logo"><br>
+  <span class="white-sticker"><a href="https://www.rust-lang.org">Rust</a> 1.60.0-nightly</span><br>
+  <a href="https://github.com/rust-lang/rust/commit/5e57faa78aa7661c6000204591558f6665f11abc"
+    class="hash white-sticker">5e57faa78</a>
+</div>
+
+
+    <h1 class="title">Patterns</h1>
+    <p><small>There is a new edition of the book and this is an old link.</small></p>
+<blockquote>
+<p>Patterns are a special syntax within Rust for matching against the structure of our types, complex or simple.
+A pattern is made up of some combination of literals; destructured arrays, enums, structs, or tuples; variables, wildcards, and placeholders.
+These pieces describe the “shape” of the data we’re working with.</p>
+</blockquote>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="number">5</span>);
+<span class="kw">let</span> <span class="ident">y</span> <span class="op">=</span> <span class="number">10</span>;
+
+<span class="kw">match</span> <span class="ident">x</span> {
+    <span class="prelude-val">Some</span>(<span class="number">50</span>) =&gt; <span class="macro">println!</span>(<span class="string">&quot;Got 50&quot;</span>),
+    <span class="prelude-val">Some</span>(<span class="ident">y</span>) =&gt; <span class="macro">println!</span>(<span class="string">&quot;Matched, y = {:?}&quot;</span>, <span class="ident">y</span>),
+    <span class="kw">_</span> =&gt; <span class="macro">println!</span>(<span class="string">&quot;Default case, x = {:?}&quot;</span>, <span class="ident">x</span>),
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Alet%20x%20%3D%20Some(5)%3B%0Alet%20y%20%3D%2010%3B%0A%0Amatch%20x%20%7B%0A%20%20%20%20Some(50)%20%3D%3E%20println!(%22Got%2050%22)%2C%0A%20%20%20%20Some(y)%20%3D%3E%20println!(%22Matched%2C%20y%20%3D%20%7B%3A%3F%7D%22%2C%20y)%2C%0A%20%20%20%20_%20%3D%3E%20println!(%22Default%20case%2C%20x%20%3D%20%7B%3A%3F%7D%22%2C%20x)%2C%0A%7D%0A%7D&amp;edition=2015">Run</a></div>
+<hr />
+<p>You can find the latest version of this information
+<a href="ch06-02-match.html">here</a>.</p>
+
+    <footer><p>
+Copyright &copy; 2011 The Rust Project Developers. Licensed under the
+<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
+or the <a href="https://opensource.org/licenses/MIT">MIT license</a>, at your option.
+</p><p>
+This file may not be copied, modified, or distributed except according to those terms.
+</p></footer>
+
+
+</body>
+</html>

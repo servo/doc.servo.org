@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["match_arm",""]],"struct":[["DataShape","Receiver for shape information within a struct or enum context. See `Shape` for more information on valid uses of shape validation."],["Shape","Receiver struct for shape validation. Shape validation allows a deriving type to declare that it only accepts - for example - named structs, or newtype enum variants."]]});

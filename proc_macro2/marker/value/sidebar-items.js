@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Marker","Zero-sized type used to mark things that “act like” they own a `T`."]]});

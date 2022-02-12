@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["TimingFunction","A specified timing function."]]});

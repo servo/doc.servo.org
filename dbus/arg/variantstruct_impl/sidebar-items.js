@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["struct_impl",""]],"struct":[["Variant","A simple wrapper to specify a D-Bus variant."]]});

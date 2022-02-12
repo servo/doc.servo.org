@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ACC_GROUP_LENS",""],["GROUP_LENS",""]],"fn":[["len_matches_any","Check if the length matches any of the given criteria lengths."],["len_matches_range","Check if the length matches any criteria lengths in the given range (inclusive)."]],"mod":[["error",""]]});

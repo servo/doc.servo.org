@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TokenMarker",""]],"fn":[["is_delimiter",""],["new",""],["peek_impl",""]],"struct":[["Lookahead1","Support for checking the next token in a stream to decide how to parse."]],"trait":[["Peek","Types that can be parsed by looking at just one token."]]});

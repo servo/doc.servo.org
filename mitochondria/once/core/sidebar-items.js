@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["OnceCell","A mutable memory location that can be set only once."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["with_original",""]],"struct":[["WithOriginal","A container to parse some syntax and retain access to the original."]]});

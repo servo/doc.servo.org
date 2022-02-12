@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["gstreamer_audio"] = [{"text":"impl <a class=\"trait\" href=\"gstreamer_audio/prelude/trait.MetaAPI.html\" title=\"trait gstreamer_audio::prelude::MetaAPI\">MetaAPI</a> for <a class=\"struct\" href=\"gstreamer_audio/audio_meta/struct.AudioClippingMeta.html\" title=\"struct gstreamer_audio::audio_meta::AudioClippingMeta\">AudioClippingMeta</a>","synthetic":false,"types":["gstreamer_audio::audio_meta::AudioClippingMeta"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["split",""]],"struct":[["ReadHalf","Borrowed read half of a `UnixStream`, created by `split`."],["WriteHalf","Borrowed write half of a `UnixStream`, created by `split`."]]});

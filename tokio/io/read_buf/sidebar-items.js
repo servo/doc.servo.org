@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ReadBuf","A wrapper around a byte buffer that is incrementally filled and initialized."]]});

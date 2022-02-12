@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FramedRead","A `Stream` of messages decoded from an `AsyncRead`."]]});

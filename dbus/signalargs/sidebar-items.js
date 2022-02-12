@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["SignalArgs","Helper methods for structs representing a Signal"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PollFuture",""]],"fn":[["can_read_output",""],["cancel_task","Cancels the task and store the appropriate error in the stage field."],["poll_future","Polls the future. If the future completes, the output is written to the stage field."],["set_join_waker",""]],"struct":[["Harness","Typed raw task handle."]]});

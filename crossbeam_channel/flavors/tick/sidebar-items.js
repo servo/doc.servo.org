@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Channel","Channel that delivers messages periodically."]],"type":[["TickToken","Result of a receive operation."]]});

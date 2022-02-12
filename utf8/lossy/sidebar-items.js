@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["LossyDecoder","A push-based, lossy decoder for UTF-8. Errors are replaced with the U+FFFD replacement character."]]});

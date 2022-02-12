@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Flush","Future for the `flush` method."]]});

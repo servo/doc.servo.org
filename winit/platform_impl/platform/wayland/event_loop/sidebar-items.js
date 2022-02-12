@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["proxy","An event loop proxy."],["sink","An event loop’s sink to deliver events from the Wayland event callbacks."],["state","A state that we pass around in a dispatch."]],"struct":[["EventLoop",""],["EventLoopWindowTarget",""]]});

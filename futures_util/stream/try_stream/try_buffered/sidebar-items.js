@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TryBuffered","Stream for the `try_buffered` method."]]});

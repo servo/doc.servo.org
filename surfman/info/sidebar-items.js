@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["GLApi","The API (OpenGL or OpenGL ES)."]],"struct":[["GLVersion","Describes the OpenGL version that is requested when a context is created."]]});

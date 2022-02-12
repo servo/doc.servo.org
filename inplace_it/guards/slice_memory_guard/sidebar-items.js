@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SliceMemoryGuard","Guard-struct used for correctly initialize uninitialized memory and `drop` it when guard goes out of scope. Usually, you should not use this struct to handle your memory."]]});

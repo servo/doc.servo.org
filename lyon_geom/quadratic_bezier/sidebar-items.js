@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["QuadraticBezierSegment","A 2d curve segment defined by three points: the beginning of the segment, a control point and the end of the segment."]],"type":[["Flattened","A flattening iterator for quadratic bézier segments."],["MonotonicQuadraticBezierSegment","A monotonically increasing in x and y quadratic bézier curve segment"]]});

@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["html5ever"] = [];
+implementors["script"] = [{"text":"impl <a class=\"trait\" href=\"html5ever/tokenizer/interface/trait.TokenSink.html\" title=\"trait html5ever::tokenizer::interface::TokenSink\">TokenSink</a> for <a class=\"struct\" href=\"script/dom/servoparser/prefetch/struct.PrefetchSink.html\" title=\"struct script::dom::servoparser::prefetch::PrefetchSink\">PrefetchSink</a>","synthetic":false,"types":["script::dom::servoparser::prefetch::PrefetchSink"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

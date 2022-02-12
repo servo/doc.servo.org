@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["InsertError",""],["Kind",""]],"struct":[["Elapsed","Errors returned by `Timeout`."],["Error","Errors encountered by the timer implementation."]]});

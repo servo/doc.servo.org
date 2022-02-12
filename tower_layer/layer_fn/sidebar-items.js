@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["layer_fn","Returns a new [`LayerFn`] that implements [`Layer`] by calling the given function."]],"struct":[["LayerFn","A `Layer` implemented by a closure. See the docs for [`layer_fn`] for more details."]]});

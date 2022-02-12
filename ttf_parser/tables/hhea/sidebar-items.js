@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["ASCENDER_OFFSET",""],["DESCENDER_OFFSET",""],["LINE_GAP_OFFSET",""],["NUMBER_OF_H_METRICS_OFFSET",""],["TABLE_SIZE",""]],"fn":[["ascender",""],["descender",""],["line_gap",""],["number_of_h_metrics",""],["parse",""]]});

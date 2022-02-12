@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["INITIAL_SIZE",""],["MIN_CAPACITY",""]],"enum":[["IterMutState",""]],"struct":[["Arena","An arena of objects of type `T`."],["ChunkList",""],["IterMut","Mutable arena iterator."]]});

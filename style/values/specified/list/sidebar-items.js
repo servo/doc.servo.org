@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MozListReversed","Specified and computed `-moz-list-reversed` property (for UA sheets only)."],["Quotes","Specified and computed `quotes` property: `auto`, `none`, or a list of characters."]],"struct":[["QuoteList","List of quote pairs for the specified/computed value of `quotes` property."],["QuotePair","A quote pair."]]});

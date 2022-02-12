@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["mul_div_impl_signed",""],["mul_div_impl_unsigned",""]],"trait":[["MulDiv","Trait for calculating `val * num / denom` with different rounding modes and overflow protection."]]});
