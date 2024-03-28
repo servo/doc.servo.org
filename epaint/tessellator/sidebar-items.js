@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PathType"],"fn":["add_clip_rects","cw_signed_area","fill_closed_path","mul_color","stroke_path","tessellate_shapes"],"mod":["path","precomputed_vertices"],"struct":["Path","PathPoint","TessellationOptions","Tessellator"]};

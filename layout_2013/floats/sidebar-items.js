@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ClearType","FloatKind"],"fn":["range_intersect"],"struct":["Float","FloatList","Floats","PlacementInfo","SpeculatedFloatPlacement"]};

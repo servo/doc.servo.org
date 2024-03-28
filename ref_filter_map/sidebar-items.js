@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ref_filter_map","ref_mut_filter_map"]};

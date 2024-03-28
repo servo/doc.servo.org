@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Packed24_8"],"trait":["TaggedStructure"]};

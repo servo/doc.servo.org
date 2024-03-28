@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FONT_CONTEXT_KEY"],"fn":["malloc_size_of_persistent_local_context","with_thread_local_font_context"],"struct":["LayoutContext"],"trait":["RegisteredPainter","RegisteredPainters"],"type":["LayoutFontContext","WebrenderImageCache"]};

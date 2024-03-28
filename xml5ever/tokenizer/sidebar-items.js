@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TagKind","Token"],"fn":["option_push","process_qname"],"macro":["eat","get_char","go","pop_except_from","sh_trace","shorthand"],"mod":["char_ref","interface","qname","states"],"struct":["Doctype","Pi","Tag","XmlTokenizer","XmlTokenizerOpts"],"trait":["TokenSink"],"type":["LocalName","Namespace","Prefix"]};

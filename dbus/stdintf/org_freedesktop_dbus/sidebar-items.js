@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ObjectManagerInterfacesAdded","ObjectManagerInterfacesRemoved","PropertiesPropertiesChanged"],"trait":["Introspectable","ObjectManager","Peer","Properties"]};

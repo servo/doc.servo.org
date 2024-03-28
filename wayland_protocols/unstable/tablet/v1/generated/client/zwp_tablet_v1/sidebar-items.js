@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_DONE_SINCE","EVT_ID_SINCE","EVT_NAME_SINCE","EVT_PATH_SINCE","EVT_REMOVED_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwp_tablet_v1_events","zwp_tablet_v1_interface","zwp_tablet_v1_requests"],"struct":["ZwpTabletV1"]};

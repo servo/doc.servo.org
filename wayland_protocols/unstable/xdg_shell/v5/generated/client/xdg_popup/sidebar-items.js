@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_POPUP_DONE_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["xdg_popup_events","xdg_popup_interface","xdg_popup_requests"],"struct":["XdgPopup"]};

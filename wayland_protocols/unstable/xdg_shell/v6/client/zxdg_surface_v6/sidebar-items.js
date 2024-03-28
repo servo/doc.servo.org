@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_CONFIGURE_SINCE","REQ_ACK_CONFIGURE_SINCE","REQ_DESTROY_SINCE","REQ_GET_POPUP_SINCE","REQ_GET_TOPLEVEL_SINCE","REQ_SET_WINDOW_GEOMETRY_SINCE"],"enum":["Error","Event","Request"],"static":["zxdg_surface_v6_events","zxdg_surface_v6_interface","zxdg_surface_v6_requests"],"struct":["ZxdgSurfaceV6"]};

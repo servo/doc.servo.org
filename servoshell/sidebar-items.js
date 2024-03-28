@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["main","servo_version"],"mod":["app","backtrace","crash_handler","egui_glue","embedder","events_loop","geometry","headed_window","headless_window","keyutils","minibrowser","parser","platform","prefs","resources","tracing","webview","window_trait"]};

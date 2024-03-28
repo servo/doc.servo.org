@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_DISTANCE","MAX_LENGTH","MAX_WINDOW_SIZE"],"enum":["Code","CompressionLevel"],"mod":["default"],"struct":["DefaultLz77Encoder","NoCompressionLz77Encoder"],"trait":["Lz77Encode","Sink"]};

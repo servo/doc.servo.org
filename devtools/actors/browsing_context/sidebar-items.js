@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AttachedTraits","BrowsingContextActor","BrowsingContextActorMsg","BrowsingContextAttachedReply","BrowsingContextDetachedReply","BrowsingContextTraits","FrameMsg","ListFramesReply","ListWorkersReply","ReconfigureReply","TabNavigated","WorkerMsg"]};

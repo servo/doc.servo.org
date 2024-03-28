@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["BasicShape","Circle","ClipPath","Ellipse","InsetRect","ShapeOutside","ShapeRadius"]};

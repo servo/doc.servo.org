@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Event","Shell","State"],"fn":["create_shell_surface"],"mod":["wl","xdg","zxdg"],"struct":["ShellHandler","ShellInner"],"trait":["ShellHandling","ShellSurface"]};

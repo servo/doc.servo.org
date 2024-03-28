@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_value_from_header_list"]};

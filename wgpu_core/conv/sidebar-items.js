@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bind_group_layout_flags","check_texture_dimension_size","is_power_of_two_u16","is_power_of_two_u32","is_valid_copy_dst_texture_format","is_valid_copy_src_texture_format","is_valid_external_image_copy_dst_texture_format","map_buffer_usage","map_texture_usage","map_texture_usage_from_hal"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["webgl_channel"],"macro":["unreachable_serializable"],"struct":["WebGLReceiver","WebGLSender"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["GATT_DESCRIPTOR_INTERFACE","SERVICE_NAME"],"struct":["BluetoothGATTDescriptor"]};

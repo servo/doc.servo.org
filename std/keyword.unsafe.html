@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Code or interfaces whose memory safety cannot be verified by the type system."><title>unsafe - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="std" data-themes="" data-resource-suffix="1.74.1" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items1.74.1.js"></script><script defer src="../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc keyword"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In std</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Keyword <a class="keyword" href="#">unsafe</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/std/keyword_docs.rs.html#2145">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Code or interfaces whose <a href="../book/ch19-01-unsafe-rust.html">memory safety</a> cannot be verified by the type
+system.</p>
+<p>The <code>unsafe</code> keyword has two uses:</p>
+<ul>
+<li>to declare the existence of contracts the compiler can’t check (<code>unsafe fn</code> and <code>unsafe trait</code>),</li>
+<li>and to declare that a programmer has checked that these contracts have been upheld (<code>unsafe {}</code> and <code>unsafe impl</code>, but also <code>unsafe fn</code> – see below).</li>
+</ul>
+<p>They are not mutually exclusive, as can be seen in <code>unsafe fn</code>: the body of an <code>unsafe fn</code> is,
+by default, treated like an unsafe block. The <code>unsafe_op_in_unsafe_fn</code> lint can be enabled to
+change that.</p>
+<h2 id="unsafe-abilities"><a href="#unsafe-abilities">Unsafe abilities</a></h2>
+<p><strong>No matter what, Safe Rust can’t cause Undefined Behavior</strong>. This is
+referred to as <a href="https://rust-lang.github.io/unsafe-code-guidelines/glossary.html#soundness-of-code--of-a-library">soundness</a>: a well-typed program actually has the desired
+properties. The <a href="../nomicon/safe-unsafe-meaning.html">Nomicon</a> has a more detailed explanation
+on the subject.</p>
+<p>To ensure soundness, Safe Rust is restricted enough that it can be
+automatically checked. Sometimes, however, it is necessary to write code
+that is correct for reasons which are too clever for the compiler to
+understand. In those cases, you need to use Unsafe Rust.</p>
+<p>Here are the abilities Unsafe Rust has in addition to Safe Rust:</p>
+<ul>
+<li>Dereference <a href="../reference/types/pointer.html">raw pointers</a></li>
+<li>Implement <code>unsafe</code> <a href="keyword.trait.html"><code>trait</code></a>s</li>
+<li>Call <code>unsafe</code> functions</li>
+<li>Mutate <a href="keyword.static.html"><code>static</code></a>s (including <a href="keyword.extern.html"><code>extern</code></a>al ones)</li>
+<li>Access fields of <a href="keyword.union.html"><code>union</code></a>s</li>
+</ul>
+<p>However, this extra power comes with extra responsibilities: it is now up to
+you to ensure soundness. The <code>unsafe</code> keyword helps by clearly marking the
+pieces of code that need to worry about this.</p>
+<h3 id="the-different-meanings-of-unsafe"><a href="#the-different-meanings-of-unsafe">The different meanings of <code>unsafe</code></a></h3>
+<p>Not all uses of <code>unsafe</code> are equivalent: some are here to mark the existence
+of a contract the programmer must check, others are to say “I have checked
+the contract, go ahead and do this”. The following
+<a href="https://internals.rust-lang.org/t/what-does-unsafe-mean/6696">discussion on Rust Internals</a> has more in-depth explanations about this but
+here is a summary of the main points:</p>
+<ul>
+<li><code>unsafe fn</code>: calling this function means abiding by a contract the
+compiler cannot enforce.</li>
+<li><code>unsafe trait</code>: implementing the <a href="keyword.trait.html"><code>trait</code></a> means abiding by a
+contract the compiler cannot enforce.</li>
+<li><code>unsafe {}</code>: the contract necessary to call the operations inside the
+block has been checked by the programmer and is guaranteed to be respected.</li>
+<li><code>unsafe impl</code>: the contract necessary to implement the trait has been
+checked by the programmer and is guaranteed to be respected.</li>
+</ul>
+<p>By default, <code>unsafe fn</code> also acts like an <code>unsafe {}</code> block
+around the code inside the function. This means it is not just a signal to
+the caller, but also promises that the preconditions for the operations
+inside the function are upheld. Mixing these two meanings can be confusing, so the
+<code>unsafe_op_in_unsafe_fn</code> lint can be enabled to warn against that and require explicit unsafe
+blocks even inside <code>unsafe fn</code>.</p>
+<p>See the <a href="../nomicon/index.html">Rustonomicon</a> and the <a href="../reference/unsafety.html">Reference</a> for more information.</p>
+<h2 id="examples"><a href="#examples">Examples</a></h2><h3 id="marking-elements-as-unsafe"><a href="#marking-elements-as-unsafe">Marking elements as <code>unsafe</code></a></h3>
+<p><code>unsafe</code> can be used on functions. Note that functions and statics declared
+in <a href="keyword.extern.html"><code>extern</code></a> blocks are implicitly marked as <code>unsafe</code> (but not functions
+declared as <code>extern &quot;something&quot; fn ...</code>). Mutable statics are always unsafe,
+wherever they are declared. Methods can also be declared as <code>unsafe</code>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">static </span><span class="kw-2">mut </span>FOO: <span class="kw-2">&amp;</span>str = <span class="string">&quot;hello&quot;</span>;
+
+<span class="kw">unsafe fn </span>unsafe_fn() {}
+
+<span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
+    <span class="kw">fn </span>unsafe_extern_fn();
+    <span class="kw">static </span>BAR: <span class="kw-2">*mut </span>u32;
+}
+
+<span class="kw">trait </span>SafeTraitWithUnsafeMethod {
+    <span class="kw">unsafe fn </span>unsafe_method(<span class="kw-2">&amp;</span><span class="self">self</span>);
+}
+
+<span class="kw">struct </span>S;
+
+<span class="kw">impl </span>S {
+    <span class="kw">unsafe fn </span>unsafe_method_on_struct() {}
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(dead_code)%5D%0Afn+main()+%7B%0Astatic+mut+FOO:+%26str+=+%22hello%22;%0A%0Aunsafe+fn+unsafe_fn()+%7B%7D%0A%0Aextern+%22C%22+%7B%0A++++fn+unsafe_extern_fn();%0A++++static+BAR:+*mut+u32;%0A%7D%0A%0Atrait+SafeTraitWithUnsafeMethod+%7B%0A++++unsafe+fn+unsafe_method(%26self);%0A%7D%0A%0Astruct+S;%0A%0Aimpl+S+%7B%0A++++unsafe+fn+unsafe_method_on_struct()+%7B%7D%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p>Traits can also be declared as <code>unsafe</code>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">unsafe trait </span>UnsafeTrait {}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Aunsafe+trait+UnsafeTrait+%7B%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p>Since <code>unsafe fn</code> and <code>unsafe trait</code> indicate that there is a safety
+contract that the compiler cannot enforce, documenting it is important. The
+standard library has many examples of this, like the following which is an
+extract from <a href="vec/struct.Vec.html#method.set_len" title="method std::vec::Vec::set_len"><code>Vec::set_len</code></a>. The <code># Safety</code> section explains the contract
+that must be fulfilled to safely call the function.</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="doccomment">/// Forces the length of the vector to `new_len`.
+///
+/// This is a low-level operation that maintains none of the normal
+/// invariants of the type. Normally changing the length of a vector
+/// is done using one of the safe operations instead, such as
+/// `truncate`, `resize`, `extend`, or `clear`.
+///
+/// # Safety
+///
+/// - `new_len` must be less than or equal to `capacity()`.
+/// - The elements at `old_len..new_len` must be initialized.
+</span><span class="kw">pub unsafe fn </span>set_len(<span class="kw-2">&amp;mut </span><span class="self">self</span>, new_len: usize)</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0A///+Forces+the+length+of+the+vector+to+%60new_len%60.%0A///%0A///+This+is+a+low-level+operation+that+maintains+none+of+the+normal%0A///+invariants+of+the+type.+Normally+changing+the+length+of+a+vector%0A///+is+done+using+one+of+the+safe+operations+instead,+such+as%0A///+%60truncate%60,+%60resize%60,+%60extend%60,+or+%60clear%60.%0A///%0A///+%23+Safety%0A///%0A///+-+%60new_len%60+must+be+less+than+or+equal+to+%60capacity()%60.%0A///+-+The+elements+at+%60old_len..new_len%60+must+be+initialized.%0Apub+unsafe+fn+set_len(%26mut+self,+new_len:+usize)%0A%7D&amp;edition=2021">Run</a></div>
+<h3 id="using-unsafe--blocks-and-impls"><a href="#using-unsafe--blocks-and-impls">Using <code>unsafe {}</code> blocks and <code>impl</code>s</a></h3>
+<p>Performing <code>unsafe</code> operations requires an <code>unsafe {}</code> block:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#![deny(unsafe_op_in_unsafe_fn)]
+
+</span><span class="doccomment">/// Dereference the given pointer.
+///
+/// # Safety
+///
+/// `ptr` must be aligned and must not be dangling.
+</span><span class="kw">unsafe fn </span>deref_unchecked(ptr: <span class="kw-2">*const </span>i32) -&gt; i32 {
+    <span class="comment">// SAFETY: the caller is required to ensure that `ptr` is aligned and dereferenceable.
+    </span><span class="kw">unsafe </span>{ <span class="kw-2">*</span>ptr }
+}
+
+<span class="kw">let </span>a = <span class="number">3</span>;
+<span class="kw">let </span>b = <span class="kw-2">&amp;</span>a <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>;
+<span class="comment">// SAFETY: `a` has not been dropped and references are always aligned,
+// so `b` is a valid address.
+</span><span class="kw">unsafe </span>{ <span class="macro">assert_eq!</span>(<span class="kw-2">*</span>b, deref_unchecked(b)); };</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(dead_code)%5D%0A%23!%5Bdeny(unsafe_op_in_unsafe_fn)%5D%0A%0Afn+main()+%7B%0A///+Dereference+the+given+pointer.%0A///%0A///+%23+Safety%0A///%0A///+%60ptr%60+must+be+aligned+and+must+not+be+dangling.%0Aunsafe+fn+deref_unchecked(ptr:+*const+i32)+-%3E+i32+%7B%0A++++//+SAFETY:+the+caller+is+required+to+ensure+that+%60ptr%60+is+aligned+and+dereferenceable.%0A++++unsafe+%7B+*ptr+%7D%0A%7D%0A%0Alet+a+=+3;%0Alet+b+=+%26a+as+*const+_;%0A//+SAFETY:+%60a%60+has+not+been+dropped+and+references+are+always+aligned,%0A//+so+%60b%60+is+a+valid+address.%0Aunsafe+%7B+assert_eq!(*b,+deref_unchecked(b));+%7D;%0A%7D&amp;edition=2021">Run</a></div>
+<h3 id="unsafe-and-traits"><a href="#unsafe-and-traits"><code>unsafe</code> and traits</a></h3>
+<p>The interactions of <code>unsafe</code> and traits can be surprising, so let us contrast the
+two combinations of safe <code>fn</code> in <code>unsafe trait</code> and <code>unsafe fn</code> in safe trait using two
+examples:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="doccomment">/// # Safety
+///
+/// `make_even` must return an even number.
+</span><span class="kw">unsafe trait </span>MakeEven {
+    <span class="kw">fn </span>make_even(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+}
+
+<span class="comment">// SAFETY: Our `make_even` always returns something even.
+</span><span class="kw">unsafe impl </span>MakeEven <span class="kw">for </span>i32 {
+    <span class="kw">fn </span>make_even(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="self">self </span>&lt;&lt; <span class="number">1
+    </span>}
+}
+
+<span class="kw">fn </span>use_make_even(x: <span class="kw">impl </span>MakeEven) {
+    <span class="kw">if </span>x.make_even() % <span class="number">2 </span>== <span class="number">1 </span>{
+        <span class="comment">// SAFETY: this can never happen, because all `MakeEven` implementations
+        // ensure that `make_even` returns something even.
+        </span><span class="kw">unsafe </span>{ std::hint::unreachable_unchecked() };
+    }
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0A///+%23+Safety%0A///%0A///+%60make_even%60+must+return+an+even+number.%0Aunsafe+trait+MakeEven+%7B%0A++++fn+make_even(%26self)+-%3E+i32;%0A%7D%0A%0A//+SAFETY:+Our+%60make_even%60+always+returns+something+even.%0Aunsafe+impl+MakeEven+for+i32+%7B%0A++++fn+make_even(%26self)+-%3E+i32+%7B%0A++++++++self+%3C%3C+1%0A++++%7D%0A%7D%0A%0Afn+use_make_even(x:+impl+MakeEven)+%7B%0A++++if+x.make_even()+%25+2+==+1+%7B%0A++++++++//+SAFETY:+this+can+never+happen,+because+all+%60MakeEven%60+implementations%0A++++++++//+ensure+that+%60make_even%60+returns+something+even.%0A++++++++unsafe+%7B+std::hint::unreachable_unchecked()+%7D;%0A++++%7D%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p>Note how the safety contract of the trait is upheld by the implementation, and is itself used to
+uphold the safety contract of the unsafe function <code>unreachable_unchecked</code> called by
+<code>use_make_even</code>. <code>make_even</code> itself is a safe function because its <em>callers</em> do not have to
+worry about any contract, only the <em>implementation</em> of <code>MakeEven</code> is required to uphold a
+certain contract. <code>use_make_even</code> is safe because it can use the promise made by <code>MakeEven</code>
+implementations to uphold the safety contract of the <code>unsafe fn unreachable_unchecked</code> it calls.</p>
+<p>It is also possible to have <code>unsafe fn</code> in a regular safe <code>trait</code>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#![deny(unsafe_op_in_unsafe_fn)]
+
+</span><span class="kw">trait </span>Indexable {
+    <span class="kw">const </span>LEN: usize;
+
+    <span class="doccomment">/// # Safety
+    ///
+    /// The caller must ensure that `idx &lt; LEN`.
+    </span><span class="kw">unsafe fn </span>idx_unchecked(<span class="kw-2">&amp;</span><span class="self">self</span>, idx: usize) -&gt; i32;
+}
+
+<span class="comment">// The implementation for `i32` doesn&#39;t need to do any contract reasoning.
+</span><span class="kw">impl </span>Indexable <span class="kw">for </span>i32 {
+    <span class="kw">const </span>LEN: usize = <span class="number">1</span>;
+
+    <span class="kw">unsafe fn </span>idx_unchecked(<span class="kw-2">&amp;</span><span class="self">self</span>, idx: usize) -&gt; i32 {
+        <span class="macro">debug_assert_eq!</span>(idx, <span class="number">0</span>);
+        <span class="kw-2">*</span><span class="self">self
+    </span>}
+}
+
+<span class="comment">// The implementation for arrays exploits the function contract to
+// make use of `get_unchecked` on slices and avoid a run-time check.
+</span><span class="kw">impl </span>Indexable <span class="kw">for </span>[i32; <span class="number">42</span>] {
+    <span class="kw">const </span>LEN: usize = <span class="number">42</span>;
+
+    <span class="kw">unsafe fn </span>idx_unchecked(<span class="kw-2">&amp;</span><span class="self">self</span>, idx: usize) -&gt; i32 {
+        <span class="comment">// SAFETY: As per this trait&#39;s documentation, the caller ensures
+        // that `idx &lt; 42`.
+        </span><span class="kw">unsafe </span>{ <span class="kw-2">*</span><span class="self">self</span>.get_unchecked(idx) }
+    }
+}
+
+<span class="comment">// The implementation for the never type declares a length of 0,
+// which means `idx_unchecked` can never be called.
+</span><span class="kw">impl </span>Indexable <span class="kw">for </span>! {
+    <span class="kw">const </span>LEN: usize = <span class="number">0</span>;
+
+    <span class="kw">unsafe fn </span>idx_unchecked(<span class="kw-2">&amp;</span><span class="self">self</span>, idx: usize) -&gt; i32 {
+        <span class="comment">// SAFETY: As per this trait&#39;s documentation, the caller ensures
+        // that `idx &lt; 0`, which is impossible, so this is dead code.
+        </span><span class="kw">unsafe </span>{ std::hint::unreachable_unchecked() }
+    }
+}
+
+<span class="kw">fn </span>use_indexable&lt;I: Indexable&gt;(x: I, idx: usize) -&gt; i32 {
+    <span class="kw">if </span>idx &lt; I::LEN {
+        <span class="comment">// SAFETY: We have checked that `idx &lt; I::LEN`.
+        </span><span class="kw">unsafe </span>{ x.idx_unchecked(idx) }
+    } <span class="kw">else </span>{
+        <span class="macro">panic!</span>(<span class="string">&quot;index out-of-bounds&quot;</span>)
+    }
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Bfeature(never_type)%5D%0A%23!%5Bdeny(unsafe_op_in_unsafe_fn)%5D%0A%0Afn+main()+%7B%0Atrait+Indexable+%7B%0A++++const+LEN:+usize;%0A%0A++++///+%23+Safety%0A++++///%0A++++///+The+caller+must+ensure+that+%60idx+%3C+LEN%60.%0A++++unsafe+fn+idx_unchecked(%26self,+idx:+usize)+-%3E+i32;%0A%7D%0A%0A//+The+implementation+for+%60i32%60+doesn't+need+to+do+any+contract+reasoning.%0Aimpl+Indexable+for+i32+%7B%0A++++const+LEN:+usize+=+1;%0A%0A++++unsafe+fn+idx_unchecked(%26self,+idx:+usize)+-%3E+i32+%7B%0A++++++++debug_assert_eq!(idx,+0);%0A++++++++*self%0A++++%7D%0A%7D%0A%0A//+The+implementation+for+arrays+exploits+the+function+contract+to%0A//+make+use+of+%60get_unchecked%60+on+slices+and+avoid+a+run-time+check.%0Aimpl+Indexable+for+%5Bi32;+42%5D+%7B%0A++++const+LEN:+usize+=+42;%0A%0A++++unsafe+fn+idx_unchecked(%26self,+idx:+usize)+-%3E+i32+%7B%0A++++++++//+SAFETY:+As+per+this+trait's+documentation,+the+caller+ensures%0A++++++++//+that+%60idx+%3C+42%60.%0A++++++++unsafe+%7B+*self.get_unchecked(idx)+%7D%0A++++%7D%0A%7D%0A%0A//+The+implementation+for+the+never+type+declares+a+length+of+0,%0A//+which+means+%60idx_unchecked%60+can+never+be+called.%0Aimpl+Indexable+for+!+%7B%0A++++const+LEN:+usize+=+0;%0A%0A++++unsafe+fn+idx_unchecked(%26self,+idx:+usize)+-%3E+i32+%7B%0A++++++++//+SAFETY:+As+per+this+trait's+documentation,+the+caller+ensures%0A++++++++//+that+%60idx+%3C+0%60,+which+is+impossible,+so+this+is+dead+code.%0A++++++++unsafe+%7B+std::hint::unreachable_unchecked()+%7D%0A++++%7D%0A%7D%0A%0Afn+use_indexable%3CI:+Indexable%3E(x:+I,+idx:+usize)+-%3E+i32+%7B%0A++++if+idx+%3C+I::LEN+%7B%0A++++++++//+SAFETY:+We+have+checked+that+%60idx+%3C+I::LEN%60.%0A++++++++unsafe+%7B+x.idx_unchecked(idx)+%7D%0A++++%7D+else+%7B%0A++++++++panic!(%22index+out-of-bounds%22)%0A++++%7D%0A%7D%0A%7D&amp;version=nightly&amp;edition=2021">Run</a></div>
+<p>This time, <code>use_indexable</code> is safe because it uses a run-time check to discharge the safety
+contract of <code>idx_unchecked</code>. Implementing <code>Indexable</code> is safe because when writing
+<code>idx_unchecked</code>, we don’t have to worry: our <em>callers</em> need to discharge a proof obligation
+(like <code>use_indexable</code> does), but the <em>implementation</em> of <code>get_unchecked</code> has no proof obligation
+to contend with. Of course, the implementation of <code>Indexable</code> may choose to call other unsafe
+operations, and then it needs an <code>unsafe</code> <em>block</em> to indicate it discharged the proof
+obligations of its callees. (We enabled <code>unsafe_op_in_unsafe_fn</code>, so the body of <code>idx_unchecked</code>
+is not implicitly an unsafe block.) For that purpose it can make use of the contract that all
+its callers must uphold – the fact that <code>idx &lt; LEN</code>.</p>
+<p>Formally speaking, an <code>unsafe fn</code> in a trait is a function with <em>preconditions</em> that go beyond
+those encoded by the argument types (such as <code>idx &lt; LEN</code>), whereas an <code>unsafe trait</code> can declare
+that some of its functions have <em>postconditions</em> that go beyond those encoded in the return type
+(such as returning an even integer). If a trait needs a function with both extra precondition
+and extra postcondition, then it needs an <code>unsafe fn</code> in an <code>unsafe trait</code>.</p>
+</div></details></section></div></main></body></html>

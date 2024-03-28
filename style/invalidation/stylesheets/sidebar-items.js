@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Invalidation","InvalidationKind","RuleChangeKind"],"struct":["StylesheetInvalidationSet"]};

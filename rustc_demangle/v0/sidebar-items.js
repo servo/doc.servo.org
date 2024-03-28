@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_DEPTH","SMALL_PUNYCODE_LEN"],"enum":["ParseError"],"fn":["basic_type","demangle"],"macro":["invalid","parse","write"],"struct":["Demangle","HexNibbles","Ident","Parser","Printer"]};

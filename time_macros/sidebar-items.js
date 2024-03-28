@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FormatDescriptionVersion","VersionOrModuleName"],"fn":["parse_format_description_version"],"macro":["bug","date","datetime","format_description","impl_macros","offset","time"],"mod":["date","datetime","error","format_description","helpers","offset","quote","time","to_tokens"]};

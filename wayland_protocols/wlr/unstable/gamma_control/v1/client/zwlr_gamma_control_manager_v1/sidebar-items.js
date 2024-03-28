@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_GET_GAMMA_CONTROL_SINCE"],"enum":["Event","Request"],"static":["zwlr_gamma_control_manager_v1_interface","zwlr_gamma_control_manager_v1_requests"],"struct":["ZwlrGammaControlManagerV1"]};

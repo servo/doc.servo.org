@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_MODE_FAILED_SINCE","EVT_MODE_SUCCESSFUL_SINCE","EVT_PRESENT_CANCELLED_SINCE"],"enum":["Event","Request"],"static":["zwp_fullscreen_shell_mode_feedback_v1_events","zwp_fullscreen_shell_mode_feedback_v1_interface"],"struct":["ZwpFullscreenShellModeFeedbackV1"]};

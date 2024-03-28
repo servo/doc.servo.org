@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_CONFIGURE_SINCE","REQ_DESTROY_SINCE","REQ_SET_MODE_SINCE","REQ_UNSET_MODE_SINCE"],"enum":["Error","Event","Mode","Request"],"static":["zxdg_toplevel_decoration_v1_events","zxdg_toplevel_decoration_v1_interface","zxdg_toplevel_decoration_v1_requests"],"struct":["ZxdgToplevelDecorationV1"]};

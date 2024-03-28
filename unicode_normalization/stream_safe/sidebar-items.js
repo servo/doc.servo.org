@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["COMBINING_GRAPHEME_JOINER","MAX_NONSTARTERS"],"fn":["classify_nonstarters"],"struct":["Decomposition","StreamSafe"]};

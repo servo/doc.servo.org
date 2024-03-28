@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_SET_CUSTOM_MODE_SINCE","REQ_SET_MODE_SINCE","REQ_SET_POSITION_SINCE","REQ_SET_SCALE_SINCE","REQ_SET_TRANSFORM_SINCE"],"enum":["Error","Event","Request"],"static":["zwlr_output_configuration_head_v1_interface","zwlr_output_configuration_head_v1_requests"],"struct":["ZwlrOutputConfigurationHeadV1"]};

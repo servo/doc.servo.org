@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_surface_outputs","get_surface_scale_factor","setup_surface"],"struct":["SurfaceUserData"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["declare_interning_memory_report"],"mod":["dummy"],"struct":["DataStore","Epoch","Handle","Insertion","Interner","InternerSubReport","InterningMemoryReport","ItemDetails","ItemUid","Removal","UpdateList"],"trait":["InternDebug","Internable"]};

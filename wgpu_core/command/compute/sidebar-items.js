@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ComputePassErrorInner","DispatchError"],"mod":["compute_ffi"],"struct":["ComputePass","ComputePassDescriptor","ComputePassError","ComputePassTimestampWrites","State"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["uri_handler_get_protocols","uri_handler_get_type","uri_handler_get_uri","uri_handler_set_uri"],"mod":["sealed"],"trait":["URIHandlerImpl","URIHandlerImplExt"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_GET_VIEWPORT_SINCE"],"enum":["Error","Event","Request"],"static":["wp_viewporter_interface","wp_viewporter_requests","wp_viewporter_requests_get_viewport_types"],"struct":["WpViewporter"]};

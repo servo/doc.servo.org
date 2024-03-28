@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The Rust equivalent of a C-style union."><title>union - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="std" data-themes="" data-resource-suffix="1.74.1" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items1.74.1.js"></script><script defer src="../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc keyword"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In std</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Keyword <a class="keyword" href="#">union</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/std/keyword_docs.rs.html#2459">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The <a href="../reference/items/unions.html">Rust equivalent of a C-style union</a>.</p>
+<p>A <code>union</code> looks like a <a href="keyword.struct.html"><code>struct</code></a> in terms of declaration, but all of its
+fields exist in the same memory, superimposed over one another. For instance,
+if we wanted some bits in memory that we sometimes interpret as a <code>u32</code> and
+sometimes as an <code>f32</code>, we could write:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">union </span>IntOrFloat {
+    i: u32,
+    f: f32,
+}
+
+<span class="kw">let </span><span class="kw-2">mut </span>u = IntOrFloat { f: <span class="number">1.0 </span>};
+<span class="comment">// Reading the fields of a union is always unsafe
+</span><span class="macro">assert_eq!</span>(<span class="kw">unsafe </span>{ u.i }, <span class="number">1065353216</span>);
+<span class="comment">// Updating through any of the field will modify all of them
+</span>u.i = <span class="number">1073741824</span>;
+<span class="macro">assert_eq!</span>(<span class="kw">unsafe </span>{ u.f }, <span class="number">2.0</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Aunion+IntOrFloat+%7B%0A++++i:+u32,%0A++++f:+f32,%0A%7D%0A%0Alet+mut+u+=+IntOrFloat+%7B+f:+1.0+%7D;%0A//+Reading+the+fields+of+a+union+is+always+unsafe%0Aassert_eq!(unsafe+%7B+u.i+%7D,+1065353216);%0A//+Updating+through+any+of+the+field+will+modify+all+of+them%0Au.i+=+1073741824;%0Aassert_eq!(unsafe+%7B+u.f+%7D,+2.0);%0A%7D&amp;edition=2021">Run</a></div>
+<h2 id="matching-on-unions"><a href="#matching-on-unions">Matching on unions</a></h2>
+<p>It is possible to use pattern matching on <code>union</code>s. A single field name must
+be used and it must match the name of one of the <code>union</code>’s field.
+Like reading from a <code>union</code>, pattern matching on a <code>union</code> requires <code>unsafe</code>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">union </span>IntOrFloat {
+    i: u32,
+    f: f32,
+}
+
+<span class="kw">let </span>u = IntOrFloat { f: <span class="number">1.0 </span>};
+
+<span class="kw">unsafe </span>{
+    <span class="kw">match </span>u {
+        IntOrFloat { i: <span class="number">10 </span>} =&gt; <span class="macro">println!</span>(<span class="string">&quot;Found exactly ten!&quot;</span>),
+        <span class="comment">// Matching the field `f` provides an `f32`.
+        </span>IntOrFloat { f } =&gt; <span class="macro">println!</span>(<span class="string">&quot;Found f = {f} !&quot;</span>),
+    }
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Aunion+IntOrFloat+%7B%0A++++i:+u32,%0A++++f:+f32,%0A%7D%0A%0Alet+u+=+IntOrFloat+%7B+f:+1.0+%7D;%0A%0Aunsafe+%7B%0A++++match+u+%7B%0A++++++++IntOrFloat+%7B+i:+10+%7D+=%3E+println!(%22Found+exactly+ten!%22),%0A++++++++//+Matching+the+field+%60f%60+provides+an+%60f32%60.%0A++++++++IntOrFloat+%7B+f+%7D+=%3E+println!(%22Found+f+=+%7Bf%7D+!%22),%0A++++%7D%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+<h2 id="references-to-union-fields"><a href="#references-to-union-fields">References to union fields</a></h2>
+<p>All fields in a <code>union</code> are all at the same place in memory which means
+borrowing one borrows the entire <code>union</code>, for the same lifetime:</p>
+
+<div class="example-wrap compile_fail"><a href="#" class="tooltip" title="This example deliberately fails to compile">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">union </span>IntOrFloat {
+    i: u32,
+    f: f32,
+}
+
+<span class="kw">let </span><span class="kw-2">mut </span>u = IntOrFloat { f: <span class="number">1.0 </span>};
+
+<span class="kw">let </span>f = <span class="kw">unsafe </span>{ <span class="kw-2">&amp;</span>u.f };
+<span class="comment">// This will not compile because the field has already been borrowed, even
+// if only immutably
+</span><span class="kw">let </span>i = <span class="kw">unsafe </span>{ <span class="kw-2">&amp;mut </span>u.i };
+
+<span class="kw-2">*</span>i = <span class="number">10</span>;
+<span class="macro">println!</span>(<span class="string">&quot;f = {f} and i = {i}&quot;</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Aunion+IntOrFloat+%7B%0A++++i:+u32,%0A++++f:+f32,%0A%7D%0A%0Alet+mut+u+=+IntOrFloat+%7B+f:+1.0+%7D;%0A%0Alet+f+=+unsafe+%7B+%26u.f+%7D;%0A//+This+will+not+compile+because+the+field+has+already+been+borrowed,+even%0A//+if+only+immutably%0Alet+i+=+unsafe+%7B+%26mut+u.i+%7D;%0A%0A*i+=+10;%0Aprintln!(%22f+=+%7Bf%7D+and+i+=+%7Bi%7D%22);%0A%7D&amp;edition=2021">Run</a></div>
+<p>See the <a href="../reference/items/unions.html">Reference</a> for more information on <code>union</code>s.</p>
+</div></details></section></div></main></body></html>

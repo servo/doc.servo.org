@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Access","EmitsChangedSignal"],"fn":["new_method","new_property","new_signal","prop_append_dict"],"struct":["DebugGetProp","DebugMethod","DebugSetProp","Method","Property","Signal"]};

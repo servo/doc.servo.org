@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["fullscreen_shell","idle_inhibit","input_method","input_timestamps","keyboard_shortcuts_inhibit","linux_dmabuf","linux_explicit_synchronization","pointer_constraints","pointer_gestures","primary_selection","relative_pointer","tablet","text_input","xdg_decoration","xdg_foreign","xdg_output","xdg_shell","xwayland_keyboard_grab"]};

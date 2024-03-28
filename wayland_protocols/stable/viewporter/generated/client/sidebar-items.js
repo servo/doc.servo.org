@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NULLPTR"],"enum":["Argument","ArgumentType","ProxyMap"],"macro":["smallvec"],"mod":["sys","wl_surface","wp_viewport","wp_viewporter"],"static":["types_null"],"struct":["AnonymousObject","Attached","Main","Message","MessageDesc","Object","Proxy"],"trait":["Interface","MessageGroup","ObjectMetadata"]};

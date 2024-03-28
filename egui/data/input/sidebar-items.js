@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NUM_POINTER_BUTTONS"],"enum":["Event","Key","MouseWheelUnit","PointerButton","TouchPhase"],"struct":["DroppedFile","HoveredFile","KeyboardShortcut","ModifierNames","Modifiers","RawInput","TouchDeviceId","TouchId"]};

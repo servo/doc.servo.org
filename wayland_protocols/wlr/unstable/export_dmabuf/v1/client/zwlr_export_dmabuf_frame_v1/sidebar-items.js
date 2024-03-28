@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_CANCEL_SINCE","EVT_FRAME_SINCE","EVT_OBJECT_SINCE","EVT_READY_SINCE","REQ_DESTROY_SINCE"],"enum":["CancelReason","Event","Flags","Request"],"static":["zwlr_export_dmabuf_frame_v1_events","zwlr_export_dmabuf_frame_v1_interface","zwlr_export_dmabuf_frame_v1_requests"],"struct":["ZwlrExportDmabufFrameV1"]};

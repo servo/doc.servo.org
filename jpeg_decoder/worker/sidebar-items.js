@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PreferWorkerKind","WorkerScopeInner"],"fn":["compute_image_parallel"],"mod":["immediate","multithreaded","rayon"],"struct":["RowData","WorkerScope"],"trait":["Worker"]};

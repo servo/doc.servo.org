@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Anchor"],"fn":["relative_adjustement","vec_append_owned"],"struct":["AbsoluteAxisSolver","AbsolutelyPositionedBox","AxisResult","HoistedAbsolutelyPositionedBox","PositioningContext","PositioningContextLength"]};

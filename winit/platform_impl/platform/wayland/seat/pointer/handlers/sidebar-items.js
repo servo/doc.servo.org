@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BTN_LEFT","BTN_MIDDLE","BTN_RIGHT"],"fn":["handle_pointer","handle_relative_pointer"]};

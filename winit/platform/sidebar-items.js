@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["run_return","wayland","x11"]};

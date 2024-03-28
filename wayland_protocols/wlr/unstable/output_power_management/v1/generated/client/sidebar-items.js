@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NULLPTR"],"enum":["Argument","ArgumentType","ProxyMap"],"macro":["smallvec"],"mod":["sys","wl_output","zwlr_output_power_manager_v1","zwlr_output_power_v1"],"static":["types_null"],"struct":["AnonymousObject","Attached","Main","Message","MessageDesc","Object","Proxy"],"trait":["Interface","MessageGroup","ObjectMetadata"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["num_float","num_int"],"trait":["Ceil","Floor","One","Round","Zero"]};

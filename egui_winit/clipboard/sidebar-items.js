@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["init_arboard","init_smithay_clipboard"],"struct":["Clipboard"]};

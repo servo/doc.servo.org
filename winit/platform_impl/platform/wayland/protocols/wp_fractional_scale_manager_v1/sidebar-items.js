@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_GET_FRACTIONAL_SCALE_SINCE"],"enum":["Error","Event","Request"],"static":["wp_fractional_scale_manager_v1_interface","wp_fractional_scale_manager_v1_requests","wp_fractional_scale_manager_v1_requests_get_fractional_scale_types"],"struct":["WpFractionalScaleManagerV1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ELEM_AND_SCALAR_LEN","PRIVATE_KEY_LEN","PUBLIC_KEY_LEN","SHARED_SECRET_LEN"],"fn":["x25519_check_private_key_bytes","x25519_ecdh","x25519_generate_private_key","x25519_public_from_private"],"static":["CURVE25519","X25519"],"type":["PrivateKey","PublicKey","SharedSecret"]};

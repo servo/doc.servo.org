@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLLinkElement"],"fn":["get_attr","is_favicon","string_is_stylesheet"],"struct":["HTMLLinkElement","RequestGenerationId"]};

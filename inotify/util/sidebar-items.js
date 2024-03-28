@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INOTIFY_EVENT_SIZE"],"fn":["get_absolute_path_buffer_size","get_buffer_size","read_into_buffer"]};

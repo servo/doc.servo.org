@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["AVX_2","AVX_2_AND_SSE_42","NONE","SSE_42"],"mod":["avx2","runtime","sse42"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PrefixTable"],"fn":["longest_common_prefix","prefix"],"struct":["DefaultLz77Encoder","LargePrefixTable"]};

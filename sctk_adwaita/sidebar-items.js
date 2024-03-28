@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Location"],"fn":["draw_headerbar","draw_headerbar_bg","precise_location","rounded_headerbar_shape"],"mod":["buttons","config","parts","pointer","surface","theme","title"],"struct":["AdwaitaFrame","FrameConfig","Inner"],"type":["SkiaResult"]};

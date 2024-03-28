@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["calc","merge","package"],"struct":["Node"]};

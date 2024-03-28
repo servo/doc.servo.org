@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["zwlr_gamma_control_manager_v1","zwlr_gamma_control_v1"]};

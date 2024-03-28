@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllowComputationallyDependent","ComputedValue","ValueComponent"],"struct":["Parser"],"type":["SmallComponentVec"]};

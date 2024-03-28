@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LoadingError"],"macro":["define_handle","handle_nondispatchable","match_in_struct","match_out_struct","vk_bitflags_wrapped"],"mod":["device","entry","extensions","instance","prelude","util","vk"],"struct":["Device","Entry","Instance"],"trait":["RawPtr"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["builder","cursor_range","output","state","text_buffer"],"struct":["CCursorRange","CursorRange","PCursorRange","TextEdit","TextEditOutput","TextEditState"],"trait":["TextBuffer"]};

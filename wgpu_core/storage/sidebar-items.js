@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Element"],"struct":["InvalidId","Storage","StorageReport"]};

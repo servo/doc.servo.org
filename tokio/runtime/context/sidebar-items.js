@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CONTEXT"],"fn":["budget","current_task_id","defer","set_current_task_id","set_scheduler","thread_id","thread_rng_n","with_scheduler"],"mod":["blocking","current","runtime","runtime_mt","scoped"],"struct":["Context"]};

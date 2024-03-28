@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Returns an iterator over the entries within a directory."><title>read_dir in std::fs - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="std" data-themes="" data-resource-suffix="1.74.1" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items1.74.1.js"></script><script defer src="../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../std/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../../std/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In std::fs</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Function <a href="../index.html">std</a>::<wbr><a href="index.html">fs</a>::<wbr><a class="fn" href="#">read_dir</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span> · <a class="src" href="../../src/std/fs.rs.html#2446-2448">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub fn read_dir&lt;P: <a class="trait" href="../convert/trait.AsRef.html" title="trait std::convert::AsRef">AsRef</a>&lt;<a class="struct" href="../path/struct.Path.html" title="struct std::path::Path">Path</a>&gt;&gt;(path: P) -&gt; <a class="type" href="../io/type.Result.html" title="type std::io::Result">Result</a>&lt;<a class="struct" href="struct.ReadDir.html" title="struct std::fs::ReadDir">ReadDir</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Returns an iterator over the entries within a directory.</p>
+<p>The iterator will yield instances of <code><a href="../io/type.Result.html" title="type std::io::Result">io::Result</a>&lt;<a href="struct.DirEntry.html" title="struct std::fs::DirEntry">DirEntry</a>&gt;</code>.
+New errors may be encountered after an iterator is initially constructed.
+Entries for the current and parent directories (typically <code>.</code> and <code>..</code>) are
+skipped.</p>
+<h2 id="platform-specific-behavior"><a href="#platform-specific-behavior">Platform-specific behavior</a></h2>
+<p>This function currently corresponds to the <code>opendir</code> function on Unix
+and the <code>FindFirstFile</code> function on Windows. Advancing the iterator
+currently corresponds to <code>readdir</code> on Unix and <code>FindNextFile</code> on Windows.
+Note that, this <a href="../io/index.html#platform-specific-behavior" title="mod std::io">may change in the future</a>.</p>
+<p>The order in which this iterator returns entries is platform and filesystem
+dependent.</p>
+<h2 id="errors"><a href="#errors">Errors</a></h2>
+<p>This function will return an error in the following situations, but is not
+limited to just these cases:</p>
+<ul>
+<li>The provided <code>path</code> doesn’t exist.</li>
+<li>The process lacks permissions to view the contents.</li>
+<li>The <code>path</code> points at a non-directory file.</li>
+</ul>
+<h2 id="examples"><a href="#examples">Examples</a></h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::io;
+<span class="kw">use </span>std::fs::{<span class="self">self</span>, DirEntry};
+<span class="kw">use </span>std::path::Path;
+
+<span class="comment">// one possible implementation of walking a directory only visiting files
+</span><span class="kw">fn </span>visit_dirs(dir: <span class="kw-2">&amp;</span>Path, cb: <span class="kw-2">&amp;</span><span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>DirEntry)) -&gt; io::Result&lt;()&gt; {
+    <span class="kw">if </span>dir.is_dir() {
+        <span class="kw">for </span>entry <span class="kw">in </span>fs::read_dir(dir)<span class="question-mark">? </span>{
+            <span class="kw">let </span>entry = entry<span class="question-mark">?</span>;
+            <span class="kw">let </span>path = entry.path();
+            <span class="kw">if </span>path.is_dir() {
+                visit_dirs(<span class="kw-2">&amp;</span>path, cb)<span class="question-mark">?</span>;
+            } <span class="kw">else </span>{
+                cb(<span class="kw-2">&amp;</span>entry);
+            }
+        }
+    }
+    <span class="prelude-val">Ok</span>(())
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Ause+std::io;%0Ause+std::fs::%7Bself,+DirEntry%7D;%0Ause+std::path::Path;%0A%0A//+one+possible+implementation+of+walking+a+directory+only+visiting+files%0Afn+visit_dirs(dir:+%26Path,+cb:+%26dyn+Fn(%26DirEntry))+-%3E+io::Result%3C()%3E+%7B%0A++++if+dir.is_dir()+%7B%0A++++++++for+entry+in+fs::read_dir(dir)?+%7B%0A++++++++++++let+entry+=+entry?;%0A++++++++++++let+path+=+entry.path();%0A++++++++++++if+path.is_dir()+%7B%0A++++++++++++++++visit_dirs(%26path,+cb)?;%0A++++++++++++%7D+else+%7B%0A++++++++++++++++cb(%26entry);%0A++++++++++++%7D%0A++++++++%7D%0A++++%7D%0A++++Ok(())%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::{fs, io};
+
+<span class="kw">fn </span>main() -&gt; io::Result&lt;()&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>entries = fs::read_dir(<span class="string">&quot;.&quot;</span>)<span class="question-mark">?
+        </span>.map(|res| res.map(|e| e.path()))
+        .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;, io::Error&gt;&gt;()<span class="question-mark">?</span>;
+
+    <span class="comment">// The order in which `read_dir` returns entries is not guaranteed. If reproducible
+    // ordering is required the entries should be explicitly sorted.
+
+    </span>entries.sort();
+
+    <span class="comment">// The entries have now been sorted by their path.
+
+    </span><span class="prelude-val">Ok</span>(())
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Ause+std::%7Bfs,+io%7D;%0A%0Afn+main()+-%3E+io::Result%3C()%3E+%7B%0A++++let+mut+entries+=+fs::read_dir(%22.%22)?%0A++++++++.map(%7Cres%7C+res.map(%7Ce%7C+e.path()))%0A++++++++.collect::%3CResult%3CVec%3C_%3E,+io::Error%3E%3E()?;%0A%0A++++//+The+order+in+which+%60read_dir%60+returns+entries+is+not+guaranteed.+If+reproducible%0A++++//+ordering+is+required+the+entries+should+be+explicitly+sorted.%0A%0A++++entries.sort();%0A%0A++++//+The+entries+have+now+been+sorted+by+their+path.%0A%0A++++Ok(())%0A%7D&amp;edition=2021">Run</a></div>
+</div></details></section></div></main></body></html>

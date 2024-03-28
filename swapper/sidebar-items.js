@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["swapper"],"struct":["SwapError","Swapper"]};

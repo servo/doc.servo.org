@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"layout_2013":[["impl <a class=\"trait\" href=\"script_layout_interface/rpc/trait.LayoutRPC.html\" title=\"trait script_layout_interface::rpc::LayoutRPC\">LayoutRPC</a> for <a class=\"struct\" href=\"layout_2013/query/struct.LayoutRPCImpl.html\" title=\"struct layout_2013::query::LayoutRPCImpl\">LayoutRPCImpl</a>"]],
+"layout_2020":[["impl <a class=\"trait\" href=\"script_layout_interface/rpc/trait.LayoutRPC.html\" title=\"trait script_layout_interface::rpc::LayoutRPC\">LayoutRPC</a> for <a class=\"struct\" href=\"layout_2020/query/struct.LayoutRPCImpl.html\" title=\"struct layout_2020::query::LayoutRPCImpl\">LayoutRPCImpl</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

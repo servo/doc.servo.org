@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["physical_rect_to_au_rect"],"struct":["LogicalRect","LogicalSides","LogicalVec2"],"type":["AuOrAuto","LengthOrAuto","LengthPercentageOrAuto","PhysicalPoint","PhysicalRect","PhysicalSides","PhysicalSize"]};

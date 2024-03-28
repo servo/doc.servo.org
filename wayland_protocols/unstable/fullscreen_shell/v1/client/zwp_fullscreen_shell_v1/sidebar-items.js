@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_CAPABILITY_SINCE","REQ_PRESENT_SURFACE_FOR_MODE_SINCE","REQ_PRESENT_SURFACE_SINCE","REQ_RELEASE_SINCE"],"enum":["Capability","Error","Event","PresentMethod","Request"],"static":["zwp_fullscreen_shell_v1_events","zwp_fullscreen_shell_v1_interface","zwp_fullscreen_shell_v1_requests"],"struct":["ZwpFullscreenShellV1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["attr_to_pref_name","err"],"macro":["build_structs"],"mod":["parse"],"struct":["Build"]};

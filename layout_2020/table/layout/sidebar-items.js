@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_outer_sizes_from_style","get_size_percentage_contribution_from_style"],"struct":["CellLayout","CellOrTrackMeasure","ColumnLayout","RowFragmentLayout","RowGroupFragmentLayout","RowLayout","RowspanToDistribute","TableAndTrackDimensions","TableLayout"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Directed","Direction","Undirected"],"macro":["copyclone"],"mod":["algo","astar","csr","data","dijkstra","dot","graph","graph_impl","graphmap","isomorphism","iter_format","iter_utils","macros","prelude","scored","stable_graph","traits_graph","unionfind","util","visit"],"trait":["EdgeType","IntoWeightedEdge"]};

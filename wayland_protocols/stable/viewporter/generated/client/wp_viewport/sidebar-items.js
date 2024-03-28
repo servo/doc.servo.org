@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_SET_DESTINATION_SINCE","REQ_SET_SOURCE_SINCE"],"enum":["Error","Event","Request"],"static":["wp_viewport_interface","wp_viewport_requests"],"struct":["WpViewport"]};

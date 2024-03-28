@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_SETTINGS_MAX_HEADER_LIST_SIZE"],"enum":["Continuable"],"fn":["decode_frame","map_err"],"struct":["FramedRead","Partial"]};

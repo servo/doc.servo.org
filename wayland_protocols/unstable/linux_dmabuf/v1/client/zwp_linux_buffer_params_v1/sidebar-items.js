@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_CREATED_SINCE","EVT_FAILED_SINCE","REQ_ADD_SINCE","REQ_CREATE_IMMED_SINCE","REQ_CREATE_SINCE","REQ_DESTROY_SINCE"],"enum":["Error","Event","Request"],"static":["zwp_linux_buffer_params_v1_events","zwp_linux_buffer_params_v1_interface","zwp_linux_buffer_params_v1_requests"],"struct":["Flags","ZwpLinuxBufferParamsV1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_CREATE_VIRTUAL_POINTER_SINCE","REQ_CREATE_VIRTUAL_POINTER_WITH_OUTPUT_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwlr_virtual_pointer_manager_v1_interface","zwlr_virtual_pointer_manager_v1_requests"],"struct":["ZwlrVirtualPointerManagerV1"]};

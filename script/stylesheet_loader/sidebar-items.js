@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StylesheetContextSource"],"fn":["stylesheet_fetch_request"],"struct":["StylesheetContext","StylesheetLoader"],"trait":["StylesheetOwner"]};

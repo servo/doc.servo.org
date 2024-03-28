@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["duration_from_seconds"],"struct":["Profiler"],"trait":["Formattable"],"type":["ProfilerBuckets"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["video_filter_set_info","video_filter_transform_frame","video_filter_transform_frame_ip"],"mod":["sealed"],"trait":["VideoFilterImpl","VideoFilterImplExt"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_FRAME_SINCE","EVT_POSITION_SINCE","EVT_SOURCE_SINCE","EVT_STOP_SINCE","REQ_DESTROY_SINCE","REQ_SET_FEEDBACK_SINCE"],"enum":["Event","Request","Source"],"static":["zwp_tablet_pad_strip_v2_events","zwp_tablet_pad_strip_v2_interface","zwp_tablet_pad_strip_v2_requests"],"struct":["ZwpTabletPadStripV2"]};

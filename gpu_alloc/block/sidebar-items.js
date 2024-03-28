@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MemoryBlockFlavor"],"fn":["acquire_mapping","release_mapping"],"struct":["MemoryBlock","Relevant"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_BLOCK_SIZE","MAX_NON_COMPRESSED_BLOCK_SIZE"],"enum":["BlockBuf"],"struct":["Block","CompressBuf","EncodeOptions","Encoder","RawBuf"]};

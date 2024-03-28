@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_TEXT_INPUT_RECTANGLE_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwp_input_popup_surface_v2_events","zwp_input_popup_surface_v2_interface","zwp_input_popup_surface_v2_requests"],"struct":["ZwpInputPopupSurfaceV2"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INIT_BUFFER_SIZE"],"enum":["DecoderType","Error","Inner","PeekedState","ReadState","StreamState"],"fn":["poll_with_read"],"struct":["Brotli","Decoder","Deflate","Gzip","Peeked","Pending","ReadableChunks"]};

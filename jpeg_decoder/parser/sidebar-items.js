@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AdobeColorTransform","AppData","CodingProcess","EntropyCoding","Predictor"],"fn":["ceil_div","parse_app","parse_com","parse_dht","parse_dqt","parse_dri","parse_sof","parse_sos","read_length","skip_bytes","update_component_sizes"],"struct":["Component","Dimensions","FrameInfo","IccChunk","ScanInfo"]};

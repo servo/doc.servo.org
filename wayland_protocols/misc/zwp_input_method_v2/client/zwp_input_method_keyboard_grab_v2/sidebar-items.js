@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_KEYMAP_SINCE","EVT_KEY_SINCE","EVT_MODIFIERS_SINCE","EVT_REPEAT_INFO_SINCE","REQ_RELEASE_SINCE"],"enum":["Event","Request"],"static":["zwp_input_method_keyboard_grab_v2_events","zwp_input_method_keyboard_grab_v2_interface","zwp_input_method_keyboard_grab_v2_requests"],"struct":["ZwpInputMethodKeyboardGrabV2"]};

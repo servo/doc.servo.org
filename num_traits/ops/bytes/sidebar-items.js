@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["float_to_from_bytes_impl","int_to_from_bytes_impl"],"trait":["FromBytes","NumBytes","ToBytes"]};

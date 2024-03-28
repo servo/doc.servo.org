@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_CREATE_DATA_SOURCE_SINCE","REQ_GET_DATA_DEVICE_SINCE"],"enum":["Event","Request"],"static":["wl_data_device_manager_interface","wl_data_device_manager_requests","wl_data_device_manager_requests_create_data_source_types","wl_data_device_manager_requests_get_data_device_types"],"struct":["DndAction","WlDataDeviceManager"]};

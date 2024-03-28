@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["padded_size","padding_needed_for","to_shmem_slice","to_shmem_slice_ptr"],"macro":["impl_trivial_to_shmem"],"struct":["SharedMemoryBuilder"],"trait":["ToShmem"],"type":["Result"]};

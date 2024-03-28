@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["sort"],"macro":["float_ord_impl"],"struct":["FloatOrd"]};

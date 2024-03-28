@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NFS_SUPER_MAGIC","PROC_SUPER_MAGIC"],"fn":["_is_file_read_write","fallocate","fchmod","fchown","fdatasync","flock","fstat","fstatfs","fstatvfs","fsync","ftruncate","futimens","is_file_read_write","seek","syncfs","tell"],"struct":["Timestamps"]};

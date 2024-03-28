@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["connect","connect_addr","local_addr","pair","peer_addr"]};

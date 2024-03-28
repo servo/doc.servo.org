@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AboveOrBelow"],"mod":["area","collapsing_header","combo_box","frame","panel","popup","resize","scroll_area","window"],"struct":["Area","ComboBox","Frame","Resize","Window"],"type":["IconPainter"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DESIRED_NUM_FRAMES","FRAME_TIMEOUT_MS"],"enum":["ConfigureSurfaceError","SurfaceError"],"struct":["Presentation","SurfaceOutput"]};

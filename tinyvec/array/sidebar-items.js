@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["generated_impl"],"trait":["Array"]};

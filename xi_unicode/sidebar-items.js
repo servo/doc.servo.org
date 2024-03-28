@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["linebreak_property","linebreak_property_str"],"mod":["tables"],"struct":["LineBreakIterator","LineBreakLeafIter"]};

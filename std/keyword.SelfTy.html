@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The implementing type within a `trait` or `impl` block, or the current type within a type definition."><title>SelfTy - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="std" data-themes="" data-resource-suffix="1.74.1" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items1.74.1.js"></script><script defer src="../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc keyword"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In std</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Keyword <a class="keyword" href="#">SelfTy</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/std/keyword_docs.rs.html#1393">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The implementing type within a <a href="keyword.trait.html"><code>trait</code></a> or <a href="keyword.impl.html"><code>impl</code></a> block, or the current type within a type
+definition.</p>
+<p>Within a type definition:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>Node {
+    elem: i32,
+    <span class="comment">// `Self` is a `Node` here.
+    </span>next: <span class="prelude-ty">Option</span>&lt;Box&lt;<span class="self">Self</span>&gt;&gt;,
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(dead_code)%5D%0Afn+main()+%7B%0Astruct+Node+%7B%0A++++elem:+i32,%0A++++//+%60Self%60+is+a+%60Node%60+here.%0A++++next:+Option%3CBox%3CSelf%3E%3E,%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p>In an <a href="keyword.impl.html"><code>impl</code></a> block:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>Foo(i32);
+
+<span class="kw">impl </span>Foo {
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>(<span class="number">0</span>)
+    }
+}
+
+<span class="macro">assert_eq!</span>(Foo::new().<span class="number">0</span>, Foo(<span class="number">0</span>).<span class="number">0</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Astruct+Foo(i32);%0A%0Aimpl+Foo+%7B%0A++++fn+new()+-%3E+Self+%7B%0A++++++++Self(0)%0A++++%7D%0A%7D%0A%0Aassert_eq!(Foo::new().0,+Foo(0).0);%0A%7D&amp;edition=2021">Run</a></div>
+<p>Generic parameters are implicit with <code>Self</code>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>Wrap&lt;T&gt; {
+    elem: T,
+}
+
+<span class="kw">impl</span>&lt;T&gt; Wrap&lt;T&gt; {
+    <span class="kw">fn </span>new(elem: T) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{ elem }
+    }
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(dead_code)%5D%0Afn+main()+%7B%0Astruct+Wrap%3CT%3E+%7B%0A++++elem:+T,%0A%7D%0A%0Aimpl%3CT%3E+Wrap%3CT%3E+%7B%0A++++fn+new(elem:+T)+-%3E+Self+%7B%0A++++++++Self+%7B+elem+%7D%0A++++%7D%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p>In a <a href="keyword.trait.html"><code>trait</code></a> definition and related <a href="keyword.impl.html"><code>impl</code></a> block:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">trait </span>Example {
+    <span class="kw">fn </span>example() -&gt; <span class="self">Self</span>;
+}
+
+<span class="kw">struct </span>Foo(i32);
+
+<span class="kw">impl </span>Example <span class="kw">for </span>Foo {
+    <span class="kw">fn </span>example() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>(<span class="number">42</span>)
+    }
+}
+
+<span class="macro">assert_eq!</span>(Foo::example().<span class="number">0</span>, Foo(<span class="number">42</span>).<span class="number">0</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Atrait+Example+%7B%0A++++fn+example()+-%3E+Self;%0A%7D%0A%0Astruct+Foo(i32);%0A%0Aimpl+Example+for+Foo+%7B%0A++++fn+example()+-%3E+Self+%7B%0A++++++++Self(42)%0A++++%7D%0A%7D%0A%0Aassert_eq!(Foo::example().0,+Foo(42).0);%0A%7D&amp;edition=2021">Run</a></div>
+</div></details></section></div></main></body></html>

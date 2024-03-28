@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["sAttributes","sAttributes_specs","style_getterinfo","style_setterinfo"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap","_finalize","_trace","get_style","set_style"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["SVGElementMethods"]};

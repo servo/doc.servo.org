@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A type that is composed of other types."><title>struct - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="std" data-themes="" data-resource-suffix="1.74.1" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items1.74.1.js"></script><script defer src="../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc keyword"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In std</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Keyword <a class="keyword" href="#">struct</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/std/keyword_docs.rs.html#1581">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A type that is composed of other types.</p>
+<p>Structs in Rust come in three flavors: Structs with named fields, tuple structs, and unit
+structs.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>Regular {
+    field1: f32,
+    field2: String,
+    <span class="kw">pub </span>field3: bool
+}
+
+<span class="kw">struct </span>Tuple(u32, String);
+
+<span class="kw">struct </span>Unit;</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Astruct+Regular+%7B%0A++++field1:+f32,%0A++++field2:+String,%0A++++pub+field3:+bool%0A%7D%0A%0Astruct+Tuple(u32,+String);%0A%0Astruct+Unit;%0A%7D&amp;edition=2021">Run</a></div>
+<p>Regular structs are the most commonly used. Each field defined within them has a name and a
+type, and once defined can be accessed using <code>example_struct.field</code> syntax. The fields of a
+struct share its mutability, so <code>foo.bar = 2;</code> would only be valid if <code>foo</code> was mutable. Adding
+<code>pub</code> to a field makes it visible to code in other modules, as well as allowing it to be
+directly accessed and modified.</p>
+<p>Tuple structs are similar to regular structs, but its fields have no names. They are used like
+tuples, with deconstruction possible via <code>let TupleStruct(x, y) = foo;</code> syntax. For accessing
+individual variables, the same syntax is used as with regular tuples, namely <code>foo.0</code>, <code>foo.1</code>,
+etc, starting at zero.</p>
+<p>Unit structs are most commonly used as marker. They have a size of zero bytes, but unlike empty
+enums they can be instantiated, making them isomorphic to the unit type <code>()</code>. Unit structs are
+useful when you need to implement a trait on something, but don’t need to store any data inside
+it.</p>
+<h2 id="instantiation"><a href="#instantiation">Instantiation</a></h2>
+<p>Structs can be instantiated in different ways, all of which can be mixed and
+matched as needed. The most common way to make a new struct is via a constructor method such as
+<code>new()</code>, but when that isn’t available (or you’re writing the constructor itself), struct
+literal syntax is used:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>example = Foo {
+    field1: <span class="number">42.0</span>,
+    field2: <span class="string">&quot;blah&quot;</span>.to_string(),
+    etc: <span class="bool-val">true</span>,
+};</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Astruct+Foo+%7B+field1:+f32,+field2:+String,+etc:+bool+%7D%0Alet+example+=+Foo+%7B%0A++++field1:+42.0,%0A++++field2:+%22blah%22.to_string(),%0A++++etc:+true,%0A%7D;%0A%7D&amp;edition=2021">Run</a></div>
+<p>It’s only possible to directly instantiate a struct using struct literal syntax when all of its
+fields are visible to you.</p>
+<p>There are a handful of shortcuts provided to make writing constructors more convenient, most
+common of which is the Field Init shorthand. When there is a variable and a field of the same
+name, the assignment can be simplified from <code>field: field</code> into simply <code>field</code>. The following
+example of a hypothetical constructor demonstrates this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>User {
+    name: String,
+    admin: bool,
+}
+
+<span class="kw">impl </span>User {
+    <span class="kw">pub fn </span>new(name: String) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            name,
+            admin: <span class="bool-val">false</span>,
+        }
+    }
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Astruct+User+%7B%0A++++name:+String,%0A++++admin:+bool,%0A%7D%0A%0Aimpl+User+%7B%0A++++pub+fn+new(name:+String)+-%3E+Self+%7B%0A++++++++Self+%7B%0A++++++++++++name,%0A++++++++++++admin:+false,%0A++++++++%7D%0A++++%7D%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p>Another shortcut for struct instantiation is available, used when you need to make a new
+struct that has the same values as most of a previous struct of the same type, called struct
+update syntax:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>updated_thing = Foo {
+    field1: <span class="string">&quot;a new value&quot;</span>.to_string(),
+    ..thing
+};</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Astruct+Foo+%7B+field1:+String,+field2:+()+%7D%0Alet+thing+=+Foo+%7B+field1:+%22%22.to_string(),+field2:+()+%7D;%0Alet+updated_thing+=+Foo+%7B%0A++++field1:+%22a+new+value%22.to_string(),%0A++++..thing%0A%7D;%0A%7D&amp;edition=2021">Run</a></div>
+<p>Tuple structs are instantiated in the same way as tuples themselves, except with the struct’s
+name as a prefix: <code>Foo(123, false, 0.1)</code>.</p>
+<p>Empty structs are instantiated with just their name, and don’t need anything else. <code>let thing = EmptyStruct;</code></p>
+<h2 id="style-conventions"><a href="#style-conventions">Style conventions</a></h2>
+<p>Structs are always written in UpperCamelCase, with few exceptions. While the trailing comma on a
+struct’s list of fields can be omitted, it’s usually kept for convenience in adding and
+removing fields down the line.</p>
+<p>For more information on structs, take a look at the <a href="../book/ch05-01-defining-structs.html">Rust Book</a> or the
+<a href="../reference/items/structs.html">Reference</a>.</p>
+</div></details></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_RELEASE_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["wl_buffer_events","wl_buffer_interface","wl_buffer_requests"],"struct":["WlBuffer"]};

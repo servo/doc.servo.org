@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HandleError"],"fn":["_not_send_or_sync"],"mod":["imp"],"struct":["Active","ActiveHandle","DisplayHandle","WindowHandle"],"trait":["HasDisplayHandle","HasWindowHandle"]};

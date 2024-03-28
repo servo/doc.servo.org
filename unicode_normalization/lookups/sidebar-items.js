@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bool_lookup_fk","bool_lookup_fv","canonical_combining_class","canonical_fully_decomposed","cjk_compat_variants_fully_decomposed","compatibility_fully_decomposed","composition_table","is_combining_mark","pair_lookup_fk","pair_lookup_fv_opt","stream_safe_trailing_nonstarters","u8_lookup_fk","u8_lookup_fv"]};

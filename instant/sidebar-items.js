@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["now"],"mod":["native"],"struct":["Duration"],"type":["Instant","SystemTime"]};

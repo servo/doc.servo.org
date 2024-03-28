@@ -1,0 +1,396 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Defining Lints - Clippy Documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../installation.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../usage.html"><strong aria-hidden="true">2.</strong> Usage</a></li><li class="chapter-item expanded "><a href="../configuration.html"><strong aria-hidden="true">3.</strong> Configuration</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../lint_configuration.html"><strong aria-hidden="true">3.1.</strong> Lint Configuration</a></li></ol></li><li class="chapter-item expanded "><a href="../lints.html"><strong aria-hidden="true">4.</strong> Clippy's Lints</a></li><li class="chapter-item expanded "><a href="../continuous_integration/index.html"><strong aria-hidden="true">5.</strong> Continuous Integration</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../continuous_integration/github_actions.html"><strong aria-hidden="true">5.1.</strong> GitHub Actions</a></li><li class="chapter-item expanded "><a href="../continuous_integration/travis.html"><strong aria-hidden="true">5.2.</strong> Travis CI</a></li></ol></li><li class="chapter-item expanded "><a href="../development/index.html"><strong aria-hidden="true">6.</strong> Development</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../development/basics.html"><strong aria-hidden="true">6.1.</strong> Basics</a></li><li class="chapter-item expanded "><a href="../development/adding_lints.html"><strong aria-hidden="true">6.2.</strong> Adding Lints</a></li><li class="chapter-item expanded "><a href="../development/defining_lints.html" class="active"><strong aria-hidden="true">6.3.</strong> Defining Lints</a></li><li class="chapter-item expanded "><a href="../development/writing_tests.html"><strong aria-hidden="true">6.4.</strong> Writing tests</a></li><li class="chapter-item expanded "><a href="../development/lint_passes.html"><strong aria-hidden="true">6.5.</strong> Lint Passes</a></li><li class="chapter-item expanded "><a href="../development/emitting_lints.html"><strong aria-hidden="true">6.6.</strong> Emitting lints</a></li><li class="chapter-item expanded "><a href="../development/type_checking.html"><strong aria-hidden="true">6.7.</strong> Type Checking</a></li><li class="chapter-item expanded "><a href="../development/trait_checking.html"><strong aria-hidden="true">6.8.</strong> Trait Checking</a></li><li class="chapter-item expanded "><a href="../development/method_checking.html"><strong aria-hidden="true">6.9.</strong> Method Checking</a></li><li class="chapter-item expanded "><a href="../development/macro_expansions.html"><strong aria-hidden="true">6.10.</strong> Macro Expansions</a></li><li class="chapter-item expanded "><a href="../development/common_tools_writing_lints.html"><strong aria-hidden="true">6.11.</strong> Common Tools</a></li><li class="chapter-item expanded "><a href="../development/infrastructure/index.html"><strong aria-hidden="true">6.12.</strong> Infrastructure</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../development/infrastructure/sync.html"><strong aria-hidden="true">6.12.1.</strong> Syncing changes between Clippy and rust-lang/rust</a></li><li class="chapter-item expanded "><a href="../development/infrastructure/backport.html"><strong aria-hidden="true">6.12.2.</strong> Backporting Changes</a></li><li class="chapter-item expanded "><a href="../development/infrastructure/changelog_update.html"><strong aria-hidden="true">6.12.3.</strong> Updating the Changelog</a></li><li class="chapter-item expanded "><a href="../development/infrastructure/release.html"><strong aria-hidden="true">6.12.4.</strong> Release a New Version</a></li><li class="chapter-item expanded "><a href="../development/infrastructure/book.html"><strong aria-hidden="true">6.12.5.</strong> The Clippy Book</a></li></ol></li><li class="chapter-item expanded "><a href="../development/proposals/index.html"><strong aria-hidden="true">6.13.</strong> Proposals</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../development/proposals/roadmap-2021.html"><strong aria-hidden="true">6.13.1.</strong> Roadmap 2021</a></li><li class="chapter-item expanded "><a href="../development/proposals/syntax-tree-patterns.html"><strong aria-hidden="true">6.13.2.</strong> Syntax Tree Patterns</a></li></ol></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Clippy Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/rust-clippy/tree/master/book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/rust-lang/rust-clippy/edit/master/book/src/development/defining_lints.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="define-new-lints"><a class="header" href="#define-new-lints">Define New Lints</a></h1>
+<p>The first step in the journey of a new lint is the definition
+and registration of the lint in Clippy's codebase.
+We can use the Clippy dev tools to handle this step since setting up the
+lint involves some boilerplate code.</p>
+<h4 id="lint-types"><a class="header" href="#lint-types">Lint types</a></h4>
+<p>A lint type is the category of items and expressions in which your lint focuses on.</p>
+<p>As of the writing of this documentation update, there are 12 <em>types</em> of lints
+besides the numerous standalone lints living under <code>clippy_lints/src/</code>:</p>
+<ul>
+<li><code>cargo</code></li>
+<li><code>casts</code></li>
+<li><code>functions</code></li>
+<li><code>loops</code></li>
+<li><code>matches</code></li>
+<li><code>methods</code></li>
+<li><code>misc_early</code></li>
+<li><code>operators</code></li>
+<li><code>transmute</code></li>
+<li><code>types</code></li>
+<li><code>unit_types</code></li>
+<li><code>utils / internal</code> (Clippy internal lints)</li>
+</ul>
+<p>These types group together lints that share some common behaviors. For instance,
+<code>functions</code> groups together lints that deal with some aspects of functions in
+Rust, like definitions, signatures and attributes.</p>
+<p>For more information, feel free to compare the lint files under any category
+with <a href="https://rust-lang.github.io/rust-clippy/master/">All Clippy lints</a> or ask one of the maintainers.</p>
+<h2 id="lint-name"><a class="header" href="#lint-name">Lint name</a></h2>
+<p>A good lint name is important, make sure to check the <a href="https://rust-lang.github.io/rfcs/0344-conventions-galore.html#lints">lint naming
+guidelines</a>. Don't worry, if the lint name doesn't fit, a Clippy
+team member will alert you in the PR process.</p>
+<hr />
+<p>We'll name our example lint that detects functions named &quot;foo&quot; <code>foo_functions</code>.
+Check the <a href="https://rust-lang.github.io/rfcs/0344-conventions-galore.html#lints">lint naming guidelines</a> to see why this name makes
+sense.</p>
+<h2 id="add-and-register-the-lint"><a class="header" href="#add-and-register-the-lint">Add and Register the Lint</a></h2>
+<p>Now that a name is chosen, we shall register <code>foo_functions</code> as a lint to the
+codebase. There are two ways to register a lint.</p>
+<h3 id="standalone"><a class="header" href="#standalone">Standalone</a></h3>
+<p>If you believe that this new lint is a standalone lint (that doesn't belong to
+any specific <a href="#lint-types">type</a> like <code>functions</code> or <code>loops</code>), you can run the
+following command in your Clippy project:</p>
+<pre><code class="language-sh">$ cargo dev new_lint --name=lint_name --pass=late --category=pedantic
+</code></pre>
+<p>There are two things to note here:</p>
+<ol>
+<li><code>--pass</code>: We set <code>--pass=late</code> in this command to do a late lint pass. The
+alternative is an <code>early</code> lint pass. We will discuss this difference in a
+later chapter.<!-- FIXME: Link that "later chapter" when lint_passes.md is merged -->
+</li>
+<li><code>--category</code>: If not provided, the <code>category</code> of this new lint will default
+to <code>nursery</code>.</li>
+</ol>
+<p>The <code>cargo dev new_lint</code> command will create a new file:
+<code>clippy_lints/src/foo_functions.rs</code> as well as <a href="#lint-registration">register the
+lint</a>.</p>
+<p>Overall, you should notice that the following files are modified or created:</p>
+<pre><code class="language-sh">$ git status
+On branch foo_functions
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
+	modified:   CHANGELOG.md
+	modified:   clippy_lints/src/lib.register_lints.rs
+	modified:   clippy_lints/src/lib.register_pedantic.rs
+	modified:   clippy_lints/src/lib.rs
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+	clippy_lints/src/foo_functions.rs
+	tests/ui/foo_functions.rs
+</code></pre>
+<h3 id="specific-type"><a class="header" href="#specific-type">Specific Type</a></h3>
+<blockquote>
+<p><strong>Note</strong>: Lint types are listed in the <a href="#lint-types">&quot;Lint types&quot;</a> section</p>
+</blockquote>
+<p>If you believe that this new lint belongs to a specific type of lints,
+you can run <code>cargo dev new_lint</code> with a <code>--type</code> option.</p>
+<p>Since our <code>foo_functions</code> lint is related to function calls, one could
+argue that we should put it into a group of lints that detect some behaviors
+of functions, we can put it in the <code>functions</code> group.</p>
+<p>Let's run the following command in your Clippy project:</p>
+<pre><code class="language-sh">$ cargo dev new_lint --name=foo_functions --type=functions --category=pedantic
+</code></pre>
+<p>This command will create, among other things, a new file:
+<code>clippy_lints/src/{type}/foo_functions.rs</code>.
+In our case, the path will be <code>clippy_lints/src/functions/foo_functions.rs</code>.</p>
+<p>Notice how this command has a <code>--type</code> flag instead of <code>--pass</code>. Unlike a standalone
+definition, this lint won't be registered in the traditional sense. Instead, you will
+call your lint from within the type's lint pass, found in <code>clippy_lints/src/{type}/mod.rs</code>.</p>
+<p>A <em>type</em> is just the name of a directory in <code>clippy_lints/src</code>, like <code>functions</code> in
+the example command. Clippy groups together some lints that share common behaviors,
+so if your lint falls into one, it would be best to add it to that type.</p>
+<p>Overall, you should notice that the following files are modified or created:</p>
+<pre><code class="language-sh">$ git status
+On branch foo_functions
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
+	modified:   CHANGELOG.md
+	modified:   clippy_lints/src/declared_lints.rs
+	modified:   clippy_lints/src/functions/mod.rs
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+	clippy_lints/src/functions/foo_functions.rs
+	tests/ui/foo_functions.rs
+</code></pre>
+<h2 id="the-define_clippy_lints-macro"><a class="header" href="#the-define_clippy_lints-macro">The <code>define_clippy_lints</code> macro</a></h2>
+<p>After <code>cargo dev new_lint</code>, you should see a macro with the name
+<code>define_clippy_lints</code>. It will be in the same file if you defined a standalone
+lint, and it will be in <code>mod.rs</code> if you defined a type-specific lint.</p>
+<p>The macro looks something like this:</p>
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>declare_clippy_lint! {
+    /// ### What it does
+    ///
+    /// // Describe here what does the lint do.
+    ///
+    /// Triggers when detects...
+    ///
+    /// ### Why is this bad?
+    ///
+    /// // Describe why this pattern would be bad
+    ///
+    /// It can lead to...
+    ///
+    /// ### Example
+    /// ```rust
+    /// // example code where clippy issues a warning
+    /// ```
+    /// Use instead:
+    /// ```rust
+    /// // example code which does not raise clippy warning
+    /// ```
+    #[clippy::version = &quot;1.70.0&quot;] // &lt;- In which version was this implemented, keep it up to date!
+    pub LINT_NAME, // &lt;- The lint name IN_ALL_CAPS
+    pedantic, // &lt;- The lint group
+    &quot;default lint description&quot; // &lt;- A lint description, e.g. &quot;A function has an unit return type.&quot;
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="lint-registration"><a class="header" href="#lint-registration">Lint registration</a></h2>
+<p>If we run the <code>cargo dev new_lint</code> command for a new lint, the lint will be
+automatically registered and there is nothing more to do.</p>
+<p>However, sometimes we might want to declare a new lint by hand. In this case,
+we'd use <code>cargo dev update_lints</code> command afterwards.</p>
+<p>When a lint is manually declared, we might need to register the lint pass
+manually in the <code>register_plugins</code> function in <code>clippy_lints/src/lib.rs</code>:</p>
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>store.register_late_pass(|_| Box::new(foo_functions::FooFunctions));
+<span class="boring">}</span></code></pre></pre>
+<p>As you might have guessed, where there's something late, there is something
+early: in Clippy there is a <code>register_early_pass</code> method as well. More on early
+vs. late passes in a later chapter.</p>
+<!-- FIXME: Link that "later chapter" when lint_passes.md is merged -->
+<p>Without a call to one of <code>register_early_pass</code> or <code>register_late_pass</code>, the lint
+pass in question will not be run.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../development/adding_lints.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../development/writing_tests.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../development/adding_lints.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../development/writing_tests.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

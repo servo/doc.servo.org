@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DataSourceEvent"],"fn":["data_source_impl"],"struct":["DataSource","WritePipe"]};

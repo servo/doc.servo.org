@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_INHIBIT_SHORTCUTS_SINCE"],"enum":["Error","Event","Request"],"static":["zwp_keyboard_shortcuts_inhibit_manager_v1_interface","zwp_keyboard_shortcuts_inhibit_manager_v1_requests","zwp_keyboard_shortcuts_inhibit_manager_v1_requests_inhibit_shortcuts_types"],"struct":["ZwpKeyboardShortcutsInhibitManagerV1"]};

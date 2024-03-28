@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Leaf","MathFunction"],"fn":["nan_inf_enabled","trig_enabled"],"struct":["CalcLengthPercentage"],"type":["CalcNode"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwlr_input_inhibitor_v1_interface","zwlr_input_inhibitor_v1_requests"],"struct":["ZwlrInputInhibitorV1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BlockType"],"fn":["parse_family_name_list","update_or_push"],"macro":["font_feature_values_blocks"],"struct":["FFVDeclaration","FFVDeclarationsParser","FontFeatureValuesRule","FontFeatureValuesRuleParser","PairValues","SingleValue","VectorValues"]};

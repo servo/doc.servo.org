@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LineStyle","MarkerShape","Orientation","PlotGeometry","PlotPoints"],"struct":["ClosestElem","ExplicitGenerator","PlotPoint"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_BLOCK_SIZE"],"enum":["BlockType"],"mod":["decode","encode","symbol"],"struct":["Decoder","EncodeOptions","Encoder"]};

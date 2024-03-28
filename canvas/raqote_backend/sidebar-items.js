@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Pattern","Repetition"],"fn":["clamp_floor_256_f32","clamp_unit_f32","create_gradient_stops"],"struct":["LinearGradientPattern","PathBuilder","RadialGradientPattern","RaqoteBackend","SurfacePattern"],"trait":["ToRaqoteGradientStop","ToRaqotePattern","ToRaqoteStyle"]};

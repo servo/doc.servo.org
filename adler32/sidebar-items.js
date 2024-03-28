@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BASE","NMAX"],"fn":["adler32","do1","do16","do2","do4","do8"],"struct":["RollingAdler32"]};

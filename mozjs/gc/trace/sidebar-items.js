@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ROOTED_TRACEABLES"],"fn":["trace_traceables"],"macro":["impl_traceable_fnptr","impl_traceable_simple","impl_traceable_tuple"],"struct":["RootedTraceableSet"],"trait":["Traceable"]};

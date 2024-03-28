@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["Alphabetic_table"],"fn":["Alphabetic"]};

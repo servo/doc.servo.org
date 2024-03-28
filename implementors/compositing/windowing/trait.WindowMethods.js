@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"servoshell":[["impl <a class=\"trait\" href=\"compositing/windowing/trait.WindowMethods.html\" title=\"trait compositing::windowing::WindowMethods\">WindowMethods</a> for <a class=\"struct\" href=\"servoshell/headless_window/struct.Window.html\" title=\"struct servoshell::headless_window::Window\">Window</a>"],["impl <a class=\"trait\" href=\"compositing/windowing/trait.WindowMethods.html\" title=\"trait compositing::windowing::WindowMethods\">WindowMethods</a> for <a class=\"struct\" href=\"servoshell/headed_window/struct.Window.html\" title=\"struct servoshell::headed_window::Window\">Window</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

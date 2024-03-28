@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["get_inner_and_call","get_inner_and_call_test_func"]};

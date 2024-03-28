@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["VisibilityState"],"fn":["compute_conservative_visible_rect","update_prim_visibility"],"struct":["FrameVisibilityContext","FrameVisibilityState","PrimitiveVisibility","PrimitiveVisibilityFlags"]};

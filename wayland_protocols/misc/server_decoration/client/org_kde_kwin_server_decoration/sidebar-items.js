@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_MODE_SINCE","REQ_RELEASE_SINCE","REQ_REQUEST_MODE_SINCE"],"enum":["Event","Mode","Request"],"static":["org_kde_kwin_server_decoration_events","org_kde_kwin_server_decoration_interface","org_kde_kwin_server_decoration_requests"],"struct":["OrgKdeKwinServerDecoration"]};

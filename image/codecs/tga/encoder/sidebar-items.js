@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_RUN_LENGTH"],"enum":["EncoderError","PacketType"],"struct":["TgaEncoder"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INITIAL_REFLOW_DELAY","_IMPL_DOMOBJECT_FOR_HTMLBodyElement"],"struct":["HTMLBodyElement"],"trait":["HTMLBodyElementLayoutHelpers"]};

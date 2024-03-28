@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_GET_TOPLEVEL_DECORATION_SINCE"],"enum":["Event","Request"],"static":["zxdg_decoration_manager_v1_interface","zxdg_decoration_manager_v1_requests","zxdg_decoration_manager_v1_requests_get_toplevel_decoration_types"],"struct":["ZxdgDecorationManagerV1"]};

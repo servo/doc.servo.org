@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XREnvironmentBlendMode","XRVisibilityState"],"mod":["XREnvironmentBlendModeValues","XRSession_Binding","XRVisibilityStateValues"],"struct":["XRFrameRequestCallback"]};

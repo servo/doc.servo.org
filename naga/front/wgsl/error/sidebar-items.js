@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","ExpectedToken","InvalidAssignmentType","NumberError"],"struct":["ParseError"]};

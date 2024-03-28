@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwp_xwayland_keyboard_grab_v1_interface","zwp_xwayland_keyboard_grab_v1_requests"],"struct":["ZwpXwaylandKeyboardGrabV1"]};

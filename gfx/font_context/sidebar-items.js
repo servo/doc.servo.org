@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["invalidate_font_caches"],"static":["FONT_CACHE_EPOCH","SMALL_CAPS_SCALE_FACTOR"],"struct":["FontCacheKey","FontContext","FontContextHandle","FontGroupCacheKey","FontTemplateCacheKey"],"trait":["FontSource"]};

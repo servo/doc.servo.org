@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BlockFlowDirection","Direction","InlineBaseDirection","PhysicalCorner","PhysicalSide"],"struct":["DebugWritingMode","LogicalMargin","LogicalPoint","LogicalRect","LogicalSize","WritingMode"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["zxdg_popup_v6","zxdg_positioner_v6","zxdg_shell_v6","zxdg_surface_v6","zxdg_toplevel_v6"]};

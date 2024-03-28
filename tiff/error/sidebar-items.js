@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TiffError","TiffFormatError","TiffUnsupportedError","UsageError"],"struct":["JpegDecoderError"],"type":["TiffResult"]};

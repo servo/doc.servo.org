@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EventResult","HistoryEntryReplacement","JobError","JobResult","JobResultValue","JobType","LayoutMsg","LogEntry","SWManagerMsg","ScriptMsg","ServiceWorkerMsg"],"struct":["DOMMessage","IFrameSizeMsg","Job","SWManagerSenders","ScopeThings"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_CREATE_SOURCE_SINCE","REQ_DESTROY_SINCE","REQ_GET_DEVICE_SINCE"],"enum":["Event","Request"],"static":["zwp_primary_selection_device_manager_v1_interface","zwp_primary_selection_device_manager_v1_requests"],"struct":["ZwpPrimarySelectionDeviceManagerV1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ComputedUrl"],"struct":["CssUrl"],"type":["ComputedImageUrl","SpecifiedImageUrl","SpecifiedUrl"]};

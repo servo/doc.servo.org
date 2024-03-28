@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Microtask"],"struct":["EnqueuedPromiseCallback","MicrotaskQueue","UserMicrotask"],"trait":["MicrotaskRunnable"]};

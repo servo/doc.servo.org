@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ConnectionItem","DBusNameFlag","MsgHandlerType"],"fn":["conn_handle","default_filter_callback","filter_message_cb","msghandler_process","object_path_message_cb"],"struct":["ConnMsgs","Connection","ConnectionItems","IConnection","MessageReply","MsgHandlerResult"],"trait":["MsgHandler"],"type":["MessageCallback","MsgHandlerList"]};

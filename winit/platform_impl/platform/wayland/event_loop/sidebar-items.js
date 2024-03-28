@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["logical_to_physical_rounded"],"mod":["proxy","sink","state"],"struct":["EventLoop","EventLoopWindowTarget"],"type":["WinitDispatcher"]};

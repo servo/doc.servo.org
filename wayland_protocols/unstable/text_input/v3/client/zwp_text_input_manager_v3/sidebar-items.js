@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_GET_TEXT_INPUT_SINCE"],"enum":["Event","Request"],"static":["zwp_text_input_manager_v3_interface","zwp_text_input_manager_v3_requests"],"struct":["ZwpTextInputManagerV3"]};

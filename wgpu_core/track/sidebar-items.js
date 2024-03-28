@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["UsageConflict"],"fn":["invalid_resource_state","skip_barrier"],"mod":["buffer","metadata","range","stateless","texture"],"struct":["BindGroupStates","InvalidUse","PendingTransition","RenderBundleScope","Tracker","UsageScope"],"trait":["ResourceUses"]};

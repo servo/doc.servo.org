@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_dependency","invalidated_descendants","invalidated_self","invalidated_sibling","propagate_dirty_bit_up_to","should_process_descendants"],"struct":["Collector","StateAndAttrInvalidationProcessor"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["msg_type_str"],"struct":["MatchRule"]};

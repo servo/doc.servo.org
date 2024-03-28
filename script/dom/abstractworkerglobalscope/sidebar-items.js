@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["run_worker_event_loop"],"struct":["SendableWorkerScriptChan","WorkerThreadWorkerChan"],"trait":["WorkerEventLoopMethods"]};

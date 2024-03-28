@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MICROS_IN_SECOND"],"enum":["Error","Event","KeyState","RepeatKind"],"fn":["map_keyboard","map_keyboard_repeat","rate_to_gap"],"mod":["ffi","keysyms","state"],"struct":["KbdHandler","KbdRepeat","ModifiersState","RMLVO","RepeatData","RepeatDetails","RepeatSource"],"type":["KbdCallback"]};

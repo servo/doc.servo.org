@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GlobalError","GlobalEvent"],"struct":["GlobalManager","Inner"],"trait":["GlobalImplementor"]};

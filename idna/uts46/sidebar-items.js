@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PUNYCODE_PREFIX"],"enum":["Mapping"],"fn":["check_validity","decode_slice","find_char","is_bidi_domain","is_simple","passes_bidi","processing"],"static":["MAPPING_TABLE","STRING_TABLE","TABLE"],"struct":["Config","Errors","Idna","Mapper","StringTableSlice"]};

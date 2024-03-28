@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DebugPrintField","StackingContextBuildMode","StackingContextContent","StackingContextSection","StackingContextType"],"struct":["ContainingBlock","DebugPrintItem","ReferenceFrameData","StackingContext"],"type":["ContainingBlockInfo"]};

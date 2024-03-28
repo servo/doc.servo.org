@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BasicShapeRect","DefaultPosition","ShapeType"],"fn":["parse_at_position","parse_fill_rule","parse_round","parse_shape_or_box","round_to_css"],"struct":["AllowedBasicShapes","ShapeRectFunction","Xywh"],"type":["BasicShape","Circle","ClipPath","Ellipse","InsetRect","Polygon","ShapeOutside","ShapeRadius"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UUID_TICKS_BETWEEN_EPOCHS"],"fn":["decode_rfc4122_timestamp","decode_sorted_rfc4122_timestamp","decode_unix_timestamp_millis","encode_rfc4122_timestamp","encode_sorted_rfc4122_timestamp","encode_unix_timestamp_millis","now"],"mod":["context"],"struct":["Timestamp"],"trait":["ClockSequence"]};

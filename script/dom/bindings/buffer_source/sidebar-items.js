@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BufferSource","HeapTypedArrayInit"],"fn":["create_buffer_source","create_buffer_source_with_length","create_new_external_array_buffer","new_initialized_heap_buffer_source"],"struct":["HeapBufferSource"]};

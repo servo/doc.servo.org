@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FONT_CONTEXT"],"fn":["with_thread_local_font_context"],"struct":["LayoutContext"],"type":["LayoutFontContext"]};

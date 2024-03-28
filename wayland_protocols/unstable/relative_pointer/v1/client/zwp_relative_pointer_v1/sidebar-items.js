@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_RELATIVE_MOTION_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwp_relative_pointer_v1_events","zwp_relative_pointer_v1_interface","zwp_relative_pointer_v1_requests"],"struct":["ZwpRelativePointerV1"]};

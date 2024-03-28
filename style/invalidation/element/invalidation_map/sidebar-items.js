@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DependencyInvalidationKind"],"struct":["Dependency","DocumentStateDependency","InvalidationMap","ParentDependencyEntry","PerCompoundState","SelectorDependencyCollector","StateDependency"]};

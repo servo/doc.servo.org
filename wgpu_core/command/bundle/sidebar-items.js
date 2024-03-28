@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CreateRenderBundleError","ExecutionError","RenderBundleErrorInner"],"mod":["bundle_ffi"],"struct":["BindState","IndexState","PipelineState","RenderBundle","RenderBundleEncoder","RenderBundleEncoderDescriptor","RenderBundleError","State","VertexLimitState","VertexState"],"type":["RenderBundleDescriptor"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XNotSupported"],"struct":["XConnection","XError"],"type":["XErrorHandler"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DDInner","DataSourceEvent","DndEvent"],"mod":["device","offer","source"],"struct":["DataDevice","DataDeviceHandler","DataOffer","DataSource","DndAction","ReadPipe","WritePipe"],"trait":["DataDeviceHandling"],"type":["DDCallback"]};

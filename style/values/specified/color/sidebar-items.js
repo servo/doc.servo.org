@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Color","ForcedColorAdjust","PreserveAuthored","PrintColorAdjust"],"struct":["Absolute","ColorParser","ColorPropertyValue","ColorScheme","ColorSchemeFlags","LightDark","MozFontSmoothingBackgroundColor"],"type":["CaretColor","ColorMix","ColorOrAuto"]};

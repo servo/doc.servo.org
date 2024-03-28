@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["box_body","map_data","map_err"],"struct":["BoxBody","MapData","MapErr","UnsyncBoxBody"]};

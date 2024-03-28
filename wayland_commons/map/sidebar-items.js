@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SERVER_ID_LIMIT"],"fn":["childs_from","insert_in","insert_in_at"],"struct":["Object","ObjectMap"],"trait":["ObjectMetadata"]};

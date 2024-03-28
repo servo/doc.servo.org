@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["COMPRESSION_METHOD_DEFLATE"],"enum":["CompressionLevel","Lz77WindowSize"],"struct":["Decoder","EncodeOptions","Encoder","Header"]};

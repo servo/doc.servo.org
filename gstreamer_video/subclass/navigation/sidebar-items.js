@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["navigation_send_event"],"mod":["sealed"],"trait":["NavigationImpl","NavigationImplExt"]};

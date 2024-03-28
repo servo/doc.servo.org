@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Corner"],"struct":["Legend","LegendEntry","LegendWidget"]};

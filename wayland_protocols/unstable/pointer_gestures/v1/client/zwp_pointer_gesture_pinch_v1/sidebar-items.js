@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_BEGIN_SINCE","EVT_END_SINCE","EVT_UPDATE_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwp_pointer_gesture_pinch_v1_events","zwp_pointer_gesture_pinch_v1_interface","zwp_pointer_gesture_pinch_v1_requests"],"struct":["ZwpPointerGesturePinchV1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CanvasSource","ReplacedContentKind"],"struct":["CanvasInfo","IFrameInfo","IntrinsicSizes","ReplacedContent","VideoInfo"]};

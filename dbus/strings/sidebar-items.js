@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["cstring_wrapper"],"struct":["BusName","ErrorName","Interface","Member","Path","Signature"]};

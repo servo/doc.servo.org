@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SEGMENTS"],"enum":["EventKind"],"fn":["clamp","emit_segment_if_needed"],"struct":["EdgeAaSegmentMask","Event","Item","ItemFlags","ItemIndex","Segment","SegmentBuilder"]};

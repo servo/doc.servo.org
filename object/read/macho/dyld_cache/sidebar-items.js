@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIN_HEADER_SIZE_SUBCACHES"],"fn":["address_to_file_offset"],"struct":["DyldCache","DyldCacheImage","DyldCacheImageIterator","DyldSubCache"]};

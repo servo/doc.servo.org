@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MonitorHandle","OutputManager","OutputManagerHandle","VideoMode"]};

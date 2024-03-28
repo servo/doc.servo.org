@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CompositeOperatorKey","FilterPrimitiveKey","PictureCompositeKey"],"struct":["Picture","PictureData","PictureKey","PictureTemplate"],"type":["PictureDataHandle"]};

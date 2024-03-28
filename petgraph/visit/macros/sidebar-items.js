@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["delegate_impl","deref","deref_twice","remove_sections","remove_sections_inner","trait_template"]};

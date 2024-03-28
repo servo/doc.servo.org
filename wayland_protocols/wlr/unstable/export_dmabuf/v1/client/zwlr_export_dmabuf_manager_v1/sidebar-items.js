@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_CAPTURE_OUTPUT_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwlr_export_dmabuf_manager_v1_interface","zwlr_export_dmabuf_manager_v1_requests"],"struct":["ZwlrExportDmabufManagerV1"]};

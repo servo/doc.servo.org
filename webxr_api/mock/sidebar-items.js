@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MockDeviceMsg","MockInputMsg","MockViewsInit"],"struct":["MockDeviceInit","MockInputInit","MockRegion","MockViewInit","MockWorld"],"trait":["MockDiscoveryAPI"]};

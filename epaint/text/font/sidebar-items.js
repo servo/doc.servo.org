@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["invisible_char"],"struct":["Font","FontImpl","GlyphInfo","UvRect"],"type":["FontIndex"]};

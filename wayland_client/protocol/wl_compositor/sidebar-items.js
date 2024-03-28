@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_CREATE_REGION_SINCE","REQ_CREATE_SURFACE_SINCE"],"enum":["Event","Request"],"static":["wl_compositor_interface","wl_compositor_requests","wl_compositor_requests_create_region_types","wl_compositor_requests_create_surface_types"],"struct":["WlCompositor"]};

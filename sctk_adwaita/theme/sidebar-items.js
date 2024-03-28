@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BORDER_SIZE","HEADER_SIZE"],"struct":["Color","ColorMap","ColorTheme"]};

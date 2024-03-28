@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["call_hasher_impl"],"trait":["CallHasher"]};

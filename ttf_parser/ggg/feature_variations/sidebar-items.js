@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Condition"],"struct":["ConditionSet","FeatureTableSubstitution","FeatureTableSubstitutionRecord","FeatureVariationRecord","FeatureVariations"]};

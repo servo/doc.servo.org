@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SlotContent","SlotContentMut"],"struct":["Drain","IntoIter","Iter","IterMut","Keys","Slot","SlotMap","Values","ValuesMut"],"union":["SlotUnion"]};

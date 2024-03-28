@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CanHaveLogicalProperties","CascadeMode","FirstLineReparenting"],"fn":["apply_declarations","cascade","cascade_rules","tweak_when_ignoring_colors"],"struct":["Cascade","DeclarationIterator"],"type":["DeclarationsToApplyUnlessOverriden"]};

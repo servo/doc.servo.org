@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CoffSection","CoffSectionIterator","CoffSegment","CoffSegmentIterator","SectionTable"],"type":["CoffBigSection","CoffBigSectionIterator","CoffBigSegment","CoffBigSegmentIterator"]};

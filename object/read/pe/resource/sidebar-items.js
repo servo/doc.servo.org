@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ResourceDirectoryEntryData","ResourceNameOrId"],"struct":["ResourceDirectory","ResourceDirectoryTable","ResourceName"]};

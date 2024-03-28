@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_CLICK_DIST","MAX_CLICK_DURATION","MAX_DOUBLE_CLICK_DELAY"],"enum":["PointerEvent"],"mod":["touch_state"],"struct":["Click","InputState","PointerState"]};

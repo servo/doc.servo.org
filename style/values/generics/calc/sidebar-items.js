@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ArgumentLevel","GenericCalcNode","MinMaxOp","ModRemOp","RoundingStrategy","SortKey"],"struct":["CalcUnits"],"trait":["CalcNodeLeaf"]};

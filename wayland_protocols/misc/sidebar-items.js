@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["gtk_primary_selection","server_decoration","zwp_input_method_v2"]};

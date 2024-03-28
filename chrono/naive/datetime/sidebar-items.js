@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_DATETIME","MIN_DATETIME"],"struct":["NaiveDateTime"]};

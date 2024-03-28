@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RecompositionState"],"fn":["new_canonical","new_compatible"],"struct":["Recompositions"]};

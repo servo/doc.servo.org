@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_FENCED_RELEASE_SINCE","EVT_IMMEDIATE_RELEASE_SINCE"],"enum":["Event","Request"],"static":["zwp_linux_buffer_release_v1_events","zwp_linux_buffer_release_v1_interface"],"struct":["ZwpLinuxBufferReleaseV1"]};

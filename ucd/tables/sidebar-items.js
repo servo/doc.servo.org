@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["bidi","bool","decomp","function","general","misc","rem","scripts"],"trait":["Search"]};

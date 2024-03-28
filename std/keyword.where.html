@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Add constraints that must be upheld to use an item."><title>where - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="std" data-themes="" data-resource-suffix="1.74.1" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items1.74.1.js"></script><script defer src="../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc keyword"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In std</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Keyword <a class="keyword" href="#">where</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/std/keyword_docs.rs.html#2306">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Add constraints that must be upheld to use an item.</p>
+<p><code>where</code> allows specifying constraints on lifetime and generic parameters.
+The <a href="https://github.com/rust-lang/rfcs/blob/master/text/0135-where.md">RFC</a> introducing <code>where</code> contains detailed information about the
+keyword.</p>
+<h2 id="examples"><a href="#examples">Examples</a></h2>
+<p><code>where</code> can be used for constraints with traits:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">fn </span>new&lt;T: Default&gt;() -&gt; T {
+    T::default()
+}
+
+<span class="kw">fn </span>new_where&lt;T&gt;() -&gt; T
+<span class="kw">where
+    </span>T: Default,
+{
+    T::default()
+}
+
+<span class="macro">assert_eq!</span>(<span class="number">0.0</span>, new());
+<span class="macro">assert_eq!</span>(<span class="number">0.0</span>, new_where());
+
+<span class="macro">assert_eq!</span>(<span class="number">0</span>, new());
+<span class="macro">assert_eq!</span>(<span class="number">0</span>, new_where());</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Afn+new%3CT:+Default%3E()+-%3E+T+%7B%0A++++T::default()%0A%7D%0A%0Afn+new_where%3CT%3E()+-%3E+T%0Awhere%0A++++T:+Default,%0A%7B%0A++++T::default()%0A%7D%0A%0Aassert_eq!(0.0,+new());%0Aassert_eq!(0.0,+new_where());%0A%0Aassert_eq!(0,+new());%0Aassert_eq!(0,+new_where());%0A%7D&amp;edition=2021">Run</a></div>
+<p><code>where</code> can also be used for lifetimes.</p>
+<p>This compiles because <code>longer</code> outlives <code>shorter</code>, thus the constraint is
+respected:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">fn </span>select&lt;<span class="lifetime">&#39;short</span>, <span class="lifetime">&#39;long</span>&gt;(s1: <span class="kw-2">&amp;</span><span class="lifetime">&#39;short </span>str, s2: <span class="kw-2">&amp;</span><span class="lifetime">&#39;long </span>str, second: bool) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;short </span>str
+<span class="kw">where
+    </span><span class="lifetime">&#39;long</span>: <span class="lifetime">&#39;short</span>,
+{
+    <span class="kw">if </span>second { s2 } <span class="kw">else </span>{ s1 }
+}
+
+<span class="kw">let </span>outer = String::from(<span class="string">&quot;Long living ref&quot;</span>);
+<span class="kw">let </span>longer = <span class="kw-2">&amp;</span>outer;
+{
+    <span class="kw">let </span>inner = String::from(<span class="string">&quot;Short living ref&quot;</span>);
+    <span class="kw">let </span>shorter = <span class="kw-2">&amp;</span>inner;
+
+    <span class="macro">assert_eq!</span>(select(shorter, longer, <span class="bool-val">false</span>), shorter);
+    <span class="macro">assert_eq!</span>(select(shorter, longer, <span class="bool-val">true</span>), longer);
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Afn+select%3C'short,+'long%3E(s1:+%26'short+str,+s2:+%26'long+str,+second:+bool)+-%3E+%26'short+str%0Awhere%0A++++'long:+'short,%0A%7B%0A++++if+second+%7B+s2+%7D+else+%7B+s1+%7D%0A%7D%0A%0Alet+outer+=+String::from(%22Long+living+ref%22);%0Alet+longer+=+%26outer;%0A%7B%0A++++let+inner+=+String::from(%22Short+living+ref%22);%0A++++let+shorter+=+%26inner;%0A%0A++++assert_eq!(select(shorter,+longer,+false),+shorter);%0A++++assert_eq!(select(shorter,+longer,+true),+longer);%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p>On the other hand, this will not compile because the <code>where 'b: 'a</code> clause
+is missing: the <code>'b</code> lifetime is not known to live at least as long as <code>'a</code>
+which means this function cannot ensure it always returns a valid reference:</p>
+
+<div class="example-wrap compile_fail"><a href="#" class="tooltip" title="This example deliberately fails to compile">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">fn </span>select&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>&gt;(s1: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, s2: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>str, second: bool) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str
+{
+    <span class="kw">if </span>second { s2 } <span class="kw">else </span>{ s1 }
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Afn+select%3C'a,+'b%3E(s1:+%26'a+str,+s2:+%26'b+str,+second:+bool)+-%3E+%26'a+str%0A%7B%0A++++if+second+%7B+s2+%7D+else+%7B+s1+%7D%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+<p><code>where</code> can also be used to express more complicated constraints that cannot
+be written with the <code>&lt;T: Trait&gt;</code> syntax:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">fn </span>first_or_default&lt;I&gt;(<span class="kw-2">mut </span>i: I) -&gt; I::Item
+<span class="kw">where
+    </span>I: Iterator,
+    I::Item: Default,
+{
+    i.next().unwrap_or_else(I::Item::default)
+}
+
+<span class="macro">assert_eq!</span>(first_or_default([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].into_iter()), <span class="number">1</span>);
+<span class="macro">assert_eq!</span>(first_or_default(Vec::&lt;i32&gt;::new().into_iter()), <span class="number">0</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Afn+first_or_default%3CI%3E(mut+i:+I)+-%3E+I::Item%0Awhere%0A++++I:+Iterator,%0A++++I::Item:+Default,%0A%7B%0A++++i.next().unwrap_or_else(I::Item::default)%0A%7D%0A%0Aassert_eq!(first_or_default(%5B1,+2,+3%5D.into_iter()),+1);%0Aassert_eq!(first_or_default(Vec::%3Ci32%3E::new().into_iter()),+0);%0A%7D&amp;edition=2021">Run</a></div>
+<p><code>where</code> is available anywhere generic and lifetime parameters are available,
+as can be seen with the <a href="borrow/enum.Cow.html" title="enum std::borrow::Cow"><code>Cow</code></a> type from the standard
+library:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">pub enum </span>Cow&lt;<span class="lifetime">&#39;a</span>, B&gt;
+<span class="kw">where
+    </span>B: ToOwned + <span class="question-mark">?</span>Sized,
+{
+    Borrowed(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>B),
+    Owned(&lt;B <span class="kw">as </span>ToOwned&gt;::Owned),
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(dead_code)%5D%0Afn+main()+%7B%0Apub+enum+Cow%3C'a,+B%3E%0Awhere%0A++++B:+ToOwned+%2B+?Sized,%0A%7B%0A++++Borrowed(%26'a+B),%0A++++Owned(%3CB+as+ToOwned%3E::Owned),%0A%7D%0A%7D&amp;edition=2021">Run</a></div>
+</div></details></section></div></main></body></html>

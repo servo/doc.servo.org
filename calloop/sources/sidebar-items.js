@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PostAction"],"mod":["channel","generic","ping","signals","timer","transient"],"struct":["Dispatcher","DispatcherInner","Idle"],"trait":["CancellableIdle","ErasedDispatcher","EventDispatcher","EventSource","IdleDispatcher"]};

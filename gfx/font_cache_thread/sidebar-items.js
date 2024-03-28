@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Command","FontIdentifier","Reply"],"fn":["is_supported_web_font_source","populate_generic_fonts"],"struct":["FontCache","FontCacheThread","FontTemplateInfo","FontTemplates","LowercaseString","SerializedFontTemplate","SerializedFontTemplateInfo"]};

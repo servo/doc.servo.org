@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ZEROINFNAN"],"fn":["fma","mul","normalize"],"struct":["Num"]};

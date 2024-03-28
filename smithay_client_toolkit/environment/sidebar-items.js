@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Environment","SimpleGlobal"],"trait":["GlobalHandler","InnerEnv","MultiGlobalHandler"]};

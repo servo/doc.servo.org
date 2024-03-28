@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WAYLAND_CSD_THEME_ENV_VAR"],"fn":["apply_scale"],"mod":["shim"],"struct":["Window"],"type":["WinitFrame"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_ACTION_SINCE","EVT_CANCELLED_SINCE","EVT_DND_DROP_PERFORMED_SINCE","EVT_DND_FINISHED_SINCE","EVT_SEND_SINCE","EVT_TARGET_SINCE","REQ_DESTROY_SINCE","REQ_OFFER_SINCE","REQ_SET_ACTIONS_SINCE"],"enum":["Error","Event","Request"],"static":["wl_data_source_events","wl_data_source_interface","wl_data_source_requests"],"struct":["WlDataSource"]};

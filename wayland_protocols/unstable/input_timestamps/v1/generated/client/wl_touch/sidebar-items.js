@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_CANCEL_SINCE","EVT_DOWN_SINCE","EVT_FRAME_SINCE","EVT_MOTION_SINCE","EVT_ORIENTATION_SINCE","EVT_SHAPE_SINCE","EVT_UP_SINCE","REQ_RELEASE_SINCE"],"enum":["Event","Request"],"static":["wl_touch_events","wl_touch_interface","wl_touch_requests"],"struct":["WlTouch"]};

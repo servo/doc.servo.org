@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PrimarySelectionDeviceManager","PrimarySelectionDeviceManagerInitState","PrimarySelectionSourceEvent"],"mod":["device","offer","source"],"struct":["PrimarySelectionDevice","PrimarySelectionDeviceManagerInner","PrimarySelectionHandler","PrimarySelectionOffer","PrimarySelectionSource"],"trait":["PrimarySelectionHandling"]};

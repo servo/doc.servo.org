@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_FORMAT_SINCE","EVT_MODIFIER_SINCE","REQ_CREATE_PARAMS_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwp_linux_dmabuf_v1_events","zwp_linux_dmabuf_v1_interface","zwp_linux_dmabuf_v1_requests"],"struct":["ZwpLinuxDmabufV1"]};

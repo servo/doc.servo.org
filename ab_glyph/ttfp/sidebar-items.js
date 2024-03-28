@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_font"],"mod":["outliner","variable"],"struct":["FontRef","FontVec"]};

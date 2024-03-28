@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_RUN_LENGTH","MIN_RUN_LENGTH"],"fn":["compress_bytes","decompress_bytes","take_1","take_n"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_TIME_TO_SLEEP","MAX_WARM_WAKEUPS"],"enum":["Command"],"fn":["spawn","worker_impl"],"mod":["dispatch_data","handlers","seat_data","sleep_amount_tracker"]};

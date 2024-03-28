@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clamp_to_range","get","set"],"struct":["DragValue","MonoState"],"type":["GetSetValue","NumFormatter","NumParser"]};

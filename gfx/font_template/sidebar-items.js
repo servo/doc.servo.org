@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["style_to_number"],"struct":["FontTemplate","FontTemplateDescriptor"]};

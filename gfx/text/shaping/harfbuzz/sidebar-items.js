@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LIGA","NO_GLYPH"],"fn":["destroy_blob_func","font_table_func","glyph_func","glyph_h_advance_func","glyph_space_advance","unicode_to_hb_script"],"struct":["FontFuncs","HB_FONT_FUNCS","ShapedGlyphData","ShapedGlyphEntry","Shaper"]};

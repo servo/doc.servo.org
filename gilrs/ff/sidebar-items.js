@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BaseEffectType","DistanceModel","DistanceModelError","Error","Repeat"],"mod":["base_effect","effect_source","server","time"],"struct":["BaseEffect","Effect","EffectBuilder","Envelope","Replay","Ticks"]};

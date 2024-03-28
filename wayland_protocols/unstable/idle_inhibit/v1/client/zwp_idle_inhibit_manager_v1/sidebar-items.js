@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_CREATE_INHIBITOR_SINCE","REQ_DESTROY_SINCE"],"enum":["Event","Request"],"static":["zwp_idle_inhibit_manager_v1_interface","zwp_idle_inhibit_manager_v1_requests"],"struct":["ZwpIdleInhibitManagerV1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["L_BASE","L_COUNT","L_LAST","N_COUNT","S_BASE","S_COUNT","S_LAST","T_BASE","T_COUNT","T_FIRST","T_LAST","V_BASE","V_COUNT","V_LAST"],"fn":["compose","compose_hangul","decompose","decompose_canonical","decompose_cjk_compat_variants","decompose_compatible","decompose_hangul","hangul_decomposition_length","is_hangul_syllable"]};

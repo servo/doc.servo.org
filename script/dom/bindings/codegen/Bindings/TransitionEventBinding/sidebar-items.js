@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["TransitionEvent_Binding"],"struct":["TransitionEventInit"]};

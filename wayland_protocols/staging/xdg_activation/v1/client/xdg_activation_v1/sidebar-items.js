@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_ACTIVATE_SINCE","REQ_DESTROY_SINCE","REQ_GET_ACTIVATION_TOKEN_SINCE"],"enum":["Event","Request"],"static":["xdg_activation_v1_interface","xdg_activation_v1_requests"],"struct":["XdgActivationV1"]};

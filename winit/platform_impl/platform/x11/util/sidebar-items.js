@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["has_flag","maybe_change"],"mod":["atom","client_msg","cursor","format","geometry","hint","icon","input","keys","memory","modifiers","randr","window_property","wm"],"struct":["Flusher"]};

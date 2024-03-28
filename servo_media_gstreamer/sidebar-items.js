@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["audio_decoder","audio_sink","audio_stream_reader","datachannel","device_monitor","media_capture","media_stream","media_stream_source","player","registry_scanner","render","source","webrtc"],"static":["BACKEND_BASE_TIME","BACKEND_THREAD"],"struct":["ErrorLoadingPlugins","GStreamerBackend"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WRITE_COMMAND_BUFFERS_PER_POOL"],"enum":["QueueSubmitError","QueueWriteError","SubmittedWorkDoneClosureInner","TempResource"],"fn":["prepare_staging_buffer"],"struct":["EncoderInFlight","InvalidQueue","PendingWrites","SubmittedWorkDoneClosure","SubmittedWorkDoneClosureC","WrappedSubmissionIndex"],"type":["SubmittedWorkDoneCallback"]};

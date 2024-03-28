@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["BrotliEstimateBitCostsForLiterals","DecideMultiByteStatsLevel","EstimateBitCostsForLiteralsUTF8","UTF8Position","brotli_min_size_t"],"static":["kMinUTF8Ratio"]};

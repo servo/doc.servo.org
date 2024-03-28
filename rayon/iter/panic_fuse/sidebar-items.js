@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Fuse","PanicFuse","PanicFuseConsumer","PanicFuseFolder","PanicFuseIter","PanicFuseProducer","PanicFuseReducer"]};

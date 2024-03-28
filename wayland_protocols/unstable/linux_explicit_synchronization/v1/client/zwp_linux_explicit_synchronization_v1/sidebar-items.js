@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_GET_SYNCHRONIZATION_SINCE"],"enum":["Error","Event","Request"],"static":["zwp_linux_explicit_synchronization_v1_interface","zwp_linux_explicit_synchronization_v1_requests"],"struct":["ZwpLinuxExplicitSynchronizationV1"]};

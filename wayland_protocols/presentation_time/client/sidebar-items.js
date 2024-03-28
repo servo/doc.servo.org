@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["wp_presentation","wp_presentation_feedback"]};

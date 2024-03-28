@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllowEmpty","IsAbsolute","PathCommand"],"fn":["parse_coord","parse_number","skip_comma_wsp","skip_wsp"],"macro":["parse_arguments"],"struct":["ArcFlag","CoordPair","PathParser","PathTraversalState","SVGPathData"]};

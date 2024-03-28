@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Arena","BadHandle","BadRangeError","Handle","Range","UniqueArena"],"type":["Index"]};

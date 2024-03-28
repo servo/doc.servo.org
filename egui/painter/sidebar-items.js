@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["tint_shape_towards"],"struct":["Painter"]};

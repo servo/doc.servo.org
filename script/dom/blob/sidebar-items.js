@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Blob"],"fn":["blob_parts_to_bytes","is_ascii_printable","normalize_type_string"],"struct":["Blob"]};

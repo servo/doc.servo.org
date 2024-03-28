@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_hostsfile","replace_host_table"]};

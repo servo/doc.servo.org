@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_I32_BINDING_SIZE"],"fn":["cstr_from_bytes_until_nul","map_naga_stage"],"mod":["db"]};

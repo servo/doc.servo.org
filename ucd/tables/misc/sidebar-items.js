@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EastAsianWidth","LinebreakClass","NumericType"],"static":["UCD_EAWIDTH","UCD_LB","UCD_NUMS","UCD_NUMTYPE","UCD_NUMVAL"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CUMUL_DAY_IN_MONTHS_NORMAL_YEAR","DAYS_PER_WEEK","DAY_IN_MONTHS_NORMAL_YEAR","HOURS_PER_DAY","SECONDS_PER_DAY","SECONDS_PER_HOUR"],"enum":["Error"],"mod":["parser","rule","timezone"]};

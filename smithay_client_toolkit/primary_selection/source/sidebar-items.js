@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PrimarySelectionSourceEvent","PrimarySelectionSourceImpl"],"fn":["gtk_primary_source_imp","zwp_primary_source_imp"],"struct":["PrimarySelectionSource"]};

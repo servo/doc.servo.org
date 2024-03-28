@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_ENTER_SINCE","EVT_KEYMAP_SINCE","EVT_KEY_SINCE","EVT_LEAVE_SINCE","EVT_MODIFIERS_SINCE","EVT_REPEAT_INFO_SINCE","REQ_RELEASE_SINCE"],"enum":["Event","KeyState","KeymapFormat","Request"],"static":["wl_keyboard_events","wl_keyboard_interface","wl_keyboard_requests"],"struct":["WlKeyboard"]};

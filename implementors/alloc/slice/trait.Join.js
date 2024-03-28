@@ -1,0 +1,7 @@
+(function() {var implementors = {
+"alloc":[],
+"serde":[],
+"std":[["impl&lt;S: <a class=\"trait\" href=\"std/borrow/trait.Borrow.html\" title=\"trait std::borrow::Borrow\">Borrow</a>&lt;<a class=\"struct\" href=\"std/ffi/struct.OsStr.html\" title=\"struct std::ffi::OsStr\">OsStr</a>&gt;&gt; <a class=\"trait\" href=\"std/slice/trait.Join.html\" title=\"trait std::slice::Join\">Join</a>&lt;&amp;<a class=\"struct\" href=\"std/ffi/struct.OsStr.html\" title=\"struct std::ffi::OsStr\">OsStr</a>&gt; for <a class=\"primitive\" href=\"primitive.slice.html\">[S]</a>"]],
+"tracing":[],
+"tracing_core":[]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

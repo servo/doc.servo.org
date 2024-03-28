@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Translation2D","Translation3D"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WARNINGS_BUFFER_SIZE"],"enum":["ExitPipelineMode","ReadyToSave","TransferState"],"fn":["route_ipc_receiver_to_new_crossbeam_receiver_preserving_errors"],"struct":["BrowsingContextGroup","Constellation","InitialConstellationState","MessagePortInfo","WebDriverData","WebView","WebrenderWGPU"],"type":["PendingApprovalNavigations"]};

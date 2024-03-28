@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_GET_LAYER_SURFACE_SINCE"],"enum":["Error","Event","Layer","Request"],"static":["zwlr_layer_shell_v1_interface","zwlr_layer_shell_v1_requests","zwlr_layer_shell_v1_requests_get_layer_surface_types"],"struct":["ZwlrLayerShellV1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_DISCARDED_SINCE","EVT_PRESENTED_SINCE","EVT_SYNC_OUTPUT_SINCE"],"enum":["Event","Request"],"static":["wp_presentation_feedback_events","wp_presentation_feedback_interface"],"struct":["Kind","WpPresentationFeedback"]};

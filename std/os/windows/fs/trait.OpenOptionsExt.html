@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Windows-specific extensions to `fs::OpenOptions`."><title>OpenOptionsExt in std::os::windows::fs - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="std" data-themes="" data-resource-suffix="1.74.1" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items1.74.1.js"></script><script defer src="../../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../../../std/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../../../../std/index.html"><img class="rust-logo" src="../../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">OpenOptionsExt</a></h2><div class="sidebar-elems"><section><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.access_mode">access_mode</a></li><li><a href="#tymethod.attributes">attributes</a></li><li><a href="#tymethod.custom_flags">custom_flags</a></li><li><a href="#tymethod.security_qos_flags">security_qos_flags</a></li><li><a href="#tymethod.share_mode">share_mode</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2><a href="index.html">In std::os::windows::fs</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Trait <a href="../../../index.html">std</a>::<wbr><a href="../../index.html">os</a>::<wbr><a href="../index.html">windows</a>::<wbr><a href="index.html">fs</a>::<wbr><a class="trait" href="#">OpenOptionsExt</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><span class="since" title="Stable since Rust version 1.10.0">1.10.0</span> · <a class="src" href="../../../../src/std/os/windows/fs.rs.html#100-266">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub trait OpenOptionsExt {
+    // Required methods
+    fn <a href="#tymethod.access_mode" class="fn">access_mode</a>(&amp;mut self, access: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.share_mode" class="fn">share_mode</a>(&amp;mut self, val: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.custom_flags" class="fn">custom_flags</a>(&amp;mut self, flags: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.attributes" class="fn">attributes</a>(&amp;mut self, val: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.security_qos_flags" class="fn">security_qos_flags</a>(&amp;mut self, flags: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a>;
+}</code></pre><span class="item-info"><div class="stab portability">Available on <strong>Windows</strong> only.</div></span><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Windows-specific extensions to <a href="../../../fs/struct.OpenOptions.html" title="struct std::fs::OpenOptions"><code>fs::OpenOptions</code></a>.</p>
+</div></details><h2 id="required-methods" class="small-section-header">Required Methods<a href="#required-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="tymethod.access_mode" class="method"><a class="src rightside" href="../../../../src/std/os/windows/fs.rs.html#122">source</a><h4 class="code-header">fn <a href="#tymethod.access_mode" class="fn">access_mode</a>(&amp;mut self, access: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a></h4></section></summary><div class="docblock"><p>Overrides the <code>dwDesiredAccess</code> argument to the call to <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea"><code>CreateFile</code></a>
+with the specified value.</p>
+<p>This will override the <code>read</code>, <code>write</code>, and <code>append</code> flags on the
+<code>OpenOptions</code> structure. This method provides fine-grained control over
+the permissions to read, write and append data, attributes (like hidden
+and system), and extended attributes.</p>
+<h5 id="examples"><a href="#examples">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::fs::OpenOptions;
+<span class="kw">use </span>std::os::windows::prelude::<span class="kw-2">*</span>;
+
+<span class="comment">// Open without read and write permission, for example if you only need
+// to call `stat` on the file
+</span><span class="kw">let </span>file = OpenOptions::new().access_mode(<span class="number">0</span>).open(<span class="string">&quot;foo.txt&quot;</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Ause+std::fs::OpenOptions;%0Ause+std::os::windows::prelude::*;%0A%0A//+Open+without+read+and+write+permission,+for+example+if+you+only+need%0A//+to+call+%60stat%60+on+the+file%0Alet+file+=+OpenOptions::new().access_mode(0).open(%22foo.txt%22);%0A%7D&amp;edition=2021">Run</a></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.share_mode" class="method"><a class="src rightside" href="../../../../src/std/os/windows/fs.rs.html#150">source</a><h4 class="code-header">fn <a href="#tymethod.share_mode" class="fn">share_mode</a>(&amp;mut self, val: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a></h4></section></summary><div class="docblock"><p>Overrides the <code>dwShareMode</code> argument to the call to <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea"><code>CreateFile</code></a> with
+the specified value.</p>
+<p>By default <code>share_mode</code> is set to
+<code>FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE</code>. This allows
+other processes to read, write, and delete/rename the same file
+while it is open. Removing any of the flags will prevent other
+processes from performing the corresponding operation until the file
+handle is closed.</p>
+<h5 id="examples-1"><a href="#examples-1">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::fs::OpenOptions;
+<span class="kw">use </span>std::os::windows::prelude::<span class="kw-2">*</span>;
+
+<span class="comment">// Do not allow others to read or modify this file while we have it open
+// for writing.
+</span><span class="kw">let </span>file = OpenOptions::new()
+    .write(<span class="bool-val">true</span>)
+    .share_mode(<span class="number">0</span>)
+    .open(<span class="string">&quot;foo.txt&quot;</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Ause+std::fs::OpenOptions;%0Ause+std::os::windows::prelude::*;%0A%0A//+Do+not+allow+others+to+read+or+modify+this+file+while+we+have+it+open%0A//+for+writing.%0Alet+file+=+OpenOptions::new()%0A++++.write(true)%0A++++.share_mode(0)%0A++++.open(%22foo.txt%22);%0A%7D&amp;edition=2021">Run</a></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.custom_flags" class="method"><a class="src rightside" href="../../../../src/std/os/windows/fs.rs.html#181">source</a><h4 class="code-header">fn <a href="#tymethod.custom_flags" class="fn">custom_flags</a>(&amp;mut self, flags: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a></h4></section></summary><div class="docblock"><p>Sets extra flags for the <code>dwFileFlags</code> argument to the call to
+<a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfile2"><code>CreateFile2</code></a> to the specified value (or combines it with
+<code>attributes</code> and <code>security_qos_flags</code> to set the <code>dwFlagsAndAttributes</code>
+for <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea"><code>CreateFile</code></a>).</p>
+<p>Custom flags can only set flags, not remove flags set by Rust’s options.
+This option overwrites any previously set custom flags.</p>
+<h5 id="examples-2"><a href="#examples-2">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">extern crate </span>winapi;
+
+<span class="kw">use </span>std::fs::OpenOptions;
+<span class="kw">use </span>std::os::windows::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span>file = OpenOptions::new()
+    .create(<span class="bool-val">true</span>)
+    .write(<span class="bool-val">true</span>)
+    .custom_flags(winapi::FILE_FLAG_DELETE_ON_CLOSE)
+    .open(<span class="string">&quot;foo.txt&quot;</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(unexpected_cfgs)%5D%0Afn+main()+%7B%0A%23%5Bcfg(for_demonstration_only)%5D%0Aextern+crate+winapi;%0Amod+winapi+%7B+pub+const+FILE_FLAG_DELETE_ON_CLOSE:+u32+=+0x04000000;+%7D%0A%0Ause+std::fs::OpenOptions;%0Ause+std::os::windows::prelude::*;%0A%0Alet+file+=+OpenOptions::new()%0A++++.create(true)%0A++++.write(true)%0A++++.custom_flags(winapi::FILE_FLAG_DELETE_ON_CLOSE)%0A++++.open(%22foo.txt%22);%0A%7D&amp;edition=2021">Run</a></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.attributes" class="method"><a class="src rightside" href="../../../../src/std/os/windows/fs.rs.html#219">source</a><h4 class="code-header">fn <a href="#tymethod.attributes" class="fn">attributes</a>(&amp;mut self, val: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a></h4></section></summary><div class="docblock"><p>Sets the <code>dwFileAttributes</code> argument to the call to <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfile2"><code>CreateFile2</code></a> to
+the specified value (or combines it with <code>custom_flags</code> and
+<code>security_qos_flags</code> to set the <code>dwFlagsAndAttributes</code> for
+<a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea"><code>CreateFile</code></a>).</p>
+<p>If a <em>new</em> file is created because it does not yet exist and
+<code>.create(true)</code> or <code>.create_new(true)</code> are specified, the new file is
+given the attributes declared with <code>.attributes()</code>.</p>
+<p>If an <em>existing</em> file is opened with <code>.create(true).truncate(true)</code>, its
+existing attributes are preserved and combined with the ones declared
+with <code>.attributes()</code>.</p>
+<p>In all other cases the attributes get ignored.</p>
+<h5 id="examples-3"><a href="#examples-3">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">extern crate </span>winapi;
+
+<span class="kw">use </span>std::fs::OpenOptions;
+<span class="kw">use </span>std::os::windows::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span>file = OpenOptions::new()
+    .write(<span class="bool-val">true</span>)
+    .create(<span class="bool-val">true</span>)
+    .attributes(winapi::FILE_ATTRIBUTE_HIDDEN)
+    .open(<span class="string">&quot;foo.txt&quot;</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(unexpected_cfgs)%5D%0Afn+main()+%7B%0A%23%5Bcfg(for_demonstration_only)%5D%0Aextern+crate+winapi;%0Amod+winapi+%7B+pub+const+FILE_ATTRIBUTE_HIDDEN:+u32+=+2;+%7D%0A%0Ause+std::fs::OpenOptions;%0Ause+std::os::windows::prelude::*;%0A%0Alet+file+=+OpenOptions::new()%0A++++.write(true)%0A++++.create(true)%0A++++.attributes(winapi::FILE_ATTRIBUTE_HIDDEN)%0A++++.open(%22foo.txt%22);%0A%7D&amp;edition=2021">Run</a></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.security_qos_flags" class="method"><a class="src rightside" href="../../../../src/std/os/windows/fs.rs.html#265">source</a><h4 class="code-header">fn <a href="#tymethod.security_qos_flags" class="fn">security_qos_flags</a>(&amp;mut self, flags: <a class="primitive" href="../../../primitive.u32.html">u32</a>) -&gt; <a class="primitive" href="../../../primitive.reference.html">&amp;mut Self</a></h4></section></summary><div class="docblock"><p>Sets the <code>dwSecurityQosFlags</code> argument to the call to <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfile2"><code>CreateFile2</code></a> to
+the specified value (or combines it with <code>custom_flags</code> and <code>attributes</code>
+to set the <code>dwFlagsAndAttributes</code> for <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea"><code>CreateFile</code></a>).</p>
+<p>By default <code>security_qos_flags</code> is not set. It should be specified when
+opening a named pipe, to control to which degree a server process can
+act on behalf of a client process (security impersonation level).</p>
+<p>When <code>security_qos_flags</code> is not set, a malicious program can gain the
+elevated privileges of a privileged Rust process when it allows opening
+user-specified paths, by tricking it into opening a named pipe. So
+arguably <code>security_qos_flags</code> should also be set when opening arbitrary
+paths. However the bits can then conflict with other flags, specifically
+<code>FILE_FLAG_OPEN_NO_RECALL</code>.</p>
+<p>For information about possible values, see <a href="https://docs.microsoft.com/en-us/windows/win32/api/winnt/ne-winnt-security_impersonation_level">Impersonation Levels</a> on the
+Windows Dev Center site. The <code>SECURITY_SQOS_PRESENT</code> flag is set
+automatically when using this method.</p>
+<h5 id="examples-4"><a href="#examples-4">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">extern crate </span>winapi;
+<span class="kw">use </span>std::fs::OpenOptions;
+<span class="kw">use </span>std::os::windows::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span>file = OpenOptions::new()
+    .write(<span class="bool-val">true</span>)
+    .create(<span class="bool-val">true</span>)
+
+    <span class="comment">// Sets the flag value to `SecurityIdentification`.
+    </span>.security_qos_flags(winapi::SECURITY_IDENTIFICATION)
+
+    .open(<span class="string">r&quot;\\.\pipe\MyPipe&quot;</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(unexpected_cfgs)%5D%0Afn+main()+%7B%0A%23%5Bcfg(for_demonstration_only)%5D%0Aextern+crate+winapi;%0Amod+winapi+%7B+pub+const+SECURITY_IDENTIFICATION:+u32+=+0;+%7D%0Ause+std::fs::OpenOptions;%0Ause+std::os::windows::prelude::*;%0A%0Alet+file+=+OpenOptions::new()%0A++++.write(true)%0A++++.create(true)%0A%0A++++//+Sets+the+flag+value+to+%60SecurityIdentification%60.%0A++++.security_qos_flags(winapi::SECURITY_IDENTIFICATION)%0A%0A++++.open(r%22%5C%5C.%5Cpipe%5CMyPipe%22);%0A%7D&amp;edition=2021">Run</a></div>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-OpenOptionsExt-for-OpenOptions" class="impl"><a class="src rightside" href="../../../../src/std/os/windows/fs.rs.html#269-294">source</a><a href="#impl-OpenOptionsExt-for-OpenOptions" class="anchor">§</a><h3 class="code-header">impl <a class="trait" href="trait.OpenOptionsExt.html" title="trait std::os::windows::fs::OpenOptionsExt">OpenOptionsExt</a> for <a class="struct" href="../../../fs/struct.OpenOptions.html" title="struct std::fs::OpenOptions">OpenOptions</a></h3></section></div><script src="../../../../implementors/std/os/windows/fs/trait.OpenOptionsExt.js" async></script></section></div></main></body></html>

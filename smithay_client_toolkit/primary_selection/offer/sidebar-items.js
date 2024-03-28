@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PrimarySelectionOfferImpl"],"struct":["PrimarySelectionOffer","PrimarySelectionOfferInner"]};

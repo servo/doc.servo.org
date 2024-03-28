@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["init_confined_pointer","init_locked_pointer","init_relative_pointer"],"mod":["data","handlers"],"struct":["Pointers","WinitPointer"]};

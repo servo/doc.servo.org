@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_FILL_ALPHA"],"fn":["add_rulers_and_text","find_closest_rect","horizontal_line","rulers_at_value","rulers_color","vertical_line","y_intersection"],"mod":["bar","box_elem","rect_elem","values"],"struct":["Arrows","BarChart","BoxPlot","HLine","Line","PlotConfig","PlotImage","Points","Polygon","Text","VLine"],"trait":["PlotItem"]};

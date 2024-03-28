@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Window"],"enum":["ReflowReason","WindowState"],"fn":["base64_atob","base64_btoa","debug_reflow_events","is_named_element_with_id_attribute","is_named_element_with_name_attribute","should_move_clip_rect"],"struct":["CSSErrorReporter","LayoutValue","Window"]};

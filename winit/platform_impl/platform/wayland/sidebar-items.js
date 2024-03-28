@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["make_wid"],"mod":["env","event_loop","output","protocols","seat","window"],"struct":["DeviceId"]};

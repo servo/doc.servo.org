@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["org_freedesktop_dbus_introspectable_server"],"struct":["MTFn","MTFnMut","MTSync","MethodErr","MethodInfo","PropInfo"],"trait":["DataType","MethodType"],"type":["MethodResult"]};

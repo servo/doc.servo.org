@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NULLPTR"],"mod":["wp_fractional_scale_manager_v1","wp_fractional_scale_v1"],"static":["types_null"]};

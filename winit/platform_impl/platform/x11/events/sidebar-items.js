@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["keysym_to_element"]};

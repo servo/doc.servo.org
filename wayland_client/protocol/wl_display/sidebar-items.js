@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_DELETE_ID_SINCE","EVT_ERROR_SINCE","REQ_GET_REGISTRY_SINCE","REQ_SYNC_SINCE"],"enum":["Error","Event","Request"],"static":["wl_display_events","wl_display_interface","wl_display_requests","wl_display_requests_get_registry_types","wl_display_requests_sync_types"],"struct":["WlDisplay"]};

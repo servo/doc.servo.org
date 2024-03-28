@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INLINE_ARGS"],"enum":["Argument","ArgumentType","MessageParseError","MessageWriteError"],"fn":["dup_fd_cloexec"],"struct":["FdStore","Message","MessageDesc"]};

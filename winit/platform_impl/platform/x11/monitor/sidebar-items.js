@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DISABLE_MONITOR_LIST_CACHING"],"fn":["invalidate_cached_monitor_list","mode_refresh_rate_millihertz"],"static":["MONITORS"],"struct":["MonitorHandle","VideoMode"]};

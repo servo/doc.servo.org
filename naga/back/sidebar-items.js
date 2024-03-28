@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BAKE_PREFIX","COMPONENTS","INDENT"],"enum":["FunctionType","RayIntersectionType"],"fn":["binary_operation_str","vector_size_str"],"mod":["spv"],"struct":["FunctionCtx","Level","RayFlag"],"type":["NeedBakeExpressions"]};

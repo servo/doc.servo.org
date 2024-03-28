@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["normalize_value"],"mod":["area","size_of","srcset","timeranges"],"struct":["ByteString","DOMString","Dom","DomRefCell","Node","TrustedPromise"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["detect_image_format","is_bmp","is_gif","is_ico","is_jpeg","is_png","is_webp","load_from_memory"],"struct":["Image","ImageMetadata"]};

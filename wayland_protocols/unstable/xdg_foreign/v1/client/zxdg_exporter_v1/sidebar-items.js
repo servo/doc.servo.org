@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_EXPORT_SINCE"],"enum":["Event","Request"],"static":["zxdg_exporter_v1_interface","zxdg_exporter_v1_requests"],"struct":["ZxdgExporterV1"]};

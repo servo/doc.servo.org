@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WatchEvent"],"fn":["add_watch_cb","remove_watch_cb","toggled_watch_cb"],"struct":["Watch","WatchList"]};

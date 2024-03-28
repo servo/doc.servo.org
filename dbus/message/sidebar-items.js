@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ArrayError","MessageItem"],"fn":["append_messageitem","get_messageitem","iter_append_array","iter_append_dict","iter_append_struct","iter_append_variant","iter_get_basic","new_dbus_message_iter"],"macro":["msgitem_convert"],"struct":["ConnPath","Message","MessageItemArray","OwnedFd"],"trait":["FromMessageItem"]};

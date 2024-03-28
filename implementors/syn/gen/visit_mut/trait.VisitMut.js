@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"pin_project_internal":[["impl <a class=\"trait\" href=\"https://docs.rs/syn/2.0.55/syn/gen/visit_mut/trait.VisitMut.html\" title=\"trait syn::gen::visit_mut::VisitMut\">VisitMut</a> for <a class=\"struct\" href=\"pin_project_internal/utils/struct.ReplaceReceiver.html\" title=\"struct pin_project_internal::utils::ReplaceReceiver\">ReplaceReceiver</a>&lt;'_&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["browsing_context","console","device","emulation","framerate","inspector","memory","network_event","object","performance","preference","process","profiler","root","stylesheets","tab","thread","timeline","worker"]};

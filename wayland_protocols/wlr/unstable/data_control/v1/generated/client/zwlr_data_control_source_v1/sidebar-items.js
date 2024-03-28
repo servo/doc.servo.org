@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_CANCELLED_SINCE","EVT_SEND_SINCE","REQ_DESTROY_SINCE","REQ_OFFER_SINCE"],"enum":["Error","Event","Request"],"static":["zwlr_data_control_source_v1_events","zwlr_data_control_source_v1_interface","zwlr_data_control_source_v1_requests"],"struct":["ZwlrDataControlSourceV1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WorkerType"],"struct":["AttachedReply","ConnectReply","DetachedReply","WorkerActor","WorkerMsg","WorkerTraits"]};

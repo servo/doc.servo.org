@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PseudoElementResolution"],"fn":["eager_pseudo_is_definitely_not_generated","layout_parent_style_for_pseudo","with_default_parent_styles"],"struct":["MatchingResults","PrimaryStyle","ResolvedElementStyles","ResolvedStyle","StyleResolverForElement"]};

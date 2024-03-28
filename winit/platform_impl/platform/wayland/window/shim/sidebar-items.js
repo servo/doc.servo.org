@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WindowRequest"],"fn":["handle_window_requests"],"struct":["FractionalScalingState","WindowCompositorUpdate","WindowHandle","WindowUserRequest"]};

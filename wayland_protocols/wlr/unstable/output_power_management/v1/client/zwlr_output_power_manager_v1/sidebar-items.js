@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_DESTROY_SINCE","REQ_GET_OUTPUT_POWER_SINCE"],"enum":["Event","Request"],"static":["zwlr_output_power_manager_v1_interface","zwlr_output_power_manager_v1_requests"],"struct":["ZwlrOutputPowerManagerV1"]};

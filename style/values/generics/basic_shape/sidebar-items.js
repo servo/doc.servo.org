@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FillRule","GenericBasicShape","GenericClipPath","GenericShapeOutside","GenericShapeRadius","ShapeBox","ShapeGeometryBox"],"fn":["is_default"],"struct":["Circle","Ellipse","GenericInsetRect","GenericPolygon","Path","PolygonCoord"]};

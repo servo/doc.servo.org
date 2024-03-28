@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ProfilerCategory","ProfilerData","ProfilerMsg","TimerMetadataFrameType","TimerMetadataReflowType"],"fn":["profile","send_profile_data"],"struct":["ProfilerChan","TimerMetadata"]};

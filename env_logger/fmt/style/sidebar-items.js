@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Color"],"macro":["impl_styled_value_fmt"],"struct":["Style","StyledValue"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CalloopKey","EventLoop","LoopHandle","LoopInner","LoopSignal","RegistrationToken"],"type":["IdleCallback"]};

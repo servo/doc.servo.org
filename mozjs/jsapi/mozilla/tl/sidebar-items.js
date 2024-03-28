@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["CeilingLog2_value","FloorLog2_value","Max_value","Min_value","MulOverflowMask_value","NBitMask_checkPrecondition","NBitMask_value","RoundUpPow2_value"],"struct":["BitSize"]};

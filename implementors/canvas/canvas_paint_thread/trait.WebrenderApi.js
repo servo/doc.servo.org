@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"servo":[["impl <a class=\"trait\" href=\"canvas/canvas_paint_thread/trait.WebrenderApi.html\" title=\"trait canvas::canvas_paint_thread::WebrenderApi\">WebrenderApi</a> for <a class=\"struct\" href=\"servo/struct.CanvasWebrenderApi.html\" title=\"struct servo::CanvasWebrenderApi\">CanvasWebrenderApi</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIN_WINDOW_SIZE"],"enum":["ButtonState","Decorations","Event","FrameRequest","State","WindowState"],"mod":["fallback_frame"],"struct":["FallbackFrame","Window","WindowInner"],"trait":["Frame"]};

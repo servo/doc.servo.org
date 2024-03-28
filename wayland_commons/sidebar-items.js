@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["NoMessage"],"macro":["smallvec"],"mod":["debug","filter","map","socket","user_data","wire"],"struct":["ThreadGuard"],"trait":["Interface","MessageGroup"]};

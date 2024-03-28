@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["DOMMatrix_Binding"],"struct":["DOMMatrix2DInit","DOMMatrixInit"]};

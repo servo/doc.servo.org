@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["change_pointer","lmb_press","lmb_release","rmb_press"],"struct":["PointerUserData"]};

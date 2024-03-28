@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DecompositionType"],"fn":["new_canonical","new_compatible"],"struct":["Decompositions"]};

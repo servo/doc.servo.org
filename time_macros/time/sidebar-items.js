@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Period"],"fn":["parse"],"struct":["Time"]};

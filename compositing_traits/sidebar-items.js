@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CanvasToCompositorMsg","CompositorMsg","ConstellationMsg","FontToCompositorMsg","ForwardedToCompositorMsg"],"mod":["constellation_msg"],"struct":["CompositionPipeline","CompositorProxy","CompositorReceiver","SendableFrameTree"]};

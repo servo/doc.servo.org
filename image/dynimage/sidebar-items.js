@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DynamicImage"],"fn":["decoder_to_image","image_dimensions","load_from_memory","load_from_memory_with_format","open","save_buffer","save_buffer_with_format","write_buffer_with_format"],"macro":["dynamic_map"]};

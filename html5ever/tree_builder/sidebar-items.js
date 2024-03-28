@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Bookmark","NextParserState","NodeOrText","PushFlag","QuirksMode"],"fn":["any_not_whitespace","create_element","current_node","html_elem"],"macro":["qualname"],"mod":["data","tag_sets","types"],"struct":["ActiveFormattingIter","Attribute","ElementFlags","TreeBuilder","TreeBuilderOpts"],"trait":["Tracer","TreeSink"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SPECIAL_SCROLL_ROOT_ID_MASK"],"enum":["FontData","FragmentType"],"fn":["combine_id_with_fragment_type","next_special_id","node_id_from_scroll_id"],"mod":["print_tree"],"static":["NEXT_SPECIAL_SCROLL_ROOT_ID"],"struct":["ByteIndex","Epoch","StackingContextId"],"trait":["WebRenderEpochToU16","WebrenderApi"]};

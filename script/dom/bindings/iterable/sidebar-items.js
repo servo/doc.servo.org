@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_IterableIterator"],"enum":["IteratorType"],"fn":["dict_return","key_and_value_return"],"struct":["IterableIterator"],"trait":["Iterable"]};

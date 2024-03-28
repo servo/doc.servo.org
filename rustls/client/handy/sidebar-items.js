@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_TLS13_TICKETS_PER_SERVER"],"struct":["AlwaysResolvesClientCert","ClientSessionMemoryCache","FailResolveClientCert","NoClientSessionStorage","ServerData"]};

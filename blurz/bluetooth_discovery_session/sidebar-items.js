@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["ADAPTER_INTERFACE","SERVICE_NAME"],"struct":["BluetoothDiscoverySession"]};

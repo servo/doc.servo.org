@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FIXED_ARRAY_ALIGNMENTS"],"fn":["array_append","get_array_refarg","get_dict_refarg","get_fixed_array_refarg","get_internal_array","get_var_array_refarg"],"struct":["Array","Dict","InternalArray","InternalDict"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["introspect_map","new_interface","new_objectpath","new_tree"],"struct":["IfaceCache","Interface","ObjectPath","Tree","TreeServer"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Access","EmitsChangedSignal"],"mod":["factory","leaves","methodtype","objectpath","utils"],"struct":["Argument","Factory","Interface","Iter","MTFn","MTFnMut","MTSync","Method","MethodErr","MethodInfo","ObjectPath","PropInfo","Property","Signal","Tree","TreeServer"],"trait":["DataType","MethodType"],"type":["MethodResult"]};

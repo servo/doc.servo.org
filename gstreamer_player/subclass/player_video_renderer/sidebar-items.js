@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["video_renderer_create_video_sink"],"mod":["sealed"],"trait":["PlayerVideoRendererImpl","PlayerVideoRendererImplExt"]};

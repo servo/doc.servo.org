@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DataFormat","MZError","MZFlush","MZStatus"],"mod":["deflate","inflate","shared"],"struct":["StreamResult"],"type":["MZResult"]};

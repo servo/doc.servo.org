@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Flag"],"fn":["debug_assert_unreachable","needs_drop"],"struct":["NoDrop"]};

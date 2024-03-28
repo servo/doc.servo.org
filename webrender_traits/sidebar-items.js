@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WebrenderImageHandlerType","WebrenderImageSource"],"struct":["WebrenderExternalImageHandlers","WebrenderExternalImageRegistry"],"trait":["WebrenderExternalImageApi"]};

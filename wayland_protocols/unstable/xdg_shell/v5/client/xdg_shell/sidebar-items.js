@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EVT_PING_SINCE","REQ_DESTROY_SINCE","REQ_GET_XDG_POPUP_SINCE","REQ_GET_XDG_SURFACE_SINCE","REQ_PONG_SINCE","REQ_USE_UNSTABLE_VERSION_SINCE"],"enum":["Error","Event","Request","Version"],"static":["xdg_shell_events","xdg_shell_interface","xdg_shell_requests"],"struct":["XdgShell"]};

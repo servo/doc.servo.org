@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ChunkType","DecodingBuffer","DecodingResult"],"fn":["fix_endianness","fix_endianness_and_predict","fp_predict_f32","fp_predict_f64","invert_colors","invert_colors_fp","invert_colors_unsigned","rev_hpredict_nsamp"],"mod":["ifd","image","stream","tag_reader"],"struct":["Decoder","Limits"],"trait":["Wrapping"]};

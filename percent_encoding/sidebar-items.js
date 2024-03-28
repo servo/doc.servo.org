@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ASCII_RANGE_LEN","BITS_PER_CHUNK","CONTROLS","NON_ALPHANUMERIC"],"fn":["_static_assert","after_percent_sign","decode_utf8_lossy","percent_decode","percent_decode_str","percent_encode","percent_encode_byte","utf8_percent_encode"],"macro":["static_assert"],"struct":["AsciiSet","PercentDecode","PercentEncode"],"type":["Chunk"]};

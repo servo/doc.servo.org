@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REQ_AXIS_DISCRETE_SINCE","REQ_AXIS_SINCE","REQ_AXIS_SOURCE_SINCE","REQ_AXIS_STOP_SINCE","REQ_BUTTON_SINCE","REQ_DESTROY_SINCE","REQ_FRAME_SINCE","REQ_MOTION_ABSOLUTE_SINCE","REQ_MOTION_SINCE"],"enum":["Error","Event","Request"],"static":["zwlr_virtual_pointer_v1_interface","zwlr_virtual_pointer_v1_requests"],"struct":["ZwlrVirtualPointerV1"]};

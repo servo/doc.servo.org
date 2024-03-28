@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The receiver of a method, or the current module."><title>self - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="std" data-themes="" data-resource-suffix="1.74.1" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items1.74.1.js"></script><script defer src="../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc keyword"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a></nav><nav class="sidebar"><a class="logo-container" href="../std/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In std</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Keyword <a class="keyword" href="#">self</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../src/std/keyword_docs.rs.html#1322">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The receiver of a method, or the current module.</p>
+<p><code>self</code> is used in two situations: referencing the current module and marking
+the receiver of a method.</p>
+<p>In paths, <code>self</code> can be used to refer to the current module, either in a
+<a href="keyword.use.html"><code>use</code></a> statement or in a path to access an element:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::io::{<span class="self">self</span>, Read};</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(unused_imports)%5D%0Afn+main()+%7B%0Ause+std::io::%7Bself,+Read%7D;%0A%7D&amp;edition=2021">Run</a></div>
+<p>Is functionally the same as:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::io;
+<span class="kw">use </span>std::io::Read;</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(unused_imports)%5D%0Afn+main()+%7B%0Ause+std::io;%0Ause+std::io::Read;%0A%7D&amp;edition=2021">Run</a></div>
+<p>Using <code>self</code> to access an element in the current module:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">fn </span>foo() {}
+<span class="kw">fn </span>bar() {
+    <span class="self">self</span>::foo()
+}</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0A%23!%5Ballow(dead_code)%5D%0Afn+main()+%7B%7D%0Afn+foo()+%7B%7D%0Afn+bar()+%7B%0A++++self::foo()%0A%7D&amp;edition=2021">Run</a></div>
+<p><code>self</code> as the current receiver for a method allows to omit the parameter
+type most of the time. With the exception of this particularity, <code>self</code> is
+used much like any other parameter:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>Foo(i32);
+
+<span class="kw">impl </span>Foo {
+    <span class="comment">// No `self`.
+    </span><span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>(<span class="number">0</span>)
+    }
+
+    <span class="comment">// Consuming `self`.
+    </span><span class="kw">fn </span>consume(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>(<span class="self">self</span>.<span class="number">0 </span>+ <span class="number">1</span>)
+    }
+
+    <span class="comment">// Borrowing `self`.
+    </span><span class="kw">fn </span>borrow(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>i32 {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0
+    </span>}
+
+    <span class="comment">// Borrowing `self` mutably.
+    </span><span class="kw">fn </span>borrow_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>i32 {
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>.<span class="number">0
+    </span>}
+}
+
+<span class="comment">// This method must be called with a `Type::` prefix.
+</span><span class="kw">let </span>foo = Foo::new();
+<span class="macro">assert_eq!</span>(foo.<span class="number">0</span>, <span class="number">0</span>);
+
+<span class="comment">// Those two calls produces the same result.
+</span><span class="kw">let </span>foo = Foo::consume(foo);
+<span class="macro">assert_eq!</span>(foo.<span class="number">0</span>, <span class="number">1</span>);
+<span class="kw">let </span>foo = foo.consume();
+<span class="macro">assert_eq!</span>(foo.<span class="number">0</span>, <span class="number">2</span>);
+
+<span class="comment">// Borrowing is handled automatically with the second syntax.
+</span><span class="kw">let </span>borrow_1 = Foo::borrow(<span class="kw-2">&amp;</span>foo);
+<span class="kw">let </span>borrow_2 = foo.borrow();
+<span class="macro">assert_eq!</span>(borrow_1, borrow_2);
+
+<span class="comment">// Borrowing mutably is handled automatically too with the second syntax.
+</span><span class="kw">let </span><span class="kw-2">mut </span>foo = Foo::new();
+<span class="kw-2">*</span>Foo::borrow_mut(<span class="kw-2">&amp;mut </span>foo) += <span class="number">1</span>;
+<span class="macro">assert_eq!</span>(foo.<span class="number">0</span>, <span class="number">1</span>);
+<span class="kw-2">*</span>foo.borrow_mut() += <span class="number">1</span>;
+<span class="macro">assert_eq!</span>(foo.<span class="number">0</span>, <span class="number">2</span>);</code></pre><a class="test-arrow" target="_blank" href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn+main()+%7B%0Astruct+Foo(i32);%0A%0Aimpl+Foo+%7B%0A++++//+No+%60self%60.%0A++++fn+new()+-%3E+Self+%7B%0A++++++++Self(0)%0A++++%7D%0A%0A++++//+Consuming+%60self%60.%0A++++fn+consume(self)+-%3E+Self+%7B%0A++++++++Self(self.0+%2B+1)%0A++++%7D%0A%0A++++//+Borrowing+%60self%60.%0A++++fn+borrow(%26self)+-%3E+%26i32+%7B%0A++++++++%26self.0%0A++++%7D%0A%0A++++//+Borrowing+%60self%60+mutably.%0A++++fn+borrow_mut(%26mut+self)+-%3E+%26mut+i32+%7B%0A++++++++%26mut+self.0%0A++++%7D%0A%7D%0A%0A//+This+method+must+be+called+with+a+%60Type::%60+prefix.%0Alet+foo+=+Foo::new();%0Aassert_eq!(foo.0,+0);%0A%0A//+Those+two+calls+produces+the+same+result.%0Alet+foo+=+Foo::consume(foo);%0Aassert_eq!(foo.0,+1);%0Alet+foo+=+foo.consume();%0Aassert_eq!(foo.0,+2);%0A%0A//+Borrowing+is+handled+automatically+with+the+second+syntax.%0Alet+borrow_1+=+Foo::borrow(%26foo);%0Alet+borrow_2+=+foo.borrow();%0Aassert_eq!(borrow_1,+borrow_2);%0A%0A//+Borrowing+mutably+is+handled+automatically+too+with+the+second+syntax.%0Alet+mut+foo+=+Foo::new();%0A*Foo::borrow_mut(%26mut+foo)+%2B=+1;%0Aassert_eq!(foo.0,+1);%0A*foo.borrow_mut()+%2B=+1;%0Aassert_eq!(foo.0,+2);%0A%7D&amp;edition=2021">Run</a></div>
+<p>Note that this automatic conversion when calling <code>foo.method()</code> is not
+limited to the examples above. See the <a href="../reference/items/associated-items.html#methods">Reference</a> for more information.</p>
+</div></details></section></div></main></body></html>

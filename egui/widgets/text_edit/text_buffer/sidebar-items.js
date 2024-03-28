@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["byte_index_from_char_index"],"trait":["TextBuffer"]};

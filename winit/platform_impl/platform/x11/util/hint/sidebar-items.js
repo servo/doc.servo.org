@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StateOperation","WindowType"],"mod":["mwm"],"struct":["MotifHints","MwmHints","NormalHints"]};

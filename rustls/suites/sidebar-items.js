@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BulkAlgorithm","SupportedCipherSuite"],"fn":["choose_ciphersuite_preferring_client","choose_ciphersuite_preferring_server","compatible_sigscheme_for_suites","reduce_given_sigalg","reduce_given_version"],"static":["ALL_CIPHER_SUITES","DEFAULT_CIPHER_SUITES"],"struct":["CipherSuiteCommon"]};
