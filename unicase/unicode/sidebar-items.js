@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["char_to_utf8"],"mod":["fold","map"],"struct":["Unicode"]};

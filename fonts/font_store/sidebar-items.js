@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FontStore","FontTemplates","SimpleFamily"],"type":["CrossThreadFontStore"]};

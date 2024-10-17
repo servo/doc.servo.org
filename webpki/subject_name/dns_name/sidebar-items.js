@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllowWildcards","GeneralDnsNameRef","IdRole"],"fn":["ascii_lower","is_valid_dns_id","presented_id_matches_constraint","presented_id_matches_reference_id","presented_id_matches_reference_id_internal"],"struct":["DnsName","DnsNameRef","InvalidDnsNameError","WildcardDnsNameRef"]};

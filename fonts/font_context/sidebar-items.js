@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DownloaderResponseResult"],"fn":["is_supported_web_font_source"],"static":["SMALL_CAPS_SCALE_FACTOR"],"struct":["FontCacheKey","FontContext","FontGroupCacheKey","RemoteWebFontDownloader","WebFontDownloadState"],"trait":["FontContextWebFontMethods"]};

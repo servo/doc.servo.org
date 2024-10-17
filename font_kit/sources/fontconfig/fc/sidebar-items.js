@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","MatchKind","Object"],"struct":["Config","FontSet","ObjectSet","Pattern","PatternRef"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FloatPrecision","RoundingIncrement","Sign","SignDisplay"],"macro":["impl_from_signed_integer_type","impl_from_unsigned_integer_type"],"struct":["FixedDecimal","NoIncrement"],"trait":["IncrementLike"]};

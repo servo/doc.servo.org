@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["CodePointRangeIteratorResult_destroy","CodePointRangeIterator_destroy","CodePointRangeIterator_next"],"struct":["CodePointRangeIterator","CodePointRangeIteratorResult"]};

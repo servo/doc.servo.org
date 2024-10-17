@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["init_tracing","main","servo_version"],"mod":["backtrace","crash_handler","desktop","panic_hook","parser","platform","prefs","resources"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["write_bigtiff_header","write_tiff_header"],"struct":["TiffWriter"]};

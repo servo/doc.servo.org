@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ZOOM_FRACTION_BITS"],"enum":["Clear","Float","Resize"],"struct":["Zoom"],"type":["ContainIntrinsicSize","LineClamp","Perspective","VerticalAlign","ZoomFixedPoint"]};

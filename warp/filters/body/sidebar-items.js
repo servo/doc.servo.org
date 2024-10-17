@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["aggregate","body","bytes","content_length_limit","form","is_content_type","json","stream"],"struct":["BodyConsumedMultipleTimes","BodyDeserializeError","BodyReadError","BodyStream","Form","Json"],"trait":["Decode"],"type":["BoxError"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FrameId","LocatorStrategy"],"fn":["serialize_webelement_id"],"static":["ELEMENT_KEY","FRAME_KEY","MAX_SAFE_INTEGER","SHADOW_KEY","WINDOW_KEY"],"struct":["Cookie","CredentialParameters","Date","ShadowRoot","ShadowRootObject","WebElement","WebElementObject","WebFrame","WebFrameObject","WebWindow","WebWindowObject"],"type":["Parameters"]};

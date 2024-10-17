@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["LOWER_CHARS","UPPER_CHARS"]};

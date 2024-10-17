@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GLFilterMode"],"fn":["filter","filter_texture","init_fbo","set_caps","transform_internal_caps"],"mod":["sealed"],"trait":["GLFilterImpl","GLFilterImplExt"]};

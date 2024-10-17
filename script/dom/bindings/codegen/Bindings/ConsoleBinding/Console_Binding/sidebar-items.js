@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["sStaticMethods","sStaticMethods_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","assert","clear","count","countReset","debug","error","group","groupCollapsed","groupEnd","info","log","time","timeEnd","timeLog","warn"],"static":["NAMESPACE_OBJECT_CLASS"],"trait":["consoleMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cold","likely","unlikely"],"struct":["BytesMut","GenericWriter"],"trait":["Writer"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ICU4XOrdering"],"fn":["ICU4XOrdering_destroy"]};

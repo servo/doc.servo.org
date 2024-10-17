@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EarlyDataDecision"],"fn":["decide_if_early_data_allowed","emit_certificate_req_tls13","emit_certificate_tls13","emit_certificate_verify_tls13","emit_encrypted_extensions","emit_fake_ccs","emit_finished_tls13","emit_hello_retry_request","emit_server_hello","max_early_data_size"],"struct":["CompleteClientHelloHandling"]};

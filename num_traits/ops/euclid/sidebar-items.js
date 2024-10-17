@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["checked_euclid_forward_impl","euclid_forward_impl"],"trait":["CheckedEuclid","Euclid"]};

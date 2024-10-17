@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UNICODE_VERSION","bidi_class_table","bidi_pairs_table"],"enum":["BidiClass"]};

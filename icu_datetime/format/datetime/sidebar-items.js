@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DateTimeWriteError"],"fn":["analyze_patterns","try_write_field","try_write_number","try_write_pattern","try_write_pattern_items"],"struct":["FormattedDateTime","RequiredData"]};

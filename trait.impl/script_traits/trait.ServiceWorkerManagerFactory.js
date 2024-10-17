@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"script":[["impl <a class=\"trait\" href=\"script_traits/trait.ServiceWorkerManagerFactory.html\" title=\"trait script_traits::ServiceWorkerManagerFactory\">ServiceWorkerManagerFactory</a> for <a class=\"struct\" href=\"script/serviceworker_manager/struct.ServiceWorkerManager.html\" title=\"struct script::serviceworker_manager::ServiceWorkerManager\">ServiceWorkerManager</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

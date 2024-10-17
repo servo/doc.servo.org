@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ScrollFrameKind","SpatialNodeType","SpatialNodeUidKind"],"fn":["snap_offset"],"struct":["ReferenceFrameInfo","SceneSpatialNode","ScrollFrameInfo","SpatialNode","SpatialNodeDescriptor","SpatialNodeInfo","SpatialNodeUid","StickyFrameInfo"]};

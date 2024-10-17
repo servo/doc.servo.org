@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fmt_subtree","fmt_with_data","fmt_with_data_and_primary_values"],"struct":["DomChildren","DomDescendants","LayoutIterator","OpaqueNode","SendElement","SendNode","ShowSubtree","ShowSubtreeData","ShowSubtreeDataAndPrimaryValues"],"trait":["NodeInfo","TDocument","TElement","TNode","TShadowRoot"]};

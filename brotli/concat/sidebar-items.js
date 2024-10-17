@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NUM_STREAM_HEADER_BYTES"],"enum":["BroCatliResult"],"fn":["detect_varlen_offset","parse_window_size"],"struct":["BroCatli","NewStreamData"]};

@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Implement a trait by delegation. By default as if we are delegating from &amp;G to G."><title>delegate_impl in petgraph::visit::macros - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="petgraph" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../petgraph/index.html">petgraph</a><span class="version">0.4.13</span></h2></div><div class="sidebar-elems"><h2><a href="index.html">In petgraph::visit::macros</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Macro <a href="../../index.html">petgraph</a>::<wbr><a href="../index.html">visit</a>::<wbr><a href="index.html">macros</a>::<wbr><a class="macro" href="#">delegate_impl</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../../src/petgraph/visit/macros.rs.html#78-132">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><span class="macro">macro_rules!</span> delegate_impl {
+    ([] $(<span class="macro-nonterminal">$rest</span>:tt)<span class="kw-2">*</span>) =&gt; { ... };
+    ([[$(<span class="macro-nonterminal">$param</span>:tt)<span class="kw-2">*</span>], <span class="macro-nonterminal">$self_type</span>:ident, <span class="macro-nonterminal">$self_wrap</span>:ty, <span class="macro-nonterminal">$self_map</span>:ident]
+     <span class="kw">pub trait </span><span class="macro-nonterminal">$name</span>:ident $(: <span class="macro-nonterminal">$sup</span>:ident)* $(+ <span class="macro-nonterminal">$more_sup</span>:ident)* {
+
+        <span class="comment">// "Escaped" associated types. Stripped before making the `trait`
+        // itself, but forwarded when delegating impls.
+        </span>$(
+        @escape [<span class="kw">type </span><span class="macro-nonterminal">$assoc_name_ext</span>:ident]
+        <span class="comment">// Associated types. Forwarded.
+        </span>)*
+        $(
+        @section <span class="kw">type
+        </span>$(
+            $(<span class="attr">#[<span class="macro-nonterminal">$_assoc_attr</span>:meta]</span>)*
+            <span class="kw">type </span><span class="macro-nonterminal">$assoc_name</span>:ident $(: <span class="macro-nonterminal">$assoc_bound</span>:ty)<span class="kw-2">*</span>;
+        )+
+        )*
+        <span class="comment">// Methods. Forwarded. Using $self_map!(self) around the self argument.
+        // Methods must use receiver `self` or explicit type like `self: &amp;Self`
+        // &amp;self and &amp;mut self are _not_ supported.
+        </span>$(
+        @section <span class="self">self
+        </span>$(
+            $(<span class="attr">#[<span class="macro-nonterminal">$_method_attr</span>:meta]</span>)*
+            <span class="kw">fn </span><span class="macro-nonterminal">$method_name</span>:ident(<span class="self">self </span>$(: <span class="macro-nonterminal">$self_selftype</span>:ty)* $(,<span class="macro-nonterminal">$marg</span>:ident : <span class="macro-nonterminal">$marg_ty</span>:ty)<span class="kw-2">*</span>) -&gt; <span class="macro-nonterminal">$mret</span>:ty;
+        )+
+        )*
+        <span class="comment">// Arbitrary tail that is ignored when forwarding.
+        </span>$(
+        @section nodelegate
+        $(<span class="macro-nonterminal">$tail</span>:tt)*
+        )*
+    }) =&gt; { ... };
+}</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Implement a trait by delegation. By default as if we are delegating
+from &amp;G to G.</p>
+</div></details></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_INLINE_LENGTH","TEXT_NODE"],"struct":["AttrMsg","GetUniqueSelectorReply","NodeActor","NodeActorMsg"],"trait":["NodeInfoToProtocol"]};

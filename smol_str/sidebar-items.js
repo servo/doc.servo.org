@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INLINE_CAP","N_NEWLINES","N_SPACES","WS"],"enum":["InlineSize","Repr"],"fn":["build_from_str_iter"],"macro":["format_smolstr"],"mod":["private"],"struct":["SmolStr"],"trait":["StrExt","ToSmolStr"]};

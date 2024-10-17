@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["dispatcher_func"],"static":["BACKEND"],"struct":["ConnectionState","Dispatcher","Inner","InnerBackend","InnerObjectId","InnerReadEventsGuard","ProxyUserData","WeakInnerBackend"]};

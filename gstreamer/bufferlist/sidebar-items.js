@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["define_iter"],"struct":["BufferList","BufferListRef","Iter","IterOwned"]};

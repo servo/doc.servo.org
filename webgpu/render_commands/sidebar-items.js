@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RenderCommand"],"fn":["apply_render_command"]};

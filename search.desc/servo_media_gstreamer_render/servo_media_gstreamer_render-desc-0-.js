@@ -1,0 +1,1 @@
+searchState.loadedDescShard("servo_media_gstreamer_render", 0, "<code>Render</code> is a trait to be used by GStreamer’s backend …\nReturns the Player’s <code>Frame</code> to be consumed by the API …\nSets the proper <em>video-sink</em> to GStreamer’s <code>pipeline</code>, this …\nReturns <code>True</code> if the render implementation uses any version …")

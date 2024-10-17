@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["destroy_callbacks","trampoline_eos","trampoline_new_event","trampoline_new_preroll","trampoline_new_sample","trampoline_propose_allocation"],"struct":["AppSinkBuilder","AppSinkCallbacks","AppSinkCallbacksBuilder","AppSinkStream"]};

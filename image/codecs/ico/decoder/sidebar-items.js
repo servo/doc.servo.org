@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DecoderError","IcoEntryImageFormat","InnerDecoder"],"fn":["best_entry","read_entries","read_entry"],"struct":["DirEntry","IcoDecoder","IcoReader"]};

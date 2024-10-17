@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_ONE_B","MAX_THREE_B","MAX_TWO_B","TAG_CONT","TAG_FOUR_B","TAG_THREE_B","TAG_TWO_B"],"fn":["encode_utf8"],"macro":["impl_serialize_int","impl_serialize_literal","impl_size_int"],"struct":["Compound","EncodeUtf8","Serializer","SizeChecker","SizeCompound"]};

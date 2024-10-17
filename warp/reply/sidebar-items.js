@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_assert_object_safe","html","json","reply","text_plain","with_header","with_status"],"mod":["sealed"],"struct":["Html","Json","WithHeader","WithStatus"],"trait":["Reply"],"type":["Response"]};

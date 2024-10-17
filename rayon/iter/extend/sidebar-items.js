@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fast_collect","len","osstring_len","string_len"],"macro":["extend","extend_reserved"],"struct":["ListConsumer","ListFolder","ListReducer","ListStringConsumer","ListStringFolder","ListVecConsumer","ListVecFolder"]};

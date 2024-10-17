@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["move_single_cursor"],"struct":["CCursorRange","CursorRange","PCursorRange"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["sConstants","sConstants_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject"],"mod":["GPUBufferUsageConstants"],"static":["NAMESPACE_OBJECT_CLASS"]};

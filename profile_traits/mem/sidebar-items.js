@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ProfilerMsg","ReportKind"],"struct":["ProfilerChan","Report","Reporter","ReporterRequest","ReportsChan"],"trait":["OpaqueSender"]};

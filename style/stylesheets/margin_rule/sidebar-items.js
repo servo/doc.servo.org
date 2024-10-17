@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MARGIN_RULE_AT_NAMES"],"enum":["MarginRuleType"],"macro":["margin_rule_types"],"struct":["MarginRule"]};

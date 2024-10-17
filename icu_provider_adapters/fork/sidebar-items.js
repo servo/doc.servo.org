@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["by_error","macros","predicates"],"struct":["ForkByErrorProvider","MultiForkByErrorProvider"],"type":["ForkByKeyProvider","MultiForkByKeyProvider"]};

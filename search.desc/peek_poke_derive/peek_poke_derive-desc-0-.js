@@ -1,0 +1,1 @@
+searchState.loadedDescShard("peek_poke_derive", 0, "Calculates size type for number of variants (used for …")

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["cancellation_token","mpsc","poll_semaphore","reusable_box"],"struct":["CancellationToken","DropGuard","PollSemaphore","PollSendError","PollSender","ReusableBoxFuture","WaitForCancellationFuture","WaitForCancellationFutureOwned"]};

@@ -1,0 +1,1 @@
+searchState.loadedDescShard("derive_common", 0, "Given an input type which has some where clauses already, …\nGiven “FooBar”, returns “Foo” and sets <code>camel_case</code> …\nTransforms “FooBar” to “foo-bar”.\nTransforms foo-bar to FOO_BAR.")

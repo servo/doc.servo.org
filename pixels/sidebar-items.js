@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CorsStatus","PixelFormat"],"fn":["clip","detect_image_format","is_bmp","is_gif","is_ico","is_jpeg","is_png","is_webp","load_from_memory","multiply_u8_color","rgba8_byte_swap_and_premultiply_inplace","rgba8_byte_swap_colors_inplace","rgba8_get_rect","rgba8_premultiply_inplace","unmultiply_inplace"],"struct":["Image","ImageMetadata"]};

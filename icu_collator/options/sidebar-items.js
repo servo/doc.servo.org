@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AlternateHandling","BackwardSecondLevel","CaseFirst","CaseLevel","MaxVariable","Numeric","Strength"],"struct":["CollatorOptions","CollatorOptionsBitField","ResolvedCollatorOptions"]};

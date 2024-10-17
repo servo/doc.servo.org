@@ -1,0 +1,1 @@
+searchState.loadedDescShard("diplomat", 0, "Mark a module to be exposed through Diplomat-generated FFI.\nGenerate From and Into implementations for a Diplomat enum\nReturns the argument unchanged.\nCalls <code>U::from(self)</code>.\nGenerate conversions from inner types for opaque Diplomat …\nReturns the argument unchanged.\nCalls <code>U::from(self)</code>.")

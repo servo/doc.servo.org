@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BlobURLStoreError"],"fn":["get_blob_origin","parse_blob_url"],"struct":["BlobBuf"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ETHIOPIC_TO_COPTIC_OFFSET"],"fn":["ethiopian_from_fixed","fixed_from_ethiopian"]};

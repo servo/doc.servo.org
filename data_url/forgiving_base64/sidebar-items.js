@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BASE64_DECODE_TABLE"],"enum":["DecodeError","Impossible","InvalidBase64Details"],"fn":["decode_to_vec"],"struct":["Decoder","InvalidBase64"]};

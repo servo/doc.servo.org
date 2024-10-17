@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="ZeroTrie Builder"><title>zerotrie::builder - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="zerotrie" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../zerotrie/index.html">zerotrie</a><span class="version">0.1.3</span></h2></div><h2 class="location"><a href="#">Module builder</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#modules">Modules</a></li></ul></section><h2><a href="../index.html">In crate zerotrie</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">zerotrie</a>::<wbr><a class="mod" href="#">builder</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/zerotrie/builder/mod.rs.html#5-298">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="zerotrie-builder"><a class="doc-anchor" href="#zerotrie-builder">§</a>ZeroTrie Builder</h2>
+<p>There are two implementations of the ZeroTrie Builder:</p>
+<ul>
+<li><a href="konst/builder/struct.ZeroTrieBuilderConst.html" title="struct zerotrie::builder::konst::builder::ZeroTrieBuilderConst">konst::ZeroTrieBuilderConst</a> allows for human-readable const construction</li>
+<li><a href="nonconst/builder/struct.ZeroTrieBuilder.html" title="struct zerotrie::builder::nonconst::builder::ZeroTrieBuilder">nonconst::ZeroTrieBuilder</a> has the full feaure set but requires <code>alloc</code></li>
+</ul>
+<p>The two builders follow the same algorithm but have different capabilities.</p>
+<h3 id="builder-algorithm-overview"><a class="doc-anchor" href="#builder-algorithm-overview">§</a>Builder Algorithm Overview</h3>
+<p>The tries are built backwards, from the last node to the first node. The key step of the
+algorithm is <strong>determining what is the next node to prepend.</strong></p>
+<p>In the simple case of <a href="../zerotrie/struct.ZeroTrieSimpleAscii.html" title="struct zerotrie::zerotrie::ZeroTrieSimpleAscii"><code>ZeroTrieSimpleAscii</code></a>, all nodes are binary-search, so if the input
+strings are provided in lexicographic order, there is a simple, deterministic method for
+identifying the next node. This insight is what enables us to make the const builder.</p>
+<p>The builder works with the following intermediate state variables:</p>
+<ul>
+<li><code>prefix_len</code> indicates the byte index we are currently processing.</li>
+<li><code>i</code> and <code>j</code> bracket a window of strings in the input that share the same prefix.</li>
+<li><code>current_len</code> is the length in bytes of the current self-contained trie.</li>
+<li><code>lengths_stack</code> contains metadata for branch nodes.</li>
+</ul>
+<p>What follows is a verbal explanation of the build steps for a trie containing:</p>
+<ul>
+<li>“” → 11</li>
+<li>“ad” → 22</li>
+<li>“adef” → 33</li>
+<li>“adghk” → 44</li>
+</ul>
+<p>When a node is prepended, it is shown in <strong>boldface</strong>.</p>
+<ol>
+<li>Initialize the builder by setting <code>i=3</code>, <code>j=4</code>, <code>prefix_len=5</code> (the last string),
+<code>current_len=0</code>, and <code>lengths_stack</code> empty. Start the main loop.</li>
+<li>Top of loop. The string at <code>i</code> is equal in length to <code>prefix_len</code>, so we prepend
+our first node: a <strong>value node 44</strong>, which requires a 2-byte varint. Increase
+<code>current_len</code> to 2.</li>
+<li>Reduce <code>prefix_len</code> to 4, read our <code>key_ascii=&quot;k&quot;</code>, and recalculate <code>i</code> and <code>j</code>
+<em>(this calculation is a long chunk of code in the builder impls)</em>. Since there is no
+other string with the prefix “adgh”, <code>i</code> and <code>j</code> stay the same, we prepend an
+<strong>ASCII node “k”</strong>, increase <code>current_len</code> to 3, and continue the main loop.</li>
+<li>Top of loop. The string at <code>i</code> is of length 5, but <code>prefix_len</code> is 4, so there is
+no value node to prepend.</li>
+<li>Reduce <code>prefix_len</code> to 3, read our <code>key_ascii=&quot;h&quot;</code>, and recalculate <code>i</code> and <code>j</code>.
+There are no other strings sharing the prefix “abg”, so we prepend an
+<strong>ASCII node “h”</strong>, increase <code>current_len</code> to 4, and continue the main loop.</li>
+<li>Top of loop. There is still no value node to prepend.</li>
+<li>Reduce <code>prefix_len</code> to 2, read our <code>key_ascii=&quot;g&quot;</code>, and recalculate <code>i</code> and <code>j</code>.
+We find that <code>i=1</code> and <code>j=4</code>, the range of strings sharing the prefix “ad”. Since
+<code>i</code> or <code>j</code> changed, proceed to evaluate the branch node.</li>
+<li>The last branch byte <code>ascii_j</code> for this prefix is “g”, which is the same as <code>key_ascii</code>,
+so we are the <em>last</em> target of a branch node. Push an entry onto <code>lengths_stack</code>:
+<code>BranchMeta { ascii: &quot;g&quot;, cumulative_length: 4, local_length: 4, count: 1 }</code>.</li>
+<li>The first branch byte <code>ascii_i</code> for this prefix is “e”, which is NOT equal to <code>key_ascii</code>,
+so we are <em>not the first</em> target of a branch node. We therefore start evaluating the
+string preceding where we were at the top of the current loop. We set <code>i=2</code>, <code>j=3</code>,
+<code>prefix_len=4</code> (length of the string at <code>i</code>), and continue the main loop.</li>
+<li>Top of loop. Since the string at <code>i</code> is equal in length to <code>prefix_len</code>, we prepend a
+<strong>value node 33</strong> (which requires a 2-byte varint) and increase <code>current_len</code> to 2.</li>
+<li>Reduce <code>prefix_len</code> to 3, read our <code>key_ascii=&quot;f&quot;</code>, and recalculate <code>i</code> and <code>j</code>.
+They stay the same, so we prepend an <strong>ASCII node “f”</strong>, increase <code>current_len</code> to 3,
+and continue the main loop.</li>
+<li>Top of loop. No value node this time.</li>
+<li>Reduce <code>prefix_len</code> to 2, read our <code>key_ascii=&quot;e&quot;</code>, and recalculate <code>i</code> and <code>j</code>.
+They go back to <code>i=1</code> and <code>j=4</code>.</li>
+<li>The last branch byte <code>ascii_j</code> for this prefix is “g”, which is NOT equal to <code>key_ascii</code>,
+so we are <em>not the last</em> target of a branch node. We peek at the entry at the front of
+the lengths stack and use it to push another entry onto the stack:
+<code>BranchMeta { ascii: &quot;e&quot;, cumulative_length: 7, local_length: 3, count: 2 }</code></li>
+<li>The first branch byte <code>ascii_i</code> for this prefix is “e”, which is the same as <code>key_ascii</code>,
+wo we are the <em>first</em> target of a branch node. We can therefore proceed to prepend the
+metadata for the branch node. We peek at the top of the stack and find that there are 2
+tries reachable from this branch and they have a total byte length of 5. We then pull off
+2 entries from the stack into a local variable <code>branch_metas</code>. From here, we write out
+the <strong>offset table</strong>, <strong>lookup table</strong>, and <strong>branch head node</strong>, which are determined
+from the metadata entries. We set <code>current_len</code> to the length of the two tries plus the
+metadata, which happens to be 11. Then we return to the top of the main loop.</li>
+<li>Top of loop. The string at <code>i</code> is length 2, which is the same as <code>prefix_len</code>, so we
+prepend a <strong>value node 22</strong> (2-byte varint) and increase <code>current_len</code> to 13.</li>
+<li>Reduce <code>prefix_len</code> to 1, read our <code>key_ascii=&quot;d&quot;</code>, and recalculate <code>i</code> and <code>j</code>.
+They stay the same, so we prepend an <strong>ASCII node “d”</strong>, increase <code>current_len</code> to 14,
+and continue the main loop.</li>
+<li>Top of loop. No value node this time.</li>
+<li>Reduce <code>prefix_len</code> to 0, read our <code>key_ascii=&quot;a&quot;</code>, and recalculate <code>i</code> and <code>j</code>.
+They change to <code>i=0</code> and <code>j=4</code>, since all strings have the empty string as a prefix.
+However, <code>ascii_i</code> and <code>ascii_j</code> both equal <code>key_ascii</code>, so we prepend <strong>ASCII node “a”</strong>,
+increase <code>current_len</code> to 15, and continue the main loop.</li>
+<li>Top of loop. The string at <code>i</code> is length 0, which is the same as <code>prefix_len</code>, so we
+prepend a <strong>value node 11</strong> and increase <code>current_len</code> to 16.</li>
+<li>We can no longer reduce <code>prefix_len</code>, so our trie is complete.</li>
+</ol>
+<h3 id="perfect-hash-reordering"><a class="doc-anchor" href="#perfect-hash-reordering">§</a>Perfect Hash Reordering</h3>
+<p>When the PHF is added to the mix, the main change is that the strings are no longer in sorted
+order when they are in the trie. To resolve this issue, when adding a branch node, the target
+tries are rearranged in-place in the buffer to be in the correct order for the PHF.</p>
+<h3 id="example"><a class="doc-anchor" href="#example">§</a>Example</h3>
+<p>Here is the output of the trie described above.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>zerotrie::ZeroTrieSimpleAscii;
+
+<span class="kw">const </span>DATA: [(<span class="kw-2">&amp;</span>str, usize); <span class="number">4</span>] =
+    [(<span class="string">""</span>, <span class="number">11</span>), (<span class="string">"ad"</span>, <span class="number">22</span>), (<span class="string">"adef"</span>, <span class="number">33</span>), (<span class="string">"adghk"</span>, <span class="number">44</span>)];
+
+<span class="comment">// As demonstrated above, the required capacity for this trie is 16 bytes
+</span><span class="kw">const </span>TRIE: ZeroTrieSimpleAscii&lt;[u8; <span class="number">16</span>]&gt; =
+    ZeroTrieSimpleAscii::from_sorted_str_tuples(<span class="kw-2">&amp;</span>DATA);
+
+<span class="macro">assert_eq!</span>(
+    TRIE.as_bytes(),
+    <span class="kw-2">&amp;</span>[
+        <span class="number">0x8B</span>, <span class="comment">// value node 11
+        </span><span class="string">b'a'</span>, <span class="comment">// ASCII node 'a'
+        </span><span class="string">b'd'</span>, <span class="comment">// ASCII node 'd'
+        </span><span class="number">0x90</span>, <span class="comment">// value node 22 lead byte
+        </span><span class="number">0x06</span>, <span class="comment">// value node 22 trail byte
+        </span><span class="number">0xC2</span>, <span class="comment">// branch node 2
+        </span><span class="string">b'e'</span>, <span class="comment">// first target of branch
+        </span><span class="string">b'g'</span>, <span class="comment">// second target of branch
+        </span><span class="number">3</span>,    <span class="comment">// offset
+        </span><span class="string">b'f'</span>, <span class="comment">// ASCII node 'f'
+        </span><span class="number">0x90</span>, <span class="comment">// value node 33 lead byte
+        </span><span class="number">0x11</span>, <span class="comment">// value node 33 trail byte
+        </span><span class="string">b'h'</span>, <span class="comment">// ASCII node 'h'
+        </span><span class="string">b'k'</span>, <span class="comment">// ASCII node 'k'
+        </span><span class="number">0x90</span>, <span class="comment">// value node 44 lead byte
+        </span><span class="number">0x1C</span>, <span class="comment">// value node 44 trail byte
+    </span>]
+);
+
+<span class="macro">assert_eq!</span>(TRIE.get(<span class="string">b""</span>), <span class="prelude-val">Some</span>(<span class="number">11</span>));
+<span class="macro">assert_eq!</span>(TRIE.get(<span class="string">b"ad"</span>), <span class="prelude-val">Some</span>(<span class="number">22</span>));
+<span class="macro">assert_eq!</span>(TRIE.get(<span class="string">b"adef"</span>), <span class="prelude-val">Some</span>(<span class="number">33</span>));
+<span class="macro">assert_eq!</span>(TRIE.get(<span class="string">b"adghk"</span>), <span class="prelude-val">Some</span>(<span class="number">44</span>));
+<span class="macro">assert_eq!</span>(TRIE.get(<span class="string">b"unknown"</span>), <span class="prelude-val">None</span>);</code></pre></div>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="branch_meta/index.html" title="mod zerotrie::builder::branch_meta">branch_meta</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="bytestr/index.html" title="mod zerotrie::builder::bytestr">bytestr</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="konst/index.html" title="mod zerotrie::builder::konst">konst</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="nonconst/index.html" title="mod zerotrie::builder::nonconst">nonconst</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li></ul></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OscillatorNodeMessage","OscillatorType"],"struct":["OscillatorNode","OscillatorNodeOptions","PeriodicWaveOptions"]};

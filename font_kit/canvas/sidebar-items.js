@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Format","RasterizationOptions"],"struct":["BITMAP_1BPP_TO_8BPP_LUT","BlitA8ToRgb24","BlitMemcpy","BlitRgb24ToA8","BlitRgb24ToRgba32","BlitRgba32ToRgb24","Canvas"],"trait":["Blit"]};

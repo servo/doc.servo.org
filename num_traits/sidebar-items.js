@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FloatErrorKind"],"fn":["clamp","clamp_max","clamp_min","str_to_ascii_lower_eq_str"],"macro":["float_trait_impl","int_trait_impl"],"mod":["bounds","cast","float","identities","int","macros","ops","pow","real","sign"],"struct":["ParseFloatError"],"trait":["Num","NumAssign","NumAssignOps","NumAssignRef","NumOps","NumRef","RefNum"]};

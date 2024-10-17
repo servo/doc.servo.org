@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_from_signed_integer_type","impl_from_unsigned_integer_type","impl_iterator_unsigned_integer_type"],"struct":["IntIterator"]};

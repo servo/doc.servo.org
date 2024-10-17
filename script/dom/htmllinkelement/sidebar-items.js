@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLLinkElement"],"fn":["get_attr","translate_a_preload_destination"],"struct":["HTMLLinkElement","LinkProcessingOptions","PrefetchContext","RequestGenerationId"]};

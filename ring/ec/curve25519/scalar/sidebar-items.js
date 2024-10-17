@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCALAR_LEN","UNREDUCED_SCALAR_LEN"],"struct":["MaskedScalar","Scalar"],"type":["UnreducedScalar"]};

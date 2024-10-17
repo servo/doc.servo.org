@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BitDepth","BlendOp","BytesPerPixel","ColorType","Compression","DisposeOp","ParameterErrorKind","SrgbRenderingIntent","Unit"],"struct":["AnimationControl","FrameControl","Info","ParameterError","PixelDimensions","ScaledFloat","SourceChromaticities","Transformations"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReferrerPolicy","RequestCache","RequestCredentials","RequestDestination","RequestMode","RequestRedirect"],"mod":["ReferrerPolicyValues","RequestCacheValues","RequestCredentialsValues","RequestDestinationValues","RequestModeValues","RequestRedirectValues","Request_Binding"],"struct":["RequestInit"]};

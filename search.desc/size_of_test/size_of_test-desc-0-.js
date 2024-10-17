@@ -1,0 +1,1 @@
+searchState.loadedDescShard("size_of_test", 0, "Asserts that constants are equal in value.\nAsserts the size of a type at compile time.")

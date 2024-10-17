@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["circle_size_keyword","convert_gradient_stops","distance_to_corner","distance_to_sides","ellipse_radius","ellipse_size_keyword","extend_mode","linear","position_to_offset","radial"],"struct":["StopRun"]};

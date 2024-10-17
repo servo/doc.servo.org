@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["map_f","map_f_mut"],"type":["MapF","MapFMut"]};

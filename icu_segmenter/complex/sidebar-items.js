@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["complex_language_segment_str","complex_language_segment_utf16","try_load"],"mod":["dictionary","language","lstm"],"struct":["ComplexPayloads"],"type":["DictOrLstm","DictOrLstmBorrowed"]};

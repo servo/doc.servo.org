@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["cross_process_instant","generic_channel","id","print_tree","text","unicode_block"],"struct":["Epoch"],"trait":["WebRenderEpochToU16"]};

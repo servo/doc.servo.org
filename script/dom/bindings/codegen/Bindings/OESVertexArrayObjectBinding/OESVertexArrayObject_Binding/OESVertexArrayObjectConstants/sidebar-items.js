@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["VERTEX_ARRAY_BINDING_OES"]};

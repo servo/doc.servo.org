@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["alloc_default","alloc_if","alloc_or_default","allocate"],"macro":["implement_allocator"],"struct":["CombiningAllocator"],"trait":["Allocator","BrotliAlloc"]};

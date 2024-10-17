@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["validate_offset_tables"],"struct":["AllChunksReader","FilteredChunksReader","OnProgressChunksReader","ParallelBlockDecompressor","Reader","SequentialBlockDecompressor"],"trait":["ChunksReader"]};

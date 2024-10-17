@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CMD_OR_CONTROL"],"enum":["Direction","KeyReaction","Lines","Selection","SelectionDirection"],"fn":["len_of_first_n_chars","len_of_first_n_code_units"],"struct":["SelectionState","TextInput","TextPoint","UTF16CodeUnits","UTF8Bytes"],"trait":["StrExt"]};

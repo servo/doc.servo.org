@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALL","END_HEADERS","END_STREAM","PADDED","PRIORITY"],"enum":["PushPromiseHeaderError"],"fn":["calculate_headermap_size","decoded_header_size","parse_u64"],"struct":["Continuation","EncodingHeaderBlock","HeaderBlock","Headers","HeadersFlag","Iter","ParseU64Error","Pseudo","PushPromise","PushPromiseFlag"],"type":["EncodeBuf"]};

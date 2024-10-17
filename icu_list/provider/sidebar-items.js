@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["serde_dfa"],"struct":["AndListV1Marker","Baked","ConditionalListJoinerPattern","ErasedListV1Marker","ListFormatterPatternsV1","ListJoinerPattern","OrListV1Marker","SerdeDFA","SpecialCasePattern","UnitListV1Marker"]};

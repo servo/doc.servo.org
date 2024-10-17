@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cons_tuples"],"macro":["impl_cons_iter"],"struct":["ConsTuples"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Readable","Writable"],"fn":["buffer_n_gl_memory"],"mod":["sealed"],"struct":["GLVideoFrame","GLVideoFrameRef"],"trait":["GLVideoFrameExt","IsGLVideoFrame"]};

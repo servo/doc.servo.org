@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Implements trait(s) for a type or verifies the given implementation by referencing an existing (derived) implementation."><title>impl_or_verify in zerocopy::macros - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="zerocopy" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../zerocopy/index.html">zerocopy</a><span class="version">0.7.35</span></h2></div><div class="sidebar-elems"><h2><a href="index.html">In zerocopy::macros</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Macro <a href="../index.html">zerocopy</a>::<wbr><a href="index.html">macros</a>::<wbr><a class="macro" href="#">impl_or_verify</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/zerocopy/macros.rs.html#279-327">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><span class="macro">macro_rules!</span> impl_or_verify {
+    (
+        <span class="kw">const </span><span class="macro-nonterminal">$constname</span>:ident : <span class="macro-nonterminal">$constty</span>:ident $(,)<span class="question-mark">?
+        </span>$(<span class="macro-nonterminal">$tyvar</span>:ident $(: $(<span class="question-mark">? </span><span class="macro-nonterminal">$optbound</span>:ident $(+)<span class="question-mark">?</span>)* $(<span class="macro-nonterminal">$bound</span>:ident $(+)<span class="question-mark">?</span>)* )<span class="question-mark">?</span>),*
+        =&gt; <span class="macro-nonterminal">$</span><span class="kw">trait</span>:<span class="macro-nonterminal">ident </span><span class="kw">for </span><span class="macro-nonterminal">$ty</span>:ty
+    ) =&gt; { ... };
+    (
+        $(<span class="macro-nonterminal">$tyvar</span>:ident $(: $(<span class="question-mark">? </span><span class="macro-nonterminal">$optbound</span>:ident $(+)<span class="question-mark">?</span>)* $(<span class="macro-nonterminal">$bound</span>:ident $(+)<span class="question-mark">?</span>)* )<span class="question-mark">?</span>),*
+        =&gt; <span class="macro-nonterminal">$</span><span class="kw">trait</span>:<span class="macro-nonterminal">ident </span><span class="kw">for </span><span class="macro-nonterminal">$ty</span>:ty
+    ) =&gt; { ... };
+    (
+        $(<span class="macro-nonterminal">$tyvar</span>:ident $(: $(<span class="question-mark">? </span><span class="macro-nonterminal">$optbound</span>:ident $(+)<span class="question-mark">?</span>)* $(<span class="macro-nonterminal">$bound</span>:ident $(+)<span class="question-mark">?</span>)* )<span class="question-mark">?</span>),*
+        =&gt; <span class="macro-nonterminal">$</span><span class="kw">trait</span>:<span class="macro-nonterminal">ident </span><span class="kw">for </span><span class="macro-nonterminal">$ty</span>:ty
+    ) =&gt; { ... };
+    (@<span class="kw">impl </span><span class="macro-nonterminal">$impl_block</span>:tt) =&gt; { ... };
+    (@verify <span class="macro-nonterminal">$</span><span class="kw">trait</span>:<span class="macro-nonterminal">ident</span>, <span class="macro-nonterminal">$impl_block</span>:tt) =&gt; { ... };
+}</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Implements trait(s) for a type or verifies the given implementation by
+referencing an existing (derived) implementation.</p>
+<p>This macro exists so that we can provide zerocopy-derive as an optional
+dependency and still get the benefit of using its derives to validate that
+our trait impls are sound.</p>
+<p>When compiling without <code>--cfg 'feature = &quot;derive&quot;</code> and without <code>--cfg test</code>,
+<code>impl_or_verify!</code> emits the provided trait impl. When compiling with either
+of those cfgs, it is expected that the type in question is deriving the
+traits instead. In this case, <code>impl_or_verify!</code> emits code which validates
+that the given trait impl is at least as restrictive as the the impl emitted
+by the custom derive. This has the effect of confirming that the impl which
+is emitted when the <code>derive</code> feature is disabled is actually sound (on the
+assumption that the impl emitted by the custom derive is sound).</p>
+<p>The caller is still required to provide a safety comment (e.g. using the
+<code>safety_comment!</code> macro) . The reason for this restriction is that, while
+<code>impl_or_verify!</code> can guarantee that the provided impl is sound when it is
+compiled with the appropriate cfgs, there is no way to guarantee that it is
+ever compiled with those cfgs. In particular, it would be possible to
+accidentally place an <code>impl_or_verify!</code> call in a context that is only ever
+compiled when the <code>derive</code> feature is disabled. If that were to happen,
+there would be nothing to prevent an unsound trait impl from being emitted.
+Requiring a safety comment reduces the likelihood of emitting an unsound
+impl in this case, and also provides useful documentation for readers of the
+code.</p>
+<h3 id="example"><a class="doc-anchor" href="#example">§</a>Example</h3>
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="comment">// Note that these derives are gated by `feature = "derive"`
+</span><span class="attr">#[cfg_attr(any(feature = <span class="string">"derive"</span>, test), derive(FromZeroes, FromBytes, AsBytes, Unaligned))]
+#[repr(transparent)]
+</span><span class="kw">struct </span>Wrapper&lt;T&gt;(T);
+
+<span class="macro">safety_comment!</span> {
+    <span class="doccomment">/// SAFETY:
+    /// `Wrapper&lt;T&gt;` is `repr(transparent)`, so it is sound to implement any
+    /// zerocopy trait if `T` implements that trait.
+    </span><span class="macro">impl_or_verify!</span>(T: FromZeroes =&gt; FromZeroes <span class="kw">for </span>Wrapper&lt;T&gt;);
+    <span class="macro">impl_or_verify!</span>(T: FromBytes =&gt; FromBytes <span class="kw">for </span>Wrapper&lt;T&gt;);
+    <span class="macro">impl_or_verify!</span>(T: AsBytes =&gt; AsBytes <span class="kw">for </span>Wrapper&lt;T&gt;);
+    <span class="macro">impl_or_verify!</span>(T: Unaligned =&gt; Unaligned <span class="kw">for </span>Wrapper&lt;T&gt;);
+}</code></pre></div>
+</div></details></section></div></main></body></html>

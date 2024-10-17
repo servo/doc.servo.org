@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_DEADZONE"],"enum":["Error","MappingSource","PowerInfo"],"fn":["axis_value","btn_value"],"struct":["ConnectedGamepadsIterator","Gamepad","GamepadData","GamepadId","Gilrs","GilrsBuilder"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ast","environment"],"struct":["Env","ModuleEnv"]};

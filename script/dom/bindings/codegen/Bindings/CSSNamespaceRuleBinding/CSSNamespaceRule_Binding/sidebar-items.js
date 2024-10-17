@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["namespaceURI_getterinfo","prefix_getterinfo","sAttributes","sAttributes_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetProtoObject","Wrap","_finalize","_trace","get_namespaceURI","get_prefix"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["CSSNamespaceRuleMethods"]};

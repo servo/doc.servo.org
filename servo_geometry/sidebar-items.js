@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DeviceIndependentPixel"],"fn":["au_rect_to_f32_rect","f32_rect_to_au_rect"],"trait":["MaxRect"],"type":["FramebufferUintLength"]};

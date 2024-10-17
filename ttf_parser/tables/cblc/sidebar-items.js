@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BitmapDataFormat","MetricsFormat"],"fn":["select_bitmap_size_table","select_index_subtable"],"struct":["BitmapFormat","BitmapSizeTable","GlyphIdOffsetPair","IndexSubtableInfo","Location","Metrics","Table"]};

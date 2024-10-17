@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ConversionBehavior","ConversionResult"],"fn":["clamp_to","convert_int_from_jsval","enforce_range","jsstr_to_string","latin1_to_string"],"macro":["impl_as","impl_num"],"struct":["ForOfIteratorGuard"],"trait":["As","FromJSValConvertible","Number","ToJSValConvertible"]};

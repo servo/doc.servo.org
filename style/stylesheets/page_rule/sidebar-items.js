@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PagePseudoClass"],"fn":["parse_page_name","selector_specificity"],"macro":["page_pseudo_classes"],"struct":["PagePseudoClassFlags","PageRule","PageSelector","PageSelectors"],"type":["PagePseudoClasses"]};

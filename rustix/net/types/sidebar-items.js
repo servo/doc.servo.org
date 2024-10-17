@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Shutdown"],"fn":["new_raw_protocol"],"mod":["eth","ipproto","netlink","sysproto","xdp"],"struct":["AddressFamily","Protocol","SocketFlags","SocketType","UCred"],"type":["RawAddressFamily","RawProtocol","RawSocketType"]};

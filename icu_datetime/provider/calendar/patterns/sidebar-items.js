@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GenericLengthPatternsV1","GenericPatternV1","GenericPatternV1Marker","LengthPatternsV1","PatternPluralsFromPatternsV1Marker","PatternPluralsV1"]};

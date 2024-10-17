@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["XI_LINE_BREAKING_CLASS_CM","XI_LINE_BREAKING_CLASS_GL","XI_LINE_BREAKING_CLASS_WJ","XI_LINE_BREAKING_CLASS_ZW","XI_LINE_BREAKING_CLASS_ZWJ"],"enum":["SegmentStartSoftWrapPolicy"],"fn":["add_or_get_font","char_does_not_change_font","get_font_for_first_font_for_style"],"struct":["TextRun","TextRunSegment","TwoCharsAtATimeIterator"]};

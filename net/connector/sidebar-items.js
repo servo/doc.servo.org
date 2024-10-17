@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BUF_SIZE"],"enum":["CACertificates"],"fn":["create_http_client","create_tls_config"],"struct":["CertificateErrorOverrideManager","CertificateErrorOverrideManagerInternal","CertificateVerificationOverrideVerifier","ServoHttpConnector","TokioExecutor"],"type":["Connector","TlsConfig"]};

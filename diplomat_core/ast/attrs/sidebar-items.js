@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Attr","AttrInheritContext","DiplomatBackendAttrCfg","StandardAttribute"],"fn":["serialize_meta","syn_attr_to_ast_attr"],"struct":["Attrs","DiplomatBackendAttr","RenameAttr","RenamePattern"]};

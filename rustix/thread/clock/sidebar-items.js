@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["NanosleepRelativeResult"],"fn":["clock_nanosleep_absolute","clock_nanosleep_relative","nanosleep"]};

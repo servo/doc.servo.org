@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["int","size_t","uint"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CustomAutoRooterVFTable","Heap","Rooted","ValueArray"],"trait":["GCMethods","IntoHandle","IntoMutableHandle","RootKind"],"type":["RootedValueArray"]};

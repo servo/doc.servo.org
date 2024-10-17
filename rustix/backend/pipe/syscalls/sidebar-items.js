@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fcntl_getpipe_sz","fcntl_setpipe_sz","pipe","pipe_with","splice","tee","vmsplice"]};

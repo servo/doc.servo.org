@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["pidfd_getfd"],"struct":["PidfdGetfdFlags"],"type":["ForeignRawFd"]};

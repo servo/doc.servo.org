@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_COEFF_SHIFT","SAMPLE_SHIFT","SAMPLE_SIZE"],"fn":["cheap_distance","compute_curve_steps","diff_to_shift","div_fixed16_fixed16","dot16_to_dot2","dot2_to_dot16","dot2_to_dot6","dot2_to_int","f32_to_dot2","int_to_dot2"],"struct":["ActiveEdge","Edge","Rasterizer"],"type":["Dot16","Dot2","Dot6","ShiftedDot16"]};

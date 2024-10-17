@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ParseErrorKind","Span","TokenKind"],"fn":["perr"],"struct":["InvalidToken","ParseError"],"trait":["SpanLike"]};

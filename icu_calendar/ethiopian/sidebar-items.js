@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["AMETE_ALEM_OFFSET"],"enum":["EthiopianEraStyle"],"struct":["Ethiopian","EthiopianDateInner"]};

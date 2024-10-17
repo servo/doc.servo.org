@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["digest_scalar","digest_scalar_"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Format","HintingOptions","RasterizationOptions"],"fn":["vec2f","vec2i"],"struct":["Canvas","Font","Transform2F"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_byte_from_expr_lit","get_byte_from_lit","parse_pat_to_table"],"macro":["_cssparser_internal_max_len","match_byte"]};

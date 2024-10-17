@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_inv_pow5","compute_pow5"],"static":["DOUBLE_POW5_INV_SPLIT2","DOUBLE_POW5_SPLIT2","DOUBLE_POW5_TABLE","POW5_INV_OFFSETS","POW5_OFFSETS"]};

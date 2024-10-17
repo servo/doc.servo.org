@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MaskType"],"struct":["Mask","SubMaskRef"]};

@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Internal layout of ZeroTrie"><title>zerotrie::reader - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="zerotrie" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../zerotrie/index.html">zerotrie</a><span class="version">0.1.3</span></h2></div><h2 class="location"><a href="#">Module reader</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#functions">Functions</a></li></ul></section><h2><a href="../index.html">In crate zerotrie</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">zerotrie</a>::<wbr><a class="mod" href="#">reader</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/zerotrie/reader.rs.html#5-727">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="internal-layout-of-zerotrie"><a class="doc-anchor" href="#internal-layout-of-zerotrie">§</a>Internal layout of ZeroTrie</h2>
+<p>A ZeroTrie is composed of a series of nodes stored in sequence in a byte slice.</p>
+<p>There are 4 types of nodes:</p>
+<ol>
+<li>ASCII (<code>0xxxxxxx</code>): matches a literal ASCII byte.</li>
+<li>Span (<code>101xxxxx</code>): matches a span of non-ASCII bytes.</li>
+<li>Value (<code>100xxxxx</code>): associates a value with a string</li>
+<li>Branch (<code>11xxxxxx</code>): matches one of a set of bytes.</li>
+</ol>
+<p>Span, Value, and Branch nodes contain a varint, which has different semantics for each:</p>
+<ul>
+<li>Span varint: length of the span</li>
+<li>Value varint: value associated with the string</li>
+<li>Branch varint: number of edges in the branch and width of the offset table</li>
+</ul>
+<p>If reading an ASCII, Span, or Branch node, one or more bytes are consumed from the input
+string. If the next byte(s) in the input string do not match the node, we return <code>None</code>.
+If reading a Value node, if the string is empty, return <code>Some(value)</code>; otherwise, we skip
+the Value node and continue on to the next node.</p>
+<p>When a node is consumed, a shorter, well-formed ZeroTrie remains.</p>
+<h4 id="basic-example"><a class="doc-anchor" href="#basic-example">§</a>Basic Example</h4>
+<p>Here is an example ZeroTrie without branch nodes:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>zerotrie::ZeroTriePerfectHash;
+
+<span class="kw">let </span>bytes = [
+    <span class="string">b'a'</span>,       <span class="comment">// ASCII literal
+    </span><span class="number">0b10001010</span>, <span class="comment">// value 10
+    </span><span class="string">b'b'</span>,       <span class="comment">// ASCII literal
+    </span><span class="number">0b10100011</span>, <span class="comment">// span of 3
+    </span><span class="number">0x81</span>,       <span class="comment">// first byte in span
+    </span><span class="number">0x91</span>,       <span class="comment">// second byte in span
+    </span><span class="number">0xA1</span>,       <span class="comment">// third and final byte in span
+    </span><span class="number">0b10000100</span>, <span class="comment">// value 4
+</span>];
+
+<span class="kw">let </span>trie = ZeroTriePerfectHash::from_bytes(<span class="kw-2">&amp;</span>bytes);
+
+<span class="comment">// First value: "a" → 10
+</span><span class="macro">assert_eq!</span>(trie.get(<span class="string">b"a"</span>), <span class="prelude-val">Some</span>(<span class="number">10</span>));
+
+<span class="comment">// Second value: "ab\x81\x91\xA1" → 4
+</span><span class="macro">assert_eq!</span>(trie.get(<span class="string">b"ab\x81\x91\xA1"</span>), <span class="prelude-val">Some</span>(<span class="number">4</span>));
+
+<span class="comment">// A few examples of strings that do NOT have values in the trie:
+</span><span class="macro">assert_eq!</span>(trie.get(<span class="string">b"ab"</span>), <span class="prelude-val">None</span>);
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"b"</span>), <span class="prelude-val">None</span>);
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"b\x81\x91\xA1"</span>), <span class="prelude-val">None</span>);</code></pre></div>
+<h3 id="branch-nodes"><a class="doc-anchor" href="#branch-nodes">§</a>Branch Nodes</h3>
+<p>There are two types of branch nodes: binary search and perfect hash. <code>ZeroTrieSimpleAscii</code>
+contains only binary search nodes, whereas <code>ZeroTriePerfectHash</code> can contain either.</p>
+<p>The head node of the branch has a varint that encodes two things:</p>
+<ul>
+<li>Bottom 8 bits: number of edges in the branch (<code>N</code>); if N = 0, set N to 256</li>
+<li>Bits 9 and 10: width of the offset table (<code>W</code>)</li>
+</ul>
+<p>Note that N is always in the range [1, 256]. There can’t be more than 256 edges because
+there are only 256 unique u8 values.</p>
+<p>A few examples of the head node of the branch:</p>
+<ul>
+<li><code>0b11000000</code>: varint bits <code>0</code>: N = 0 which means N = 256; W = 0</li>
+<li><code>0b11000110</code>: varint bits <code>110</code>: N = 6; W = 0</li>
+<li><code>0b11100000 0b00000101</code>: varint bits <code>1000101</code>: N = 69; W = 0</li>
+<li><code>0b11100010 0b00000000</code>: varint bits <code>101000000</code>: N = 64; W = 1</li>
+</ul>
+<p>In <code>ZeroTriePerfectHash</code>, if N &lt;= 15, the branch is assumed to be a binary search, and if
+N &gt; 15, the branch is assumed to be a perfect hash.</p>
+<h4 id="binary-search-branch-nodes"><a class="doc-anchor" href="#binary-search-branch-nodes">§</a>Binary Search Branch Nodes</h4>
+<p>A binary search branch node is used when:</p>
+<ol>
+<li>The trie is a <code>ZeroTrieSimpleAscii</code>, OR</li>
+<li>There are 15 or fewer items in the branch.</li>
+</ol>
+<p>The head branch node is followed by N sorted bytes. When evaluating a branch node, one byte
+is consumed from the input. If it is one of the N sorted bytes (scanned using binary search),
+the index <code>i</code> of the byte within the list is used to index into the offset table (described
+below). If the byte is not in the list, the string is not in the trie, so return <code>None</code>.</p>
+<h4 id="perfect-hash-branch-nodes"><a class="doc-anchor" href="#perfect-hash-branch-nodes">§</a>Perfect Hash Branch Nodes</h4>
+<p>A perfect hash branch node is used when:</p>
+<ol>
+<li>The trie is NOT a <code>ZeroTrieSimpleAscii</code>, AND</li>
+<li>There are 16 or more items in the branch.</li>
+</ol>
+<p>The head branch node is followed by 1 byte containing parameter <code>p</code>, N bytes containing
+parameters <code>q</code>, and N bytes containing the bytes to match. From these parameters, either an
+index within the hash table <code>i</code> is resolved and used as input to index into the offset
+table (described below), or the value is determined to not be present and <code>None</code> is
+returned. For more detail on resolving the perfect hash function, see <a href="../byte_phf/index.html" title="mod zerotrie::byte_phf"><code>crate::byte_phf</code></a>.</p>
+<h4 id="offset-tables"><a class="doc-anchor" href="#offset-tables">§</a>Offset Tables</h4>
+<p>The <em>offset table</em> encodes the range of the remaining buffer containing the trie reachable
+from the byte matched in the branch node. Both types of branch nodes include an offset
+table followig the key lookup. Given the index <code>i</code> from the first step, the range
+<code>[s_i, s_(i+1))</code> brackets the next step in the trie.</p>
+<p>Offset tables utilize the <code>W</code> parameter stored in the branch head node. The special case
+when <code>W == 0</code>, with <code>N - 1</code> bytes, is easiest to understand:</p>
+<p><strong>Offset table, W = 0:</strong> <code>[s_1, s_2, ..., s_(N-1)]</code></p>
+<p>Note that <code>s_0</code> is always 0 and <code>s_N</code> is always the length of the remaining slice, so those
+values are not explicitly included in the offset table.</p>
+<p>When W &gt; 0, the high and low bits of the offsets are in separate bytes, arranged as follows:</p>
+<p><strong>Generalized offset table:</strong> <code>[a_1, a_2, ..., a_(N-1), b_1, b_2, ..., b_(N-1), c_1, ...]</code></p>
+<p>where <code>s_i = (a_i &lt;&lt; 8 + b_i) &lt;&lt; 8 + c_i ...</code> (high bits first, low bits last)</p>
+<h4 id="advanced-example"><a class="doc-anchor" href="#advanced-example">§</a>Advanced Example</h4>
+<p>The following trie encodes the following map. It has multiple varints and branch nodes, which
+are all binary search with W = 0. Note that there is a value for the empty string.</p>
+<ul>
+<li>“” → 0</li>
+<li>“axb” → 100</li>
+<li>“ayc” → 2</li>
+<li>“azd” → 3</li>
+<li>“bxe” → 4</li>
+<li>“bxefg” → 500</li>
+<li>“bxefh” → 6</li>
+<li>“bxei” → 7</li>
+<li>“bxeikl” → 8</li>
+</ul>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>zerotrie::ZeroTrieSimpleAscii;
+
+<span class="kw">let </span>bytes = [
+    <span class="number">0b10000000</span>, <span class="comment">// value 0
+    </span><span class="number">0b11000010</span>, <span class="comment">// branch of 2
+    </span><span class="string">b'a'</span>,       <span class="comment">//
+    </span><span class="string">b'b'</span>,       <span class="comment">//
+    </span><span class="number">13</span>,         <span class="comment">//
+    </span><span class="number">0b11000011</span>, <span class="comment">// start of 'a' subtree: branch of 3
+    </span><span class="string">b'x'</span>,       <span class="comment">//
+    </span><span class="string">b'y'</span>,       <span class="comment">//
+    </span><span class="string">b'z'</span>,       <span class="comment">//
+    </span><span class="number">3</span>,          <span class="comment">//
+    </span><span class="number">5</span>,          <span class="comment">//
+    </span><span class="string">b'b'</span>,       <span class="comment">//
+    </span><span class="number">0b10010000</span>, <span class="comment">// value 100 (lead)
+    </span><span class="number">0x54</span>,       <span class="comment">// value 100 (trail)
+    </span><span class="string">b'c'</span>,       <span class="comment">//
+    </span><span class="number">0b10000010</span>, <span class="comment">// value 2
+    </span><span class="string">b'd'</span>,       <span class="comment">//
+    </span><span class="number">0b10000011</span>, <span class="comment">// value 3
+    </span><span class="string">b'x'</span>,       <span class="comment">// start of 'b' subtree
+    </span><span class="string">b'e'</span>,       <span class="comment">//
+    </span><span class="number">0b10000100</span>, <span class="comment">// value 4
+    </span><span class="number">0b11000010</span>, <span class="comment">// branch of 2
+    </span><span class="string">b'f'</span>,       <span class="comment">//
+    </span><span class="string">b'i'</span>,       <span class="comment">//
+    </span><span class="number">7</span>,          <span class="comment">//
+    </span><span class="number">0b11000010</span>, <span class="comment">// branch of 2
+    </span><span class="string">b'g'</span>,       <span class="comment">//
+    </span><span class="string">b'h'</span>,       <span class="comment">//
+    </span><span class="number">2</span>,          <span class="comment">//
+    </span><span class="number">0b10010011</span>, <span class="comment">// value 500 (lead)
+    </span><span class="number">0x64</span>,       <span class="comment">// value 500 (trail)
+    </span><span class="number">0b10000110</span>, <span class="comment">// value 6
+    </span><span class="number">0b10000111</span>, <span class="comment">// value 7
+    </span><span class="string">b'k'</span>,       <span class="comment">//
+    </span><span class="string">b'l'</span>,       <span class="comment">//
+    </span><span class="number">0b10001000</span>, <span class="comment">// value 8
+</span>];
+
+<span class="kw">let </span>trie = ZeroTrieSimpleAscii::from_bytes(<span class="kw-2">&amp;</span>bytes);
+
+<span class="comment">// Assert that the specified items are in the map
+</span><span class="macro">assert_eq!</span>(trie.get(<span class="string">b""</span>), <span class="prelude-val">Some</span>(<span class="number">0</span>));
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"axb"</span>), <span class="prelude-val">Some</span>(<span class="number">100</span>));
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"ayc"</span>), <span class="prelude-val">Some</span>(<span class="number">2</span>));
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"azd"</span>), <span class="prelude-val">Some</span>(<span class="number">3</span>));
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"bxe"</span>), <span class="prelude-val">Some</span>(<span class="number">4</span>));
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"bxefg"</span>), <span class="prelude-val">Some</span>(<span class="number">500</span>));
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"bxefh"</span>), <span class="prelude-val">Some</span>(<span class="number">6</span>));
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"bxei"</span>), <span class="prelude-val">Some</span>(<span class="number">7</span>));
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"bxeikl"</span>), <span class="prelude-val">Some</span>(<span class="number">8</span>));
+
+<span class="comment">// Assert that some other items are not in the map
+</span><span class="macro">assert_eq!</span>(trie.get(<span class="string">b"a"</span>), <span class="prelude-val">None</span>);
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"bx"</span>), <span class="prelude-val">None</span>);
+<span class="macro">assert_eq!</span>(trie.get(<span class="string">b"xba"</span>), <span class="prelude-val">None</span>);</code></pre></div>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.ZeroTrieIterator.html" title="struct zerotrie::reader::ZeroTrieIterator">ZeroTrieIterator</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Internal iterator type for walking the strings contained in a ZeroTrie.</div></li></ul><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.NodeType.html" title="enum zerotrie::reader::NodeType">NodeType</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">The node type. See the module-level docs for more explanation of the four node types.</div></li></ul><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.byte_type.html" title="fn zerotrie::reader::byte_type">byte_type</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="fn" href="fn.get_branch.html" title="fn zerotrie::reader::get_branch">get_branch</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Given a slice starting with an offset table, returns the trie for the given index.</div></li><li><div class="item-name"><a class="fn" href="fn.get_branch_w0.html" title="fn zerotrie::reader::get_branch_w0">get_branch_w0</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Version of <a href="fn.get_branch.html" title="fn zerotrie::reader::get_branch"><code>get_branch()</code></a> specialized for the case <code>w == 0</code> for performance</div></li><li><div class="item-name"><a class="fn" href="fn.get_iter_ascii_or_panic.html" title="fn zerotrie::reader::get_iter_ascii_or_panic">get_iter_ascii_or_panic</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Panics</div></li><li><div class="item-name"><a class="fn" href="fn.get_iter_phf.html" title="fn zerotrie::reader::get_iter_phf">get_iter_phf</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="fn" href="fn.get_parameterized.html" title="fn zerotrie::reader::get_parameterized">get_parameterized</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="fn" href="fn.probe_parameterized.html" title="fn zerotrie::reader::probe_parameterized">probe_parameterized</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Steps one node into the trie, assuming all branch nodes are binary search and that
+there are no span nodes, using an index.</div></li><li><div class="item-name"><a class="fn" href="fn.step_parameterized.html" title="fn zerotrie::reader::step_parameterized">step_parameterized</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Steps one node into the trie assuming all branch nodes are binary search and that
+there are no span nodes.</div></li><li><div class="item-name"><a class="fn" href="fn.take_value.html" title="fn zerotrie::reader::take_value">take_value</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Steps one node into the trie if the head node is a value node, returning the value.
+If the head node is not a value node, no change is made.</div></li></ul></section></div></main></body></html>

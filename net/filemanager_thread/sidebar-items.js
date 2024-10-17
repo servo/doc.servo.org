@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FILE_CHUNK_SIZE"],"enum":["FileImpl"],"fn":["read_file_in_chunks","set_headers"],"struct":["FileManager","FileManagerStore","FileMetaData","FileStoreEntry"]};

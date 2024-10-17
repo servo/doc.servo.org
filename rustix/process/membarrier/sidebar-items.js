@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["membarrier","membarrier_cpu","membarrier_query"],"struct":["MembarrierQuery"]};

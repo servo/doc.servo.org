@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XrDiscovery"],"struct":["EmbedderCallbacks"]};

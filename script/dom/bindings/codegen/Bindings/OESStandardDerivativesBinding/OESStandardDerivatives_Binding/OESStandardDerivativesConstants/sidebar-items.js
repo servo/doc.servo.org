@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FRAGMENT_SHADER_DERIVATIVE_HINT_OES"]};

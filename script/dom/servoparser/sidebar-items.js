@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_ServoParser"],"enum":["ParserKind","ParsingAlgorithm","Tokenizer"],"fn":["create_element_for_token","insert"],"mod":["async_html","html","prefetch","xml"],"struct":["ElementAttribute","FragmentContext","FragmentParsingResult","NetworkDecoder","NetworkSink","ParserContext","ServoParser","Sink"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RepeatType"],"fn":["allow_grid_template_masonry","allow_grid_template_subgrids","parse_flex","parse_line_names"]};

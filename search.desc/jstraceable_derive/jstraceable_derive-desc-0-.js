@@ -1,0 +1,1 @@
+searchState.loadedDescShard("jstraceable_derive", 0, "Implements <code>JSTraceable</code> on structs and enums")

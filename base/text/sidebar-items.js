@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["UnicodeBlock"],"fn":["is_bidi_control","is_cjk","unicode_plane"],"trait":["UnicodeBlockMethod"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BlockingMode","ConnectError","MaxRequestBytes","ParseError","PollMode"],"mod":["packet_reader","stream","write_buffer"],"struct":["ConnectionInner","DefaultStream","NotifyOnDrop","RequestInfo","RustConnection"],"trait":["Stream"],"type":["BufWithFds","Buffer","MutexGuardInner"]};

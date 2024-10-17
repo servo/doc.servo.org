@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CompositeTarget","ShutdownState"],"mod":["compositor","gl","touch","tracing","webview","windowing"],"struct":["IOCompositor","InitialCompositorState"]};

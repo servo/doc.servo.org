@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SentenceBreakIterator","SentenceSegmenter"],"type":["SentenceBreakIteratorLatin1","SentenceBreakIteratorPotentiallyIllFormedUtf8","SentenceBreakIteratorUtf16","SentenceBreakIteratorUtf8"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ELEM_LEN","ELEM_LIMBS"],"fn":["encode_point","has_fe25519_adx","x25519_fe_invert","x25519_fe_isnegative","x25519_fe_mul_ttt","x25519_fe_neg","x25519_fe_tobytes","x25519_ge_frombytes_vartime"],"struct":["Elem","ExtPoint","Point","T"],"trait":["Encoding"],"type":["EncodedPoint"]};

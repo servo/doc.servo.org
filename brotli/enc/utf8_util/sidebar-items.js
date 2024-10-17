@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["BrotliIsMostlyUTF8","is_mostly_utf8","parse_as_utf8"]};

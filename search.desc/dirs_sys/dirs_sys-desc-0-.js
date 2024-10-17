@@ -1,0 +1,1 @@
+searchState.loadedDescShard("dirs_sys", 0, "Returns all XDG user directories obtained from …\nReads the entire contents of a file into a byte vector.\nUnescape bytes escaped with POSIX shell double-quotes …\nReturns a single XDG user directory obtained from …\nReturns bytes before and after first occurrence of …\nReturns a slice with leading and trailing  characters …")

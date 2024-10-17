@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["message_getterinfo","sAttributes","sAttributes_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap","_finalize","_trace","get_message"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["GPUErrorMethods"]};

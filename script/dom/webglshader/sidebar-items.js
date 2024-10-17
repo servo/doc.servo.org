@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_WebGLShader"],"enum":["ShaderCompilationStatus"],"static":["GLSLANG_INITIALIZATION"],"struct":["WebGLShader"]};
