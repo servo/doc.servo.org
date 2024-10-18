@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INF_RANGE_MAGNITUDE"],"enum":["SliderClamping","SliderOrientation"],"fn":["get","logarithmic_zero_cutoff","normalized_from_value","range_log10","set","value_from_normalized"],"struct":["Slider","SliderSpec"],"type":["GetSetValue","NumFormatter","NumParser"]};

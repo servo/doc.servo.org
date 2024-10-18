@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_RECEIVERS"],"fn":["channel","is_unpin","new_receiver"],"mod":["error"],"struct":["Receiver","Recv","RecvGuard","Sender","Shared","Slot","Tail","Waiter","WaitersList"]};

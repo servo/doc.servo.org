@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decode_utf8_or_panic","init_protocol","parse","parse_arg","parse_description","parse_entry","parse_enum","parse_event","parse_interface","parse_or_panic","parse_protocol","parse_request","parse_type"],"macro":["extract_end_tag","extract_from"]};

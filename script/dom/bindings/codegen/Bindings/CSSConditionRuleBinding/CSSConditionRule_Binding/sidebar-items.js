@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["conditionText_getterinfo","sAttributes","sAttributes_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","GetProtoObject","get_conditionText"],"static":["INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["CSSConditionRuleMethods"]};

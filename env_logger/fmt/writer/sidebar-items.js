@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Target","WritableTarget","WriteStyle"],"fn":["parse_write_style"],"mod":["atty","buffer","glob"],"struct":["Builder","Writer"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["extract_attributes_common","extract_field_attributes","extract_parenthetical_zerovec_attrs","extract_zerovec_attributes","generate_per_field_offsets","repr_for","semi_for","suffixed_ident","wrap_field_inits"],"struct":["FieldInfo","IdentListAttribute","ReprInfo","ZeroVecAttrs"]};

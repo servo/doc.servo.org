@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_platform_name"],"struct":["ServoCapabilities"]};

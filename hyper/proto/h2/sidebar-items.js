@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SPEC_WINDOW_SIZE"],"enum":["Impossible","SendBuf"],"fn":["h2_to_io_error","strip_connection_headers"],"mod":["client","ping","server"],"struct":["H2Upgraded","Neutered","PipeToSendStream","UpgradedSendStream"],"trait":["SendStreamExt"]};

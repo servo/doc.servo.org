@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLFontElement"],"fn":["parse_size"],"struct":["HTMLFontElement"],"trait":["HTMLFontElementLayoutHelpers"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_LINE_DECORATION_RESOLUTION"],"fn":["get_line_decoration_size"],"struct":["LineDecoration","LineDecorationCacheKey","LineDecorationData"],"type":["LineDecorationDataHandle","LineDecorationKey","LineDecorationTemplate"]};

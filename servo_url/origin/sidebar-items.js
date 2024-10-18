@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImmutableOrigin"],"struct":["MutableOrigin","OpaqueOrigin"]};

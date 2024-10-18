@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["destroy_closure_sync","destroy_closure_watch","destroy_closure_watch_local","into_raw_sync","into_raw_watch","into_raw_watch_local","trampoline_sync","trampoline_watch","trampoline_watch_local"],"struct":["BusStream","BusWatchGuard","Iter"]};

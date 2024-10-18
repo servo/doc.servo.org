@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["handle_missing_preference","handle_preference_value"],"struct":["BoolReply","CharReply","FloatReply","IntReply","PreferenceActor"]};

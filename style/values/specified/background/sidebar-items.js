@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BackgroundRepeatKeyword"],"struct":["BackgroundRepeat"],"type":["BackgroundSize"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["copy_buf_abortable"],"macro":["ready_or_break"],"struct":["CopyBufAbortable"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LossyDecoderInner"],"fn":["decode_to_sink"],"struct":["LossyDecoder","Utf8LossyDecoder"],"trait":["TendrilSink"]};

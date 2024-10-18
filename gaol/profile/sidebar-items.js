@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AddressPattern","Operation","OperationSupportLevel","PathPattern"],"struct":["Profile"],"trait":["OperationSupport"]};

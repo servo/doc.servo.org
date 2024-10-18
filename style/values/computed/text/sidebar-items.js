@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TextEmphasisStyle"],"struct":["GenericLetterSpacing","TextDecorationsInEffect"],"type":["InitialLetter","LetterSpacing","TextAlign","TextDecorationLength","TextIndent","WordSpacing"]};

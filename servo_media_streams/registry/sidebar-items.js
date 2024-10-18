@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_stream","register_stream","unregister_stream"],"struct":["MEDIA_STREAMS_REGISTRY","MediaStreamId"]};

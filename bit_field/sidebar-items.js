@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["to_regular_range"],"macro":["bitfield_numeric_impl"],"trait":["BitArray","BitField"]};

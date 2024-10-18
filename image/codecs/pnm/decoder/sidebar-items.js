@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DecoderError","ErrorDataSource","PnmHeaderLine","TupleType"],"fn":["read_separated_ascii"],"struct":["BWBit","PbmBit","PnmDecoder","PnmReader","U16","U8"],"trait":["DecodableImageHeader","HeaderReader","Sample"]};

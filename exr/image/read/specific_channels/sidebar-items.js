@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["read_and_convert_all_samples_batched"],"struct":["CollectPixels","OptionalSampleReader","ReadOptionalChannel","ReadRequiredChannel","SampleReader","SpecificChannelsReader"],"trait":["ReadSpecificChannel","RecursivePixelReader"],"type":["ReadZeroChannels"]};

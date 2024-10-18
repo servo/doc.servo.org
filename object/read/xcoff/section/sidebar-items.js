@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SectionTable","XcoffSection","XcoffSectionIterator"],"trait":["SectionHeader"],"type":["XcoffSection32","XcoffSection64","XcoffSectionIterator32","XcoffSectionIterator64"]};

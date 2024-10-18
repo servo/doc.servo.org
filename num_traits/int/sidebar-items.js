@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["one_per_byte","reverse_bits_fallback"],"macro":["prim_int_impl"],"trait":["PrimInt"]};

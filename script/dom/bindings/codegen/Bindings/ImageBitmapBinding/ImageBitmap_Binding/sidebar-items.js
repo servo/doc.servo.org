@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["height_getterinfo","sAttributes","sAttributes_specs","width_getterinfo"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetProtoObject","Wrap","_finalize","_trace","get_height","get_width"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["ImageBitmapMethods"]};

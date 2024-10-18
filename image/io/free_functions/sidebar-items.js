@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["guess_format","guess_format_impl","image_dimensions_impl","image_dimensions_with_format_impl","load","load_decoder","load_inner","open_impl","save_buffer_impl","save_buffer_with_format_impl","write_buffer_impl"],"static":["MAGIC_BYTES"],"trait":["DecoderVisitor"]};

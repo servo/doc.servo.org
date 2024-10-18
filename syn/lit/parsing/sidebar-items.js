@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_negative_lit","peek_impl"],"macro":["impl_token"]};

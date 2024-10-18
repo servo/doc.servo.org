@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IdSource"],"struct":["IdentityManager","IdentityValues"]};

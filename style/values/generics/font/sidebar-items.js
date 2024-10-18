@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FontStyle","GenericFontSizeAdjust","GenericLineHeight"],"struct":["FeatureTagValue","FontSettings","FontTag","VariationValue"],"trait":["TaggedFontValue"]};

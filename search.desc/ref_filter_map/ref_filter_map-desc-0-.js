@@ -1,0 +1,1 @@
+searchState.loadedDescShard("ref_filter_map", 0, "The <code>Ref</code> and <code>RefMut</code> types in <code>std::cell</code> each have a <code>map</code> …\nMake a new <code>Ref</code> for a optional component of the borrowed …\nMake a new <code>RefMut</code> for a optional component of the borrowed …")

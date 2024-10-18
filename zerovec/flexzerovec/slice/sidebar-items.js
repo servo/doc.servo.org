@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["USIZE_WIDTH"],"fn":["chunk_to_usize","get_item_width"],"struct":["FlexZeroSlice","InsertInfo","RemoveInfo"]};

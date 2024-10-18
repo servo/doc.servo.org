@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["to_blocks_mut"],"mod":["sealed"],"struct":["BlockBuffer","Eager","Error","Lazy"],"trait":["BufferKind"],"type":["Block","EagerBuffer","LazyBuffer"]};

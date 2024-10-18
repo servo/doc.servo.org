@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["close_button","move_and_resize_window","paint_frame_interaction","paint_resize_corner","resize_interaction","resize_response"],"struct":["PossibleInteractions","ResizeInteraction","SideResponse","TitleBar","Window"]};

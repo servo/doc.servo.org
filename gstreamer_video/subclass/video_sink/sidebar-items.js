@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["video_sink_show_frame"],"mod":["sealed"],"trait":["VideoSinkImpl","VideoSinkImplExt"]};

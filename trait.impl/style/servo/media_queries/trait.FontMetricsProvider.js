@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"layout_thread_2013":[["impl <a class=\"trait\" href=\"style/servo/media_queries/trait.FontMetricsProvider.html\" title=\"trait style::servo::media_queries::FontMetricsProvider\">FontMetricsProvider</a> for <a class=\"struct\" href=\"layout_thread_2013/struct.LayoutFontMetricsProvider.html\" title=\"struct layout_thread_2013::LayoutFontMetricsProvider\">LayoutFontMetricsProvider</a>"]],
+"layout_thread_2020":[["impl <a class=\"trait\" href=\"style/servo/media_queries/trait.FontMetricsProvider.html\" title=\"trait style::servo::media_queries::FontMetricsProvider\">FontMetricsProvider</a> for <a class=\"struct\" href=\"layout_thread_2020/struct.LayoutFontMetricsProvider.html\" title=\"struct layout_thread_2020::LayoutFontMetricsProvider\">LayoutFontMetricsProvider</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FieldMutability","Visibility"],"mod":["parsing","printing"],"struct":["VisRestricted"]};

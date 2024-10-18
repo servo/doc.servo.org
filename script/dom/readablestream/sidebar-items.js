@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_ReadableStream"],"enum":["ExternalUnderlyingSource"],"fn":["cancel","close","error","finalize","get_read_promise_bytes","get_read_promise_done","request_data","write_into_read_request_buffer"],"static":["UNDERLYING_SOURCE_TRAPS"],"struct":["ExternalUnderlyingSourceController","ReadableStream"]};

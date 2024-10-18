@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LOWER","UPPER"],"fn":["encode_braced","encode_hyphenated","encode_simple","encode_urn","format_hyphenated","format_simple"],"macro":["impl_fmt_from","impl_fmt_traits"],"struct":["Braced","Hyphenated","Simple","Urn"]};

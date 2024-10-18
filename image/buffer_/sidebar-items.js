@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EnumeratePixels","EnumeratePixelsMut","EnumerateRows","EnumerateRowsMut","ImageBuffer","Pixels","PixelsMut","Rows","RowsMut"],"trait":["ConvertBuffer"],"type":["Gray16Image","GrayAlpha16Image","GrayAlphaImage","GrayImage","Rgb16Image","Rgb32FImage","RgbImage","Rgba16Image","Rgba32FImage","RgbaImage"]};

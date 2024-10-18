@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["COMPONENTS","INDENT"],"enum":["FunctionType","RayIntersectionType"],"fn":["binary_operation_str","vector_size_str"],"mod":["continue_forward","glsl","pipeline_constants","spv"],"struct":["Baked","FunctionCtx","Level","RayFlag"],"type":["NeedBakeExpressions","PipelineConstants"]};

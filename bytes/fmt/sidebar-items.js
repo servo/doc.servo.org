@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["debug","hex"],"struct":["BytesRef"]};

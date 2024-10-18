@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The `Constellation`, Servo’s Grand Central Station"><title>constellation::constellation - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="constellation" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../constellation/index.html">constellation</a><span class="version">0.0.1</span></h2></div><h2 class="location"><a href="#">Module constellation</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Aliases</a></li></ul></section><h2><a href="../index.html">In crate constellation</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">constellation</a>::<wbr><a class="mod" href="#">constellation</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/constellation/constellation.rs.html#5-5771">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The <code>Constellation</code>, Servo’s Grand Central Station</p>
+<p>The constellation tracks all information kept globally by the
+browser engine, which includes:</p>
+<ul>
+<li>
+<p>The set of all <code>EventLoop</code> objects. Each event loop is
+the constellation’s view of a script thread. The constellation
+interacts with a script thread by message-passing.</p>
+</li>
+<li>
+<p>The set of all <code>Pipeline</code> objects.  Each pipeline gives the
+constellation’s view of a <code>Window</code>, with its script thread and
+layout.  Pipelines may share script threads.</p>
+</li>
+<li>
+<p>The set of all <code>BrowsingContext</code> objects. Each browsing context
+gives the constellation’s view of a <code>WindowProxy</code>.
+Each browsing context stores an independent
+session history, created by navigation. The session
+history can be traversed, for example by the back and forwards UI,
+so each session history maintains a list of past and future pipelines,
+as well as the current active pipeline.</p>
+</li>
+</ul>
+<p>There are two kinds of browsing context: top-level ones (for
+example tabs in a browser UI), and nested ones (typically caused
+by <code>iframe</code> elements). Browsing contexts have a hierarchy
+(typically caused by <code>iframe</code>s containing <code>iframe</code>s), giving rise
+to a forest whose roots are top-level browsing context.  The logical
+relationship between these types is:</p>
+<div class="example-wrap"><pre class="language-text"><code>+------------+                      +------------+                 +---------+
+|  Browsing  | ------parent?------&gt; |  Pipeline  | --event_loop--&gt; |  Event  |
+|  Context   | ------current------&gt; |            |                 |  Loop   |
+|            | ------prev*--------&gt; |            | &lt;---pipeline*-- |         |
+|            | ------next*--------&gt; |            |                 +---------+
+|            |                      |            |
+|            | &lt;-top_level--------- |            |
+|            | &lt;-browsing_context-- |            |
++------------+                      +------------+
+</code></pre></div>
+<p>The constellation also maintains channels to threads, including:</p>
+<ul>
+<li>The script thread.</li>
+<li>The graphics compositor.</li>
+<li>The font cache, image cache, and resource manager, which load
+and cache shared fonts, images, or other resources.</li>
+<li>The service worker manager.</li>
+<li>The devtools and webdriver servers.</li>
+</ul>
+<p>The constellation passes messages between the threads, and updates its state
+to track the evolving state of the browsing context tree.</p>
+<p>The constellation acts as a logger, tracking any <code>warn!</code> messages from threads,
+and converting any <code>error!</code> or <code>panic!</code> into a crash report.</p>
+<p>Since there is only one constellation, and its responsibilities include crash reporting,
+it is very important that it does not panic.</p>
+<p>It’s also important that the constellation not deadlock. In particular, we need
+to be careful that we don’t introduce any cycles in the can-block-on relation.
+Blocking is typically introduced by <code>receiver.recv()</code>, which blocks waiting for the
+sender to send some data. Servo tries to achieve deadlock-freedom by using the following
+can-block-on relation:</p>
+<ul>
+<li>Constellation can block on compositor</li>
+<li>Constellation can block on embedder</li>
+<li>Script can block on anything (other than script)</li>
+<li>Blocking is transitive (if T1 can block on T2 and T2 can block on T3 then T1 can block on T3)</li>
+<li>Nothing can block on itself!</li>
+</ul>
+<p>There is a complexity intoduced by IPC channels, since they do not support
+non-blocking send. This means that as well as <code>receiver.recv()</code> blocking,
+<code>sender.send(data)</code> can also block when the IPC buffer is full. For this reason it is
+very important that all IPC receivers where we depend on non-blocking send
+use a router to route IPC messages to an mpsc channel. The reason why that solves
+the problem is that under the hood, the router uses a dedicated thread to forward
+messages, and:</p>
+<ul>
+<li>Anything (other than a routing thread) can block on a routing thread</li>
+</ul>
+<p>See <a href="https://github.com/servo/servo/issues/14704">https://github.com/servo/servo/issues/14704</a></p>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.BrowsingContextGroup.html" title="struct constellation::constellation::BrowsingContextGroup">BrowsingContextGroup</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">A browsing context group.</div></li><li><div class="item-name"><a class="struct" href="struct.Constellation.html" title="struct constellation::constellation::Constellation">Constellation</a></div><div class="desc docblock-short">The <code>Constellation</code> itself. In the servo browser, there is one
+constellation, which maintains all of the browser global data.
+In embedded applications, there may be more than one constellation,
+which are independent of each other.</div></li><li><div class="item-name"><a class="struct" href="struct.InitialConstellationState.html" title="struct constellation::constellation::InitialConstellationState">InitialConstellationState</a></div><div class="desc docblock-short">State needed to construct a constellation.</div></li><li><div class="item-name"><a class="struct" href="struct.MessagePortInfo.html" title="struct constellation::constellation::MessagePortInfo">MessagePortInfo</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Info related to a message-port tracked by the constellation.</div></li><li><div class="item-name"><a class="struct" href="struct.WebDriverData.html" title="struct constellation::constellation::WebDriverData">WebDriverData</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Data needed for webdriver</div></li><li><div class="item-name"><a class="struct" href="struct.WebView.html" title="struct constellation::constellation::WebView">WebView</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Servo supports multiple top-level browsing contexts or “webviews”, so <code>Constellation</code> needs to
+store webview-specific data for bookkeeping.</div></li><li><div class="item-name"><a class="struct" href="struct.WebrenderWGPU.html" title="struct constellation::constellation::WebrenderWGPU">WebrenderWGPU</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Webrender related objects required by WebGPU threads</div></li></ul><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.ExitPipelineMode.html" title="enum constellation::constellation::ExitPipelineMode">ExitPipelineMode</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">When we are exiting a pipeline, we can either force exiting or not.
+A normal exit waits for the compositor to update its state before
+exiting, and delegates layout exit to script. A forced exit does
+not notify the compositor, and exits layout without involving script.</div></li><li><div class="item-name"><a class="enum" href="enum.ReadyToSave.html" title="enum constellation::constellation::ReadyToSave">ReadyToSave</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">When we are running reftests, we save an image to compare against a reference.
+This enum gives the possible states of preparing such an image.</div></li><li><div class="item-name"><a class="enum" href="enum.TransferState.html" title="enum constellation::constellation::TransferState">TransferState</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">The state used by MessagePortInfo to represent the various states the port can be in.</div></li></ul><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="constant" href="constant.WARNINGS_BUFFER_SIZE.html" title="constant constellation::constellation::WARNINGS_BUFFER_SIZE">WARNINGS_BUFFER_SIZE</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">The number of warnings to include in each crash report.</div></li></ul><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.route_ipc_receiver_to_new_crossbeam_receiver_preserving_errors.html" title="fn constellation::constellation::route_ipc_receiver_to_new_crossbeam_receiver_preserving_errors">route_ipc_receiver_to_new_crossbeam_receiver_preserving_errors</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Route an ipc receiver to an crossbeam receiver, preserving any errors.</div></li></ul><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="type" href="type.PendingApprovalNavigations.html" title="type constellation::constellation::PendingApprovalNavigations">PendingApprovalNavigations</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li></ul></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ATOM_NAME_CACHE","LONG_TIMEOUT_DUR","SHORT_TIMEOUT_DUR"],"enum":["ManagerHandoverState","ReadSelNotifyResult"],"fn":["serve_requests"],"static":["CLIPBOARD"],"struct":["AtomCookies","Atoms","Clipboard","ClipboardData","GlobalClipboard","Inner","Selection","XContext"],"type":["Result"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_WebGL2RenderingContext"],"fn":["typedarray_elem_size"],"static":["WEBGL2_ORIGINS"],"struct":["IndexedBinding","ReadPixelsAllowedFormats","ReadPixelsSizes","WebGL2RenderingContext"]};

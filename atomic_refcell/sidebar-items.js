@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HIGH_BIT","MAX_FAILED_BORROWS"],"struct":["AtomicBorrowRef","AtomicBorrowRefMut","AtomicRef","AtomicRefCell","AtomicRefMut","BorrowError","BorrowMutError"]};

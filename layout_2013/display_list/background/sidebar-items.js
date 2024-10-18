@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clip","compute_background_image_size","get_cyclic","placement","tile_image","tile_image_axis","tile_image_round","tile_image_spaced"],"struct":["BackgroundPlacement"]};

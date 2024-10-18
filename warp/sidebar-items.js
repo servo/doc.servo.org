@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["serve","service","wrap_fn"],"macro":["path"],"mod":["error","filter","filters","generic","redirect","reject","reply","route","server","service","test","transport"],"struct":["Error","Server"],"trait":["Filter"]};

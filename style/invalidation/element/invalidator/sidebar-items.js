@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DescendantInvalidationKind","InvalidationKind"],"struct":["DescendantInvalidationLists","Invalidation","InvalidationResult","SiblingInfo","SiblingTraversalMap","SingleInvalidationResult","TreeStyleInvalidator"],"trait":["InvalidationProcessor"],"type":["InvalidationVector"]};

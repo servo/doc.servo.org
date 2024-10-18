@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_IMAGE_FORMAT","PRESENTATION_BUFFER_COUNT"],"enum":["PresentationBufferState"],"fn":["update_wr_image"],"struct":["ContextData","GPUPresentationBuffer","PresentationId","SwapChain","WGPUExternalImages","WebGPUContextId","WebGPUImageDescriptor"],"type":["WGPUImageMap"]};

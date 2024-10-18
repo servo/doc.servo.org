@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ScriptDirectionV1","ScriptDirectionV1Marker"]};

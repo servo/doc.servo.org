@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALPHA_OPAQUE","ALPHA_TRANSPARENT","ALPHA_U8_OPAQUE","ALPHA_U8_TRANSPARENT","NV_ONE","NV_ZERO"],"fn":["color_f32_to_u8","premultiply_u8"],"struct":["Color","ColorU8","PremultipliedColor","PremultipliedColorU8"],"type":["AlphaU8"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DECOMPRESSION_LIMIT"],"enum":["OptCompressed","TextDecodingError","TextEncodingError"],"fn":["decode_ascii","decode_iso_8859_1","encode_iso_8859_1","encode_iso_8859_1_into","encode_iso_8859_1_iter"],"struct":["ITXtChunk","TEXtChunk","ZTXtChunk"],"trait":["EncodableTextChunk"]};

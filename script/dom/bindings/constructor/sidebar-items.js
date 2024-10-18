@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["call_default_constructor","call_html_constructor","get_constructor_object_from_local_name","html_constructor","pop_current_element_queue","push_new_element_queue"]};

@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"webrender":[["impl <a class=\"trait\" href=\"webrender_api/trait.ApiHitTester.html\" title=\"trait webrender_api::ApiHitTester\">ApiHitTester</a> for <a class=\"struct\" href=\"webrender/hit_test/struct.SharedHitTester.html\" title=\"struct webrender::hit_test::SharedHitTester\">SharedHitTester</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ONE_TIME_USAGE_HINT"],"fn":["create_webrender_instance","wr_has_been_initialized"],"static":["HAS_BEEN_INITIALIZED"],"struct":["DebugFlags","WebRenderOptions"],"trait":["AsyncPropertySampler","SceneBuilderHooks"]};

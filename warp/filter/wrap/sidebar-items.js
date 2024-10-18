@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["wrap_fn"],"struct":["WrapFn"],"trait":["Wrap","WrapSealed"]};

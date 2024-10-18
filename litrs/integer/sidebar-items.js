@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IntegerBase","IntegerType"],"fn":["parse_impl"],"macro":["impl_from_int_literal"],"mod":["sealed"],"struct":["IntegerLit"],"trait":["FromIntegerLiteral"]};

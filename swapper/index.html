@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Concurrency control for atomic swap of ownership."><title>swapper - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="swapper" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../swapper/index.html">swapper</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#functions">Functions</a></li></ul></section></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">swapper</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/swapper/lib.rs.html#2-190">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Concurrency control for atomic swap of ownership.</p>
+<p>A common pattern for thread pools is that each thread owns a token,
+and some times threads need to exchange tokens. A skeleton example
+is:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct </span>Token;
+<span class="kw">enum </span>Message {
+   <span class="comment">// Messages go here
+</span>};
+<span class="kw">struct </span>Thread {
+   sender_to_other_thread: Sender&lt;Message&gt;,
+   receiver_from_other_thread: Receiver&lt;Message&gt;,
+   token: Token,
+}
+<span class="kw">impl </span>Thread {
+   <span class="kw">fn </span>swap_token(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+      <span class="comment">// This function should swap the token with the other thread.
+   </span>}
+   <span class="kw">fn </span>handle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, message: Message) {
+       <span class="kw">match </span>message {
+          <span class="comment">// Message handlers go here
+       </span>}
+   }
+   <span class="kw">fn </span>run(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+      <span class="kw">loop </span>{
+         <span class="kw">let </span>message = <span class="self">self</span>.receiver_from_other_thread.recv();
+         <span class="kw">match </span>message {
+            <span class="prelude-val">Ok</span>(message) =&gt; <span class="self">self</span>.handle(message),
+            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span>,
+         }
+      }
+   }
+}</code></pre></div>
+<p>To do this with the Rust channels, ownership of the token is first
+passed from the thread to the channel, then to the other thead,
+resulting in a transitory state where the thread does not have the
+token. Typically to work round this, the thread stores an <code>Option&lt;Token&gt;</code>
+rather than a <code>Token</code>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">enum </span>Message {
+   SwapToken(Token, Sender&lt;Token&gt;),
+};
+<span class="kw">struct </span>Thread {
+   sender_to_other_thread: Sender&lt;Message&gt;,
+   receiver_from_other_thread: Receiver&lt;Message&gt;,
+   token: <span class="prelude-ty">Option</span>&lt;Token&gt;, <span class="comment">// ANNOYING Option
+</span>}
+<span class="kw">impl </span>Thread {
+   <span class="kw">fn </span>swap_token(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+      <span class="kw">let </span>(sender, receiver) = mpsc::channel();
+      <span class="kw">let </span>token = <span class="self">self</span>.token.take().unwrap();
+      <span class="self">self</span>.sender_to_other_thread.send(Message::SwapToken(token, sender));
+      <span class="kw">let </span>token = receiver.recv().unwrap();
+      <span class="self">self</span>.token = <span class="prelude-val">Some</span>(token);
+   }
+   <span class="kw">fn </span>handle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, message: Message) {
+       <span class="kw">match </span>message {
+          Message::SwapToken(token, sender) =&gt; {
+             <span class="kw">let </span>token = mem::replace(<span class="kw-2">&amp;mut </span><span class="self">self</span>.token, <span class="prelude-val">Some</span>(token)).unwrap();
+             sender.send(token).unwrap();
+          }
+       }
+   }
+}</code></pre></div>
+<p>This crate provides a synchronization primitive for swapping ownership between threads.
+The API is similar to channels, except that rather than separate <code>send(T)</code> and <code>recv():T</code>
+methods, there is one <code>swap(T):T</code>, which swaps a <code>T</code> owned by one thread for a <code>T</code> owned
+by the other. For example, it allows an implementation of the thread pool which always
+owns a token.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">enum </span>Message {
+   SwapToken(Swapper&lt;Token&gt;),
+};
+<span class="kw">struct </span>Thread {
+   sender_to_other_thread: Sender&lt;Message&gt;,
+   receiver_from_other_thread: Receiver&lt;Message&gt;,
+   token: Token,
+}
+<span class="kw">impl </span>Thread {
+   <span class="kw">fn </span>swap_token(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+      <span class="kw">let </span>(our_swapper, their_swapper) = swapper::swapper();
+      <span class="self">self</span>.sender_to_other_thread.send(Message::SwapToken(their_swapper));
+      our_swapper.swap(<span class="kw-2">&amp;mut </span><span class="self">self</span>.token).unwrap();
+   }
+   <span class="kw">fn </span>handle(<span class="kw-2">&amp;mut </span><span class="self">self</span>, message: Message) {
+       <span class="kw">match </span>message {
+          Message::SwapToken(swapper) =&gt; swapper.swap(<span class="kw-2">&amp;mut </span><span class="self">self</span>.token).unwrap(),
+       }
+   }
+}</code></pre></div>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.SwapError.html" title="struct swapper::SwapError">SwapError</a></div><div class="desc docblock-short">The error returned when a thread attempts to swap with a thread that has dropped its swapper.</div></li><li><div class="item-name"><a class="struct" href="struct.Swapper.html" title="struct swapper::Swapper">Swapper</a></div><div class="desc docblock-short">A concurrency control for swapping ownership between threads.</div></li></ul><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.swapper.html" title="fn swapper::swapper">swapper</a></div><div class="desc docblock-short">Create a new pair of swappers.</div></li></ul></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["device_create_element","device_reconfigure_element"],"mod":["sealed"],"trait":["DeviceImpl","DeviceImplExt"]};

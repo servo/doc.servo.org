@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ICU4XDataStruct_create_decimal_symbols_v1","ICU4XDataStruct_destroy"],"struct":["ICU4XDataStruct"]};

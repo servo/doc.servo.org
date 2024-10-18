@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_EventTarget"],"enum":["CommonEventHandler","CompiledEventListener","EventListenerType","InlineEventListener","ListenerPhase"],"struct":["EventListenerEntry","EventListeners","EventTarget","InternalRawUncompiledHandler"]};

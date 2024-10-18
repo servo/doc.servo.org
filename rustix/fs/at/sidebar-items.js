@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UTIME_NOW","UTIME_OMIT"],"fn":["_readlinkat","_readlinkat_raw","accessat","chmodat","chownat","linkat","mkdirat","mknodat","openat","readlinkat","readlinkat_raw","renameat","renameat_with","statat","symlinkat","unlinkat","utimensat"]};

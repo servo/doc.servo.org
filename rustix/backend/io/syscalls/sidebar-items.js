@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["close","dup","dup2","dup3","fcntl_dupfd_cloexec","fcntl_getfd","fcntl_setfd","ioctl","ioctl_readonly","is_read_write","pread","preadv","preadv2","pwrite","pwritev","pwritev2","read","readv","write","writev"]};

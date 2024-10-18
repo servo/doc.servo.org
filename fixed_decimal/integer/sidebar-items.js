@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_fixed_integer_from_integer_type"],"struct":["FixedInteger"]};

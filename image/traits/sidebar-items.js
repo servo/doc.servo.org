@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["declare_primitive"],"mod":["private","seals"],"trait":["EncodableLayout","Enlargeable","Lerp","Pixel","PixelWithColorType","Primitive"]};

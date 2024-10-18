@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Element"],"fn":["hash"],"struct":["IdTypeMap","SerializedElement","TypeId"],"trait":["SerializableAny"]};

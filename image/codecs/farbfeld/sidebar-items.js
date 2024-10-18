@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cache_byte","consume_channel"],"struct":["FarbfeldDecoder","FarbfeldEncoder","FarbfeldReader"]};

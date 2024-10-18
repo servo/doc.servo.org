@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FieldType","MacroArg"],"mod":["kw"],"struct":["ArgInner","Field","MacroInput","NewTypeDef","RootTypeDef"]};

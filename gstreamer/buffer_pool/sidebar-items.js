@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["sealed"],"struct":["BufferPoolAcquireParams","BufferPoolConfig","BufferPoolConfigRef"],"trait":["BufferPoolExtManual"]};

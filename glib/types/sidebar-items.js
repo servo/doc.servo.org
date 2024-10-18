@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["instance_of"],"macro":["builtin"],"struct":["ILong","Type","ULong"],"trait":["StaticType","StaticTypeExt"],"type":["Pointee","Pointer"]};

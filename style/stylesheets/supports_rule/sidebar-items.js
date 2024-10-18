@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SupportsCondition"],"fn":["consume_any_value","eval_font_format","eval_font_tech","parse_condition_or_declaration"],"struct":["Declaration","RawSelector","SupportsRule"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["getpid","kill"],"mod":["Sig"],"type":["c_int","pid_t"]};

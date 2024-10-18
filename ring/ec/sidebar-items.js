@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ELEM_MAX_BITS","ELEM_MAX_BYTES","PKCS8_DOCUMENT_MAX_LEN","SCALAR_MAX_BYTES","SEED_MAX_BYTES"],"enum":["CurveID"],"mod":["curve25519","keys","suite_b"],"struct":["Curve"]};

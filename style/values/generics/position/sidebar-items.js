@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericPositionOrAuto","GenericZIndex","PreferredRatio"],"struct":["GenericAspectRatio","GenericPosition"],"trait":["PositionComponent"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MergesortResult"],"fn":["collapse","decrement_and_get","get_and_increment","insert_head","merge","mergesort","par_merge","par_mergesort","recurse","split_for_merge"],"struct":["CopyOnDrop","Run"]};

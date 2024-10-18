@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["div_round_up","simplify_range"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RoundingMode"],"fn":["ceil_log_2","floor_log_2"],"struct":["Vec2"]};

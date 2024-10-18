@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["AnyBitPattern","ByteEq","ByteHash","CheckedBitPattern","Contiguous","NoUninit","Pod","TransparentWrapper","Zeroable"],"fn":["add_trait_marker","derive_marker_trait","derive_marker_trait_inner","find_and_parse_helper_attributes"],"mod":["traits"]};

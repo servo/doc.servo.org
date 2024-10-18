@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ITEM_SPLIT_THRESHOLD","SHELF_SPLIT_THRESHOLD"],"fn":["adjust_size","convert_coordinates","shelf_height"],"struct":["AtlasAllocator","Item","ItemIndex","Iter","Shelf","ShelfIndex"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImageRendering","LineDirection"],"fn":["cross_fade_enabled","default_color_interpolation_method","gradient_color_interpolation_method_enabled"],"struct":["ParseImageFlags"],"type":["CrossFade","CrossFadeElement","CrossFadeImage","EndingShape","Gradient","Image","ImageSet","ImageSetItem","LengthPercentageItemList"]};

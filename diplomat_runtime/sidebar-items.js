@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["diplomat_alloc","diplomat_free"],"mod":["result","writeable"],"struct":["DiplomatResult","DiplomatWriteable"],"type":["DiplomatByte","DiplomatChar","DiplomatStr","DiplomatStr16"]};

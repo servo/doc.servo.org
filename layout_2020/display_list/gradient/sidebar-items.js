@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WebRenderGradient"],"fn":["build","build_conic","build_linear","build_radial","conic_gradient_items_to_color_stops","fixup_stops","gradient_items_to_color_stops"]};

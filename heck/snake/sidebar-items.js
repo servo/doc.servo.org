@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AsSnakeCase"],"trait":["ToSnakeCase","ToSnekCase"]};

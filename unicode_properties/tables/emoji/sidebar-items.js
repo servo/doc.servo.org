@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EMOJI_STATUS"],"enum":["EmojiStatus"],"fn":["emoji_status","is_emoji_status_for_emoji_char","is_emoji_status_for_emoji_char_or_emoji_component","is_emoji_status_for_emoji_component"]};

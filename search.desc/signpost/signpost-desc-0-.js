@@ -1,0 +1,1 @@
+searchState.loadedDescShard("signpost", 0, "An RAII class to automatically add start and end traces on …\nReturns the argument unchanged.\nCalls <code>U::from(self)</code>.")

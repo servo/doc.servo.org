@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["approx_parabola_integral","approx_parabola_inv_integral"],"struct":["Flattened","FlattenedT","FlatteningParameters","QuadraticBezierSegment"]};

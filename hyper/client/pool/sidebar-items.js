@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Reservation"],"struct":["Checkout","CheckoutIsClosedError","Config","Connecting","Expiration","Idle","IdlePopper","IdleTask","Pool","PoolInner","Pooled","WeakOpt"],"trait":["Poolable"],"type":["Key"]};

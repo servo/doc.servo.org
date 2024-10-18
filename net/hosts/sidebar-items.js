@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create_host_table","parse_hostsfile","replace_host","replace_host_table"],"static":["HOST_TABLE"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_BUFFER_LIMIT","DEFAULT_RECEIVED_PLAINTEXT_LIMIT"],"enum":["Limit","Protocol","Side"],"struct":["CommonState","Context","IoState"],"trait":["State"]};

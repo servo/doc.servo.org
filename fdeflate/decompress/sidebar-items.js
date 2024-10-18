@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EXCEPTIONAL_ENTRY","FDEFLATE_COMPRESSED_BLOCK","LITERAL_ENTRY","SECONDARY_TABLE_ENTRY"],"enum":["BoundedDecompressionError","DecompressionError","State"],"fn":["decompress_to_vec","decompress_to_vec_bounded"],"struct":["BlockHeader","CompressedBlock","Decompressor"]};

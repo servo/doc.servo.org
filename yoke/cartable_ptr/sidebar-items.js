@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["sentinel_for"],"mod":["private"],"struct":["CartableOptionPointer"],"trait":["CartablePointerLike","CloneableCartablePointerLike"]};

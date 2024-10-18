@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["K1","K2","K3","K4","K5","P_X","U_PRIME"],"fn":["calculate","debug","get","reduce128"],"struct":["State"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["utf8_char_width"],"macro":["impl_deserialize_int","impl_deserialize_literal"],"mod":["read"],"static":["UTF8_CHAR_WIDTH"],"struct":["Deserializer"]};

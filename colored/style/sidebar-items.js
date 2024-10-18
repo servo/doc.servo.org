@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLINK","BOLD","CLEARV","DIMMED","HIDDEN","ITALIC","REVERSED","STRIKETHROUGH","UNDERLINE"],"enum":["Styles"],"static":["CLEAR","STYLES"],"struct":["Style"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clamp","div_round_up","lerp","slurp_file"],"static":["SFNT_VERSIONS"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["make_service_fn"],"mod":["sealed"],"struct":["MakeServiceFn"],"trait":["MakeConnection","MakeServiceRef"]};

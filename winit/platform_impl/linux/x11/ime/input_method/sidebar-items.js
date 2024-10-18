@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["XIM_NONE_STYLE","XIM_NOTHING_STYLE","XIM_PREEDIT_STYLE"],"enum":["GetXimServersError","InputMethodResult","Style"],"fn":["get_xim_servers","open_im"],"static":["GLOBAL_LOCK"],"struct":["InputMethod","InputMethodName","PotentialInputMethod","PotentialInputMethods","XIMStyles"],"type":["XIMStyle"]};
