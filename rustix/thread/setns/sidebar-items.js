@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LinkNameSpaceType"],"fn":["move_into_link_name_space","move_into_thread_name_spaces","unshare"],"struct":["ThreadNameSpaceType","UnshareFlags"]};

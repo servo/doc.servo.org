@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["IS_Y_AXIS_REVERSED"],"enum":["Error","EventType","PlatformError","PowerInfo"],"mod":["native_ev_codes","platform","utils"],"struct":["AxisInfo","EvCode","Event","FfDevice","Gamepad","Gilrs"]};

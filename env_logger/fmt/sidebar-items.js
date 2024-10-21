@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Color","Target","TimestampPrecision","WriteStyle"],"mod":["glob","humantime","style","writer"],"struct":["Builder","DefaultFormat","Formatter","Style","StyledValue","Timestamp"],"type":["FormatFn","SubtleStyle"]};

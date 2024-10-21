@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clock_getres","clock_settime","timerfd_create","timerfd_gettime","timerfd_settime"]};

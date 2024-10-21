@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["glplayer_channel"],"type":["GLPlayerReceiver","GLPlayerSender"]};

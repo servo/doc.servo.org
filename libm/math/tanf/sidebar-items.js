@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["T1_PIO2","T2_PIO2","T3_PIO2","T4_PIO2"],"fn":["tanf"]};

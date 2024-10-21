@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["sAttributes","sAttributes_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetProtoObject","Wrap","_constructor","_finalize","_trace"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["ChannelSplitterNodeMethods"]};

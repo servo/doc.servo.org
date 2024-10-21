@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["request"],"mod":["inner"],"struct":["RequestBuilder","WsError"]};

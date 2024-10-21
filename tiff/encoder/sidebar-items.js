@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["colortype","compression","tiff_value","writer"],"struct":["DirectoryEncoder","DirectoryEntry","Ifd","Ifd8","ImageEncoder","Rational","SRational","TiffEncoder","TiffKindBig","TiffKindStandard"],"trait":["TiffKind","TiffValue"]};

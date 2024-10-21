@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ICU4XFixedDecimalGroupingStrategy"],"fn":["ICU4XFixedDecimalFormatter_create_with_decimal_symbols_v1","ICU4XFixedDecimalFormatter_create_with_grouping_strategy","ICU4XFixedDecimalFormatter_destroy","ICU4XFixedDecimalFormatter_format","ICU4XFixedDecimalGroupingStrategy_destroy"],"struct":["ICU4XFixedDecimalFormatter"]};

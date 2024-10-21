@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AnimationState","EmbedderEvent","MouseWindowEvent","WebRenderDebugOption"],"struct":["EmbedderCoordinates"],"trait":["EmbedderMethods","WindowMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ComputedFontStyleDescriptor","FontIdentifier","SystemFontServiceMessage"],"struct":["CSSFontFaceDescriptors","FontTemplateCacheKey","LowercaseFontFamilyName","ResolvedGenericFontFamilies","SystemFontService","SystemFontServiceProxy","SystemFontServiceProxySender"]};

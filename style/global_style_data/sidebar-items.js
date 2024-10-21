@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STYLO_MAX_THREADS"],"fn":["stylo_threads_pref","thread_name","thread_shutdown","thread_spawn","thread_startup"],"struct":["GLOBAL_STYLE_DATA","GlobalStyleData","STYLE_THREAD_JOIN_HANDLES","STYLE_THREAD_POOL","StyleThreadPool"],"type":["PlatformThreadHandle"]};

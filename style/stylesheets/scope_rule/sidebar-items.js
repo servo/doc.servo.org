@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImplicitScopeRoot","ScopeTarget"],"fn":["collect_scope_roots","element_is_outside_of_scope","parse_scope","scope_selector_list_is_trivial"],"struct":["ScopeBounds","ScopeRootCandidate","ScopeRule","ScopeSubjectMap"]};

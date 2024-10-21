@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["sAttributes","sAttributes_specs","sConstants","sConstants_specs"],"fn":["CreateInterfaceObjects","GetProtoObject","Wrap","_finalize","_trace"],"mod":["WEBGLCompressedTextureETC1Constants"],"static":["CLASS_OPS","Class","PrototypeClass"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["class_init","free","instance_init","mem_is_span","mem_map","mem_share","mem_unmap","rust_allocator"],"struct":["WrappedMemory"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FLOAT_PI","MAX_I32_FITS_IN_F32","MIN_I32_FITS_IN_F32"],"fn":["f32_as_2s_compliment","sign_bit_to_2s_compliment"],"struct":["FiniteF32","NonZeroPositiveF32","NormalizedF32","NormalizedF32Exclusive"],"trait":["SaturateCast","SaturateRound"]};

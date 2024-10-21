@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StyloPrefValue","TryFromPrefValueError"],"fn":["add_user_prefs","pref_map","read_prefs_map","set_stylo_pref","set_stylo_pref_ref"],"mod":["gen"],"static":["PREFS"]};

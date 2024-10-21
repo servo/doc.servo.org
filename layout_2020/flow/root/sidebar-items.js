@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["construct_for_root_element"],"struct":["BoxTree","CanvasBackground"]};

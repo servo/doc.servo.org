@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["connection_errors","ffi","send_request_flags"],"struct":["XcbConnectionWrapper","iovec","xcb_connection_t","xcb_extension_t","xcb_generic_error_t","xcb_generic_event_t","xcb_protocol_request_t","xcb_setup_t","xcb_void_cookie_t"]};

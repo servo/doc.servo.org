@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHAIN_THRESHOLD","CHAIN_THRESHOLD_WITHOUT_VECTORED_IO","DEFAULT_BUFFER_CAPACITY"],"enum":["ControlFlow","Next"],"macro":["limited_write_buf"],"struct":["Encoder","FramedWrite"]};

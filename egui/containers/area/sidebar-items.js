@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["automatic_area_position","pointer_pressed_on_area"],"struct":["Area","AreaState","Prepared"]};

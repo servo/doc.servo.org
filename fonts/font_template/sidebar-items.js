@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FontTemplate","FontTemplateDescriptor"],"trait":["FontMatchDistanceMethod","FontTemplateRefMethods","IsOblique"],"type":["FontTemplateRef"]};

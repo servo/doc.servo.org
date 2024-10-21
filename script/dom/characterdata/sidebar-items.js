@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_CharacterData"],"fn":["split_at_utf16_code_unit_offset"],"struct":["CharacterData"],"trait":["LayoutCharacterDataHelpers"]};

@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Represents a number of rendering operations on a surface."><title>RenderTarget in webrender::render_target - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="webrender" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../webrender/index.html">webrender</a><span class="version">0.65.0</span></h2></div><h2 class="location"><a href="#">RenderTarget</a></h2><div class="sidebar-elems"><section><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.add_task">add_task</a></li><li><a href="#tymethod.needs_depth">needs_depth</a></li><li><a href="#tymethod.new">new</a></li><li><a href="#tymethod.texture_id">texture_id</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.build">build</a></li></ul><h3><a href="#object-safety">Object Safety</a></h3><h3><a href="#implementors">Implementors</a></h3></section><h2><a href="index.html">In webrender::render_target</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Trait <a href="../index.html">webrender</a>::<wbr><a href="index.html">render_target</a>::<wbr><a class="trait" href="#">RenderTarget</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/webrender/render_target.rs.html#82-129">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub trait RenderTarget {
+    // Required methods
+    fn <a href="#tymethod.new" class="fn">new</a>(
+        texture_id: <a class="struct" href="../internal_types/struct.CacheTextureId.html" title="struct webrender::internal_types::CacheTextureId">CacheTextureId</a>,
+        screen_size: <a class="type" href="../../webrender_api/units/type.DeviceIntSize.html" title="type webrender_api::units::DeviceIntSize">DeviceIntSize</a>,
+        gpu_supports_fast_clears: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.bool.html">bool</a>,
+        used_rect: <a class="type" href="../../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+    ) -&gt; Self;
+<span class="item-spacer"></span>    fn <a href="#tymethod.add_task" class="fn">add_task</a>(
+        &amp;mut self,
+        task_id: <a class="struct" href="../render_task_graph/struct.RenderTaskId.html" title="struct webrender::render_task_graph::RenderTaskId">RenderTaskId</a>,
+        ctx: &amp;<a class="struct" href="struct.RenderTargetContext.html" title="struct webrender::render_target::RenderTargetContext">RenderTargetContext</a>&lt;'_, '_&gt;,
+        gpu_cache: &amp;mut <a class="struct" href="../gpu_cache/struct.GpuCache.html" title="struct webrender::gpu_cache::GpuCache">GpuCache</a>,
+        gpu_buffer_builder: &amp;mut <a class="struct" href="../renderer/gpu_buffer/struct.GpuBufferBuilder.html" title="struct webrender::renderer::gpu_buffer::GpuBufferBuilder">GpuBufferBuilder</a>,
+        render_tasks: &amp;<a class="struct" href="../render_task_graph/struct.RenderTaskGraph.html" title="struct webrender::render_task_graph::RenderTaskGraph">RenderTaskGraph</a>,
+        clip_store: &amp;<a class="struct" href="../clip/struct.ClipStore.html" title="struct webrender::clip::ClipStore">ClipStore</a>,
+        transforms: &amp;mut <a class="struct" href="../gpu_types/struct.TransformPalette.html" title="struct webrender::gpu_types::TransformPalette">TransformPalette</a>,
+    );
+<span class="item-spacer"></span>    fn <a href="#tymethod.needs_depth" class="fn">needs_depth</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.bool.html">bool</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.texture_id" class="fn">texture_id</a>(&amp;self) -&gt; <a class="struct" href="../internal_types/struct.CacheTextureId.html" title="struct webrender::internal_types::CacheTextureId">CacheTextureId</a>;
+
+    // Provided method
+    fn <a href="#method.build" class="fn">build</a>(
+        &amp;mut self,
+        _ctx: &amp;mut <a class="struct" href="struct.RenderTargetContext.html" title="struct webrender::render_target::RenderTargetContext">RenderTargetContext</a>&lt;'_, '_&gt;,
+        _gpu_cache: &amp;mut <a class="struct" href="../gpu_cache/struct.GpuCache.html" title="struct webrender::gpu_cache::GpuCache">GpuCache</a>,
+        _render_tasks: &amp;<a class="struct" href="../render_task_graph/struct.RenderTaskGraph.html" title="struct webrender::render_task_graph::RenderTaskGraph">RenderTaskGraph</a>,
+        _prim_headers: &amp;mut <a class="struct" href="../gpu_types/struct.PrimitiveHeaders.html" title="struct webrender::gpu_types::PrimitiveHeaders">PrimitiveHeaders</a>,
+        _transforms: &amp;mut <a class="struct" href="../gpu_types/struct.TransformPalette.html" title="struct webrender::gpu_types::TransformPalette">TransformPalette</a>,
+        _z_generator: &amp;mut <a class="struct" href="../gpu_types/struct.ZBufferIdGenerator.html" title="struct webrender::gpu_types::ZBufferIdGenerator">ZBufferIdGenerator</a>,
+        _prim_instances: &amp;[<a class="struct" href="../prim_store/struct.PrimitiveInstance.html" title="struct webrender::prim_store::PrimitiveInstance">PrimitiveInstance</a>],
+        _cmd_buffers: &amp;<a class="struct" href="../command_buffer/struct.CommandBufferList.html" title="struct webrender::command_buffer::CommandBufferList">CommandBufferList</a>,
+        _gpu_buffer_builder: &amp;mut <a class="struct" href="../renderer/gpu_buffer/struct.GpuBufferBuilder.html" title="struct webrender::renderer::gpu_buffer::GpuBufferBuilder">GpuBufferBuilder</a>,
+    ) { ... }
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Represents a number of rendering operations on a surface.</p>
+<p>In graphics parlance, a “render target” usually means “a surface (texture or
+framebuffer) bound to the output of a shader”. This trait has a slightly
+different meaning, in that it represents the operations on that surface
+<em>before</em> it’s actually bound and rendered. So a <code>RenderTarget</code> is built by
+the <code>RenderBackend</code> by inserting tasks, and then shipped over to the
+<code>Renderer</code> where a device surface is resolved and the tasks are transformed
+into draw commands on that surface.</p>
+<p>We express this as a trait to generalize over color and alpha surfaces.
+a given <code>RenderTask</code> will draw to one or the other, depending on its type
+and sometimes on its parameters. See <code>RenderTask::target_kind</code>.</p>
+</div></details><h2 id="required-methods" class="section-header">Required Methods<a href="#required-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="tymethod.new" class="method"><a class="src rightside" href="../../src/webrender/render_target.rs.html#84-89">source</a><h4 class="code-header">fn <a href="#tymethod.new" class="fn">new</a>(
+    texture_id: <a class="struct" href="../internal_types/struct.CacheTextureId.html" title="struct webrender::internal_types::CacheTextureId">CacheTextureId</a>,
+    screen_size: <a class="type" href="../../webrender_api/units/type.DeviceIntSize.html" title="type webrender_api::units::DeviceIntSize">DeviceIntSize</a>,
+    gpu_supports_fast_clears: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.bool.html">bool</a>,
+    used_rect: <a class="type" href="../../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+) -&gt; Self</h4></section></summary><div class="docblock"><p>Creates a new RenderTarget of the given type.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.add_task" class="method"><a class="src rightside" href="../../src/webrender/render_target.rs.html#116-125">source</a><h4 class="code-header">fn <a href="#tymethod.add_task" class="fn">add_task</a>(
+    &amp;mut self,
+    task_id: <a class="struct" href="../render_task_graph/struct.RenderTaskId.html" title="struct webrender::render_task_graph::RenderTaskId">RenderTaskId</a>,
+    ctx: &amp;<a class="struct" href="struct.RenderTargetContext.html" title="struct webrender::render_target::RenderTargetContext">RenderTargetContext</a>&lt;'_, '_&gt;,
+    gpu_cache: &amp;mut <a class="struct" href="../gpu_cache/struct.GpuCache.html" title="struct webrender::gpu_cache::GpuCache">GpuCache</a>,
+    gpu_buffer_builder: &amp;mut <a class="struct" href="../renderer/gpu_buffer/struct.GpuBufferBuilder.html" title="struct webrender::renderer::gpu_buffer::GpuBufferBuilder">GpuBufferBuilder</a>,
+    render_tasks: &amp;<a class="struct" href="../render_task_graph/struct.RenderTaskGraph.html" title="struct webrender::render_task_graph::RenderTaskGraph">RenderTaskGraph</a>,
+    clip_store: &amp;<a class="struct" href="../clip/struct.ClipStore.html" title="struct webrender::clip::ClipStore">ClipStore</a>,
+    transforms: &amp;mut <a class="struct" href="../gpu_types/struct.TransformPalette.html" title="struct webrender::gpu_types::TransformPalette">TransformPalette</a>,
+)</h4></section></summary><div class="docblock"><p>Associates a <code>RenderTask</code> with this target. That task must be assigned
+to a region returned by invoking <code>allocate()</code> on this target.</p>
+<p>TODO(gw): It’s a bit odd that we need the deferred resolves and mutable
+GPU cache here. They are typically used by the build step above. They
+are used for the blit jobs to allow resolve_image to be called. It’s a
+bit of extra overhead to store the image key here and the resolve them
+in the build step separately.  BUT: if/when we add more texture cache
+target jobs, we might want to tidy this up.</p>
+</div></details><section id="tymethod.needs_depth" class="method"><a class="src rightside" href="../../src/webrender/render_target.rs.html#127">source</a><h4 class="code-header">fn <a href="#tymethod.needs_depth" class="fn">needs_depth</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.bool.html">bool</a></h4></section><section id="tymethod.texture_id" class="method"><a class="src rightside" href="../../src/webrender/render_target.rs.html#128">source</a><h4 class="code-header">fn <a href="#tymethod.texture_id" class="fn">texture_id</a>(&amp;self) -&gt; <a class="struct" href="../internal_types/struct.CacheTextureId.html" title="struct webrender::internal_types::CacheTextureId">CacheTextureId</a></h4></section></div><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.build" class="method"><a class="src rightside" href="../../src/webrender/render_target.rs.html#93-105">source</a><h4 class="code-header">fn <a href="#method.build" class="fn">build</a>(
+    &amp;mut self,
+    _ctx: &amp;mut <a class="struct" href="struct.RenderTargetContext.html" title="struct webrender::render_target::RenderTargetContext">RenderTargetContext</a>&lt;'_, '_&gt;,
+    _gpu_cache: &amp;mut <a class="struct" href="../gpu_cache/struct.GpuCache.html" title="struct webrender::gpu_cache::GpuCache">GpuCache</a>,
+    _render_tasks: &amp;<a class="struct" href="../render_task_graph/struct.RenderTaskGraph.html" title="struct webrender::render_task_graph::RenderTaskGraph">RenderTaskGraph</a>,
+    _prim_headers: &amp;mut <a class="struct" href="../gpu_types/struct.PrimitiveHeaders.html" title="struct webrender::gpu_types::PrimitiveHeaders">PrimitiveHeaders</a>,
+    _transforms: &amp;mut <a class="struct" href="../gpu_types/struct.TransformPalette.html" title="struct webrender::gpu_types::TransformPalette">TransformPalette</a>,
+    _z_generator: &amp;mut <a class="struct" href="../gpu_types/struct.ZBufferIdGenerator.html" title="struct webrender::gpu_types::ZBufferIdGenerator">ZBufferIdGenerator</a>,
+    _prim_instances: &amp;[<a class="struct" href="../prim_store/struct.PrimitiveInstance.html" title="struct webrender::prim_store::PrimitiveInstance">PrimitiveInstance</a>],
+    _cmd_buffers: &amp;<a class="struct" href="../command_buffer/struct.CommandBufferList.html" title="struct webrender::command_buffer::CommandBufferList">CommandBufferList</a>,
+    _gpu_buffer_builder: &amp;mut <a class="struct" href="../renderer/gpu_buffer/struct.GpuBufferBuilder.html" title="struct webrender::renderer::gpu_buffer::GpuBufferBuilder">GpuBufferBuilder</a>,
+)</h4></section></summary><div class="docblock"><p>Optional hook to provide additional processing for the target at the
+end of the build phase.</p>
+</div></details></div><h2 id="object-safety" class="section-header">Object Safety<a href="#object-safety" class="anchor">§</a></h2><div class="object-safety-info">This trait is <b>not</b> <a href="https://doc.rust-lang.org/1.80.1/reference/items/traits.html#object-safety">object safe</a>.</div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-RenderTarget-for-AlphaRenderTarget" class="impl"><a class="src rightside" href="../../src/webrender/render_target.rs.html#525-670">source</a><a href="#impl-RenderTarget-for-AlphaRenderTarget" class="anchor">§</a><h3 class="code-header">impl <a class="trait" href="trait.RenderTarget.html" title="trait webrender::render_target::RenderTarget">RenderTarget</a> for <a class="struct" href="struct.AlphaRenderTarget.html" title="struct webrender::render_target::AlphaRenderTarget">AlphaRenderTarget</a></h3></section><section id="impl-RenderTarget-for-ColorRenderTarget" class="impl"><a class="src rightside" href="../../src/webrender/render_target.rs.html#238-505">source</a><a href="#impl-RenderTarget-for-ColorRenderTarget" class="anchor">§</a><h3 class="code-header">impl <a class="trait" href="trait.RenderTarget.html" title="trait webrender::render_target::RenderTarget">RenderTarget</a> for <a class="struct" href="struct.ColorRenderTarget.html" title="struct webrender::render_target::ColorRenderTarget">ColorRenderTarget</a></h3></section></div><script src="../../trait.impl/webrender/render_target/trait.RenderTarget.js" async></script></section></div></main></body></html>

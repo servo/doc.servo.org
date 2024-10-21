@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WebGPUResponse"],"struct":["Adapter","Mapping","Pipeline","ShaderCompilationInfo"]};

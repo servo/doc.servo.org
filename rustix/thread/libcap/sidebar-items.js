@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["capabilities","capget","capset","set_capabilities"],"struct":["CapabilityFlags","CapabilitySets"]};

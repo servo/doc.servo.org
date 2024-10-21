@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`ThinVec` is exactly the same as `Vec`, except that it stores its `len` and `capacity` in the buffer it allocates."><title>thin_vec - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="thin_vec" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../thin_vec/index.html">thin_vec</a><span class="version">0.2.13</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#statics">Statics</a></li><li><a href="#functions">Functions</a></li></ul></section></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">thin_vec</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/thin_vec/lib.rs.html#1-4308">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><code>ThinVec</code> is exactly the same as <code>Vec</code>, except that it stores its <code>len</code> and <code>capacity</code> in the buffer
+it allocates.</p>
+<p>This makes the memory footprint of ThinVecs lower; notably in cases where space is reserved for
+a non-existence <code>ThinVec&lt;T&gt;</code>. So <code>Vec&lt;ThinVec&lt;T&gt;&gt;</code> and <code>Option&lt;ThinVec&lt;T&gt;&gt;::None</code> will waste less
+space. Being pointer-sized also means it can be passed/stored in registers.</p>
+<p>Of course, any actually constructed <code>ThinVec</code> will theoretically have a bigger allocation, but
+the fuzzy nature of allocators means that might not actually be the case.</p>
+<p>Properties of <code>Vec</code> that are preserved:</p>
+<ul>
+<li><code>ThinVec::new()</code> doesn’t allocate (it points to a statically allocated singleton)</li>
+<li>reallocation can be done in place</li>
+<li><code>size_of::&lt;ThinVec&lt;T&gt;&gt;()</code> == <code>size_of::&lt;Option&lt;ThinVec&lt;T&gt;&gt;&gt;()</code></li>
+</ul>
+<p>Properties of <code>Vec</code> that aren’t preserved:</p>
+<ul>
+<li><code>ThinVec&lt;T&gt;</code> can’t ever be zero-cost roundtripped to a <code>Box&lt;[T]&gt;</code>, <code>String</code>, or <code>*mut T</code></li>
+<li><code>from_raw_parts</code> doesn’t exist</li>
+<li><code>ThinVec</code> currently doesn’t bother to not-allocate for Zero Sized Types (e.g. <code>ThinVec&lt;()&gt;</code>),
+but it could be done if someone cared enough to implement it.</li>
+</ul>
+<h2 id="gecko-ffi"><a class="doc-anchor" href="#gecko-ffi">§</a>Gecko FFI</h2>
+<p>If you enable the gecko-ffi feature, <code>ThinVec</code> will verbatim bridge with the nsTArray type in
+Gecko (Firefox). That is, <code>ThinVec</code> and nsTArray have identical layouts <em>but not ABIs</em>,
+so nsTArrays/ThinVecs an be natively manipulated by C++ and Rust, and ownership can be
+transferred across the FFI boundary (<strong>IF YOU ARE CAREFUL, SEE BELOW!!</strong>).</p>
+<p>While this feature is handy, it is also inherently dangerous to use because Rust and C++ do not
+know about each other. Specifically, this can be an issue with non-POD types (types which
+have destructors, move constructors, or are <code>!Copy</code>).</p>
+<h3 id="do-not-pass-by-value"><a class="doc-anchor" href="#do-not-pass-by-value">§</a>Do Not Pass By Value</h3>
+<p>The biggest thing to keep in mind is that <strong>FFI functions cannot pass ThinVec/nsTArray
+by-value</strong>. That is, these are busted APIs:</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="comment">// BAD WRONG
+</span><span class="kw">extern fn </span>process_data(data: ThinVec&lt;u32&gt;) { ... }
+<span class="comment">// BAD WRONG
+</span><span class="kw">extern fn </span>get_data() -&gt; ThinVec&lt;u32&gt; { ... }</code></pre></div>
+<p>You must instead pass by-reference:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="comment">// Read-only access, ok!
+</span><span class="kw">extern fn </span>process_data(data: <span class="kw-2">&amp;</span>ThinVec&lt;u32&gt;) {
+    <span class="kw">for </span>val <span class="kw">in </span>data {
+        <span class="macro">println!</span>(<span class="string">"{}"</span>, val);
+    }
+}
+
+<span class="comment">// Replace with empty instance to take ownership, ok!
+</span><span class="kw">extern fn </span>consume_data(data: <span class="kw-2">&amp;mut </span>ThinVec&lt;u32&gt;) {
+    <span class="kw">let </span>owned = mem::replace(data, ThinVec::new());
+    mem::drop(owned);
+}
+
+<span class="comment">// Mutate input, ok!
+</span><span class="kw">extern fn </span>add_data(dataset: <span class="kw-2">&amp;mut </span>ThinVec&lt;u32&gt;) {
+    dataset.push(<span class="number">37</span>);
+    dataset.push(<span class="number">12</span>);
+}
+
+<span class="comment">// Return via out-param, usually ok!
+//
+// WARNING: output must be initialized! (Empty nsTArrays are free, so just do it!)
+</span><span class="kw">extern fn </span>get_data(output: <span class="kw-2">&amp;mut </span>ThinVec&lt;u32&gt;) {
+    <span class="kw-2">*</span>output = <span class="macro">thin_vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];
+}</code></pre></div>
+<p>Ignorable Explanation For Those Who Really Want To Know Why:</p>
+<blockquote>
+<p>The fundamental issue is that Rust and C++ can’t currently communicate about destructors, and
+the semantics of C++ require destructors of function arguments to be run when the function
+returns. Whether the callee or caller is responsible for this is also platform-specific, so
+trying to hack around it manually would be messy.</p>
+<p>Also a type having a destructor changes its C++ ABI, because that type must actually exist
+in memory (unlike a trivial struct, which is often passed in registers). We don’t currently
+have a way to communicate to Rust that this is happening, so even if we worked out the
+destructor issue with say, MaybeUninit, it would still be a non-starter without some RFCs
+to add explicit rustc support.</p>
+<p>Realistically, the best answer here is to have a “heavier” bindgen that can secretly
+generate FFI glue so we can pass things “by value” and have it generate by-reference code
+behind our back (like the cxx crate does). This would muddy up debugging/searchfox though.</p>
+</blockquote>
+<h3 id="types-should-be-trivially-relocatable"><a class="doc-anchor" href="#types-should-be-trivially-relocatable">§</a>Types Should Be Trivially Relocatable</h3>
+<p>Types in Rust are always trivially relocatable (unless suitably borrowed/<a href="https://doc.rust-lang.org/std/pin/index.html">pinned</a>/hidden).
+This means all Rust types are legal to relocate with a bitwise copy, you cannot provide
+copy or move constructors to execute when this happens, and the old location won’t have its
+destructor run. This will cause problems for types which have a significant location
+(types that intrusively point into themselves or have their location registered with a service).</p>
+<p>While relocations are generally predictable if you’re very careful, <strong>you should avoid using
+types with significant locations with Rust FFI</strong>.</p>
+<p>Specifically, <code>ThinVec</code> will trivially relocate its contents whenever it needs to reallocate its
+buffer to change its capacity. This is the default reallocation strategy for nsTArray, and is
+suitable for the vast majority of types. Just be aware of this limitation!</p>
+<h3 id="auto-arrays-are-dangerous"><a class="doc-anchor" href="#auto-arrays-are-dangerous">§</a>Auto Arrays Are Dangerous</h3>
+<p><code>ThinVec</code> has <em>some</em> support for handling auto arrays which store their buffer on the stack,
+but this isn’t well tested.</p>
+<p>Regardless of how much support we provide, Rust won’t be aware of the buffer’s limited lifetime,
+so standard auto array safety caveats apply about returning/storing them! <code>ThinVec</code> won’t ever
+produce an auto array on its own, so this is only an issue for transferring an nsTArray into
+Rust.</p>
+<h3 id="other-issues"><a class="doc-anchor" href="#other-issues">§</a>Other Issues</h3>
+<p>Standard FFI caveats also apply:</p>
+<ul>
+<li>Rust is more strict about POD types being initialized (use MaybeUninit if you must)</li>
+<li><code>ThinVec&lt;T&gt;</code> has no idea if the C++ version of <code>T</code> has move/copy/assign/delete overloads</li>
+<li><code>nsTArray&lt;T&gt;</code> has no idea if the Rust version of <code>T</code> has a Drop/Clone impl</li>
+<li>C++ can do all sorts of unsound things that Rust can’t catch</li>
+<li>C++ and Rust don’t agree on how zero-sized/empty types should be handled</li>
+</ul>
+<p>The gecko-ffi feature will not work if you aren’t linking with code that has nsTArray
+defined. Specifically, we must share the symbol for nsTArray’s empty singleton. You will get
+linking errors if that isn’t defined.</p>
+<p>The gecko-ffi feature also limits <code>ThinVec</code> to the legacy behaviors of nsTArray. Most notably,
+nsTArray has a maximum capacity of i32::MAX (~2.1 billion items). Probably not an issue.
+Probably.</p>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="impl_details/index.html" title="mod thin_vec::impl_details">impl_details</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li></ul><h2 id="macros" class="section-header">Macros<a href="#macros" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="macro" href="macro.array_impls.html" title="macro thin_vec::array_impls">array_impls</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="macro" href="macro.thin_vec.html" title="macro thin_vec::thin_vec">thin_vec</a></div><div class="desc docblock-short">Creates a <code>ThinVec</code> containing the arguments.</div></li></ul><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.Drain.html" title="struct thin_vec::Drain">Drain</a></div><div class="desc docblock-short">A draining iterator for <code>ThinVec&lt;T&gt;</code>.</div></li><li><div class="item-name"><a class="struct" href="struct.Header.html" title="struct thin_vec::Header">Header</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="struct" href="struct.IntoIter.html" title="struct thin_vec::IntoIter">IntoIter</a></div><div class="desc docblock-short">An iterator that moves out of a vector.</div></li><li><div class="item-name"><a class="struct" href="struct.Splice.html" title="struct thin_vec::Splice">Splice</a></div><div class="desc docblock-short">A splicing iterator for <code>ThinVec</code>.</div></li><li><div class="item-name"><a class="struct" href="struct.ThinVec.html" title="struct thin_vec::ThinVec">ThinVec</a></div><div class="desc docblock-short">See the crate’s top level documentation for a description of this type.</div></li></ul><h2 id="statics" class="section-header">Statics<a href="#statics" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="static" href="static.EMPTY_HEADER.html" title="static thin_vec::EMPTY_HEADER">EMPTY_HEADER</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Singleton that all empty collections share.
+Note: can’t store non-zero ZSTs, we allocate in that case. We could
+optimize everything to not do that (basically, make ptr == len and branch
+on size == 0 in every method), but it’s a bunch of work for something that
+doesn’t matter much.</div></li></ul><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.alloc_align.html" title="fn thin_vec::alloc_align">alloc_align</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Gets the align necessary to allocate a <code>ThinVec&lt;T&gt;</code></div></li><li><div class="item-name"><a class="fn" href="fn.alloc_size.html" title="fn thin_vec::alloc_size">alloc_size</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Gets the size necessary to allocate a <code>ThinVec&lt;T&gt;</code> with the give capacity.</div></li><li><div class="item-name"><a class="fn" href="fn.header_with_capacity.html" title="fn thin_vec::header_with_capacity">header_with_capacity</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Allocates a header (and array) for a <code>ThinVec&lt;T&gt;</code> with the given capacity.</div></li><li><div class="item-name"><a class="fn" href="fn.layout.html" title="fn thin_vec::layout">layout</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Gets the layout necessary to allocate a <code>ThinVec&lt;T&gt;</code></div></li><li><div class="item-name"><a class="fn" href="fn.padding.html" title="fn thin_vec::padding">padding</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Gets the padding necessary for the array of a <code>ThinVec&lt;T&gt;</code></div></li></ul></section></div></main></body></html>

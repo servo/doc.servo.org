@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["BorderCornerRadius","BorderImageSideWidth","BorderImageSlice","BorderImageWidth","BorderRadius","BorderSideWidth","BorderSpacing","LineWidth"]};

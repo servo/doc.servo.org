@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ICU4XLogger_destroy","ICU4XLogger_init_simple_logger"],"struct":["ICU4XLogger"]};

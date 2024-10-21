@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["implement_simple_primitive_write","implement_slice_io"],"mod":["bytes"],"trait":["ReadEndian","ReadPrimitive","WriteEndian"]};

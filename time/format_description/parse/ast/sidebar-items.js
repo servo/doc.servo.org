@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Item"],"fn":["parse","parse_component","parse_inner","parse_nested"],"struct":["Modifier","NestedFormatDescription"]};

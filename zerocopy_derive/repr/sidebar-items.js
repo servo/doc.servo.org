@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EnumRepr","Repr","StructRepr"],"fn":["reprs"],"macro":["define_kind_specific_repr"],"struct":["Config"],"trait":["KindRepr"]};

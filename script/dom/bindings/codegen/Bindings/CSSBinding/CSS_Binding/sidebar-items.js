@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["sAttributes","sAttributes_specs","sStaticAttributes","sStaticAttributes_specs","sStaticMethods","sStaticMethods_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetProtoObject","escape","get_paintWorklet","supports"],"static":["INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["CSSMethods"]};

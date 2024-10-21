@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["gen_messages","generate_interface","generate_interfaces_prefix","message_signature","null_terminated_byte_string_literal"]};

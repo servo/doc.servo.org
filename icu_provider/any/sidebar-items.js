@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AnyPayloadInner"],"struct":["AnyMarker","AnyPayload","AnyResponse","DowncastingAnyProvider","DynamicDataProviderAnyMarkerWrap"],"trait":["AnyProvider","AsDowncastingAnyProvider","AsDynamicDataProviderAnyMarkerWrap","MaybeSendSync"]};

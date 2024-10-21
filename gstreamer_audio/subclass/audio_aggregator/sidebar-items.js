@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["audio_aggregator_aggregate_one_buffer","audio_aggregator_create_output_buffer"],"mod":["sealed"],"trait":["AudioAggregatorImpl","AudioAggregatorImplExt"]};

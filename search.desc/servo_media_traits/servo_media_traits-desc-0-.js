@@ -1,0 +1,1 @@
+searchState.loadedDescShard("servo_media_traits", 0, "An ID for clients to track instances of Players and …\nCommon functionality for all high level media instances …\nMessage to notify about a media instance shutdown. The …\nReturns the argument unchanged.\nReturns the argument unchanged.\nCalls <code>U::from(self)</code>.\nCalls <code>U::from(self)</code>.")

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["chinese_based_ordinal_lunar_month_from_code","compute_cache","compute_cache_with_yb","compute_packed_with_yb"],"struct":["ChineseBasedDateInner","ChineseBasedPrecomputedData","ChineseBasedYearInfo"],"trait":["ChineseBasedWithDataLoading"]};

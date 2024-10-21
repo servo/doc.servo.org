@@ -1,0 +1,1 @@
+searchState.loadedDescShard("float_ord", 0, "Order floating point numbers, into this ordering:\nA wrapper for floats, that implements total equality and …\nReturns the argument unchanged.\nCalls <code>U::from(self)</code>.\nSort a slice of floats.")

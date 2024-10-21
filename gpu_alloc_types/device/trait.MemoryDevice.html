@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Abstract device that can be used to allocate memory objects."><title>MemoryDevice in gpu_alloc_types::device - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gpu_alloc_types" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gpu_alloc_types/index.html">gpu_alloc_types</a><span class="version">0.3.0</span></h2></div><h2 class="location"><a href="#">MemoryDevice</a></h2><div class="sidebar-elems"><section><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.allocate_memory">allocate_memory</a></li><li><a href="#tymethod.deallocate_memory">deallocate_memory</a></li><li><a href="#tymethod.flush_memory_ranges">flush_memory_ranges</a></li><li><a href="#tymethod.invalidate_memory_ranges">invalidate_memory_ranges</a></li><li><a href="#tymethod.map_memory">map_memory</a></li><li><a href="#tymethod.unmap_memory">unmap_memory</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2><a href="index.html">In gpu_alloc_types::device</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Trait <a href="../index.html">gpu_alloc_types</a>::<wbr><a href="index.html">device</a>::<wbr><a class="trait" href="#">MemoryDevice</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/gpu_alloc_types/device.rs.html#79-158">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub trait MemoryDevice&lt;M&gt; {
+    // Required methods
+    unsafe fn <a href="#tymethod.allocate_memory" class="fn">allocate_memory</a>(
+        &amp;self,
+        size: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u64.html">u64</a>,
+        memory_type: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u32.html">u32</a>,
+        flags: <a class="struct" href="struct.AllocationFlags.html" title="struct gpu_alloc_types::device::AllocationFlags">AllocationFlags</a>,
+    ) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.80.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;M, <a class="enum" href="enum.OutOfMemory.html" title="enum gpu_alloc_types::device::OutOfMemory">OutOfMemory</a>&gt;;
+<span class="item-spacer"></span>    unsafe fn <a href="#tymethod.deallocate_memory" class="fn">deallocate_memory</a>(&amp;self, memory: M);
+<span class="item-spacer"></span>    unsafe fn <a href="#tymethod.map_memory" class="fn">map_memory</a>(
+        &amp;self,
+        memory: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.reference.html">&amp;mut M</a>,
+        offset: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u64.html">u64</a>,
+        size: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u64.html">u64</a>,
+    ) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.80.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.80.1/core/ptr/non_null/struct.NonNull.html" title="struct core::ptr::non_null::NonNull">NonNull</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u8.html">u8</a>&gt;, <a class="enum" href="enum.DeviceMapError.html" title="enum gpu_alloc_types::device::DeviceMapError">DeviceMapError</a>&gt;;
+<span class="item-spacer"></span>    unsafe fn <a href="#tymethod.unmap_memory" class="fn">unmap_memory</a>(&amp;self, memory: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.reference.html">&amp;mut M</a>);
+<span class="item-spacer"></span>    unsafe fn <a href="#tymethod.invalidate_memory_ranges" class="fn">invalidate_memory_ranges</a>(
+        &amp;self,
+        ranges: &amp;[<a class="struct" href="struct.MappedMemoryRange.html" title="struct gpu_alloc_types::device::MappedMemoryRange">MappedMemoryRange</a>&lt;'_, M&gt;],
+    ) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.80.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.unit.html">()</a>, <a class="enum" href="enum.OutOfMemory.html" title="enum gpu_alloc_types::device::OutOfMemory">OutOfMemory</a>&gt;;
+<span class="item-spacer"></span>    unsafe fn <a href="#tymethod.flush_memory_ranges" class="fn">flush_memory_ranges</a>(
+        &amp;self,
+        ranges: &amp;[<a class="struct" href="struct.MappedMemoryRange.html" title="struct gpu_alloc_types::device::MappedMemoryRange">MappedMemoryRange</a>&lt;'_, M&gt;],
+    ) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.80.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.unit.html">()</a>, <a class="enum" href="enum.OutOfMemory.html" title="enum gpu_alloc_types::device::OutOfMemory">OutOfMemory</a>&gt;;
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Abstract device that can be used to allocate memory objects.</p>
+</div></details><h2 id="required-methods" class="section-header">Required Methods<a href="#required-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="tymethod.allocate_memory" class="method"><a class="src rightside" href="../../src/gpu_alloc_types/device.rs.html#91-96">source</a><h4 class="code-header">unsafe fn <a href="#tymethod.allocate_memory" class="fn">allocate_memory</a>(
+    &amp;self,
+    size: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u64.html">u64</a>,
+    memory_type: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u32.html">u32</a>,
+    flags: <a class="struct" href="struct.AllocationFlags.html" title="struct gpu_alloc_types::device::AllocationFlags">AllocationFlags</a>,
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.80.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;M, <a class="enum" href="enum.OutOfMemory.html" title="enum gpu_alloc_types::device::OutOfMemory">OutOfMemory</a>&gt;</h4></section></summary><div class="docblock"><p>Allocates new memory object from device.
+This function may be expensive and even limit maximum number of memory
+objects allocated.
+Which is the reason for sub-allocation this crate provides.</p>
+<h5 id="safety"><a class="doc-anchor" href="#safety">§</a>Safety</h5>
+<p><code>memory_type</code> must be valid index for memory type associated with this device.
+Retrieving this information is implementation specific.</p>
+<p><code>flags</code> must be supported by the device.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.deallocate_memory" class="method"><a class="src rightside" href="../../src/gpu_alloc_types/device.rs.html#104">source</a><h4 class="code-header">unsafe fn <a href="#tymethod.deallocate_memory" class="fn">deallocate_memory</a>(&amp;self, memory: M)</h4></section></summary><div class="docblock"><p>Deallocate memory object.</p>
+<h5 id="safety-1"><a class="doc-anchor" href="#safety-1">§</a>Safety</h5>
+<p>Memory object must have been allocated from this device.<br />
+All clones of specified memory handle must be dropped before calling this function.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.map_memory" class="method"><a class="src rightside" href="../../src/gpu_alloc_types/device.rs.html#116-121">source</a><h4 class="code-header">unsafe fn <a href="#tymethod.map_memory" class="fn">map_memory</a>(
+    &amp;self,
+    memory: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.reference.html">&amp;mut M</a>,
+    offset: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u64.html">u64</a>,
+    size: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u64.html">u64</a>,
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.80.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.80.1/core/ptr/non_null/struct.NonNull.html" title="struct core::ptr::non_null::NonNull">NonNull</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.u8.html">u8</a>&gt;, <a class="enum" href="enum.DeviceMapError.html" title="enum gpu_alloc_types::device::DeviceMapError">DeviceMapError</a>&gt;</h4></section></summary><div class="docblock"><p>Map region of device memory to host memory space.</p>
+<h5 id="safety-2"><a class="doc-anchor" href="#safety-2">§</a>Safety</h5>
+<ul>
+<li>Memory object must have been allocated from this device.</li>
+<li>Memory object must not be already mapped.</li>
+<li>Memory must be allocated from type with <code>HOST_VISIBLE</code> property.</li>
+<li><code>offset + size</code> must not overflow.</li>
+<li><code>offset + size</code> must not be larger than memory object size specified when
+memory object was allocated from this device.</li>
+</ul>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.unmap_memory" class="method"><a class="src rightside" href="../../src/gpu_alloc_types/device.rs.html#129">source</a><h4 class="code-header">unsafe fn <a href="#tymethod.unmap_memory" class="fn">unmap_memory</a>(&amp;self, memory: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.reference.html">&amp;mut M</a>)</h4></section></summary><div class="docblock"><p>Unmap previously mapped memory region.</p>
+<h5 id="safety-3"><a class="doc-anchor" href="#safety-3">§</a>Safety</h5>
+<ul>
+<li>Memory object must have been allocated from this device.</li>
+<li>Memory object must be mapped</li>
+</ul>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.invalidate_memory_ranges" class="method"><a class="src rightside" href="../../src/gpu_alloc_types/device.rs.html#140-143">source</a><h4 class="code-header">unsafe fn <a href="#tymethod.invalidate_memory_ranges" class="fn">invalidate_memory_ranges</a>(
+    &amp;self,
+    ranges: &amp;[<a class="struct" href="struct.MappedMemoryRange.html" title="struct gpu_alloc_types::device::MappedMemoryRange">MappedMemoryRange</a>&lt;'_, M&gt;],
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.80.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.unit.html">()</a>, <a class="enum" href="enum.OutOfMemory.html" title="enum gpu_alloc_types::device::OutOfMemory">OutOfMemory</a>&gt;</h4></section></summary><div class="docblock"><p>Invalidates ranges of memory mapped regions.</p>
+<h5 id="safety-4"><a class="doc-anchor" href="#safety-4">§</a>Safety</h5>
+<ul>
+<li>Memory objects must have been allocated from this device.</li>
+<li><code>offset</code> and <code>size</code> in each element of <code>ranges</code> must specify
+subregion of currently mapped memory region</li>
+<li>if <code>memory</code> in some element of <code>ranges</code> does not contain <code>HOST_COHERENT</code> property
+then <code>offset</code> and <code>size</code> of that element must be multiple of <code>non_coherent_atom_size</code>.</li>
+</ul>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.flush_memory_ranges" class="method"><a class="src rightside" href="../../src/gpu_alloc_types/device.rs.html#154-157">source</a><h4 class="code-header">unsafe fn <a href="#tymethod.flush_memory_ranges" class="fn">flush_memory_ranges</a>(
+    &amp;self,
+    ranges: &amp;[<a class="struct" href="struct.MappedMemoryRange.html" title="struct gpu_alloc_types::device::MappedMemoryRange">MappedMemoryRange</a>&lt;'_, M&gt;],
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.80.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.unit.html">()</a>, <a class="enum" href="enum.OutOfMemory.html" title="enum gpu_alloc_types::device::OutOfMemory">OutOfMemory</a>&gt;</h4></section></summary><div class="docblock"><p>Flushes ranges of memory mapped regions.</p>
+<h5 id="safety-5"><a class="doc-anchor" href="#safety-5">§</a>Safety</h5>
+<ul>
+<li>Memory objects must have been allocated from this device.</li>
+<li><code>offset</code> and <code>size</code> in each element of <code>ranges</code> must specify
+subregion of currently mapped memory region</li>
+<li>if <code>memory</code> in some element of <code>ranges</code> does not contain <code>HOST_COHERENT</code> property
+then <code>offset</code> and <code>size</code> of that element must be multiple of <code>non_coherent_atom_size</code>.</li>
+</ul>
+</div></details></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"></div><script src="../../trait.impl/gpu_alloc_types/device/trait.MemoryDevice.js" async></script></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["copy_yoke_impl","impl_copy_type","unsafe_complex_yoke_impl"]};

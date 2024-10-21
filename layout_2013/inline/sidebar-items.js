@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LineFlushMode"],"fn":["inline_contexts_are_equal"],"struct":["FragmentIndex","InlineFlow","InlineFragmentContext","InlineFragmentNodeFlags","InlineFragmentNodeInfo","InlineFragments","InlineMetrics","Line","LineBreaker","LineMetrics"]};

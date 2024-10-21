@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["from_u32_unchecked"],"struct":["Fixup","SingleByteCharIndices"]};

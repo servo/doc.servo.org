@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FeatureType","LegacyRange","Operator","QueryExpressionValue","QueryFeatureExpressionKind"],"fn":["consume_operation_or_colon","disabled_by_pref"],"struct":["QueryFeatureExpression"]};

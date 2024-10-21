@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_IN_OUT_LEN","_MAX_IN_OUT_LEN_BOUNDED_BY_RFC"],"fn":["chacha20_poly1305_init","chacha20_poly1305_open","chacha20_poly1305_seal","derive_poly1305_key","finish","has_integrated","poly1305_update_padded_16"],"static":["CHACHA20_POLY1305"],"struct":["Out"],"type":["Key"],"union":["InOut"]};

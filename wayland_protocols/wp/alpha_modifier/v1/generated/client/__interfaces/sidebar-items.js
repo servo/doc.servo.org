@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["WP_ALPHA_MODIFIER_SURFACE_V1_INTERFACE","WP_ALPHA_MODIFIER_V1_INTERFACE","types_null","wp_alpha_modifier_surface_v1_interface","wp_alpha_modifier_surface_v1_requests","wp_alpha_modifier_v1_interface","wp_alpha_modifier_v1_requests","wp_alpha_modifier_v1_requests_get_surface_types"],"struct":["SyncWrapper"]};

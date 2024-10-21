@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ICU4XLocaleDirection"],"fn":["ICU4XLocaleDirection_destroy","ICU4XLocaleDirectionality_create","ICU4XLocaleDirectionality_create_with_expander","ICU4XLocaleDirectionality_destroy","ICU4XLocaleDirectionality_get","ICU4XLocaleDirectionality_is_left_to_right","ICU4XLocaleDirectionality_is_right_to_left"],"struct":["ICU4XLocaleDirectionality"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["canvas_data","canvas_paint_thread","raqote_backend","webgl_limits","webgl_mode","webgl_thread"],"struct":["WebGLComm"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImageFit","ImageSource"],"fn":["decode_gif_uri","encode_gif_uri","gif_frame_index","has_gif_magic_header","is_gif_uri","paint_texture_at","paint_texture_load_result","scale_to_fit","texture_load_result_response"],"struct":["GifFrameDurations","Image","ImageOptions","ImageSize"]};

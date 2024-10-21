@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["profile_function","profile_scope"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ClassDefinition","Coverage"],"mod":["chained_context","context","feature_variations","layout_table","lookup"],"struct":["RangeRecord"],"type":["Class"]};

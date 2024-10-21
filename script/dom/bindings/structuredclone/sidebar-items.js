@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StructuredCloneTags","StructuredDataHolder"],"fn":["can_transfer_callback","free_transfer_callback","read","read_blob","read_callback","read_transfer_callback","report_error_callback","sab_cloned_callback","write","write_blob","write_callback","write_transfer_callback"],"static":["STRUCTURED_CLONE_CALLBACKS"]};

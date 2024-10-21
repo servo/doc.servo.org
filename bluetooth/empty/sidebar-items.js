@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NOT_SUPPORTED_ERROR"],"struct":["BluetoothDevice","BluetoothDiscoverySession","BluetoothGATTCharacteristic","BluetoothGATTDescriptor","BluetoothGATTService","EmptyAdapter"]};

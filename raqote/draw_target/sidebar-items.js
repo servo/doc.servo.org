@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AntialiasMode","BlendMode","ExtendMode","FilterMode","Source"],"fn":["blend_row","blend_row_mask","blend_row_mask_clip","build_blend_proc","scaled_tolerance"],"mod":["fk"],"struct":["BlendRow","BlendRowMask","BlendRowMaskClip","Clip","DrawOptions","DrawTarget","Layer","Mask","SolidSource"],"trait":["Blender"]};

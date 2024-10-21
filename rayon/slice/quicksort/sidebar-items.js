@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["break_patterns","choose_pivot","heapsort","insertion_sort","par_quicksort","partial_insertion_sort","partition","partition_equal","partition_in_blocks","recurse","shift_head","shift_tail"],"struct":["CopyOnDrop"]};

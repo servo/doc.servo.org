@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["serve"],"macro":["addr_incoming","bind","bind_inner","into_service","try_bind"],"struct":["Server"]};

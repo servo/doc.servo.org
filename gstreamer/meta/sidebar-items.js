@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Iterated","Standalone"],"struct":["Meta","MetaRef","MetaRefMut","MetaSeqnum","ParentBufferMeta","ProtectionMeta","ReferenceTimestampMeta"],"trait":["MetaAPI","MetaAPIExt"]};

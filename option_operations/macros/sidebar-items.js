@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["common_option_op"],"mod":["impl_for","option_op","option_op_assign","option_op_checked","option_op_overflowing","option_op_saturating","option_op_wrapping"]};

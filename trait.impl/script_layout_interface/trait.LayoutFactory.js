@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"layout_thread_2013":[["impl <a class=\"trait\" href=\"script_layout_interface/trait.LayoutFactory.html\" title=\"trait script_layout_interface::LayoutFactory\">LayoutFactory</a> for <a class=\"struct\" href=\"layout_thread_2013/struct.LayoutFactoryImpl.html\" title=\"struct layout_thread_2013::LayoutFactoryImpl\">LayoutFactoryImpl</a>"]],
+"layout_thread_2020":[["impl <a class=\"trait\" href=\"script_layout_interface/trait.LayoutFactory.html\" title=\"trait script_layout_interface::LayoutFactory\">LayoutFactory</a> for <a class=\"struct\" href=\"layout_thread_2020/struct.LayoutFactoryImpl.html\" title=\"struct layout_thread_2020::LayoutFactoryImpl\">LayoutFactoryImpl</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

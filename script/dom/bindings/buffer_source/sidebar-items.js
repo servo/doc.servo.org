@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BufferSource","HeapTypedArrayInit"],"fn":["create_buffer_source","create_buffer_source_with_length","new_initialized_heap_buffer_source","range_overlap"],"struct":["DataBlock","DataView","HeapBufferSource"]};

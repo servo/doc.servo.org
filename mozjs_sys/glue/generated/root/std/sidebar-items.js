@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["__adl_only","__detail","__exception_ptr","__swappable_details","__swappable_with_details","placeholders","pmr"]};

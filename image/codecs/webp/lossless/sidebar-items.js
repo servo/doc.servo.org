@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALPHA","ALPHABET_SIZE","BLUE","CODE_LENGTH_CODES","CODE_LENGTH_CODE_ORDER","DIST","DISTANCE_MAP","GREEN","HUFFMAN_CODES_PER_META_CODE","NUM_TRANSFORM_TYPES","RED"],"enum":["DecoderError"],"fn":["subsample_size"],"struct":["BitReader","ColorCache","HuffmanInfo","LosslessDecoder","LosslessFrame"],"type":["HuffmanCodeGroup"]};

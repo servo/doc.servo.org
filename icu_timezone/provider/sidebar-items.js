@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["names"],"struct":["Baked","MetazoneId","MetazonePeriodV1","MetazonePeriodV1Marker","TimeZoneBcp47Id"]};

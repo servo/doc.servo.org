@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ICU4XTime_create","ICU4XTime_create_midnight","ICU4XTime_destroy","ICU4XTime_hour","ICU4XTime_minute","ICU4XTime_nanosecond","ICU4XTime_second"],"struct":["ICU4XTime"]};

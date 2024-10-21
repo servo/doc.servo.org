@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Display","DisplayGeneratingBox","DisplayInside","DisplayLayoutInternal","DisplayOutside"],"struct":["AspectRatio","PaddingBorderMargin"],"trait":["Clamp","ComputedValuesExt"]};

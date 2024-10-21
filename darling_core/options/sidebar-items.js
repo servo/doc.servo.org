@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DefaultExpression"],"fn":["parse_attr"],"mod":["core","forward_attrs","from_attributes","from_derive","from_field","from_meta","from_type_param","from_variant","input_field","input_variant","outer_from","shape"],"trait":["ParseAttribute","ParseData"]};

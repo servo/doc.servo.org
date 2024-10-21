@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Root"],"struct":["AutocompleteReply","ConsoleActor","EvaluateJSAsyncReply","EvaluateJSEvent","EvaluateJSReply","GetCachedMessagesReply","PageErrorWrapper","SetPreferencesReply","StartedListenersReply","StartedListenersTraits","StopListenersReply"],"trait":["EncodableConsoleMessage"]};

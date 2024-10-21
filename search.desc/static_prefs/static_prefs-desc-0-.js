@@ -1,0 +1,1 @@
+searchState.loadedDescShard("static_prefs", 0, "A list of static preferences exposed to the style crate. …")

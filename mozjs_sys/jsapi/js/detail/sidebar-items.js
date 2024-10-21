@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["IsWindowSlow","SetValueInProxy","ToWindowProxyIfWindowSlow"],"struct":["ProxyDataLayout","ProxyReservedSlots","ProxyValueArray","PtrBarrierMethodsBase","TypeIsGCThing","UniqueSelector"],"type":["UniqueSelector_SingleObject"]};

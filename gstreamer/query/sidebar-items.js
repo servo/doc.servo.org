@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["QueryView","QueryViewMut"],"macro":["declare_concrete_query"],"struct":["AcceptCaps","Allocation","Bitrate","Buffering","Caps","Context","Convert","Custom","Drain","Duration","Formats","Latency","Other","Position","Query","QueryRef","Scheduling","Seeking","Segment","Uri"]};

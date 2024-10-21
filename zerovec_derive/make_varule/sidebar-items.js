@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OwnULETy","UnsizedFieldKind"],"fn":["make_encode_impl","make_varule_impl","make_zf_impl"],"struct":["UnsizedField","UnsizedFields"]};

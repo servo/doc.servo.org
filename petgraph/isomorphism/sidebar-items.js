@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_isomorphic","is_isomorphic_matching","try_match"],"struct":["NoSemanticMatch","Vf2State"],"trait":["SemanticMatcher"]};

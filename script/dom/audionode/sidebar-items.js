@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_CHANNEL_COUNT","_IMPL_DOMOBJECT_FOR_AudioNode"],"struct":["AudioNode","UnwrappedAudioNodeOptions"]};

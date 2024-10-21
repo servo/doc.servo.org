@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AnyFeatures","CapsFilterMapAction","HasFeatures","NoFeature","SomeFeatures"],"macro":["define_iter"],"struct":["Builder","BuilderFull","Caps","CapsRef","Iter","IterFeatures","IterFeaturesMut","IterMut"]};

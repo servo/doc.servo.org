@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"yoke_derive":[["impl&lt;'a, 'ast&gt; <a class=\"trait\" href=\"syn/gen/visit/trait.Visit.html\" title=\"trait syn::gen::visit::Visit\">Visit</a>&lt;'ast&gt; for <a class=\"struct\" href=\"yoke_derive/visitor/struct.TypeVisitor.html\" title=\"struct yoke_derive::visitor::TypeVisitor\">TypeVisitor</a>&lt;'a&gt;"]],
+"zerofrom_derive":[["impl&lt;'a, 'ast&gt; <a class=\"trait\" href=\"syn/gen/visit/trait.Visit.html\" title=\"trait syn::gen::visit::Visit\">Visit</a>&lt;'ast&gt; for <a class=\"struct\" href=\"zerofrom_derive/visitor/struct.TypeVisitor.html\" title=\"struct zerofrom_derive::visitor::TypeVisitor\">TypeVisitor</a>&lt;'a&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

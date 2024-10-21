@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Readable","Writable"],"mod":["sealed"],"struct":["VideoFrame","VideoFrameRef"],"trait":["IsVideoFrame","VideoBufferExt","VideoFrameExt"]};

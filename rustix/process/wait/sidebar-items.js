@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WaitId"],"fn":["wait","waitid","waitpgid","waitpid"],"struct":["WaitOptions","WaitStatus","WaitidOptions","WaitidStatus"]};

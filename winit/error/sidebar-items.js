@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EventLoopError","ExternalError"],"macro":["os_error"],"struct":["NotSupportedError","OsError"]};

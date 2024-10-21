@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Message","RegistrationUpdateTarget"],"fn":["serviceworker_enabled","update_serviceworker"],"struct":["ServiceWorker","ServiceWorkerManager","ServiceWorkerRegistration"]};

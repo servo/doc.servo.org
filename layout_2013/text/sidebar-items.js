@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CompressionMode"],"fn":["apply_style_transform_if_necessary","bounding_box_for_run_metrics","font_metrics_for_style","is_compatible","is_specific","line_height_from_style","split_first_fragment_at_newline_if_necessary","text","transform_text"],"struct":["RunInfo","RunMapping","ScannedTextRun","TextRunScanner"]};

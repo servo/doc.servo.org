@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BackdropCapture","BackdropCaptureData","BackdropRender","BackdropRenderData"],"type":["BackdropCaptureDataHandle","BackdropCaptureKey","BackdropCaptureTemplate","BackdropRenderDataHandle","BackdropRenderKey","BackdropRenderTemplate"]};

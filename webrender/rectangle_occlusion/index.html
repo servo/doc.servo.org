@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A simple occlusion culling algorithm for axis-aligned rectangles."><title>webrender::rectangle_occlusion - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="webrender" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../webrender/index.html">webrender</a><span class="version">0.65.0</span></h2></div><h2 class="location"><a href="#">Module rectangle_occlusion</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#functions">Functions</a></li></ul></section><h2><a href="../index.html">In crate webrender</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">webrender</a>::<wbr><a class="mod" href="#">rectangle_occlusion</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/webrender/rectangle_occlusion.rs.html#5-208">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A simple occlusion culling algorithm for axis-aligned rectangles.</p>
+<h3 id="output"><a class="doc-anchor" href="#output">§</a>Output</h3>
+<p>Occlusion culling results in two lists of rectangles:</p>
+<ul>
+<li>The opaque list should be rendered first. None of its rectangles overlap so order doesn’t matter
+within the opaque pass.</li>
+<li>The non-opaque list (or alpha list) which should be rendered in back-to-front order after the opaque pass.</li>
+</ul>
+<p>The output has minimal overdraw (no overdraw at all for opaque items and as little as possible for alpha ones).</p>
+<h3 id="algorithm-overview"><a class="doc-anchor" href="#algorithm-overview">§</a>Algorithm overview</h3>
+<p>The occlusion culling algorithm works in front-to-back order, accumulating rectangle in opaque and non-opaque lists.
+Each time a rectangle is added, it is first tested against existing opaque rectangles and potentially split into visible
+sub-rectangles, or even discarded completely. The front-to-back order ensures that once a rectangle is added it does not
+have to be modified again, making the underlying data structure trivial (append-only).</p>
+<h3 id="splitting"><a class="doc-anchor" href="#splitting">§</a>splitting</h3>
+<p>Partially visible rectangles are split into up to 4 visible sub-rectangles by each intersecting occluder.</p>
+<div class="example-wrap"><pre class="language-ascii"><code> +----------------------+       +----------------------+
+ | rectangle            |       |                      |
+ |                      |       |                      |
+ |  +-----------+       |       +--+-----------+-------+
+ |  |occluder   |       |  --&gt;  |  |\\\\\\\\\\\|       |
+ |  +-----------+       |       +--+-----------+-------+
+ |                      |       |                      |
+ +----------------------+       +----------------------+
+</code></pre></div>
+<p>In the example above the rectangle is split into 4 visible parts with the central occluded part left out.</p>
+<p>This implementation favors longer horizontal bands instead creating nine-patches to deal with the corners.
+The advantage is that it produces less rectangles which is good for the performance of the algorithm and
+for SWGL which likes long horizontal spans, however it would cause artifacts if the resulting rectangles
+were to be drawn with a non-axis-aligned transformation.</p>
+<h3 id="performance"><a class="doc-anchor" href="#performance">§</a>Performance</h3>
+<p>The cost of the algorithm grows with the number of opaque rectangle as each new rectangle is tested against
+all previously added opaque rectangles.</p>
+<p>Note that opaque rectangles can either be added as opaque or non-opaque. This means a trade-off between
+overdraw and number of rectangles can be explored to adjust performance: Small opaque rectangles, especially
+towards the front of the scene, could be added as non-opaque to avoid causing many splits while adding only 
+a small amount of overdraw.</p>
+<p>This implementation is intended to be used with a small number of (opaque) items. A similar implementation
+could use a spatial acceleration structure for opaque rectangles to perform better with a large amount of
+occluders.</p>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.FrontToBackBuilder.html" title="struct webrender::rectangle_occlusion::FrontToBackBuilder">FrontToBackBuilder</a></div><div class="desc docblock-short">A builder that applies occlusion culling with rectangles provided in front-to-back order.</div></li><li><div class="item-name"><a class="struct" href="struct.Item.html" title="struct webrender::rectangle_occlusion::Item">Item</a></div><div class="desc docblock-short">A visible part of a rectangle after occlusion culling.</div></li></ul><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.apply_occluder.html" title="fn webrender::rectangle_occlusion::apply_occluder">apply_occluder</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li></ul></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["document","element","node","shadow_root"],"struct":["ServoLayoutDocument","ServoLayoutElement","ServoLayoutNode","ServoShadowRoot","ServoThreadSafeLayoutElement","ServoThreadSafeLayoutNode","ServoThreadSafeLayoutNodeChildrenIterator"]};

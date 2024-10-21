@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["derive_usize_iterator_with_type"]};

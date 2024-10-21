@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DataErrorKind"],"struct":["DataError"]};

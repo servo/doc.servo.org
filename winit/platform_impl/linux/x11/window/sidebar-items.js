@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Visibility"],"fn":["cast_dimension_to_hint","cast_physical_size_to_hint","cast_size_to_hint"],"macro":["leap"],"struct":["SharedState","UnownedWindow"]};

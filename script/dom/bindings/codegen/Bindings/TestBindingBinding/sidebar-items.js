@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TestEnum"],"mod":["TestBinding_Binding","TestEnumValues","TestNS_Binding"],"struct":["SimpleCallback","TestDictionary","TestDictionaryDefaults","TestDictionaryParent","TestDictionaryWithParent","TestURLLike","callbackWithOnlyOneOptionalArg"],"type":["TestTypedefInterface","TestTypedefNullableUnion","TestTypedefString"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["R","RInverse","RR","RRR","Unencoded"],"fn":["bn_mul_mont","limbs_from_mont_in_place","limbs_mont_mul","limbs_mont_square","mul_mont"],"trait":["Encoding","ProductEncoding","ReductionEncoding"]};

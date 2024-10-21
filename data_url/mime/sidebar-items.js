@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["contains","http_whitespace","only_http_token_code_points","parse","parse_parameters","split2","valid_value"],"macro":["byte_map"],"static":["IS_HTTP_TOKEN"],"struct":["Mime","MimeParsingError"]};

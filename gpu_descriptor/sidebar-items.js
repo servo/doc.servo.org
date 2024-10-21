@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllocationError","CreatePoolError","DeviceAllocationError"],"mod":["allocator"],"struct":["DescriptorAllocator","DescriptorPoolCreateFlags","DescriptorSet","DescriptorSetLayoutCreateFlags","DescriptorTotalCount"],"trait":["DescriptorDevice"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["alloc","free"],"mod":["sealed"],"trait":["AllocatorImpl","AllocatorImplExt"]};

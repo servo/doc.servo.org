@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_tiff_value_for_contiguous_sequence"],"struct":["Ifd","Ifd8","Rational","SRational"],"trait":["TiffValue"]};

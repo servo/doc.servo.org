@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["AnchorFunction","AspectRatio","HorizontalPosition","Inset","Position","PositionOrAuto","VerticalPosition","ZIndex"]};

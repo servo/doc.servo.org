@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHECKSUM_DISABLED","CHUNK_BUFFER_SIZE"],"enum":["Decoded","DecodingError","FormatErrorInner","State","U32ValueKind"],"struct":["ChunkState","DecodeOptions","FormatError","StreamingDecoder"]};

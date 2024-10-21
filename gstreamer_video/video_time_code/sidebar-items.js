@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["generic_impl"],"struct":["ValidVideoTimeCode","VideoTimeCode","VideoTimeCodeMeta"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["HWDevice","NativeWidget","Surface","SurfaceTexture"]};

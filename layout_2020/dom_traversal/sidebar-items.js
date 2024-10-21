@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Contents","NonReplacedContents","PseudoElementContentItem","WhichPseudoElement"],"fn":["generate_pseudo_element_content","iter_child_nodes","pseudo_element_style","traverse_children_of","traverse_element","traverse_pseudo_element","traverse_pseudo_element_contents"],"struct":["NodeAndStyleInfo"],"trait":["TraversalHandler"]};

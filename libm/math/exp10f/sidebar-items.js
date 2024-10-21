@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LN10_F32","LN10_F64","P10"],"fn":["exp10f"]};

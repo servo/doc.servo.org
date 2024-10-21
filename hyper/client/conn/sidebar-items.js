@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Proto","ProtoClient","ResponseFutureState"],"fn":["handshake"],"struct":["Builder","Connection","Http2SendRequest","Parts","ResponseFuture","SendRequest"],"trait":["AssertSend","AssertSendSync"],"type":["Http1Dispatcher","Http2ClientTask"]};

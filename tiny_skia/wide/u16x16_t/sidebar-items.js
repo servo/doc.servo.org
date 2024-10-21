@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_u16x16_op"],"struct":["u16x16"]};

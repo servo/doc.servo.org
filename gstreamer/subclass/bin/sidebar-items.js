@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bin_add_element","bin_do_latency","bin_handle_message","bin_remove_element"],"mod":["sealed"],"trait":["BinImpl","BinImplExt"]};

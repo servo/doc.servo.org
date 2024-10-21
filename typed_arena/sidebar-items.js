@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INITIAL_SIZE","MIN_CAPACITY"],"enum":["IterMutState"],"struct":["Arena","ChunkList","IterMut"]};

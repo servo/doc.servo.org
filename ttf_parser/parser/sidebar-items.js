@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f32_bound","i16_bound"],"struct":["F2DOT14","Fixed","LazyArray16","LazyArray32","LazyArrayIter16","LazyArrayIter32","LazyOffsetArray16","LazyOffsetArrayIter16","Offset16","Offset24","Offset32","Stream","U24"],"trait":["FromData","FromSlice","NumFrom","Offset","TryNumFrom"]};

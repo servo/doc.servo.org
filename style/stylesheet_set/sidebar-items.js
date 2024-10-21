@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DataValidity","SheetRebuildKind"],"macro":["sheet_set_methods"],"struct":["AuthorStylesheetFlusher","AuthorStylesheetSet","DocumentStylesheetFlusher","DocumentStylesheetSet","SheetCollection","SheetCollectionFlusher","StylesheetCollectionIterator","StylesheetIterator","StylesheetSetEntry"]};

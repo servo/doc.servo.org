@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decoding_error","encoding_error"],"struct":["QoiDecoder","QoiEncoder"]};

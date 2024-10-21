@@ -1,0 +1,1 @@
+searchState.loadedDescShard("sig", 0, "Sig\nThe <code>getpid</code> macro returns the PID of program.\nThe <code>signal</code> macro sends a signal to a PID program.\nThe <code>signal</code> macro receives a signal to a PID program.")

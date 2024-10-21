@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["aggregator_pad_flush","aggregator_pad_skip_buffer"],"mod":["sealed"],"trait":["AggregatorPadImpl","AggregatorPadImplExt"]};

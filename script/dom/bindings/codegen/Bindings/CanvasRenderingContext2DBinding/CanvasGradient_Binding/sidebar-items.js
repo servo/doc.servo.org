@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["addColorStop_methodinfo","sAttributes","sAttributes_specs","sMethods","sMethods_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetProtoObject","Wrap","_finalize","_trace","addColorStop"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["CanvasGradientMethods"]};

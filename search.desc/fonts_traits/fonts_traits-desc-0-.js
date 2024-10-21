@@ -1,0 +1,1 @@
+searchState.loadedDescShard("fonts_traits", 0, "An index that refers to a byte offset in a text run. This …\nReturns the argument unchanged.\nCalls <code>U::from(self)</code>.")

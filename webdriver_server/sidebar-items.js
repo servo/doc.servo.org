@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ServoExtensionCommand","ServoExtensionRoute"],"fn":["cookie_msg_to_cookie","extension_routes","map_to_vec","start_server"],"mod":["actions","capabilities"],"struct":["GetPrefsParameters","Handler","SendableWebDriverJSValue","SetPrefsParameters","TupleVecMapVisitor","WebDriverPrefValue","WebDriverSession"]};

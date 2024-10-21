@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AddonMsg"],"struct":["ActorTraits","DescriptorTraits","GetProcessResponse","GetRootReply","GetTabReply","ListAddonsReply","ListProcessesResponse","ListServiceWorkerRegistrationsReply","ListTabsReply","ListWorkersReply","ProtocolDescriptionReply","RootActor","RootActorMsg","Types"]};

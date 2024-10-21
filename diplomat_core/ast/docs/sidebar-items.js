@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DocType","MarkdownStyle","RustLinkDisplay"],"struct":["Docs","DocsUrlGenerator","RustLink"]};

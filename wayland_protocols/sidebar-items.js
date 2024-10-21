@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ext","protocol_macro","wp","xdg","xwayland"]};

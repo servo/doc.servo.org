@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BIGINT_MODULUS_MAX_LIMBS"],"mod":["bigint","constant","montgomery","n0"]};

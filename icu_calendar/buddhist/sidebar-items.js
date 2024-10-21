@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BUDDHIST_ERA_OFFSET"],"fn":["iso_year_as_buddhist"],"struct":["Buddhist"]};

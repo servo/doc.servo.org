@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["build_html_directory_listing","fetch","metadata_to_file_size_string","write_directory_entry"]};

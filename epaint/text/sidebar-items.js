@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PASSWORD_REPLACEMENT_CHAR","TAB_SIZE"],"enum":["FontFamily","TextWrapMode"],"fn":["layout"],"mod":["cursor","font","fonts","text_layout","text_layout_types"],"struct":["FontData","FontDefinitions","FontId","FontTweak","Fonts","FontsImpl","Galley","Glyph","LayoutJob","LayoutSection","Row","RowVisuals","TextFormat","TextWrapping"]};

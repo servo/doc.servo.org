@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["guillotine"],"struct":["AllocId","AllocatorList","BucketedShelfAllocator","CompactionChange","ShelfAllocator","ShelfAllocatorOptions","TextureUnit"],"trait":["AtlasAllocator","AtlasAllocatorList"]};

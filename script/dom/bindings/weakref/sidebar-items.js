@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DOM_WEAK_SLOT"],"struct":["DOMTracker","MutableWeakRef","WeakBox","WeakRef","WeakRefEntry","WeakRefVec"],"trait":["WeakReferenceable"]};

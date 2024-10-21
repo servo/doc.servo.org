@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_TILES_PER_QUAD","MIN_AA_SEGMENTS_SIZE","MIN_QUAD_SPLIT_SIZE"],"enum":["QuadRenderStrategy","QuadTileKind"],"fn":["add_composite_prim","add_pattern_prim","add_render_task_with_mask","add_to_batch","get_prim_render_strategy","prepare_quad","write_prim_blocks"],"struct":["QuadTileClassifier","QuadTileInfo"]};

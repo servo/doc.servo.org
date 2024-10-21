@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["layout_debug_scope"],"mod":["cell","context","display_list","dom","dom_traversal","flexbox","flow","formatting_contexts","fragment_tree","geom","layout_debug","lists","positioned","query","replaced","sizing","style_ext","table","traversal"],"struct":["ContainingBlock","DefiniteContainingBlock","FragmentTree","IndefiniteContainingBlock"]};

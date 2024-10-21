@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["OS_HAS_THREAD_SAFE_ENVIRONMENT"],"fn":["local_offset_at","timestamp_to_tm","tm_to_offset"]};

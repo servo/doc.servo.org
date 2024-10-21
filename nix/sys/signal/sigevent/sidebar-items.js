@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SigEvent","libc_sigevent"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_ServiceWorkerGlobalScope"],"enum":["MixedMessage","ServiceWorkerControlMsg","ServiceWorkerScriptMsg"],"fn":["interrupt_callback"],"struct":["ServiceWorkerChan","ServiceWorkerGlobalScope"]};

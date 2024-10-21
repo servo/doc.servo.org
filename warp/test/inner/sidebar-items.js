@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["one_or_tuple"],"trait":["OneOrTuple"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImError","ImFormat"],"fn":["find_riff_chunk","imsz","imsz_from_path","imsz_from_reader","is_tga","parse_tiff"],"macro":["array2","array4","map_err","map_expr"],"struct":["BigEndianReader","ImInfo","LittleEndianReader"],"trait":["BinaryReader","Imsz","Ratio"],"type":["ImResult"]};

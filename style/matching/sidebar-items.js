@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CascadeVisitedMode","ChildRestyleRequirement","StyleChange"],"struct":["StyleDifference"],"trait":["MatchMethods","PrivateMatchMethods"]};

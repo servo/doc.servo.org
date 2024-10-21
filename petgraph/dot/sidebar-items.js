@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Config"],"static":["EDGE","INDENT","TYPE"],"struct":["DebugFmt","Dot","Escaped","Escaper"]};

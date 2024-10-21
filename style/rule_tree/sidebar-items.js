@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CascadeLevel"],"mod":["core","level","map","source","unsafe_box"],"struct":["RuleTree","SelfAndAncestors","ShadowCascadeOrder","StrongRuleNode","StyleSource"]};

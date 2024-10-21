@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Day","DayPeriod","FieldSymbol","Hour","Month","Second","SymbolError","TimeZone","Week","Weekday","Year"],"macro":["field_type"],"struct":["DayPeriodULE","DayULE","FieldSymbolULE","HourULE","MonthULE","SecondULE","TimeZoneULE","WeekULE","WeekdayULE","YearULE"]};

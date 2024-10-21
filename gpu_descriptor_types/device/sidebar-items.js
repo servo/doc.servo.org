@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CreatePoolError","DeviceAllocationError"],"trait":["DescriptorDevice"]};

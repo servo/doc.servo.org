@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["remote_handle"],"struct":["Remote","RemoteHandle"],"type":["SendMsg"]};
