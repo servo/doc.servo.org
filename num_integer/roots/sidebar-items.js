@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bits","cbrt","fixpoint","log2","nth_root","sqrt"],"macro":["signed_roots","unsigned_roots"],"trait":["Roots"]};

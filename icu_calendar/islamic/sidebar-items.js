@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IslamicYearLength"],"fn":["compute_month_day"],"struct":["IslamicCivil","IslamicCivilDateInner","IslamicDateInner","IslamicObservational","IslamicPrecomputedData","IslamicTabular","IslamicTabularDateInner","IslamicUmmAlQura","IslamicUmmAlQuraDateInner","IslamicYearInfo"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CURRENT_EVENT_LOOP"],"enum":["ControlFlow","EventLoop"],"fn":["with_current_event_loop"],"struct":["EventLoopGuard","EventsLoop","HeadedEventLoopWaker","HeadlessEventLoopWaker","WakerEvent"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SUPPORTED_ALGORITHM"],"fn":["apply_algorithm_to_response","get_prioritized_hash_function","get_strongest_metadata","is_eligible_for_integrity_validation","is_response_integrity_valid","parsed_metadata","split_html_space_chars"],"static":["HTML_SPACE_CHARACTERS"],"struct":["SriEntry"],"type":["StaticCharVec"]};

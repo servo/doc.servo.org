@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"gstreamer_gl":[["impl&lt;T&gt; <a class=\"trait\" href=\"gstreamer_video/video_frame/trait.IsVideoFrame.html\" title=\"trait gstreamer_video::video_frame::IsVideoFrame\">IsVideoFrame</a> for <a class=\"struct\" href=\"gstreamer_gl/gl_video_frame/struct.GLVideoFrame.html\" title=\"struct gstreamer_gl::gl_video_frame::GLVideoFrame\">GLVideoFrame</a>&lt;T&gt;"],["impl&lt;T&gt; <a class=\"trait\" href=\"gstreamer_video/video_frame/trait.IsVideoFrame.html\" title=\"trait gstreamer_video::video_frame::IsVideoFrame\">IsVideoFrame</a> for <a class=\"struct\" href=\"gstreamer_gl/gl_video_frame/struct.GLVideoFrameRef.html\" title=\"struct gstreamer_gl::gl_video_frame::GLVideoFrameRef\">GLVideoFrameRef</a>&lt;T&gt;"]],
+"gstreamer_video":[]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

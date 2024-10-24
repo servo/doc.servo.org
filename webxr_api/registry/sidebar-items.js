@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RegistryMsg"],"struct":["MainThreadRegistry","MainThreadWakerImpl","Registry"],"trait":["MainThreadWaker"]};

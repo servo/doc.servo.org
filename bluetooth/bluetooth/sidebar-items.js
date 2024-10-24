@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NOT_SUPPORTED_ON_MOCK_ERROR"],"enum":["BluetoothDevice","BluetoothDiscoverySession","BluetoothGATTCharacteristic","BluetoothGATTDescriptor","BluetoothGATTService"]};

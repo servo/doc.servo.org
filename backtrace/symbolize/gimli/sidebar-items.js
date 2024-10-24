@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAPPINGS_CACHE_SIZE"],"enum":["Either","Symbol"],"fn":["clear_symbol_cache","create_mapping","mmap","resolve"],"mod":["elf","libs_dl_iterate_phdr","mmap","parse_running_mmaps","stash"],"struct":["Cache","Context","Library","LibrarySegment","Mapping"]};

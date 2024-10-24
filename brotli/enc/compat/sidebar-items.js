@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fmin","i16_bitand","shift16","wrapping_i16_add","wrapping_i16_sub"],"macro":["op16","scalar_op16"],"struct":["Compat16x16","Compat32x8","CompatF8"]};

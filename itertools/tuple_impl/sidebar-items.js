@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["add_then_div","circular_tuple_windows","tuple_windows","tuples"],"macro":["impl_tuple_collect","rev_for_each_ident"],"struct":["CircularTupleWindows","TupleBuffer","TupleWindows","Tuples"],"trait":["HomogeneousTuple","TupleCollect"]};

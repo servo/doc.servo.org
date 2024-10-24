@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["init","resources_dir_path"],"static":["CMD_RESOURCE_DIR"],"struct":["ResourceReader"]};

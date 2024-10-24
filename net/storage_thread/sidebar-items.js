@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["QUOTA_SIZE_LIMIT"],"struct":["StorageManager"],"trait":["StorageThreadFactory"]};

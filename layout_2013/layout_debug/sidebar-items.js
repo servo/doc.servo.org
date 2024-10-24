@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STATE_KEY"],"fn":["begin_trace","end_trace","generate_unique_debug_id"],"static":["DEBUG_ID_COUNTER"],"struct":["Scope","ScopeData","State"]};

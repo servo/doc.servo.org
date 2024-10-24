@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FilterDataIntern","SFilterDataComponent"],"fn":["push_component_transfer_data"],"struct":["SFilterData","SFilterDataKey","SFilterDataTemplate"],"type":["FilterDataHandle"]};

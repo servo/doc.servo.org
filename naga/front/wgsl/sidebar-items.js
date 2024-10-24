@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_str"],"mod":["error","index","lower","parse","to_wgsl"],"struct":["Frontend","ParseError"]};

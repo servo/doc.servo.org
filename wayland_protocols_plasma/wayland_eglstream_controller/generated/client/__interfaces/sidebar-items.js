@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["WL_EGLSTREAM_CONTROLLER_INTERFACE","types_null","wl_eglstream_controller_interface","wl_eglstream_controller_requests","wl_eglstream_controller_requests_attach_eglstream_consumer_attribs_types","wl_eglstream_controller_requests_attach_eglstream_consumer_types"],"struct":["SyncWrapper"]};

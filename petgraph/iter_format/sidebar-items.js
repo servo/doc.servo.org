@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_format"],"struct":["DebugMap","Format","NoPretty"],"trait":["IterFormatExt"]};

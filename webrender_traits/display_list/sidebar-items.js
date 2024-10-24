@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ScrollSensitivity"],"struct":["CompositorDisplayListInfo","HitTestInfo","ScrollTree","ScrollTreeNode","ScrollTreeNodeId","ScrollableNodeInfo"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["addModule_methodinfo","sAttributes","sAttributes_specs","sMethods","sMethods_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetProtoObject","Wrap","_finalize","_trace","addModule","addModule_promise_wrapper"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["WorkletMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PROXIMITY_INFINITY","SOURCE_ORDER_BITS","SOURCE_ORDER_MASK","SOURCE_ORDER_MAX"],"struct":["ApplicableDeclarationBlock","CascadePriority","ScopeProximity"],"type":["ApplicableDeclarationList"]};

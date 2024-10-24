@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IncludeStartingStyle","MatchingForInvalidation","MatchingMode","NeedsSelectorFlags","QuirksMode","VisitedHandlingMode"],"struct":["MatchingContext","SelectorCaches"]};

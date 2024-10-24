@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IndependentFormattingContext","NonReplacedFormattingContextContents"],"struct":["Baselines","IndependentLayout","IndependentLayoutResult","NonReplacedFormattingContext","ReplacedFormattingContext"]};

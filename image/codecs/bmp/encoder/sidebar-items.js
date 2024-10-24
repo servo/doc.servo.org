@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BITMAPFILEHEADER_SIZE","BITMAPINFOHEADER_SIZE","BITMAPV4HEADER_SIZE"],"fn":["get_pixel_info","get_unsupported_error_message"],"struct":["BmpEncoder"]};

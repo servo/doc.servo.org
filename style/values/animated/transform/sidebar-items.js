@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decompose_3d_matrix","is_matched_operation"],"struct":["InnerMatrix2D","MatrixDecomposed2D","MatrixDecomposed3D","Perspective","Quaternion","Scale2D","Scale3D","Skew","Translate2D","Translate3D"]};

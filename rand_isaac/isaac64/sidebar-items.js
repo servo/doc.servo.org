@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["RAND_SIZE","RAND_SIZE_LEN"],"struct":["Isaac64Core","Isaac64Rng"],"type":["w64"]};

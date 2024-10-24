@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PREFIX_LEN","SEED_LEN","SIGNATURE_LEN"],"fn":["unwrap_pkcs8"],"static":["PKCS8_TEMPLATE"],"struct":["Ed25519KeyPair","PublicKey"],"type":["Prefix","Seed"]};

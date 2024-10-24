@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLElement"],"fn":["append_text_node_to_fragment","to_camel_case","to_snake_case"],"static":["DATA_HYPHEN_SEPARATOR","DATA_PREFIX"],"struct":["HTMLElement"]};

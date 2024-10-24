@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["bridge","enum_convert","transparent_convert"],"fn":["cfgs_to_stream","gen_bridge","gen_custom_type_method","gen_params_at_boundary","gen_params_invocation"],"mod":["enum_convert","transparent_convert"],"struct":["AttributeInfo"]};

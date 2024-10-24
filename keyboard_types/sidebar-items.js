@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Code","CompositionState","Key","KeyState","Location"],"fn":["first_char"],"mod":["code","key","location","modifiers","shortcuts","webdriver"],"struct":["CompositionEvent","KeyboardEvent","Modifiers","ShortcutMatcher","UnrecognizedCodeError","UnrecognizedKeyError"]};

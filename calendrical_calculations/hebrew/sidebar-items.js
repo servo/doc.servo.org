@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ADAR","ADARII","AV","ELUL","FIXED_HEBREW_EPOCH","IYYAR","KISLEV","MARHESHVAN","NISAN","SHEVAT","SIVAN","TAMMUZ","TEVET","TISHRI"],"struct":["BookHebrew"]};

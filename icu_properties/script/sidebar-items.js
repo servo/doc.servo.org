@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCRIPT_VAL_LENGTH","SCRIPT_X_SCRIPT_VAL"],"fn":["load_script_with_extensions_unstable","load_script_with_extensions_with_any_provider","script_with_extensions"],"struct":["ScriptExtensionsSet","ScriptWithExtensions","ScriptWithExtensionsBorrowed"]};

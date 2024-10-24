@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["complete_interface_info","complete_type_info","unuse_plugin","use_plugin"],"trait":["TypePluginImpl","TypePluginImplExt","TypePluginRegisterImpl"]};

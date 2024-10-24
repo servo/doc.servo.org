@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_parse_bytes","impl_parse_bytes_nonzero"],"trait":["Integer","IntegerParseBytes"]};

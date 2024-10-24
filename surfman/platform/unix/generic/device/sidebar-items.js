@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Adapter"],"static":["MESA_DRI_PRIME_ENV_VAR","MESA_SOFTWARE_RENDERING_ENV_VAR"],"struct":["Device","NativeDevice"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColorType","TiffError","TiffFormatError","TiffUnsupportedError","UsageError"],"mod":["bytecast","decoder","encoder","error","tags"],"type":["TiffResult"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_absolute_path_buffer_size","get_buffer_size"],"mod":["events","fd_guard","inotify","util","watches"],"struct":["Event","EventMask","Events","Inotify","WatchDescriptor","WatchMask","Watches"],"type":["EventOwned"]};

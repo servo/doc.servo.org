@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The `libc_enum!` macro helps with a common use case of defining an enum exclusively using values from the `libc` crate. This macro supports both `pub` and private `enum`s."><title>libc_enum in nix::macros - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="nix" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../nix/index.html">nix</a><span class="version">0.29.0</span></h2></div><div class="sidebar-elems"><h2><a href="index.html">In nix::macros</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Macro <a href="../index.html">nix</a>::<wbr><a href="index.html">macros</a>::<wbr><a class="macro" href="#">libc_enum</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/nix/macros.rs.html#101-331">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><span class="macro">macro_rules!</span> libc_enum {
+    (@make_enum
+        name: <span class="macro-nonterminal">$BitFlags</span>:ident,
+        {
+            <span class="macro-nonterminal">$v</span>:vis
+            attrs: [$(<span class="macro-nonterminal">$attrs</span>:tt)<span class="kw-2">*</span>],
+            entries: [$(<span class="macro-nonterminal">$entries</span>:tt)<span class="kw-2">*</span>],
+        }
+    ) =&gt; { ... };
+    (@make_enum
+        name: <span class="macro-nonterminal">$BitFlags</span>:ident,
+        {
+            <span class="macro-nonterminal">$v</span>:vis
+            attrs: [$(<span class="macro-nonterminal">$attrs</span>:tt)<span class="kw-2">*</span>],
+            entries: [$(<span class="macro-nonterminal">$entries</span>:tt)<span class="kw-2">*</span>],
+            from_type: <span class="macro-nonterminal">$repr</span>:path,
+            try_froms: [$(<span class="macro-nonterminal">$try_froms</span>:tt)<span class="kw-2">*</span>]
+        }
+    ) =&gt; { ... };
+    (@accumulate_entries
+        name: <span class="macro-nonterminal">$BitFlags</span>:ident,
+        {
+            <span class="macro-nonterminal">$v</span>:vis
+            attrs: <span class="macro-nonterminal">$attrs</span>:tt,
+        },
+        <span class="macro-nonterminal">$entries</span>:tt,
+        <span class="macro-nonterminal">$try_froms</span>:tt;
+    ) =&gt; { ... };
+    (@accumulate_entries
+        name: <span class="macro-nonterminal">$BitFlags</span>:ident,
+        {
+            <span class="macro-nonterminal">$v</span>:vis
+            attrs: <span class="macro-nonterminal">$attrs</span>:tt,
+            from_type: <span class="macro-nonterminal">$repr</span>:path,
+        },
+        <span class="macro-nonterminal">$entries</span>:tt,
+        <span class="macro-nonterminal">$try_froms</span>:tt;
+    ) =&gt; { ... };
+    (@accumulate_entries
+        name: <span class="macro-nonterminal">$BitFlags</span>:ident,
+        <span class="macro-nonterminal">$prefix</span>:tt,
+        [$(<span class="macro-nonterminal">$entries</span>:tt)<span class="kw-2">*</span>],
+        [$(<span class="macro-nonterminal">$try_froms</span>:tt)<span class="kw-2">*</span>];
+        <span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta] </span>$(<span class="macro-nonterminal">$tail</span>:tt)*
+    ) =&gt; { ... };
+    (@accumulate_entries
+        name: <span class="macro-nonterminal">$BitFlags</span>:ident,
+        <span class="macro-nonterminal">$prefix</span>:tt,
+        [$(<span class="macro-nonterminal">$entries</span>:tt)<span class="kw-2">*</span>],
+        [$(<span class="macro-nonterminal">$try_froms</span>:tt)<span class="kw-2">*</span>];
+        <span class="macro-nonterminal">$entry</span>:ident
+    ) =&gt; { ... };
+    (@accumulate_entries
+        name: <span class="macro-nonterminal">$BitFlags</span>:ident,
+        <span class="macro-nonterminal">$prefix</span>:tt,
+        [$(<span class="macro-nonterminal">$entries</span>:tt)<span class="kw-2">*</span>],
+        [$(<span class="macro-nonterminal">$try_froms</span>:tt)<span class="kw-2">*</span>];
+        <span class="macro-nonterminal">$entry</span>:ident,
+        $(<span class="macro-nonterminal">$tail</span>:tt)*
+    ) =&gt; { ... };
+    (@accumulate_entries
+        name: <span class="macro-nonterminal">$BitFlags</span>:ident,
+        <span class="macro-nonterminal">$prefix</span>:tt,
+        [$(<span class="macro-nonterminal">$entries</span>:tt)<span class="kw-2">*</span>],
+        [$(<span class="macro-nonterminal">$try_froms</span>:tt)<span class="kw-2">*</span>];
+        <span class="macro-nonterminal">$entry</span>:ident <span class="kw">as </span><span class="macro-nonterminal">$ty</span>:ty,
+        $(<span class="macro-nonterminal">$tail</span>:tt)*
+    ) =&gt; { ... };
+    (
+        $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)*
+        <span class="macro-nonterminal">$v</span>:vis <span class="kw">enum </span><span class="macro-nonterminal">$BitFlags</span>:ident {
+            $(<span class="macro-nonterminal">$vals</span>:tt)*
+        }
+    ) =&gt; { ... };
+    (
+        $(<span class="attr">#[<span class="macro-nonterminal">$attr</span>:meta]</span>)*
+        <span class="macro-nonterminal">$v</span>:vis <span class="kw">enum </span><span class="macro-nonterminal">$BitFlags</span>:ident {
+            $(<span class="macro-nonterminal">$vals</span>:tt)*
+        }
+        <span class="kw">impl </span>TryFrom&lt;<span class="macro-nonterminal">$repr</span>:path&gt;
+    ) =&gt; { ... };
+}</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The <code>libc_enum!</code> macro helps with a common use case of defining an enum exclusively using
+values from the <code>libc</code> crate. This macro supports both <code>pub</code> and private <code>enum</code>s.</p>
+<p>The <code>libc</code> crate must be in scope with the name <code>libc</code>.</p>
+<h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="macro">libc_enum!</span>{
+    <span class="kw">pub enum </span>ProtFlags {
+        PROT_NONE,
+        PROT_READ,
+        PROT_WRITE,
+        PROT_EXEC,
+        <span class="attr">#[cfg(linux_android)]
+        </span>PROT_GROWSDOWN,
+        <span class="attr">#[cfg(linux_android)]
+        </span>PROT_GROWSUP,
+    }
+}</code></pre></div>
+</div></details></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_SEQ_LENGTH_SHIFT","_SEQ_LITRUNLEN_MASK"],"enum":["DeflateEncodingStrategy"],"mod":["fast_match_finder"],"struct":["DeflateEncoder","DeflateEncodingOptions","_Sequence"]};

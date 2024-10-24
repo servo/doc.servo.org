@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["type_find_helper","type_find_helper_for_buffer","type_find_helper_for_data","type_find_helper_for_extension"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["from_bytes","from_reader","from_str"],"macro":["forward_parsed_value"],"struct":["Deserializer","Error","Part","PartIterator","UnitOnlyVariantAccess","ValueEnumAccess"]};

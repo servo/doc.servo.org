@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XMLName"],"fn":["namespace_from_domstring","validate_and_extract","validate_qualified_name","xml_name_type"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Bounded","Infinite"],"trait":["SizeLimit"]};

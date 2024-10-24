@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["inappropriate_handshake_message","inappropriate_message"],"macro":["require_handshake_msg","require_handshake_msg_move"]};

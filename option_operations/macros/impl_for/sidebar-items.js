@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_for","impl_for_all","impl_for_floats","impl_for_ints","impl_for_ints_and_duration","impl_for_numerics","impl_for_time_types"]};

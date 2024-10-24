@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["UniqueId"],"fn":["allow_devtools_client","run_server","start_server"],"mod":["actor","actors","protocol"],"struct":["EmptyReplyMsg","EventTimingsUpdateMsg","NetworkEventMsg","NetworkEventUpdateMsg","ResponseStartUpdateMsg","SecurityInfoUpdateMsg","StreamId"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["copy_memory_indirect","coverage_reduction_mode","cuda_kernel_launch","device_diagnostic_checkpoints","device_generated_commands_compute","low_latency2","memory_decompression","mesh_shader","ray_tracing"]};

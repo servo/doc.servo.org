@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ProcessResult","SetResult","TagKind","Token","TokenSinkResult","TokenizerResult"],"fn":["option_push"],"macro":["eat","eat_exact","get_char","go","go_match","peek","pop_except_from","sh_trace","shorthand"],"mod":["char_ref","interface","states"],"struct":["BufferQueue","Doctype","Tag","Tokenizer","TokenizerOpts"],"trait":["TokenSink"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["audio_filter_setup"],"mod":["sealed"],"trait":["AudioFilterImpl","AudioFilterImplExt"]};

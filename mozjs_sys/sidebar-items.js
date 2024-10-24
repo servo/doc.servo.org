@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["install_rust_hooks"],"mod":["glue","jsapi","jsgc","jsid","jsimpls","jsval"]};

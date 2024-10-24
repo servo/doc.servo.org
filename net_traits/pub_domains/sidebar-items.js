@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_pub_domain","is_reg_domain","load_pub_domains","pub_suffix","reg_host","reg_suffix"],"static":["PUB_DOMAINS"],"struct":["PubDomainRules"]};

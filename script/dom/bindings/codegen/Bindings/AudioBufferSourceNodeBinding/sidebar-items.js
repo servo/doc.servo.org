@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["AudioBufferSourceNode_Binding"],"struct":["AudioBufferSourceOptions"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PNG_SIGNATURE"],"enum":["BadPngRepresentation","CompressionType","FilterType"],"fn":["unsupported_color"],"struct":["ApngDecoder","PngDecoder","PngEncoder","PngReader"]};

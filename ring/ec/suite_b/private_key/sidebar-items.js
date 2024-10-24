@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["affine_from_jacobian","big_endian_affine_from_jacobian","check_scalar_big_endian_bytes","generate_private_scalar_bytes","private_key_as_scalar","public_from_private","random_scalar","scalar_from_big_endian_bytes"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CacheResult","ImageBytes","LoadResult"],"fn":["decode_bytes_sync","get_placeholder_image","set_webrender_image_key"],"struct":["AllPendingLoads","CompletedLoad","DecoderMsg","ImageCacheImpl","ImageCacheStore","LoadKeyGenerator","PendingLoad"],"type":["ImageKey","LoadKey"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AnonymousTableContent"],"fn":["add_column"],"struct":["ResolvedSlotAndLocation","TableBuilder","TableBuilderTraversal","TableColumnGroupBuilder","TableRowBuilder"]};

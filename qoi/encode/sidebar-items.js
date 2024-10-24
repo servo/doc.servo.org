@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["encode_impl","encode_impl_all","encode_max_len","encode_to_buf","encode_to_vec"],"struct":["Encoder"]};

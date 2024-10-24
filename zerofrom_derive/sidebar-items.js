@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["ZeroFrom"],"fn":["custom_lt","get_may_borrow_attr","has_attr","replace_lifetime","replace_lifetime_and_type","zf_derive_impl"],"mod":["visitor"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BoolLit","FloatType","IntegerBase","IntegerType","Literal"],"mod":["bool","byte","bytestr","char","err","escape","float","impls","integer","parse","sealed","string"],"struct":["ByteLit","ByteStringLit","CharLit","FloatLit","IntegerLit","InvalidToken","ParseError","StringLit"],"trait":["Buffer","FromIntegerLiteral"]};

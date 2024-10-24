@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["atom","dynamic_set","static_sets","trivial_impls"],"struct":["Atom","EmptyStaticAtomSet","PhfStrSet"],"trait":["StaticAtomSet"],"type":["DefaultAtom"]};

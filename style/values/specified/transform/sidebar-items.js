@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OriginComponent","TransformBox"],"fn":["all_transform_boxes_are_enabled"],"type":["Rotate","Scale","Transform","TransformOperation","TransformOrigin","Translate"]};

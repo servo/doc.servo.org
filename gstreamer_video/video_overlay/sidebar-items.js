@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_video_overlay_prepare_window_handle_message"],"mod":["sealed"],"trait":["VideoOverlayExtManual"]};

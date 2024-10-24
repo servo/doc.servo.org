@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["JEMALLOC_HEAP_ALLOCATED_STR","SYSTEM_HEAP_ALLOCATED_STR"],"mod":["system_reporter"],"struct":["Profiler","ReportsForest","ReportsTree"]};

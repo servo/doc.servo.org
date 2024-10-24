@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Intersection","PlaneCut"],"fn":["is_zero","is_zero_vec"],"mod":["bsp","clip","polygon"],"struct":["BspSplitter","Clipper","Line","LineProjection","NegativeHemisphereError","Plane","Polygon"]};

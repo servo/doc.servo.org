@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"servoshell":[["impl <a class=\"trait\" href=\"compositing/windowing/trait.EmbedderMethods.html\" title=\"trait compositing::windowing::EmbedderMethods\">EmbedderMethods</a> for <a class=\"struct\" href=\"servoshell/desktop/embedder/struct.EmbedderCallbacks.html\" title=\"struct servoshell::desktop::embedder::EmbedderCallbacks\">EmbedderCallbacks</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

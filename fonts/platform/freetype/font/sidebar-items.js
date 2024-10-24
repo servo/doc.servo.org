@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FT_LOAD_TARGET_LIGHT"],"fn":["FT_Load_Sfnt_Table","fixed_26_dot_6_to_float"],"struct":["FontTable","OS2Table","PlatformFont","TtHeader"],"trait":["FreeTypeFaceHelpers"]};

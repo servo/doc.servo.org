@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["Blob_Binding"],"struct":["BlobPropertyBag"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SceneBuilderRequest","SceneBuilderResult","SceneSwapResult"],"fn":["rasterize_blobs"],"macro":["declare_interners"],"struct":["BuiltTransaction","Document","InternerUpdates","Interners","LowPrioritySceneBuilderThread","SceneBuilderThread","SceneBuilderThreadChannels"]};

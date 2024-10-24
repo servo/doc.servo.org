@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_flexibility","parse_into","parse_value","to_css"],"struct":["Longhands","LonghandsToSerialize"]};

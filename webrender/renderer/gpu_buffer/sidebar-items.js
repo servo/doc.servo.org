@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DeferredBlock","GpuBuffer","GpuBufferAddress","GpuBufferBlockF","GpuBufferBlockI","GpuBufferBuilder","GpuBufferBuilderImpl","GpuBufferWriter"],"type":["GpuBufferBuilderF","GpuBufferBuilderI","GpuBufferF","GpuBufferI"]};

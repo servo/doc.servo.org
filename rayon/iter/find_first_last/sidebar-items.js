@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MatchPosition"],"fn":["better_position","find_first","find_last"],"struct":["FindConsumer","FindFolder","FindReducer"]};

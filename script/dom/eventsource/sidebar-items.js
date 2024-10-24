@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_RECONNECTION_TIME","_IMPL_DOMOBJECT_FOR_EventSource"],"enum":["ParserState","ReadyState"],"struct":["EventSource","EventSourceContext","EventSourceTimeoutCallback","GenerationId"]};

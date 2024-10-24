@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RuleBreakIterator","RuleBreakTypeLatin1","RuleBreakTypePotentiallyIllFormedUtf8","RuleBreakTypeUtf16","RuleBreakTypeUtf8"],"trait":["RuleBreakType"]};

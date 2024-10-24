@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DECODED","ERROR","MAYBE_EOS"],"fn":["decode","encode"],"mod":["table"],"struct":["Decoder"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIN_RECT_AXIS_SIZES","NUM_BINS"],"struct":["Bin","FreeListBin","FreeListIndex","FreeRect","FreeRectSize","FreeRectSlice","GuillotineAllocator"]};

@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"script":[["impl&lt;'dom&gt; <a class=\"trait\" href=\"script_layout_interface/wrapper_traits/trait.ThreadSafeLayoutElement.html\" title=\"trait script_layout_interface::wrapper_traits::ThreadSafeLayoutElement\">ThreadSafeLayoutElement</a>&lt;'dom&gt; for <a class=\"struct\" href=\"script/layout_dom/element/struct.ServoThreadSafeLayoutElement.html\" title=\"struct script::layout_dom::element::ServoThreadSafeLayoutElement\">ServoThreadSafeLayoutElement</a>&lt;'dom&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

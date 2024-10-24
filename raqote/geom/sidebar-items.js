@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["chop_quad_at","flatten_double_quad_extrema","interp","interp_quad_x_coords","interp_quad_y_coords","intrect","is_not_monotonic","valid_unit_divide"]};

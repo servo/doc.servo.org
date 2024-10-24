@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SHARED_FONT_CACHE"],"enum":["Pattern","Repetition"],"fn":["create_gradient_stops"],"struct":["LinearGradientPattern","PathBuilder","RadialGradientPattern","RaqoteBackend","SurfacePattern"],"trait":["ToRaqoteGradientStop","ToRaqotePattern","ToRaqoteStyle"]};

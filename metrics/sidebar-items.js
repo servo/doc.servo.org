@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INTERACTIVE_WINDOW_SECONDS","MAX_TASK_NS"],"enum":["InteractiveFlag"],"fn":["set_metric"],"struct":["InteractiveMetrics","InteractiveWindow","PaintTimeMetrics"],"trait":["ProfilerMetadataFactory","ProgressiveWebMetric","ToMs"]};

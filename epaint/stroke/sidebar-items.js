@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StrokeKind"],"struct":["PathStroke","Stroke"]};

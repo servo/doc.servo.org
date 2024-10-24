@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ElementMessageType"],"mod":["sealed"],"static":["ELEMENT_METADATA_AUTHOR","ELEMENT_METADATA_DESCRIPTION","ELEMENT_METADATA_DOC_URI","ELEMENT_METADATA_ICON_NAME","ELEMENT_METADATA_KLASS","ELEMENT_METADATA_LONGNAME"],"struct":["NotifyWatchId"],"trait":["ElementClassExt","ElementExtManual"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["peeking_take_while"],"macro":["peeking_next_by_clone"],"struct":["PeekingTakeWhile"],"trait":["PeekingNext"]};

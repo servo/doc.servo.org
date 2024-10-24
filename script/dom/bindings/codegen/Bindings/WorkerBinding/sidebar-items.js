@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WorkerType"],"mod":["WorkerTypeValues","Worker_Binding"],"struct":["WorkerOptions"]};

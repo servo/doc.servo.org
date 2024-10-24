@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["collect","combinators","empty","full","limited","next","size_hint"],"struct":["Collected","Data","Empty","Full","LengthLimitError","Limited","SizeHint","Trailers"],"trait":["Body"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["decoder","encoder","extended","huffman","loop_filter","lossless","lossless_transform","transform","vp8"],"struct":["WebPDecoder","WebPEncoder","WebPQuality"]};

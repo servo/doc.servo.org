@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ICU4XDataProvider_create_compiled","ICU4XDataProvider_create_empty","ICU4XDataProvider_destroy","ICU4XDataProvider_enable_locale_fallback","ICU4XDataProvider_enable_locale_fallback_with","ICU4XDataProvider_fork_by_key","ICU4XDataProvider_fork_by_locale"],"struct":["ICU4XDataProvider"]};

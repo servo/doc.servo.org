@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["sealed"],"struct":["ConfigBuilder","WantsCipherSuites","WantsKxGroups","WantsVerifier","WantsVersions"],"trait":["ConfigSide"]};

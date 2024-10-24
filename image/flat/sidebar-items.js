@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","NormalForm"],"fn":["panic_cwh_out_of_bounds","panic_pixel_out_of_bounds"],"struct":["Dim","FlatSamples","SampleLayout","View","ViewMut"]};

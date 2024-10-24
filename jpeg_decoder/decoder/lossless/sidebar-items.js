@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_image_lossless","convert_to_u8","predict"]};

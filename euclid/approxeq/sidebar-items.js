@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["approx_eq"],"trait":["ApproxEq"]};

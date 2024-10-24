@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Control","DfsEvent"],"fn":["depth_first_search","dfs_visitor","time_post_inc"],"macro":["try_control"],"struct":["Time"],"trait":["ControlFlow"]};

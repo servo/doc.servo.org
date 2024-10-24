@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["XRFrame_Binding"]};

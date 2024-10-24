@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Fetch","create_a_potential_cors_request","fill_headers_with_metadata","load_whole_resource","request_init_from_request"],"struct":["FetchCanceller","FetchContext"]};

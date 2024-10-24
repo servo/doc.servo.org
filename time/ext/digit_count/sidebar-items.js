@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_digit_count"],"trait":["DigitCount"]};

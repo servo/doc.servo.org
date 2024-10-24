@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIN_GC_THRESHOLD","WORKLET_THREAD_POOL_SIZE","_IMPL_DOMOBJECT_FOR_Worklet"],"enum":["WorkletControl","WorkletData"],"struct":["DroppableField","PendingTasksStruct","Worklet","WorkletExecutor","WorkletId","WorkletThread","WorkletThreadInit","WorkletThreadPool","WorkletThreadRole"]};

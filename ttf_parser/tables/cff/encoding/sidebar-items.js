@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STANDARD_ENCODING"],"enum":["EncodingKind"],"fn":["parse_encoding"],"struct":["Encoding","Format1Range","Supplement"]};

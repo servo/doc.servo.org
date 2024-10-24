@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["Yokeable"],"fn":["custom_lt","replace_lifetime","static_lt","yokeable_derive_impl"],"mod":["visitor"]};

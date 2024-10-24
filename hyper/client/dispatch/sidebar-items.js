@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Callback"],"fn":["channel"],"struct":["Envelope","Receiver","Sender","UnboundedSender"],"type":["Promise","RetryPromise"]};

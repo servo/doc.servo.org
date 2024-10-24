@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CoffComdat","CoffComdatIterator","CoffComdatSectionIterator"],"type":["CoffBigComdat","CoffBigComdatIterator","CoffBigComdatSectionIterator"]};

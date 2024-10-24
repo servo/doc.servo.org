@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clone_arc_raw","drop_arc_raw","wake_arc_raw","wake_by_ref_arc_raw","waker_ref","waker_vtable"],"struct":["WakerRef"],"trait":["Wake"]};

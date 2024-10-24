@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StringStyle"],"fn":["infer_style","to_f64_repr","to_string_repr","visit_nested_tables","visit_table"],"trait":["Encode"]};

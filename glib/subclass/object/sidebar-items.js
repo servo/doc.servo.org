@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["constructed","dispatch_properties_changed","dispose","notify","property","set_property"],"mod":["sealed"],"trait":["DerivedObjectProperties","ObjectClassSubclassExt","ObjectImpl","ObjectImplExt"]};

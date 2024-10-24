@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["create_fun"],"trait":["GLExt","GLLimitsDetect"]};

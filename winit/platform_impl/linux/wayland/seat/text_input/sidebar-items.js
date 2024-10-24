@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Preedit","TextInputData","TextInputDataInner","TextInputState"],"trait":["ZwpTextInputV3Ext"]};

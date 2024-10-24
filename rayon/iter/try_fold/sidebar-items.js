@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TryFold","TryFoldConsumer","TryFoldFolder","TryFoldWith","TryFoldWithConsumer"]};

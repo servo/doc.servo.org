@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_LIMBS"],"fn":["binary_op","binary_op_assign","mul_mont","unary_op","unary_op_assign","unary_op_from_binary_op_assign"],"struct":["Elem"]};

@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="This module gathers GStreamer’s formatted value concepts together."><title>gstreamer::format - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gstreamer" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gstreamer/index.html">gstreamer</a><span class="version">0.22.8</span></h2></div><h2 class="location"><a href="#">Module format</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Aliases</a></li></ul></section><h2><a href="../index.html">In crate gstreamer</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">gstreamer</a>::<wbr><a class="mod" href="#">format</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/gstreamer/format/mod.rs.html#4-1019">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This module gathers GStreamer’s formatted value concepts together.</p>
+<p>GStreamer uses formatted values to differentiate value units in some APIs.
+In C this is done by qualifying an integer value by a companion enum
+<a href="https://gstreamer.freedesktop.org/documentation/gstreamer/gstformat.html?gi-language=c"><code>GstFormat</code></a>. In Rust, most APIs can use a specific type for each format.
+Each format type embeds the actual value using the new type pattern.</p>
+<h2 id="specific-formatted-values"><a class="doc-anchor" href="#specific-formatted-values">§</a>Specific Formatted Values</h2>
+<p>Examples of specific formatted values include <a href="struct.ClockTime.html"><code>ClockTime</code></a>, <a href="struct.Buffers.html"><code>Buffers</code></a>, etc.
+These types represent both the quantity and the unit making it possible for Rust
+to perform runtime and, to a certain extent, compile time invariants enforcement.</p>
+<p>Specific formatted values are also guaranteed to always represent a valid value.
+For instance:</p>
+<ul>
+<li><a href="struct.Percent.html"><code>Percent</code></a> only allows values in the integer range [0, 1_000_000] or
+float range [0.0, 1.0].</li>
+<li><a href="struct.ClockTime.html"><code>ClockTime</code></a> can use all <code>u64</code> values except <code>u64::MAX</code> which is reserved by
+the C constant <code>GST_CLOCK_TIME_NONE</code>.</li>
+</ul>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3><h4 id="querying-the-pipeline-for-a-time-position"><a class="doc-anchor" href="#querying-the-pipeline-for-a-time-position">§</a>Querying the pipeline for a time position</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>res = pipeline.query_position::&lt;gst::ClockTime&gt;();</code></pre></div>
+<h3 id="seeking-to-a-specific-time-position"><a class="doc-anchor" href="#seeking-to-a-specific-time-position">§</a>Seeking to a specific time position</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>seek_pos = gst::ClockTime::from_seconds(<span class="number">10</span>);
+<span class="kw">let </span>res = pipeline.seek_simple(seek_flags, seek_pos);</code></pre></div>
+<h4 id="downcasting-a-segment-for-specific-formatted-value-use"><a class="doc-anchor" href="#downcasting-a-segment-for-specific-formatted-value-use">§</a>Downcasting a <code>Segment</code> for specific formatted value use</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Downcasting the generic `segment` for `gst::ClockTime` use.
+</span><span class="kw">let </span>time_segment = segment.downcast_ref::&lt;gst::ClockTime&gt;().expect(<span class="string">"time segment"</span>);
+<span class="comment">// Setters and getters conform to `gst::ClockTime`.
+// This is enforced at compilation time.
+</span><span class="kw">let </span>start = time_segment.start();
+<span class="macro">assert_eq!</span>(start.format(), gst::Format::Time);</code></pre></div>
+<h4 id="building-a-specific-formatted-value"><a class="doc-anchor" href="#building-a-specific-formatted-value">§</a>Building a specific formatted value</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>gst::prelude::<span class="kw-2">*</span>;
+<span class="kw">use </span>gst::format::{Buffers, Bytes, ClockTime, Default, Percent};
+
+<span class="comment">// Specific formatted values implement the faillible `try_from` constructor:
+</span><span class="kw">let </span>default = Default::try_from(<span class="number">42</span>).unwrap();
+<span class="macro">assert_eq!</span>(<span class="kw-2">*</span>default, <span class="number">42</span>);
+<span class="macro">assert_eq!</span>(Default::try_from(<span class="number">42</span>), <span class="prelude-val">Ok</span>(default));
+<span class="macro">assert_eq!</span>(Default::try_from(<span class="number">42</span>).ok(), <span class="prelude-val">Some</span>(default));
+
+<span class="comment">// `ClockTime` provides specific `const` constructors,
+// which can panic if the requested value is out of range.
+</span><span class="kw">let </span>time = ClockTime::from_nseconds(<span class="number">45_834_908_569_837</span>);
+<span class="kw">let </span>time = ClockTime::from_seconds(<span class="number">20</span>);
+
+<span class="comment">// Other formatted values also come with (panicking) `const` constructors:
+</span><span class="kw">let </span>buffers_nb = Buffers::from_u64(<span class="number">512</span>);
+<span class="kw">let </span>received = Bytes::from_u64(<span class="number">64</span>);
+<span class="kw">let </span>quantity = Default::from_u64(<span class="number">42</span>);
+
+<span class="comment">// `Bytes` can be built from an `usize` too (not `const`):
+</span><span class="kw">let </span>sample_size = Bytes::from_usize([<span class="number">0u8</span>; <span class="number">4</span>].len());
+
+<span class="comment">// This can be convenient (not `const`):
+</span><span class="macro">assert_eq!</span>(
+    <span class="number">7</span>.seconds() + <span class="number">250</span>.mseconds(),
+    ClockTime::from_nseconds(<span class="number">7_250_000_000</span>),
+);
+
+<span class="comment">// Those too (not `const`):
+</span><span class="macro">assert_eq!</span>(<span class="number">512</span>.buffers(), Buffers::from_u64(<span class="number">512</span>));
+<span class="macro">assert_eq!</span>(<span class="number">64</span>.bytes(), Bytes::from_u64(<span class="number">64</span>));
+<span class="macro">assert_eq!</span>(<span class="number">42</span>.default_format(), Default::from_u64(<span class="number">42</span>));
+
+<span class="comment">// The `ZERO` and `NONE` constants can come in handy sometimes:
+</span><span class="macro">assert_eq!</span>(<span class="kw-2">*</span>Buffers::ZERO, <span class="number">0</span>);
+<span class="macro">assert!</span>(ClockTime::NONE.is_none());
+
+<span class="comment">// Specific formatted values provide the constant `ONE` value:
+</span><span class="macro">assert_eq!</span>(<span class="kw-2">*</span>Buffers::ONE, <span class="number">1</span>);
+
+<span class="comment">// `Bytes` also comes with usual multipliers (not `const`):
+</span><span class="macro">assert_eq!</span>(<span class="kw-2">*</span>(<span class="number">512</span>.kibibytes()), <span class="number">512 </span>* <span class="number">1024</span>);
+<span class="macro">assert_eq!</span>(<span class="kw-2">*</span>(<span class="number">8</span>.mebibytes()), <span class="number">8 </span>* <span class="number">1024 </span>* <span class="number">1024</span>);
+<span class="macro">assert_eq!</span>(<span class="kw-2">*</span>(<span class="number">4</span>.gibibytes()), <span class="number">4 </span>* <span class="number">1024 </span>* <span class="number">1024 </span>* <span class="number">1024</span>);
+
+<span class="comment">// ... and the matching constants:
+</span><span class="macro">assert_eq!</span>(<span class="number">512 </span>* Bytes::KiB, <span class="number">512</span>.kibibytes());
+
+<span class="comment">// `Percent` can be built from a percent integer value:
+</span><span class="kw">let </span>a_quarter = <span class="number">25</span>.percent();
+<span class="comment">// ... from a floating point ratio:
+</span><span class="kw">let </span>a_quarter_from_ratio = <span class="number">0.25</span>.percent_ratio();
+<span class="macro">assert_eq!</span>(a_quarter, a_quarter_from_ratio);
+<span class="comment">// ... from a part per million integer value:
+</span><span class="kw">let </span>a_quarter_from_ppm = (<span class="number">25 </span>* <span class="number">10_000</span>).ppm();
+<span class="macro">assert_eq!</span>(a_quarter, a_quarter_from_ppm);
+<span class="comment">// ... `MAX` which represents 100%:
+</span><span class="macro">assert_eq!</span>(Percent::MAX / <span class="number">4</span>, a_quarter);
+<span class="comment">// ... `ONE` which is 1%:
+</span><span class="macro">assert_eq!</span>(<span class="number">25 </span>* Percent::ONE, a_quarter);
+<span class="comment">// ... and `SCALE` which is 1% in ppm:
+</span><span class="macro">assert_eq!</span>(Percent::SCALE, <span class="number">10_000</span>.ppm());</code></pre></div>
+<h4 id="displaying-a-formatted-value"><a class="doc-anchor" href="#displaying-a-formatted-value">§</a>Displaying a formatted value</h4>
+<p>Formatted values implement the <a href="https://doc.rust-lang.org/std/fmt/trait.Display.html"><code>Display</code></a> trait which allows getting
+human readable representations.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>time = <span class="number">45_834_908_569_837</span>.nseconds();
+
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{time}"</span>), <span class="string">"12:43:54.908569837"</span>);
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{time:.0}"</span>), <span class="string">"12:43:54"</span>);
+
+<span class="kw">let </span>percent = <span class="number">0.1234</span>.percent_ratio();
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{percent}"</span>), <span class="string">"12.34 %"</span>);
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{percent:5.1}"</span>), <span class="string">" 12.3 %"</span>);</code></pre></div>
+<h3 id="some-operations-available-on-specific-formatted-values"><a class="doc-anchor" href="#some-operations-available-on-specific-formatted-values">§</a>Some operations available on specific formatted values</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>cur_pos = gst::ClockTime::ZERO;
+
+<span class="comment">// All four arithmetic operations can be used:
+</span><span class="kw">let </span>fwd = cur_pos + <span class="number">2</span>.seconds() / <span class="number">3 </span>- <span class="number">5</span>.mseconds();
+
+<span class="comment">// Examples of operations which make sure not to overflow:
+</span><span class="kw">let </span>bwd = cur_pos.saturating_sub(<span class="number">2</span>.seconds());
+<span class="kw">let </span>further = cur_pos.checked_mul(<span class="number">2</span>).expect(<span class="string">"Overflowed"</span>);
+
+<span class="comment">// Specific formatted values can be compared:
+</span><span class="macro">assert!</span>(fwd &gt; bwd);
+<span class="macro">assert_ne!</span>(fwd, cur_pos);
+
+<span class="comment">// Use `gst::ClockTime::MAX` for the maximum valid value:
+</span><span class="kw">let </span><span class="kw-2">mut </span>min_pos = gst::ClockTime::MAX;
+<span class="kw">for _ in </span><span class="number">0</span>..<span class="number">4 </span>{
+    min_pos = min_pos.min(next());
+}
+
+<span class="comment">// And `gst::ClockTime::ZERO` for the minimum value:
+</span><span class="kw">let </span><span class="kw-2">mut </span>max_pos = gst::ClockTime::ZERO;
+<span class="kw">for _ in </span><span class="number">0</span>..<span class="number">4 </span>{
+    max_pos = max_pos.max(next());
+}
+
+<span class="comment">// Specific formatted values implement the `MulDiv` trait:
+</span><span class="kw">let </span>duration = samples
+    .mul_div_round(<span class="kw-2">*</span>gst::ClockTime::SECOND, rate)
+    .map(gst::ClockTime::from_nseconds);</code></pre></div>
+<h3 id="types-in-operations"><a class="doc-anchor" href="#types-in-operations">§</a>Types in operations</h3>
+<p>Additions and substractions are available with the specific formatted value type
+as both left and right hand side operands.</p>
+<p>On the other hand, multiplications are only available with plain integers.
+This is because multiplying a <code>ClockTime</code> by a <code>ClockTime</code> would result in
+<code>ClockTime²</code>, whereas a <code>u64 * ClockTime</code> (or <code>ClockTime * u64</code>) still
+results in <code>ClockTime</code>.</p>
+<p>Divisions are available with both the specific formatted value and plain
+integers as right hand side operands. The difference is that
+<code>ClockTime / ClockTime</code> results in <code>u64</code> and <code>ClockTime / u64</code> results in
+<code>ClockTime</code>.</p>
+<h2 id="optional-specific-formatted-values"><a class="doc-anchor" href="#optional-specific-formatted-values">§</a>Optional specific formatted values</h2>
+<p>Optional specific formatted values are represented as a standard Rust
+<code>Option&lt;F&gt;</code>. This departs from the C APIs which use a sentinel that must
+be checked in order to figure out whether the value is defined.</p>
+<p>Besides giving access to the usual <code>Option</code> features, this ensures the APIs
+enforce mandatory or optional variants whenever possible.</p>
+<p>Note: for each specific formatted value <code>F</code>, the constant <code>F::NONE</code> is defined
+as a shortcut for <code>Option::&lt;F&gt;::None</code>. For <code>gst::ClockTime</code>, this constant is
+equivalent to the C constant <code>GST_CLOCK_TIME_NONE</code>.</p>
+<h3 id="examples-1"><a class="doc-anchor" href="#examples-1">§</a>Examples</h3><h4 id="building-a-seek-event-with-undefined-stop-time"><a class="doc-anchor" href="#building-a-seek-event-with-undefined-stop-time">§</a>Building a seek <code>Event</code> with undefined <code>stop</code> time</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>seek_evt = gst::event::Seek::new(
+    <span class="number">1.0f64</span>,
+    seek_flags,
+    gst::SeekType::Set,
+    <span class="number">10</span>.seconds(),         <span class="comment">// start at 10s
+    </span>gst::SeekType::Set,
+    gst::ClockTime::NONE, <span class="comment">// stop is undefined
+</span>);</code></pre></div>
+<h4 id="displaying-an-optional-formatted-value"><a class="doc-anchor" href="#displaying-an-optional-formatted-value">§</a>Displaying an optional formatted value</h4>
+<p>Optional formatted values can take advantage of the <a href="https://doc.rust-lang.org/std/fmt/trait.Display.html"><code>Display</code></a> implementation
+of the base specific formatted value. We have to workaround the <a href="https://doc.rust-lang.org/book/ch10-02-traits.html?highlight=orphan#implementing-a-trait-on-a-type">orphan rule</a>
+that forbids the implementation of <a href="https://doc.rust-lang.org/std/fmt/trait.Display.html"><code>Display</code></a> for <code>Option&lt;FormattedValue&gt;</code>
+though. This is why displaying an optional formatted value necessitates calling
+<a href="../prelude/trait.Displayable.html"><code>display()</code></a>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>opt_time = <span class="prelude-val">Some</span>(<span class="number">45_834_908_569_837</span>.nseconds());
+
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{}"</span>, opt_time.display()), <span class="string">"12:43:54.908569837"</span>);
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{:.0}"</span>, opt_time.display()), <span class="string">"12:43:54"</span>);
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{:.0}"</span>, gst::ClockTime::NONE.display()), <span class="string">"--:--:--"</span>);</code></pre></div>
+<h4 id="some-operations-available-on-optional-formatted-values"><a class="doc-anchor" href="#some-operations-available-on-optional-formatted-values">§</a>Some operations available on optional formatted values</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>pts = <span class="prelude-val">Some</span>(gst::ClockTime::ZERO);
+<span class="macro">assert!</span>(pts.is_some());
+
+<span class="comment">// All four arithmetic operations can be used. Ex.:
+</span><span class="kw">let </span>fwd = pts.opt_add(<span class="number">2</span>.seconds());
+<span class="comment">// `pts` is defined, so `fwd` will contain the addition result in `Some`,
+</span><span class="macro">assert!</span>(fwd.is_some());
+<span class="comment">// otherwise `fwd` would be `None`.
+
+// Examples of operations which make sure not to overflow:
+</span><span class="kw">let </span>bwd = pts.opt_saturating_sub(<span class="number">2</span>.seconds());
+<span class="kw">let </span>further = pts.opt_checked_mul(<span class="number">2</span>).expect(<span class="string">"Overflowed"</span>);
+
+<span class="comment">// Optional specific formatted values can be compared:
+</span><span class="macro">assert_eq!</span>(fwd.opt_gt(bwd), <span class="prelude-val">Some</span>(<span class="bool-val">true</span>));
+<span class="macro">assert_ne!</span>(fwd, pts);
+<span class="macro">assert_eq!</span>(fwd.opt_min(bwd), bwd);
+
+<span class="comment">// Optional specific formatted values operations also apply to non-optional values:
+</span><span class="macro">assert_eq!</span>(fwd.opt_lt(gst::ClockTime::SECOND), <span class="prelude-val">Some</span>(<span class="bool-val">false</span>));
+<span class="macro">assert_eq!</span>(gst::ClockTime::SECOND.opt_lt(fwd), <span class="prelude-val">Some</span>(<span class="bool-val">true</span>));
+
+<span class="comment">// Comparing a defined values to an undefined value results in `None`:
+</span><span class="macro">assert_eq!</span>(bwd.opt_gt(gst::ClockTime::NONE), <span class="prelude-val">None</span>);
+<span class="macro">assert_eq!</span>(gst::ClockTime::ZERO.opt_lt(gst::ClockTime::NONE), <span class="prelude-val">None</span>);</code></pre></div>
+<h2 id="signed-formatted-values"><a class="doc-anchor" href="#signed-formatted-values">§</a>Signed formatted values</h2>
+<p>Some APIs can return a signed formatted value. See <a href="../struct.FormattedSegment.html#method.to_running_time_full"><code>Segment::to_running_time_full</code></a>
+for an example. In Rust, we use the <a href="enum.Signed.html"><code>Signed</code></a> enum wrapper around the actual
+formatted value.</p>
+<p>For each signed specific formatted value <code>F</code>, the constants <code>F::MIN_SIGNED</code> and
+<code>F::MAX_SIGNED</code> represent the minimum and maximum signed values for <code>F</code>.</p>
+<h3 id="examples-2"><a class="doc-anchor" href="#examples-2">§</a>Examples</h3><h4 id="handling-a-signed-formatted-value"><a class="doc-anchor" href="#handling-a-signed-formatted-value">§</a>Handling a signed formatted value</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>gst::Signed::<span class="kw-2">*</span>;
+<span class="kw">match </span>segment.to_running_time_full(<span class="number">2</span>.seconds()) {
+    <span class="prelude-val">Some</span>(Positive(pos_rtime)) =&gt; <span class="macro">println!</span>(<span class="string">"positive rtime {pos_rtime}"</span>),
+    <span class="prelude-val">Some</span>(Negative(neg_rtime)) =&gt; <span class="macro">println!</span>(<span class="string">"negative rtime {neg_rtime}"</span>),
+    <span class="prelude-val">None </span>=&gt; <span class="macro">println!</span>(<span class="string">"undefined rtime"</span>),
+}</code></pre></div>
+<h4 id="converting-a-formatted-value-into-a-signed-formatted-value"><a class="doc-anchor" href="#converting-a-formatted-value-into-a-signed-formatted-value">§</a>Converting a formatted value into a signed formatted value</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>step = <span class="number">10</span>.mseconds();
+
+<span class="kw">let </span>positive_step = step.into_positive();
+<span class="macro">assert!</span>(positive_step.is_positive());
+
+<span class="kw">let </span>negative_step = step.into_negative();
+<span class="macro">assert!</span>(negative_step.is_negative());</code></pre></div>
+<h4 id="handling-one-sign-only"><a class="doc-anchor" href="#handling-one-sign-only">§</a>Handling one sign only</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>pos_step = <span class="number">10</span>.mseconds().into_positive();
+<span class="macro">assert!</span>(pos_step.is_positive());
+
+<span class="kw">let </span>abs_step_or_panic = pos_step.positive().expect(<span class="string">"positive"</span>);
+<span class="kw">let </span>abs_step_or_zero = pos_step.positive().unwrap_or(gst::ClockTime::ZERO);
+
+<span class="kw">let </span>abs_step_or_err = pos_step.positive_or(NegativeError);
+<span class="kw">let </span>abs_step_or_else_err = pos_step.positive_or_else(|step| {
+    <span class="macro">println!</span>(<span class="string">"{step} is negative"</span>);
+    NegativeError
+});</code></pre></div>
+<h4 id="displaying-a-signed-formatted-value"><a class="doc-anchor" href="#displaying-a-signed-formatted-value">§</a>Displaying a signed formatted value</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>start = segment.start().unwrap();
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{start:.0}"</span>), <span class="string">"0:00:10"</span>);
+
+<span class="kw">let </span>p_rtime = segment.to_running_time_full(<span class="number">20</span>.seconds());
+<span class="comment">// Use `display()` with optional signed values.
+</span><span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{:.0}"</span>, p_rtime.display()), <span class="string">"+0:00:10"</span>);
+
+<span class="kw">let </span>p_rtime = segment.to_running_time_full(gst::ClockTime::ZERO);
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{:.0}"</span>, p_rtime.display()), <span class="string">"-0:00:10"</span>);
+
+<span class="kw">let </span>p_rtime = segment.to_running_time_full(gst::ClockTime::NONE);
+<span class="macro">assert_eq!</span>(<span class="macro">format!</span>(<span class="string">"{:.0}"</span>, p_rtime.display()), <span class="string">"--:--:--"</span>);</code></pre></div>
+<h3 id="some-operations-available-for-signed-formatted-values"><a class="doc-anchor" href="#some-operations-available-for-signed-formatted-values">§</a>Some operations available for signed formatted values</h3>
+<p>All the operations available for formatted values can be used with
+signed formatted values.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>p_one_sec = gst::ClockTime::SECOND.into_positive();
+<span class="kw">let </span>p_two_sec = <span class="number">2</span>.seconds().into_positive();
+<span class="kw">let </span>n_one_sec = gst::ClockTime::SECOND.into_negative();
+
+<span class="macro">assert_eq!</span>(p_one_sec + p_one_sec, p_two_sec);
+<span class="macro">assert_eq!</span>(p_two_sec - p_one_sec, p_one_sec);
+<span class="macro">assert_eq!</span>(gst::ClockTime::ZERO - p_one_sec, n_one_sec);
+<span class="macro">assert_eq!</span>(p_one_sec * <span class="number">2u64</span>, p_two_sec);
+<span class="macro">assert_eq!</span>(n_one_sec * -<span class="number">1i64</span>, p_one_sec);
+<span class="macro">assert_eq!</span>(p_two_sec / <span class="number">2u64</span>, p_one_sec);
+<span class="macro">assert_eq!</span>(p_two_sec / p_one_sec, <span class="number">2</span>);
+
+<span class="comment">// Examples of operations which make sure not to overflow:
+</span><span class="macro">assert_eq!</span>(p_one_sec.saturating_sub(p_two_sec), n_one_sec);
+<span class="macro">assert_eq!</span>(p_one_sec.checked_mul(<span class="number">2</span>), <span class="prelude-val">Some</span>(p_two_sec));
+
+<span class="comment">// Signed formatted values can be compared:
+</span><span class="macro">assert!</span>(p_one_sec &gt; n_one_sec);
+
+<span class="comment">// Use `gst::ClockTime::MAX_SIGNED` for the maximum valid signed value:
+</span><span class="kw">let </span><span class="kw-2">mut </span>min_signed_pos = gst::ClockTime::MAX_SIGNED;
+<span class="kw">for _ in </span><span class="number">0</span>..<span class="number">4 </span>{
+    min_signed_pos = min_signed_pos.min(next());
+}
+
+<span class="comment">// And `gst::ClockTime::MIN_SIGNED` for the minimum valid signed value:
+</span><span class="kw">let </span><span class="kw-2">mut </span>max_signed_pos = gst::ClockTime::MIN_SIGNED;
+<span class="kw">for _ in </span><span class="number">0</span>..<span class="number">4 </span>{
+    max_signed_pos = max_signed_pos.max(next());
+}
+
+<span class="comment">// Signed formatted values implement the `MulDiv` trait:
+</span><span class="kw">let </span>samples = <span class="number">1024</span>.default_format().into_negative();
+<span class="kw">let </span>duration = samples
+    .mul_div_round(<span class="kw-2">*</span>gst::ClockTime::SECOND, rate)
+    .map(|signed_default| {
+        <span class="kw">let </span>signed_u64 = signed_default.into_inner_signed();
+        gst::Signed::&lt;gst::ClockTime&gt;::from_nseconds(signed_u64)
+    })
+    .unwrap();
+<span class="macro">assert!</span>(duration.is_negative());</code></pre></div>
+<h4 id="some-operations-available-for-optional-signed-formatted-values"><a class="doc-anchor" href="#some-operations-available-for-optional-signed-formatted-values">§</a>Some operations available for optional signed formatted values</h4>
+<p>All the operations available for optional formatted values can be used
+with signed formatted values.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>p_one_sec = <span class="number">1</span>.seconds().into_positive();
+<span class="kw">let </span>p_two_sec = <span class="number">2</span>.seconds().into_positive();
+<span class="kw">let </span>n_one_sec = <span class="number">1</span>.seconds().into_negative();
+
+<span class="comment">// Signed `ClockTime` addition with optional and non-optional operands.
+</span><span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(p_one_sec).opt_add(p_one_sec), <span class="prelude-val">Some</span>(p_two_sec));
+<span class="macro">assert_eq!</span>(p_two_sec.opt_add(<span class="prelude-val">Some</span>(n_one_sec)), <span class="prelude-val">Some</span>(p_one_sec));
+
+<span class="comment">// This can also be used with unsigned formatted values.
+</span><span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(p_one_sec).opt_add(gst::ClockTime::SECOND), <span class="prelude-val">Some</span>(p_two_sec));
+
+<span class="comment">// Etc...</span></code></pre></div>
+<h2 id="generic-formatted-values"><a class="doc-anchor" href="#generic-formatted-values">§</a>Generic Formatted Values</h2>
+<p>Sometimes, generic code can’t assume a specific format will be used. For such
+use cases, the <a href="generic/enum.GenericFormattedValue.html"><code>GenericFormattedValue</code></a> enum makes it possible to select
+the appropriate behaviour at runtime.</p>
+<p>Most variants embed an optional specific formatted value.</p>
+<h3 id="example"><a class="doc-anchor" href="#example">§</a>Example</h3><h4 id="generic-handling-of-the-position-from-a-segmentdone-event"><a class="doc-anchor" href="#generic-handling-of-the-position-from-a-segmentdone-event">§</a>Generic handling of the position from a <code>SegmentDone</code> event</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">if let </span>gst::EventView::SegmentDone(seg_done_evt) = event.view() {
+    <span class="kw">use </span>gst::GenericFormattedValue::<span class="kw-2">*</span>;
+    <span class="kw">match </span>seg_done_evt.get() {
+        Buffers(buffers) =&gt; <span class="macro">println!</span>(<span class="string">"Segment done @ {}"</span>, buffers.display()),
+        Bytes(bytes) =&gt; <span class="macro">println!</span>(<span class="string">"Segment done @ {}"</span>, bytes.display()),
+        Time(time) =&gt; <span class="macro">println!</span>(<span class="string">"Segment done @ {}"</span>, time.display()),
+        other =&gt; <span class="macro">println!</span>(<span class="string">"Unexpected format for Segment done position {other:?}"</span>),
+    }
+}</code></pre></div>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="clock_time/index.html" title="mod gstreamer::format::clock_time">clock_time</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="compatible/index.html" title="mod gstreamer::format::compatible">compatible</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="generic/index.html" title="mod gstreamer::format::generic">generic</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="macros/index.html" title="mod gstreamer::format::macros">macros</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="prelude/index.html" title="mod gstreamer::format::prelude">prelude</a></div></li><li><div class="item-name"><a class="mod" href="signed/index.html" title="mod gstreamer::format::signed">signed</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="specific/index.html" title="mod gstreamer::format::specific">specific</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="undefined/index.html" title="mod gstreamer::format::undefined">undefined</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li></ul><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.Buffers.html" title="struct gstreamer::format::Buffers">Buffers</a></div></li><li><div class="item-name"><a class="struct" href="struct.Bytes.html" title="struct gstreamer::format::Bytes">Bytes</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClockTime.html" title="struct gstreamer::format::ClockTime">ClockTime</a></div></li><li><div class="item-name"><a class="struct" href="struct.Default.html" title="struct gstreamer::format::Default">Default</a></div></li><li><div class="item-name"><a class="struct" href="struct.DisplayableOptClockTime.html" title="struct gstreamer::format::DisplayableOptClockTime">DisplayableOptClockTime</a></div></li><li><div class="item-name"><a class="struct" href="struct.DisplayableOptionBuffers.html" title="struct gstreamer::format::DisplayableOptionBuffers">DisplayableOptionBuffers</a></div></li><li><div class="item-name"><a class="struct" href="struct.DisplayableOptionBytes.html" title="struct gstreamer::format::DisplayableOptionBytes">DisplayableOptionBytes</a></div></li><li><div class="item-name"><a class="struct" href="struct.DisplayableOptionDefault.html" title="struct gstreamer::format::DisplayableOptionDefault">DisplayableOptionDefault</a></div></li><li><div class="item-name"><a class="struct" href="struct.DisplayableOptionOther.html" title="struct gstreamer::format::DisplayableOptionOther">DisplayableOptionOther</a></div></li><li><div class="item-name"><a class="struct" href="struct.DisplayableOptionPercent.html" title="struct gstreamer::format::DisplayableOptionPercent">DisplayableOptionPercent</a></div></li><li><div class="item-name"><a class="struct" href="struct.DisplayableOptionSigned.html" title="struct gstreamer::format::DisplayableOptionSigned">DisplayableOptionSigned</a></div></li><li><div class="item-name"><a class="struct" href="struct.DurationError.html" title="struct gstreamer::format::DurationError">DurationError</a></div></li><li><div class="item-name"><a class="struct" href="struct.FormattedValueError.html" title="struct gstreamer::format::FormattedValueError">FormattedValueError</a></div></li><li><div class="item-name"><a class="struct" href="struct.Other.html" title="struct gstreamer::format::Other">Other</a></div></li><li><div class="item-name"><a class="struct" href="struct.Percent.html" title="struct gstreamer::format::Percent">Percent</a></div></li><li><div class="item-name"><a class="struct" href="struct.TryFromFloatSecsError.html" title="struct gstreamer::format::TryFromFloatSecsError">TryFromFloatSecsError</a></div></li><li><div class="item-name"><a class="struct" href="struct.TryPercentFromFloatError.html" title="struct gstreamer::format::TryPercentFromFloatError">TryPercentFromFloatError</a></div></li><li><div class="item-name"><a class="struct" href="struct.Undefined.html" title="struct gstreamer::format::Undefined">Undefined</a></div></li></ul><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.ClockTimeValueTypeOrNoneChecker.html" title="enum gstreamer::format::ClockTimeValueTypeOrNoneChecker">ClockTimeValueTypeOrNoneChecker</a></div></li><li><div class="item-name"><a class="enum" href="enum.GenericFormattedValue.html" title="enum gstreamer::format::GenericFormattedValue">GenericFormattedValue</a></div></li><li><div class="item-name"><a class="enum" href="enum.GenericSignedFormattedValue.html" title="enum gstreamer::format::GenericSignedFormattedValue">GenericSignedFormattedValue</a></div></li><li><div class="item-name"><a class="enum" href="enum.Signed.html" title="enum gstreamer::format::Signed">Signed</a></div><div class="desc docblock-short">A signed wrapper.</div></li></ul><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="trait" href="trait.BuffersFormatConstructor.html" title="trait gstreamer::format::BuffersFormatConstructor">BuffersFormatConstructor</a></div><div class="desc docblock-short"><code>Buffers</code> formatted value constructor trait.</div></li><li><div class="item-name"><a class="trait" href="trait.BytesFormatConstructor.html" title="trait gstreamer::format::BytesFormatConstructor">BytesFormatConstructor</a></div><div class="desc docblock-short"><code>Bytes</code> formatted value constructor trait.</div></li><li><div class="item-name"><a class="trait" href="trait.CompatibleFormattedValue.html" title="trait gstreamer::format::CompatibleFormattedValue">CompatibleFormattedValue</a></div><div class="desc docblock-short">A trait implemented on types which can hold <a href="trait.FormattedValue.html" title="trait gstreamer::format::FormattedValue"><code>FormattedValue</code></a>s compatible with parameter <code>F</code>.</div></li><li><div class="item-name"><a class="trait" href="trait.DefaultFormatConstructor.html" title="trait gstreamer::format::DefaultFormatConstructor">DefaultFormatConstructor</a></div><div class="desc docblock-short"><code>Default</code> formatted value constructor trait.</div></li><li><div class="item-name"><a class="trait" href="trait.FormattedValue.html" title="trait gstreamer::format::FormattedValue">FormattedValue</a></div></li><li><div class="item-name"><a class="trait" href="trait.FormattedValueFullRange.html" title="trait gstreamer::format::FormattedValueFullRange">FormattedValueFullRange</a></div><div class="desc docblock-short">A <a href="trait.FormattedValue.html" title="trait gstreamer::format::FormattedValue"><code>FormattedValue</code></a> which can be built from any raw value.</div></li><li><div class="item-name"><a class="trait" href="trait.FormattedValueIntrinsic.html" title="trait gstreamer::format::FormattedValueIntrinsic">FormattedValueIntrinsic</a></div><div class="desc docblock-short">A trait implemented on the intrinsic type of a <code>FormattedValue</code>.</div></li><li><div class="item-name"><a class="trait" href="trait.FormattedValueNoneBuilder.html" title="trait gstreamer::format::FormattedValueNoneBuilder">FormattedValueNoneBuilder</a></div></li><li><div class="item-name"><a class="trait" href="trait.NoneSignedBuilder.html" title="trait gstreamer::format::NoneSignedBuilder">NoneSignedBuilder</a></div></li><li><div class="item-name"><a class="trait" href="trait.OtherFormatConstructor.html" title="trait gstreamer::format::OtherFormatConstructor">OtherFormatConstructor</a></div><div class="desc docblock-short"><code>Other</code> formatted value constructor trait.</div></li><li><div class="item-name"><a class="trait" href="trait.PercentFormatFloatConstructor.html" title="trait gstreamer::format::PercentFormatFloatConstructor">PercentFormatFloatConstructor</a></div><div class="desc docblock-short"><code>Percent</code> formatted value from float constructor trait.</div></li><li><div class="item-name"><a class="trait" href="trait.PercentFormatIntegerConstructor.html" title="trait gstreamer::format::PercentFormatIntegerConstructor">PercentFormatIntegerConstructor</a></div><div class="desc docblock-short"><code>Percent</code> formatted value from integer constructor trait.</div></li><li><div class="item-name"><a class="trait" href="trait.SignedIntrinsic.html" title="trait gstreamer::format::SignedIntrinsic">SignedIntrinsic</a></div></li><li><div class="item-name"><a class="trait" href="trait.SpecificFormattedValue.html" title="trait gstreamer::format::SpecificFormattedValue">SpecificFormattedValue</a></div></li><li><div class="item-name"><a class="trait" href="trait.SpecificFormattedValueFullRange.html" title="trait gstreamer::format::SpecificFormattedValueFullRange">SpecificFormattedValueFullRange</a></div></li><li><div class="item-name"><a class="trait" href="trait.SpecificFormattedValueIntrinsic.html" title="trait gstreamer::format::SpecificFormattedValueIntrinsic">SpecificFormattedValueIntrinsic</a></div><div class="desc docblock-short">A trait implemented on the intrinsic type of a <code>SpecificFormattedValue</code>.</div></li><li><div class="item-name"><a class="trait" href="trait.TimeFormatConstructor.html" title="trait gstreamer::format::TimeFormatConstructor">TimeFormatConstructor</a></div><div class="desc docblock-short"><code>ClockTime</code> formatted value constructor trait.</div></li><li><div class="item-name"><a class="trait" href="trait.UndefinedFormatConstructor.html" title="trait gstreamer::format::UndefinedFormatConstructor">UndefinedFormatConstructor</a></div><div class="desc docblock-short"><code>Undefined</code> formatted value constructor trait.</div></li><li><div class="item-name"><a class="trait" href="trait.UnsignedIntoSigned.html" title="trait gstreamer::format::UnsignedIntoSigned">UnsignedIntoSigned</a></div><div class="desc docblock-short">A trait implemented on unsigned types which can be converted into <a href="signed/enum.Signed.html" title="enum gstreamer::format::signed::Signed"><code>crate::Signed</code></a>s.</div></li></ul><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="type" href="type.Time.html" title="type gstreamer::format::Time">Time</a></div></li></ul></section></div></main></body></html>

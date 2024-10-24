@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEBUG"],"fn":["estimate_row_height","got_copy_event","pos_in_galley","process_selection_key_events","selected_text"],"struct":["CurrentSelection","LabelSelectionState","WidgetTextCursor"]};

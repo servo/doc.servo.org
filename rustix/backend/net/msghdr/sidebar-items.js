@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["msg_control_len","msg_iov_len","with_noaddr_msghdr","with_recv_msghdr","with_unix_msghdr","with_v4_msghdr","with_v6_msghdr","with_xdp_msghdr","zero_msghdr"]};

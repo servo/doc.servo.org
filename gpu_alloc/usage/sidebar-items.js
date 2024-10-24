@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compatible","one_usage","reverse_priority"],"struct":["MemoryForOneUsage","MemoryForUsage","UsageFlags"]};

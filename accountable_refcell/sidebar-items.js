@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["print_filtered_backtrace","ref_filter_map","ref_mut_filter_map"],"struct":["BorrowData","BorrowRecord","Ref","RefBorrowData","RefCell","RefMut"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["SubmitEvent_Binding"],"struct":["SubmitEventInit"]};

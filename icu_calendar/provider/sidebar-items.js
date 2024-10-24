@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["chinese_based","islamic"],"struct":["Baked","EraStartDate","EraStartDateULE","JapaneseErasV1","JapaneseErasV1Marker","JapaneseExtendedErasV1Marker","WeekDataV1","WeekDataV1Marker","WeekDataV2","WeekDataV2Marker","WeekdaySet"]};

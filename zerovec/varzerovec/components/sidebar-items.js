@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LENGTH_WIDTH","MAX_INDEX","MAX_LENGTH","METADATA_WIDTH"],"fn":["compute_serializable_len","get_serializable_bytes_non_empty","write_serializable_bytes"],"struct":["Index16","Index32","VarZeroVecComponents"],"trait":["VarZeroVecFormat"]};

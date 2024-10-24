@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["initialize_family_to_unspec","maybe_read_sockaddr_os","read_sockaddr","read_sockaddr_os","read_ss_family"],"struct":["sockaddr_header"]};

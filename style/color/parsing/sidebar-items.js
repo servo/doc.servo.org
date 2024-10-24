@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ChannelKeyword","NumberOrAngle","NumberOrPercentage"],"fn":["parse_color_function","parse_color_keyword","parse_color_with","parse_color_with_color_space","parse_hsl","parse_hwb","parse_lab_like","parse_lch_like","parse_origin_color","parse_rgb","rcs_enabled"],"struct":["ComponentParser"],"type":["IntoLabFn","IntoLchFn"]};

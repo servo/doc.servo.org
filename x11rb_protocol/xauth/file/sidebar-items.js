@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_xauthority_file_name","read_entry","read_string","read_u16"],"struct":["XAuthorityEntries"]};

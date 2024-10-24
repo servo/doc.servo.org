@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TimerfdClockId"],"struct":["TimerfdFlags","TimerfdTimerFlags"],"type":["Itimerspec"]};

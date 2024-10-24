@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["HTMLCollection_Binding"]};

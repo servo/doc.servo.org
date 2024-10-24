@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllowImportRules","SanitizationKind"],"struct":["DocumentStyleSheet","Namespaces","SanitizationData","Stylesheet","StylesheetContents","UserAgentStylesheets"],"trait":["StylesheetInDocument"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InRealm"],"fn":["enter_realm"],"struct":["AlreadyInRealm"]};

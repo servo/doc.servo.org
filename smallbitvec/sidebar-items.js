@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HEAP_FLAG"],"enum":["InternalStorage"],"fn":["bits_per_storage","buffer_len","header_len","inline_bits","inline_capacity","inline_index","inline_ones","inline_shift"],"macro":["const_debug_assert_le","sbvec"],"struct":["Header","IntoIter","Iter","SmallBitVec","VecRange"],"type":["Storage"]};

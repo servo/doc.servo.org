@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Pat"],"mod":["parsing","printing"],"struct":["FieldPat","PatIdent","PatOr","PatParen","PatReference","PatRest","PatSlice","PatStruct","PatTuple","PatTupleStruct","PatType","PatWild"]};

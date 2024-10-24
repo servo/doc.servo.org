@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MERGE_SEPARATOR_PRIMARY"],"struct":["AnyQuaternaryAccumulator","Collator"]};

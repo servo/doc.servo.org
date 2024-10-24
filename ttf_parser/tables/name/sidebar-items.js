@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PlatformId"],"fn":["is_unicode_encoding"],"mod":["name_id"],"struct":["Name","NameRecord","Names","NamesIter","Table"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EPOCH"],"fn":["fixed_from_iso","is_leap_year","iso_from_fixed","iso_new_year","iso_year_from_fixed"]};

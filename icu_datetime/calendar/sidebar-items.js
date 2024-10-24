@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["convert_datetime_if_necessary","convert_if_necessary","is_islamic_subcal","load_lengths_for_any_calendar_kind","load_lengths_for_cldr_calendar","load_symbols_for_any_calendar_kind","load_symbols_for_cldr_calendar"],"trait":["CldrCalendar","InternalCldrCalendar"]};

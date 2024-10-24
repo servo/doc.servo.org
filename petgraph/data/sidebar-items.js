@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Element"],"fn":["from_elements_indexable"],"macro":["DataMap","DataMapMut","access0"],"struct":["FilterElements"],"trait":["Build","Create","DataMap","DataMapMut","ElementIterator","FromElements"]};

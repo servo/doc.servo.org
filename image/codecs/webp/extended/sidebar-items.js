@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DecoderError","ExtendedImageData","FilteringMethod","WebPStatic"],"fn":["read_3_bytes","read_alpha_chunk","read_anim_frame","read_extended_chunk","read_extended_header","read_image","read_lossy","read_lossy_with_chunk"],"struct":["AlphaChunk","AnimatedFrame","ExtendedImage","WebPAnimatedInfo","WebPExtendedInfo"]};

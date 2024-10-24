@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Internal representation of clips in WebRender."><title>webrender::clip - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="webrender" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../webrender/index.html">webrender</a><span class="version">0.65.0</span></h2></div><h2 class="location"><a href="#">Module clip</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Aliases</a></li></ul></section><h2><a href="../index.html">In crate webrender</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">webrender</a>::<wbr><a class="mod" href="#">clip</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/webrender/clip.rs.html#5-2386">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Internal representation of clips in WebRender.</p>
+<h2 id="data-structures"><a class="doc-anchor" href="#data-structures">§</a>Data structures</h2>
+<p>There are a number of data structures involved in the clip module:</p>
+<ul>
+<li>
+<p>ClipStore - Main interface used by other modules.</p>
+</li>
+<li>
+<p>ClipItem - A single clip item (e.g. a rounded rect, or a box shadow).
+These are an exposed API type, stored inline in a ClipNode.</p>
+</li>
+<li>
+<p>ClipNode - A ClipItem with an attached GPU handle. The GPU handle is populated
+when a ClipNodeInstance is built from this node (which happens while
+preparing primitives for render).</p>
+</li>
+</ul>
+<p>ClipNodeInstance - A ClipNode with attached positioning information (a spatial
+node index). This is stored as a contiguous array of nodes
+within the ClipStore.</p>
+<div class="example-wrap"><pre class="language-ascii"><code>+-----------------------+-----------------------+-----------------------+
+| ClipNodeInstance      | ClipNodeInstance      | ClipNodeInstance      |
++-----------------------+-----------------------+-----------------------+
+| ClipItem              | ClipItem              | ClipItem              |
+| Spatial Node Index    | Spatial Node Index    | Spatial Node Index    |
+| GPU cache handle      | GPU cache handle      | GPU cache handle      |
+| ...                   | ...                   | ...                   |
++-----------------------+-----------------------+-----------------------+
+           0                        1                       2
+   +----------------+    |                                              |
+   | ClipNodeRange  |____|                                              |
+   |    index: 1    |                                                   |
+   |    count: 2    |___________________________________________________|
+   +----------------+
+</code></pre></div>
+<ul>
+<li>
+<p>ClipNodeRange - A clip item range identifies a range of clip nodes instances.
+It is stored as an (index, count).</p>
+</li>
+<li>
+<p>ClipChainNode - A clip chain node contains a handle to an interned clip item,
+positioning information (from where the clip was defined), and
+an optional parent link to another ClipChainNode. ClipChainId
+is an index into an array, or ClipChainId::NONE for no parent.</p>
+</li>
+</ul>
+<div class="example-wrap"><pre class="language-ascii"><code>+----------------+    ____+----------------+    ____+----------------+   /---&gt; ClipChainId::NONE
+| ClipChainNode  |   |    | ClipChainNode  |   |    | ClipChainNode  |   |
++----------------+   |    +----------------+   |    +----------------+   |
+| ClipDataHandle |   |    | ClipDataHandle |   |    | ClipDataHandle |   |
+| Spatial index  |   |    | Spatial index  |   |    | Spatial index  |   |
+| Parent Id      |___|    | Parent Id      |___|    | Parent Id      |___|
+| ...            |        | ...            |        | ...            |
++----------------+        +----------------+        +----------------+
+</code></pre></div>
+<ul>
+<li>
+<p>ClipChainInstance - A ClipChain that has been built for a specific primitive + positioning node.</p>
+<p>When given a clip chain ID, and a local primitive rect and its spatial node, the clip module
+creates a clip chain instance. This is a struct with various pieces of useful information
+(such as a local clip rect). It also contains a (index, count)
+range specifier into an index buffer of the ClipNodeInstance structures that are actually relevant
+for this clip chain instance. The index buffer structure allows a single array to be used for
+all of the clip-chain instances built in a single frame. Each entry in the index buffer
+also stores some flags relevant to the clip node in this positioning context.</p>
+</li>
+</ul>
+<div class="example-wrap"><pre class="language-ascii"><code>+----------------------+
+| ClipChainInstance    |
++----------------------+
+| ...                  |
+| local_clip_rect      |________________________________________________________________________
+| clips_range          |_______________                                                        |
++----------------------+              |                                                        |
+                                      |                                                        |
++------------------+------------------+------------------+------------------+------------------+
+| ClipNodeInstance | ClipNodeInstance | ClipNodeInstance | ClipNodeInstance | ClipNodeInstance |
++------------------+------------------+------------------+------------------+------------------+
+| flags            | flags            | flags            | flags            | flags            |
+| ...              | ...              | ...              | ...              | ...              |
++------------------+------------------+------------------+------------------+------------------+
+</code></pre></div><h2 id="rendering-clipped-primitives"><a class="doc-anchor" href="#rendering-clipped-primitives">§</a>Rendering clipped primitives</h2>
+<p>See the <a href="../segment/index.html"><code>segment</code> module documentation</a>.</p>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.ClipChain.html" title="struct webrender::clip::ClipChain">ClipChain</a></div><div class="desc docblock-short">Represents a clip-chain as defined by the public API that we decompose in to
+the clip-tree. In future, we would like to remove this and have Gecko directly
+build the clip-tree.</div></li><li><div class="item-name"><a class="struct" href="struct.ClipChainInstance.html" title="struct webrender::clip::ClipChainInstance">ClipChainInstance</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClipInternData.html" title="struct webrender::clip::ClipInternData">ClipInternData</a></div><div class="desc docblock-short">The data available about an interned clip node during scene building</div></li><li><div class="item-name"><a class="struct" href="struct.ClipItem.html" title="struct webrender::clip::ClipItem">ClipItem</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClipItemKey.html" title="struct webrender::clip::ClipItemKey">ClipItemKey</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClipLeafId.html" title="struct webrender::clip::ClipLeafId">ClipLeafId</a></div><div class="desc docblock-short">ID for a ClipTreeLeaf</div></li><li><div class="item-name"><a class="struct" href="struct.ClipNode.html" title="struct webrender::clip::ClipNode">ClipNode</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClipNodeFlags.html" title="struct webrender::clip::ClipNodeFlags">ClipNodeFlags</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClipNodeId.html" title="struct webrender::clip::ClipNodeId">ClipNodeId</a></div><div class="desc docblock-short">ID for a ClipTreeNode</div></li><li><div class="item-name"><a class="struct" href="struct.ClipNodeInfo.html" title="struct webrender::clip::ClipNodeInfo">ClipNodeInfo</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="struct" href="struct.ClipNodeInstance.html" title="struct webrender::clip::ClipNodeInstance">ClipNodeInstance</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClipNodeRange.html" title="struct webrender::clip::ClipNodeRange">ClipNodeRange</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClipStackEntry.html" title="struct webrender::clip::ClipStackEntry">ClipStackEntry</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClipStore.html" title="struct webrender::clip::ClipStore">ClipStore</a></div><div class="desc docblock-short">The main clipping public interface that other modules access.</div></li><li><div class="item-name"><a class="struct" href="struct.ClipStoreScratchBuffer.html" title="struct webrender::clip::ClipStoreScratchBuffer">ClipStoreScratchBuffer</a></div></li><li><div class="item-name"><a class="struct" href="struct.ClipTree.html" title="struct webrender::clip::ClipTree">ClipTree</a></div><div class="desc docblock-short">A clip-tree built during scene building and used during frame-building to apply clips to primitives.</div></li><li><div class="item-name"><a class="struct" href="struct.ClipTreeBuilder.html" title="struct webrender::clip::ClipTreeBuilder">ClipTreeBuilder</a></div><div class="desc docblock-short">Used by the scene builder to build the clip-tree that is part of the built scene.</div></li><li><div class="item-name"><a class="struct" href="struct.ClipTreeLeaf.html" title="struct webrender::clip::ClipTreeLeaf">ClipTreeLeaf</a></div><div class="desc docblock-short">A leaf node in a clip-tree. Any primitive that is clipped will have a handle to
+a clip-tree leaf.</div></li><li><div class="item-name"><a class="struct" href="struct.ClipTreeNode.html" title="struct webrender::clip::ClipTreeNode">ClipTreeNode</a></div><div class="desc docblock-short">A (non-leaf) node inside a clip-tree</div></li><li><div class="item-name"><a class="struct" href="struct.Geometry.html" title="struct webrender::clip::Geometry">Geometry</a></div><div class="desc docblock-short">Represents a local rect and a device space
+rectangles that are either outside or inside bounds.</div></li></ul><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.ClipIntern.html" title="enum webrender::clip::ClipIntern">ClipIntern</a></div></li><li><div class="item-name"><a class="enum" href="enum.ClipItemKeyKind.html" title="enum webrender::clip::ClipItemKeyKind">ClipItemKeyKind</a></div></li><li><div class="item-name"><a class="enum" href="enum.ClipItemKind.html" title="enum webrender::clip::ClipItemKind">ClipItemKind</a></div></li><li><div class="item-name"><a class="enum" href="enum.ClipNodeKind.html" title="enum webrender::clip::ClipNodeKind">ClipNodeKind</a></div><div class="desc docblock-short">Helper to identify simple clips (normal rects) from other kinds of clips,
+which can often be handled via fast code paths.</div></li><li><div class="item-name"><a class="enum" href="enum.ClipResult.html" title="enum webrender::clip::ClipResult">ClipResult</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="enum" href="enum.ClipSpaceConversion.html" title="enum webrender::clip::ClipSpaceConversion">ClipSpaceConversion</a></div><div class="desc docblock-short">A helper struct for converting between coordinate systems
+of clip sources and primitives.</div></li><li><div class="item-name"><a class="enum" href="enum.PolygonIntern.html" title="enum webrender::clip::PolygonIntern">PolygonIntern</a></div><div class="desc docblock-short">PolygonKeys get interned, because it’s a convenient way to move the data
+for the polygons out of the ClipItemKind and ClipItemKeyKind enums. The
+polygon data is both interned and retrieved by the scene builder, and not
+accessed at all by the frame builder. Another oddity is that the
+PolygonKey contains the totality of the information about the polygon, so
+the InternData and StoreData types are both PolygonKey.</div></li></ul><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.add_clip_node_to_current_chain.html" title="fn webrender::clip::add_clip_node_to_current_chain">add_clip_node_to_current_chain</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="fn" href="fn.compute_box_shadow_parameters.html" title="fn webrender::clip::compute_box_shadow_parameters">compute_box_shadow_parameters</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="fn" href="fn.is_left_of_line.html" title="fn webrender::clip::is_left_of_line">is_left_of_line</a></div><div class="desc docblock-short">Test where point p is relative to the infinite line that passes through the segment
+defined by p0 and p1. Point p is on the “left” of the line if the triangle (p0, p1, p)
+forms a counter-clockwise triangle.</div></li><li><div class="item-name"><a class="fn" href="fn.polygon_contains_point.html" title="fn webrender::clip::polygon_contains_point">polygon_contains_point</a></div></li><li><div class="item-name"><a class="fn" href="fn.projected_rect_contains.html" title="fn webrender::clip::projected_rect_contains">projected_rect_contains</a></div></li><li><div class="item-name"><a class="fn" href="fn.rounded_rectangle_contains_box_quick.html" title="fn webrender::clip::rounded_rectangle_contains_box_quick">rounded_rectangle_contains_box_quick</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Return true if the rounded rectangle described by <code>container</code> and <code>radii</code>
+definitely contains <code>containee</code>. May return false negatives, but never false
+positives.</div></li><li><div class="item-name"><a class="fn" href="fn.rounded_rectangle_contains_point.html" title="fn webrender::clip::rounded_rectangle_contains_point">rounded_rectangle_contains_point</a></div></li></ul><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="type" href="type.ClipDataHandle.html" title="type webrender::clip::ClipDataHandle">ClipDataHandle</a></div></li><li><div class="item-name"><a class="type" href="type.ClipDataStore.html" title="type webrender::clip::ClipDataStore">ClipDataStore</a></div></li><li><div class="item-name"><a class="type" href="type.PolygonDataHandle.html" title="type webrender::clip::PolygonDataHandle">PolygonDataHandle</a></div></li></ul></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["addr","assume","invalid_mut"],"mod":["alloc","boxed","macros","raw_vec","slice","vec"]};

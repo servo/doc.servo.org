@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LoadStatus"],"fn":["get_selected_files","platform_get_selected_devices","prompt_user","tiny_dialog_escape"],"struct":["HapticEffect","ServoEventResponse","WebView","WebViewManager","WebViewPreloadData"]};

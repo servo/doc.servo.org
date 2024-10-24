@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["from_poly2","ts_from_poly_to_poly"],"struct":["FocalData","RadialGradient"]};

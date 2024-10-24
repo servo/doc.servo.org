@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["VALID_IP_BY_CONSTRUCTION"],"enum":["IpAddr","IpAddrRef"],"fn":["ipv6_to_uncompressed_string","parse_ipv4_address","parse_ipv6_address","presented_id_matches_constraint","presented_id_matches_reference_id"],"struct":["AddrParseError"]};

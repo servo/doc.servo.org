@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cast"],"trait":["Float","FloatConst","NumCast","Scalar","Trig"]};

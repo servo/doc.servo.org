@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"mozjs":[["impl&lt;'a, T&gt; <a class=\"trait\" href=\"mozjs/rust/trait.IntoHandle.html\" title=\"trait mozjs::rust::IntoHandle\">IntoHandle</a> for <a class=\"struct\" href=\"mozjs/gc/root/struct.Handle.html\" title=\"struct mozjs::gc::root::Handle\">Handle</a>&lt;'a, T&gt;"],["impl&lt;'a, T&gt; <a class=\"trait\" href=\"mozjs/rust/trait.IntoHandle.html\" title=\"trait mozjs::rust::IntoHandle\">IntoHandle</a> for <a class=\"struct\" href=\"mozjs/gc/root/struct.MutableHandle.html\" title=\"struct mozjs::gc::root::MutableHandle\">MutableHandle</a>&lt;'a, T&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

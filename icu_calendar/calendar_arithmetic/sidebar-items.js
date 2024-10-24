@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_ITERS_FOR_DAYS_OF_MONTH"],"struct":["ArithmeticDate"],"trait":["CalendarArithmetic","PrecomputedDataSource"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ComponentName","Multiplier"],"fn":["is_letter","is_name_start","is_non_ascii"],"mod":["ascii","data_type"],"struct":["Component","Descriptor","Parser"]};

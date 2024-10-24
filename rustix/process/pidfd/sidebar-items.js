@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["pidfd_open","pidfd_send_signal"],"struct":["PidfdFlags"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FIRST_FIXED","FIRST_NUMERIC_OVERRIDE"],"enum":["FieldLength","FieldNumericOverrides","LengthError"],"struct":["FieldLengthULE"]};

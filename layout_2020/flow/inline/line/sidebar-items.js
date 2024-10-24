@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LineItem"],"fn":["line_height","sort_by_indices_in_place"],"struct":["AbsolutelyPositionedLineItem","AtomicLineItem","FloatLineItem","LineItemLayout","LineItemLayoutInlineContainerState","LineLayoutInlineContainerFlags","LineMetrics","TextRunLineItem"]};

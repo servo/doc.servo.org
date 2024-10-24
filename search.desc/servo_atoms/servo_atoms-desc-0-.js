@@ -1,0 +1,1 @@
+searchState.loadedDescShard("servo_atoms", 0, "Returns the argument unchanged.\nCalls <code>U::from(self)</code>.")

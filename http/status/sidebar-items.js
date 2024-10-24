@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CODE_DIGITS"],"fn":["canonical_reason"],"macro":["status_codes"],"struct":["InvalidStatusCode","StatusCode"]};

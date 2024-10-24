@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AlgorithmID"],"fn":["split_rs_asn1","split_rs_fixed"],"static":["ECDSA_P256_SHA256_ASN1","ECDSA_P256_SHA256_FIXED","ECDSA_P256_SHA384_ASN1","ECDSA_P384_SHA256_ASN1","ECDSA_P384_SHA384_ASN1","ECDSA_P384_SHA384_FIXED"],"struct":["EcdsaVerificationAlgorithm"]};

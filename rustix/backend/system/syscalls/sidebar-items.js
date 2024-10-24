@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["delete_module","finit_module","init_module","reboot","sethostname","sysinfo","uname"]};

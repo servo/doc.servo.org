@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["static_variant_mapping"],"macro":["impl_numeric","tuple_impls"],"struct":["DictEntry","FixedSizeVariantArray","Handle","ObjectPath","Signature","Variant","VariantTypeMismatchError"],"trait":["FixedSizeVariantType","FromVariant","StaticVariantType","ToVariant"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ListError","ListLength"],"mod":["error","lazy_automaton","list_formatter","parts","patterns","provider"],"struct":["FormattedList","ListFormatter"]};

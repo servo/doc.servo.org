@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TEXTURE_DIMENSION_MASK"],"enum":["SubPassSurface"],"fn":["assign_free_pass","dump_render_tasks_as_svg","dump_task_dependency_link"],"struct":["Pass","PassId","RenderPass","RenderTaskAllocation","RenderTaskGraph","RenderTaskGraphBuilder","RenderTaskId","SubPass","Surface"]};

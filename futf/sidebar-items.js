@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Byte","Meaning"],"fn":["all_cont","classify","decode","unsafe_slice"],"macro":["otry"],"struct":["Codepoint"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericContent","GenericContentItem"],"fn":["is_decimal"],"struct":["GenericContentItems","GenericCounterIncrement","GenericCounterPair","GenericCounterReset","GenericCounterSet","GenericCounters"],"type":["CounterStyleType"]};

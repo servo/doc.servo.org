@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BROTLI_CODE_LENGTH_CODES","BROTLI_REPEAT_ZERO_CODE_LENGTH"],"fn":["BitsEntropy","BrotliPopulationCost","CostComputation","ShannonEntropy","shannon_entropy"]};

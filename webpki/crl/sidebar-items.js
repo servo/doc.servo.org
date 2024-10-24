@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RevocationReason"],"mod":["private"],"struct":["BorrowedCertRevocationList","BorrowedRevokedCert","OwnedCertRevocationList","OwnedRevokedCert","RevokedCerts"],"trait":["CertRevocationList"]};

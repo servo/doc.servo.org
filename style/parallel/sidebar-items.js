@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STACK_SAFETY_MARGIN_KB","STYLE_THREAD_STACK_SIZE_KB"],"fn":["create_thread_local_context","distribute_one_chunk","distribute_work","style_trees"]};

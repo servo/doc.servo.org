@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_ZOOM","MIN_ZOOM"],"enum":["CompositeTarget","CompositingReason","CompositionRequest","NotReadyToPaint","ReadyState","ScrollZoomEvent","ShutdownState","UnableToComposite"],"struct":["FrameTreeId","IOCompositor","PipelineDetails","ScrollEvent"]};

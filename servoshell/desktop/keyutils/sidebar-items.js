@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CMD_OR_ALT","CMD_OR_CONTROL"],"fn":["keyboard_event_from_winit","keyboard_modifiers_from_winit_modifiers"],"trait":["FromWinitKeyEvent"]};

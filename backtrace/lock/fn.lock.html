@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Acquire a partially unsound(!!!) global re-entrant lock over backtrace’s internals."><title>lock in backtrace::lock - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="backtrace" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../backtrace/index.html">backtrace</a><span class="version">0.3.74</span></h2></div><div class="sidebar-elems"><h2><a href="index.html">In backtrace::lock</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Function <a href="../index.html">backtrace</a>::<wbr><a href="index.html">lock</a>::<wbr><a class="fn" href="#">lock</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/backtrace/lib.rs.html#222-239">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub fn lock() -&gt; <a class="struct" href="struct.LockGuard.html" title="struct backtrace::lock::LockGuard">LockGuard</a></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Acquire a partially unsound(!!!) global re-entrant lock over
+backtrace’s internals.</p>
+<p>That is, this lock can be acquired as many times as you want
+on a single thread without deadlocking, allowing one thread
+to acquire exclusive access to the ability to make backtraces.
+Calls to this locking function are freely sprinkled in every place
+where that needs to be enforced.</p>
+<h2 id="why"><a class="doc-anchor" href="#why">§</a>Why</h2>
+<p>This was first introduced to guard uses of Windows’ dbghelp API,
+which isn’t threadsafe. It’s unclear if other things now rely on
+this locking.</p>
+<h2 id="how"><a class="doc-anchor" href="#how">§</a>How</h2>
+<p>The basic idea is to have a single global mutex, and a thread_local
+boolean saying “yep this is the thread that acquired the mutex”.</p>
+<p>The first time a thread acquires the lock, it is handed a
+<code>LockGuard(Some(..))</code> that will actually release the lock on Drop.
+All subsequence attempts to lock on the same thread will see
+that their thread acquired the lock, and get <code>LockGuard(None)</code>
+which will do nothing when dropped.</p>
+<h2 id="safety"><a class="doc-anchor" href="#safety">§</a>Safety</h2>
+<p>As long as you only ever assign the returned LockGuard to a freshly
+declared local variable, it will do its job correctly, as the “first”
+LockGuard will strictly outlive all subsequent LockGuards and
+properly release the lock when the thread is done with backtracing.</p>
+<p>However if you ever attempt to store a LockGuard beyond the scope
+it was acquired in, it might actually be a <code>LockGuard(None)</code> that
+doesn’t actually hold the lock! In this case another thread might
+acquire the lock and you’ll get races this system was intended to
+avoid!</p>
+<p>This is why this is “partially unsound”. As a public API this would
+be unacceptable, but this is crate-private, and if you use this in
+the most obvious and simplistic way it Just Works™.</p>
+<p>Note however that std specifically bypasses this lock, and uses
+the <code>*_unsynchronized</code> backtrace APIs. This is “fine” because
+it wraps its own calls to backtrace in a non-reentrant Mutex
+that prevents two backtraces from getting interleaved during printing.</p>
+</div></details></section></div></main></body></html>

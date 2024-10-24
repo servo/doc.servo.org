@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EMPTY_COUNT","MAX_SETS","MIN_SETS"],"enum":["AllocationError"],"struct":["Allocation","DescriptorAllocator","DescriptorBucket","DescriptorPool","DescriptorSet","DescriptorSetLayoutCreateFlags"]};

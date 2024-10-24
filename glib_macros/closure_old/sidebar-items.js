@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CaptureKind"],"fn":["closure_inner"],"struct":["Capture","Closure"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["overflowing_impl"],"trait":["OverflowingAdd","OverflowingMul","OverflowingSub"]};

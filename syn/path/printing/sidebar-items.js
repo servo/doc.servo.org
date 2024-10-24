@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PathStyle"],"fn":["conditionally_print_turbofish","print_angle_bracketed_generic_arguments","print_parenthesized_generic_arguments","print_path","print_path_arguments","print_path_segment","print_qpath"]};

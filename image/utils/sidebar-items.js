@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_dimension_overflow","clamp","expand_bits","expand_packed","vec_copy_to_u8"]};

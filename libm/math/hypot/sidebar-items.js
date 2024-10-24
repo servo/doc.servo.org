@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SPLIT"],"fn":["hypot","sq"]};

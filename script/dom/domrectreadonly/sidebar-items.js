@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_DOMRectReadOnly"],"fn":["create_a_domrectreadonly_from_the_dictionary"],"struct":["DOMRectReadOnly"]};

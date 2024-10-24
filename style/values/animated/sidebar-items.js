@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Procedure","PropertyCategory"],"fn":["animate_multiplicative_factor","compare_property_priority"],"macro":["trivial_to_animated_value"],"mod":["color","effects","font","grid","lists","svg","transform"],"struct":["Context"],"trait":["Animate","ToAnimatedValue","ToAnimatedZero"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLOCK_SAMPLE_COUNT","BLOCK_X_BYTE_COUNT","SIX_BITS"],"fn":["compress","convert_from_linear","convert_to_linear","cpy_u8","decompress","memcpy_u16_to_u8","memcpy_u8_to_u16","pack","shift_and_round","unpack14","unpack3"],"macro":["b32"],"mod":["table"],"struct":["ChannelData"]};

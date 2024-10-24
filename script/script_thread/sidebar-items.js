@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCRIPT_THREAD_ROOT"],"enum":["MainThreadScriptMsg","MixedMessage"],"fn":["interrupt_callback","trace_thread"],"struct":["BHMExitSignal","Documents","DocumentsIter","InProgressLoad","IncompleteParserContexts","MainThreadScriptChan","ScriptMemoryFailsafe","ScriptThread","SendableMainThreadScriptChan"],"type":["ImageCacheMsg"]};

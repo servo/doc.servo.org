@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_COLSPAN","DEFAULT_ROWSPAN","_IMPL_DOMOBJECT_FOR_HTMLTableCellElement"],"struct":["HTMLTableCellElement"],"trait":["HTMLTableCellElementLayoutHelpers"]};

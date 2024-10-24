@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["create_derive"],"mod":["add_assign_like","add_helpers","add_like","deref","deref_mut","from","syn_compat","utils"],"trait":["Output"]};

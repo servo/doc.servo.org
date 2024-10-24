@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Returns a new instance of the ReadableStream builtin class in the current compartment."><title>NewReadableExternalSourceStreamObject in script::dom::bindings::import::module::jsapi - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../../../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../../../../../" data-static-root-path="../../../../../../static.files/" data-current-crate="script" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../../../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../../../../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../../../../script/index.html">script</a><span class="version">0.0.1</span></h2></div><div class="sidebar-elems"><h2><a href="index.html">In script::dom::bindings::import::module::jsapi</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Function <a href="../../../../../index.html">script</a>::<wbr><a href="../../../../index.html">dom</a>::<wbr><a href="../../../index.html">bindings</a>::<wbr><a href="../../index.html">import</a>::<wbr><a href="../index.html">module</a>::<wbr><a href="index.html">jsapi</a>::<wbr><a class="fn" href="#">NewReadableExternalSourceStreamObject</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../../../../../src/mozjs_sys/home/runner/work/servo/servo/target/debug/build/mozjs_sys-143fabef74859ace/out/build/jsapi.rs.html#17909-17914">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub unsafe extern &quot;C&quot; fn NewReadableExternalSourceStreamObject(
+    cx: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.pointer.html">*mut </a><a class="struct" href="struct.JSContext.html" title="struct script::dom::bindings::import::module::jsapi::JSContext">JSContext</a>,
+    underlyingSource: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.pointer.html">*mut </a><a class="struct" href="JS/struct.ReadableStreamUnderlyingSource.html" title="struct script::dom::bindings::import::module::jsapi::JS::ReadableStreamUnderlyingSource">ReadableStreamUnderlyingSource</a>,
+    nsISupportsObject_alreadyAddreffed: <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.pointer.html">*mut </a><a class="enum" href="https://doc.rust-lang.org/1.80.1/core/ffi/enum.c_void.html" title="enum core::ffi::c_void">c_void</a>,
+    proto: <a class="struct" href="JS/struct.Handle.html" title="struct script::dom::bindings::import::module::jsapi::JS::Handle">Handle</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.pointer.html">*mut </a><a class="struct" href="struct.JSObject.html" title="struct script::dom::bindings::import::module::jsapi::JSObject">JSObject</a>&gt;,
+) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.80.1/std/primitive.pointer.html">*mut </a><a class="struct" href="struct.JSObject.html" title="struct script::dom::bindings::import::module::jsapi::JSObject">JSObject</a></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Returns a new instance of the ReadableStream builtin class in the current
+compartment.</p>
+<p>The instance is a byte stream backed by an embedding-provided underlying
+source, using the virtual methods of <code>underlyingSource</code> as callbacks. The
+embedding must ensure that <code>*underlyingSource</code> lives as long as the new
+stream object. The JS engine will call the finalize() method when the stream
+object is destroyed.</p>
+<p><code>nsISupportsObject_alreadyAddreffed</code> is an optional pointer that can be used
+to make the new stream participate in Gecko’s cycle collection. Here are the
+rules for using this parameter properly:</p>
+<ul>
+<li>
+<p><code>*underlyingSource</code> must not be a cycle-collected object. (It would lead
+to memory leaks as the cycle collector would not be able to collect
+cycles containing that object.)</p>
+</li>
+<li>
+<p><code>*underlyingSource</code> must not contain nsCOMPtrs that point to cycle-
+collected objects. (Same reason.)</p>
+</li>
+<li>
+<p><code>*underlyingSource</code> may contain a pointer to a single cycle-collected
+object.</p>
+</li>
+<li>
+<p>The pointer may be stored in <code>*underlyingSource</code> as a raw pointer.</p>
+</li>
+<li>
+<p>The pointer to the nsISupports interface of the same object must be
+passed as the <code>nsISupportsObject_alreadyAddreffed</code> parameter to this
+function. (This is how the cycle collector knows about it, so omitting
+this would again cause leaks.)</p>
+</li>
+</ul>
+<p>If <code>proto</code> is non-null, it is used as the instance’s [[Prototype]] instead
+of the original value of <code>ReadableStream.prototype</code>.</p>
+</div></details></section></div></main></body></html>

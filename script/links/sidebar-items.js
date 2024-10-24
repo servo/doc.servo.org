@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["follow_hyperlink","get_element_target"],"struct":["LinkRelations"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["choose_idct_size","dequantize","dequantize_and_idct_block","dequantize_and_idct_block_1x1","dequantize_and_idct_block_2x2","dequantize_and_idct_block_4x4","dequantize_and_idct_block_8x8","dequantize_and_idct_block_8x8_inner","kernel","kernel_t","kernel_x","stbi_clamp","stbi_f2f","stbi_fsh"],"struct":["Kernel"]};

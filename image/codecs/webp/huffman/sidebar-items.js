@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_ALLOWED_CODE_LENGTH"],"enum":["HuffmanTreeNode"],"struct":["HuffmanTree"]};

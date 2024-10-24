@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CalcLengthPercentageLeaf","Serializable","Tag","Unpacked","UnpackedMut"],"fn":["static_assert"],"struct":["CalcLengthPercentage","LengthPercentage"],"type":["CalcNode","NonNegativeLengthPercentage"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_SPAN","_IMPL_DOMOBJECT_FOR_HTMLTableColElement"],"struct":["HTMLTableColElement"],"trait":["HTMLTableColElementLayoutHelpers"]};

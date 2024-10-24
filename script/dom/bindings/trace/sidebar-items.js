@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["trace_jsval","trace_object","trace_reflector","trace_script","trace_string"],"struct":["HashMapTracedValues","NoTrace","RootableVec","RootedTraceableBox","RootedTraceableSet","RootedVec"],"trait":["CustomTraceable","JSTraceable"]};

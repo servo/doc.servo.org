@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["allowed_in_quark_name","is_octal_digit","next_component","next_component_name","parse_components","parse_database","parse_entry","parse_query","parse_with_matcher","skip_spaces","skip_text","skip_to_eol"]};

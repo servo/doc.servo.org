@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IanaBcp47RoundTripMapper","IanaBcp47RoundTripMapperBorrowed","IanaToBcp47Mapper","IanaToBcp47MapperBorrowed"]};

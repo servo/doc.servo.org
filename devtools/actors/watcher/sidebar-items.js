@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SessionContextType"],"mod":["network_parent","target_configuration","thread_configuration"],"struct":["DocumentEvent","GetNetworkParentActorReply","GetParentBrowsingContextIDReply","GetTargetConfigurationActorReply","GetThreadConfigurationActorReply","SessionContext","WatchTargetsReply","WatcherActor","WatcherActorMsg","WatcherTraits"]};

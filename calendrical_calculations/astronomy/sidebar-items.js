@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["J2000","MAX_UTC_OFFSET","MEAN_SYNODIC_MONTH","MEAN_TROPICAL_YEAR","MECCA","MIN_UTC_OFFSET","NEW_MOON_ZERO","WINTER"],"fn":["div_euclid_f64"],"struct":["Astronomical","Location"]};

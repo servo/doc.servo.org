@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ceil_div","clamp","time_now"],"macro":["PATH_SEPARATOR"]};

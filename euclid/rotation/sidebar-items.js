@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Rotation2D","Rotation3D"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["AVX2","NOP","SSE42"],"fn":["detect_runtime_feature","get_runtime_feature","match_header_name_vectored","match_header_value_vectored","match_uri_vectored"],"static":["RUNTIME_FEATURE"]};

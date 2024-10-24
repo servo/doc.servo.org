@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EMPTY_TAG","MAX_INLINE_LEN","MAX_INLINE_TAG"],"enum":["SubtendrilError"],"fn":["inline_tag"],"macro":["from_iter_method"],"struct":["Atomic","Header","Heap","NonAtomic","SendTendril","Tendril"],"trait":["Atomicity","ReadExt","SliceExt"],"type":["ByteTendril","StrTendril"],"union":["Buffer"]};

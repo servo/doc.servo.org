@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["XDG_SYSTEM_BELL_V1_INTERFACE","types_null","xdg_system_bell_v1_interface","xdg_system_bell_v1_requests","xdg_system_bell_v1_requests_ring_types"],"struct":["SyncWrapper"]};

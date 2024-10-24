@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["x25519_ge_double_scalarmult_vartime"],"static":["ED25519"],"struct":["EdDSAParameters"]};

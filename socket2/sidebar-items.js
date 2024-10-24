@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InterfaceIndexOrAddress"],"macro":["from","impl_debug","man_links"],"mod":["sockaddr","socket","sockref","sys"],"struct":["Domain","MaybeUninitSlice","MsgHdr","MsgHdrMut","Protocol","RecvFlags","SockAddr","SockRef","Socket","TcpKeepalive","Type"]};

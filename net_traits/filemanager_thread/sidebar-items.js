@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FileManagerThreadError","FileManagerThreadMsg","FileTokenCheck","ReadFileProgress"],"struct":["RelativePos","SelectedFile"],"type":["FileManagerResult","FileOrigin"]};

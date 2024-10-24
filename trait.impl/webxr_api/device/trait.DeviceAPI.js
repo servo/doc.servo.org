@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"webxr":[["impl <a class=\"trait\" href=\"webxr_api/device/trait.DeviceAPI.html\" title=\"trait webxr_api::device::DeviceAPI\">DeviceAPI</a> for <a class=\"struct\" href=\"webxr/glwindow/struct.GlWindowDevice.html\" title=\"struct webxr::glwindow::GlWindowDevice\">GlWindowDevice</a>"],["impl <a class=\"trait\" href=\"webxr_api/device/trait.DeviceAPI.html\" title=\"trait webxr_api::device::DeviceAPI\">DeviceAPI</a> for <a class=\"struct\" href=\"webxr/headless/struct.HeadlessDevice.html\" title=\"struct webxr::headless::HeadlessDevice\">HeadlessDevice</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

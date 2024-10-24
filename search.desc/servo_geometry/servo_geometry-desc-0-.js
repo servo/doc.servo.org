@@ -1,0 +1,1 @@
+searchState.loadedDescShard("servo_geometry", 0, "A normalized “pixel” at the default resolution for the …\nA helper function to convert a rect of <code>Au</code> pixels to a rect …\nA helper function to convert a rect of <code>f32</code> pixels to a …\nReturns the argument unchanged.\nCalls <code>U::from(self)</code>.")

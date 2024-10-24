@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["private_decl","private_impl"],"struct":["PrivateMarker"]};

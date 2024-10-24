@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["forward_op_assign"]};

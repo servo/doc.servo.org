@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["WebGLContextEvent_Binding"],"struct":["WebGLContextEventInit"]};

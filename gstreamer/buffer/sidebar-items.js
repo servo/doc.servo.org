@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BUFFER_COPY_ALL","BUFFER_COPY_METADATA"],"enum":["BufferMetaForeachAction","Readable","Writable"],"macro":["define_iter","define_meta_iter"],"struct":["Buffer","BufferChunked16Iter","BufferMap","BufferRef","Dump","Iter","IterMut","IterOwned","MappedBuffer","MetaIter","MetaIterMut"]};

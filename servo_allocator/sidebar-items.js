@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["usable_size"],"mod":["libc_compat","platform"],"static":["ALLOC"],"struct":["Allocator"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MinibrowserEvent"],"fn":["truncate_with_ellipsis"],"struct":["Minibrowser"]};

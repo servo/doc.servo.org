@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_sendto","_sendto_any","recv","recv_uninit","recvfrom","recvfrom_uninit","send","sendto","sendto_any","sendto_unix","sendto_v4","sendto_v6","sendto_xdp"],"mod":["msg"]};

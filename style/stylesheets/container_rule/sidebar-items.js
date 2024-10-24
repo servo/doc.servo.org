@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ContainerSizeQuery","TraversalResult"],"fn":["container_type_axes","eval_aspect_ratio","eval_block_size","eval_height","eval_inline_size","eval_orientation","eval_width","traverse_container"],"static":["CONTAINER_FEATURES"],"struct":["ContainerCondition","ContainerInfo","ContainerLookupResult","ContainerRule","ContainerSizeQueryResult"]};

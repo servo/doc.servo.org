@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MachOFatFile"],"trait":["FatArch"],"type":["MachOFatFile32","MachOFatFile64"]};

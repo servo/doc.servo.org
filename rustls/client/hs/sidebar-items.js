@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ClientSessionValue"],"fn":["emit_client_hello_for_retry","find_session","prepare_resumption","process_alpn_protocol","sct_list_is_invalid","start_handshake"],"struct":["ClientHelloInput","ExpectServerHello","ExpectServerHelloOrHelloRetryRequest"],"type":["ClientContext","NextState","NextStateOrError"]};

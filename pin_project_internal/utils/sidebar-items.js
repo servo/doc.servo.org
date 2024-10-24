@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["contains_fn","determine_lifetime_name","determine_visibility","insert_lifetime","insert_lifetime_and_bound","prepend_underscore_to_self","respan","respan_tokens"],"macro":["parse_quote_spanned"],"struct":["ReplaceReceiver"],"trait":["ParseBufferExt","SliceExt"],"type":["Variants"]};

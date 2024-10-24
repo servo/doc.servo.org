@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_image_parallel"],"struct":["ComponentMetadata","ImmediateWorker","Scoped"]};

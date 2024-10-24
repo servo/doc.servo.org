@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AnimationState","KeyframesIterationState"],"fn":["maybe_start_animations","start_transitions_if_applicable"],"struct":["Animation","AnimationSetKey","ComputedKeyframe","DocumentAnimationSet","ElementAnimationSet","IntermediateComputedKeyframe","PropertyAnimation","Transition"]};

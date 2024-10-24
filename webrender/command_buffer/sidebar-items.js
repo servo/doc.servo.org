@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CommandBufferBuilderKind","PrimitiveCommand"],"struct":["Command","CommandBuffer","CommandBufferBuilder","CommandBufferIndex","CommandBufferList","MaskFlags","QuadFlags"]};

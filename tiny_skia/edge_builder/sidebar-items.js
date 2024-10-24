@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Combine","PathEdge"],"fn":["combine_vertical","edge_iter"],"struct":["BasicEdgeBuilder","PathEdgeIter","ShiftedIntRect"]};

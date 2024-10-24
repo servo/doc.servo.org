@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["data_struct"],"enum":["DataStructMarkerArg"],"fn":["data_struct_impl"],"struct":["DataStructArg","DataStructArgs"]};

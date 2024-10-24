@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INDEX_OF_FIRST_GLYPH_RUN_CACHE"],"struct":["CharacterSliceIterator","NaturalWordSliceIterator","TextRun","TextRunSlice"]};

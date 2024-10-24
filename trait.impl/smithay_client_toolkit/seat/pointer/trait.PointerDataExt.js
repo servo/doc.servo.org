@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"smithay_client_toolkit":[],
+"winit":[["impl <a class=\"trait\" href=\"smithay_client_toolkit/seat/pointer/trait.PointerDataExt.html\" title=\"trait smithay_client_toolkit::seat::pointer::PointerDataExt\">PointerDataExt</a> for <a class=\"struct\" href=\"winit/platform_impl/linux/wayland/seat/pointer/struct.WinitPointerData.html\" title=\"struct winit::platform_impl::linux::wayland::seat::pointer::WinitPointerData\">WinitPointerData</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

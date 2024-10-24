@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DESC_COLOR","DESC_FONT"],"enum":["DebugSampler"],"struct":["DebugColorVertex","DebugFontVertex","DebugRenderer","LazyInitializedDebugRenderer"]};

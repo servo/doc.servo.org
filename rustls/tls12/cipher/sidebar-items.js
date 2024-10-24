@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHACHAPOLY1305_OVERHEAD","GCM_EXPLICIT_NONCE_LEN","GCM_OVERHEAD","TLS12_AAD_SIZE"],"fn":["make_tls12_aad"],"struct":["AesGcm","ChaCha20Poly1305","ChaCha20Poly1305MessageDecrypter","ChaCha20Poly1305MessageEncrypter","GcmMessageDecrypter","GcmMessageEncrypter"],"trait":["Tls12AeadAlgorithm"]};

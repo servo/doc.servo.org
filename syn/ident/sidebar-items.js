@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["xid_ok"],"macro":["ident_from_token"],"mod":["parsing"],"struct":["Ident"]};

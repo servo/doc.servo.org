@@ -1,0 +1,1 @@
+searchState.loadedDescShard("document_features", 0, "Document your crate’s feature flags.\nProduce a literal string containing documentation …\nReturns the argument unchanged.\nReturns the argument unchanged.\nCheck if the Cargo.toml has comments that looks like doc …\nCalls <code>U::from(self)</code>.\nCalls <code>U::from(self)</code>.")

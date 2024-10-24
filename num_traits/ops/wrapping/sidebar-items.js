@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["wrapping_impl","wrapping_shift_impl","wrapping_unary_impl"],"trait":["WrappingAdd","WrappingMul","WrappingNeg","WrappingShl","WrappingShr","WrappingSub"]};

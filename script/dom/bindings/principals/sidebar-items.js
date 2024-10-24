@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PRINCIPALS_CALLBACKS"],"fn":["destroy_servo_jsprincipal","principals_is_system_or_addon_principal","read_jsprincipal","subsumes","write_jsprincipal"],"struct":["ServoJSPrincipals","ServoJSPrincipalsRef"]};

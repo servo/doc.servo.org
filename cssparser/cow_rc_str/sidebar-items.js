@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_static_assert_same_size"],"struct":["CowRcStr"]};

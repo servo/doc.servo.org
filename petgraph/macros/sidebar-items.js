@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["clone_fields"]};

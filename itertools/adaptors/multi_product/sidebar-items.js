@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["multi_cartesian_product"],"struct":["MultiProduct","MultiProductInner","MultiProductIter"]};

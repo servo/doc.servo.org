@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["assert_initialized_main_thread","skip_assert_initialized"],"mod":["auto","prelude","sdp_attribute","sdp_bandwidth","sdp_connection","sdp_key","sdp_media","sdp_message","sdp_origin","sdp_time","sdp_zone"],"struct":["SDPAttribute","SDPBandwidth","SDPConnection","SDPKey","SDPOrigin","SDPTime","SDPZone"]};

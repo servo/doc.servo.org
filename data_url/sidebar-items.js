@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DataUrlError"],"fn":["decode_with_base64","decode_without_base64","find_comma_before_fragment","parse_header","percent_encode","pretend_parse_data_url","remove_base64_suffix"],"macro":["require"],"mod":["forgiving_base64","mime"],"struct":["DataUrl","FragmentIdentifier"]};

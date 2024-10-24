@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BracketKind","ComponentKind","Token"],"fn":["attach_location","lex"],"struct":["Lexed"]};

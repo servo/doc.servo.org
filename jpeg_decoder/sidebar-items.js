@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CodingProcess","ColorTransform","Error","PixelFormat","UnsupportedFeature"],"fn":["read_u16_from_be","read_u8"],"mod":["arch","decoder","error","huffman","idct","marker","parser","upsampler","worker"],"struct":["Decoder","ImageInfo"]};

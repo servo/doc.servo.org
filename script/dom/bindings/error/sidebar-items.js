@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"fn":["report_pending_exception","throw_constructor_without_new","throw_dom_exception","throw_invalid_this"],"struct":["ErrorInfo"],"type":["ErrorResult","Fallible"]};

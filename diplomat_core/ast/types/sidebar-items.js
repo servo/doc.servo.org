@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CustomType","LifetimeOrigin","ModSymbol","Mutability","PrimitiveType","StringEncoding","TypeName"],"fn":["is_runtime_type"],"struct":["PRIMITIVES_MAPPING","PRIMITIVE_TO_STRING","PathType","ReferenceDisplay","STRING_TO_PRIMITIVE"]};

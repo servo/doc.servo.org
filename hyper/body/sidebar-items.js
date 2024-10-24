@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_assert_send_sync","aggregate","take_full_data","to_bytes"],"mod":["aggregate","body","length","to_bytes"],"struct":["Body","Bytes","Sender","SizeHint"],"trait":["Buf","HttpBody"]};

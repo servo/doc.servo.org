@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ICU4XDataProviderInner"],"macro":["load"],"mod":["ffi"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WordType"],"fn":["handle_complex_language_utf8"],"struct":["WordBreakIterator","WordBreakTypePotentiallyIllFormedUtf8","WordBreakTypeUtf16","WordBreakTypeUtf8","WordSegmenter","WordTypeULE"],"type":["WordBreakIteratorLatin1","WordBreakIteratorPotentiallyIllFormedUtf8","WordBreakIteratorUtf16","WordBreakIteratorUtf8"]};

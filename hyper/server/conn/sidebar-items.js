@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ConnectionMode","Fallback","ProtoServer"],"mod":["upgrades"],"struct":["AddrIncoming","AddrStream","Connecting","Connection","Http","Parts"],"type":["Http1Dispatcher","Http2Server"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_for_int","impl_for_tree_types"],"trait":["ToTokenStream","ToTokenTree"]};

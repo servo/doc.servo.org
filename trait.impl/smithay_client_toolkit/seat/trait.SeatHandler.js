@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"smithay_clipboard":[["impl <a class=\"trait\" href=\"smithay_client_toolkit/seat/trait.SeatHandler.html\" title=\"trait smithay_client_toolkit::seat::SeatHandler\">SeatHandler</a> for <a class=\"struct\" href=\"smithay_clipboard/state/struct.State.html\" title=\"struct smithay_clipboard::state::State\">State</a>"]],
+"winit":[["impl <a class=\"trait\" href=\"smithay_client_toolkit/seat/trait.SeatHandler.html\" title=\"trait smithay_client_toolkit::seat::SeatHandler\">SeatHandler</a> for <a class=\"struct\" href=\"winit/platform_impl/linux/wayland/state/struct.WinitState.html\" title=\"struct winit::platform_impl::linux::wayland::state::WinitState\">WinitState</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

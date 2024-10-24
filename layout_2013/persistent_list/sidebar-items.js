@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PersistentList","PersistentListEntry","PersistentListIterator"],"type":["PersistentListLink"]};

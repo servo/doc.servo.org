@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DUMMY_PBUFFER_SIZE","RGB_CHANNEL_BIT_DEPTH"],"fn":["create_context","create_dummy_pbuffer","egl_config_from_id","get_config_attr","get_context_attr","get_proc_address","make_no_context_current"],"struct":["ContextDescriptor","CurrentContextGuard","EGLBackedContext","NativeContext"]};

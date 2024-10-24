@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BITS"],"fn":["div_rem"],"mod":["range"],"static":["FALSE","TRUE"],"struct":["Difference","FixedBitSet","Intersection","Masks","Ones","Union"],"trait":["IndexRange"],"type":["Block"]};

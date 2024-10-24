@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["assert_unaligned","impl_known_layout","impl_or_verify","opt_extern_c_fn","opt_fn","safety_comment","unsafe_impl","unsafe_impl_for_power_set","unsafe_impl_known_layout"]};

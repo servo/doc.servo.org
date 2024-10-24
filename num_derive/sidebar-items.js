@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NEWTYPE_ONLY"],"derive":["Float","FromPrimitive","Num","NumCast","NumOps","One","Signed","ToPrimitive","Unsigned","Zero"],"fn":["anon_const_trick","newtype_inner"],"macro":["parse"],"struct":["NumTraits"]};

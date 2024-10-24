@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["new_task","unowned"],"mod":["abort","core","error","harness","id","join","list","raw","state","waker"],"struct":["LocalNotified","Notified","Task","TaskHarnessScheduleHooks","UnownedTask"],"trait":["Schedule"],"type":["Result"]};

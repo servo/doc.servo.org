@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BaseSpace"],"struct":["ApiSpace","Space"]};

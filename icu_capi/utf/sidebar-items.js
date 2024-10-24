@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LossyWrap","PotentiallyInvalidUtf16","PotentiallyInvalidUtf8"]};

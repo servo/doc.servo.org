@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["impl_write_num","impl_write_smart_pointer"]};

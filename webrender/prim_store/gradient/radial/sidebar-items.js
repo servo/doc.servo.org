@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["optimize_radial_gradient","radial_gradient_pattern"],"struct":["RadialGradient","RadialGradientCacheKey","RadialGradientInstance","RadialGradientKey","RadialGradientParams","RadialGradientTask","RadialGradientTemplate"],"type":["RadialGradientDataHandle"]};

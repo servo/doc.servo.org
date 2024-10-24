@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["sAttributes","sAttributes_specs","views_getterinfo"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetProtoObject","Wrap","_finalize","_trace","get_views"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["XRViewerPoseMethods"]};

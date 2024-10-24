@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["base_fragment","box_fragment","containing_block","fragment","fragment_tree","hoisted_shared_fragment","positioning_fragment"]};

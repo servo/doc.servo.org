@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DeviceLostReason","Error","ErrorFilter","PopError","RenderCommand","WebGPUMsg","WebGPURequest","WebGPUResponse"],"mod":["gpu_error","identity","ipc_messages","poll_thread","render_commands","swapchain","wgpu_thread"],"struct":["Adapter","ContextConfiguration","Mapping","Pipeline","ShaderCompilationInfo","WebGPU"]};

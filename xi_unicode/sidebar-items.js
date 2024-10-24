@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_in_asc_list","is_keycap_base","is_variation_selector","linebreak_property","linebreak_property_str"],"mod":["tables"],"struct":["LineBreakIterator","LineBreakLeafIter"],"trait":["EmojiExt"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["displace","fmt_array","get_index","hash"],"macro":["array_impl","delegate_debug","impl_reflexive","sip_impl","slice_impl"],"struct":["Hashes"],"trait":["FmtConst","PhfBorrow","PhfHash"],"type":["HashKey"]};

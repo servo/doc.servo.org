@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLOptionElement"],"fn":["collect_text"],"struct":["HTMLOptionElement"]};

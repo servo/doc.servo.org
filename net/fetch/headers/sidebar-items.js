@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SecFetchMode","SecFetchSite"],"fn":["destination_as_str","determine_nosniff"],"static":["SEC_FETCH_DEST","SEC_FETCH_MODE","SEC_FETCH_SITE","SEC_FETCH_USER"],"struct":["SecFetchDest","SecFetchUser"]};

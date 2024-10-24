@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RecvError","RecvTimeoutError","SendTimeoutError","TryRecvError","TryRecvTimeoutError","TrySendError","TrySendTimeoutError"],"fn":["bounded","unbounded","wait_lock"],"mod":["signal"],"struct":["Chan","Drain","Hook","IntoIter","Iter","Receiver","SendError","Sender","Shared","TryIter","WeakSender"],"type":["ChanLock","SignalVec"]};

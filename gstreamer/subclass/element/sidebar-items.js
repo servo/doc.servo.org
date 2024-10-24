@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["element_change_state","element_post_message","element_provide_clock","element_query","element_release_pad","element_request_new_pad","element_send_event","element_set_clock","element_set_context"],"mod":["sealed"],"struct":["CatchPanic","ElementMetadata"],"trait":["ElementImpl","ElementImplExt"]};

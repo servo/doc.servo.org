@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["diplomat_buffer_writeable_create","diplomat_buffer_writeable_destroy","diplomat_buffer_writeable_get_bytes","diplomat_buffer_writeable_len","diplomat_simple_writeable"],"struct":["DiplomatWriteable"]};

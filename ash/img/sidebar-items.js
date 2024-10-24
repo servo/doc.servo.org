@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["filter_cubic","format_pvrtc","relaxed_line_rasterization"]};

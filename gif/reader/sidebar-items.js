@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MemoryLimit"],"mod":["converter","decoder"],"struct":["DecodeOptions","Decoder","DecoderIter","ReadDecoder"]};

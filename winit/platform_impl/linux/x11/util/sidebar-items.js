@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["has_flag","maybe_change"],"mod":["client_msg","cookie","cursor","geometry","hint","icon","input","keys","memory","mouse","randr","window_property","wm","xmodmap"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["arc_to_cubic_beziers","arc_to_quadratic_beziers_with_t","sample_ellipse"],"struct":["Arc","ArcFlags","Flattened","SvgArc"]};

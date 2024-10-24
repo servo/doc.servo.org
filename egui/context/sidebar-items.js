@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["IMMEDIATE_VIEWPORT_RENDERER"],"struct":["Context","ContextImpl","NamedContextCallback","Plugins","RepaintCause","RequestRepaintInfo","ViewportRepaintInfo","ViewportState","WrappedTextureManager"],"type":["ContextCallback"]};

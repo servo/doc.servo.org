@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImageCacheResult","ImageOrMetadataAvailable","ImageResponse","UsePlaceholder"],"struct":["ImageResponder","PendingImageId","PendingImageResponse"],"trait":["ImageCache"]};

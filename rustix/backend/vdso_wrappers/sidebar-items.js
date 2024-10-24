@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_rustix_clock_gettime_via_syscall","clock_gettime","clock_gettime_dynamic","init","init_clock_gettime","init_getcpu","minimal_init","rustix_clock_gettime_via_syscall","rustix_getcpu_via_syscall","sched_getcpu"],"static":["CLOCK_GETTIME","GETCPU"],"struct":["Function"],"type":["ClockGettimeType","GetcpuType"]};

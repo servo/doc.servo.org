@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReceivedFrame","State"],"struct":["Config","Connection","ConnectionInner","DynConnection"]};

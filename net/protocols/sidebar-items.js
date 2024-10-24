@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_range_request_bounds","partial_content","range_not_satisfiable_error"],"mod":["blob","data","file"],"static":["FORBIDDEN_SCHEMES"],"struct":["ProtocolRegistry"],"trait":["ProtocolHandler"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ElementParser"],"mod":["element","pi"],"struct":["PiParser"],"trait":["Parser"]};

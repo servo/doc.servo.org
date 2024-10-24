@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_WebSocket"],"enum":["WebSocketRequestState"],"fn":["close_the_websocket_connection","fail_the_websocket_connection"],"mod":["close_code"],"struct":["BufferedAmountTask","CloseTask","ConnectionEstablishedTask","MessageReceivedTask","WebSocket"]};

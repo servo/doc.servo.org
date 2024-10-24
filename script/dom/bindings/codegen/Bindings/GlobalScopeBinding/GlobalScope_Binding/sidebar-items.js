@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["sAttributes","sAttributes_specs"]};

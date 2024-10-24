@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["charset","file_open_tmp","spawn_async_with_pipes","spawn_future","spawn_future_local","unix_open_pipe"]};

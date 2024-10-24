@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CPU_SETSIZE"],"enum":["MembarrierCommand","Resource"],"fn":["raw_cpu_set_new"],"struct":["RawCpuSet"],"type":["RawCpuid"]};

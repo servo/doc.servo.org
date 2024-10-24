@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DONE_BIT","LOCKED_BIT","PARKED_BIT","POISON_BIT"],"enum":["OnceState"],"struct":["Once"]};

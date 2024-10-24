@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BufferStateProvider"],"fn":["barrier","insert","insert_or_barrier_update","insert_or_merge","merge","update"],"struct":["BufferBindGroupState","BufferTracker","BufferUsageScope","DeviceBufferTracker"]};

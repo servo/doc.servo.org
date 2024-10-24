@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Either"],"macro":["delegate_call"]};

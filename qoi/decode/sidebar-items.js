@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["QOI_OP_DIFF_END","QOI_OP_INDEX_END","QOI_OP_LUMA_END","QOI_OP_RUN_END"],"fn":["decode_header","decode_impl_slice","decode_impl_slice_all","decode_impl_stream","decode_impl_stream_all","decode_to_buf","decode_to_vec"],"struct":["Bytes","Decoder"]};

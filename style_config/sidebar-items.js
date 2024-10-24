@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_bool","get_i32","set_bool","set_i32"],"struct":["PREFS","Preferences"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BORDER_SIZE","BOTTOM_BORDER","BTN_HOVER_BG","BTN_ICON_COLOR","HEADER","HEADER_SIZE","LEFT_BORDER","PRIMARY_COLOR_ACTIVE","PRIMARY_COLOR_INACTIVE","RIGHT_BORDER","TOP_BORDER"],"enum":["Location","UIButton"],"struct":["FallbackFrame","FramePart","FrameRenderData"]};

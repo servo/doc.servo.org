@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["AT_EXECFN","AT_HWCAP","AT_HWCAP2","AT_MINSIGSTKSZ","AT_SECURE","AT_SYSINFO_EHDR","_SC_CLK_TCK","_SC_PAGESIZE"],"fn":["sysconf","sysinfo_ehdr"],"static":["getauxval"]};

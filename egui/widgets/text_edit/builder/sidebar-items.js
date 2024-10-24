@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_for_mutating_key_press","events","mask_if_password","remove_ime_incompatible_events"],"struct":["TextEdit"]};

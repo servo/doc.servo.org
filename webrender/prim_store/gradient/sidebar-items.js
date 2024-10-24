@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["GRADIENT_DATA_FIRST_STOP","GRADIENT_DATA_LAST_STOP","GRADIENT_DATA_SIZE","GRADIENT_DATA_TABLE_BEGIN","GRADIENT_DATA_TABLE_END","GRADIENT_DATA_TABLE_SIZE"],"fn":["apply_gradient_local_clip","stops_and_min_alpha"],"mod":["conic","linear","radial"],"struct":["GradientDataEntry","GradientGpuBlockBuilder","GradientStopKey"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["accessibility","css_properties","highlighter","layout","node","page_style","style_rule","walker"],"struct":["GetHighlighterReply","GetPageStyleReply","GetWalkerReply","InspectorActor","SupportsHighlightersReply"]};

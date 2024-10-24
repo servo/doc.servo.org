@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EMPTY_CASCADE_DATA","GenericAuthorStyles"]};

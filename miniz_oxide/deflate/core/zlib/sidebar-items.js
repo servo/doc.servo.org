@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_CINFO","DEFAULT_CM","DEFAULT_CMF","FCHECK_DIVISOR","_DEFAULT_FDICT"],"fn":["add_fcheck","header_from_flags","header_from_level","zlib_level_from_flags"]};

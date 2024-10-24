@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MultiLabel","VerticalBound"],"fn":["hanging_labels","is_overlapping","label_priority_key"],"struct":["Locus","Metrics","Renderer"],"type":["SingleLabel","Underline"]};

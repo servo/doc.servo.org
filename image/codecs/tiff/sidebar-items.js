@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_sample_format","cmyk_to_rgb","err_unknown_color_type","u8_slice_as_u16"],"struct":["TiffDecoder","TiffEncoder","TiffReader"]};

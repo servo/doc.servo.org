@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["any_digit","ascii_char","ascii_char_ignore_case","exactly_n_digits","exactly_n_digits_padded","first_match","n_to_m","n_to_m_digits","n_to_m_digits_padded","one_or_more","opt","sign","zero_or_more"],"mod":["rfc"]};

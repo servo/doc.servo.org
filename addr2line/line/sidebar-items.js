@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["has_unix_root","has_windows_root","path_push","render_file"],"struct":["LazyLines","LineLocationRangeIter","LineRow","LineSequence","Lines"]};

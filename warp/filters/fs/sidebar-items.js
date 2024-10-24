@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_READ_BUF_SIZE"],"enum":["Cond"],"fn":["bytes_range","conditionals","dir","file","file_conditional","file_metadata","file_reply","file_stream","get_block_size","optimal_buf_size","path_from_tail","reserve_at_least","sanitize_path"],"struct":["ArcPath","BadRange","Conditionals","File","FileOpenError","FilePermissionError"]};

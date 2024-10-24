@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SurfaceDescriptorKind"],"struct":["CommandBufferTargets","SurfaceBuilder","SurfaceDescriptor","SurfaceTileDescriptor"]};

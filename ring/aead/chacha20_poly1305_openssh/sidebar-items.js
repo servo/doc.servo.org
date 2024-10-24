@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["KEY_LEN","PACKET_LENGTH_LEN","TAG_LEN"],"fn":["make_counter","verify"],"struct":["Key","OpeningKey","SealingKey"]};

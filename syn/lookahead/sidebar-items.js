@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TokenMarker"],"fn":["new","peek_impl"],"struct":["Lookahead1"],"trait":["Peek"]};

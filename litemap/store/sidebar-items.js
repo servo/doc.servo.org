@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["slice_impl","vec_impl"],"trait":["Store","StoreConstEmpty","StoreFromIterable","StoreFromIterator","StoreIntoIterator","StoreIterable","StoreIterableMut","StoreMut","StoreSlice"]};

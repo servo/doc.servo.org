@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GLApi","SurfaceAccess","SurfaceType"],"macro":["declare_surfman"],"mod":["chains","connection","context","device","egl","error","gl","gl_utils","info","macros","platform","renderbuffers","surface"],"struct":["ContextAttributeFlags","ContextAttributes","ContextID","GLVersion","SurfaceID","SurfaceInfo","SystemSurfaceInfo"]};

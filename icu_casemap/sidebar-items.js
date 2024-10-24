@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["casemapper","closer","internals","provider","set","titlecase"],"struct":["CaseMapCloser","CaseMapper"],"trait":["ClosureSink"]};

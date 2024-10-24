@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["blockSize_getterinfo","inlineSize_getterinfo","sAttributes","sAttributes_specs"],"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetProtoObject","Wrap","_finalize","_trace","get_blockSize","get_inlineSize"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"trait":["ResizeObserverSizeMethods"]};

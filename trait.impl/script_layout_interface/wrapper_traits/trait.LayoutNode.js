@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"script":[["impl&lt;'dom&gt; <a class=\"trait\" href=\"script_layout_interface/wrapper_traits/trait.LayoutNode.html\" title=\"trait script_layout_interface::wrapper_traits::LayoutNode\">LayoutNode</a>&lt;'dom&gt; for <a class=\"struct\" href=\"script/layout_dom/node/struct.ServoLayoutNode.html\" title=\"struct script::layout_dom::node::ServoLayoutNode\">ServoLayoutNode</a>&lt;'dom&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

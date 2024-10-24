@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GraphemeClusterBreakIterator","GraphemeClusterSegmenter"],"type":["GraphemeClusterBreakIteratorLatin1","GraphemeClusterBreakIteratorPotentiallyIllFormedUtf8","GraphemeClusterBreakIteratorUtf16","GraphemeClusterBreakIteratorUtf8"]};

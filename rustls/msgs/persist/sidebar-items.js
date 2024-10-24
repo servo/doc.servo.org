@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["MAX_FRESHNESS_SKEW_MS","MAX_TICKET_LIFETIME"],"struct":["ClientSessionCommon","Retrieved","ServerSessionValue","Tls12ClientSessionValue","Tls13ClientSessionValue"],"type":["ServerSessionKey"]};

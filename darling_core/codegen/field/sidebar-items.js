@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CheckMissing","Declaration","Field","FlattenInitializer","Initializer","MatchArm"]};

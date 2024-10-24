@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["average_ceil","average_floor","binomial","cbrt","div_ceil","div_floor","div_mod_floor","div_rem","gcd","gcd_lcm","lcm","mod_floor","multinomial","multiply_and_divide","nth_root","sqrt"],"macro":["impl_integer_for_isize","impl_integer_for_usize"],"mod":["average","roots"],"struct":["ExtendedGcd","IterBinomial"],"trait":["Average","Integer","Roots"]};

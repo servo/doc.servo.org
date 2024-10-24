@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["COPTIC_EPOCH"],"fn":["coptic_from_fixed","fixed_from_coptic"]};

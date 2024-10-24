@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"fn":["i32_to_usize","u32_to_usize","u64_to_usize","usize_to_i32","usize_to_u16","usize_to_u64"],"struct":["IoError"],"type":["IoResult","Result","UnitResult"]};

@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Varint spec for ZeroTrie:"><title>zerotrie::varint - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="zerotrie" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../zerotrie/index.html">zerotrie</a><span class="version">0.1.3</span></h2></div><h2 class="location"><a href="#">Module varint</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li></ul></section><h2><a href="../index.html">In crate zerotrie</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">zerotrie</a>::<wbr><a class="mod" href="#">varint</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/zerotrie/varint.rs.html#5-497">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Varint spec for ZeroTrie:</p>
+<ul>
+<li>Lead byte: top M (2 or 3) bits are metadata; next is varint extender; rest is value</li>
+<li>Trail bytes: top bit is varint extender; rest are low bits of value</li>
+<li>Guaranteed uniqueness of varint by adding “latent value” for each extender byte</li>
+<li>No maximum, but high bits will be dropped if they don’t fit in the platform’s <code>usize</code></li>
+</ul>
+<p>This is best shown by examples.</p>
+<div class="example-wrap"><pre class="language-txt"><code>xxx0&#39;1010 = 10
+xxx0&#39;1111 = 15 (largest single-byte value with M=3)
+xxx1&#39;0000 0000&#39;0000 must be 16 (smallest two-byte value with M=3)
+xxx1&#39;0000 0000&#39;0001 = 17
+xxx1&#39;1111 0111&#39;1111 = 2063 (largest two-byte value with M=3)
+xxx1&#39;0000 1000&#39;0000 0000&#39;0000 must be 2064 (smallest three-byte value with M=3)
+xxx1&#39;0000 1000&#39;0000 0000&#39;0001 = 2065
+</code></pre></div>
+<p>The latent values by number of bytes for M=3 are:</p>
+<ul>
+<li>1 byte: 0</li>
+<li>2 bytes: 16 = 0x10 = 0b10000</li>
+<li>3 bytes: 2064 = 0x810 = 0b100000010000</li>
+<li>4 bytes: 264208 = 0x40810 = 0b1000000100000010000</li>
+<li>5 bytes: 33818640 = 0x2040810 = 0b10000001000000100000010000</li>
+<li>…</li>
+</ul>
+<p>For M=2, the latent values are:</p>
+<ul>
+<li>1 byte: 0</li>
+<li>2 bytes: 32 = 0x20 = 0b100000</li>
+<li>3 bytes: 4128 = 0x1020 = 0b1000000100000</li>
+<li>4 bytes: 524320 = 0x81020 = 0b10000001000000100000</li>
+<li>5 bytes: 67637280 = 0x4081020 = 0b100000010000001000000100000</li>
+<li>…</li>
+</ul>
+</div></details><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="constant" href="constant.MAX_VARINT_LENGTH.html" title="constant zerotrie::varint::MAX_VARINT_LENGTH">MAX_VARINT_LENGTH</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li></ul><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.read_varint_meta2.html" title="fn zerotrie::varint::read_varint_meta2">read_varint_meta2</a></div><div class="desc docblock-short">Reads a varint with 2 bits of metadata in the lead byte.</div></li><li><div class="item-name"><a class="fn" href="fn.read_varint_meta3.html" title="fn zerotrie::varint::read_varint_meta3">read_varint_meta3</a></div><div class="desc docblock-short">Reads a varint with 3 bits of metadata in the lead byte.</div></li><li><div class="item-name"><a class="fn" href="fn.try_read_varint_meta3_from_tstore.html" title="fn zerotrie::varint::try_read_varint_meta3_from_tstore">try_read_varint_meta3_from_tstore</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Reads and removes a varint with 3 bits of metadata from a <a href="../builder/nonconst/store/trait.TrieBuilderStore.html" title="trait zerotrie::builder::nonconst::store::TrieBuilderStore"><code>TrieBuilderStore</code></a>.</div></li><li><div class="item-name"><a class="fn" href="fn.write_varint_meta2.html" title="fn zerotrie::varint::write_varint_meta2">write_varint_meta2</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Returns a new <a href="../builder/konst/store/struct.ConstArrayBuilder.html" title="struct zerotrie::builder::konst::store::ConstArrayBuilder"><code>ConstArrayBuilder</code></a> containing a varint with 2 bits of metadata.</div></li><li><div class="item-name"><a class="fn" href="fn.write_varint_meta3.html" title="fn zerotrie::varint::write_varint_meta3">write_varint_meta3</a><span title="Restricted Visibility">&nbsp;🔒</span> </div><div class="desc docblock-short">Returns a new <a href="../builder/konst/store/struct.ConstArrayBuilder.html" title="struct zerotrie::builder::konst::store::ConstArrayBuilder"><code>ConstArrayBuilder</code></a> containing a varint with 3 bits of metadata.</div></li></ul></section></div></main></body></html>

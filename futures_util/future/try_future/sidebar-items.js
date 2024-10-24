@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["into_future","try_flatten","try_flatten_err"],"struct":["AndThen","ErrInto","FlattenSink","InspectErr","InspectOk","MapErr","MapOk","MapOkOrElse","OkInto","OrElse","TryFlatten","TryFlattenErr","TryFlattenStream","UnwrapOrElse"],"trait":["TryFutureExt"]};

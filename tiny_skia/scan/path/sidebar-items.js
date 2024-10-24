@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CONSERVATIVE_ROUND_BIAS"],"fn":["backward_insert_edge_based_on_x","backward_insert_start","conservative_round_to_int","fill_path","fill_path_impl","insert_edge_after","insert_new_edges","remove_edge","round_down_to_int","round_up_to_int","walk_edges"]};

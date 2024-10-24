@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Request"],"fn":["includes_credentials","is_cors_safelisted_method","is_method","net_request_from_global","normalize_method","request_is_disturbed","request_is_locked"],"struct":["Request"]};

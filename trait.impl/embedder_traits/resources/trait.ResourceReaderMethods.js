@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"servoshell":[["impl <a class=\"trait\" href=\"embedder_traits/resources/trait.ResourceReaderMethods.html\" title=\"trait embedder_traits::resources::ResourceReaderMethods\">ResourceReaderMethods</a> for <a class=\"struct\" href=\"servoshell/resources/struct.ResourceReader.html\" title=\"struct servoshell::resources::ResourceReader\">ResourceReader</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

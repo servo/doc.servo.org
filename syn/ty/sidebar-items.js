@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReturnType","Type"],"mod":["parsing","printing"],"struct":["Abi","BareFnArg","BareVariadic","TypeArray","TypeBareFn","TypeGroup","TypeImplTrait","TypeInfer","TypeMacro","TypeNever","TypeParen","TypePath","TypePtr","TypeReference","TypeSlice","TypeTraitObject","TypeTuple"]};

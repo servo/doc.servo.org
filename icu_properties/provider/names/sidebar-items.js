@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["__IMPL_VarULE_FOR_NormalizedPropertyNameStr_ULE_SIZE"],"fn":["normalize_char"],"struct":["GeneralCategoryMaskNameToValueV1Marker","NormalizedPropertyNameStr","PropertyEnumToValueNameLinearMapV1","PropertyEnumToValueNameLinearTiny4MapV1","PropertyEnumToValueNameSparseMapV1","PropertyValueNameToEnumMapV1"]};

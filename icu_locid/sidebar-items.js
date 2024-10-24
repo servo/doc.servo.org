@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ParserError","SubtagOrderingResult"],"macro":["langid","locale"],"mod":["extensions","helpers","langid","locale","macros","ordering","parser","shortvec","subtags","zerovec"],"struct":["LanguageIdentifier","Locale"]};

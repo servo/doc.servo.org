@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Shader","SpreadMode"],"mod":["gradient","linear_gradient","pattern","radial_gradient"]};

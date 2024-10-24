@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["collect_reports","jemalloc_stat","mallinfo","page_size","proc_self_statm_field","resident","resident_segments","system_heap_allocated","vsize"],"struct":["struct_mallinfo"]};

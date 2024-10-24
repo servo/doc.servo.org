@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PendingCaseConversionResult"],"fn":["capitalize_string","preserve_segment_break"],"struct":["InlineFormattingContextBuilder","TextTransformation","WhitespaceCollapse"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Override","Shape"],"fn":["parse_attribute_to_meta_list","path_to_string"],"mod":["flag","ident_string","ignored","over_ride","parse_attribute","parse_expr","path_list","path_to_string","shape","spanned_value","with_original"],"struct":["Flag","IdentString","Ignored","PathList","ShapeSet","SpannedValue","WithOriginal"],"trait":["AsShape"]};

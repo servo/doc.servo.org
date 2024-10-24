@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"malloc_size_of":[],
+"style_traits":[["impl&lt;T: <a class=\"trait\" href=\"malloc_size_of/trait.MallocSizeOf.html\" title=\"trait malloc_size_of::MallocSizeOf\">MallocSizeOf</a>&gt; <a class=\"trait\" href=\"malloc_size_of/trait.MallocUnconditionalSizeOf.html\" title=\"trait malloc_size_of::MallocUnconditionalSizeOf\">MallocUnconditionalSizeOf</a> for <a class=\"struct\" href=\"style_traits/arc_slice/struct.ArcSlice.html\" title=\"struct style_traits::arc_slice::ArcSlice\">ArcSlice</a>&lt;T&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

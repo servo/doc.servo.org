@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create","tempdir","tempdir_in"],"mod":["imp"],"struct":["TempDir"]};

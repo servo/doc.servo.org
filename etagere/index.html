@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Dynamic texture atlas allocation using the shelf packing algorithm."><title>etagere - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="etagere" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../etagere/index.html">etagere</a><span class="version">0.2.13</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Aliases</a></li></ul></section></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">etagere</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/etagere/lib.rs.html#1-166">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Dynamic texture atlas allocation using the shelf packing algorithm.</p>
+<h3 id="texture-atlas-allocation"><a class="doc-anchor" href="#texture-atlas-allocation">§</a>Texture atlas allocation</h3>
+<p>The goal of a texture atlas allocator is to pack multiple rectangles into a larger one.
+When rendering 2D or 3D graphics on the GPU, this packing important for draw call batching. </p>
+<p>This crate provides two implementations of the shelf packing algorithm for <em>dynamic</em>
+texture atlas allocation (dynamic here means supporting both allocation and deallocation).</p>
+<p><a href="https://github.com/juj/RectangleBinPack/blob/master/RectangleBinPack.pdf">A thousand ways to pack the bin</a>
+is a good resource to learn about rectangle packing algorithms, although it does not not cover
+deallocation which complicates the problem space a fair bit.</p>
+<p>The shelf packing algorithm is explained in the above document. It isn’t the most efficient
+packing strategy, however its simplicity makes it possible to support reasonably fast deallocation.
+Note that the <a href="https://crates.io/crates/guillotiere">guillotiere</a> crate implements a similar API
+using the guillotine packing algorithm and may or may not provide better results depending on the
+type of workload.</p>
+<h3 id="two-allocators"><a class="doc-anchor" href="#two-allocators">§</a>Two allocators</h3>
+<ul>
+<li><a href="struct.AtlasAllocator.html"><code>AtlasAllocator</code></a> Tracks allocations for each individual item and does a reasonable
+job of dealing with fragmentation, at a runtime cost.</li>
+<li><a href="struct.BucketedAtlasAllocator.html"><code>BucketedAtlasAllocator</code></a> groups items by buckets and only reclaim the space occupied
+by a bucket when all of its items are deallocated. In addition, it has limited support
+for merging consecutive empty shelves. These limitations allow faster allocation and
+deallocation, making it an appealing option when the atlas is expected to hold a very
+large amount of small items.</li>
+</ul>
+<p>Both allocators support:</p>
+<ul>
+<li>Requiring an alignment for the items.</li>
+<li>Packing into vertical shelves instead of horizontal ones (might provide a better output
+for some workloads).</li>
+<li>Splitting the allocator into multiple columns in order to make shelves smaller and allow
+more of them.</li>
+<li>Dumping the content of the atlas in SVG format for easy debugging.</li>
+</ul>
+<p>See <a href="struct.AllocatorOptions.html"><code>AllocatorOptions</code></a></p>
+<p>In addition, this repository contains a command-line application to experiment with and
+test the implementations interactively.</p>
+<h3 id="example"><a class="doc-anchor" href="#example">§</a>Example</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>etagere::<span class="kw-2">*</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>atlas = AtlasAllocator::new(size2(<span class="number">1000</span>, <span class="number">1000</span>));
+
+<span class="kw">let </span>a = atlas.allocate(size2(<span class="number">100</span>, <span class="number">100</span>)).unwrap();
+<span class="kw">let </span>b = atlas.allocate(size2(<span class="number">900</span>, <span class="number">200</span>)).unwrap();
+<span class="macro">println!</span>(<span class="string">"Allocated {:?} and {:?}"</span>, a.rectangle, b.rectangle);
+
+atlas.deallocate(a.id);
+
+<span class="kw">let </span>c = atlas.allocate(size2(<span class="number">300</span>, <span class="number">200</span>)).unwrap();
+
+atlas.deallocate(c.id);
+atlas.deallocate(b.id);</code></pre></div>
+<h3 id="license"><a class="doc-anchor" href="#license">§</a>License</h3>
+<p>Licensed under either of</p>
+<ul>
+<li>Apache License, Version 2.0 (<a href="LICENSE-APACHE">LICENSE-APACHE</a> or https://www.apache.org/licenses/LICENSE-2.0)</li>
+<li>MIT license (<a href="LICENSE-MIT">LICENSE-MIT</a> or https://opensource.org/licenses/MIT)</li>
+</ul>
+<p>at your option.</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><code>pub extern crate <a class="mod" href="../euclid/index.html" title="mod euclid">euclid</a>;</code></div></li><li><div class="item-name"><code>pub extern crate <a class="mod" href="../serde/index.html" title="mod serde">serde</a>;</code></div></li></ul><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="allocator/index.html" title="mod etagere::allocator">allocator</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li><li><div class="item-name"><a class="mod" href="bucketed/index.html" title="mod etagere::bucketed">bucketed</a><span title="Restricted Visibility">&nbsp;🔒</span> </div></li></ul><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.AllocId.html" title="struct etagere::AllocId">AllocId</a></div><div class="desc docblock-short">ID referring to an allocated rectangle.</div></li><li><div class="item-name"><a class="struct" href="struct.Allocation.html" title="struct etagere::Allocation">Allocation</a></div><div class="desc docblock-short">The <code>AllocId</code> and <code>Rectangle</code> resulting from an allocation.</div></li><li><div class="item-name"><a class="struct" href="struct.AllocatorOptions.html" title="struct etagere::AllocatorOptions">AllocatorOptions</a></div><div class="desc docblock-short">Options to tweak the behavior of the atlas allocator.</div></li><li><div class="item-name"><a class="struct" href="struct.AtlasAllocator.html" title="struct etagere::AtlasAllocator">AtlasAllocator</a></div><div class="desc docblock-short">A shelf-packing dynamic texture atlas allocator tracking each allocation individually and with support
+for coalescing empty shelves.</div></li><li><div class="item-name"><a class="struct" href="struct.BucketedAtlasAllocator.html" title="struct etagere::BucketedAtlasAllocator">BucketedAtlasAllocator</a></div><div class="desc docblock-short">A faster but less precise Shelf-packing dynamic texture atlas allocator, inspired by https://github.com/mapbox/shelf-pack/</div></li><li><div class="item-name"><a class="struct" href="struct.Iter.html" title="struct etagere::Iter">Iter</a></div><div class="desc docblock-short">Iterator over the allocations of an atlas.</div></li></ul><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="constant" href="constant.DEFAULT_OPTIONS.html" title="constant etagere::DEFAULT_OPTIONS">DEFAULT_OPTIONS</a></div></li></ul><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.point2.html" title="fn etagere::point2">point2</a></div><div class="desc docblock-short">Shorthand for <code>Point2D::new(x, y)</code>.</div></li><li><div class="item-name"><a class="fn" href="fn.size2.html" title="fn etagere::size2">size2</a></div><div class="desc docblock-short">Shorthand for <code>Size2D::new(w, h)</code>.</div></li></ul><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="type" href="type.Point.html" title="type etagere::Point">Point</a></div></li><li><div class="item-name"><a class="type" href="type.Rectangle.html" title="type etagere::Rectangle">Rectangle</a></div></li><li><div class="item-name"><a class="type" href="type.Size.html" title="type etagere::Size">Size</a></div></li></ul></section></div></main></body></html>

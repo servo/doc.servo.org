@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["animate","squared_distance"]};

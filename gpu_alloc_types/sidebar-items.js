@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DeviceMapError","OutOfMemory"],"mod":["device","types"],"struct":["AllocationFlags","DeviceProperties","MappedMemoryRange","MemoryHeap","MemoryPropertyFlags","MemoryType"],"trait":["MemoryDevice"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericColor","GenericColorOrAuto"],"struct":["ColorMixFlags","GenericCaretColor","GenericColorMix"]};

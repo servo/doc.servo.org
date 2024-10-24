@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UTF8_BOM"],"struct":["Decoder"]};

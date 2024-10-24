@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["remember_extension","set_extension_once"],"struct":["Extension"]};

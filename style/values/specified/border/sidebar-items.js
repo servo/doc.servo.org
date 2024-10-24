@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BorderImageRepeatKeyword","BorderStyle","LineWidth"],"fn":["serialize_directional_border"],"struct":["BorderImageRepeat","BorderSideWidth"],"type":["BorderCornerRadius","BorderImageSideWidth","BorderImageSlice","BorderImageWidth","BorderRadius","BorderSpacing"]};

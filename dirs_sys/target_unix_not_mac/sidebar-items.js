@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["user_dir","user_dir_file","user_dirs"]};

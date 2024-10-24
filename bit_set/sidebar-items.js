@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["blocks_for_bits","match_words"],"struct":["BitSet","BlockIter","Difference","Intersection","Iter","SymmetricDifference","TwoBitPositions","Union"],"type":["MatchWords"]};

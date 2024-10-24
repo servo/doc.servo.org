@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ICU4XMetazoneCalculator_create","ICU4XMetazoneCalculator_destroy"],"struct":["ICU4XMetazoneCalculator"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["byte_index_from_char_index","ccursor_next_line","ccursor_next_word","ccursor_previous_line","ccursor_previous_word","cursor_rect","find_line_start","is_linebreak","is_word_char","next_line_boundary_char_index","next_word_boundary_char_index","select_line_at","select_word_at","slice_char_range"],"struct":["TextCursorState"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["slice_create_writer","slice_infer_headers"],"struct":["AllLayersWriter","LayerWriter"],"trait":["LayersWriter","WritableLayers"],"type":["RecursiveLayersWriter"]};

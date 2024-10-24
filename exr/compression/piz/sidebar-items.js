@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BITMAP_SIZE","U16_RANGE"],"fn":["apply_lookup_table","bitmap_from_data","compress","decompress","forward_lookup_table_from_bitmap","reverse_lookup_table_from_bitmap"],"mod":["huffman","wavelet"],"struct":["ChannelData"]};

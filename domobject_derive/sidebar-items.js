@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["DomObject"],"fn":["expand_dom_object"]};

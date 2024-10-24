@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCRATCH_SPACE"],"fn":["differences_to_samples","interleave_byte_blocks","samples_to_differences","separate_bytes_fragments","with_reused_buffer"]};

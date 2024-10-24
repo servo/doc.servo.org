@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Message","Role","WebSocketState"],"mod":["frame","message"],"struct":["WebSocket","WebSocketConfig","WebSocketContext"],"trait":["CheckConnectionReset"]};

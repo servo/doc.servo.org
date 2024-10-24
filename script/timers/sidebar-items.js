@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InternalTimerCallback","IsInterval","OneshotTimerCallback","TimerCallback"],"fn":["clamp_duration"],"struct":["JsTimerEntry","JsTimerHandle","JsTimerTask","JsTimers","OneshotTimer","OneshotTimerHandle","OneshotTimers"]};

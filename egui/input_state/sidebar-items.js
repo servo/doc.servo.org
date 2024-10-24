@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PointerEvent"],"mod":["touch_state"],"struct":["Click","InputOptions","InputState","PointerState"]};

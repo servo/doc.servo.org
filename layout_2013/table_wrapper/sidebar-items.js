@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SelectedAutoLayoutCandidateGuess","TableLayout"],"fn":["initial_computed_inline_size","interp","weight"],"struct":["AbsoluteTable","AutoLayoutCandidateGuess","ExcessInlineSizeDistributionInfo","FloatedTable","IntermediateColumnInlineSize","Table","TableWrapperFlow"]};

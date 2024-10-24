@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColorOutput","DecodingError","DisposalMethod","EncodingError","EncodingFormatError","Extension","ExtensionData","MemoryLimit","Repeat","Version"],"macro":["insert_as_doc"],"mod":["common","encoder","reader","streaming_decoder","traits"],"struct":["AnyExtension","DecodeOptions","Decoder","DecodingFormatError","Encoder","Frame"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LifetimeKind"],"struct":["BorrowedParams","Method","Param","SelfParam"]};

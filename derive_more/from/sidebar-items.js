@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["enum_from","expand","struct_from"]};

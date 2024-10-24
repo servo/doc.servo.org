@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericFormattedValue","GenericSignedFormattedValue"],"macro":["impl_gsfv_fn_opt_ret"],"struct":["DisplayableOptionOther","Other"],"trait":["OtherFormatConstructor"]};

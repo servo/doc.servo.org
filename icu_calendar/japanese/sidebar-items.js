@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FALLBACK_ERA","HEISEI_START","MEIJI_START","REIWA_START","SHOWA_START","TAISHO_START"],"struct":["Japanese","JapaneseDateInner","JapaneseExtended"]};

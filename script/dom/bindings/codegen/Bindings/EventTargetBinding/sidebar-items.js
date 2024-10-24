@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["EventTarget_Binding"],"struct":["AddEventListenerOptions","EventListenerOptions"]};

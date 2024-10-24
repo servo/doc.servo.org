@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_CACHE_TASK_SIZE"],"enum":["RenderTaskCacheKeyKind","RenderTaskCacheMarker","RenderTaskParent"],"fn":["to_cache_size"],"struct":["RenderTaskCache","RenderTaskCacheEntry","RenderTaskCacheKey"],"type":["RenderTaskCacheEntryHandle"]};

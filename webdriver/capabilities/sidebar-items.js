@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["firstMatch_default"],"struct":["LegacyNewSessionParameters","SpecNewSessionParameters"],"trait":["BrowserCapabilities","CapabilitiesMatching"],"type":["Capabilities"]};

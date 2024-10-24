@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SHADER_IMPORT"],"enum":["ShaderKind","ShaderVersion"],"fn":["build_shader_main_string","build_shader_prefix_string","build_shader_strings","do_build_shader_string","shader_source_from_file"],"struct":["MAX_VERTEX_TEXTURE_WIDTH_STRING","ProgramSourceDigest","ShaderSourceParser"]};

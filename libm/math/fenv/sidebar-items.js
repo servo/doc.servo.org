@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FE_INEXACT","FE_TONEAREST","FE_UNDERFLOW"],"fn":["feclearexcept","fegetround","feraiseexcept","fetestexcept"]};

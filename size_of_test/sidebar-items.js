@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["const_assert_eq","size_of_test"]};

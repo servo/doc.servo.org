@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["array_zf_impl","impl_copy_type","tuple_zf_impl"]};

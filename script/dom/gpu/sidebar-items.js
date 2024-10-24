@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_GPU"],"fn":["response_async"],"struct":["GPU","WGPUResponse"],"trait":["AsyncWGPUListener"]};

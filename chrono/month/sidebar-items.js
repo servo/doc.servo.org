@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Month"],"mod":["month_serde"],"struct":["Months","ParseMonthError"]};

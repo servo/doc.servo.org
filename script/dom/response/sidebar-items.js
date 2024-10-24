@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Response"],"fn":["is_null_body_status","is_redirect_status","is_valid_status_text","serialize_without_fragment"],"struct":["Response"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["XWAYLAND_SHELL_V1_INTERFACE","XWAYLAND_SURFACE_V1_INTERFACE","types_null","xwayland_shell_v1_interface","xwayland_shell_v1_requests","xwayland_shell_v1_requests_get_xwayland_surface_types","xwayland_surface_v1_interface","xwayland_surface_v1_requests"],"struct":["SyncWrapper"]};

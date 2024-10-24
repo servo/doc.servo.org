@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SAFE_MILLIS_DURATION","STATE_DEREGISTERED","STATE_MIN_VALUE","STATE_PENDING_FIRE"],"fn":["generate_shard_id"],"struct":["StateCell","TimerEntry","TimerHandle","TimerShared"],"type":["EntryList","TimerResult"]};

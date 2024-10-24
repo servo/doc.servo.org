@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["disallow_block_in_place","try_enter_blocking_region"],"struct":["BlockingRegionGuard","DisallowBlockInPlaceGuard"]};

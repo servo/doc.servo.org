@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["setters"],"mod":["sealed"],"struct":["Parsed"]};

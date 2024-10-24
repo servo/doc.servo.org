@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["date_time_formatter_size"],"struct":["DateTimeFormatter"]};

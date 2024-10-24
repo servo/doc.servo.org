@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DocumentMatchingFunction","MediaDocumentKind"],"macro":["parse_quoted_or_unquoted_string"],"struct":["DocumentCondition","DocumentRule"]};

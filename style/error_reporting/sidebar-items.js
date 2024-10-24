@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ContextualParseError","SelectorWarningKind"],"struct":["PerCompoundState","RustLogReporter","UnconstrainedRelativeSelectorVisitor"],"trait":["ParseErrorReporter"]};

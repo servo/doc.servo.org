@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WANT_PENDING","WANT_READY"],"enum":["DelayEof","Kind"],"struct":["Body","Extra","Sender"],"type":["BodySender","DelayEofUntil","TrailersSender"]};

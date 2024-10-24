@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LZ_CODE_BUF_SIZE","LZ_DICT_FULL_SIZE","LZ_HASH_BITS","LZ_HASH_SHIFT","LZ_HASH_SIZE","OUT_BUF_SIZE"],"fn":["update_hash"],"struct":["HashBuffers","LocalBuf"]};

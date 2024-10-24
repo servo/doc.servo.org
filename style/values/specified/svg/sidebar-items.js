@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PAINT_ORDER_COUNT","PAINT_ORDER_MASK","PAINT_ORDER_SHIFT"],"enum":["DProperty","PaintOrder"],"fn":["is_context_value_enabled"],"macro":["parse_svg_length"],"struct":["ContextPropertyBits","MozContextProperties","SVGPaintOrder","VectorEffect"],"type":["SVGLength","SVGOpacity","SVGPaint","SVGStrokeDashArray","SVGWidth"]};

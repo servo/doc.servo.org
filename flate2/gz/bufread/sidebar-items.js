@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GzState"],"fn":["copy","finish","gz_encoder"],"struct":["GzDecoder","GzEncoder","MultiGzDecoder"]};

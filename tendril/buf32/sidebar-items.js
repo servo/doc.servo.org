@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_LEN","MIN_CAP"],"fn":["bytes_to_vec_capacity"],"struct":["Buf32"]};

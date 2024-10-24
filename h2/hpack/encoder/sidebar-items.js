@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SizeUpdate"],"fn":["encode_int","encode_int_one_byte","encode_not_indexed","encode_not_indexed2","encode_size_update","encode_str","position"],"struct":["Encoder"]};

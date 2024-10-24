@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The code to expose the DOM to JavaScript through IDL bindings."><title>script::dom::bindings - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="script" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../script/index.html">script</a><span class="version">0.0.1</span></h2></div><h2 class="location"><a href="#">Module bindings</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#modules">Modules</a></li></ul></section><h2><a href="../index.html">In script::dom</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../../index.html">script</a>::<wbr><a href="../index.html">dom</a>::<wbr><a class="mod" href="#">bindings</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../../src/script/dom/bindings/mod.rs.html#5-201">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The code to expose the DOM to JavaScript through IDL bindings.</p>
+<h2 id="exposing-a-dom-object-to-javascript"><a class="doc-anchor" href="#exposing-a-dom-object-to-javascript">§</a>Exposing a DOM object to JavaScript</h2>
+<p>As <a href="../index.html#a-dom-object-and-its-reflector">explained earlier</a>, the
+implementation of an interface <code>Foo</code> involves two objects: the DOM object
+(implemented in Rust) and the reflector (a <code>JSObject</code>).</p>
+<p>In order to expose the interface’s members to the web, properties
+corresponding to the operations and attributes are defined on an object in
+the reflector’s prototype chain or on the reflector itself.</p>
+<p>Typically, these properties are either value properties whose value is a
+function (for operations) or accessor properties that have a getter and
+optionally a setter function (for attributes, depending on whether they are
+marked <code>readonly</code>).</p>
+<p>All these JavaScript functions are set up such that, when they’re called,
+they call a Rust function in the generated glue code. This glue code does
+some sanity checks and <a href="conversions/index.html">argument conversions</a>, and
+calls into API implementation for the DOM object.</p>
+<h2 id="rust-reflections-of-webidl-constructs"><a class="doc-anchor" href="#rust-reflections-of-webidl-constructs">§</a>Rust reflections of WebIDL constructs</h2>
+<p>WebIDL members are turned into methods on the DOM object (static methods
+for a static members and instance methods for regular members).</p>
+<p>The instance methods for an interface <code>Foo</code> are defined on a
+<code>dom::bindings::codegen::Bindings::FooBindings::FooMethods</code> trait. This
+trait is then implemented for <code>Foo</code>. (All methods take an <code>&amp;self</code>
+parameter, as pointers to DOM objects can be freely aliased.)</p>
+<p>The return type and argument types are determined
+<a href="#rust-reflections-of-webidl-types">as described below</a>.
+In addition to those, all methods that are
+<a href="#throwing-exceptions">allowed to throw</a>
+will have the return value wrapped in
+<a href="error/type.Fallible.html"><code>Fallible&lt;T&gt;</code></a>.
+Methods that use certain WebIDL types like <code>any</code> or <code>object</code> will get a
+<code>*mut JSContext</code> argument prepended to the argument list. Static methods
+will be passed a <a href="../globalscope/struct.GlobalScope.html"><code>&amp;GlobalScope</code></a>
+for the relevant global. This argument comes before the <code>*mut JSContext</code>
+argument, if any.</p>
+<h3 id="rust-reflections-of-webidl-operations-methods"><a class="doc-anchor" href="#rust-reflections-of-webidl-operations-methods">§</a>Rust reflections of WebIDL operations (methods)</h3>
+<p>A WebIDL operation is turned into one method for every overload.
+The first overload gets the base name, and consecutive overloads have an
+underscore appended to the name.</p>
+<p>The base name of the Rust method is simply the name of the WebIDL operation
+with the first letter converted to uppercase.</p>
+<h3 id="rust-reflections-of-webidl-attributes"><a class="doc-anchor" href="#rust-reflections-of-webidl-attributes">§</a>Rust reflections of WebIDL attributes</h3>
+<p>A WebIDL attribute is turned into a pair of methods: one for the getter and
+one for the setter. A readonly attribute only has a getter and no setter.</p>
+<p>The getter’s name is the name of the attribute with the first letter
+converted to uppercase. It has <code>Get</code> prepended to it if the type of the
+attribute is nullable or if the getter can throw.</p>
+<p>The method signature for the getter looks just like an operation with no
+arguments and the attribute’s type as the return type.</p>
+<p>The setter’s name is <code>Set</code> followed by the name of the attribute with the
+first letter converted to uppercase. The method signature looks just like
+an operation with a void return value and a single argument whose type is
+the attribute’s type.</p>
+<h3 id="rust-reflections-of-webidl-constructors"><a class="doc-anchor" href="#rust-reflections-of-webidl-constructors">§</a>Rust reflections of WebIDL constructors</h3>
+<p>A WebIDL constructor is turned into a static class method named
+<code>Constructor</code>. The arguments of this method will be the arguments of the
+WebIDL constructor, with a <code>&amp;GlobalScope</code> for the relevant global prepended.
+The return value of the constructor for MyInterface is exactly the same as
+that of a method returning an instance of MyInterface. Constructors are
+always <a href="#throwing-exceptions">allowed to throw</a>.</p>
+<h3 id="rust-reflections-of-webidl-types"><a class="doc-anchor" href="#rust-reflections-of-webidl-types">§</a>Rust reflections of WebIDL types</h3>
+<p>The exact Rust representation for WebIDL types can depend on the precise
+way that they’re being used (e.g., return values and arguments might have
+different representations).</p>
+<p>Optional arguments which do not have a default value are represented by
+wrapping <code>Option&lt;T&gt;</code> around the representation of the argument type.
+Optional arguments which do have a default value are represented by the
+argument type itself, set to the default value if the argument was not in
+fact passed in.</p>
+<p>Variadic WebIDL arguments are represented by wrapping a <code>Vec&lt;T&gt;</code> around the
+representation of the argument type.</p>
+<p>See <a href="conversions/index.html">the type mapping for particular types</a>.</p>
+<h3 id="rust-reflections-of-stringifiers"><a class="doc-anchor" href="#rust-reflections-of-stringifiers">§</a>Rust reflections of stringifiers</h3>
+<p><em>To be written.</em></p>
+<h3 id="rust-reflections-of-legacy-callers"><a class="doc-anchor" href="#rust-reflections-of-legacy-callers">§</a>Rust reflections of legacy callers</h3>
+<p>Legacy callers are not yet implemented.</p>
+<h2 id="throwing-exceptions"><a class="doc-anchor" href="#throwing-exceptions">§</a>Throwing exceptions</h2>
+<p>WebIDL methods, getters, and setters that need to throw exceptions need to
+be explicitly marked as such with the <code>[Throws]</code>, <code>[GetterThrows]</code> and
+<code>[SetterThrows]</code> custom attributes.</p>
+<p><code>[Throws]</code> applies to both methods and attributes; for attributes it means
+both the getter and the setter (if any) can throw. <code>[GetterThrows]</code> applies
+only to attributes. <code>[SetterThrows]</code> applies only to writable attributes.</p>
+<p>The corresponding Rust methods will have the return value wrapped in
+<a href="error/type.Fallible.html"><code>Fallible&lt;T&gt;</code></a>. To throw an exception, simply
+return <code>Err()</code> from the method with the appropriate [error value]
+(error/enum.Error.html).</p>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="buffer_source/index.html" title="mod script::dom::bindings::buffer_source">buffer_source</a></div></li><li><div class="item-name"><a class="mod" href="callback/index.html" title="mod script::dom::bindings::callback">callback</a></div><div class="desc docblock-short">Base classes to work with IDL callbacks.</div></li><li><div class="item-name"><a class="mod" href="cell/index.html" title="mod script::dom::bindings::cell">cell</a></div><div class="desc docblock-short">A shareable mutable container for the DOM.</div></li><li><div class="item-name"><a class="mod" href="codegen/index.html" title="mod script::dom::bindings::codegen">codegen</a></div><div class="desc docblock-short">Generated JS-Rust bindings.</div></li><li><div class="item-name"><a class="mod" href="constant/index.html" title="mod script::dom::bindings::constant">constant</a></div><div class="desc docblock-short">WebIDL constants.</div></li><li><div class="item-name"><a class="mod" href="constructor/index.html" title="mod script::dom::bindings::constructor">constructor</a></div></li><li><div class="item-name"><a class="mod" href="conversions/index.html" title="mod script::dom::bindings::conversions">conversions</a></div><div class="desc docblock-short">Conversions of Rust values to and from <code>JSVal</code>.</div></li><li><div class="item-name"><a class="mod" href="error/index.html" title="mod script::dom::bindings::error">error</a></div><div class="desc docblock-short">Utilities to throw exceptions from Rust bindings.</div></li><li><div class="item-name"><a class="mod" href="finalize/index.html" title="mod script::dom::bindings::finalize">finalize</a></div></li><li><div class="item-name"><a class="mod" href="guard/index.html" title="mod script::dom::bindings::guard">guard</a></div><div class="desc docblock-short">Machinery to conditionally expose things.</div></li><li><div class="item-name"><a class="mod" href="import/index.html" title="mod script::dom::bindings::import">import</a></div></li><li><div class="item-name"><a class="mod" href="inheritance/index.html" title="mod script::dom::bindings::inheritance">inheritance</a></div><div class="desc docblock-short">The <code>Castable</code> trait.</div></li><li><div class="item-name"><a class="mod" href="interface/index.html" title="mod script::dom::bindings::interface">interface</a></div><div class="desc docblock-short">Machinery to initialise interface prototype objects and interface objects.</div></li><li><div class="item-name"><a class="mod" href="iterable/index.html" title="mod script::dom::bindings::iterable">iterable</a></div><div class="desc docblock-short">Implementation of <code>iterable&lt;...&gt;</code> and <code>iterable&lt;..., ...&gt;</code> WebIDL declarations.</div></li><li><div class="item-name"><a class="mod" href="like/index.html" title="mod script::dom::bindings::like">like</a></div><div class="desc docblock-short">Implementation of <code>setlike&lt;...&gt;</code> and <code>maplike&lt;..., ...&gt;</code> WebIDL declarations.</div></li><li><div class="item-name"><a class="mod" href="namespace/index.html" title="mod script::dom::bindings::namespace">namespace</a></div><div class="desc docblock-short">Machinery to initialise namespace objects.</div></li><li><div class="item-name"><a class="mod" href="num/index.html" title="mod script::dom::bindings::num">num</a></div><div class="desc docblock-short">The <code>Finite&lt;T&gt;</code> struct.</div></li><li><div class="item-name"><a class="mod" href="principals/index.html" title="mod script::dom::bindings::principals">principals</a></div></li><li><div class="item-name"><a class="mod" href="proxyhandler/index.html" title="mod script::dom::bindings::proxyhandler">proxyhandler</a></div><div class="desc docblock-short">Utilities for the implementation of JSAPI proxy handlers.</div></li><li><div class="item-name"><a class="mod" href="record/index.html" title="mod script::dom::bindings::record">record</a></div><div class="desc docblock-short">The <code>Record</code> (open-ended dictionary) type.</div></li><li><div class="item-name"><a class="mod" href="refcounted/index.html" title="mod script::dom::bindings::refcounted">refcounted</a></div><div class="desc docblock-short">A generic, safe mechanism by which DOM objects can be pinned and transferred
+between threads (or intra-thread for asynchronous events). Akin to Gecko’s
+nsMainThreadPtrHandle, this uses thread-safe reference counting and ensures
+that the actual SpiderMonkey GC integration occurs on the script thread via
+weak refcounts. Ownership of a <code>Trusted&lt;T&gt;</code> object means the DOM object of
+type T to which it points remains alive. Any other behaviour is undefined.
+To guarantee the lifetime of a DOM object when performing asynchronous operations,
+obtain a <code>Trusted&lt;T&gt;</code> from that object and pass it along with each operation.
+A usable pointer to the original DOM object can be obtained on the script thread
+from a <code>Trusted&lt;T&gt;</code> via the <code>root</code> method.</div></li><li><div class="item-name"><a class="mod" href="reflector/index.html" title="mod script::dom::bindings::reflector">reflector</a></div><div class="desc docblock-short">The <code>Reflector</code> struct.</div></li><li><div class="item-name"><a class="mod" href="root/index.html" title="mod script::dom::bindings::root">root</a></div><div class="desc docblock-short">Smart pointers for the JS-managed DOM objects.</div></li><li><div class="item-name"><a class="mod" href="serializable/index.html" title="mod script::dom::bindings::serializable">serializable</a></div><div class="desc docblock-short">Trait representing the concept of [serializable objects]
+(<a href="https://html.spec.whatwg.org/multipage/#serializable-objects">https://html.spec.whatwg.org/multipage/#serializable-objects</a>).</div></li><li><div class="item-name"><a class="mod" href="settings_stack/index.html" title="mod script::dom::bindings::settings_stack">settings_stack</a></div></li><li><div class="item-name"><a class="mod" href="str/index.html" title="mod script::dom::bindings::str">str</a></div><div class="desc docblock-short">The <code>ByteString</code> struct.</div></li><li><div class="item-name"><a class="mod" href="structuredclone/index.html" title="mod script::dom::bindings::structuredclone">structuredclone</a></div><div class="desc docblock-short">This module implements structured cloning, as defined by <a href="https://html.spec.whatwg.org/multipage/#safe-passing-of-structured-data">HTML</a>.</div></li><li><div class="item-name"><a class="mod" href="trace/index.html" title="mod script::dom::bindings::trace">trace</a></div><div class="desc docblock-short">Utilities for tracing JS-managed values.</div></li><li><div class="item-name"><a class="mod" href="transferable/index.html" title="mod script::dom::bindings::transferable">transferable</a></div><div class="desc docblock-short">Trait representing the concept of [transferable objects]
+(<a href="https://html.spec.whatwg.org/multipage/#transferable-objects">https://html.spec.whatwg.org/multipage/#transferable-objects</a>).</div></li><li><div class="item-name"><a class="mod" href="utils/index.html" title="mod script::dom::bindings::utils">utils</a></div><div class="desc docblock-short">Various utilities to glue JavaScript and the DOM implementation together.</div></li><li><div class="item-name"><a class="mod" href="weakref/index.html" title="mod script::dom::bindings::weakref">weakref</a></div><div class="desc docblock-short">Weak-referenceable JS-managed DOM objects.</div></li><li><div class="item-name"><a class="mod" href="xmlname/index.html" title="mod script::dom::bindings::xmlname">xmlname</a></div><div class="desc docblock-short">Functions for validating and extracting qualified XML names.</div></li></ul></section></div></main></body></html>

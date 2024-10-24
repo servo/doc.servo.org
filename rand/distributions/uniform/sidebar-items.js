@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHAR_SURROGATE_LEN","CHAR_SURROGATE_START"],"enum":["UniformDurationMode"],"fn":["char_to_comp_u32"],"macro":["uniform_float_impl","uniform_int_impl"],"struct":["Uniform","UniformChar","UniformDuration","UniformFloat","UniformInt"],"trait":["SampleBorrow","SampleRange","SampleUniform","UniformSampler"]};

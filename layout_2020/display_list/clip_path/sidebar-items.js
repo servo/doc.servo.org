@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["build_clip_path_clip_chain_if_necessary","build_simple_shape","compute_shape_radius","create_rect_clip_chain"]};

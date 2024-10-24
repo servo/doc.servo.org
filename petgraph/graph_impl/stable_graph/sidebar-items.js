@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["swap_pair"],"struct":["EdgeIndices","EdgeReference","EdgeReferences","Edges","Neighbors","NodeIndices","NodeReferences","StableGraph","WalkNeighbors"],"type":["StableDiGraph","StableUnGraph"]};

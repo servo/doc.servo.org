@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["getegid","geteuid","getgid","getgroups","getpgid","getpgrp","getpid","getppid","getsid","getuid","setpgid","setsid"],"struct":["Cpuid"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX","MICROS_PER_SEC","MILLIS_PER_SEC","MIN","NANOS_PER_MICRO","NANOS_PER_MILLI","NANOS_PER_SEC","SECS_PER_DAY","SECS_PER_HOUR","SECS_PER_MINUTE","SECS_PER_WEEK"],"fn":["div_mod_floor_64"],"struct":["OutOfRangeError","TimeDelta"]};

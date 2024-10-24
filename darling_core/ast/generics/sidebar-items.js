@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericParam"],"struct":["Generics","TypeParams"],"trait":["GenericParamExt"]};

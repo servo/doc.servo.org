@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WorkerMsg"],"fn":["collect_worker_thread","create_worker","spawn_worker_thread"],"struct":["MpscWorker"]};

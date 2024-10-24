@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XMLHttpRequestResponseType"],"mod":["XMLHttpRequestResponseTypeValues","XMLHttpRequest_Binding"]};

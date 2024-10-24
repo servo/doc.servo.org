@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clamp_to_one"],"macro":["factor_impl_common"],"struct":["NonNegativeFactor","ZeroToOneFactor"],"type":["BoxShadow","SimpleShadow","SpecifiedFilter"]};

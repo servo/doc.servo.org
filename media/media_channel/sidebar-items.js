@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GLPlayerReceiver","GLPlayerSender"],"fn":["glplayer_channel"],"mod":["ipc","mpsc"],"struct":["GLPlayerChan","GLPlayerPipeline"],"type":["GLPlayerSendResult"]};

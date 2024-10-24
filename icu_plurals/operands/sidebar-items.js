@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OperandsError"],"fn":["get_exponent"],"macro":["impl_integer_type","impl_signed_integer_type"],"struct":["PluralOperands"]};

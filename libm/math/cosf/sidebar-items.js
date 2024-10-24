@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["C1_PIO2","C2_PIO2","C3_PIO2","C4_PIO2"],"fn":["cosf"]};

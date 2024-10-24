@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["load","register_thread_with_profiler"],"macro":["profile_scope","tracy_begin_frame","tracy_end_frame","tracy_frame_marker","tracy_plot"],"mod":["disabled"]};

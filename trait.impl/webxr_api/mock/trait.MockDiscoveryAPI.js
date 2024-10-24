@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"webxr":[["impl <a class=\"trait\" href=\"webxr_api/mock/trait.MockDiscoveryAPI.html\" title=\"trait webxr_api::mock::MockDiscoveryAPI\">MockDiscoveryAPI</a>&lt;<a class=\"enum\" href=\"webxr/surfman_layer_manager/enum.SurfmanGL.html\" title=\"enum webxr::surfman_layer_manager::SurfmanGL\">SurfmanGL</a>&gt; for <a class=\"struct\" href=\"webxr/headless/struct.HeadlessMockDiscovery.html\" title=\"struct webxr::headless::HeadlessMockDiscovery\">HeadlessMockDiscovery</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

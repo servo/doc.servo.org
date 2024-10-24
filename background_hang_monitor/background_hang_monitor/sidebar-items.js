@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MonitoredComponentMsg","Never"],"struct":["BackgroundHangMonitorChan","BackgroundHangMonitorWorker","HangMonitorRegister","MonitoredComponent","Sample","SignalToExitOnDrop"],"type":["MonitoredComponentReceiver","MonitoredComponentSender"]};

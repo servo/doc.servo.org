@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AnyCalendar","AnyCalendarKind","AnyDateInner"],"macro":["match_cal_and_date"],"trait":["IntoAnyCalendar"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GamepadHapticEffectType","GamepadHapticsResult"],"mod":["GamepadHapticActuator_Binding","GamepadHapticEffectTypeValues","GamepadHapticsResultValues"],"struct":["GamepadEffectParameters"]};

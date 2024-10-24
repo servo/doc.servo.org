@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_CACHE_SLICES"],"enum":["SliceKind","TileDebugInfo"],"fn":["create_tile_cache","find_scroll_root","find_shared_clip_root"],"struct":["DirtyTileDebugInfo","PictureCacheDebugInfo","PrimarySlice","SliceDebugInfo","SliceDescriptor","TileCacheBuilder","TileCacheConfig"]};

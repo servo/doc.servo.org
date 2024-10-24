@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="This module exposes tooling for running the unicode bidi algorithm using ICU4X data."><title>icu_properties::bidi - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="icu_properties" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../icu_properties/index.html">icu_properties</a><span class="version">1.5.1</span></h2></div><h2 class="location"><a href="#">Module bidi</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li></ul></section><h2><a href="../index.html">In crate icu_properties</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">icu_properties</a>::<wbr><a class="mod" href="#">bidi</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/icu_properties/bidi.rs.html#5-139">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This module exposes tooling for running the <a href="https://unicode.org/reports/tr9/">unicode bidi algorithm</a> using ICU4X data.</p>
+<p><code>BidiClassAdapter</code> enables ICU4X to provide data to [<code>unicode-bidi</code>], an external crate implementing UAX #9.</p>
+<p>✨ <em>Enabled with the <code>bidi</code> Cargo feature.</em></p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code> <span class="kw">use </span>icu::properties::bidi::BidiClassAdapter;
+ <span class="kw">use </span>icu::properties::maps;
+ <span class="kw">use </span>unicode_bidi::BidiInfo;
+ <span class="comment">// This example text is defined using `concat!` because some browsers
+ // and text editors have trouble displaying bidi strings.
+ </span><span class="kw">let </span>text =  <span class="macro">concat!</span>[<span class="string">"א"</span>, <span class="comment">// RTL#1
+                     </span><span class="string">"ב"</span>, <span class="comment">// RTL#2
+                     </span><span class="string">"ג"</span>, <span class="comment">// RTL#3
+                     </span><span class="string">"a"</span>, <span class="comment">// LTR#1
+                     </span><span class="string">"b"</span>, <span class="comment">// LTR#2
+                     </span><span class="string">"c"</span>, <span class="comment">// LTR#3
+                     </span>]; <span class="comment">//
+
+
+ </span><span class="kw">let </span>adapter = BidiClassAdapter::new(maps::bidi_class());
+ <span class="comment">// Resolve embedding levels within the text.  Pass `None` to detect the
+ // paragraph level automatically.
+
+ </span><span class="kw">let </span>bidi_info = BidiInfo::new_with_data_source(<span class="kw-2">&amp;</span>adapter, text, <span class="prelude-val">None</span>);
+
+ <span class="comment">// This paragraph has embedding level 1 because its first strong character is RTL.
+ </span><span class="macro">assert_eq!</span>(bidi_info.paragraphs.len(), <span class="number">1</span>);
+ <span class="kw">let </span>para = <span class="kw-2">&amp;</span>bidi_info.paragraphs[<span class="number">0</span>];
+ <span class="macro">assert_eq!</span>(para.level.number(), <span class="number">1</span>);
+ <span class="macro">assert!</span>(para.level.is_rtl());
+
+ <span class="comment">// Re-ordering is done after wrapping each paragraph into a sequence of
+ // lines. For this example, I'll just use a single line that spans the
+ // entire paragraph.
+ </span><span class="kw">let </span>line = para.range.clone();
+
+ <span class="kw">let </span>display = bidi_info.reorder_line(para, line);
+ <span class="macro">assert_eq!</span>(display, <span class="macro">concat!</span>[<span class="string">"a"</span>, <span class="comment">// LTR#1
+                             </span><span class="string">"b"</span>, <span class="comment">// LTR#2
+                             </span><span class="string">"c"</span>, <span class="comment">// LTR#3
+                             </span><span class="string">"ג"</span>, <span class="comment">// RTL#3
+                             </span><span class="string">"ב"</span>, <span class="comment">// RTL#2
+                             </span><span class="string">"א"</span>, <span class="comment">// RTL#1
+                             </span>]);</code></pre></div>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.BidiClassAdapter.html" title="struct icu_properties::bidi::BidiClassAdapter">BidiClassAdapter</a></div><div class="desc docblock-short">An adapter to convert from icu4x <code>BidiClass</code> to <code>unicode_bidi::BidiClass</code>.</div></li></ul></section></div></main></body></html>

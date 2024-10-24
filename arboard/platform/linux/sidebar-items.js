@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Clipboard","LinuxClipboardKind"],"fn":["encode_as_png","into_unknown"],"mod":["x11"],"struct":["Clear","Get","Set"],"trait":["ClearExtLinux","GetExtLinux","SetExtLinux"]};

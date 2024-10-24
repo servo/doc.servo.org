@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"smithay_clipboard":[["impl <a class=\"trait\" href=\"smithay_client_toolkit/data_device_manager/data_offer/trait.DataOfferHandler.html\" title=\"trait smithay_client_toolkit::data_device_manager::data_offer::DataOfferHandler\">DataOfferHandler</a> for <a class=\"struct\" href=\"smithay_clipboard/state/struct.State.html\" title=\"struct smithay_clipboard::state::State\">State</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

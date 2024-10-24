@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EXPERT_ENCODING","EXPERT_SUBSET_ENCODING"],"enum":["Charset"],"fn":["parse_charset"],"struct":["Format1Range","Format2Range"]};

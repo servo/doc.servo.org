@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["elem_add","elem_double","elem_exp_consttime","elem_exp_vartime","elem_mul","elem_reduced","elem_reduced_once","elem_squared","elem_sub","elem_verify_equal_consttime","elem_widen","from_montgomery_amm","verify_inverses_consttime"],"mod":["boxed_limbs","modulus","private_exponent"],"struct":["Elem","One"],"trait":["PublicModulus"]};

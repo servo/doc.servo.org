@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["key_pair_from_bytes","key_pair_from_pkcs8","key_pair_from_pkcs8_","verify_affine_point_is_on_the_curve","verify_affine_point_is_on_the_curve_scaled","verify_jacobian_point_is_on_the_curve"],"mod":["curve","ecdh","ecdsa","ops","private_key","public_key"]};

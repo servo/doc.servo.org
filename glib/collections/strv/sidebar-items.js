@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_STACK_ALLOCATION","MIN_SIZE"],"struct":["IntoIter","StrV"],"trait":["IntoStrV"]};

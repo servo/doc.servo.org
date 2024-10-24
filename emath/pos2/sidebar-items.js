@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["pos2"],"struct":["Pos2"]};

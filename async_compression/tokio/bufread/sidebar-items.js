@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["generic","macros"],"struct":["BrotliDecoder","BrotliEncoder","GzipDecoder","GzipEncoder","ZlibDecoder","ZlibEncoder"]};

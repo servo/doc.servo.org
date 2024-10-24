@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AppliedEntry","GetAppliedReply","GetComputedReply","GetLayoutReply","IsPositionEditableReply","PageStyleActor","PageStyleMsg"]};

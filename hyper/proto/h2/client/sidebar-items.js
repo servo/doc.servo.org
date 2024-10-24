@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_CONN_WINDOW","DEFAULT_MAX_FRAME_SIZE","DEFAULT_MAX_SEND_BUF_SIZE","DEFAULT_STREAM_WINDOW"],"fn":["conn_task","handshake","new_builder","new_ping_config"],"struct":["ClientTask","Config","FutCtx"],"type":["ClientRx","ConnDropRef","ConnEof"]};

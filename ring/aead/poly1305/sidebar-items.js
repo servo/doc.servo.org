@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLOCK_LEN","KEY_LEN","OPAQUE_LEN"],"fn":["sign"],"macro":["dispatch"],"struct":["Context","Key","poly1305_state"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Compressor","DeflateLevel"],"mod":["deflate","lzw","packbits","uncompressed"],"struct":["Deflate","Lzw","Packbits","Uncompressed"],"trait":["Compression","CompressionAlgorithm"]};

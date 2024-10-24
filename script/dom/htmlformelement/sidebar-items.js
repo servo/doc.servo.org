@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLFormElement"],"enum":["FormDatumValue","FormEncType","FormMethod","FormSubmitterElement","ResetFrom","SubmittedFrom"],"fn":["encode_multipart_form_data","generate_boundary"],"struct":["FormDatum","GenerationId","HTMLFormElement"],"trait":["FormControl","FormControlElementHelpers"]};

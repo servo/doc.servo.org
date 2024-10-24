@@ -1,0 +1,765 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/mozjs-fa11ffc7d4f1cc2d/a02aaf1/mozjs/src/jsapi_wrappers.in`."><title>jsapi_wrappers.in - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="mozjs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<a href="#2" id="2">2</a>
+<a href="#3" id="3">3</a>
+<a href="#4" id="4">4</a>
+<a href="#5" id="5">5</a>
+<a href="#6" id="6">6</a>
+<a href="#7" id="7">7</a>
+<a href="#8" id="8">8</a>
+<a href="#9" id="9">9</a>
+<a href="#10" id="10">10</a>
+<a href="#11" id="11">11</a>
+<a href="#12" id="12">12</a>
+<a href="#13" id="13">13</a>
+<a href="#14" id="14">14</a>
+<a href="#15" id="15">15</a>
+<a href="#16" id="16">16</a>
+<a href="#17" id="17">17</a>
+<a href="#18" id="18">18</a>
+<a href="#19" id="19">19</a>
+<a href="#20" id="20">20</a>
+<a href="#21" id="21">21</a>
+<a href="#22" id="22">22</a>
+<a href="#23" id="23">23</a>
+<a href="#24" id="24">24</a>
+<a href="#25" id="25">25</a>
+<a href="#26" id="26">26</a>
+<a href="#27" id="27">27</a>
+<a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
+<a href="#32" id="32">32</a>
+<a href="#33" id="33">33</a>
+<a href="#34" id="34">34</a>
+<a href="#35" id="35">35</a>
+<a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
+<a href="#39" id="39">39</a>
+<a href="#40" id="40">40</a>
+<a href="#41" id="41">41</a>
+<a href="#42" id="42">42</a>
+<a href="#43" id="43">43</a>
+<a href="#44" id="44">44</a>
+<a href="#45" id="45">45</a>
+<a href="#46" id="46">46</a>
+<a href="#47" id="47">47</a>
+<a href="#48" id="48">48</a>
+<a href="#49" id="49">49</a>
+<a href="#50" id="50">50</a>
+<a href="#51" id="51">51</a>
+<a href="#52" id="52">52</a>
+<a href="#53" id="53">53</a>
+<a href="#54" id="54">54</a>
+<a href="#55" id="55">55</a>
+<a href="#56" id="56">56</a>
+<a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
+<a href="#59" id="59">59</a>
+<a href="#60" id="60">60</a>
+<a href="#61" id="61">61</a>
+<a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
+<a href="#65" id="65">65</a>
+<a href="#66" id="66">66</a>
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
+<a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+</pre></div><pre class="rust"><code><span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToBooleanSlow(v: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToNumberSlow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, dp: <span class="kw-2">*mut </span>f64) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToInt8Slow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, out: <span class="kw-2">*mut </span>i8) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToUint8Slow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, out: <span class="kw-2">*mut </span>u8) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToInt16Slow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, out: <span class="kw-2">*mut </span>i16) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToInt32Slow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, out: <span class="kw-2">*mut </span>i32) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToUint32Slow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, out: <span class="kw-2">*mut </span>u32) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToUint16Slow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, out: <span class="kw-2">*mut </span>u16) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToInt64Slow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, out: <span class="kw-2">*mut </span>i64) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToUint64Slow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, out: <span class="kw-2">*mut </span>u64) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToStringSlow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToObjectSlow(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, reportScanStack: bool) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>NukeNonCCWProxy(cx: <span class="kw-2">*mut </span>JSContext, proxy: HandleObject));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetFirstSubsumedSavedFrame(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, savedFrame: HandleObject, selfHosted: SavedFrameSelfHosted) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>TransparentObjectWrapper(cx: <span class="kw-2">*mut </span>JSContext, existing: HandleObject, obj: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>UnwrapOneCheckedDynamic(obj: HandleObject, cx: <span class="kw-2">*mut </span>JSContext, stopAtWindowProxy: bool) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>RemapDeadWrapper(cx: <span class="kw-2">*mut </span>JSContext, wobj: HandleObject, newTarget: HandleObject));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>RemapAllWrappersForObject(cx: <span class="kw-2">*mut </span>JSContext, oldTarget: HandleObject, newTarget: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetWindowProxy(cx: <span class="kw-2">*mut </span>JSContext, global: HandleObject, windowProxy: HandleObject));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>IsArgumentsObject(obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>EnqueueJob(cx: <span class="kw-2">*mut </span>JSContext, job: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>AssertSameCompartment1(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>NewFunctionByIdWithReservedAndProto(cx: <span class="kw-2">*mut </span>JSContext, native: JSNative, proto: HandleObject, nargs: ::std::os::raw::c_uint, flags: ::std::os::raw::c_uint, id: jsid) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetObjectProto(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, proto: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetRealmOriginalEval(cx: <span class="kw-2">*mut </span>JSContext, eval: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetPropertyKeys(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, flags: ::std::os::raw::c_uint, props: MutableHandleIdVector) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>DateIsValid(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isValid: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>DateGetMsecSinceEpoch(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, msecSinceEpoch: <span class="kw-2">*mut </span>f64) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>PrepareScriptEnvironmentAndInvoke(cx: <span class="kw-2">*mut </span>JSContext, global: HandleObject, closure: <span class="kw-2">*mut </span>ScriptEnvironmentPreparer_Closure));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetElementsWithAdder(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, receiver: HandleObject, begin: u32, end: u32, adder: <span class="kw-2">*mut </span>ElementAdder) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ExecuteInFrameScriptEnvironment(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, script: HandleScript, scope: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReportIsNotFunction(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>RemapRemoteWindowProxies(cx: <span class="kw-2">*mut </span>JSContext, callback: <span class="kw-2">*mut </span>CompartmentTransplantCallback, newTarget: MutableHandleObject));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ComputeThis(cx: <span class="kw-2">*mut </span>JSContext, vp: <span class="kw-2">*mut </span>Value, thisObject: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MaybeFreezeCtorAndPrototype(cx: <span class="kw-2">*mut </span>JSContext, ctor: HandleObject, maybeProto: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetFunctionRealm(cx: <span class="kw-2">*mut </span>JSContext, objArg: HandleObject) -&gt; <span class="kw-2">*mut </span>Realm);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CaptureCurrentStack(cx: <span class="kw-2">*mut </span>JSContext, stackp: MutableHandleObject, capture: <span class="kw-2">*mut </span>StackCapture) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>BuildStackString(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, stack: HandleObject, stringp: MutableHandleString, indent: usize, stackFormat: StackFormat) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>Call(cx: <span class="kw-2">*mut </span>JSContext, thisv: Handle&lt;Value&gt;, fun: Handle&lt;Value&gt;, args: <span class="kw-2">*const </span>HandleValueArray, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>Construct(cx: <span class="kw-2">*mut </span>JSContext, fun: Handle&lt;Value&gt;, newTarget: HandleObject, args: <span class="kw-2">*const </span>HandleValueArray, objp: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>Construct1(cx: <span class="kw-2">*mut </span>JSContext, fun: Handle&lt;Value&gt;, args: <span class="kw-2">*const </span>HandleValueArray, objp: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToGetterId(cx: <span class="kw-2">*mut </span>JSContext, id: Handle&lt;PropertyKey&gt;, getterId: MutableHandle&lt;PropertyKey&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToSetterId(cx: <span class="kw-2">*mut </span>JSContext, id: Handle&lt;PropertyKey&gt;, setterId: MutableHandle&lt;PropertyKey&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ExceptionStackOrNull(obj: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapSize(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; u32);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapGet(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, key: HandleValue, rval: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapHas(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, key: HandleValue, rval: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapSet(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, key: HandleValue, val: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapDelete(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, key: HandleValue, rval: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapClear(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapKeys(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, rval: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapValues(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, rval: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapEntries(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, rval: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>MapForEach(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, callbackFn: HandleValue, thisVal: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetSize(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; u32);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetHas(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, key: HandleValue, rval: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetDelete(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, key: HandleValue, rval: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetAdd(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, key: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetClear(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetKeys(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, rval: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetValues(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, rval: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetEntries(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, rval: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetForEach(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, callbackFn: HandleValue, thisVal: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToCompletePropertyDescriptor(cx: <span class="kw-2">*mut </span>JSContext, descriptor: Handle&lt;Value&gt;, desc: MutableHandle&lt;PropertyDescriptor&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>NewSymbol(cx: <span class="kw-2">*mut </span>JSContext, description: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;) -&gt; <span class="kw-2">*mut </span>Symbol);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSymbolFor(cx: <span class="kw-2">*mut </span>JSContext, key: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;) -&gt; <span class="kw-2">*mut </span>Symbol);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSymbolDescription(symbol: Handle&lt;<span class="kw-2">*mut </span>Symbol&gt;) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSymbolCode(symbol: Handle&lt;<span class="kw-2">*mut </span>Symbol&gt;) -&gt; SymbolCode);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>AbortIncrementalEncoding(script: Handle&lt;<span class="kw-2">*mut </span>JSScript&gt;));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>AbortIncrementalEncoding1(module: HandleObject));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetWeakMapEntry(cx: <span class="kw-2">*mut </span>JSContext, mapObj: HandleObject, key: HandleValue, val: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetWeakMapEntry(cx: <span class="kw-2">*mut </span>JSContext, mapObj: HandleObject, key: HandleValue, val: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ProtoKeyToId(cx: <span class="kw-2">*mut </span>JSContext, key: JSProtoKey, idp: MutableHandleId));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToPrimitive(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, hint: JSType, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>OrdinaryHasInstance(cx: <span class="kw-2">*mut </span>JSContext, objArg: HandleObject, v: HandleValue, bp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>IsMapObject(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isMap: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>IsSetObject(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isSet: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSelfHostedFunction(cx: <span class="kw-2">*mut </span>JSContext, selfHostedName: <span class="kw-2">*const </span>::std::os::raw::c_char, id: HandleId, nargs: ::std::os::raw::c_uint) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>NewFunctionFromSpec(cx: <span class="kw-2">*mut </span>JSContext, fs: <span class="kw-2">*const </span>JSFunctionSpec, id: HandleId) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>PropertySpecNameEqualsId(name: JSPropertySpec_Name, id: HandleId) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CopyArrayBuffer(cx: <span class="kw-2">*mut </span>JSContext, maybeArrayBuffer: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>DetachArrayBuffer(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>HasDefinedArrayBufferDetachKey(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isDefined: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>StealArrayBufferContents(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; <span class="kw-2">*mut </span>::std::os::raw::c_void);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ArrayBufferCopyData(cx: <span class="kw-2">*mut </span>JSContext, toBlock: HandleObject, toIndex: usize, fromBlock: HandleObject, fromIndex: usize, count: usize) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ArrayBufferClone(cx: <span class="kw-2">*mut </span>JSContext, srcBuffer: HandleObject, srcByteOffset: usize, srcLength: usize) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToBigInt(cx: <span class="kw-2">*mut </span>JSContext, val: Handle&lt;Value&gt;) -&gt; <span class="kw-2">*mut </span>BigInt);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>BigIntToString(cx: <span class="kw-2">*mut </span>JSContext, bi: Handle&lt;<span class="kw-2">*mut </span>BigInt&gt;, radix: u8) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>Evaluate(cx: <span class="kw-2">*mut </span>JSContext, options: <span class="kw-2">*const </span>ReadOnlyCompileOptions, srcBuf: <span class="kw-2">*mut </span>SourceText&lt;u16&gt;, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>Evaluate1(cx: <span class="kw-2">*mut </span>JSContext, envChain: HandleObjectVector, options: <span class="kw-2">*const </span>ReadOnlyCompileOptions, srcBuf: <span class="kw-2">*mut </span>SourceText&lt;u16&gt;, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>Evaluate2(cx: <span class="kw-2">*mut </span>JSContext, options: <span class="kw-2">*const </span>ReadOnlyCompileOptions, srcBuf: <span class="kw-2">*mut </span>SourceText&lt;Utf8Unit&gt;, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>EvaluateUtf8Path(cx: <span class="kw-2">*mut </span>JSContext, options: <span class="kw-2">*const </span>ReadOnlyCompileOptions, filename: <span class="kw-2">*const </span>::std::os::raw::c_char, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CompileFunction(cx: <span class="kw-2">*mut </span>JSContext, envChain: HandleObjectVector, options: <span class="kw-2">*const </span>ReadOnlyCompileOptions, name: <span class="kw-2">*const </span>::std::os::raw::c_char, nargs: ::std::os::raw::c_uint, argnames: <span class="kw-2">*const *const </span>::std::os::raw::c_char, srcBuf: <span class="kw-2">*mut </span>SourceText&lt;u16&gt;) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CompileFunction1(cx: <span class="kw-2">*mut </span>JSContext, envChain: HandleObjectVector, options: <span class="kw-2">*const </span>ReadOnlyCompileOptions, name: <span class="kw-2">*const </span>::std::os::raw::c_char, nargs: ::std::os::raw::c_uint, argnames: <span class="kw-2">*const *const </span>::std::os::raw::c_char, srcBuf: <span class="kw-2">*mut </span>SourceText&lt;Utf8Unit&gt;) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CompileFunctionUtf8(cx: <span class="kw-2">*mut </span>JSContext, envChain: HandleObjectVector, options: <span class="kw-2">*const </span>ReadOnlyCompileOptions, name: <span class="kw-2">*const </span>::std::os::raw::c_char, nargs: ::std::os::raw::c_uint, argnames: <span class="kw-2">*const *const </span>::std::os::raw::c_char, utf8: <span class="kw-2">*const </span>::std::os::raw::c_char, length: usize) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ExposeScriptToDebugger(cx: <span class="kw-2">*mut </span>JSContext, script: Handle&lt;<span class="kw-2">*mut </span>JSScript&gt;));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>UpdateDebugMetadata(cx: <span class="kw-2">*mut </span>JSContext, script: Handle&lt;<span class="kw-2">*mut </span>JSScript&gt;, options: <span class="kw-2">*const </span>InstantiateOptions, privateValue: HandleValue, elementAttributeName: HandleString, introScript: HandleScript, scriptOrModule: HandleScript) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>OrdinaryToPrimitive(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, type_: JSType, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ObjectIsDate(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isDate: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>StrictlyEqual(cx: <span class="kw-2">*mut </span>JSContext, v1: Handle&lt;Value&gt;, v2: Handle&lt;Value&gt;, equal: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>LooselyEqual(cx: <span class="kw-2">*mut </span>JSContext, v1: Handle&lt;Value&gt;, v2: Handle&lt;Value&gt;, equal: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SameValue(cx: <span class="kw-2">*mut </span>JSContext, v1: Handle&lt;Value&gt;, v2: Handle&lt;Value&gt;, same: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToJSONMaybeSafely(cx: <span class="kw-2">*mut </span>JSContext, input: HandleObject, callback: JSONWriteCallback, data: <span class="kw-2">*mut </span>::std::os::raw::c_void) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ToJSON(cx: <span class="kw-2">*mut </span>JSContext, value: Handle&lt;Value&gt;, replacer: HandleObject, space: Handle&lt;Value&gt;, callback: JSONWriteCallback, data: <span class="kw-2">*mut </span>::std::os::raw::c_void) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ParseJSONWithHandler(chars: <span class="kw-2">*const </span>Latin1Char, len: u32, handler: <span class="kw-2">*mut </span>JSONParseHandler) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ParseJSONWithHandler1(chars: <span class="kw-2">*const </span>u16, len: u32, handler: <span class="kw-2">*mut </span>JSONParseHandler) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>AddSizeOfTab(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, mallocSizeOf: MallocSizeOf, opv: <span class="kw-2">*mut </span>ObjectPrivateVisitor, sizes: <span class="kw-2">*mut </span>TabSizes) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>FinishDynamicModuleImport(cx: <span class="kw-2">*mut </span>JSContext, evaluationPromise: HandleObject, referencingPrivate: Handle&lt;Value&gt;, moduleRequest: HandleObject, promise: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ModuleLink(cx: <span class="kw-2">*mut </span>JSContext, moduleRecord: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ModuleEvaluate(cx: <span class="kw-2">*mut </span>JSContext, moduleRecord: HandleObject, rval: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ThrowOnModuleEvaluationFailure(cx: <span class="kw-2">*mut </span>JSContext, evaluationPromise: HandleObject, errorBehaviour: ModuleErrorBehaviour) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetRequestedModulesCount(cx: <span class="kw-2">*mut </span>JSContext, moduleRecord: HandleObject) -&gt; u32);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetRequestedModuleSpecifier(cx: <span class="kw-2">*mut </span>JSContext, moduleRecord: HandleObject, index: u32) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetRequestedModuleSourcePos(cx: <span class="kw-2">*mut </span>JSContext, moduleRecord: HandleObject, index: u32, lineNumber: <span class="kw-2">*mut </span>u32, columnNumber: <span class="kw-2">*mut </span>ColumnNumberOneOrigin));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetModuleScript(moduleRecord: HandleObject) -&gt; <span class="kw-2">*mut </span>JSScript);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CreateModuleRequest(cx: <span class="kw-2">*mut </span>JSContext, specifierArg: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetModuleRequestSpecifier(cx: <span class="kw-2">*mut </span>JSContext, moduleRequestArg: HandleObject) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetModuleObject(moduleScript: Handle&lt;<span class="kw-2">*mut </span>JSScript&gt;) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetModuleNamespace(cx: <span class="kw-2">*mut </span>JSContext, moduleRecord: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetModuleForNamespace(cx: <span class="kw-2">*mut </span>JSContext, moduleNamespace: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetModuleEnvironment(cx: <span class="kw-2">*mut </span>JSContext, moduleObj: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetBuiltinClass(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, cls: <span class="kw-2">*mut </span>ESClass) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>NewPromiseObject(cx: <span class="kw-2">*mut </span>JSContext, executor: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>IsPromiseObject(obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetPromiseState(promise: HandleObject) -&gt; PromiseState);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetPromiseID(promise: HandleObject) -&gt; u64);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetPromiseIsHandled(promise: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetSettledPromiseIsHandled(cx: <span class="kw-2">*mut </span>JSContext, promise: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetAnyPromiseIsHandled(cx: <span class="kw-2">*mut </span>JSContext, promise: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetPromiseAllocationSite(promise: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetPromiseResolutionSite(promise: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CallOriginalPromiseResolve(cx: <span class="kw-2">*mut </span>JSContext, resolutionValue: HandleValue) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CallOriginalPromiseReject(cx: <span class="kw-2">*mut </span>JSContext, rejectionValue: HandleValue) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ResolvePromise(cx: <span class="kw-2">*mut </span>JSContext, promiseObj: HandleObject, resolutionValue: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>RejectPromise(cx: <span class="kw-2">*mut </span>JSContext, promiseObj: HandleObject, rejectionValue: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CallOriginalPromiseThen(cx: <span class="kw-2">*mut </span>JSContext, promise: HandleObject, onFulfilled: HandleObject, onRejected: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>AddPromiseReactions(cx: <span class="kw-2">*mut </span>JSContext, promise: HandleObject, onFulfilled: HandleObject, onRejected: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>AddPromiseReactionsIgnoringUnhandledRejection(cx: <span class="kw-2">*mut </span>JSContext, promise: HandleObject, onFulfilled: HandleObject, onRejected: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetPromiseUserInputEventHandlingState(promise: HandleObject) -&gt; PromiseUserInputEventHandlingState);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetPromiseUserInputEventHandlingState(promise: HandleObject, state: PromiseUserInputEventHandlingState) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetWaitForAllPromise(cx: <span class="kw-2">*mut </span>JSContext, promises: HandleObjectVector) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>NewArrayObject(cx: <span class="kw-2">*mut </span>JSContext, contents: <span class="kw-2">*const </span>HandleValueArray) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>IsArrayObject(cx: <span class="kw-2">*mut </span>JSContext, value: Handle&lt;Value&gt;, isArray: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>IsArrayObject1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isArray: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetArrayLength(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, lengthp: <span class="kw-2">*mut </span>u32) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetArrayLength(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, length: u32) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>IsArray(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isArray: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>IsArray1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, answer: <span class="kw-2">*mut </span>IsArrayAnswer) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetRegExpInput(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, input: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ClearRegExpStatics(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ExecuteRegExp(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, reobj: HandleObject, chars: <span class="kw-2">*const </span>u16, length: usize, indexp: <span class="kw-2">*mut </span>usize, test: bool, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ExecuteRegExpNoStatics(cx: <span class="kw-2">*mut </span>JSContext, reobj: HandleObject, chars: <span class="kw-2">*const </span>u16, length: usize, indexp: <span class="kw-2">*mut </span>usize, test: bool, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ObjectIsRegExp(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isRegExp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetRegExpSource(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CheckRegExpSyntax(cx: <span class="kw-2">*mut </span>JSContext, chars: <span class="kw-2">*const </span>u16, length: usize, flags: RegExpFlags, error: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSavedFrameSource(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, savedFrame: HandleObject, sourcep: MutableHandle&lt;<span class="kw-2">*mut </span>JSString&gt;, selfHosted: SavedFrameSelfHosted) -&gt; SavedFrameResult);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSavedFrameSourceId(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, savedFrame: HandleObject, sourceIdp: <span class="kw-2">*mut </span>u32, selfHosted: SavedFrameSelfHosted) -&gt; SavedFrameResult);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSavedFrameLine(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, savedFrame: HandleObject, linep: <span class="kw-2">*mut </span>u32, selfHosted: SavedFrameSelfHosted) -&gt; SavedFrameResult);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSavedFrameColumn(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, savedFrame: HandleObject, columnp: <span class="kw-2">*mut </span>TaggedColumnNumberOneOrigin, selfHosted: SavedFrameSelfHosted) -&gt; SavedFrameResult);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSavedFrameFunctionDisplayName(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, savedFrame: HandleObject, namep: MutableHandle&lt;<span class="kw-2">*mut </span>JSString&gt;, selfHosted: SavedFrameSelfHosted) -&gt; SavedFrameResult);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSavedFrameAsyncCause(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, savedFrame: HandleObject, asyncCausep: MutableHandle&lt;<span class="kw-2">*mut </span>JSString&gt;, selfHosted: SavedFrameSelfHosted) -&gt; SavedFrameResult);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSavedFrameAsyncParent(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, savedFrame: HandleObject, asyncParentp: MutableHandleObject, selfHosted: SavedFrameSelfHosted) -&gt; SavedFrameResult);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetSavedFrameParent(cx: <span class="kw-2">*mut </span>JSContext, principals: <span class="kw-2">*mut </span>JSPrincipals, savedFrame: HandleObject, parentp: MutableHandleObject, selfHosted: SavedFrameSelfHosted) -&gt; SavedFrameResult);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ConvertSavedFrameToPlainObject(cx: <span class="kw-2">*mut </span>JSContext, savedFrame: HandleObject, selfHosted: SavedFrameSelfHosted) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>NewReadableDefaultStreamObject(cx: <span class="kw-2">*mut </span>JSContext, underlyingSource: HandleObject, size: HandleFunction, highWaterMark: f64, proto: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>NewReadableExternalSourceStreamObject(cx: <span class="kw-2">*mut </span>JSContext, underlyingSource: <span class="kw-2">*mut </span>ReadableStreamUnderlyingSource, nsISupportsObject_alreadyAddreffed: <span class="kw-2">*mut </span>::std::os::raw::c_void, proto: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamGetExternalUnderlyingSource(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, source: <span class="kw-2">*mut *mut </span>ReadableStreamUnderlyingSource) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamReleaseExternalUnderlyingSource(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamUpdateDataAvailableFromSource(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, availableData: u32) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamGetMode(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, mode: <span class="kw-2">*mut </span>ReadableStreamMode) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamIsReadable(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, result: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamIsLocked(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, result: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamIsDisturbed(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, result: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamCancel(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, reason: HandleValue) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamGetReader(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, mode: ReadableStreamReaderMode) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamTee(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, branch1Stream: MutableHandleObject, branch2Stream: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamClose(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamReaderIsClosed(cx: <span class="kw-2">*mut </span>JSContext, reader: HandleObject, result: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamEnqueue(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, chunk: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamError(cx: <span class="kw-2">*mut </span>JSContext, stream: HandleObject, error: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamReaderCancel(cx: <span class="kw-2">*mut </span>JSContext, reader: HandleObject, reason: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamReaderReleaseLock(cx: <span class="kw-2">*mut </span>JSContext, reader: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ReadableStreamDefaultReaderRead(cx: <span class="kw-2">*mut </span>JSContext, reader: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>IsWasmModuleObject(obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetWasmModule(obj: HandleObject) -&gt; RefPtr&lt;WasmModule&gt;);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>ForceLexicalInitialization(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_CallFunctionValue(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, fval: Handle&lt;Value&gt;, args: <span class="kw-2">*const </span>HandleValueArray, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_CallFunction(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, fun: Handle&lt;<span class="kw-2">*mut </span>JSFunction&gt;, args: <span class="kw-2">*const </span>HandleValueArray, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_CallFunctionName(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, args: <span class="kw-2">*const </span>HandleValueArray, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_EncodeStringToUTF8(cx: <span class="kw-2">*mut </span>JSContext, str_: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;) -&gt; UniqueChars);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineDebuggerObject(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetPendingException(cx: <span class="kw-2">*mut </span>JSContext, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetPendingException(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, behavior: ExceptionStackBehavior));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ErrorFromException(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; <span class="kw-2">*mut </span>JSErrorReport);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_FireOnNewGlobalObject(cx: <span class="kw-2">*mut </span>JSContext, global: HandleObject));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, desc: Handle&lt;PropertyDescriptor&gt;, result: <span class="kw-2">*mut </span>ObjectOpResult) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, desc: Handle&lt;PropertyDescriptor&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById2(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, value: Handle&lt;Value&gt;, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById3(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, getter: JSNative, setter: JSNative, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById4(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, getter: HandleObject, setter: HandleObject, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById5(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, value: HandleObject, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById6(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, value: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById7(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, value: i32, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById8(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, value: u32, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefinePropertyById9(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, value: f64, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, value: Handle&lt;Value&gt;, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProperty1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, getter: JSNative, setter: JSNative, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProperty2(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, getter: HandleObject, setter: HandleObject, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProperty3(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, value: HandleObject, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProperty4(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, value: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProperty5(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, value: i32, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProperty6(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, value: u32, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProperty7(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, value: f64, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, desc: Handle&lt;PropertyDescriptor&gt;, result: <span class="kw-2">*mut </span>ObjectOpResult) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCProperty1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, desc: Handle&lt;PropertyDescriptor&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCProperty2(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, value: Handle&lt;Value&gt;, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCProperty3(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, getter: HandleObject, setter: HandleObject, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCProperty4(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, value: HandleObject, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCProperty5(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, value: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCProperty6(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, value: i32, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCProperty7(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, value: u32, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCProperty8(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, value: f64, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineElement(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, value: Handle&lt;Value&gt;, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineElement1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, getter: HandleObject, setter: HandleObject, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineElement2(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, value: HandleObject, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineElement3(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, value: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineElement4(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, value: i32, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineElement5(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, value: u32, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineElement6(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, value: f64, attrs: ::std::os::raw::c_uint) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_HasPropertyById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, foundp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_HasProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, foundp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_HasUCProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, vp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_HasElement(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, foundp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_HasOwnPropertyById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, foundp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_HasOwnProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, foundp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ForwardGetPropertyTo(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, receiver: Handle&lt;Value&gt;, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ForwardGetElementTo(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, receiver: HandleObject, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetPropertyById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetUCProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetElement(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ForwardSetPropertyTo(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, v: Handle&lt;Value&gt;, receiver: Handle&lt;Value&gt;, result: <span class="kw-2">*mut </span>ObjectOpResult) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetPropertyById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, v: Handle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, v: Handle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetUCProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, v: Handle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetElement(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, v: Handle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetElement1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, v: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetElement2(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, v: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetElement3(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, v: i32) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetElement4(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, v: u32) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetElement5(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, v: f64) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DeletePropertyById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, result: <span class="kw-2">*mut </span>ObjectOpResult) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DeleteProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, result: <span class="kw-2">*mut </span>ObjectOpResult) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DeleteUCProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, result: <span class="kw-2">*mut </span>ObjectOpResult) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DeleteElement(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, result: <span class="kw-2">*mut </span>ObjectOpResult) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DeletePropertyById1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DeleteProperty1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DeleteElement1(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineObject(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, clasp: <span class="kw-2">*const </span>JSClass, attrs: ::std::os::raw::c_uint) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProperties(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, ps: <span class="kw-2">*const </span>JSPropertySpec) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_AlreadyHasOwnPropertyById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, foundp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_AlreadyHasOwnProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, foundp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_AlreadyHasOwnUCProperty(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, foundp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_AlreadyHasOwnElement(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, index: u32, foundp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineFunctions(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, fs: <span class="kw-2">*const </span>JSFunctionSpec) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineFunction(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, call: JSNative, nargs: ::std::os::raw::c_uint, attrs: ::std::os::raw::c_uint) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineUCFunction(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, call: JSNative, nargs: ::std::os::raw::c_uint, attrs: ::std::os::raw::c_uint) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineFunctionById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: Handle&lt;jsid&gt;, call: JSNative, nargs: ::std::os::raw::c_uint, attrs: ::std::os::raw::c_uint) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewDependentString(cx: <span class="kw-2">*mut </span>JSContext, str_: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;, start: usize, length: usize) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ConcatStrings(cx: <span class="kw-2">*mut </span>JSContext, left: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;, right: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_RefreshCrossCompartmentWrappers(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ValueToObject(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, objp: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ValueToFunction(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ValueToConstructor(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue) -&gt; <span class="kw-2">*mut </span>JSFunction);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ValueToSource(cx: <span class="kw-2">*mut </span>JSContext, v: Handle&lt;Value&gt;) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_TypeOfValue(cx: <span class="kw-2">*mut </span>JSContext, v: Handle&lt;Value&gt;) -&gt; JSType);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_WrapObject(cx: <span class="kw-2">*mut </span>JSContext, objp: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_WrapValue(cx: <span class="kw-2">*mut </span>JSContext, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_TransplantObject(cx: <span class="kw-2">*mut </span>JSContext, origobj: HandleObject, target: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ResolveStandardClass(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: HandleId, resolved: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_EnumerateStandardClasses(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewEnumerateStandardClasses(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, properties: MutableHandleIdVector, enumerableOnly: bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewEnumerateStandardClassesIncludingResolved(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, properties: MutableHandleIdVector, enumerableOnly: bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetClassObject(cx: <span class="kw-2">*mut </span>JSContext, key: JSProtoKey, objp: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetClassPrototype(cx: <span class="kw-2">*mut </span>JSContext, key: JSProtoKey, objp: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_IdToProtoKey(cx: <span class="kw-2">*mut </span>JSContext, id: HandleId) -&gt; JSProtoKey);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_InitReflectParse(cx: <span class="kw-2">*mut </span>JSContext, global: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineProfilingFunctions(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ValueToId(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, idp: MutableHandleId) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_StringToId(cx: <span class="kw-2">*mut </span>JSContext, s: HandleString, idp: MutableHandleId) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_IdToValue(cx: <span class="kw-2">*mut </span>JSContext, id: jsid, vp: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_InitClass(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, protoClass: <span class="kw-2">*const </span>JSClass, protoProto: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, constructor: JSNative, nargs: ::std::os::raw::c_uint, ps: <span class="kw-2">*const </span>JSPropertySpec, fs: <span class="kw-2">*const </span>JSFunctionSpec, static_ps: <span class="kw-2">*const </span>JSPropertySpec, static_fs: <span class="kw-2">*const </span>JSFunctionSpec) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_LinkConstructorAndPrototype(cx: <span class="kw-2">*mut </span>JSContext, ctor: HandleObject, proto: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_InstanceOf(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, clasp: <span class="kw-2">*const </span>JSClass, args: <span class="kw-2">*mut </span>CallArgs) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_HasInstance(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, v: Handle&lt;Value&gt;, bp: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetConstructor(cx: <span class="kw-2">*mut </span>JSContext, proto: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewObjectWithGivenProto(cx: <span class="kw-2">*mut </span>JSContext, clasp: <span class="kw-2">*const </span>JSClass, proto: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DeepFreezeObject(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_FreezeObject(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetPrototype(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, result: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetPrototypeIfOrdinary(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isOrdinary: <span class="kw-2">*mut </span>bool, result: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetPrototype(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, proto: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_IsExtensible(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, extensible: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_PreventExtensions(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, result: <span class="kw-2">*mut </span>ObjectOpResult) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetImmutablePrototype(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, succeeded: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_AssignObject(cx: <span class="kw-2">*mut </span>JSContext, target: HandleObject, src: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_SetAllNonReservedSlotsToUndefined(obj: HandleObject));
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetFunctionId(cx: <span class="kw-2">*mut </span>JSContext, fun: Handle&lt;<span class="kw-2">*mut </span>JSFunction&gt;, name: MutableHandle&lt;<span class="kw-2">*mut </span>JSString&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetFunctionDisplayId(cx: <span class="kw-2">*mut </span>JSContext, fun: Handle&lt;<span class="kw-2">*mut </span>JSFunction&gt;, name: MutableHandle&lt;<span class="kw-2">*mut </span>JSString&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetFunctionLength(cx: <span class="kw-2">*mut </span>JSContext, fun: HandleFunction, length: <span class="kw-2">*mut </span>u16) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetFunctionScript(cx: <span class="kw-2">*mut </span>JSContext, fun: HandleFunction) -&gt; <span class="kw-2">*mut </span>JSScript);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DecompileScript(cx: <span class="kw-2">*mut </span>JSContext, script: Handle&lt;<span class="kw-2">*mut </span>JSScript&gt;) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DecompileFunction(cx: <span class="kw-2">*mut </span>JSContext, fun: Handle&lt;<span class="kw-2">*mut </span>JSFunction&gt;) -&gt; <span class="kw-2">*mut </span>JSString);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_IndexToId(cx: <span class="kw-2">*mut </span>JSContext, index: u32, arg1: MutableHandleId) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_CharsToId(cx: <span class="kw-2">*mut </span>JSContext, chars: TwoByteChars, arg1: MutableHandleId) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_IsIdentifier(cx: <span class="kw-2">*mut </span>JSContext, str_: HandleString, isIdentifier: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_Utf8BufferIsCompilableUnit(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, utf8: <span class="kw-2">*const </span>::std::os::raw::c_char, length: usize) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ExecuteScript(cx: <span class="kw-2">*mut </span>JSContext, script: Handle&lt;<span class="kw-2">*mut </span>JSScript&gt;, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ExecuteScript1(cx: <span class="kw-2">*mut </span>JSContext, script: Handle&lt;<span class="kw-2">*mut </span>JSScript&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ExecuteScript2(cx: <span class="kw-2">*mut </span>JSContext, envChain: HandleObjectVector, script: Handle&lt;<span class="kw-2">*mut </span>JSScript&gt;, rval: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ExecuteScript3(cx: <span class="kw-2">*mut </span>JSContext, envChain: HandleObjectVector, script: Handle&lt;<span class="kw-2">*mut </span>JSScript&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_Stringify(cx: <span class="kw-2">*mut </span>JSContext, value: MutableHandle&lt;Value&gt;, replacer: HandleObject, space: Handle&lt;Value&gt;, callback: JSONWriteCallback, data: <span class="kw-2">*mut </span>::std::os::raw::c_void) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ParseJSON(cx: <span class="kw-2">*mut </span>JSContext, chars: <span class="kw-2">*const </span>u16, len: u32, vp: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ParseJSON1(cx: <span class="kw-2">*mut </span>JSContext, str_: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;, vp: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ParseJSON2(cx: <span class="kw-2">*mut </span>JSContext, chars: <span class="kw-2">*const </span>Latin1Char, len: u32, vp: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ParseJSONWithReviver(cx: <span class="kw-2">*mut </span>JSContext, chars: <span class="kw-2">*const </span>u16, len: u32, reviver: Handle&lt;Value&gt;, vp: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ParseJSONWithReviver1(cx: <span class="kw-2">*mut </span>JSContext, str_: Handle&lt;<span class="kw-2">*mut </span>JSString&gt;, reviver: Handle&lt;Value&gt;, vp: MutableHandle&lt;Value&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ReadStructuredClone(cx: <span class="kw-2">*mut </span>JSContext, data: <span class="kw-2">*const </span>JSStructuredCloneData, version: u32, scope: StructuredCloneScope, vp: MutableHandleValue, cloneDataPolicy: <span class="kw-2">*const </span>CloneDataPolicy, optionalCallbacks: <span class="kw-2">*const </span>JSStructuredCloneCallbacks, closure: <span class="kw-2">*mut </span>::std::os::raw::c_void) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_WriteStructuredClone(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, data: <span class="kw-2">*mut </span>JSStructuredCloneData, scope: StructuredCloneScope, cloneDataPolicy: <span class="kw-2">*const </span>CloneDataPolicy, optionalCallbacks: <span class="kw-2">*const </span>JSStructuredCloneCallbacks, closure: <span class="kw-2">*mut </span>::std::os::raw::c_void, transferable: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_StructuredClone(cx: <span class="kw-2">*mut </span>JSContext, v: HandleValue, vp: MutableHandleValue, optionalCallbacks: <span class="kw-2">*const </span>JSStructuredCloneCallbacks, closure: <span class="kw-2">*mut </span>::std::os::raw::c_void) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ReadString(r: <span class="kw-2">*mut </span>JSStructuredCloneReader, str_: MutableHandleString) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ReadTypedArray(r: <span class="kw-2">*mut </span>JSStructuredCloneReader, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_WriteString(w: <span class="kw-2">*mut </span>JSStructuredCloneWriter, str_: HandleString) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_WriteTypedArray(w: <span class="kw-2">*mut </span>JSStructuredCloneWriter, v: HandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ObjectNotWritten(w: <span class="kw-2">*mut </span>JSStructuredCloneWriter, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewInt8ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewInt8ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewUint8ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewUint8ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewInt16ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewInt16ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewUint16ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewUint16ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewInt32ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewInt32ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewUint32ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewUint32ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewFloat32ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewFloat32ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewFloat64ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewFloat64ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewUint8ClampedArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewUint8ClampedArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewBigInt64ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewBigInt64ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewBigUint64ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewBigUint64ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewFloat16ArrayFromArray(cx: <span class="kw-2">*mut </span>JSContext, array: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewFloat16ArrayWithBuffer(cx: <span class="kw-2">*mut </span>JSContext, arrayBuffer: HandleObject, byteOffset: usize, length: i64) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetArrayBufferViewBuffer(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, isSharedMemory: <span class="kw-2">*mut </span>bool) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewDataView(cx: <span class="kw-2">*mut </span>JSContext, buffer: HandleObject, byteOffset: usize, byteLength: usize) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_FindCompilationScope(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NewObjectWithoutMetadata(cx: <span class="kw-2">*mut </span>JSContext, clasp: <span class="kw-2">*const </span>JSClass, proto: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NondeterministicGetWeakMapKeys(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, ret: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_NondeterministicGetWeakSetKeys(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, ret: MutableHandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_CloneObject(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, proto: HandleObject) -&gt; <span class="kw-2">*mut </span>JSObject);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_InitializePropertiesFromCompatibleNativeObject(cx: <span class="kw-2">*mut </span>JSContext, dst: HandleObject, src: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_CopyOwnPropertiesAndPrivateFields(cx: <span class="kw-2">*mut </span>JSContext, target: HandleObject, obj: HandleObject) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_WrapPropertyDescriptor(cx: <span class="kw-2">*mut </span>JSContext, desc: MutableHandle&lt;PropertyDescriptor&gt;) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_DefineFunctionsWithHelp(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, fs: <span class="kw-2">*const </span>JSFunctionSpecWithHelp) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ForOfIteratorInit(iterator: <span class="kw-2">*mut </span>ForOfIterator, iterable: HandleValue, nonIterableBehavior: ForOfIterator_NonIterableBehavior) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_ForOfIteratorNext(iterator: <span class="kw-2">*mut </span>ForOfIterator, val: MutableHandleValue, done: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>FromPropertyDescriptor(cx: <span class="kw-2">*mut </span>JSContext, desc_: Handle&lt;PropertyDescriptor&gt;, vp: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetPropertyDescriptor(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, desc: MutableHandle&lt;PropertyDescriptor&gt;, holder: MutableHandleObject, isNone: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetOwnPropertyDescriptorById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: HandleId, desc: MutableHandle&lt;PropertyDescriptor&gt;, isNone: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetOwnPropertyDescriptor(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>::std::os::raw::c_char, desc: MutableHandle&lt;PropertyDescriptor&gt;, isNone: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetOwnUCPropertyDescriptor(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, desc: MutableHandle&lt;PropertyDescriptor&gt;, isNone: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetPropertyDescriptorById(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: HandleId, desc: MutableHandle&lt;PropertyDescriptor&gt;, holder: MutableHandleObject, isNone: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>JS_GetUCPropertyDescriptor(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, name: <span class="kw-2">*const </span>u16, namelen: usize, desc: MutableHandle&lt;PropertyDescriptor&gt;, holder: MutableHandleObject, isNone: <span class="kw-2">*mut </span>bool) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>SetPropertyIgnoringNamedGetter(cx: <span class="kw-2">*mut </span>JSContext, obj: HandleObject, id: HandleId, v: HandleValue, receiver: HandleValue, ownDesc: Handle&lt;PropertyDescriptor&gt;, result: <span class="kw-2">*mut </span>ObjectOpResult) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>CreateError(cx: <span class="kw-2">*mut </span>JSContext, type_: JSExnType, stack: HandleObject, fileName: HandleString, lineNumber: u32, columnNumber: u32, report: <span class="kw-2">*mut </span>JSErrorReport, message: HandleString, cause: HandleValue, rval: MutableHandleValue) -&gt; bool);
+<span class="macro">wrap!</span>(jsapi: <span class="kw">pub fn </span>GetExceptionCause(exc: <span class="kw-2">*mut </span>JSObject, dest: MutableHandleValue));
+</code></pre></div></section></main></body></html>

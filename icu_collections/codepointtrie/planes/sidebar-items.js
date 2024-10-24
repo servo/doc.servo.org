@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INDEX_ARRAY_AS_BYTES"],"fn":["get_planes_trie"]};

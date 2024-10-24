@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["any_not_whitespace","current_node"]};

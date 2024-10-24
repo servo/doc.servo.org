@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NUM_RAND_CHARS","NUM_RETRIES"],"fn":["spooled_tempfile","tempdir","tempdir_in","tempfile","tempfile_in"],"mod":["dir","env","error","file","spooled","util"],"struct":["Builder","NamedTempFile","PathPersistError","PersistError","SpooledTempFile","TempDir","TempPath"]};

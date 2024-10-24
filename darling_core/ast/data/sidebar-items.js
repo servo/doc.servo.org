@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Data","NestedMeta","Style"],"struct":["Fields"]};

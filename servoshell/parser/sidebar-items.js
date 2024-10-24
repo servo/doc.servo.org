@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_default_url","location_bar_input_to_url","parse_url_or_filename"]};

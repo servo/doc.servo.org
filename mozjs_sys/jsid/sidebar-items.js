@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["JSID_TYPE_MASK","JSID_VOID"],"enum":["PropertyKeyTag"],"fn":["AsPropertyKey","IntId","SymbolId","VoidId"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColorSpace"],"macro":["color_components_as"],"mod":["color_function","component","convert","mix","parsing","to_css"],"struct":["AbsoluteColor","ColorComponents","ColorFlags","ComponentDetails"]};

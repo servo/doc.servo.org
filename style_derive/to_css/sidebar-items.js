@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["derive","derive_bitflags","derive_single_field_expr","derive_variant_arm","derive_variant_fields_expr"],"struct":["CssBitflagAttrs","CssFieldAttrs","CssInputAttrs","CssVariantAttrs"]};

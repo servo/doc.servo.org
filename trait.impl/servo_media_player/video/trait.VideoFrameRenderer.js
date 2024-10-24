@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"script":[["impl <a class=\"trait\" href=\"servo_media_player/video/trait.VideoFrameRenderer.html\" title=\"trait servo_media_player::video::VideoFrameRenderer\">VideoFrameRenderer</a> for <a class=\"struct\" href=\"script/dom/htmlmediaelement/struct.MediaFrameRenderer.html\" title=\"struct script::dom::htmlmediaelement::MediaFrameRenderer\">MediaFrameRenderer</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

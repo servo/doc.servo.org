@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["kind_of"],"macro":["helper","helper_no_refs","impl_bool_lit_to_pm_lit","impl_for_specific_lit","impl_from_tt_for_bool","impl_specific_lit_to_lit","impl_specific_lit_to_pm_lit","impl_tt_to_lit"],"mod":["tests"]};

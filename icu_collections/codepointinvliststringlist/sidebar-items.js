@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["__IMPL_VarULE_FOR_CodePointInversionListAndStringListULE_ULE_SIZE"],"enum":["CodePointInversionListAndStringListError"],"struct":["CodePointInversionListAndStringList","CodePointInversionListAndStringListULE"]};

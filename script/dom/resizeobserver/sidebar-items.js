@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_ResizeObserver"],"enum":["ObservationState"],"fn":["calculate_box_size","calculate_depth_for_node"],"struct":["ResizeObservation","ResizeObservationDepth","ResizeObserver"]};
