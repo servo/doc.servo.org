@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_OPTIONS","GEN_MASK","IDX_MASK","LARGE_BUCKET","MEDIUM_BUCKET","NUM_BUCKETS","SMALL_BUCKET"],"enum":["NodeKind","Orientation"],"fn":["adjust_size","free_list_for_size","guillotine_rect","safe_area"],"struct":["AllocId","AllocIndex","Allocation","AllocatorOptions","AtlasAllocator","Change","ChangeList","Node","SimpleAtlasAllocator"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAC_ROMAN"],"enum":["Family","Language","LoadError","Source","Stretch","Style"],"fn":["collect_families","find_best_match","name_to_unicode","parse_face_info","parse_names","parse_os2","parse_post"],"mod":["ttf_parser"],"struct":["Database","FaceInfo","ID","InnerId","Query","Weight"],"trait":["NameExt"]};

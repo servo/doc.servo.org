@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/webrender-0.70.0/src/invalidation/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="webrender" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">webrender/invalidation/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="doccomment">//! Invalidation tracking and dirty region management
+<a href=#6 id=6 data-nosnippet>6</a>//!
+<a href=#7 id=7 data-nosnippet>7</a>//! This module contains types and logic for tracking dirty regions and
+<a href=#8 id=8 data-nosnippet>8</a>//! dependencies used to determine what needs to be redrawn each frame.
+<a href=#9 id=9 data-nosnippet>9</a>
+<a href=#10 id=10 data-nosnippet>10</a></span><span class="kw">pub mod </span>compare;
+<a href=#11 id=11 data-nosnippet>11</a><span class="kw">pub mod </span>quadtree;
+<a href=#12 id=12 data-nosnippet>12</a><span class="kw">pub mod </span>cached_surface;
+<a href=#13 id=13 data-nosnippet>13</a><span class="kw">pub mod </span>vert_buffer;
+<a href=#14 id=14 data-nosnippet>14</a>
+<a href=#15 id=15 data-nosnippet>15</a><span class="kw">use </span>api::units::<span class="kw-2">*</span>;
+<a href=#16 id=16 data-nosnippet>16</a><span class="kw">use </span><span class="kw">crate</span>::spatial_tree::{SpatialTree, SpatialNodeIndex};
+<a href=#17 id=17 data-nosnippet>17</a><span class="kw">use </span><span class="kw">crate</span>::space::SpaceMapper;
+<a href=#18 id=18 data-nosnippet>18</a><span class="kw">use </span><span class="kw">crate</span>::util::MaxRect;
+<a href=#19 id=19 data-nosnippet>19</a>
+<a href=#20 id=20 data-nosnippet>20</a><span class="doccomment">/// Represents the dirty region of a tile cache picture, relative to a
+<a href=#21 id=21 data-nosnippet>21</a>/// "visibility" spatial node. At the moment the visibility node is
+<a href=#22 id=22 data-nosnippet>22</a>/// world space, but the plan is to switch to raster space.
+<a href=#23 id=23 data-nosnippet>23</a>///
+<a href=#24 id=24 data-nosnippet>24</a>/// The plan is to move away from these world space representation and
+<a href=#25 id=25 data-nosnippet>25</a>/// compute dirty regions in raster space instead.
+<a href=#26 id=26 data-nosnippet>26</a></span><span class="attr">#[derive(Clone)]
+<a href=#27 id=27 data-nosnippet>27</a></span><span class="kw">pub struct </span>DirtyRegion {
+<a href=#28 id=28 data-nosnippet>28</a>    <span class="doccomment">/// The overall dirty rect, a combination of dirty_rects
+<a href=#29 id=29 data-nosnippet>29</a>    </span><span class="kw">pub </span>combined: VisRect,
+<a href=#30 id=30 data-nosnippet>30</a>
+<a href=#31 id=31 data-nosnippet>31</a>    <span class="doccomment">/// The corrdinate space used to do clipping, visibility, and
+<a href=#32 id=32 data-nosnippet>32</a>    /// dirty rect calculations.
+<a href=#33 id=33 data-nosnippet>33</a>    </span><span class="kw">pub </span>visibility_spatial_node: SpatialNodeIndex,
+<a href=#34 id=34 data-nosnippet>34</a>    <span class="doccomment">/// Spatial node of the picture this region represents.
+<a href=#35 id=35 data-nosnippet>35</a>    </span>local_spatial_node: SpatialNodeIndex,
+<a href=#36 id=36 data-nosnippet>36</a>}
+<a href=#37 id=37 data-nosnippet>37</a>
+<a href=#38 id=38 data-nosnippet>38</a><span class="kw">impl </span>DirtyRegion {
+<a href=#39 id=39 data-nosnippet>39</a>    <span class="doccomment">/// Construct a new dirty region tracker.
+<a href=#40 id=40 data-nosnippet>40</a>    </span><span class="kw">pub fn </span>new(
+<a href=#41 id=41 data-nosnippet>41</a>        visibility_spatial_node: SpatialNodeIndex,
+<a href=#42 id=42 data-nosnippet>42</a>        local_spatial_node: SpatialNodeIndex,
+<a href=#43 id=43 data-nosnippet>43</a>    ) -&gt; <span class="self">Self </span>{
+<a href=#44 id=44 data-nosnippet>44</a>        DirtyRegion {
+<a href=#45 id=45 data-nosnippet>45</a>            combined: VisRect::zero(),
+<a href=#46 id=46 data-nosnippet>46</a>            visibility_spatial_node,
+<a href=#47 id=47 data-nosnippet>47</a>            local_spatial_node,
+<a href=#48 id=48 data-nosnippet>48</a>        }
+<a href=#49 id=49 data-nosnippet>49</a>    }
+<a href=#50 id=50 data-nosnippet>50</a>
+<a href=#51 id=51 data-nosnippet>51</a>    <span class="doccomment">/// Reset the dirty regions back to empty
+<a href=#52 id=52 data-nosnippet>52</a>    </span><span class="kw">pub fn </span>reset(
+<a href=#53 id=53 data-nosnippet>53</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#54 id=54 data-nosnippet>54</a>        visibility_spatial_node: SpatialNodeIndex,
+<a href=#55 id=55 data-nosnippet>55</a>        local_spatial_node: SpatialNodeIndex,
+<a href=#56 id=56 data-nosnippet>56</a>    ) {
+<a href=#57 id=57 data-nosnippet>57</a>        <span class="self">self</span>.combined = VisRect::zero();
+<a href=#58 id=58 data-nosnippet>58</a>        <span class="self">self</span>.visibility_spatial_node = visibility_spatial_node;
+<a href=#59 id=59 data-nosnippet>59</a>        <span class="self">self</span>.local_spatial_node = local_spatial_node;
+<a href=#60 id=60 data-nosnippet>60</a>    }
+<a href=#61 id=61 data-nosnippet>61</a>
+<a href=#62 id=62 data-nosnippet>62</a>    <span class="doccomment">/// Add a dirty region to the tracker. Returns the visibility mask that corresponds to
+<a href=#63 id=63 data-nosnippet>63</a>    /// this region in the tracker.
+<a href=#64 id=64 data-nosnippet>64</a>    </span><span class="kw">pub fn </span>add_dirty_region(
+<a href=#65 id=65 data-nosnippet>65</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#66 id=66 data-nosnippet>66</a>        rect_in_pic_space: PictureRect,
+<a href=#67 id=67 data-nosnippet>67</a>        spatial_tree: <span class="kw-2">&amp;</span>SpatialTree,
+<a href=#68 id=68 data-nosnippet>68</a>    ) {
+<a href=#69 id=69 data-nosnippet>69</a>        <span class="kw">let </span>map_pic_to_raster = SpaceMapper::new_with_target(
+<a href=#70 id=70 data-nosnippet>70</a>            <span class="self">self</span>.visibility_spatial_node,
+<a href=#71 id=71 data-nosnippet>71</a>            <span class="self">self</span>.local_spatial_node,
+<a href=#72 id=72 data-nosnippet>72</a>            VisRect::max_rect(),
+<a href=#73 id=73 data-nosnippet>73</a>            spatial_tree,
+<a href=#74 id=74 data-nosnippet>74</a>        );
+<a href=#75 id=75 data-nosnippet>75</a>
+<a href=#76 id=76 data-nosnippet>76</a>        <span class="kw">let </span>raster_rect = map_pic_to_raster
+<a href=#77 id=77 data-nosnippet>77</a>            .map(<span class="kw-2">&amp;</span>rect_in_pic_space)
+<a href=#78 id=78 data-nosnippet>78</a>            .expect(<span class="string">"bug"</span>);
+<a href=#79 id=79 data-nosnippet>79</a>
+<a href=#80 id=80 data-nosnippet>80</a>        <span class="comment">// Include this in the overall dirty rect
+<a href=#81 id=81 data-nosnippet>81</a>        </span><span class="self">self</span>.combined = <span class="self">self</span>.combined.union(<span class="kw-2">&amp;</span>raster_rect);
+<a href=#82 id=82 data-nosnippet>82</a>    }
+<a href=#83 id=83 data-nosnippet>83</a>}
+<a href=#84 id=84 data-nosnippet>84</a>
+<a href=#85 id=85 data-nosnippet>85</a><span class="doccomment">/// Debugging information about why a tile was invalidated
+<a href=#86 id=86 data-nosnippet>86</a></span><span class="attr">#[derive(Debug,Clone)]
+<a href=#87 id=87 data-nosnippet>87</a>#[cfg_attr(feature = <span class="string">"capture"</span>, derive(Serialize))]
+<a href=#88 id=88 data-nosnippet>88</a>#[cfg_attr(feature = <span class="string">"replay"</span>, derive(Deserialize))]
+<a href=#89 id=89 data-nosnippet>89</a></span><span class="kw">pub enum </span>InvalidationReason {
+<a href=#90 id=90 data-nosnippet>90</a>    <span class="doccomment">/// The background color changed
+<a href=#91 id=91 data-nosnippet>91</a>    </span>BackgroundColor,
+<a href=#92 id=92 data-nosnippet>92</a>    <span class="doccomment">/// The opaque state of the backing native surface changed
+<a href=#93 id=93 data-nosnippet>93</a>    </span>SurfaceOpacityChanged,
+<a href=#94 id=94 data-nosnippet>94</a>    <span class="doccomment">/// There was no backing texture (evicted or never rendered)
+<a href=#95 id=95 data-nosnippet>95</a>    </span>NoTexture,
+<a href=#96 id=96 data-nosnippet>96</a>    <span class="doccomment">/// There was no backing native surface (never rendered, or recreated)
+<a href=#97 id=97 data-nosnippet>97</a>    </span>NoSurface,
+<a href=#98 id=98 data-nosnippet>98</a>    <span class="doccomment">/// The primitive count in the dependency list was different
+<a href=#99 id=99 data-nosnippet>99</a>    </span>PrimCount,
+<a href=#100 id=100 data-nosnippet>100</a>    <span class="doccomment">/// The content of one of the primitives was different
+<a href=#101 id=101 data-nosnippet>101</a>    </span>Content,
+<a href=#102 id=102 data-nosnippet>102</a>    <span class="comment">// The compositor type changed
+<a href=#103 id=103 data-nosnippet>103</a>    </span>CompositorKindChanged,
+<a href=#104 id=104 data-nosnippet>104</a>    <span class="comment">// The valid region of the tile changed
+<a href=#105 id=105 data-nosnippet>105</a>    </span>ValidRectChanged,
+<a href=#106 id=106 data-nosnippet>106</a>    <span class="comment">// The overall scale of the picture cache changed
+<a href=#107 id=107 data-nosnippet>107</a>    </span>ScaleChanged,
+<a href=#108 id=108 data-nosnippet>108</a>    <span class="comment">// The content of the sampling surface changed
+<a href=#109 id=109 data-nosnippet>109</a>    </span>SurfaceContentChanged,
+<a href=#110 id=110 data-nosnippet>110</a>}
+<a href=#111 id=111 data-nosnippet>111</a>
+<a href=#112 id=112 data-nosnippet>112</a><span class="doccomment">/// The result of a primitive dependency comparison. Size is a u8
+<a href=#113 id=113 data-nosnippet>113</a>/// since this is a hot path in the code, and keeping the data small
+<a href=#114 id=114 data-nosnippet>114</a>/// is a performance win.
+<a href=#115 id=115 data-nosnippet>115</a></span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq)]
+<a href=#116 id=116 data-nosnippet>116</a>#[cfg_attr(feature = <span class="string">"capture"</span>, derive(Serialize))]
+<a href=#117 id=117 data-nosnippet>117</a>#[cfg_attr(feature = <span class="string">"replay"</span>, derive(Deserialize))]
+<a href=#118 id=118 data-nosnippet>118</a>#[repr(u8)]
+<a href=#119 id=119 data-nosnippet>119</a></span><span class="kw">pub enum </span>PrimitiveCompareResult {
+<a href=#120 id=120 data-nosnippet>120</a>    <span class="doccomment">/// Primitives match
+<a href=#121 id=121 data-nosnippet>121</a>    </span>Equal,
+<a href=#122 id=122 data-nosnippet>122</a>    <span class="doccomment">/// Something in the PrimitiveDescriptor was different
+<a href=#123 id=123 data-nosnippet>123</a>    </span>Descriptor,
+<a href=#124 id=124 data-nosnippet>124</a>    <span class="doccomment">/// A clip corner changed (vert range values differ)
+<a href=#125 id=125 data-nosnippet>125</a>    </span>Clip,
+<a href=#126 id=126 data-nosnippet>126</a>    <span class="doccomment">/// An image dependency was dirty
+<a href=#127 id=127 data-nosnippet>127</a>    </span>Image,
+<a href=#128 id=128 data-nosnippet>128</a>    <span class="doccomment">/// The value of an opacity binding changed
+<a href=#129 id=129 data-nosnippet>129</a>    </span>OpacityBinding,
+<a href=#130 id=130 data-nosnippet>130</a>    <span class="doccomment">/// The value of a color binding changed
+<a href=#131 id=131 data-nosnippet>131</a>    </span>ColorBinding,
+<a href=#132 id=132 data-nosnippet>132</a>}
+</code></pre></div></section></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"fn":["check_alignment","check_constraints","check_length"],"macro":[["impl_trait",1],["impl_trait_array",1]],"trait":["AsByteSlice","AsMutByteSlice","AsMutSliceOf","AsSliceOf","FromByteSlice","ToByteSlice","ToMutByteSlice","TypeName"]};

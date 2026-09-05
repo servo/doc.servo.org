@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Fixed capacity stack based generic string"><title>arraystring - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="arraystring" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate arraystring</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../arraystring/index.html">arraystring</a><span class="version">0.3.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#why" title="Why">Why</a></li><li><a href="#features" title="Features">Features</a></li><li><a href="#examples" title="Examples">Examples</a></li><li><a href="#comparisons" title="Comparisons">Comparisons</a></li><li><a href="#licenses" title="Licenses">Licenses</a></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>arraystring</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/arraystring/lib.rs.html#1-811">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Fixed capacity stack based generic string</p>
+<p>Since rust doesn’t have constant generics yet <code>typenum</code> is used to allow for generic arrays (<code>U1</code> to <code>U255</code>)</p>
+<p>Can’t outgrow initial capacity (defined at compile time), always occupies <a href="./struct.ArrayString.html#method.capacity"><code>capacity</code></a> <code>+ 1</code> bytes of memory</p>
+<p><em>Doesn’t allocate memory on the heap and never panics in release (all panic branches are stripped at compile time - except <code>Index</code>/<code>IndexMut</code> traits, since they are supposed to)</em></p>
+<h3 id="why"><a class="doc-anchor" href="#why">§</a>Why</h3>
+<p>Data is generally bounded, you don’t want a phone number with 30 characters, nor a username with 100. You probably don’t even support it in your database.</p>
+<p>Why pay the cost of heap allocations of strings with unlimited capacity if you have limited boundaries?</p>
+<p>Stack based strings are generally faster to create, clone and append to than heap based strings (custom allocators and thread-locals may help with heap based ones).</p>
+<p>But that becomes less true as you increase the array size, 255 bytes is the maximum we accept (bigger will just wrap) and it’s probably already slower than heap based strings of that size (like in <code>std::string::String</code>)</p>
+<p>There are other stack based strings out there, they generally can have “unlimited” capacity (heap allocate), but the stack based size is defined by the library implementor, we go through a different route by implementing a string based in a generic array.</p>
+<p>Array based strings always occupies the full space in memory, so they may use more memory (in the stack) than dynamic strings.</p>
+<h3 id="features"><a class="doc-anchor" href="#features">§</a>Features</h3>
+<p><strong>default:</strong> <code>std</code></p>
+<ul>
+<li>
+<p><code>std</code> enabled by default, enables <code>std</code> compatibility - <code>impl Error</code> trait for errors (remove it to be <code>#[no_std]</code> compatible)</p>
+</li>
+<li>
+<p><code>serde-traits</code> enables serde traits integration (<code>Serialize</code>/<code>Deserialize</code>)</p>
+<p>Opperates like <code>String</code>, but truncates it if it’s bigger than capacity</p>
+</li>
+<li>
+<p><code>diesel-traits</code> enables diesel traits integration (<code>Insertable</code>/<code>Queryable</code>)</p>
+<p>Opperates like <code>String</code>, but truncates it if it’s bigger than capacity</p>
+</li>
+<li>
+<p><code>logs</code> enables internal logging</p>
+<p>You will probably only need this if you are debugging this library</p>
+</li>
+</ul>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>arraystring::{Error, ArrayString, typenum::U5, typenum::U20};
+
+<span class="kw">type </span>Username = ArrayString&lt;U20&gt;;
+<span class="kw">type </span>Role = ArrayString&lt;U5&gt;;
+
+<span class="attr">#[derive(Debug)]
+</span><span class="kw">pub struct </span>User {
+    <span class="kw">pub </span>username: Username,
+    <span class="kw">pub </span>role: Role,
+}
+
+<span class="kw">fn </span>main() -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&gt; {
+    <span class="kw">let </span>user = User {
+        username: Username::try_from_str(<span class="string">"user"</span>)<span class="question-mark">?</span>,
+        role: Role::try_from_str(<span class="string">"admin"</span>)<span class="question-mark">?
+    </span>};
+    <span class="macro">println!</span>(<span class="string">"{:?}"</span>, user);
+
+    <span class="prelude-val">Ok</span>(())
+}</code></pre></div><h3 id="comparisons"><a class="doc-anchor" href="#comparisons">§</a>Comparisons</h3>
+<p><em>These benchmarks ran while I streamed video and used my computer (with</em> <strong>non-disclosed specs</strong>) <em>as usual, so don’t take the actual times too seriously, just focus on the comparison</em></p>
+<div class="example-wrap"><pre class="language-my_custom_benchmark"><code>small-string  (23 bytes)      clone                  4.837 ns
+small-string  (23 bytes)      try_from_str          14.777 ns
+small-string  (23 bytes)      from_str_truncate     11.360 ns
+small-string  (23 bytes)      from_str_unchecked    11.291 ns
+small-string  (23 bytes)      try_push_str           1.162 ns
+small-string  (23 bytes)      push_str               3.490 ns
+small-string  (23 bytes)      push_str_unchecked     1.098 ns
+-------------------------------------------------------------
+cache-string  (63 bytes)      clone                 10.170 ns
+cache-string  (63 bytes)      try_from_str          25.579 ns
+cache-string  (63 bytes)      from_str_truncate     16.977 ns
+cache-string  (63 bytes)      from_str_unchecked    17.201 ns
+cache-string  (63 bytes)      try_push_str           1.160 ns
+cache-string  (63 bytes)      push_str               3.486 ns
+cache-string  (63 bytes)      push_str_unchecked     1.115 ns
+-------------------------------------------------------------
+max-string   (255 bytes)      clone                147.410 ns
+max-string   (255 bytes)      try_from_str         157.340 ns
+max-string   (255 bytes)      from_str_truncate    158.000 ns
+max-string   (255 bytes)      from_str_unchecked   158.420 ns
+max-string   (255 bytes)      try_push_str           1.167 ns
+max-string   (255 bytes)      push_str               4.337 ns
+max-string   (255 bytes)      push_str_unchecked     1.103 ns
+-------------------------------------------------------------
+string                        clone                 33.295 ns
+string                        from                  32.512 ns
+string                        push str              28.128 ns
+-------------------------------------------------------------
+inlinable-string (30 bytes)   clone                 16.751 ns
+inlinable-string (30 bytes)   from_str              29.310 ns
+inlinable-string (30 bytes)   push_str               2.865 ns
+-------------------------------------------------------------
+smallstring crate (20 bytes)  clone                 60.988 ns
+smallstring crate (20 bytes)  from_str              50.233 ns</code></pre></div><h3 id="licenses"><a class="doc-anchor" href="#licenses">§</a>Licenses</h3>
+<p><code>MIT</code> and <code>Apache-2.0</code></p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.Error"><code>pub use crate::error::<a class="enum" href="error/enum.Error.html" title="enum arraystring::error::Error">Error</a>;</code></dt><dt id="reexport.typenum"><code>pub use <a class="mod" href="../typenum/index.html" title="mod typenum">typenum</a>;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="arraystring/index.html" title="mod arraystring::arraystring">arraystring</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd><code>ArrayString</code> definition and Api implementation</dd><dt><a class="mod" href="drain/index.html" title="mod arraystring::drain">drain</a></dt><dd>Draining iterator for <a href="../struct.ArrayString.html"><code>ArrayString</code></a></dd><dt><a class="mod" href="error/index.html" title="mod arraystring::error">error</a></dt><dd>Contains all of this crate errors</dd><dt><a class="mod" href="generic/index.html" title="mod arraystring::generic">generic</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Implements actual generic array abstraction for all supported types from <code>typenum</code> (1 to 255)</dd><dt><a class="mod" href="implementations/index.html" title="mod arraystring::implementations">implementations</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Trait implementations for <code>ArrayString</code> (that aren’t for integration)</dd><dt><a class="mod" href="mock/index.html" title="mod arraystring::mock">mock</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Remove logging macros when they are disabled (at compile time)</dd><dt><a class="mod" href="prelude/index.html" title="mod arraystring::prelude">prelude</a></dt><dd>Most used traits and data-strucutres</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.ArrayString.html" title="struct arraystring::ArrayString">Array<wbr>String</a></dt><dd>String based on a generic array (size defined at compile time through <code>typenum</code>)</dd><dt><a class="struct" href="struct.CacheString.html" title="struct arraystring::CacheString">Cache<wbr>String</a></dt><dd>Newtype string that occupies 64 bytes in memory and is 64 bytes aligned (full cache line)</dd></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.MaxString.html" title="type arraystring::MaxString">MaxString</a></dt><dd>Biggest array based string (255 bytes of string)</dd><dt><a class="type" href="type.SmallString.html" title="type arraystring::SmallString">Small<wbr>String</a></dt><dd>String with the same <code>mem::size_of</code> of a <code>String</code></dd></dl><script type="text/json" id="notable-traits-data">{"&[u8]":"<h3>Notable traits for <code>&amp;[<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.97.1/std/primitive.u8.html\">u8</a>]</code></h3><pre><code><div class=\"where\">impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.97.1/std/io/trait.Read.html\" title=\"trait std::io::Read\">Read</a> for &amp;[<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.97.1/std/primitive.u8.html\">u8</a>]</div>","&mut [u8]":"<h3>Notable traits for <code>&amp;mut [<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.97.1/std/primitive.u8.html\">u8</a>]</code></h3><pre><code><div class=\"where\">impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.97.1/std/io/trait.Write.html\" title=\"trait std::io::Write\">Write</a> for &amp;mut [<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.97.1/std/primitive.u8.html\">u8</a>]</div>"}</script></section></div></main></body></html>

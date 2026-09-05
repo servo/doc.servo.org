@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["save_pixmap_to_png"]};

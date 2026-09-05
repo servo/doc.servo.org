@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","PeriodicWave_Binding"],"trait":["PeriodicWaveMethods"],"type":["PeriodicWaveConstraints","PeriodicWaveOptions"]};

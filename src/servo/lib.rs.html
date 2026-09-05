@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `components/servo/lib.rs`."><title>lib.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="servo" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../../static.files/src-script-813739b1.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">servo/</div>lib.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="doccomment">//! Servo, the mighty web browser engine from the future.
+<a href=#6 id=6 data-nosnippet>6</a>//!
+<a href=#7 id=7 data-nosnippet>7</a>//! This crate wires all of Servo's components together as type [`Servo`], along with
+<a href=#8 id=8 data-nosnippet>8</a>//! a Webview implementation, [`WebView`], to create a working web engine.
+<a href=#9 id=9 data-nosnippet>9</a>//!
+<a href=#10 id=10 data-nosnippet>10</a>//! To embed Servo in your application, you need to:
+<a href=#11 id=11 data-nosnippet>11</a>//! 1) Create an instance of a type that implements the [`EventLoopWaker`] trait.
+<a href=#12 id=12 data-nosnippet>12</a>//!    This trait allows Servo to integrate with your application's event loop. Your
+<a href=#13 id=13 data-nosnippet>13</a>//!    [`EventLoopWaker::wake`] implementation needs to ensure that
+<a href=#14 id=14 data-nosnippet>14</a>//!    [`Servo::spin_event_loop`] is eventually called to let Servo process user input,
+<a href=#15 id=15 data-nosnippet>15</a>//!    network events etc.
+<a href=#16 id=16 data-nosnippet>16</a>//! 2) Create a [`Servo`] instance using the [`ServoBuilder`] type. You can optionally
+<a href=#17 id=17 data-nosnippet>17</a>//!    register a [`ServoDelegate`] implementation to subscribe to notifications about
+<a href=#18 id=18 data-nosnippet>18</a>//!    events and customize certain behaviours.
+<a href=#19 id=19 data-nosnippet>19</a>//! 3) Create an instance of a type that implements the [`RenderingContext`] trait.
+<a href=#20 id=20 data-nosnippet>20</a>//!    Note: You can either use one of the existing types in this crate (such as
+<a href=#21 id=21 data-nosnippet>21</a>//!    [`WindowRenderingContext`], [`OffscreenRenderingContext`] or [`SoftwareRenderingContext`])
+<a href=#22 id=22 data-nosnippet>22</a>//!    or provide a custom implementation.
+<a href=#23 id=23 data-nosnippet>23</a>//! 4) For each [`WebView`] in your application, create a [`WebViewBuilder`] by passing
+<a href=#24 id=24 data-nosnippet>24</a>//!    it the [`RenderingContext`] and [`Servo`] instance, and then configure the
+<a href=#25 id=25 data-nosnippet>25</a>//!    builder and use it to create a [`WebView`] instance. The builder must be provided
+<a href=#26 id=26 data-nosnippet>26</a>//!    with a [`WebViewDelegate`] implementation which, at a minimum, should handle
+<a href=#27 id=27 data-nosnippet>27</a>//!    [`WebViewDelegate::notify_new_frame_ready`] by calling [`WebView::paint`]
+<a href=#28 id=28 data-nosnippet>28</a>//!    and presenting the rendered page using [`RenderingContext::present`]. Refer to the
+<a href=#29 id=29 data-nosnippet>29</a>//!    documentation of the [`WebView`] type to learn more about the relation
+<a href=#30 id=30 data-nosnippet>30</a>//!    between a [`WebView`] and its [`RenderingContext`].
+<a href=#31 id=31 data-nosnippet>31</a>//! 5) Run the application's event loop. Your application's event handlers need to
+<a href=#32 id=32 data-nosnippet>32</a>//!    forward input events for a particular [`WebView`] using one of the `notify_*` methods
+<a href=#33 id=33 data-nosnippet>33</a>//!    on that [`WebView`] instance. For example, to forward a mouse event to a [`WebView`],
+<a href=#34 id=34 data-nosnippet>34</a>//!    call the [`WebView::notify_input_event`]. You can also invoke methods on a [`WebView`]
+<a href=#35 id=35 data-nosnippet>35</a>//!    to request certain actions. For instance, the [`WebView::load`] method requests that
+<a href=#36 id=36 data-nosnippet>36</a>//!    Servo navigate to a new page. In both cases, the calls to the [`WebView`] methods
+<a href=#37 id=37 data-nosnippet>37</a>//!    must be followed by calls to [`Servo::spin_event_loop`] to allow Servo to process
+<a href=#38 id=38 data-nosnippet>38</a>//!    those requests.
+<a href=#39 id=39 data-nosnippet>39</a>//!
+<a href=#40 id=40 data-nosnippet>40</a>//! For a minimal working example, refer to the [`winit_minimal`] code.
+<a href=#41 id=41 data-nosnippet>41</a>//!
+<a href=#42 id=42 data-nosnippet>42</a>//! [`winit_minimal`]: https://github.com/servo/servo/blob/main/components/servo/examples/winit_minimal.rs
+<a href=#43 id=43 data-nosnippet>43</a>
+<a href=#44 id=44 data-nosnippet>44</a></span><span class="kw">mod </span>clipboard_delegate;
+<a href=#45 id=45 data-nosnippet>45</a><span class="attr">#[cfg(feature = <span class="string">"gamepad"</span>)]
+<a href=#46 id=46 data-nosnippet>46</a></span><span class="kw">mod </span>gamepad_delegate;
+<a href=#47 id=47 data-nosnippet>47</a><span class="attr">#[cfg(feature = <span class="string">"media-gstreamer"</span>)]
+<a href=#48 id=48 data-nosnippet>48</a></span><span class="kw">mod </span>gstreamer_plugins;
+<a href=#49 id=49 data-nosnippet>49</a><span class="kw">mod </span>javascript_evaluator;
+<a href=#50 id=50 data-nosnippet>50</a><span class="kw">mod </span>network_manager;
+<a href=#51 id=51 data-nosnippet>51</a><span class="kw">mod </span>proxies;
+<a href=#52 id=52 data-nosnippet>52</a><span class="kw">mod </span>responders;
+<a href=#53 id=53 data-nosnippet>53</a><span class="kw">mod </span>servo;
+<a href=#54 id=54 data-nosnippet>54</a><span class="kw">mod </span>servo_delegate;
+<a href=#55 id=55 data-nosnippet>55</a><span class="kw">mod </span>site_data_manager;
+<a href=#56 id=56 data-nosnippet>56</a><span class="kw">mod </span>user_content_manager;
+<a href=#57 id=57 data-nosnippet>57</a><span class="kw">mod </span>webview;
+<a href=#58 id=58 data-nosnippet>58</a><span class="kw">mod </span>webview_delegate;
+<a href=#59 id=59 data-nosnippet>59</a>
+<a href=#60 id=60 data-nosnippet>60</a><span class="comment">// These are Servo's public exports. Everything (apart from a couple exceptions below)
+<a href=#61 id=61 data-nosnippet>61</a>// should be exported at the root. See &lt;https://github.com/servo/servo/issues/18475&gt;.
+<a href=#62 id=62 data-nosnippet>62</a></span><span class="kw">pub use </span>accesskit;
+<a href=#63 id=63 data-nosnippet>63</a><span class="kw">pub use </span>embedder_traits::user_contents::UserScript;
+<a href=#64 id=64 data-nosnippet>64</a><span class="kw">pub use </span>embedder_traits::{submit_resource_reader, <span class="kw-2">*</span>};
+<a href=#65 id=65 data-nosnippet>65</a><span class="kw">pub use </span>image::RgbaImage;
+<a href=#66 id=66 data-nosnippet>66</a><span class="kw">pub use </span>keyboard_types::{
+<a href=#67 id=67 data-nosnippet>67</a>    Code, CompositionEvent, CompositionState, Key, KeyState, Location, Modifiers, NamedKey,
+<a href=#68 id=68 data-nosnippet>68</a>};
+<a href=#69 id=69 data-nosnippet>69</a><span class="kw">pub use </span>media::{
+<a href=#70 id=70 data-nosnippet>70</a>    GlApi <span class="kw">as </span>MediaGlApi, GlContext <span class="kw">as </span>MediaGlContext, NativeDisplay <span class="kw">as </span>MediaNativeDisplay,
+<a href=#71 id=71 data-nosnippet>71</a>};
+<a href=#72 id=72 data-nosnippet>72</a><span class="kw">pub use </span>net::image_cache::should_panic_hook_suppress_termination;
+<a href=#73 id=73 data-nosnippet>73</a><span class="kw">pub use </span>net_traits::CookieSource;
+<a href=#74 id=74 data-nosnippet>74</a><span class="comment">// This API should probably not be exposed in this way. Instead there should be a fully
+<a href=#75 id=75 data-nosnippet>75</a>// fleshed out public domains API if we want to expose it.
+<a href=#76 id=76 data-nosnippet>76</a></span><span class="kw">pub use </span>net_traits::pub_domains::is_reg_domain;
+<a href=#77 id=77 data-nosnippet>77</a><span class="kw">pub use </span>paint::WebRenderDebugOption;
+<a href=#78 id=78 data-nosnippet>78</a><span class="kw">pub use </span>paint_api::rendering_context::{
+<a href=#79 id=79 data-nosnippet>79</a>    OffscreenRenderingContext, RenderingContext, SoftwareRenderingContext, WindowRenderingContext,
+<a href=#80 id=80 data-nosnippet>80</a>};
+<a href=#81 id=81 data-nosnippet>81</a><span class="comment">// Expose our profile traits for servoshell, so we can instrument code there, but don't
+<a href=#82 id=82 data-nosnippet>82</a>// add it as an official API.
+<a href=#83 id=83 data-nosnippet>83</a></span><span class="attr">#[doc(hidden)]
+<a href=#84 id=84 data-nosnippet>84</a></span><span class="kw">pub use </span>profile_traits;
+<a href=#85 id=85 data-nosnippet>85</a><span class="comment">// This should be replaced with an API on ServoBuilder.
+<a href=#86 id=86 data-nosnippet>86</a>// See &lt;https://github.com/servo/servo/issues/40950&gt;.
+<a href=#87 id=87 data-nosnippet>87</a></span><span class="kw">pub use </span>resources;
+<a href=#88 id=88 data-nosnippet>88</a><span class="kw">pub use </span>servo_base::generic_channel::GenericSender;
+<a href=#89 id=89 data-nosnippet>89</a><span class="kw">pub use </span>servo_base::id::WebViewId;
+<a href=#90 id=90 data-nosnippet>90</a><span class="kw">pub use </span>servo_config::opts::{DiagnosticsLogging, DiagnosticsLoggingOption, Opts, OutputOptions};
+<a href=#91 id=91 data-nosnippet>91</a><span class="kw">pub use </span>servo_config::prefs::{PrefValue, Preferences, UserAgentPlatform};
+<a href=#92 id=92 data-nosnippet>92</a><span class="kw">pub use </span>servo_config::{opts, pref, prefs};
+<a href=#93 id=93 data-nosnippet>93</a><span class="kw">pub use </span>servo_geometry::{
+<a href=#94 id=94 data-nosnippet>94</a>    DeviceIndependentIntRect, DeviceIndependentPixel, convert_rect_to_css_pixel,
+<a href=#95 id=95 data-nosnippet>95</a>};
+<a href=#96 id=96 data-nosnippet>96</a><span class="attr">#[doc(hidden)]
+<a href=#97 id=97 data-nosnippet>97</a></span><span class="kw">pub use </span>servo_tracing;
+<a href=#98 id=98 data-nosnippet>98</a><span class="kw">pub use </span>servo_url::ServoUrl;
+<a href=#99 id=99 data-nosnippet>99</a><span class="kw">pub use </span>style::Zero;
+<a href=#100 id=100 data-nosnippet>100</a><span class="kw">pub use </span>style_traits::CSSPixel;
+<a href=#101 id=101 data-nosnippet>101</a><span class="kw">pub use </span>webrender_api::units::{
+<a href=#102 id=102 data-nosnippet>102</a>    DeviceIntPoint, DeviceIntRect, DeviceIntSize, DevicePixel, DevicePoint, DeviceVector2D,
+<a href=#103 id=103 data-nosnippet>103</a>};
+<a href=#104 id=104 data-nosnippet>104</a>
+<a href=#105 id=105 data-nosnippet>105</a><span class="kw">pub use </span><span class="kw">crate</span>::clipboard_delegate::{ClipboardDelegate, StringRequest};
+<a href=#106 id=106 data-nosnippet>106</a><span class="attr">#[cfg(feature = <span class="string">"gamepad"</span>)]
+<a href=#107 id=107 data-nosnippet>107</a></span><span class="kw">pub use </span><span class="kw">crate</span>::gamepad_delegate::{
+<a href=#108 id=108 data-nosnippet>108</a>    GamepadDelegate, GamepadHapticEffectRequest, GamepadHapticEffectRequestType,
+<a href=#109 id=109 data-nosnippet>109</a>};
+<a href=#110 id=110 data-nosnippet>110</a><span class="kw">pub use </span><span class="kw">crate</span>::network_manager::{CacheEntry, NetworkManager};
+<a href=#111 id=111 data-nosnippet>111</a><span class="kw">pub use </span><span class="kw">crate</span>::servo::{Servo, ServoBuilder, run_content_process};
+<a href=#112 id=112 data-nosnippet>112</a><span class="kw">pub use </span><span class="kw">crate</span>::servo_delegate::{ServoDelegate, ServoError};
+<a href=#113 id=113 data-nosnippet>113</a><span class="kw">pub use </span><span class="kw">crate</span>::site_data_manager::{SiteData, SiteDataManager, StorageType};
+<a href=#114 id=114 data-nosnippet>114</a><span class="kw">pub use </span><span class="kw">crate</span>::user_content_manager::UserContentManager;
+<a href=#115 id=115 data-nosnippet>115</a><span class="kw">pub use </span><span class="kw">crate</span>::webview::{WebView, WebViewBuilder};
+<a href=#116 id=116 data-nosnippet>116</a><span class="kw">pub use </span><span class="kw">crate</span>::webview_delegate::{
+<a href=#117 id=117 data-nosnippet>117</a>    AlertDialog, AllowOrDenyRequest, AuthenticationRequest, BluetoothDeviceSelectionRequest,
+<a href=#118 id=118 data-nosnippet>118</a>    ColorPicker, ConfirmDialog, ContextMenu, CreateNewWebViewRequest, EmbedderControl, FilePicker,
+<a href=#119 id=119 data-nosnippet>119</a>    InputMethodControl, NavigationRequest, PermissionRequest, PromptDialog, SelectElement,
+<a href=#120 id=120 data-nosnippet>120</a>    SimpleDialog, WebResourceLoad, WebViewDelegate,
+<a href=#121 id=121 data-nosnippet>121</a>};
+<a href=#122 id=122 data-nosnippet>122</a>
+<a href=#123 id=123 data-nosnippet>123</a><span class="attr">#[cfg(feature = <span class="string">"webxr"</span>)]
+<a href=#124 id=124 data-nosnippet>124</a></span><span class="kw">pub mod </span>webxr {
+<a href=#125 id=125 data-nosnippet>125</a>    <span class="attr">#[cfg(not(any(target_os = <span class="string">"android"</span>, target_env = <span class="string">"ohos"</span>)))]
+<a href=#126 id=126 data-nosnippet>126</a>    </span><span class="kw">pub use </span>webxr::glwindow::{GlWindow, GlWindowDiscovery, GlWindowMode, GlWindowRenderTarget};
+<a href=#127 id=127 data-nosnippet>127</a>    <span class="attr">#[cfg(not(any(target_os = <span class="string">"android"</span>, target_env = <span class="string">"ohos"</span>)))]
+<a href=#128 id=128 data-nosnippet>128</a>    </span><span class="kw">pub use </span>webxr::headless::HeadlessMockDiscovery;
+<a href=#129 id=129 data-nosnippet>129</a>    <span class="attr">#[cfg(target_os = <span class="string">"windows"</span>)]
+<a href=#130 id=130 data-nosnippet>130</a>    </span><span class="kw">pub use </span>webxr::openxr::{AppInfo <span class="kw">as </span>OpenXrAppInfo, OpenXrDiscovery};
+<a href=#131 id=131 data-nosnippet>131</a>    <span class="kw">pub use </span>webxr::{Discovery, MainThreadRegistry, WebXrRegistry};
+<a href=#132 id=132 data-nosnippet>132</a>}
+<a href=#133 id=133 data-nosnippet>133</a>
+<a href=#134 id=134 data-nosnippet>134</a><span class="comment">// TODO: The protocol handler interface needs to be cleaned and simplified.
+<a href=#135 id=135 data-nosnippet>135</a></span><span class="kw">pub mod </span>protocol_handler {
+<a href=#136 id=136 data-nosnippet>136</a>    <span class="kw">pub use </span>net::fetch::methods::{DoneChannel, FetchContext};
+<a href=#137 id=137 data-nosnippet>137</a>    <span class="kw">pub use </span>net::filemanager_thread::FILE_CHUNK_SIZE;
+<a href=#138 id=138 data-nosnippet>138</a>    <span class="kw">pub use </span>net::protocols::{ProtocolHandler, ProtocolRegistry};
+<a href=#139 id=139 data-nosnippet>139</a>    <span class="kw">pub use </span>net_traits::filemanager_thread::RelativePos;
+<a href=#140 id=140 data-nosnippet>140</a>    <span class="kw">pub use </span>net_traits::http_status::HttpStatus;
+<a href=#141 id=141 data-nosnippet>141</a>    <span class="kw">pub use </span>net_traits::request::Request;
+<a href=#142 id=142 data-nosnippet>142</a>    <span class="kw">pub use </span>net_traits::response::{Response, ResponseBody};
+<a href=#143 id=143 data-nosnippet>143</a>    <span class="kw">pub use </span>net_traits::{NetworkError, ResourceFetchTiming};
+<a href=#144 id=144 data-nosnippet>144</a>
+<a href=#145 id=145 data-nosnippet>145</a>    <span class="kw">pub use </span><span class="kw">crate</span>::webview_delegate::ProtocolHandlerRegistration;
+<a href=#146 id=146 data-nosnippet>146</a>}
+<a href=#147 id=147 data-nosnippet>147</a>
+<a href=#148 id=148 data-nosnippet>148</a><span class="comment">// We need to reference this crate, in order for the linker not to remove it.
+<a href=#149 id=149 data-nosnippet>149</a></span><span class="attr">#[cfg(all(feature = <span class="string">"baked-in-resources"</span>, not(target_env = <span class="string">"ohos"</span>)))]
+<a href=#150 id=150 data-nosnippet>150</a></span><span class="kw">use </span>servo_default_resources <span class="kw">as _</span>;
+</code></pre></div></section></main></body></html>

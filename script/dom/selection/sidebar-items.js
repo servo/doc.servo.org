@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Selection"],"enum":["Direction","FlatTreeNodePosition"],"fn":["position_in_flat_tree_for_selection"],"struct":["Selection","SelectionLiveRangeNotification"]};

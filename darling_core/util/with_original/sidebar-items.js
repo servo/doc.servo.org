@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["with_original",1]],"struct":["WithOriginal"]};

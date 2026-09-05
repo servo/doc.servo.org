@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RopeMovement"],"fn":["read_json_from_file","write_json_to_file"],"mod":["cross_process_instant","generic_channel","id","print_tree","rope","text","threadboost","threadpool","unicode_block"],"struct":["Epoch","Rope","RopeChars","RopeIndex","RopeSlice"],"trait":["IpcSend","WebRenderEpochToU16"],"type":["IpcSendResult"]};

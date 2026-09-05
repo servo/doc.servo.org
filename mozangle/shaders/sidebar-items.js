@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Output","ShaderSpec"],"fn":["finalize","initialize"],"mod":["ffi"],"static":["CONSTRUCT_COMPILER_LOCK"],"struct":["ShaderValidator"],"trait":["AsAngleEnum"],"type":["BuiltInResources","CompileOptions"]};

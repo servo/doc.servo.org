@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["interpolation_value_to_s","s_to_interpolation_value"],"struct":["CornerShape"],"type":["CornerShapeRect"]};

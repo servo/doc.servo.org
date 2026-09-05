@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FIN2","FIN3","FINA","INIT","ISOL","MED2","MEDI","NONE","STRETCHING_FIXED","STRETCHING_REPEATING"],"fn":["is_stch"]};

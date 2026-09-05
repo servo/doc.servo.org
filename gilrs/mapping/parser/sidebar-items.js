@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AxisRange","ErrorKind","State","Token"],"static":["AXES","AXES_SDL"],"struct":["Error","Parser"]};

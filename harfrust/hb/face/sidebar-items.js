@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_INLINE_COORDS"],"enum":["FontKind"],"fn":["shape"],"struct":["BasicFontMetrics","FontRefData","GlyphExtents","Scale","ShapeOptions","ShaperBuilder","ShaperData","ShaperInstance","hb_font_t"]};

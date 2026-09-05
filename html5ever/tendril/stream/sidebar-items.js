@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LossyDecoder","Utf8LossyDecoder"],"trait":["TendrilSink"]};

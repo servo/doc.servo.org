@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReleaseNameReply","RequestNameFlags","RequestNameReply","StartServiceReply"],"struct":["ConnectionCredentials","DBusProxy","NameAcquired","NameAcquiredArgs","NameAcquiredStream","NameLost","NameLostArgs","NameLostStream","NameOwnerChanged","NameOwnerChangedArgs","NameOwnerChangedStream"]};

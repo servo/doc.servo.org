@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/stylo-482338307e42a9ea/a5b0464/style/color/gamut/raytrace.rs`."><title>raytrace.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="style" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">style/color/gamut/</div>raytrace.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="doccomment">//! Gamut mapping - Raytrace algorithm.
+<a href=#6 id=6 data-nosnippet>6</a>//! &lt;https://drafts.csswg.org/css-color-4/#gamut-mapping&gt;
+<a href=#7 id=7 data-nosnippet>7</a>
+<a href=#8 id=8 data-nosnippet>8</a></span><span class="kw">use </span><span class="kw">crate</span>::color::{gamut::MIN_PRECISION, AbsoluteColor, ColorComponents, ColorSpace};
+<a href=#9 id=9 data-nosnippet>9</a>
+<a href=#10 id=10 data-nosnippet>10</a><span class="kw">impl </span>AbsoluteColor {
+<a href=#11 id=11 data-nosnippet>11</a>    <span class="doccomment">/// 13.2.5. The Ray Trace Gamut Mapping
+<a href=#12 id=12 data-nosnippet>12</a>    /// &lt;https://drafts.csswg.org/css-color-4/#GMA-Raytrace&gt;
+<a href=#13 id=13 data-nosnippet>13</a>    </span><span class="kw">pub fn </span>gamut_map_raytrace(<span class="kw-2">&amp;</span><span class="self">self</span>, dest_color_space: ColorSpace) -&gt; <span class="self">Self </span>{
+<a href=#14 id=14 data-nosnippet>14</a>        <span class="macro">macro_rules!</span> in_range {
+<a href=#15 id=15 data-nosnippet>15</a>            (<span class="macro-nonterminal">$l</span>:expr, <span class="macro-nonterminal">$c</span>:expr, <span class="macro-nonterminal">$h</span>:expr) =&gt; {{
+<a href=#16 id=16 data-nosnippet>16</a>                <span class="macro-nonterminal">$c </span>&gt;= <span class="macro-nonterminal">$l </span>&amp;&amp; <span class="macro-nonterminal">$c </span>&lt;= <span class="macro-nonterminal">$h
+<a href=#17 id=17 data-nosnippet>17</a>            </span>}};
+<a href=#18 id=18 data-nosnippet>18</a>        }
+<a href=#19 id=19 data-nosnippet>19</a>
+<a href=#20 id=20 data-nosnippet>20</a>        <span class="kw">const </span>MIN_L: f32 = MIN_PRECISION;
+<a href=#21 id=21 data-nosnippet>21</a>        <span class="kw">const </span>MAX_L: f32 = <span class="number">1.0</span>;
+<a href=#22 id=22 data-nosnippet>22</a>
+<a href=#23 id=23 data-nosnippet>23</a>        <span class="comment">// Get the linear version of the destination color space;
+<a href=#24 id=24 data-nosnippet>24</a>        // else, use the same space for the destination.
+<a href=#25 id=25 data-nosnippet>25</a>        // NOTE that this will cause temporary approximations for wide-gamut
+<a href=#26 id=26 data-nosnippet>26</a>        // RGB spaces beyond DisplayP3 (A98RGB, ProPhoto, and Rec2020) that
+<a href=#27 id=27 data-nosnippet>27</a>        // currently don't have linear versions built-out for them.
+<a href=#28 id=28 data-nosnippet>28</a>        // See comments/notes on [`ColorSpace::get_linear_color_space()`].
+<a href=#29 id=29 data-nosnippet>29</a>        </span><span class="kw">let </span>dest_linear_color_space = dest_color_space
+<a href=#30 id=30 data-nosnippet>30</a>            .get_linear_color_space()
+<a href=#31 id=31 data-nosnippet>31</a>            .unwrap_or(dest_color_space);
+<a href=#32 id=32 data-nosnippet>32</a>
+<a href=#33 id=33 data-nosnippet>33</a>        <span class="comment">// 1. if destination has no gamut limits (XYZ-D65, XYZ-D50, Lab, LCH,
+<a href=#34 id=34 data-nosnippet>34</a>        //    Oklab, OkLCh) convert origin to destination and return it as the
+<a href=#35 id=35 data-nosnippet>35</a>        //    gamut mapped color
+<a href=#36 id=36 data-nosnippet>36</a>        </span><span class="kw">if </span><span class="macro">matches!</span>(
+<a href=#37 id=37 data-nosnippet>37</a>            dest_color_space,
+<a href=#38 id=38 data-nosnippet>38</a>            ColorSpace::Lab
+<a href=#39 id=39 data-nosnippet>39</a>                | ColorSpace::Lch
+<a href=#40 id=40 data-nosnippet>40</a>                | ColorSpace::Oklab
+<a href=#41 id=41 data-nosnippet>41</a>                | ColorSpace::Oklch
+<a href=#42 id=42 data-nosnippet>42</a>                | ColorSpace::XyzD50
+<a href=#43 id=43 data-nosnippet>43</a>                | ColorSpace::XyzD65
+<a href=#44 id=44 data-nosnippet>44</a>        ) {
+<a href=#45 id=45 data-nosnippet>45</a>            <span class="kw">return </span><span class="self">self</span>.to_color_space(dest_color_space);
+<a href=#46 id=46 data-nosnippet>46</a>        }
+<a href=#47 id=47 data-nosnippet>47</a>
+<a href=#48 id=48 data-nosnippet>48</a>        <span class="comment">// 2. let `origin_OkLCh` be `origin` converted from `origin color
+<a href=#49 id=49 data-nosnippet>49</a>        //    space` to the OkLCh color space
+<a href=#50 id=50 data-nosnippet>50</a>        </span><span class="kw">let </span>origin_oklch = <span class="self">self</span>.to_color_space(ColorSpace::Oklch);
+<a href=#51 id=51 data-nosnippet>51</a>
+<a href=#52 id=52 data-nosnippet>52</a>        <span class="comment">// 3. if the Lightness of `origin_OkLCh` is greater than or equal to
+<a href=#53 id=53 data-nosnippet>53</a>        //    100%, convert `oklab(1 0 0 / origin.alpha)` to `destination` and
+<a href=#54 id=54 data-nosnippet>54</a>        //    return it as the gamut mapped color
+<a href=#55 id=55 data-nosnippet>55</a>        </span><span class="kw">if </span>origin_oklch.components.<span class="number">0 </span>&gt;= MAX_L {
+<a href=#56 id=56 data-nosnippet>56</a>            <span class="kw">return </span>AbsoluteColor::new(ColorSpace::Oklab, <span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="self">self</span>.alpha)
+<a href=#57 id=57 data-nosnippet>57</a>                .to_color_space(dest_color_space);
+<a href=#58 id=58 data-nosnippet>58</a>        }
+<a href=#59 id=59 data-nosnippet>59</a>
+<a href=#60 id=60 data-nosnippet>60</a>        <span class="comment">// 4. if the Lightness of `origin_OkLCh` is less than than or equal to
+<a href=#61 id=61 data-nosnippet>61</a>        //    0%, convert `oklab(0 0 0 / origin.alpha)` to `destination` and
+<a href=#62 id=62 data-nosnippet>62</a>        //    return it as the gamut mapped color
+<a href=#63 id=63 data-nosnippet>63</a>        </span><span class="kw">if </span>origin_oklch.components.<span class="number">0 </span>&lt;= MIN_L {
+<a href=#64 id=64 data-nosnippet>64</a>            <span class="kw">return </span>AbsoluteColor::new(ColorSpace::Oklab, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="self">self</span>.alpha)
+<a href=#65 id=65 data-nosnippet>65</a>                .to_color_space(dest_color_space);
+<a href=#66 id=66 data-nosnippet>66</a>        }
+<a href=#67 id=67 data-nosnippet>67</a>
+<a href=#68 id=68 data-nosnippet>68</a>        <span class="comment">// 5. let `l_origin` be the OkLCh lightness component of `origin_OkLCh`
+<a href=#69 id=69 data-nosnippet>69</a>        // 6. let `h_origin` be the OkLCh hue component of `origin_OkLCh`
+<a href=#70 id=70 data-nosnippet>70</a>        </span><span class="kw">let </span>ColorComponents(l_origin, <span class="kw">_</span>, h_origin) = origin_oklch.components;
+<a href=#71 id=71 data-nosnippet>71</a>
+<a href=#72 id=72 data-nosnippet>72</a>        <span class="comment">// 7. let `anchor` be an achromatic OkLCh color formed with `l_origin`
+<a href=#73 id=73 data-nosnippet>73</a>        //    as lightness, 0 as chroma, and `h_origin` as hue, converted to
+<a href=#74 id=74 data-nosnippet>74</a>        //    the linear-light form of destination
+<a href=#75 id=75 data-nosnippet>75</a>        </span><span class="kw">let </span><span class="kw-2">mut </span>anchor = AbsoluteColor::new(ColorSpace::Oklch, l_origin, <span class="number">0.0</span>, h_origin, <span class="self">self</span>.alpha)
+<a href=#76 id=76 data-nosnippet>76</a>            .to_color_space(dest_linear_color_space);
+<a href=#77 id=77 data-nosnippet>77</a>
+<a href=#78 id=78 data-nosnippet>78</a>        <span class="comment">// 8. let `origin_rgb` be `origin_OkLCh` converted to the linear-light
+<a href=#79 id=79 data-nosnippet>79</a>        //    form of destination
+<a href=#80 id=80 data-nosnippet>80</a>        </span><span class="kw">let </span><span class="kw-2">mut </span>origin_rgb = origin_oklch.to_color_space(dest_linear_color_space);
+<a href=#81 id=81 data-nosnippet>81</a>
+<a href=#82 id=82 data-nosnippet>82</a>        <span class="comment">// 9. if origin_rgb is not in gamut
+<a href=#83 id=83 data-nosnippet>83</a>        </span><span class="kw">if </span>!origin_rgb.in_gamut() {
+<a href=#84 id=84 data-nosnippet>84</a>            <span class="comment">// 9.1. let `low` be 1E-6 [^1]
+<a href=#85 id=85 data-nosnippet>85</a>            </span><span class="kw">const </span>LOW: f32 = <span class="number">1.0e-6</span>;
+<a href=#86 id=86 data-nosnippet>86</a>
+<a href=#87 id=87 data-nosnippet>87</a>            <span class="comment">// 9.2 let `high` be 1.0 - `low` [^2]
+<a href=#88 id=88 data-nosnippet>88</a>            </span><span class="kw">const </span>HIGH: f32 = <span class="number">1.0 </span>- LOW;
+<a href=#89 id=89 data-nosnippet>89</a>
+<a href=#90 id=90 data-nosnippet>90</a>            <span class="comment">// 9.3 let `last` be `origin_rgb`
+<a href=#91 id=91 data-nosnippet>91</a>            </span><span class="kw">let </span><span class="kw-2">mut </span>last = origin_rgb;
+<a href=#92 id=92 data-nosnippet>92</a>
+<a href=#93 id=93 data-nosnippet>93</a>            <span class="comment">// We're doing 4 cycles of ray tracing.
+<a href=#94 id=94 data-nosnippet>94</a>            // 9.4 `for (i=0; i&lt;4; i++)`:
+<a href=#95 id=95 data-nosnippet>95</a>            </span><span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">4 </span>{
+<a href=#96 id=96 data-nosnippet>96</a>                <span class="comment">// 9.4.1. if (`i &gt; 0`)
+<a href=#97 id=97 data-nosnippet>97</a>                </span><span class="kw">if </span>i &gt; <span class="number">0 </span>{
+<a href=#98 id=98 data-nosnippet>98</a>                    <span class="comment">// 9.4.1.1. let `current_OkLCh` be `origin_rgb` converted to OkLCh
+<a href=#99 id=99 data-nosnippet>99</a>                    </span><span class="kw">let </span><span class="kw-2">mut </span>current_oklch = origin_rgb.to_color_space(ColorSpace::Oklch);
+<a href=#100 id=100 data-nosnippet>100</a>
+<a href=#101 id=101 data-nosnippet>101</a>                    <span class="comment">// 9.4.1.2. let the lightness of `current_OkLCh` be `l_origin`
+<a href=#102 id=102 data-nosnippet>102</a>                    </span>current_oklch.components.<span class="number">0 </span>= l_origin;
+<a href=#103 id=103 data-nosnippet>103</a>                    <span class="comment">// 9.4.1.3. let the hue of `current_OkLCh` be `h_origin` [^3]
+<a href=#104 id=104 data-nosnippet>104</a>                    </span>current_oklch.components.<span class="number">2 </span>= h_origin;
+<a href=#105 id=105 data-nosnippet>105</a>
+<a href=#106 id=106 data-nosnippet>106</a>                    <span class="comment">// 9.4.1.4. let `origin_rgb` be `current_OkLCh` converted to the
+<a href=#107 id=107 data-nosnippet>107</a>                    //         linear-light form of destination
+<a href=#108 id=108 data-nosnippet>108</a>                    </span>origin_rgb = current_oklch.to_color_space(dest_linear_color_space);
+<a href=#109 id=109 data-nosnippet>109</a>                }
+<a href=#110 id=110 data-nosnippet>110</a>
+<a href=#111 id=111 data-nosnippet>111</a>                <span class="comment">// 9.4.2. **Cast a ray** from `anchor` to `origin_rgb` and let
+<a href=#112 id=112 data-nosnippet>112</a>                //        `intersection` be the intersection of this ray with the
+<a href=#113 id=113 data-nosnippet>113</a>                //        gamut boundary
+<a href=#114 id=114 data-nosnippet>114</a>                </span><span class="kw">let </span>intersection = <span class="self">Self</span>::cast_ray(<span class="kw-2">&amp;</span>anchor.components, <span class="kw-2">&amp;</span>origin_rgb.components);
+<a href=#115 id=115 data-nosnippet>115</a>
+<a href=#116 id=116 data-nosnippet>116</a>                <span class="comment">// 9.4.3. if an intersection was not found, let `origin_rgb` be
+<a href=#117 id=117 data-nosnippet>117</a>                //        `last` and exit the loop [^5]
+<a href=#118 id=118 data-nosnippet>118</a>                </span><span class="kw">let </span><span class="prelude-val">Some</span>(intersection) = intersection <span class="kw">else </span>{
+<a href=#119 id=119 data-nosnippet>119</a>                    origin_rgb = last;
+<a href=#120 id=120 data-nosnippet>120</a>                    <span class="kw">break</span>;
+<a href=#121 id=121 data-nosnippet>121</a>                };
+<a href=#122 id=122 data-nosnippet>122</a>
+<a href=#123 id=123 data-nosnippet>123</a>                <span class="comment">// 9.4.4. if (`i &gt; 0`) AND (each component of `origin_rgb` is
+<a href=#124 id=124 data-nosnippet>124</a>                //        between `low` and `high`) then let `anchor` be
+<a href=#125 id=125 data-nosnippet>125</a>                //        `origin_rgb` [^4]
+<a href=#126 id=126 data-nosnippet>126</a>                </span><span class="kw">if </span>(i &gt; <span class="number">0</span>)
+<a href=#127 id=127 data-nosnippet>127</a>                    &amp;&amp; <span class="macro">in_range!</span>(LOW, origin_rgb.components.<span class="number">0</span>, HIGH)
+<a href=#128 id=128 data-nosnippet>128</a>                    &amp;&amp; <span class="macro">in_range!</span>(LOW, origin_rgb.components.<span class="number">1</span>, HIGH)
+<a href=#129 id=129 data-nosnippet>129</a>                    &amp;&amp; <span class="macro">in_range!</span>(LOW, origin_rgb.components.<span class="number">2</span>, HIGH)
+<a href=#130 id=130 data-nosnippet>130</a>                {
+<a href=#131 id=131 data-nosnippet>131</a>                    anchor = origin_rgb;
+<a href=#132 id=132 data-nosnippet>132</a>                }
+<a href=#133 id=133 data-nosnippet>133</a>
+<a href=#134 id=134 data-nosnippet>134</a>                <span class="comment">// 9.4.5. let `origin_rgb` be `intersection`
+<a href=#135 id=135 data-nosnippet>135</a>                </span>origin_rgb.components = intersection;
+<a href=#136 id=136 data-nosnippet>136</a>
+<a href=#137 id=137 data-nosnippet>137</a>                <span class="comment">// 9.4.6. let `last` be `intersection`
+<a href=#138 id=138 data-nosnippet>138</a>                </span>last.components = intersection;
+<a href=#139 id=139 data-nosnippet>139</a>            }
+<a href=#140 id=140 data-nosnippet>140</a>        }
+<a href=#141 id=141 data-nosnippet>141</a>
+<a href=#142 id=142 data-nosnippet>142</a>        <span class="comment">// 10. let clip(color) be a function which converts color to
+<a href=#143 id=143 data-nosnippet>143</a>        //     destination, clamps each component to the bounds of the
+<a href=#144 id=144 data-nosnippet>144</a>        //     reference range for that component, and returns the result
+<a href=#145 id=145 data-nosnippet>145</a>        //     See [`Self::clip`] and [`Self::clip_to_dest_space`].
+<a href=#146 id=146 data-nosnippet>146</a>
+<a href=#147 id=147 data-nosnippet>147</a>        // NOTE: in the 2026-02-27 draft, this line doesn't make sense.
+<a href=#148 id=148 data-nosnippet>148</a>        //       I've posted a question/issue to the CSS Color 4 team about it.
+<a href=#149 id=149 data-nosnippet>149</a>        //       See &lt;https://github.com/w3c/csswg-drafts/issues/10579#issuecomment-4122677476&gt;
+<a href=#150 id=150 data-nosnippet>150</a>        //       Isaac (@facelessuser) replied that it is ambiguous, but ATOW this hasn't
+<a href=#151 id=151 data-nosnippet>151</a>        //       been fixed in the working copy pseudo-code.
+<a href=#152 id=152 data-nosnippet>152</a>        //       See &lt;https://github.com/w3c/csswg-drafts/issues/10579#issuecomment-4123490623&gt;
+<a href=#153 id=153 data-nosnippet>153</a>        // 11. set clipped to clip(current)
+<a href=#154 id=154 data-nosnippet>154</a>        //
+<a href=#155 id=155 data-nosnippet>155</a>        // In the meantime, this was the logic from the 2026-02-02 draft that worked:
+<a href=#156 id=156 data-nosnippet>156</a>        // 13. let `clipped` be `origin_rgb` clipped to gamut (components in
+<a href=#157 id=157 data-nosnippet>157</a>        //     the range 0 to 1), thus trimming off any noise due to floating
+<a href=#158 id=158 data-nosnippet>158</a>        //     point inaccuracy
+<a href=#159 id=159 data-nosnippet>159</a>        </span><span class="kw">let </span>clipped = origin_rgb.clip_to_dest_space(dest_color_space);
+<a href=#160 id=160 data-nosnippet>160</a>
+<a href=#161 id=161 data-nosnippet>161</a>        <span class="comment">// 12. return `clipped` as the gamut mapped color
+<a href=#162 id=162 data-nosnippet>162</a>        </span>clipped
+<a href=#163 id=163 data-nosnippet>163</a>    }
+<a href=#164 id=164 data-nosnippet>164</a>
+<a href=#165 id=165 data-nosnippet>165</a>    <span class="doccomment">/// To **cast a ray** through a linear-light RGB space from `start` to
+<a href=#166 id=166 data-nosnippet>166</a>    /// `end` (in gamut mapping, `start` is an anchor within the RGB gamut and
+<a href=#167 id=167 data-nosnippet>167</a>    /// `end` is the gamut mapped color, on the cubical gamut surface)
+<a href=#168 id=168 data-nosnippet>168</a>    /// &lt;https://drafts.csswg.org/css-color-4/#GMA-Raytrace&gt;
+<a href=#169 id=169 data-nosnippet>169</a>    </span><span class="kw">fn </span>cast_ray(start: <span class="kw-2">&amp;</span>ColorComponents, end: <span class="kw-2">&amp;</span>ColorComponents) -&gt; <span class="prelude-ty">Option</span>&lt;ColorComponents&gt; {
+<a href=#170 id=170 data-nosnippet>170</a>        <span class="comment">// 1. let `bmin` and `bmax` be 3-element arrays with the gamut’s lower
+<a href=#171 id=171 data-nosnippet>171</a>        //    and upper bounds, respectively [^6]
+<a href=#172 id=172 data-nosnippet>172</a>        // NOTE: assuming these are always tied to RGB bounds [0.0, 1.0]
+<a href=#173 id=173 data-nosnippet>173</a>        </span><span class="kw">let </span>bmin = [<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>];
+<a href=#174 id=174 data-nosnippet>174</a>        <span class="kw">let </span>bmax = [<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>];
+<a href=#175 id=175 data-nosnippet>175</a>
+<a href=#176 id=176 data-nosnippet>176</a>        <span class="comment">// 2. let `tfar` be `infinity` (or some very large number)
+<a href=#177 id=177 data-nosnippet>177</a>        </span><span class="kw">let </span><span class="kw-2">mut </span>tfar = std::f32::INFINITY;
+<a href=#178 id=178 data-nosnippet>178</a>
+<a href=#179 id=179 data-nosnippet>179</a>        <span class="comment">// 3. let `tnear` be `-infinity` (or some very large, negative number)
+<a href=#180 id=180 data-nosnippet>180</a>        </span><span class="kw">let </span><span class="kw-2">mut </span>tnear = std::f32::NEG_INFINITY;
+<a href=#181 id=181 data-nosnippet>181</a>
+<a href=#182 id=182 data-nosnippet>182</a>        <span class="comment">// 4. let `direction` be a 3-element array
+<a href=#183 id=183 data-nosnippet>183</a>        </span><span class="kw">let </span><span class="kw-2">mut </span>direction = [<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>];
+<a href=#184 id=184 data-nosnippet>184</a>
+<a href=#185 id=185 data-nosnippet>185</a>        <span class="comment">// reshape start and end so we can iterate over them
+<a href=#186 id=186 data-nosnippet>186</a>        </span><span class="kw">let </span>start_array = start.to_array();
+<a href=#187 id=187 data-nosnippet>187</a>        <span class="kw">let </span>end_array = end.to_array();
+<a href=#188 id=188 data-nosnippet>188</a>
+<a href=#189 id=189 data-nosnippet>189</a>        <span class="comment">// 5. `for (i = 0; i &lt; 3; i++)`:
+<a href=#190 id=190 data-nosnippet>190</a>        </span><span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">3 </span>{
+<a href=#191 id=191 data-nosnippet>191</a>            <span class="comment">// 5.1. let `a` be `start[i]`
+<a href=#192 id=192 data-nosnippet>192</a>            </span><span class="kw">let </span>a = start_array[i];
+<a href=#193 id=193 data-nosnippet>193</a>
+<a href=#194 id=194 data-nosnippet>194</a>            <span class="comment">// 5.2. let `b` be `end[i]`
+<a href=#195 id=195 data-nosnippet>195</a>            </span><span class="kw">let </span>b = end_array[i];
+<a href=#196 id=196 data-nosnippet>196</a>
+<a href=#197 id=197 data-nosnippet>197</a>            <span class="comment">// 5.3. let `d` be `b - a`
+<a href=#198 id=198 data-nosnippet>198</a>            </span><span class="kw">let </span>d = b - a;
+<a href=#199 id=199 data-nosnippet>199</a>
+<a href=#200 id=200 data-nosnippet>200</a>            <span class="comment">// 5.4. let `direction[i]` be `d`
+<a href=#201 id=201 data-nosnippet>201</a>            </span>direction[i] = d;
+<a href=#202 id=202 data-nosnippet>202</a>
+<a href=#203 id=203 data-nosnippet>203</a>            <span class="comment">// 5.5. if abs(d) &gt; MIN_THRESHOLD:
+<a href=#204 id=204 data-nosnippet>204</a>            // NOTE the 2026-02-27 spec is incorrect; it uses less-than -- should be greater-than.
+<a href=#205 id=205 data-nosnippet>205</a>            //      Reference impls colorjs.io and ColorAide both use greater-than.
+<a href=#206 id=206 data-nosnippet>206</a>            //      Issue reported to CSS Color 4 team; yet to be fixed in working draft ATOW.
+<a href=#207 id=207 data-nosnippet>207</a>            //      See &lt;https://github.com/w3c/csswg-drafts/issues/10579#issuecomment-4122988782&gt;
+<a href=#208 id=208 data-nosnippet>208</a>            // NOTE the spec and reference implementations all assume f64 precision, where
+<a href=#209 id=209 data-nosnippet>209</a>            //      MIN_THRESHOLD is 1e-12 currently in the spec. This is too precise for f32.
+<a href=#210 id=210 data-nosnippet>210</a>            //      Testing by working group members revealed the issue, and recommended
+<a href=#211 id=211 data-nosnippet>211</a>            //      loosening the precision to accommodate f32 properly by using 1e-6.
+<a href=#212 id=212 data-nosnippet>212</a>            //      See &lt;https://github.com/w3c/csswg-drafts/issues/10579#issuecomment-4666657910&gt;.
+<a href=#213 id=213 data-nosnippet>213</a>            </span><span class="kw">const </span>MIN_THRESHOLD: f32 = <span class="number">1e-6</span>;
+<a href=#214 id=214 data-nosnippet>214</a>            <span class="kw">if </span>d.abs() &gt; MIN_THRESHOLD {
+<a href=#215 id=215 data-nosnippet>215</a>                <span class="comment">// 5.5.1. let `inv_d` be `1 / d`
+<a href=#216 id=216 data-nosnippet>216</a>                </span><span class="kw">let </span>inv_d = <span class="number">1.0 </span>/ d;
+<a href=#217 id=217 data-nosnippet>217</a>
+<a href=#218 id=218 data-nosnippet>218</a>                <span class="comment">// 5.5.2. let `t1` be `(bmin[i] - a) * inv_d`
+<a href=#219 id=219 data-nosnippet>219</a>                </span><span class="kw">let </span>t1 = (bmin[i] - a) * inv_d;
+<a href=#220 id=220 data-nosnippet>220</a>
+<a href=#221 id=221 data-nosnippet>221</a>                <span class="comment">// 5.5.3. let `t2` be `(bmax[i] - a) * inv_d`
+<a href=#222 id=222 data-nosnippet>222</a>                </span><span class="kw">let </span>t2 = (bmax[i] - a) * inv_d;
+<a href=#223 id=223 data-nosnippet>223</a>
+<a href=#224 id=224 data-nosnippet>224</a>                <span class="comment">// 5.5.4. let `tnear` be `max(min(t1, t2), tnear)`
+<a href=#225 id=225 data-nosnippet>225</a>                </span>tnear = t1.min(t2).max(tnear);
+<a href=#226 id=226 data-nosnippet>226</a>
+<a href=#227 id=227 data-nosnippet>227</a>                <span class="comment">// 5.5.5. let `tfar` be `min(max(t1, t2), tfar)`
+<a href=#228 id=228 data-nosnippet>228</a>                </span>tfar = t1.max(t2).min(tfar);
+<a href=#229 id=229 data-nosnippet>229</a>            }
+<a href=#230 id=230 data-nosnippet>230</a>            <span class="comment">// 5.6. else if (`a &lt; bmin[i]` or `a &gt; bmax[i]`)
+<a href=#231 id=231 data-nosnippet>231</a>            //      * return `INTERSECTION NOT FOUND`
+<a href=#232 id=232 data-nosnippet>232</a>            </span><span class="kw">else if </span>a &lt; bmin[i] || a &gt; bmax[i] {
+<a href=#233 id=233 data-nosnippet>233</a>                <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#234 id=234 data-nosnippet>234</a>            }
+<a href=#235 id=235 data-nosnippet>235</a>        }
+<a href=#236 id=236 data-nosnippet>236</a>
+<a href=#237 id=237 data-nosnippet>237</a>        <span class="comment">// 6. if (`tnear &gt; tfar` or `tfar &lt; 0`)
+<a href=#238 id=238 data-nosnippet>238</a>        //    * return `INTERSECTION NOT FOUND`
+<a href=#239 id=239 data-nosnippet>239</a>        </span><span class="kw">if </span>(tnear &gt; tfar) || (tfar &lt; <span class="number">0.0</span>) {
+<a href=#240 id=240 data-nosnippet>240</a>            <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#241 id=241 data-nosnippet>241</a>        }
+<a href=#242 id=242 data-nosnippet>242</a>
+<a href=#243 id=243 data-nosnippet>243</a>        <span class="comment">// 7. if `tnear &lt; 0`
+<a href=#244 id=244 data-nosnippet>244</a>        //    * let `tnear` be `tfar` [^7]
+<a href=#245 id=245 data-nosnippet>245</a>        </span><span class="kw">if </span>tnear &lt; <span class="number">0.0 </span>{
+<a href=#246 id=246 data-nosnippet>246</a>            tnear = tfar;
+<a href=#247 id=247 data-nosnippet>247</a>        }
+<a href=#248 id=248 data-nosnippet>248</a>
+<a href=#249 id=249 data-nosnippet>249</a>        <span class="comment">// 8. if tnear is infinite (or matches the initial very large value)
+<a href=#250 id=250 data-nosnippet>250</a>        //    * return `INTERSECTION NOT FOUND`
+<a href=#251 id=251 data-nosnippet>251</a>        </span><span class="kw">if </span>tnear.is_infinite() {
+<a href=#252 id=252 data-nosnippet>252</a>            <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#253 id=253 data-nosnippet>253</a>        }
+<a href=#254 id=254 data-nosnippet>254</a>
+<a href=#255 id=255 data-nosnippet>255</a>        <span class="kw">let </span><span class="kw-2">mut </span>result = [<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>];
+<a href=#256 id=256 data-nosnippet>256</a>        <span class="comment">// 9. for (`i = 0; i &lt; 3; i++`):
+<a href=#257 id=257 data-nosnippet>257</a>        //    * let `result[i]` be `start[i] + direction[i] * tnear`
+<a href=#258 id=258 data-nosnippet>258</a>        </span><span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">3 </span>{
+<a href=#259 id=259 data-nosnippet>259</a>            result[i] = start_array[i] + direction[i] * tnear;
+<a href=#260 id=260 data-nosnippet>260</a>        }
+<a href=#261 id=261 data-nosnippet>261</a>
+<a href=#262 id=262 data-nosnippet>262</a>        <span class="comment">// 10. return `result`
+<a href=#263 id=263 data-nosnippet>263</a>        </span><span class="prelude-val">Some</span>(ColorComponents(result[<span class="number">0</span>], result[<span class="number">1</span>], result[<span class="number">2</span>]))
+<a href=#264 id=264 data-nosnippet>264</a>    }
+<a href=#265 id=265 data-nosnippet>265</a>}
+</code></pre></div></section></main></body></html>

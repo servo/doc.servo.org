@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HueDirection","InterpolationAlphaSpace"],"fn":["add_alpha","fast_round_to_u8","fixup_hue","fixup_hues_for_interpolate","split_alpha"],"struct":["AlphaColor","OpaqueColor","PremulColor"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","IDBObjectStore_Binding"],"trait":["IDBObjectStoreMethods"],"type":["IDBIndexParameters"]};

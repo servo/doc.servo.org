@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ELEM_MAX_BITS","ELEM_MAX_BYTES","PUBLIC_KEY_MAX_LEN"],"fn":["compressed_public_key_size_bytes","ec_group_from_nid","ecdsa_asn1_to_fixed","evp_key_generate","uncompressed_public_key_size_bytes","validate_ec_evp_key","verify_ec_key_nid","verify_evp_key_nid"],"mod":["encoding","key_pair","signature"]};

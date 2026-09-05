@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HINT_RELIANT_IDS","HINT_RELIANT_NAMES","MAX_HINT_RELIANT_NAME_LEN"],"fn":["is_hint_reliant_by_name","matches_hint_reliant_id_list","matches_hint_reliant_name_list","require_interpreter","skip_pdf_random_tag"],"struct":["FontId","TableId"]};

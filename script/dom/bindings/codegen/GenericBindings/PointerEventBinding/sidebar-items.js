@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["PointerEvent_Binding"],"struct":["PointerEventInit"],"trait":["PointerEventMethods"]};

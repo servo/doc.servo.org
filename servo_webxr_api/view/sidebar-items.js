@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CUBE_BACK","CUBE_BOTTOM","CUBE_LEFT","CUBE_RIGHT","CUBE_TOP","LEFT_EYE","RIGHT_EYE","VIEWER"],"enum":["Capture","CubeBack","CubeBottom","CubeLeft","CubeRight","CubeTop","Display","Floor","Input","LeftEye","Native","RightEye","Viewer","Viewport","Views"],"struct":["SomeEye","View","Viewports"]};

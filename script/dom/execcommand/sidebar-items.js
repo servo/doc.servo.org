@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["basecommand","commands","contenteditable","execcommands"]};

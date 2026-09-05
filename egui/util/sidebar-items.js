@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["hash","hash_with"],"mod":["fixed_cache","id_type_map","undoer"],"struct":["History"]};

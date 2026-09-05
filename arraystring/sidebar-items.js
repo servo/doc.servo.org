@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["arraystring","drain","error","generic","implementations","mock","prelude"],"struct":["ArrayString","CacheString"],"type":["MaxString","SmallString"]};

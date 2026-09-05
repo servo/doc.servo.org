@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`bits2octets` transform as defined in [RFC6979 §2.3.4]: “Bit String to Octet String”"><title>bits2octets in rfc6979 - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="rfc6979" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">bits2octets</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../rfc6979/index.html"><img src="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg" alt="logo"></a><h2><a href="../rfc6979/index.html">rfc6979</a><span class="version">0.6.0</span></h2></div><div class="sidebar-elems"><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">rfc6979</a></div><h1>Function <span class="fn">bits2octets</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/rfc6979/lib.rs.html#236-248">Source</a> </span></div><pre class="rust item-decl"><code>pub(crate) fn bits2octets&lt;'a, U&gt;(b: &amp;[<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.u8.html">u8</a>], q: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.reference.html">&amp;U</a>, out: &amp;'a mut [<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.u8.html">u8</a>]) -&gt; &amp;'a [<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.u8.html">u8</a>] <a href="#" class="tooltip" data-notable-ty="&amp;&#39;a [u8]">ⓘ</a><div class="where">where
+    U: <a class="trait" href="../crypto_bigint/traits/trait.Unsigned.html" title="trait crypto_bigint::traits::Unsigned">Unsigned</a> + <a class="trait" href="../crypto_bigint/encoding/trait.Encoding.html" title="trait crypto_bigint::encoding::Encoding">Encoding</a>,</div></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><code>bits2octets</code> transform as defined in [RFC6979 §2.3.4]: “Bit String to Octet String”</p>
+<p>From the RFC:</p>
+<blockquote>
+<p>The bits2octets transform takes as input a sequence of blen bits and
+outputs a sequence of rlen bits.  It consists of the following steps:</p>
+<ol>
+<li>
+<p>The input sequence b is converted into an integer value z1
+through the bits2int transform:</p>
+<p>z1 = bits2int(b)</p>
+</li>
+<li>
+<p>z1 is reduced modulo q, yielding z2 (an integer between 0 and
+q-1, inclusive):</p>
+<p>z2 = z1 mod q</p>
+<p>Note that since z1 is less than 2^qlen, that modular reduction
+can be implemented with a simple conditional subtraction:
+z2 = z1-q if that value is non-negative; otherwise, z2 = z1.</p>
+</li>
+<li>
+<p>z2 is transformed into a sequence of octets (a sequence of rlen
+bits) by applying int2octets.</p>
+</li>
+</ol>
+</blockquote>
+</div></details><script type="text/json" id="notable-traits-data">{"&'a [u8]":"<h3>Notable traits for <code>&amp;[<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.97.1/std/primitive.u8.html\">u8</a>]</code></h3><pre><code><div class=\"where\">impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.97.1/std/io/trait.Read.html\" title=\"trait std::io::Read\">Read</a> for &amp;[<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.97.1/std/primitive.u8.html\">u8</a>]</div>"}</script></section></div></main></body></html>

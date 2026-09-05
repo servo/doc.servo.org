@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["collect_extended"],"macro":[["collect_string",1]]};

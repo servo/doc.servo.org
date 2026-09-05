@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AtEndOfFile","NetworkDecoderState"],"fn":["extract_a_character_encoding_from_a_meta_element","get_an_attribute","get_xml_encoding","prescan_the_byte_stream_to_determine_the_encoding"],"struct":["Attribute","DecodingState","DetectingState","NetworkSink"]};

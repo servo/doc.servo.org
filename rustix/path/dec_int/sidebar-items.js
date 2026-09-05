@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BUF_LEN","I64_MAX_STR_LEN","U64_MAX_STR_LEN"],"mod":["private"],"struct":["DecInt"],"trait":["Integer"]};

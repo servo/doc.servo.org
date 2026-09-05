@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["unsafe_transmute",1],["unsafe_transmute_ref",1]]};

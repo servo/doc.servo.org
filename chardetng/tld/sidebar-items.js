@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Tld"],"fn":["classify_tld"],"static":["PUNYCODE_KEYS","PUNYCODE_VALUES","TWO_LETTER_KEYS","TWO_LETTER_VALUES"]};

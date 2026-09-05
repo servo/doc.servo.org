@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_LEN","URI_CHARS"],"enum":["ErrorKind"],"fn":["parse_full"],"mod":["authority","builder","path","port","scheme"],"struct":["Authority","Builder","InvalidUri","InvalidUriParts","Parts","PathAndQuery","Port","Scheme","Uri"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["layer_fn"],"struct":["LayerFn"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["BluetoothUUID_Binding","GenericBindings"],"trait":["BluetoothUUIDMethods"],"type":["BluetoothCharacteristicUUID","BluetoothDescriptorUUID","BluetoothServiceUUID","UUID"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StagingBufferState"],"fn":["image_data"],"struct":["Buffer","ContextData","MappedBuffer","PresentationStagingBuffer","StagingBuffer","WebGpuExternalImages"],"type":["WebGpuExternalImageMap"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_DATETIME","MIN_DATETIME","UNIX_EPOCH_DAY"],"fn":["map_local"],"mod":["serde"],"struct":["DateTime"]};

@@ -1,0 +1,628 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `components/script/navigation.rs`."><title>navigation.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="script" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../../static.files/src-script-813739b1.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">script/</div>navigation.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="doccomment">//! The listener that encapsulates all state for an in-progress document request.
+<a href=#6 id=6 data-nosnippet>6</a>//! Any redirects that are encountered are followed. Whenever a non-redirect
+<a href=#7 id=7 data-nosnippet>7</a>//! response is received, it is forwarded to the appropriate script thread.
+<a href=#8 id=8 data-nosnippet>8</a>
+<a href=#9 id=9 data-nosnippet>9</a></span><span class="kw">use </span>std::cell::Cell;
+<a href=#10 id=10 data-nosnippet>10</a>
+<a href=#11 id=11 data-nosnippet>11</a><span class="kw">use </span>content_security_policy::sandboxing_directive::SandboxingFlagSet;
+<a href=#12 id=12 data-nosnippet>12</a><span class="kw">use </span>crossbeam_channel::Sender;
+<a href=#13 id=13 data-nosnippet>13</a><span class="kw">use </span>embedder_traits::user_contents::UserContentManagerId;
+<a href=#14 id=14 data-nosnippet>14</a><span class="kw">use </span>embedder_traits::{Theme, ViewportDetails, WebDriverLoadStatus};
+<a href=#15 id=15 data-nosnippet>15</a><span class="kw">use </span>http::header;
+<a href=#16 id=16 data-nosnippet>16</a><span class="kw">use </span>js::context::JSContext;
+<a href=#17 id=17 data-nosnippet>17</a><span class="kw">use </span>net_traits::blob_url_store::UrlWithBlobClaim;
+<a href=#18 id=18 data-nosnippet>18</a><span class="kw">use </span>net_traits::request::{
+<a href=#19 id=19 data-nosnippet>19</a>    CredentialsMode, InsecureRequestsPolicy, Origin, PreloadedResources, RedirectMode,
+<a href=#20 id=20 data-nosnippet>20</a>    RequestBuilder, RequestClient, RequestMode,
+<a href=#21 id=21 data-nosnippet>21</a>};
+<a href=#22 id=22 data-nosnippet>22</a><span class="kw">use </span>net_traits::response::ResponseInit;
+<a href=#23 id=23 data-nosnippet>23</a><span class="kw">use </span>net_traits::{
+<a href=#24 id=24 data-nosnippet>24</a>    BoxedFetchCallback, CoreResourceThread, DOCUMENT_ACCEPT_HEADER_VALUE, FetchResponseMsg,
+<a href=#25 id=25 data-nosnippet>25</a>    Metadata, ReferrerPolicy, fetch_async, set_default_accept_language,
+<a href=#26 id=26 data-nosnippet>26</a>};
+<a href=#27 id=27 data-nosnippet>27</a><span class="kw">use </span>script_bindings::inheritance::Castable;
+<a href=#28 id=28 data-nosnippet>28</a><span class="kw">use </span>script_traits::{DocumentActivity, NewPipelineInfo};
+<a href=#29 id=29 data-nosnippet>29</a><span class="kw">use </span>servo_base::cross_process_instant::CrossProcessInstant;
+<a href=#30 id=30 data-nosnippet>30</a><span class="kw">use </span>servo_base::id::{BrowsingContextId, PipelineId, WebViewId};
+<a href=#31 id=31 data-nosnippet>31</a><span class="kw">use </span>servo_constellation_traits::{
+<a href=#32 id=32 data-nosnippet>32</a>    LoadData, LoadOrigin, NavigationHistoryBehavior, ScriptToConstellationMessage,
+<a href=#33 id=33 data-nosnippet>33</a>    TargetSnapshotParams,
+<a href=#34 id=34 data-nosnippet>34</a>};
+<a href=#35 id=35 data-nosnippet>35</a><span class="kw">use </span>servo_url::{ImmutableOrigin, MutableOrigin, ServoUrl};
+<a href=#36 id=36 data-nosnippet>36</a><span class="kw">use </span>url::Position;
+<a href=#37 id=37 data-nosnippet>37</a>
+<a href=#38 id=38 data-nosnippet>38</a><span class="kw">use </span><span class="kw">crate</span>::dom::bindings::codegen::Bindings::HTMLIFrameElementBinding::HTMLIFrameElementMethods;
+<a href=#39 id=39 data-nosnippet>39</a><span class="kw">use </span><span class="kw">crate</span>::dom::bindings::codegen::Bindings::WindowBinding::WindowMethods;
+<a href=#40 id=40 data-nosnippet>40</a><span class="kw">use </span><span class="kw">crate</span>::dom::bindings::refcounted::Trusted;
+<a href=#41 id=41 data-nosnippet>41</a><span class="kw">use </span><span class="kw">crate</span>::dom::element::Element;
+<a href=#42 id=42 data-nosnippet>42</a><span class="kw">use </span><span class="kw">crate</span>::dom::html::htmliframeelement::HTMLIFrameElement;
+<a href=#43 id=43 data-nosnippet>43</a><span class="kw">use </span><span class="kw">crate</span>::dom::node::node::NodeTraits;
+<a href=#44 id=44 data-nosnippet>44</a><span class="kw">use </span><span class="kw">crate</span>::dom::window::Window;
+<a href=#45 id=45 data-nosnippet>45</a><span class="kw">use </span><span class="kw">crate</span>::dom::windowproxy::WindowProxy;
+<a href=#46 id=46 data-nosnippet>46</a><span class="kw">use </span><span class="kw">crate</span>::event_loop::script_thread::ScriptThread;
+<a href=#47 id=47 data-nosnippet>47</a><span class="kw">use </span><span class="kw">crate</span>::fetch::fetch::FetchCanceller;
+<a href=#48 id=48 data-nosnippet>48</a><span class="kw">use </span><span class="kw">crate</span>::messaging::MainThreadScriptMsg;
+<a href=#49 id=49 data-nosnippet>49</a>
+<a href=#50 id=50 data-nosnippet>50</a><span class="attr">#[derive(Clone)]
+<a href=#51 id=51 data-nosnippet>51</a></span><span class="kw">pub struct </span>NavigationListener {
+<a href=#52 id=52 data-nosnippet>52</a>    request_builder: RequestBuilder,
+<a href=#53 id=53 data-nosnippet>53</a>    main_thread_sender: Sender&lt;MainThreadScriptMsg&gt;,
+<a href=#54 id=54 data-nosnippet>54</a>    <span class="comment">// Whether or not results are sent to the main thread. After a redirect results are no longer sent,
+<a href=#55 id=55 data-nosnippet>55</a>    // as the main thread has already started a new request.
+<a href=#56 id=56 data-nosnippet>56</a>    </span>send_results_to_main_thread: Cell&lt;bool&gt;,
+<a href=#57 id=57 data-nosnippet>57</a>}
+<a href=#58 id=58 data-nosnippet>58</a>
+<a href=#59 id=59 data-nosnippet>59</a><span class="kw">impl </span>NavigationListener {
+<a href=#60 id=60 data-nosnippet>60</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>into_callback(<span class="self">self</span>) -&gt; BoxedFetchCallback {
+<a href=#61 id=61 data-nosnippet>61</a>        Box::new(<span class="kw">move </span>|response_msg| <span class="self">self</span>.notify_fetch(response_msg))
+<a href=#62 id=62 data-nosnippet>62</a>    }
+<a href=#63 id=63 data-nosnippet>63</a>
+<a href=#64 id=64 data-nosnippet>64</a>    <span class="kw">pub fn </span>new(
+<a href=#65 id=65 data-nosnippet>65</a>        request_builder: RequestBuilder,
+<a href=#66 id=66 data-nosnippet>66</a>        main_thread_sender: Sender&lt;MainThreadScriptMsg&gt;,
+<a href=#67 id=67 data-nosnippet>67</a>    ) -&gt; NavigationListener {
+<a href=#68 id=68 data-nosnippet>68</a>        NavigationListener {
+<a href=#69 id=69 data-nosnippet>69</a>            request_builder,
+<a href=#70 id=70 data-nosnippet>70</a>            main_thread_sender,
+<a href=#71 id=71 data-nosnippet>71</a>            send_results_to_main_thread: Cell::new(<span class="bool-val">true</span>),
+<a href=#72 id=72 data-nosnippet>72</a>        }
+<a href=#73 id=73 data-nosnippet>73</a>    }
+<a href=#74 id=74 data-nosnippet>74</a>
+<a href=#75 id=75 data-nosnippet>75</a>    <span class="kw">pub fn </span>initiate_fetch(
+<a href=#76 id=76 data-nosnippet>76</a>        <span class="self">self</span>,
+<a href=#77 id=77 data-nosnippet>77</a>        core_resource_thread: <span class="kw-2">&amp;</span>CoreResourceThread,
+<a href=#78 id=78 data-nosnippet>78</a>        response_init: <span class="prelude-ty">Option</span>&lt;ResponseInit&gt;,
+<a href=#79 id=79 data-nosnippet>79</a>    ) {
+<a href=#80 id=80 data-nosnippet>80</a>        fetch_async(
+<a href=#81 id=81 data-nosnippet>81</a>            core_resource_thread,
+<a href=#82 id=82 data-nosnippet>82</a>            <span class="self">self</span>.request_builder.clone(),
+<a href=#83 id=83 data-nosnippet>83</a>            response_init,
+<a href=#84 id=84 data-nosnippet>84</a>            <span class="self">self</span>.into_callback(),
+<a href=#85 id=85 data-nosnippet>85</a>        );
+<a href=#86 id=86 data-nosnippet>86</a>    }
+<a href=#87 id=87 data-nosnippet>87</a>
+<a href=#88 id=88 data-nosnippet>88</a>    <span class="kw">fn </span>notify_fetch(<span class="kw-2">&amp;</span><span class="self">self</span>, message: FetchResponseMsg) {
+<a href=#89 id=89 data-nosnippet>89</a>        <span class="comment">// If we've already asked the main thread to redirect the response, then stop sending results
+<a href=#90 id=90 data-nosnippet>90</a>        // for this fetch. The main thread has already replaced it.
+<a href=#91 id=91 data-nosnippet>91</a>        </span><span class="kw">if </span>!<span class="self">self</span>.send_results_to_main_thread.get() {
+<a href=#92 id=92 data-nosnippet>92</a>            <span class="kw">return</span>;
+<a href=#93 id=93 data-nosnippet>93</a>        }
+<a href=#94 id=94 data-nosnippet>94</a>
+<a href=#95 id=95 data-nosnippet>95</a>        <span class="comment">// If this is a redirect, don't send any more message after this one.
+<a href=#96 id=96 data-nosnippet>96</a>        </span><span class="kw">if </span><span class="self">Self</span>::http_redirect_metadata(<span class="kw-2">&amp;</span>message).is_some() {
+<a href=#97 id=97 data-nosnippet>97</a>            <span class="self">self</span>.send_results_to_main_thread.set(<span class="bool-val">false</span>);
+<a href=#98 id=98 data-nosnippet>98</a>        }
+<a href=#99 id=99 data-nosnippet>99</a>
+<a href=#100 id=100 data-nosnippet>100</a>        <span class="kw">let </span>pipeline_id = <span class="self">self
+<a href=#101 id=101 data-nosnippet>101</a>            </span>.request_builder
+<a href=#102 id=102 data-nosnippet>102</a>            .pipeline_id
+<a href=#103 id=103 data-nosnippet>103</a>            .expect(<span class="string">"Navigation should always have an associated Pipeline"</span>);
+<a href=#104 id=104 data-nosnippet>104</a>        <span class="kw">let </span>result = <span class="self">self
+<a href=#105 id=105 data-nosnippet>105</a>            </span>.main_thread_sender
+<a href=#106 id=106 data-nosnippet>106</a>            .send(MainThreadScriptMsg::NavigationResponse {
+<a href=#107 id=107 data-nosnippet>107</a>                pipeline_id,
+<a href=#108 id=108 data-nosnippet>108</a>                message: Box::new(message),
+<a href=#109 id=109 data-nosnippet>109</a>            });
+<a href=#110 id=110 data-nosnippet>110</a>
+<a href=#111 id=111 data-nosnippet>111</a>        <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = result {
+<a href=#112 id=112 data-nosnippet>112</a>            <span class="macro">warn!</span>(
+<a href=#113 id=113 data-nosnippet>113</a>                <span class="string">"Failed to send network message to pipeline {:?}: {error:?}"</span>,
+<a href=#114 id=114 data-nosnippet>114</a>                pipeline_id
+<a href=#115 id=115 data-nosnippet>115</a>            );
+<a href=#116 id=116 data-nosnippet>116</a>        }
+<a href=#117 id=117 data-nosnippet>117</a>    }
+<a href=#118 id=118 data-nosnippet>118</a>
+<a href=#119 id=119 data-nosnippet>119</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>http_redirect_metadata(message: <span class="kw-2">&amp;</span>FetchResponseMsg) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Metadata&gt; {
+<a href=#120 id=120 data-nosnippet>120</a>        <span class="kw">let </span>FetchResponseMsg::ProcessResponse(<span class="kw">_</span>, <span class="prelude-val">Ok</span>(metadata)) = message <span class="kw">else </span>{
+<a href=#121 id=121 data-nosnippet>121</a>            <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#122 id=122 data-nosnippet>122</a>        };
+<a href=#123 id=123 data-nosnippet>123</a>
+<a href=#124 id=124 data-nosnippet>124</a>        <span class="comment">// Don't allow redirects for non HTTP(S) URLs.
+<a href=#125 id=125 data-nosnippet>125</a>        </span><span class="kw">let </span>metadata = metadata.metadata();
+<a href=#126 id=126 data-nosnippet>126</a>        <span class="kw">if </span>!<span class="macro">matches!</span>(
+<a href=#127 id=127 data-nosnippet>127</a>            metadata.location_url,
+<a href=#128 id=128 data-nosnippet>128</a>            <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">ref </span>location_url)) <span class="kw">if </span><span class="macro">matches!</span>(location_url.scheme(), <span class="string">"http" </span>| <span class="string">"https"</span>)
+<a href=#129 id=129 data-nosnippet>129</a>        ) {
+<a href=#130 id=130 data-nosnippet>130</a>            <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#131 id=131 data-nosnippet>131</a>        }
+<a href=#132 id=132 data-nosnippet>132</a>
+<a href=#133 id=133 data-nosnippet>133</a>        <span class="prelude-val">Some</span>(metadata)
+<a href=#134 id=134 data-nosnippet>134</a>    }
+<a href=#135 id=135 data-nosnippet>135</a>}
+<a href=#136 id=136 data-nosnippet>136</a>
+<a href=#137 id=137 data-nosnippet>137</a><span class="doccomment">/// A document load that is in the process of fetching the requested resource. Contains
+<a href=#138 id=138 data-nosnippet>138</a>/// data that will need to be present when the document and frame tree entry are created,
+<a href=#139 id=139 data-nosnippet>139</a>/// but is only easily available at initiation of the load and on a push basis (so some
+<a href=#140 id=140 data-nosnippet>140</a>/// data will be updated according to future resize events, viewport changes, etc.)
+<a href=#141 id=141 data-nosnippet>141</a></span><span class="attr">#[derive(JSTraceable)]
+<a href=#142 id=142 data-nosnippet>142</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>InProgressLoad {
+<a href=#143 id=143 data-nosnippet>143</a>    <span class="doccomment">/// The pipeline which requested this load.
+<a href=#144 id=144 data-nosnippet>144</a>    </span><span class="attr">#[no_trace]
+<a href=#145 id=145 data-nosnippet>145</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) pipeline_id: PipelineId,
+<a href=#146 id=146 data-nosnippet>146</a>    <span class="doccomment">/// The browsing context being loaded into.
+<a href=#147 id=147 data-nosnippet>147</a>    </span><span class="attr">#[no_trace]
+<a href=#148 id=148 data-nosnippet>148</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) browsing_context_id: BrowsingContextId,
+<a href=#149 id=149 data-nosnippet>149</a>    <span class="doccomment">/// The top level ancestor browsing context.
+<a href=#150 id=150 data-nosnippet>150</a>    </span><span class="attr">#[no_trace]
+<a href=#151 id=151 data-nosnippet>151</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) webview_id: WebViewId,
+<a href=#152 id=152 data-nosnippet>152</a>    <span class="doccomment">/// The parent pipeline and frame type associated with this load, if any.
+<a href=#153 id=153 data-nosnippet>153</a>    </span><span class="attr">#[no_trace]
+<a href=#154 id=154 data-nosnippet>154</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) parent_info: <span class="prelude-ty">Option</span>&lt;PipelineId&gt;,
+<a href=#155 id=155 data-nosnippet>155</a>    <span class="doccomment">/// The opener, if this is an auxiliary.
+<a href=#156 id=156 data-nosnippet>156</a>    </span><span class="attr">#[no_trace]
+<a href=#157 id=157 data-nosnippet>157</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) opener: <span class="prelude-ty">Option</span>&lt;BrowsingContextId&gt;,
+<a href=#158 id=158 data-nosnippet>158</a>    <span class="doccomment">/// The current window size associated with this pipeline.
+<a href=#159 id=159 data-nosnippet>159</a>    </span><span class="attr">#[no_trace]
+<a href=#160 id=160 data-nosnippet>160</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) viewport_details: ViewportDetails,
+<a href=#161 id=161 data-nosnippet>161</a>    <span class="doccomment">/// The activity level of the document (inactive, active or fully active).
+<a href=#162 id=162 data-nosnippet>162</a>    </span><span class="attr">#[no_trace]
+<a href=#163 id=163 data-nosnippet>163</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) activity: DocumentActivity,
+<a href=#164 id=164 data-nosnippet>164</a>    <span class="doccomment">/// Window is throttled, running timers at a heavily limited rate.
+<a href=#165 id=165 data-nosnippet>165</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) throttled: bool,
+<a href=#166 id=166 data-nosnippet>166</a>    <span class="doccomment">/// Timestamp reporting the time when the browser started this load.
+<a href=#167 id=167 data-nosnippet>167</a>    </span><span class="attr">#[no_trace]
+<a href=#168 id=168 data-nosnippet>168</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) navigation_start: CrossProcessInstant,
+<a href=#169 id=169 data-nosnippet>169</a>    <span class="doccomment">/// For cancelling the fetch
+<a href=#170 id=170 data-nosnippet>170</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) canceller: FetchCanceller,
+<a href=#171 id=171 data-nosnippet>171</a>    <span class="doccomment">/// The [`LoadData`] associated with this load.
+<a href=#172 id=172 data-nosnippet>172</a>    </span><span class="attr">#[no_trace]
+<a href=#173 id=173 data-nosnippet>173</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) load_data: LoadData,
+<a href=#174 id=174 data-nosnippet>174</a>    <span class="doccomment">/// A list of URL to keep track of all the redirects that have happened during
+<a href=#175 id=175 data-nosnippet>175</a>    /// this load.
+<a href=#176 id=176 data-nosnippet>176</a>    </span><span class="attr">#[no_trace]
+<a href=#177 id=177 data-nosnippet>177</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) url_list: Vec&lt;ServoUrl&gt;,
+<a href=#178 id=178 data-nosnippet>178</a>    <span class="attr">#[no_trace]
+<a href=#179 id=179 data-nosnippet>179</a>    </span><span class="doccomment">/// The [`UserContentManagerId`] associated with this load's `WebView`.
+<a href=#180 id=180 data-nosnippet>180</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) user_content_manager_id: <span class="prelude-ty">Option</span>&lt;UserContentManagerId&gt;,
+<a href=#181 id=181 data-nosnippet>181</a>    <span class="doccomment">/// The [`Theme`] to use for this page, once it loads.
+<a href=#182 id=182 data-nosnippet>182</a>    </span><span class="attr">#[no_trace]
+<a href=#183 id=183 data-nosnippet>183</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) embedder_theme: Theme,
+<a href=#184 id=184 data-nosnippet>184</a>    <span class="doccomment">/// The [`TargetSnapshotParams`] to use when creating this document.
+<a href=#185 id=185 data-nosnippet>185</a>    </span><span class="attr">#[no_trace]
+<a href=#186 id=186 data-nosnippet>186</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) target_snapshot_params: TargetSnapshotParams,
+<a href=#187 id=187 data-nosnippet>187</a>    <span class="doccomment">/// Name of this iframe, if any
+<a href=#188 id=188 data-nosnippet>188</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) frame_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+<a href=#189 id=189 data-nosnippet>189</a>}
+<a href=#190 id=190 data-nosnippet>190</a>
+<a href=#191 id=191 data-nosnippet>191</a><span class="kw">impl </span>InProgressLoad {
+<a href=#192 id=192 data-nosnippet>192</a>    <span class="doccomment">/// Create a new InProgressLoad object.
+<a href=#193 id=193 data-nosnippet>193</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(new_pipeline_info: NewPipelineInfo) -&gt; InProgressLoad {
+<a href=#194 id=194 data-nosnippet>194</a>        <span class="kw">let </span>url = new_pipeline_info.load_data.url.clone();
+<a href=#195 id=195 data-nosnippet>195</a>        InProgressLoad {
+<a href=#196 id=196 data-nosnippet>196</a>            pipeline_id: new_pipeline_info.new_pipeline_id,
+<a href=#197 id=197 data-nosnippet>197</a>            browsing_context_id: new_pipeline_info.browsing_context_id,
+<a href=#198 id=198 data-nosnippet>198</a>            webview_id: new_pipeline_info.webview_id,
+<a href=#199 id=199 data-nosnippet>199</a>            parent_info: new_pipeline_info.parent_info,
+<a href=#200 id=200 data-nosnippet>200</a>            opener: new_pipeline_info.opener,
+<a href=#201 id=201 data-nosnippet>201</a>            viewport_details: new_pipeline_info.viewport_details,
+<a href=#202 id=202 data-nosnippet>202</a>            activity: DocumentActivity::FullyActive,
+<a href=#203 id=203 data-nosnippet>203</a>            throttled: <span class="bool-val">false</span>,
+<a href=#204 id=204 data-nosnippet>204</a>            navigation_start: CrossProcessInstant::now(),
+<a href=#205 id=205 data-nosnippet>205</a>            canceller: Default::default(),
+<a href=#206 id=206 data-nosnippet>206</a>            load_data: new_pipeline_info.load_data,
+<a href=#207 id=207 data-nosnippet>207</a>            url_list: <span class="macro">vec!</span>[url],
+<a href=#208 id=208 data-nosnippet>208</a>            user_content_manager_id: new_pipeline_info.user_content_manager_id,
+<a href=#209 id=209 data-nosnippet>209</a>            embedder_theme: new_pipeline_info.embedder_theme,
+<a href=#210 id=210 data-nosnippet>210</a>            target_snapshot_params: new_pipeline_info.target_snapshot_params,
+<a href=#211 id=211 data-nosnippet>211</a>            frame_name: new_pipeline_info.frame_name,
+<a href=#212 id=212 data-nosnippet>212</a>        }
+<a href=#213 id=213 data-nosnippet>213</a>    }
+<a href=#214 id=214 data-nosnippet>214</a>
+<a href=#215 id=215 data-nosnippet>215</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>request_builder(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; RequestBuilder {
+<a href=#216 id=216 data-nosnippet>216</a>        <span class="kw">let </span>client_origin = <span class="kw">match </span><span class="self">self</span>.load_data.load_origin {
+<a href=#217 id=217 data-nosnippet>217</a>            LoadOrigin::Script(<span class="kw-2">ref </span>initiator_origin) =&gt; initiator_origin.immutable().clone(),
+<a href=#218 id=218 data-nosnippet>218</a>            <span class="kw">_ </span>=&gt; ImmutableOrigin::new_opaque(),
+<a href=#219 id=219 data-nosnippet>219</a>        };
+<a href=#220 id=220 data-nosnippet>220</a>
+<a href=#221 id=221 data-nosnippet>221</a>        <span class="kw">let </span>id = <span class="self">self</span>.pipeline_id;
+<a href=#222 id=222 data-nosnippet>222</a>        <span class="kw">let </span>webview_id = <span class="self">self</span>.webview_id;
+<a href=#223 id=223 data-nosnippet>223</a>
+<a href=#224 id=224 data-nosnippet>224</a>        <span class="kw">let </span>insecure_requests_policy = <span class="self">self
+<a href=#225 id=225 data-nosnippet>225</a>            </span>.load_data
+<a href=#226 id=226 data-nosnippet>226</a>            .inherited_insecure_requests_policy
+<a href=#227 id=227 data-nosnippet>227</a>            .unwrap_or(InsecureRequestsPolicy::DoNotUpgrade);
+<a href=#228 id=228 data-nosnippet>228</a>
+<a href=#229 id=229 data-nosnippet>229</a>        <span class="kw">let </span>request_client = RequestClient {
+<a href=#230 id=230 data-nosnippet>230</a>            preloaded_resources: PreloadedResources::default(),
+<a href=#231 id=231 data-nosnippet>231</a>            policy_container: <span class="self">self</span>.load_data.policy_container.clone().unwrap_or_default(),
+<a href=#232 id=232 data-nosnippet>232</a>            origin: Origin::Origin(client_origin),
+<a href=#233 id=233 data-nosnippet>233</a>            is_nested_browsing_context: <span class="self">self</span>.parent_info.is_some(),
+<a href=#234 id=234 data-nosnippet>234</a>            insecure_requests_policy,
+<a href=#235 id=235 data-nosnippet>235</a>            has_trustworthy_ancestor_origin: <span class="self">self</span>.load_data.has_trustworthy_ancestor_origin,
+<a href=#236 id=236 data-nosnippet>236</a>        };
+<a href=#237 id=237 data-nosnippet>237</a>
+<a href=#238 id=238 data-nosnippet>238</a>        <span class="kw">let </span><span class="kw-2">mut </span>request_builder = RequestBuilder::new(
+<a href=#239 id=239 data-nosnippet>239</a>            <span class="prelude-val">Some</span>(webview_id),
+<a href=#240 id=240 data-nosnippet>240</a>            UrlWithBlobClaim::from_url_without_having_claimed_blob(<span class="self">self</span>.load_data.url.clone()),
+<a href=#241 id=241 data-nosnippet>241</a>            <span class="self">self</span>.load_data.referrer.clone(),
+<a href=#242 id=242 data-nosnippet>242</a>        )
+<a href=#243 id=243 data-nosnippet>243</a>        .method(<span class="self">self</span>.load_data.method.clone())
+<a href=#244 id=244 data-nosnippet>244</a>        .destination(<span class="self">self</span>.load_data.destination)
+<a href=#245 id=245 data-nosnippet>245</a>        .mode(RequestMode::Navigate)
+<a href=#246 id=246 data-nosnippet>246</a>        .credentials_mode(CredentialsMode::Include)
+<a href=#247 id=247 data-nosnippet>247</a>        .use_url_credentials(<span class="bool-val">true</span>)
+<a href=#248 id=248 data-nosnippet>248</a>        .pipeline_id(<span class="prelude-val">Some</span>(id))
+<a href=#249 id=249 data-nosnippet>249</a>        .referrer_policy(<span class="self">self</span>.load_data.referrer_policy)
+<a href=#250 id=250 data-nosnippet>250</a>        .policy_container(<span class="self">self</span>.load_data.policy_container.clone().unwrap_or_default())
+<a href=#251 id=251 data-nosnippet>251</a>        .headers(<span class="self">self</span>.load_data.headers.clone())
+<a href=#252 id=252 data-nosnippet>252</a>        .body(<span class="self">self</span>.load_data.data.clone())
+<a href=#253 id=253 data-nosnippet>253</a>        .redirect_mode(RedirectMode::Manual)
+<a href=#254 id=254 data-nosnippet>254</a>        .crash(<span class="self">self</span>.load_data.crash.clone())
+<a href=#255 id=255 data-nosnippet>255</a>        .client(request_client)
+<a href=#256 id=256 data-nosnippet>256</a>        .url_list(<span class="self">self</span>.url_list.clone());
+<a href=#257 id=257 data-nosnippet>257</a>
+<a href=#258 id=258 data-nosnippet>258</a>        request_builder.reload_navigation = <span class="self">self</span>.load_data.reload_navigation;
+<a href=#259 id=259 data-nosnippet>259</a>        request_builder.history_navigation = <span class="self">self</span>.load_data.history_navigation;
+<a href=#260 id=260 data-nosnippet>260</a>
+<a href=#261 id=261 data-nosnippet>261</a>        <span class="kw">if </span>!request_builder.headers.contains_key(header::ACCEPT) {
+<a href=#262 id=262 data-nosnippet>262</a>            request_builder
+<a href=#263 id=263 data-nosnippet>263</a>                .headers
+<a href=#264 id=264 data-nosnippet>264</a>                .insert(header::ACCEPT, DOCUMENT_ACCEPT_HEADER_VALUE);
+<a href=#265 id=265 data-nosnippet>265</a>        }
+<a href=#266 id=266 data-nosnippet>266</a>        set_default_accept_language(<span class="kw-2">&amp;mut </span>request_builder.headers);
+<a href=#267 id=267 data-nosnippet>267</a>
+<a href=#268 id=268 data-nosnippet>268</a>        request_builder
+<a href=#269 id=269 data-nosnippet>269</a>    }
+<a href=#270 id=270 data-nosnippet>270</a>}
+<a href=#271 id=271 data-nosnippet>271</a>
+<a href=#272 id=272 data-nosnippet>272</a><span class="doccomment">/// &lt;https://html.spec.whatwg.org/multipage/#determining-the-origin&gt;
+<a href=#273 id=273 data-nosnippet>273</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>determine_the_origin(
+<a href=#274 id=274 data-nosnippet>274</a>    url: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ServoUrl&gt;,
+<a href=#275 id=275 data-nosnippet>275</a>    sandbox_flags: SandboxingFlagSet,
+<a href=#276 id=276 data-nosnippet>276</a>    source_origin: <span class="prelude-ty">Option</span>&lt;MutableOrigin&gt;,
+<a href=#277 id=277 data-nosnippet>277</a>) -&gt; MutableOrigin {
+<a href=#278 id=278 data-nosnippet>278</a>    <span class="comment">// Step 1. If sandboxFlags has its sandboxed origin browsing context flag set, then return a new opaque origin.
+<a href=#279 id=279 data-nosnippet>279</a>    </span><span class="kw">let </span>is_sandboxed =
+<a href=#280 id=280 data-nosnippet>280</a>        sandbox_flags.contains(SandboxingFlagSet::SANDBOXED_ORIGIN_BROWSING_CONTEXT_FLAG);
+<a href=#281 id=281 data-nosnippet>281</a>    <span class="kw">if </span>is_sandboxed {
+<a href=#282 id=282 data-nosnippet>282</a>        <span class="kw">return </span>MutableOrigin::new(ImmutableOrigin::new_opaque());
+<a href=#283 id=283 data-nosnippet>283</a>    }
+<a href=#284 id=284 data-nosnippet>284</a>
+<a href=#285 id=285 data-nosnippet>285</a>    <span class="comment">// Step 2. If url is null, then return a new opaque origin.
+<a href=#286 id=286 data-nosnippet>286</a>    </span><span class="kw">let </span><span class="prelude-val">Some</span>(url) = url <span class="kw">else </span>{
+<a href=#287 id=287 data-nosnippet>287</a>        <span class="kw">return </span>MutableOrigin::new(ImmutableOrigin::new_opaque());
+<a href=#288 id=288 data-nosnippet>288</a>    };
+<a href=#289 id=289 data-nosnippet>289</a>
+<a href=#290 id=290 data-nosnippet>290</a>    <span class="comment">// Step 3. If url is about:srcdoc, then:
+<a href=#291 id=291 data-nosnippet>291</a>    </span><span class="kw">if </span>url.as_str() == <span class="string">"about:srcdoc" </span>{
+<a href=#292 id=292 data-nosnippet>292</a>        <span class="comment">// Step 3.1 Assert: sourceOrigin is non-null.
+<a href=#293 id=293 data-nosnippet>293</a>        </span><span class="kw">let </span>source_origin =
+<a href=#294 id=294 data-nosnippet>294</a>            source_origin.expect(<span class="string">"Can't have a null source origin for about:srcdoc"</span>);
+<a href=#295 id=295 data-nosnippet>295</a>        <span class="comment">// Step 3.2 Return sourceOrigin
+<a href=#296 id=296 data-nosnippet>296</a>        </span><span class="kw">return </span>source_origin;
+<a href=#297 id=297 data-nosnippet>297</a>    }
+<a href=#298 id=298 data-nosnippet>298</a>
+<a href=#299 id=299 data-nosnippet>299</a>    <span class="comment">// Step 4. If url matches about:blank and sourceOrigin is non-null, then return sourceOrigin.
+<a href=#300 id=300 data-nosnippet>300</a>    </span><span class="kw">if </span>url.as_str() == <span class="string">"about:blank" </span>&amp;&amp;
+<a href=#301 id=301 data-nosnippet>301</a>        <span class="kw">let </span><span class="prelude-val">Some</span>(source_origin) = source_origin
+<a href=#302 id=302 data-nosnippet>302</a>    {
+<a href=#303 id=303 data-nosnippet>303</a>        <span class="kw">return </span>source_origin;
+<a href=#304 id=304 data-nosnippet>304</a>    }
+<a href=#305 id=305 data-nosnippet>305</a>
+<a href=#306 id=306 data-nosnippet>306</a>    <span class="comment">// Step 5. Return url's origin.
+<a href=#307 id=307 data-nosnippet>307</a>    </span>MutableOrigin::new(url.origin())
+<a href=#308 id=308 data-nosnippet>308</a>}
+<a href=#309 id=309 data-nosnippet>309</a>
+<a href=#310 id=310 data-nosnippet>310</a><span class="doccomment">/// &lt;https://html.spec.whatwg.org/multipage/#navigate-fragid&gt;
+<a href=#311 id=311 data-nosnippet>311</a></span><span class="kw">fn </span>navigate_to_fragment(
+<a href=#312 id=312 data-nosnippet>312</a>    cx: <span class="kw-2">&amp;mut </span>JSContext,
+<a href=#313 id=313 data-nosnippet>313</a>    window: <span class="kw-2">&amp;</span>Window,
+<a href=#314 id=314 data-nosnippet>314</a>    url: <span class="kw-2">&amp;</span>ServoUrl,
+<a href=#315 id=315 data-nosnippet>315</a>    history_handling: NavigationHistoryBehavior,
+<a href=#316 id=316 data-nosnippet>316</a>) {
+<a href=#317 id=317 data-nosnippet>317</a>    <span class="kw">let </span>doc = window.Document();
+<a href=#318 id=318 data-nosnippet>318</a>    <span class="comment">// Step 1. Let navigation be navigable's active window's navigation API.
+<a href=#319 id=319 data-nosnippet>319</a>    // TODO
+<a href=#320 id=320 data-nosnippet>320</a>    // Step 2. Let destinationNavigationAPIState be navigable's active session history entry's navigation API state.
+<a href=#321 id=321 data-nosnippet>321</a>    // TODO
+<a href=#322 id=322 data-nosnippet>322</a>    // Step 3. If navigationAPIState is not null, then set destinationNavigationAPIState to navigationAPIState.
+<a href=#323 id=323 data-nosnippet>323</a>    // TODO
+<a href=#324 id=324 data-nosnippet>324</a>
+<a href=#325 id=325 data-nosnippet>325</a>    // Step 4. Let continue be the result of firing a push/replace/reload navigate event
+<a href=#326 id=326 data-nosnippet>326</a>    // at navigation with navigationType set to historyHandling, isSameDocument set to true,
+<a href=#327 id=327 data-nosnippet>327</a>    // userInvolvement set to userInvolvement, sourceElement set to sourceElement,
+<a href=#328 id=328 data-nosnippet>328</a>    // destinationURL set to url, and navigationAPIState set to destinationNavigationAPIState.
+<a href=#329 id=329 data-nosnippet>329</a>    // TODO
+<a href=#330 id=330 data-nosnippet>330</a>    // Step 5. If continue is false, then return.
+<a href=#331 id=331 data-nosnippet>331</a>    // TODO
+<a href=#332 id=332 data-nosnippet>332</a>
+<a href=#333 id=333 data-nosnippet>333</a>    // Step 6. Let historyEntry be a new session history entry, with
+<a href=#334 id=334 data-nosnippet>334</a>    // Step 7. Let entryToReplace be navigable's active session history entry if historyHandling is "replace", otherwise null.
+<a href=#335 id=335 data-nosnippet>335</a>    // Step 8. Let history be navigable's active document's history object.
+<a href=#336 id=336 data-nosnippet>336</a>    // Step 9. Let scriptHistoryIndex be history's index.
+<a href=#337 id=337 data-nosnippet>337</a>    // Step 10. Let scriptHistoryLength be history's length.
+<a href=#338 id=338 data-nosnippet>338</a>    // Step 11. If historyHandling is "push", then:
+<a href=#339 id=339 data-nosnippet>339</a>    // Step 13. Set navigable's active session history entry to historyEntry.
+<a href=#340 id=340 data-nosnippet>340</a>    </span>window.send_to_constellation(ScriptToConstellationMessage::NavigatedToFragment(
+<a href=#341 id=341 data-nosnippet>341</a>        url.clone(),
+<a href=#342 id=342 data-nosnippet>342</a>        history_handling,
+<a href=#343 id=343 data-nosnippet>343</a>    ));
+<a href=#344 id=344 data-nosnippet>344</a>    <span class="comment">// Step 12. Set navigable's active document's URL to url.
+<a href=#345 id=345 data-nosnippet>345</a>    </span><span class="kw">let </span>old_url = doc.url();
+<a href=#346 id=346 data-nosnippet>346</a>    doc.set_url(url.clone());
+<a href=#347 id=347 data-nosnippet>347</a>    <span class="comment">// Step 14. Update document for history step application given navigable's active document,
+<a href=#348 id=348 data-nosnippet>348</a>    // historyEntry, true, scriptHistoryIndex, scriptHistoryLength, and historyHandling.
+<a href=#349 id=349 data-nosnippet>349</a>    </span>doc.update_document_for_history_step_application(<span class="kw-2">&amp;</span>old_url, url);
+<a href=#350 id=350 data-nosnippet>350</a>    <span class="comment">// Step 15. Scroll to the fragment given navigable's active document.
+<a href=#351 id=351 data-nosnippet>351</a>    </span><span class="kw">let </span><span class="prelude-val">Some</span>(fragment) = url.fragment() <span class="kw">else </span>{
+<a href=#352 id=352 data-nosnippet>352</a>        <span class="macro">unreachable!</span>(<span class="string">"Must always have a fragment"</span>);
+<a href=#353 id=353 data-nosnippet>353</a>    };
+<a href=#354 id=354 data-nosnippet>354</a>    doc.scroll_to_the_fragment(cx, fragment);
+<a href=#355 id=355 data-nosnippet>355</a>    <span class="comment">// Step 16. Let traversable be navigable's traversable navigable.
+<a href=#356 id=356 data-nosnippet>356</a>    // TODO
+<a href=#357 id=357 data-nosnippet>357</a>    // Step 17. Append the following session history synchronous navigation steps involving navigable to traversable:
+<a href=#358 id=358 data-nosnippet>358</a>    // TODO
+<a href=#359 id=359 data-nosnippet>359</a></span>}
+<a href=#360 id=360 data-nosnippet>360</a>
+<a href=#361 id=361 data-nosnippet>361</a><span class="doccomment">/// &lt;https://html.spec.whatwg.org/multipage/#navigate&gt;
+<a href=#362 id=362 data-nosnippet>362</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>navigate(
+<a href=#363 id=363 data-nosnippet>363</a>    cx: <span class="kw-2">&amp;mut </span>JSContext,
+<a href=#364 id=364 data-nosnippet>364</a>    window: <span class="kw-2">&amp;</span>Window,
+<a href=#365 id=365 data-nosnippet>365</a>    history_handling: NavigationHistoryBehavior,
+<a href=#366 id=366 data-nosnippet>366</a>    force_reload: bool,
+<a href=#367 id=367 data-nosnippet>367</a>    <span class="kw-2">mut </span>load_data: LoadData,
+<a href=#368 id=368 data-nosnippet>368</a>) {
+<a href=#369 id=369 data-nosnippet>369</a>    <span class="kw">let </span>document = window.Document();
+<a href=#370 id=370 data-nosnippet>370</a>
+<a href=#371 id=371 data-nosnippet>371</a>    <span class="comment">// &lt;https://html.spec.whatwg.org/multipage/#process-a-navigate-fetch&gt;
+<a href=#372 id=372 data-nosnippet>372</a>    </span><span class="kw">if </span>force_reload {
+<a href=#373 id=373 data-nosnippet>373</a>        <span class="comment">// Step 7. If entry's document state's reload pending is true, then set request's reload-navigation flag.
+<a href=#374 id=374 data-nosnippet>374</a>        </span>load_data.reload_navigation = <span class="bool-val">true</span>;
+<a href=#375 id=375 data-nosnippet>375</a>    }
+<a href=#376 id=376 data-nosnippet>376</a>
+<a href=#377 id=377 data-nosnippet>377</a>    <span class="comment">// Step 3. Let initiatorOriginSnapshot be sourceDocument's origin.
+<a href=#378 id=378 data-nosnippet>378</a>    </span><span class="kw">let </span>initiator_origin_snapshot = <span class="kw-2">&amp;</span>load_data.load_origin;
+<a href=#379 id=379 data-nosnippet>379</a>
+<a href=#380 id=380 data-nosnippet>380</a>    <span class="comment">// TODO: Important re security. See https://github.com/servo/servo/issues/23373
+<a href=#381 id=381 data-nosnippet>381</a>    // Step 5. check that the source browsing-context is "allowed to navigate" this window.
+<a href=#382 id=382 data-nosnippet>382</a>
+<a href=#383 id=383 data-nosnippet>383</a>    // Step 4 and 5
+<a href=#384 id=384 data-nosnippet>384</a>    </span><span class="kw">let </span>pipeline_id = window.pipeline_id();
+<a href=#385 id=385 data-nosnippet>385</a>    <span class="kw">let </span>window_proxy = window.window_proxy();
+<a href=#386 id=386 data-nosnippet>386</a>    <span class="kw">if let </span><span class="prelude-val">Some</span>(active) = window_proxy.currently_active() &amp;&amp;
+<a href=#387 id=387 data-nosnippet>387</a>        pipeline_id == active &amp;&amp;
+<a href=#388 id=388 data-nosnippet>388</a>        document.is_prompting_or_unloading()
+<a href=#389 id=389 data-nosnippet>389</a>    {
+<a href=#390 id=390 data-nosnippet>390</a>        <span class="kw">return</span>;
+<a href=#391 id=391 data-nosnippet>391</a>    }
+<a href=#392 id=392 data-nosnippet>392</a>
+<a href=#393 id=393 data-nosnippet>393</a>    <span class="comment">// Step 12. If historyHandling is "auto", then:
+<a href=#394 id=394 data-nosnippet>394</a>    </span><span class="kw">let </span>history_handling = <span class="kw">if </span>history_handling == NavigationHistoryBehavior::Auto {
+<a href=#395 id=395 data-nosnippet>395</a>        <span class="comment">// Step 12.1. If url equals navigable's active document's URL, and
+<a href=#396 id=396 data-nosnippet>396</a>        // initiatorOriginSnapshot is same origin with targetNavigable's active document's
+<a href=#397 id=397 data-nosnippet>397</a>        // origin, then set historyHandling to "replace".
+<a href=#398 id=398 data-nosnippet>398</a>        //
+<a href=#399 id=399 data-nosnippet>399</a>        // Note: `targetNavigable` is not actually defined in the spec, "active document" is
+<a href=#400 id=400 data-nosnippet>400</a>        // assumed to be the correct reference based on WPT results
+<a href=#401 id=401 data-nosnippet>401</a>        </span><span class="kw">if let </span>LoadOrigin::Script(initiator_origin) = initiator_origin_snapshot {
+<a href=#402 id=402 data-nosnippet>402</a>            <span class="kw">if </span>load_data.url == document.url() &amp;&amp; initiator_origin.same_origin(<span class="kw-2">&amp;*</span>document.origin())
+<a href=#403 id=403 data-nosnippet>403</a>            {
+<a href=#404 id=404 data-nosnippet>404</a>                NavigationHistoryBehavior::Replace
+<a href=#405 id=405 data-nosnippet>405</a>            } <span class="kw">else </span>{
+<a href=#406 id=406 data-nosnippet>406</a>                <span class="comment">// Step 12.2. Otherwise, set historyHandling to "push".
+<a href=#407 id=407 data-nosnippet>407</a>                </span>NavigationHistoryBehavior::Push
+<a href=#408 id=408 data-nosnippet>408</a>            }
+<a href=#409 id=409 data-nosnippet>409</a>        } <span class="kw">else </span>{
+<a href=#410 id=410 data-nosnippet>410</a>            <span class="comment">// Step 12.2. Otherwise, set historyHandling to "push".
+<a href=#411 id=411 data-nosnippet>411</a>            </span>NavigationHistoryBehavior::Push
+<a href=#412 id=412 data-nosnippet>412</a>        }
+<a href=#413 id=413 data-nosnippet>413</a>    } <span class="kw">else </span>{
+<a href=#414 id=414 data-nosnippet>414</a>        history_handling
+<a href=#415 id=415 data-nosnippet>415</a>    };
+<a href=#416 id=416 data-nosnippet>416</a>
+<a href=#417 id=417 data-nosnippet>417</a>    <span class="comment">// Step 13. If the navigation must be a replace given url and navigable's active
+<a href=#418 id=418 data-nosnippet>418</a>    // document, then set historyHandling to "replace".
+<a href=#419 id=419 data-nosnippet>419</a>    //
+<a href=#420 id=420 data-nosnippet>420</a>    // Inlines implementation of https://html.spec.whatwg.org/multipage/#the-navigation-must-be-a-replace
+<a href=#421 id=421 data-nosnippet>421</a>    </span><span class="kw">let </span>history_handling =
+<a href=#422 id=422 data-nosnippet>422</a>        <span class="kw">if </span>load_data.url.scheme() == <span class="string">"javascript" </span>|| document.is_initial_about_blank() {
+<a href=#423 id=423 data-nosnippet>423</a>            NavigationHistoryBehavior::Replace
+<a href=#424 id=424 data-nosnippet>424</a>        } <span class="kw">else </span>{
+<a href=#425 id=425 data-nosnippet>425</a>            history_handling
+<a href=#426 id=426 data-nosnippet>426</a>        };
+<a href=#427 id=427 data-nosnippet>427</a>
+<a href=#428 id=428 data-nosnippet>428</a>    <span class="comment">// Step 14. If all of the following are true:
+<a href=#429 id=429 data-nosnippet>429</a>    // &gt; documentResource is null;
+<a href=#430 id=430 data-nosnippet>430</a>    // &gt; response is null;
+<a href=#431 id=431 data-nosnippet>431</a>    </span><span class="kw">if </span>!force_reload
+<a href=#432 id=432 data-nosnippet>432</a>        <span class="comment">// &gt; url equals navigable's active session history entry's URL with exclude fragments set to true; and
+<a href=#433 id=433 data-nosnippet>433</a>        </span>&amp;&amp; load_data.url.as_url()[..Position::AfterQuery] ==
+<a href=#434 id=434 data-nosnippet>434</a>            document.url().as_url()[..Position::AfterQuery]
+<a href=#435 id=435 data-nosnippet>435</a>        <span class="comment">// &gt; url's fragment is non-null,
+<a href=#436 id=436 data-nosnippet>436</a>        </span>&amp;&amp; load_data.url.fragment().is_some()
+<a href=#437 id=437 data-nosnippet>437</a>    {
+<a href=#438 id=438 data-nosnippet>438</a>        <span class="comment">// Step 14.1. Navigate to a fragment given navigable, url, historyHandling,
+<a href=#439 id=439 data-nosnippet>439</a>        // userInvolvement, sourceElement, navigationAPIState, and navigationId.
+<a href=#440 id=440 data-nosnippet>440</a>        </span><span class="kw">let </span>webdriver_sender = window.webdriver_load_status_sender();
+<a href=#441 id=441 data-nosnippet>441</a>        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sender) = webdriver_sender {
+<a href=#442 id=442 data-nosnippet>442</a>            <span class="kw">let _ </span>= sender.send(WebDriverLoadStatus::NavigationStart);
+<a href=#443 id=443 data-nosnippet>443</a>        }
+<a href=#444 id=444 data-nosnippet>444</a>        navigate_to_fragment(cx, window, <span class="kw-2">&amp;</span>load_data.url, history_handling);
+<a href=#445 id=445 data-nosnippet>445</a>        <span class="comment">// Step 14.2. Return.
+<a href=#446 id=446 data-nosnippet>446</a>        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(sender) = webdriver_sender {
+<a href=#447 id=447 data-nosnippet>447</a>            <span class="kw">let _ </span>= sender.send(WebDriverLoadStatus::NavigationStop);
+<a href=#448 id=448 data-nosnippet>448</a>        }
+<a href=#449 id=449 data-nosnippet>449</a>        <span class="kw">return</span>;
+<a href=#450 id=450 data-nosnippet>450</a>    }
+<a href=#451 id=451 data-nosnippet>451</a>
+<a href=#452 id=452 data-nosnippet>452</a>    <span class="comment">// Step 15. If navigable's parent is non-null, then set navigable's is delaying load events to true.
+<a href=#453 id=453 data-nosnippet>453</a>    </span><span class="kw">let </span>window_proxy = window.window_proxy();
+<a href=#454 id=454 data-nosnippet>454</a>    <span class="kw">if </span>window_proxy.parent().is_some() {
+<a href=#455 id=455 data-nosnippet>455</a>        window_proxy.start_delaying_load_events_mode();
+<a href=#456 id=456 data-nosnippet>456</a>    }
+<a href=#457 id=457 data-nosnippet>457</a>
+<a href=#458 id=458 data-nosnippet>458</a>    <span class="comment">// Step 16. Let targetSnapshotParams be the result of snapshotting target
+<a href=#459 id=459 data-nosnippet>459</a>    // snapshot params given navigable.
+<a href=#460 id=460 data-nosnippet>460</a>    </span><span class="kw">let </span>target_snapshot_params = snapshot_target_snapshot_params(<span class="kw-2">&amp;</span>window_proxy);
+<a href=#461 id=461 data-nosnippet>461</a>
+<a href=#462 id=462 data-nosnippet>462</a>    <span class="comment">// Step 17. Invoke WebDriver BiDi navigation started with navigable
+<a href=#463 id=463 data-nosnippet>463</a>    // and a new WebDriver BiDi navigation status whose id is navigationId,
+<a href=#464 id=464 data-nosnippet>464</a>    // status is "pending", and url is url.
+<a href=#465 id=465 data-nosnippet>465</a>    // TODO
+<a href=#466 id=466 data-nosnippet>466</a>    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(sender) = window.webdriver_load_status_sender() {
+<a href=#467 id=467 data-nosnippet>467</a>        <span class="kw">let _ </span>= sender.send(WebDriverLoadStatus::NavigationStart);
+<a href=#468 id=468 data-nosnippet>468</a>    }
+<a href=#469 id=469 data-nosnippet>469</a>
+<a href=#470 id=470 data-nosnippet>470</a>    <span class="comment">// Step 18. If navigable's ongoing navigation is "traversal", then:
+<a href=#471 id=471 data-nosnippet>471</a>    // TODO
+<a href=#472 id=472 data-nosnippet>472</a>    // Step 19. Set the ongoing navigation for navigable to navigationId.
+<a href=#473 id=473 data-nosnippet>473</a>    // TODO
+<a href=#474 id=474 data-nosnippet>474</a>
+<a href=#475 id=475 data-nosnippet>475</a>    // Step 20. If url's scheme is "javascript", then:
+<a href=#476 id=476 data-nosnippet>476</a>    </span><span class="kw">if </span>load_data.url.scheme() == <span class="string">"javascript" </span>{
+<a href=#477 id=477 data-nosnippet>477</a>        <span class="comment">// Step 20.1. Queue a global task on the navigation and traversal task source given
+<a href=#478 id=478 data-nosnippet>478</a>        // navigable's active window to navigate to a javascript: URL given navigable, url,
+<a href=#479 id=479 data-nosnippet>479</a>        // historyHandling, sourceSnapshotParams, initiatorOriginSnapshot, userInvolvement,
+<a href=#480 id=480 data-nosnippet>480</a>        // cspNavigationType, initialInsertion, and navigationId.
+<a href=#481 id=481 data-nosnippet>481</a>
+<a href=#482 id=482 data-nosnippet>482</a>        </span><span class="kw">let </span><span class="prelude-val">Some</span>(initiator_pipeline_id) = load_data.creator_pipeline_id <span class="kw">else </span>{
+<a href=#483 id=483 data-nosnippet>483</a>            <span class="macro">unreachable!</span>(<span class="string">"javascript: URL navigations must have a creator pipeline"</span>);
+<a href=#484 id=484 data-nosnippet>484</a>        };
+<a href=#485 id=485 data-nosnippet>485</a>        <span class="kw">let </span><span class="prelude-val">Some</span>(initiator_window) = ScriptThread::find_window(initiator_pipeline_id) <span class="kw">else </span>{
+<a href=#486 id=486 data-nosnippet>486</a>            <span class="macro">warn!</span>(<span class="string">"Can't find global for navigation initiator"</span>);
+<a href=#487 id=487 data-nosnippet>487</a>            <span class="kw">return</span>;
+<a href=#488 id=488 data-nosnippet>488</a>        };
+<a href=#489 id=489 data-nosnippet>489</a>
+<a href=#490 id=490 data-nosnippet>490</a>        <span class="kw">let </span>target_window = Trusted::new(window);
+<a href=#491 id=491 data-nosnippet>491</a>        <span class="kw">let </span><span class="kw-2">mut </span>load_data = load_data;
+<a href=#492 id=492 data-nosnippet>492</a>        <span class="kw">let </span>initiator_window = Trusted::new(<span class="kw-2">&amp;*</span>initiator_window);
+<a href=#493 id=493 data-nosnippet>493</a>        <span class="kw">let </span>task = <span class="macro">task!</span>(navigate_javascript: <span class="kw">move </span>|cx| {
+<a href=#494 id=494 data-nosnippet>494</a>            <span class="comment">// Important re security. See https://github.com/servo/servo/issues/23373
+<a href=#495 id=495 data-nosnippet>495</a>            </span><span class="kw">let </span>target_window = target_window.root();
+<a href=#496 id=496 data-nosnippet>496</a>            <span class="kw">let </span>initiator_window = initiator_window.root();
+<a href=#497 id=497 data-nosnippet>497</a>            <span class="kw">if </span>ScriptThread::navigate_to_javascript_url(cx, initiator_window.upcast(), target_window.upcast(), <span class="kw-2">&amp;mut </span>load_data, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>) {
+<a href=#498 id=498 data-nosnippet>498</a>                target_window
+<a href=#499 id=499 data-nosnippet>499</a>                    .as_global_scope()
+<a href=#500 id=500 data-nosnippet>500</a>                    .script_to_constellation_chan()
+<a href=#501 id=501 data-nosnippet>501</a>                    .send(ScriptToConstellationMessage::LoadUrl(load_data, history_handling, target_snapshot_params))
+<a href=#502 id=502 data-nosnippet>502</a>                    .unwrap();
+<a href=#503 id=503 data-nosnippet>503</a>            } <span class="kw">else </span>{
+<a href=#504 id=504 data-nosnippet>504</a>                <span class="comment">// Note: not in the spec, but required to avoid timeouts in
+<a href=#505 id=505 data-nosnippet>505</a>                // tests that navigate to javascript: URLs that don't result
+<a href=#506 id=506 data-nosnippet>506</a>                // in documents: https://github.com/whatwg/html/issues/12773
+<a href=#507 id=507 data-nosnippet>507</a>                </span><span class="kw">let </span>window_proxy = target_window.window_proxy();
+<a href=#508 id=508 data-nosnippet>508</a>                <span class="kw">if </span>window_proxy.parent().is_some() {
+<a href=#509 id=509 data-nosnippet>509</a>                    window_proxy.stop_delaying_load_events_mode();
+<a href=#510 id=510 data-nosnippet>510</a>                }
+<a href=#511 id=511 data-nosnippet>511</a>            }
+<a href=#512 id=512 data-nosnippet>512</a>        });
+<a href=#513 id=513 data-nosnippet>513</a>        window
+<a href=#514 id=514 data-nosnippet>514</a>            .as_global_scope()
+<a href=#515 id=515 data-nosnippet>515</a>            .task_manager()
+<a href=#516 id=516 data-nosnippet>516</a>            .navigation_and_traversal_task_source()
+<a href=#517 id=517 data-nosnippet>517</a>            .queue(task);
+<a href=#518 id=518 data-nosnippet>518</a>        <span class="comment">// Step 20.2. Return.
+<a href=#519 id=519 data-nosnippet>519</a>        </span><span class="kw">return</span>;
+<a href=#520 id=520 data-nosnippet>520</a>    }
+<a href=#521 id=521 data-nosnippet>521</a>
+<a href=#522 id=522 data-nosnippet>522</a>    <span class="comment">// Step 23. If sourceDocument is navigable's container document, then reserve deferred
+<a href=#523 id=523 data-nosnippet>523</a>    // fetch quota for navigable's container given url's origin.
+<a href=#524 id=524 data-nosnippet>524</a>    // TODO: Implement this.
+<a href=#525 id=525 data-nosnippet>525</a>
+<a href=#526 id=526 data-nosnippet>526</a>    // Step 24. In parallel, run these steps:
+<a href=#527 id=527 data-nosnippet>527</a>    //
+<a href=#528 id=528 data-nosnippet>528</a>    // TODO: in parallel
+<a href=#529 id=529 data-nosnippet>529</a>
+<a href=#530 id=530 data-nosnippet>530</a>    // Step 24.1. Let unloadPromptCanceled be the result of checking if unloading
+<a href=#531 id=531 data-nosnippet>531</a>    // is canceled for navigable's active document's inclusive descendant navigables.
+<a href=#532 id=532 data-nosnippet>532</a>    </span><span class="kw">let </span>unload_prompt_canceled = document.check_if_unloading_is_cancelled(cx, <span class="bool-val">false</span>);
+<a href=#533 id=533 data-nosnippet>533</a>    <span class="comment">// Step 24.2. If unloadPromptCanceled is not "continue",
+<a href=#534 id=534 data-nosnippet>534</a>    // or navigable's ongoing navigation is no longer navigationId:
+<a href=#535 id=535 data-nosnippet>535</a>    //
+<a href=#536 id=536 data-nosnippet>536</a>    // TODO: Check for ongoing navigation
+<a href=#537 id=537 data-nosnippet>537</a>    </span><span class="kw">if </span>!unload_prompt_canceled {
+<a href=#538 id=538 data-nosnippet>538</a>        <span class="comment">// Step 24.2.1. Invoke WebDriver BiDi navigation failed with navigable
+<a href=#539 id=539 data-nosnippet>539</a>        // and a new WebDriver BiDi navigation status whose id is navigationId,
+<a href=#540 id=540 data-nosnippet>540</a>        // status is "canceled", and url is url.
+<a href=#541 id=541 data-nosnippet>541</a>        // TODO
+<a href=#542 id=542 data-nosnippet>542</a>        // Step 24.2.2. Abort these steps.
+<a href=#543 id=543 data-nosnippet>543</a>        </span><span class="kw">return</span>;
+<a href=#544 id=544 data-nosnippet>544</a>    }
+<a href=#545 id=545 data-nosnippet>545</a>
+<a href=#546 id=546 data-nosnippet>546</a>    <span class="comment">// Step 24.4. Queue a global task on the navigation and traversal task source given
+<a href=#547 id=547 data-nosnippet>547</a>    // navigable's active window to abort a document and its descendants given navigable's
+<a href=#548 id=548 data-nosnippet>548</a>    // active document.
+<a href=#549 id=549 data-nosnippet>549</a>    </span><span class="kw">let </span>trusted_document = Trusted::new(<span class="kw-2">&amp;*</span>document);
+<a href=#550 id=550 data-nosnippet>550</a>    window
+<a href=#551 id=551 data-nosnippet>551</a>        .task_manager()
+<a href=#552 id=552 data-nosnippet>552</a>        .navigation_and_traversal_task_source()
+<a href=#553 id=553 data-nosnippet>553</a>        .queue(<span class="macro">task!</span>(abort_a_document_and_its_descendants: <span class="kw">move </span>|cx| {
+<a href=#554 id=554 data-nosnippet>554</a>            trusted_document.root().abort_a_document_and_its_descendants(cx);
+<a href=#555 id=555 data-nosnippet>555</a>        }));
+<a href=#556 id=556 data-nosnippet>556</a>
+<a href=#557 id=557 data-nosnippet>557</a>    <span class="comment">// Step 24.9. Attempt to populate the history entry's document for historyEntry,
+<a href=#558 id=558 data-nosnippet>558</a>    // given navigable, "navigate", sourceSnapshotParams, targetSnapshotParams,
+<a href=#559 id=559 data-nosnippet>559</a>    // userInvolvement, navigationId, navigationParams, cspNavigationType,
+<a href=#560 id=560 data-nosnippet>560</a>    // with allowPOST set to true and completionSteps set to the following step:
+<a href=#561 id=561 data-nosnippet>561</a>    </span>window.send_to_constellation(ScriptToConstellationMessage::LoadUrl(
+<a href=#562 id=562 data-nosnippet>562</a>        load_data,
+<a href=#563 id=563 data-nosnippet>563</a>        history_handling,
+<a href=#564 id=564 data-nosnippet>564</a>        target_snapshot_params,
+<a href=#565 id=565 data-nosnippet>565</a>    ));
+<a href=#566 id=566 data-nosnippet>566</a>}
+<a href=#567 id=567 data-nosnippet>567</a>
+<a href=#568 id=568 data-nosnippet>568</a><span class="doccomment">/// &lt;https://html.spec.whatwg.org/multipage/#determining-the-creation-sandboxing-flags&gt;
+<a href=#569 id=569 data-nosnippet>569</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>determine_creation_sandboxing_flags(
+<a href=#570 id=570 data-nosnippet>570</a>    browsing_context: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>WindowProxy&gt;,
+<a href=#571 id=571 data-nosnippet>571</a>    element: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Element&gt;,
+<a href=#572 id=572 data-nosnippet>572</a>) -&gt; SandboxingFlagSet {
+<a href=#573 id=573 data-nosnippet>573</a>    <span class="comment">// To determine the creation sandboxing flags for a browsing context
+<a href=#574 id=574 data-nosnippet>574</a>    // browsing context, given null or an element embedder, return the union
+<a href=#575 id=575 data-nosnippet>575</a>    // of the flags that are present in the following sandboxing flag sets:
+<a href=#576 id=576 data-nosnippet>576</a>    </span><span class="kw">match </span>element {
+<a href=#577 id=577 data-nosnippet>577</a>        <span class="comment">// If embedder is null, then: the flags set on browsing context's
+<a href=#578 id=578 data-nosnippet>578</a>        // popup sandboxing flag set.
+<a href=#579 id=579 data-nosnippet>579</a>        </span><span class="prelude-val">None </span>=&gt; browsing_context
+<a href=#580 id=580 data-nosnippet>580</a>            .and_then(|browsing_context| browsing_context.document())
+<a href=#581 id=581 data-nosnippet>581</a>            .map(|document| document.active_sandboxing_flag_set())
+<a href=#582 id=582 data-nosnippet>582</a>            .unwrap_or(SandboxingFlagSet::empty()),
+<a href=#583 id=583 data-nosnippet>583</a>        <span class="prelude-val">Some</span>(element) =&gt; {
+<a href=#584 id=584 data-nosnippet>584</a>            <span class="comment">// If embedder is an element, then: the flags set on embedder's
+<a href=#585 id=585 data-nosnippet>585</a>            // iframe sandboxing flag set.
+<a href=#586 id=586 data-nosnippet>586</a>            // If embedder is an element, then: the flags set on embedder's
+<a href=#587 id=587 data-nosnippet>587</a>            // node document's active sandboxing flag set.
+<a href=#588 id=588 data-nosnippet>588</a>            </span>element
+<a href=#589 id=589 data-nosnippet>589</a>                .downcast::&lt;HTMLIFrameElement&gt;()
+<a href=#590 id=590 data-nosnippet>590</a>                .map(|iframe| iframe.sandboxing_flag_set())
+<a href=#591 id=591 data-nosnippet>591</a>                .unwrap_or(SandboxingFlagSet::empty())
+<a href=#592 id=592 data-nosnippet>592</a>                .union(element.owner_document().active_sandboxing_flag_set())
+<a href=#593 id=593 data-nosnippet>593</a>        },
+<a href=#594 id=594 data-nosnippet>594</a>    }
+<a href=#595 id=595 data-nosnippet>595</a>}
+<a href=#596 id=596 data-nosnippet>596</a>
+<a href=#597 id=597 data-nosnippet>597</a><span class="doccomment">/// &lt;https://html.spec.whatwg.org/multipage/#determining-the-iframe-element-referrer-policy&gt;
+<a href=#598 id=598 data-nosnippet>598</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>determine_iframe_element_referrer_policy(
+<a href=#599 id=599 data-nosnippet>599</a>    element: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Element&gt;,
+<a href=#600 id=600 data-nosnippet>600</a>) -&gt; ReferrerPolicy {
+<a href=#601 id=601 data-nosnippet>601</a>    <span class="comment">// Step 1. If embedder is an iframe element, then return embedder's referrerpolicy
+<a href=#602 id=602 data-nosnippet>602</a>    // attribute's state's corresponding keyword.
+<a href=#603 id=603 data-nosnippet>603</a>    </span>element
+<a href=#604 id=604 data-nosnippet>604</a>        .and_then(|element| element.downcast::&lt;HTMLIFrameElement&gt;())
+<a href=#605 id=605 data-nosnippet>605</a>        .map(|iframe| {
+<a href=#606 id=606 data-nosnippet>606</a>            <span class="kw">let </span>token = iframe.ReferrerPolicy();
+<a href=#607 id=607 data-nosnippet>607</a>            ReferrerPolicy::from(<span class="kw-2">&amp;*</span>token.str())
+<a href=#608 id=608 data-nosnippet>608</a>        })
+<a href=#609 id=609 data-nosnippet>609</a>        <span class="comment">// Step 2. Return the empty string.
+<a href=#610 id=610 data-nosnippet>610</a>        </span>.unwrap_or(ReferrerPolicy::EmptyString)
+<a href=#611 id=611 data-nosnippet>611</a>}
+<a href=#612 id=612 data-nosnippet>612</a>
+<a href=#613 id=613 data-nosnippet>613</a><span class="doccomment">/// &lt;https://html.spec.whatwg.org/multipage/#snapshotting-target-snapshot-params&gt;
+<a href=#614 id=614 data-nosnippet>614</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>snapshot_target_snapshot_params(navigable: <span class="kw-2">&amp;</span>WindowProxy) -&gt; TargetSnapshotParams {
+<a href=#615 id=615 data-nosnippet>615</a>    <span class="comment">// TODO(jdm): This doesn't work for cross-origin parent frames.
+<a href=#616 id=616 data-nosnippet>616</a>    </span><span class="kw">let </span>container = navigable.frame_element();
+<a href=#617 id=617 data-nosnippet>617</a>    <span class="comment">// the result of determining the creation sandboxing flags given targetNavigable's
+<a href=#618 id=618 data-nosnippet>618</a>    // active browsing context and targetNavigable's container
+<a href=#619 id=619 data-nosnippet>619</a>    </span><span class="kw">let </span>sandboxing_flags = determine_creation_sandboxing_flags(<span class="prelude-val">Some</span>(navigable), container);
+<a href=#620 id=620 data-nosnippet>620</a>    <span class="comment">// the result of determining the iframe element referrer policy given
+<a href=#621 id=621 data-nosnippet>621</a>    // targetNavigable's container
+<a href=#622 id=622 data-nosnippet>622</a>    </span><span class="kw">let </span>iframe_element_referrer_policy = determine_iframe_element_referrer_policy(container);
+<a href=#623 id=623 data-nosnippet>623</a>    TargetSnapshotParams {
+<a href=#624 id=624 data-nosnippet>624</a>        sandboxing_flags,
+<a href=#625 id=625 data-nosnippet>625</a>        iframe_element_referrer_policy,
+<a href=#626 id=626 data-nosnippet>626</a>    }
+<a href=#627 id=627 data-nosnippet>627</a>}
+</code></pre></div></section></main></body></html>

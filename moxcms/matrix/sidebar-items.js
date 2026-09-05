@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BT2020_MATRIX","DISPLAY_P3_MATRIX","SRGB_MATRIX"],"macro":[["define_xyz",1]],"struct":["Matrix3","Matrix3d","Matrix3f","Matrix4f","Vector3","Vector4","Xyz","Xyzd"],"type":["Vector3d","Vector3f","Vector3i","Vector3u","Vector4d","Vector4f","Vector4i"]};

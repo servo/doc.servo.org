@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BoostAffinity","ThreadPriority"],"fn":["boost_thread"],"mod":["platform"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HorizontalSide","PanelSide","VerticalSide"],"fn":["animate_expansion","clamp_to_range"],"struct":["CentralPanel","Panel","PanelSizer","PanelState"],"type":["SidePanel","TopBottomPanel"]};

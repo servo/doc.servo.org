@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","OfflineAudioContext_Binding"],"trait":["OfflineAudioContextMethods"],"type":["OfflineAudioContextOptions"]};

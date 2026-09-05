@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EnvVarDPI"],"fn":["calc_dpi_factor"]};

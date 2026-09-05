@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Lifetime","LongerOrShorter"],"struct":["LifetimeEnv","LifetimeNode","LifetimeTransitivity","NamedLifetime"]};

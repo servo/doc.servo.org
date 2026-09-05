@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["custom","log"],"mod":["internal"],"struct":["Info","Log","OptFmt"]};

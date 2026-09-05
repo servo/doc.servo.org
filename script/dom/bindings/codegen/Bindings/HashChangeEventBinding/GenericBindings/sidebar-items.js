@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["HashChangeEvent_Binding"],"struct":["HashChangeEventInit"],"trait":["HashChangeEventMethods"]};

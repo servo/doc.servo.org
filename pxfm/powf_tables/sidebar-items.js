@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["LOG2_R2_DD","LOG2_R_TD","POWF_R2"]};

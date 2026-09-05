@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["deprecated_saturating_impl",1],["saturating_impl",1]],"trait":["Saturating","SaturatingAdd","SaturatingMul","SaturatingSub"]};

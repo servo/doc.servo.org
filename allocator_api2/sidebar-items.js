@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["unsize_box",1],["vec",1]],"mod":["alloc","boxed","collections","stable","vec"],"trait":["SliceExt"]};

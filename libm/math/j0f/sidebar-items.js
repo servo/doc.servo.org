@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INVSQRTPI","PR2","PR3","PR5","PR8","PS2","PS3","PS5","PS8","QR2","QR3","QR5","QR8","QS2","QS3","QS5","QS8","R02","R03","R04","R05","S01","S02","S03","S04","TPI","U00","U01","U02","U03","U04","U05","U06","V01","V02","V03","V04"],"fn":["common","j0f","pzerof","qzerof","y0f"]};

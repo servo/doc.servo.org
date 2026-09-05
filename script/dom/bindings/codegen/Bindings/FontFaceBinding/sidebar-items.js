@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FontFaceLoadStatus"],"fn":["Wrap"],"mod":["FontFaceLoadStatusValues","FontFace_Binding","GenericBindings"],"trait":["FontFaceMethods"],"type":["CSSOMString","FontFaceDescriptors"]};

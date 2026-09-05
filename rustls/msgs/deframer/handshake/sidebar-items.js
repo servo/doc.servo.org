@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HANDSHAKE_HEADER_LEN","MAX_HANDSHAKE_SIZE"],"struct":["DissectHandshakeIter","FragmentSpan","HandshakeDeframer","HandshakeIter"]};

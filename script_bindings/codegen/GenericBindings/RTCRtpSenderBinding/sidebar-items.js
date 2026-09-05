@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["RTCRtpSender_Binding"],"struct":["RTCRtcpParameters","RTCRtpCodecParameters","RTCRtpHeaderExtensionParameters","RTCRtpParameters","RTCRtpSendParameters"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CLOSED"],"fn":["channel"],"struct":["Receiver","Sender","Shared"],"type":["Value"]};

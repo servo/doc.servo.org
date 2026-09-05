@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["canonicalize","gen_display_name","load_disks"],"struct":["Disk","Disks"]};

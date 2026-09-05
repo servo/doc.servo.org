@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AlignmentBaseline","BaselineShift","DominantBaseline","FontFamily","FontOpticalSizing","FontStretch","FontStyle","LengthAdjust","TextAnchor","TextFlow","WritingMode"],"struct":["Font","FontVariation","Text","TextChunk","TextDecoration","TextDecorationStyle","TextPath","TextSpan"]};

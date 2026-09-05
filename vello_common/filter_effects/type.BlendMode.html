@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Blend modes for combining colors."><title>BlendMode in vello_common::filter_effects - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="vello_common" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc type"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">BlendMode</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../vello_common/index.html">vello_<wbr>common</a><span class="version">0.2.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Blend<wbr>Mode</a></h2><h3><a href="#aliased-type">Aliased Type</a></h3><h3><a href="#variants">Variants</a></h3><ul class="block variant"><li><a href="#variant.Color" title="Color">Color</a></li><li><a href="#variant.ColorBurn" title="ColorBurn">ColorBurn</a></li><li><a href="#variant.ColorDodge" title="ColorDodge">ColorDodge</a></li><li><a href="#variant.Darken" title="Darken">Darken</a></li><li><a href="#variant.Difference" title="Difference">Difference</a></li><li><a href="#variant.Exclusion" title="Exclusion">Exclusion</a></li><li><a href="#variant.HardLight" title="HardLight">HardLight</a></li><li><a href="#variant.Hue" title="Hue">Hue</a></li><li><a href="#variant.Lighten" title="Lighten">Lighten</a></li><li><a href="#variant.Luminosity" title="Luminosity">Luminosity</a></li><li><a href="#variant.Multiply" title="Multiply">Multiply</a></li><li><a href="#variant.Normal" title="Normal">Normal</a></li><li><a href="#variant.Overlay" title="Overlay">Overlay</a></li><li><a href="#variant.Saturation" title="Saturation">Saturation</a></li><li><a href="#variant.Screen" title="Screen">Screen</a></li><li><a href="#variant.SoftLight" title="SoftLight">SoftLight</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In vello_<wbr>common::<wbr>filter_<wbr>effects</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">vello_common</a>::<wbr><a href="index.html">filter_effects</a></div><h1>Type Alias <span class="type">Blend<wbr>Mode</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/vello_common/filter_effects.rs.html#886">Source</a> </span></div><pre class="rust item-decl"><code>pub type BlendMode = <a class="enum" href="../../peniko/blend/enum.Mix.html" title="enum peniko::blend::Mix">Mix</a>;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Blend modes for combining colors.</p>
+<p>These are blend modes that define how to combine the colors
+of two layers. Unlike compositing operators which deal with alpha, blend modes
+focus on color mixing while preserving the compositing behavior.</p>
+<p>See: <a href="https://drafts.fxtf.org/compositing/#blending">https://drafts.fxtf.org/compositing/#blending</a></p>
+</div></details><h2 id="aliased-type" class="section-header">Aliased Type<a href="#aliased-type" class="anchor">§</a></h2><pre class="rust item-decl"><code><div class="code-attribute">#[repr(u8)]</div>pub enum BlendMode {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 16 variants</span></summary>    Normal = 0,
+    Multiply = 1,
+    Screen = 2,
+    Overlay = 3,
+    Darken = 4,
+    Lighten = 5,
+    ColorDodge = 6,
+    ColorBurn = 7,
+    HardLight = 8,
+    SoftLight = 9,
+    Difference = 10,
+    Exclusion = 11,
+    Hue = 12,
+    Saturation = 13,
+    Color = 14,
+    Luminosity = 15,
+</details>}</code></pre><h2 id="variants" class="variants section-header">Variants<a href="#variants" class="anchor">§</a></h2><div class="variants"><section id="variant.Normal" class="variant"><a href="#variant.Normal" class="anchor">§</a><h3 class="code-header">Normal = 0</h3></section><div class="docblock"><p>Default attribute which specifies no blending. The blending formula simply selects the source color.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/normal.png" alt="" /></p>
+</div><section id="variant.Multiply" class="variant"><a href="#variant.Multiply" class="anchor">§</a><h3 class="code-header">Multiply = 1</h3></section><div class="docblock"><p>Source color is multiplied by the destination color and replaces the destination.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/multiply.png" alt="" /></p>
+</div><section id="variant.Screen" class="variant"><a href="#variant.Screen" class="anchor">§</a><h3 class="code-header">Screen = 2</h3></section><div class="docblock"><p>Multiplies the complements of the backdrop and source color values, then complements the result.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/screen.png" alt="" /></p>
+</div><section id="variant.Overlay" class="variant"><a href="#variant.Overlay" class="anchor">§</a><h3 class="code-header">Overlay = 3</h3></section><div class="docblock"><p>Multiplies or screens the colors, depending on the backdrop color value.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/overlay.png" alt="" /></p>
+</div><section id="variant.Darken" class="variant"><a href="#variant.Darken" class="anchor">§</a><h3 class="code-header">Darken = 4</h3></section><div class="docblock"><p>Selects the darker of the backdrop and source colors.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/darken.png" alt="" /></p>
+</div><section id="variant.Lighten" class="variant"><a href="#variant.Lighten" class="anchor">§</a><h3 class="code-header">Lighten = 5</h3></section><div class="docblock"><p>Selects the lighter of the backdrop and source colors.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/lighten.png" alt="" /></p>
+</div><section id="variant.ColorDodge" class="variant"><a href="#variant.ColorDodge" class="anchor">§</a><h3 class="code-header">ColorDodge = 6</h3></section><div class="docblock"><p>Brightens the backdrop color to reflect the source color. Painting with black produces no
+change.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/colordodge.png" alt="" /></p>
+</div><section id="variant.ColorBurn" class="variant"><a href="#variant.ColorBurn" class="anchor">§</a><h3 class="code-header">ColorBurn = 7</h3></section><div class="docblock"><p>Darkens the backdrop color to reflect the source color. Painting with white produces no
+change.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/colorburn.png" alt="" /></p>
+</div><section id="variant.HardLight" class="variant"><a href="#variant.HardLight" class="anchor">§</a><h3 class="code-header">HardLight = 8</h3></section><div class="docblock"><p>Multiplies or screens the colors, depending on the source color value. The effect is
+similar to shining a harsh spotlight on the backdrop.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/hardlight.png" alt="" /></p>
+</div><section id="variant.SoftLight" class="variant"><a href="#variant.SoftLight" class="anchor">§</a><h3 class="code-header">SoftLight = 9</h3></section><div class="docblock"><p>Darkens or lightens the colors, depending on the source color value. The effect is similar
+to shining a diffused spotlight on the backdrop.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/softlight.png" alt="" /></p>
+</div><section id="variant.Difference" class="variant"><a href="#variant.Difference" class="anchor">§</a><h3 class="code-header">Difference = 10</h3></section><div class="docblock"><p>Subtracts the darker of the two constituent colors from the lighter color.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/difference.png" alt="" /></p>
+</div><section id="variant.Exclusion" class="variant"><a href="#variant.Exclusion" class="anchor">§</a><h3 class="code-header">Exclusion = 11</h3></section><div class="docblock"><p>Produces an effect similar to that of the <code>Difference</code> mode but lower in contrast. Painting
+with white inverts the backdrop color; painting with black produces no change.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/exclusion.png" alt="" /></p>
+</div><section id="variant.Hue" class="variant"><a href="#variant.Hue" class="anchor">§</a><h3 class="code-header">Hue = 12</h3></section><div class="docblock"><p>Creates a color with the hue of the source color and the saturation and luminosity of the
+backdrop color.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/hue.png" alt="" /></p>
+</div><section id="variant.Saturation" class="variant"><a href="#variant.Saturation" class="anchor">§</a><h3 class="code-header">Saturation = 13</h3></section><div class="docblock"><p>Creates a color with the saturation of the source color and the hue and luminosity of the
+backdrop color. Painting with this mode in an area of the backdrop that is a pure gray
+(no saturation) produces no change.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/saturation.png" alt="" /></p>
+</div><section id="variant.Color" class="variant"><a href="#variant.Color" class="anchor">§</a><h3 class="code-header">Color = 14</h3></section><div class="docblock"><p>Creates a color with the hue and saturation of the source color and the luminosity of the
+backdrop color. This preserves the gray levels of the backdrop and is useful for coloring
+monochrome images or tinting color images.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/color.png" alt="" /></p>
+</div><section id="variant.Luminosity" class="variant"><a href="#variant.Luminosity" class="anchor">§</a><h3 class="code-header">Luminosity = 15</h3></section><div class="docblock"><p>Creates a color with the luminosity of the source color and the hue and saturation of the
+backdrop color. This produces an inverse effect to that of the <code>Color</code> mode.</p>
+<p><img src="https://www.w3.org/TR/compositing-1/examples/luminosity.png" alt="" /></p>
+</div></div><script src="../../type.impl/peniko/blend/enum.Mix.js" data-self-path="vello_common::filter_effects::BlendMode" async></script></section></div></main></body></html>

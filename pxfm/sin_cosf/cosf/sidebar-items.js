@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cosf_fma_impl","cosf_gen_impl","f_cosf"]};

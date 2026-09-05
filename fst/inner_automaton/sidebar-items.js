@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StartsWithStateKind"],"struct":["AlwaysMatch","Complement","ComplementState","Intersection","IntersectionState","StartsWith","StartsWithState","Str","Subsequence","Union","UnionState"],"trait":["Automaton"]};

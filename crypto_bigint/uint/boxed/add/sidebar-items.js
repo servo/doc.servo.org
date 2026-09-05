@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_add_primitive",1]]};

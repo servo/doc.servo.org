@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SelectionMode"],"fn":["DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap"],"mod":["HTMLFormElement_Binding","SelectionModeValues"],"trait":["HTMLFormElementMethods"]};

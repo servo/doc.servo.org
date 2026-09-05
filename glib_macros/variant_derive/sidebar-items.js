@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EnumMode"],"fn":["derive_variant_for_c_enum","derive_variant_for_enum","derive_variant_for_struct","get_enum_mode","get_repr","impl_variant"]};

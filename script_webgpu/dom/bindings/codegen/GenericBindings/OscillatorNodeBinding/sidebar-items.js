@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OscillatorType"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["OscillatorNode_Binding","OscillatorTypeValues"],"struct":["OscillatorOptions"],"trait":["OscillatorNodeMethods"]};

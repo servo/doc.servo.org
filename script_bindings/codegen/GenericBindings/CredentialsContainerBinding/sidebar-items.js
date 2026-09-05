@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CredentialMediationRequirement"],"mod":["CredentialMediationRequirementValues","CredentialsContainer_Binding"],"struct":["CredentialCreationOptions","CredentialData","CredentialRequestOptions"]};

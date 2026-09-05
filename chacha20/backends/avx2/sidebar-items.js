@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["N","PAR_BLOCKS"],"fn":["add_xor_rot","cols_to_rows","double_quarter_round","inner","rng_inner","rounds","rows_to_cols"],"struct":["Backend"]};

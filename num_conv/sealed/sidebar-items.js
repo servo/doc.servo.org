@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_integer",1]],"trait":["ExtendTargetSealed","Integer","TruncateTargetSealed","WidenTargetSealed"]};

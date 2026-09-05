@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","TestBindingIterable_Binding"],"trait":["TestBindingIterableMethods"]};

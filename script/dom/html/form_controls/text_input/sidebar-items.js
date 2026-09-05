@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CMD_OR_CONTROL"],"enum":["Direction","InputType","IsComposing","KeyReaction","Lines","Selection","SelectionDirection"],"fn":["len_of_first_n_code_units"],"struct":["ClipboardEventFlags","ClipboardEventReaction","EmbedderClipboardProvider","SelectionState","TextInput","TextInputSelectionDragHandler"],"trait":["ClipboardProvider"]};

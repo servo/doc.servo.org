@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UNICODE_VERSION"],"mod":["emoji","general_category","util"]};

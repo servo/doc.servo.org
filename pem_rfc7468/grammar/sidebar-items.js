@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHAR_COLON","CHAR_CR","CHAR_HT","CHAR_LF","CHAR_NUL","CHAR_SP"],"fn":["is_allowed_in_label","is_labelchar","is_wsp","split_label","strip_leading_eol","strip_preamble","strip_trailing_eol","validate_label"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PERFORMANCE_TIMING_ATTRIBUTES"],"mod":["largestcontentfulpaint","performance","performanceentry","performancemark","performancemeasure","performancenavigation","performancenavigationtiming","performanceobserver","performanceobserverentrylist","performancepainttiming","performanceresourcetiming","performancetiming"]};

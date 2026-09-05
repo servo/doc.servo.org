@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["microtask_from_jsval","trace_non_gc_things_micro_task"],"struct":["CustomElementReactionMicrotask","MicrotaskQueue","NotifyMutationObserversMicrotask","UserMicrotask"],"trait":["MicrotaskRunnable"]};

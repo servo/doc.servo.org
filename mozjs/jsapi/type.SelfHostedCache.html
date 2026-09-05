@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Span - slices for C++"><title>SelfHostedCache in mozjs::jsapi - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="mozjs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc type"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">SelfHostedCache</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../mozjs/index.html">mozjs</a><span class="version">0.25.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Self<wbr>Hosted<wbr>Cache</a></h2><h3><a href="#aliased-type">Aliased Type</a></h3><h3><a href="#fields">Fields</a></h3><ul class="block field"><li><a href="#structfield.0" title="0">0</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In mozjs::<wbr>jsapi</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">mozjs</a>::<wbr><a href="index.html">jsapi</a></div><h1>Type Alias <span class="type">Self<wbr>Hosted<wbr>Cache</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/mozjs_sys/home/runner/work/servo/servo/target/debug/build/mozjs_sys-1d1305378769113a/out/build/jsapi.rs.html#12628">Source</a> </span></div><pre class="rust item-decl"><code>pub type SelfHostedCache = <a class="struct" href="struct.__BindgenOpaqueArray.html" title="struct mozjs::jsapi::__BindgenOpaqueArray">__BindgenOpaqueArray</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.u64.html">u64</a>, 2&gt;;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Span - slices for C++</p>
+<p>Span implements Rust’s slice concept for C++. It’s called “Span” instead of
+“Slice” to follow the naming used in C++ Core Guidelines.</p>
+<p>A Span wraps a pointer and a length that identify a non-owning view to a
+contiguous block of memory of objects of the same type. Various types,
+including (pre-decay) C arrays, XPCOM strings, nsTArray, mozilla::Array,
+mozilla::Range and contiguous standard-library containers, auto-convert
+into Spans when attempting to pass them as arguments to methods that take
+Spans. (Span itself autoconverts into mozilla::Range.)</p>
+<p>Like Rust’s slices, Span provides safety against out-of-bounds access by
+performing run-time bound checks. However, unlike Rust’s slices, Span
+cannot provide safety against use-after-free.</p>
+<p>(Note: Span is like Rust’s slice only conceptually. Due to the lack of
+ABI guarantees, you should still decompose spans/slices to raw pointer
+and length parts when crossing the FFI. The Elements() and data() methods
+are guaranteed to return a non-null pointer even for zero-length spans,
+so the pointer can be used as a raw part of a Rust slice without further
+checks.)</p>
+<p>In addition to having constructors (with the support of deduction guides)
+that take various well-known types, a Span for an arbitrary type can be
+constructed from a pointer and a length or a pointer and another pointer
+pointing just past the last element.</p>
+<p>A Span<const char> or Span<const char16_t> can be obtained for const char*
+or const char16_t pointing to a zero-terminated string using the
+MakeStringSpan() function (which treats a nullptr argument equivalently
+to the empty string). Corresponding implicit constructor does not exist
+in order to avoid accidental construction in cases where const char* or
+const char16_t* do not point to a zero-terminated string.</p>
+<p>Span has methods that follow the Mozilla naming style and methods that
+don’t. The methods that follow the Mozilla naming style are meant to be
+used directly from Mozilla code. The methods that don’t are meant for
+integration with C++11 range-based loops and with meta-programming that
+expects the same methods that are found on the standard-library
+containers. For example, to decompose a Span into its parts in Mozilla
+code, use Elements() and Length() (as with nsTArray) instead of data()
+and size() (as with std::vector).</p>
+<p>The pointer and length wrapped by a Span cannot be changed after a Span has
+been created. When new values are required, simply create a new Span. Span
+has a method called Subspan() that works analogously to the Substring()
+method of XPCOM strings taking a start index and an optional length. As a
+Mozilla extension (relative to Microsoft’s gsl::span that mozilla::Span is
+based on), Span has methods From(start), To(end) and FromTo(start, end)
+that correspond to Rust’s &amp;slice[start..], &amp;slice[..end] and
+&amp;slice[start..end], respectively. (That is, the end index is the index of
+the first element not to be included in the new subspan.)</p>
+<p>When indicating a Span that’s only read from, const goes inside the type
+parameter. Don’t put const in front of Span. That is:
+size_t ReadsFromOneSpanAndWritesToAnother(Span<const uint8_t> aReadFrom,
+Span&lt;uint8_t&gt; aWrittenTo);</p>
+<p>Any Span<const T> can be viewed as Span<const uint8_t> using the function
+AsBytes(). Any Span<T> can be viewed as Span&lt;uint8_t&gt; using the function
+AsWritableBytes().</p>
+<p>Note that iterators from different Span instances are uncomparable, even if
+they refer to the same memory. This also applies to any spans derived via
+Subspan etc.</p>
+</div></details><h2 id="aliased-type" class="section-header">Aliased Type<a href="#aliased-type" class="anchor">§</a></h2><pre class="rust item-decl"><code><div class="code-attribute">#[repr(C)]</div>pub struct SelfHostedCache(pub [<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.u64.html">u64</a>; <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.array.html">2</a>]);</code></pre><h2 id="fields" class="fields section-header">Tuple Fields<a href="#fields" class="anchor">§</a></h2><span id="structfield.0" class="structfield section-header"><a href="#structfield.0" class="anchor field">§</a><code>0: [<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.u64.html">u64</a>; <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.array.html">2</a>]</code></span><script src="../../type.impl/mozjs/jsapi/struct.__BindgenOpaqueArray.js" data-self-path="mozjs::jsapi::SelfHostedCache" async></script></section></div></main></body></html>

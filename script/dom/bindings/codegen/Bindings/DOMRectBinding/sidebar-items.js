@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["DOMRect_Binding","GenericBindings"],"trait":["DOMRectMethods"]};

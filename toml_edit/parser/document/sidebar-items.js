@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["descend_path","document","get_key_span","on_table","ws_comment_newline"],"struct":["State","TableHeader"]};

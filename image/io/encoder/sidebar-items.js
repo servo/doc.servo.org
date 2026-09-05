@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["dynimage_conversion_8bit"],"struct":["MethodSealedToImage"],"trait":["ImageEncoder","ImageEncoderBoxed"]};

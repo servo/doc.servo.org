@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Never"],"fn":["is_older_version"],"struct":["PanicOnDrop"],"trait":["UnwrapNever"]};

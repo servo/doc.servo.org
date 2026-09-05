@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BaselineShiftKeyword","BlockEllipsis","GenericBaselineShift","GenericContainIntrinsicSize","GenericPerspective","MaxLinesKeyword","OverflowClipMarginBox","PositionProperty"],"struct":["GenericLineClamp","GenericMaxLines","GenericOverflowClipMargin"]};

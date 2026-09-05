@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_tanpif","tanpif_fma_impl","tanpif_gen_impl"]};

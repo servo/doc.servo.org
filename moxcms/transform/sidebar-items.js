@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BarycentricWeightScale","InterpolationMethod","Layout"],"struct":["TransformOptions"],"trait":["InPlaceStage","InPlaceTransformExecutor","Stage","TransformExecutor"],"type":["Transform16BitExecutor","Transform8BitExecutor","TransformF32Executor","TransformF64Executor"]};

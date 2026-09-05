@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_STYLES","SCRIPT_CLASSES","STYLE_CLASSES","STYLE_RANGES","UNMAPPED_STYLE"],"enum":["ScriptGroup"],"fn":["base_range","non_base_range"],"struct":["GlyphStyle","GlyphStyleMap","ScriptClass","StyleClass","StyleRange"]};

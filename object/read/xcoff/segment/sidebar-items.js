@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["XcoffSegment","XcoffSegmentIterator"],"type":["XcoffSegment32","XcoffSegment64","XcoffSegmentIterator32","XcoffSegmentIterator64"]};

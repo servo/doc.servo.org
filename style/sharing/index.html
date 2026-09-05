@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Code related to the style sharing cache, an optimization that allows similar nodes to share style without having to run selector matching twice."><title>style::sharing - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="style" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module sharing</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../style/index.html">style</a><span class="version">0.20.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module sharing</a></h2><h3><a href="#modules">Module Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate style</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">style</a></div><h1>Module <span>sharing</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/style/sharing/mod.rs.html#5-991">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Code related to the style sharing cache, an optimization that allows similar
+nodes to share style without having to run selector matching twice.</p>
+<p>The basic setup is as follows.  We have an LRU cache of style sharing
+candidates.  When we try to style a target element, we first check whether
+we can quickly determine that styles match something in this cache, and if
+so we just use the cached style information.  This check is done with a
+StyleBloom filter set up for the target element, which may not be a correct
+state for the cached candidate element if they’re cousins instead of
+siblings.</p>
+<p>The complicated part is determining that styles match.  This is subject to
+the following constraints:</p>
+<ol>
+<li>The target and candidate must be inheriting the same styles.</li>
+<li>The target and candidate must have exactly the same rules matching them.</li>
+<li>The target and candidate must have exactly the same non-selector-based
+style information (inline styles, presentation hints).</li>
+<li>The target and candidate must have exactly the same rules matching their
+pseudo-elements, because an element’s style data points to the style
+data for its pseudo-elements.</li>
+</ol>
+<p>These constraints are satisfied in the following ways:</p>
+<ul>
+<li>
+<p>We check that the parents of the target and the candidate have the same
+computed style.  This addresses constraint 1.</p>
+</li>
+<li>
+<p>We check that the target and candidate have the same inline style and
+presentation hint declarations.  This addresses constraint 3.</p>
+</li>
+<li>
+<p>We ensure that a target matches a candidate only if they have the same
+matching result for all selectors that target either elements or the
+originating elements of pseudo-elements.  This addresses constraint 4
+(because it prevents a target that has pseudo-element styles from matching
+a candidate that has different pseudo-element styles) as well as
+constraint 2.</p>
+</li>
+</ul>
+<p>The actual checks that ensure that elements match the same rules are
+conceptually split up into two pieces.  First, we do various checks on
+elements that make sure that the set of possible rules in all selector maps
+in the stylist (for normal styling and for pseudo-elements) that might match
+the two elements is the same.  For example, we enforce that the target and
+candidate must have the same localname and namespace.  Second, we have a
+selector map of “revalidation selectors” that the stylist maintains that we
+actually match against the target and candidate and then check whether the
+two sets of results were the same.  Due to the up-front selector map checks,
+we know that the target and candidate will be matched against the same exact
+set of revalidation selectors, so the match result arrays can be compared
+directly.</p>
+<p>It’s very important that a selector be added to the set of revalidation
+selectors any time there are two elements that could pass all the up-front
+checks but match differently against some ComplexSelector in the selector.
+If that happens, then they can have descendants that might themselves pass
+the up-front checks but would have different matching results for the
+selector in question.  In this case, “descendants” includes pseudo-elements,
+so there is a single selector map of revalidation selectors that includes
+both selectors targeting elements and selectors targeting pseudo-element
+originating elements.  We ensure that the pseudo-element parts of all these
+selectors are effectively stripped off, so that matching them all against
+elements makes sense.</p>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="checks/index.html" title="mod style::sharing::checks">checks</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Different checks done during the style sharing process in order to determine
+quickly whether it’s worth to share style, and whether two different
+elements can indeed share the same style.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.OpaqueComputedValues.html" title="struct style::sharing::OpaqueComputedValues">Opaque<wbr>Computed<wbr>Values</a></dt><dd>Opaque pointer type to compare ComputedValues identities.</dd><dt><a class="struct" href="struct.RevalidationResult.html" title="struct style::sharing::RevalidationResult">Revalidation<wbr>Result</a></dt><dd>The results from the revalidation step.</dd><dt><a class="struct" href="struct.ScopeRevalidationResult.html" title="struct style::sharing::ScopeRevalidationResult">Scope<wbr>Revalidation<wbr>Result</a></dt><dd>The results from trying to revalidate scopes this element is in.</dd><dt><a class="struct" href="struct.SharingCacheBase.html" title="struct style::sharing::SharingCacheBase">Sharing<wbr>Cache<wbr>Base</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="struct" href="struct.StyleSharingCache.html" title="struct style::sharing::StyleSharingCache">Style<wbr>Sharing<wbr>Cache</a></dt><dd>A set of LRU caches of the last few nodes seen, one per DOM depth, so that we can try to
+aggressively try to share their styles.</dd><dt><a class="struct" href="struct.StyleSharingCandidate.html" title="struct style::sharing::StyleSharingCandidate">Style<wbr>Sharing<wbr>Candidate</a></dt><dd>Information regarding a style sharing candidate, that is, an entry in the
+style sharing cache.</dd><dt><a class="struct" href="struct.StyleSharingTarget.html" title="struct style::sharing::StyleSharingTarget">Style<wbr>Sharing<wbr>Target</a></dt><dd>An element we want to test against the style sharing cache.</dd><dt><a class="struct" href="struct.ValidationData.html" title="struct style::sharing::ValidationData">Validation<wbr>Data</a></dt><dd>Some data we want to avoid recomputing all the time while trying to share style.</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.REASONABLE_CLASS_LIST_SIZE.html" title="constant style::sharing::REASONABLE_CLASS_LIST_SIZE">REASONABLE_<wbr>CLASS_<wbr>LIST_<wbr>SIZE</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>We use this as an inline capacity for the class_list member below, but also as a reasonable cap
+to avoid sorting too large class lists.</dd><dt><a class="constant" href="constant.SHARING_CACHE_KEY.html" title="constant style::sharing::SHARING_CACHE_KEY">SHARING_<wbr>CACHE_<wbr>KEY</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="constant" href="constant.SHARING_CACHE_SIZE.html" title="constant style::sharing::SHARING_CACHE_SIZE">SHARING_<wbr>CACHE_<wbr>SIZE</a></dt><dd>The amount of nodes that the style sharing candidate cache should hold at most.</dd><dt><a class="constant" href="constant.SHARING_MAX_LEVELS.html" title="constant style::sharing::SHARING_MAX_LEVELS">SHARING_<wbr>MAX_<wbr>LEVELS</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>The max amount of DOM depths we keep around to share styles across. See bug 2052731.</dd></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.SharingCache.html" title="type style::sharing::SharingCache">Sharing<wbr>Cache</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Style sharing caches are are large allocations, so we store them in thread-local
+storage such that they can be reused across style traversals. Ideally, we’d just
+stack-allocate these buffers with uninitialized memory, but right now rustc can’t
+avoid memmoving the entire cache during setup, which gets very expensive. See
+issues like [1] and [2].</dd><dt><a class="type" href="type.TypelessSharingCache.html" title="type style::sharing::TypelessSharingCache">Typeless<wbr>Sharing<wbr>Cache</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl></section></div></main></body></html>

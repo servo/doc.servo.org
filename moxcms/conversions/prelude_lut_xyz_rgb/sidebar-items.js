@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create_rgb_lin_lut","prepare_inverse_lut_rgb_xyz"],"struct":["RgbLinearizationStage","XyzToRgbStage"]};

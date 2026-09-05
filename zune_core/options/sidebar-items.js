@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PngCompression"],"mod":["decoder","encoder"],"struct":["DecoderOptions","EncoderOptions"]};

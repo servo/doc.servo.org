@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InlineBoxTreePathToken"],"fn":["inline_box_style_breaks_shaping"],"struct":["InlineBox","InlineBoxContainerState","InlineBoxIdentifier","InlineBoxes"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_db_status","range_to_query"],"mod":["create","database_model","encoding","object_data_model","object_store_index_model","object_store_model"],"struct":["SqliteEngine"]};

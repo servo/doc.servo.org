@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["MutationObserver_Binding"],"struct":["MutationCallback","MutationObserverInit"]};

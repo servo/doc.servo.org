@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Either","Err","Needed"],"macro":[["impl_parser_for_tuple",1],["impl_parser_for_tuples",1]],"struct":["And","AndThen","Check","Complete","Emit","FlatMap","Into","Map","MapOpt","MapRes","Or","OutputM","Streaming"],"trait":["Finish","IsStreaming","Mode","OutputMode","Parser"],"type":["IResult","PResult"]};

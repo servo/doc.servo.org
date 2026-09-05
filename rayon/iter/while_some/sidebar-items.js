@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["WhileSome","WhileSomeConsumer","WhileSomeFolder"]};

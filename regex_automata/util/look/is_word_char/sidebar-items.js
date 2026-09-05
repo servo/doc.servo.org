@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check","fwd","is_word_character","rev"]};

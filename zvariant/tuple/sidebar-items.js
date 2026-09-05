@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["tuple_impls",1]],"struct":["DynamicTuple","TupleSeed","TupleVisitor"]};

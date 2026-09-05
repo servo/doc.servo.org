@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["derive_from_bytes","derive_from_bytes_enum","derive_from_bytes_struct","derive_from_bytes_union","derive_from_zeros","derive_from_zeros_enum","derive_from_zeros_struct","derive_from_zeros_union","find_zero_variant"]};

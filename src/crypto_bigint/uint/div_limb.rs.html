@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crypto-bigint-0.7.5/src/uint/div_limb.rs`."><title>div_limb.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="crypto_bigint" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/meta/master/logo.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">crypto_bigint/uint/</div>div_limb.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! Implementation of constant-time division via reciprocal precomputation, as described in
+<a href=#2 id=2 data-nosnippet>2</a>//! "Improved Division by Invariant Integers" by Niels Möller and Torbjorn Granlund
+<a href=#3 id=3 data-nosnippet>3</a>//! (DOI: 10.1109/TC.2010.143, &lt;https://gmplib.org/~tege/division-paper.pdf&gt;).
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{
+<a href=#6 id=6 data-nosnippet>6</a>    Choice, CtSelect, Limb, NonZero, Uint, WideWord, Word, primitives::widening_mul, word,
+<a href=#7 id=7 data-nosnippet>7</a>};
+<a href=#8 id=8 data-nosnippet>8</a>
+<a href=#9 id=9 data-nosnippet>9</a><span class="macro">cpubits::cpubits!</span> {
+<a href=#10 id=10 data-nosnippet>10</a>    <span class="number">32 </span>=&gt; {
+<a href=#11 id=11 data-nosnippet>11</a>        <span class="doccomment">/// Calculates the reciprocal of the given 32-bit divisor with the highmost bit set.
+<a href=#12 id=12 data-nosnippet>12</a>        ///
+<a href=#13 id=13 data-nosnippet>13</a>        /// This method corresponds to Algorithm 3
+<a href=#14 id=14 data-nosnippet>14</a>        </span><span class="kw">pub const fn </span>reciprocal(d: Word) -&gt; Word {
+<a href=#15 id=15 data-nosnippet>15</a>            <span class="macro">debug_assert!</span>(d &gt;= (<span class="number">1 </span>&lt;&lt; (Word::BITS - <span class="number">1</span>)));
+<a href=#16 id=16 data-nosnippet>16</a>
+<a href=#17 id=17 data-nosnippet>17</a>            <span class="kw">let </span>d0 = d &amp; <span class="number">1</span>;
+<a href=#18 id=18 data-nosnippet>18</a>            <span class="kw">let </span>d10 = d &gt;&gt; <span class="number">22</span>;
+<a href=#19 id=19 data-nosnippet>19</a>            <span class="kw">let </span>d21 = (d &gt;&gt; <span class="number">11</span>) + <span class="number">1</span>;
+<a href=#20 id=20 data-nosnippet>20</a>            <span class="kw">let </span>d31 = (d &gt;&gt; <span class="number">1</span>) + d0;
+<a href=#21 id=21 data-nosnippet>21</a>            <span class="kw">let </span>v0 = short_div((<span class="number">1 </span>&lt;&lt; <span class="number">24</span>) - (<span class="number">1 </span>&lt;&lt; <span class="number">14</span>) + (<span class="number">1 </span>&lt;&lt; <span class="number">9</span>), <span class="number">24</span>, d10, <span class="number">10</span>);
+<a href=#22 id=22 data-nosnippet>22</a>            <span class="kw">let </span>(_lo, hi) = widening_mul(v0 * v0, d21);
+<a href=#23 id=23 data-nosnippet>23</a>            <span class="kw">let </span>v1 = (v0 &lt;&lt; <span class="number">4</span>) - hi - <span class="number">1</span>;
+<a href=#24 id=24 data-nosnippet>24</a>
+<a href=#25 id=25 data-nosnippet>25</a>            <span class="comment">// Checks that the expression for `e` can be simplified in the way we did below.
+<a href=#26 id=26 data-nosnippet>26</a>            </span><span class="macro">debug_assert!</span>(widening_mul(v1, d31).<span class="number">1 </span>== (<span class="number">1 </span>&lt;&lt; <span class="number">16</span>) - <span class="number">1</span>);
+<a href=#27 id=27 data-nosnippet>27</a>            <span class="kw">let </span>e = v1.wrapping_mul(d31).wrapping_neg() + (v1 &gt;&gt; <span class="number">1</span>) * d0;
+<a href=#28 id=28 data-nosnippet>28</a>
+<a href=#29 id=29 data-nosnippet>29</a>            <span class="kw">let </span>(_lo, hi) = widening_mul(v1, e);
+<a href=#30 id=30 data-nosnippet>30</a>            <span class="comment">// Note: the paper does not mention a wrapping add here,
+<a href=#31 id=31 data-nosnippet>31</a>            // but the 64-bit version has it at this stage, and the function panics without it
+<a href=#32 id=32 data-nosnippet>32</a>            // when calculating a reciprocal for `Word::MAX`.
+<a href=#33 id=33 data-nosnippet>33</a>            </span><span class="kw">let </span>v2 = (v1 &lt;&lt; <span class="number">15</span>).wrapping_add(hi &gt;&gt; <span class="number">1</span>);
+<a href=#34 id=34 data-nosnippet>34</a>
+<a href=#35 id=35 data-nosnippet>35</a>            <span class="comment">// The paper has `(v2 + 1) * d / 2^32` (there's another 2^32, but it's accounted for later).
+<a href=#36 id=36 data-nosnippet>36</a>            // If `v2 == 2^32-1` this should give `d`, but we can't achieve this in our wrapping arithmetic.
+<a href=#37 id=37 data-nosnippet>37</a>            // Hence the `word::select()`.
+<a href=#38 id=38 data-nosnippet>38</a>            </span><span class="kw">let </span>x = v2.wrapping_add(<span class="number">1</span>);
+<a href=#39 id=39 data-nosnippet>39</a>            <span class="kw">let </span>(_lo, hi) = widening_mul(x, d);
+<a href=#40 id=40 data-nosnippet>40</a>            <span class="kw">let </span>hi = word::select(d, hi, Choice::from_u32_nz(x));
+<a href=#41 id=41 data-nosnippet>41</a>
+<a href=#42 id=42 data-nosnippet>42</a>            v2.wrapping_sub(hi).wrapping_sub(d)
+<a href=#43 id=43 data-nosnippet>43</a>        }
+<a href=#44 id=44 data-nosnippet>44</a>    }
+<a href=#45 id=45 data-nosnippet>45</a>    <span class="number">64 </span>=&gt; {
+<a href=#46 id=46 data-nosnippet>46</a>        <span class="doccomment">/// Calculates the reciprocal of the given 64-bit divisor with the highmost bit set.
+<a href=#47 id=47 data-nosnippet>47</a>        ///
+<a href=#48 id=48 data-nosnippet>48</a>        /// This method corresponds to Algorithm 2
+<a href=#49 id=49 data-nosnippet>49</a>        </span><span class="kw">pub const fn </span>reciprocal(d: Word) -&gt; Word {
+<a href=#50 id=50 data-nosnippet>50</a>            <span class="macro">debug_assert!</span>(d &gt;= (<span class="number">1 </span>&lt;&lt; (Word::BITS - <span class="number">1</span>)));
+<a href=#51 id=51 data-nosnippet>51</a>
+<a href=#52 id=52 data-nosnippet>52</a>            <span class="kw">let </span>d0 = d &amp; <span class="number">1</span>;
+<a href=#53 id=53 data-nosnippet>53</a>            <span class="kw">let </span>d9 = d &gt;&gt; <span class="number">55</span>;
+<a href=#54 id=54 data-nosnippet>54</a>            <span class="kw">let </span>d40 = (d &gt;&gt; <span class="number">24</span>) + <span class="number">1</span>;
+<a href=#55 id=55 data-nosnippet>55</a>            <span class="kw">let </span>d63 = (d &gt;&gt; <span class="number">1</span>) + d0;
+<a href=#56 id=56 data-nosnippet>56</a>            <span class="kw">let </span>v0 = short_div((<span class="number">1 </span>&lt;&lt; <span class="number">19</span>) - <span class="number">3 </span>* (<span class="number">1 </span>&lt;&lt; <span class="number">8</span>), <span class="number">19</span>, d9 <span class="kw">as </span>u32, <span class="number">9</span>) <span class="kw">as </span>u64;
+<a href=#57 id=57 data-nosnippet>57</a>            <span class="kw">let </span>v1 = (v0 &lt;&lt; <span class="number">11</span>) - ((v0 * v0 * d40) &gt;&gt; <span class="number">40</span>) - <span class="number">1</span>;
+<a href=#58 id=58 data-nosnippet>58</a>            <span class="kw">let </span>v2 = (v1 &lt;&lt; <span class="number">13</span>) + ((v1 * ((<span class="number">1 </span>&lt;&lt; <span class="number">60</span>) - v1 * d40)) &gt;&gt; <span class="number">47</span>);
+<a href=#59 id=59 data-nosnippet>59</a>
+<a href=#60 id=60 data-nosnippet>60</a>            <span class="comment">// Checks that the expression for `e` can be simplified in the way we did below.
+<a href=#61 id=61 data-nosnippet>61</a>            </span><span class="macro">debug_assert!</span>(widening_mul(v2, d63).<span class="number">1 </span>== (<span class="number">1 </span>&lt;&lt; <span class="number">32</span>) - <span class="number">1</span>);
+<a href=#62 id=62 data-nosnippet>62</a>            <span class="kw">let </span>e = v2.wrapping_mul(d63).wrapping_neg() + (v2 &gt;&gt; <span class="number">1</span>) * d0;
+<a href=#63 id=63 data-nosnippet>63</a>
+<a href=#64 id=64 data-nosnippet>64</a>            <span class="kw">let </span>(_lo, hi) = widening_mul(v2, e);
+<a href=#65 id=65 data-nosnippet>65</a>            <span class="kw">let </span>v3 = (v2 &lt;&lt; <span class="number">31</span>).wrapping_add(hi &gt;&gt; <span class="number">1</span>);
+<a href=#66 id=66 data-nosnippet>66</a>
+<a href=#67 id=67 data-nosnippet>67</a>            <span class="comment">// The paper has `(v3 + 1) * d / 2^64` (there's another 2^64, but it's accounted for later).
+<a href=#68 id=68 data-nosnippet>68</a>            // If `v3 == 2^64-1` this should give `d`, but we can't achieve this in our wrapping arithmetic.
+<a href=#69 id=69 data-nosnippet>69</a>            // Hence the `word::select()`.
+<a href=#70 id=70 data-nosnippet>70</a>            </span><span class="kw">let </span>x = v3.wrapping_add(<span class="number">1</span>);
+<a href=#71 id=71 data-nosnippet>71</a>            <span class="kw">let </span>(_lo, hi) = widening_mul(x, d);
+<a href=#72 id=72 data-nosnippet>72</a>            <span class="kw">let </span>hi = word::select(d, hi, word::choice_from_nz(x));
+<a href=#73 id=73 data-nosnippet>73</a>
+<a href=#74 id=74 data-nosnippet>74</a>            v3.wrapping_sub(hi).wrapping_sub(d)
+<a href=#75 id=75 data-nosnippet>75</a>        }
+<a href=#76 id=76 data-nosnippet>76</a>    }
+<a href=#77 id=77 data-nosnippet>77</a>}
+<a href=#78 id=78 data-nosnippet>78</a>
+<a href=#79 id=79 data-nosnippet>79</a><span class="doccomment">/// Calculates `dividend / divisor`, given `dividend` and `divisor`
+<a href=#80 id=80 data-nosnippet>80</a>/// along with their maximum bitsizes.
+<a href=#81 id=81 data-nosnippet>81</a></span><span class="attr">#[inline(always)]
+<a href=#82 id=82 data-nosnippet>82</a></span><span class="kw">const fn </span>short_div(<span class="kw-2">mut </span>dividend: u32, dividend_bits: u32, divisor: u32, divisor_bits: u32) -&gt; u32 {
+<a href=#83 id=83 data-nosnippet>83</a>    <span class="comment">// TODO: this may be sped up even more using the fact that `dividend` is a known constant.
+<a href=#84 id=84 data-nosnippet>84</a>
+<a href=#85 id=85 data-nosnippet>85</a>    // In the paper this is a table lookup, but since we want it to be constant-time,
+<a href=#86 id=86 data-nosnippet>86</a>    // we have to access all the elements of the table, which is quite large.
+<a href=#87 id=87 data-nosnippet>87</a>    // So this shift-and-subtract approach is actually faster.
+<a href=#88 id=88 data-nosnippet>88</a>
+<a href=#89 id=89 data-nosnippet>89</a>    // Passing `dividend_bits` and `divisor_bits` because calling `.leading_zeros()`
+<a href=#90 id=90 data-nosnippet>90</a>    // causes a significant slowdown, and we know those values anyway.
+<a href=#91 id=91 data-nosnippet>91</a>
+<a href=#92 id=92 data-nosnippet>92</a>    </span><span class="kw">let </span><span class="kw-2">mut </span>divisor = divisor &lt;&lt; (dividend_bits - divisor_bits);
+<a href=#93 id=93 data-nosnippet>93</a>    <span class="kw">let </span><span class="kw-2">mut </span>quotient: u32 = <span class="number">0</span>;
+<a href=#94 id=94 data-nosnippet>94</a>    <span class="kw">let </span><span class="kw-2">mut </span>i = dividend_bits - divisor_bits + <span class="number">1</span>;
+<a href=#95 id=95 data-nosnippet>95</a>
+<a href=#96 id=96 data-nosnippet>96</a>    <span class="kw">while </span>i &gt; <span class="number">0 </span>{
+<a href=#97 id=97 data-nosnippet>97</a>        i -= <span class="number">1</span>;
+<a href=#98 id=98 data-nosnippet>98</a>        <span class="kw">let </span>bit = Choice::from_u32_lt(dividend, divisor);
+<a href=#99 id=99 data-nosnippet>99</a>        dividend = bit.select_u32(dividend.wrapping_sub(divisor), dividend);
+<a href=#100 id=100 data-nosnippet>100</a>        divisor &gt;&gt;= <span class="number">1</span>;
+<a href=#101 id=101 data-nosnippet>101</a>        quotient |= bit.not().select_u32(<span class="number">0</span>, <span class="number">1 </span>&lt;&lt; i);
+<a href=#102 id=102 data-nosnippet>102</a>    }
+<a href=#103 id=103 data-nosnippet>103</a>
+<a href=#104 id=104 data-nosnippet>104</a>    quotient
+<a href=#105 id=105 data-nosnippet>105</a>}
+<a href=#106 id=106 data-nosnippet>106</a>
+<a href=#107 id=107 data-nosnippet>107</a><span class="doccomment">/// Calculate the quotient and the remainder of the division of a wide word
+<a href=#108 id=108 data-nosnippet>108</a>/// (supplied as high and low words) by `d`, with a precalculated reciprocal `v`.
+<a href=#109 id=109 data-nosnippet>109</a>///
+<a href=#110 id=110 data-nosnippet>110</a>/// This method corresponds to Algorithm 4
+<a href=#111 id=111 data-nosnippet>111</a></span><span class="attr">#[inline(always)]
+<a href=#112 id=112 data-nosnippet>112</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const fn </span>div2by1(u0: Word, u1: Word, reciprocal: <span class="kw-2">&amp;</span>Reciprocal) -&gt; (Word, Word) {
+<a href=#113 id=113 data-nosnippet>113</a>    <span class="kw">let </span>d = reciprocal.divisor_normalized;
+<a href=#114 id=114 data-nosnippet>114</a>    <span class="kw">let </span>v = reciprocal.reciprocal;
+<a href=#115 id=115 data-nosnippet>115</a>
+<a href=#116 id=116 data-nosnippet>116</a>    <span class="macro">debug_assert!</span>(d &gt;= (<span class="number">1 </span>&lt;&lt; (Word::BITS - <span class="number">1</span>)), <span class="string">"divisor top bit unset"</span>);
+<a href=#117 id=117 data-nosnippet>117</a>    <span class="macro">debug_assert!</span>(u1 &lt; d, <span class="string">"dividend &gt;= divisor"</span>);
+<a href=#118 id=118 data-nosnippet>118</a>
+<a href=#119 id=119 data-nosnippet>119</a>    <span class="kw">let </span>q = (v <span class="kw">as </span>WideWord * u1 <span class="kw">as </span>WideWord) + word::join(u0, u1);
+<a href=#120 id=120 data-nosnippet>120</a>    <span class="kw">let </span>(q0, q1) = word::split_wide(q);
+<a href=#121 id=121 data-nosnippet>121</a>    <span class="kw">let </span>q1 = q1.wrapping_add(<span class="number">1</span>);
+<a href=#122 id=122 data-nosnippet>122</a>    <span class="kw">let </span>r = u0.wrapping_sub(q1.wrapping_mul(d));
+<a href=#123 id=123 data-nosnippet>123</a>
+<a href=#124 id=124 data-nosnippet>124</a>    <span class="kw">let </span>r_gt_q0 = word::choice_to_mask(word::choice_from_lt(q0, r));
+<a href=#125 id=125 data-nosnippet>125</a>    <span class="kw">let </span>q1 = q1.wrapping_sub(r_gt_q0 &amp; <span class="number">1</span>);
+<a href=#126 id=126 data-nosnippet>126</a>    <span class="kw">let </span>r = r.wrapping_add(r_gt_q0 &amp; d);
+<a href=#127 id=127 data-nosnippet>127</a>
+<a href=#128 id=128 data-nosnippet>128</a>    <span class="comment">// If this was a normal `if`, we wouldn't need wrapping ops, because there would be no overflow.
+<a href=#129 id=129 data-nosnippet>129</a>    // But since we calculate both results either way, we have to wrap.
+<a href=#130 id=130 data-nosnippet>130</a>    // Added an assert to still check the lack of overflow in debug mode.
+<a href=#131 id=131 data-nosnippet>131</a>    </span><span class="macro">debug_assert!</span>(r &lt; d || q1 &lt; Word::MAX);
+<a href=#132 id=132 data-nosnippet>132</a>    <span class="kw">let </span>r_ge_d = word::choice_to_mask(word::choice_from_le(d, r));
+<a href=#133 id=133 data-nosnippet>133</a>    <span class="kw">let </span>q1 = q1.wrapping_add(r_ge_d &amp; <span class="number">1</span>);
+<a href=#134 id=134 data-nosnippet>134</a>    <span class="kw">let </span>r = r.wrapping_sub(r_ge_d &amp; d);
+<a href=#135 id=135 data-nosnippet>135</a>
+<a href=#136 id=136 data-nosnippet>136</a>    (q1, r)
+<a href=#137 id=137 data-nosnippet>137</a>}
+<a href=#138 id=138 data-nosnippet>138</a>
+<a href=#139 id=139 data-nosnippet>139</a><span class="doccomment">/// Given two long integers `u = (..., u0, u1, u2)` and `v = (..., v0, v1)`
+<a href=#140 id=140 data-nosnippet>140</a>/// (where `u2` and `v1` are the most significant limbs), where `floor(u / v) &lt;= Limb::MAX`,
+<a href=#141 id=141 data-nosnippet>141</a>/// calculates `q` such that `q - 1 &lt;= floor(u / v) &lt;= q`.
+<a href=#142 id=142 data-nosnippet>142</a>/// In place of `v1` takes its reciprocal, and assumes that `v` was already pre-shifted
+<a href=#143 id=143 data-nosnippet>143</a>/// so that v1 has its most significant bit set (that is, the reciprocal's `shift` is 0).
+<a href=#144 id=144 data-nosnippet>144</a>///
+<a href=#145 id=145 data-nosnippet>145</a></span><span class="comment">// This method corresponds to Algorithm 5
+<a href=#146 id=146 data-nosnippet>146</a></span><span class="attr">#[inline(always)]
+<a href=#147 id=147 data-nosnippet>147</a>#[allow(clippy::cast_possible_truncation)]
+<a href=#148 id=148 data-nosnippet>148</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const fn </span>div3by2(
+<a href=#149 id=149 data-nosnippet>149</a>    (u0, u1, u2): (Word, Word, Word),
+<a href=#150 id=150 data-nosnippet>150</a>    (d0, d1): (Word, Word),
+<a href=#151 id=151 data-nosnippet>151</a>    v: Word,
+<a href=#152 id=152 data-nosnippet>152</a>) -&gt; (Word, WideWord) {
+<a href=#153 id=153 data-nosnippet>153</a>    <span class="kw">let </span>d = word::join(d0, d1);
+<a href=#154 id=154 data-nosnippet>154</a>    <span class="kw">let </span>u_hi = word::join(u1, u2);
+<a href=#155 id=155 data-nosnippet>155</a>
+<a href=#156 id=156 data-nosnippet>156</a>    <span class="macro">debug_assert!</span>(d &gt;= (<span class="number">1 </span>&lt;&lt; (WideWord::BITS - <span class="number">1</span>)), <span class="string">"divisor top bit unset"</span>);
+<a href=#157 id=157 data-nosnippet>157</a>    <span class="macro">debug_assert!</span>(u_hi &lt;= d, <span class="string">"dividend &gt; divisor"</span>);
+<a href=#158 id=158 data-nosnippet>158</a>
+<a href=#159 id=159 data-nosnippet>159</a>    <span class="kw">let </span>q = (v <span class="kw">as </span>WideWord * u2 <span class="kw">as </span>WideWord) + u_hi;
+<a href=#160 id=160 data-nosnippet>160</a>    <span class="kw">let </span>(q0, q1) = word::split_wide(q);
+<a href=#161 id=161 data-nosnippet>161</a>    <span class="kw">let </span>r1 = u1.wrapping_sub(q1.wrapping_mul(d1));
+<a href=#162 id=162 data-nosnippet>162</a>    <span class="kw">let </span>t = d0 <span class="kw">as </span>WideWord * q1 <span class="kw">as </span>WideWord;
+<a href=#163 id=163 data-nosnippet>163</a>    <span class="kw">let </span>r = word::join(u0, r1).wrapping_sub(t).wrapping_sub(d);
+<a href=#164 id=164 data-nosnippet>164</a>
+<a href=#165 id=165 data-nosnippet>165</a>    <span class="kw">let </span>r1_ge_q0 = word::choice_to_wide_mask(word::choice_from_le(q0, (r &gt;&gt; Word::BITS) <span class="kw">as </span>Word));
+<a href=#166 id=166 data-nosnippet>166</a>    <span class="kw">let </span>q1 = q1.wrapping_add(!(r1_ge_q0 <span class="kw">as </span>Word) &amp; <span class="number">1</span>);
+<a href=#167 id=167 data-nosnippet>167</a>    <span class="kw">let </span>r = r.wrapping_add(r1_ge_q0 &amp; d);
+<a href=#168 id=168 data-nosnippet>168</a>
+<a href=#169 id=169 data-nosnippet>169</a>    <span class="kw">let </span>r_ge_d = word::choice_to_wide_mask(word::choice_from_wide_le(d, r));
+<a href=#170 id=170 data-nosnippet>170</a>    <span class="kw">let </span>q1 = q1.wrapping_add(r_ge_d <span class="kw">as </span>Word &amp; <span class="number">1</span>);
+<a href=#171 id=171 data-nosnippet>171</a>    <span class="kw">let </span>r = r.wrapping_sub(r_ge_d &amp; d);
+<a href=#172 id=172 data-nosnippet>172</a>
+<a href=#173 id=173 data-nosnippet>173</a>    <span class="comment">// When the leading dividend word equals the leading divisor word, cap the quotient
+<a href=#174 id=174 data-nosnippet>174</a>    // at Word::MAX and update the remainder. This differs from the original algorithm
+<a href=#175 id=175 data-nosnippet>175</a>    // but is required for multi-word division.
+<a href=#176 id=176 data-nosnippet>176</a>    </span><span class="kw">let </span>maxed = word::choice_from_wide_eq(u_hi, d);
+<a href=#177 id=177 data-nosnippet>177</a>    <span class="kw">let </span>q1 = q1 | word::choice_to_mask(maxed);
+<a href=#178 id=178 data-nosnippet>178</a>    <span class="kw">let </span>r = word::select_wide(r, d.saturating_add(u0 <span class="kw">as </span>WideWord), maxed);
+<a href=#179 id=179 data-nosnippet>179</a>
+<a href=#180 id=180 data-nosnippet>180</a>    (q1, r)
+<a href=#181 id=181 data-nosnippet>181</a>}
+<a href=#182 id=182 data-nosnippet>182</a>
+<a href=#183 id=183 data-nosnippet>183</a><span class="doccomment">/// A pre-calculated reciprocal for division by a single limb.
+<a href=#184 id=184 data-nosnippet>184</a></span><span class="attr">#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+<a href=#185 id=185 data-nosnippet>185</a></span><span class="kw">pub struct </span>Reciprocal {
+<a href=#186 id=186 data-nosnippet>186</a>    divisor_normalized: Word,
+<a href=#187 id=187 data-nosnippet>187</a>    shift: u32,
+<a href=#188 id=188 data-nosnippet>188</a>    reciprocal: Word,
+<a href=#189 id=189 data-nosnippet>189</a>}
+<a href=#190 id=190 data-nosnippet>190</a>
+<a href=#191 id=191 data-nosnippet>191</a><span class="kw">impl </span>Reciprocal {
+<a href=#192 id=192 data-nosnippet>192</a>    <span class="doccomment">/// Pre-calculates a reciprocal for a known divisor,
+<a href=#193 id=193 data-nosnippet>193</a>    /// to be used in the single-limb division later.
+<a href=#194 id=194 data-nosnippet>194</a>    </span><span class="attr">#[must_use]
+<a href=#195 id=195 data-nosnippet>195</a>    </span><span class="kw">pub const fn </span>new(divisor: NonZero&lt;Limb&gt;) -&gt; <span class="self">Self </span>{
+<a href=#196 id=196 data-nosnippet>196</a>        <span class="kw">let </span>divisor = divisor.get_copy();
+<a href=#197 id=197 data-nosnippet>197</a>
+<a href=#198 id=198 data-nosnippet>198</a>        <span class="comment">// Assuming this is constant-time for primitive types.
+<a href=#199 id=199 data-nosnippet>199</a>        </span><span class="kw">let </span>shift = divisor.<span class="number">0</span>.leading_zeros();
+<a href=#200 id=200 data-nosnippet>200</a>
+<a href=#201 id=201 data-nosnippet>201</a>        <span class="comment">// Will not panic since divisor is non-zero
+<a href=#202 id=202 data-nosnippet>202</a>        </span><span class="kw">let </span>divisor_normalized = divisor.<span class="number">0 </span>&lt;&lt; shift;
+<a href=#203 id=203 data-nosnippet>203</a>
+<a href=#204 id=204 data-nosnippet>204</a>        <span class="self">Self </span>{
+<a href=#205 id=205 data-nosnippet>205</a>            divisor_normalized,
+<a href=#206 id=206 data-nosnippet>206</a>            shift,
+<a href=#207 id=207 data-nosnippet>207</a>            reciprocal: reciprocal(divisor_normalized),
+<a href=#208 id=208 data-nosnippet>208</a>        }
+<a href=#209 id=209 data-nosnippet>209</a>    }
+<a href=#210 id=210 data-nosnippet>210</a>
+<a href=#211 id=211 data-nosnippet>211</a>    <span class="doccomment">/// Returns a default instance of this object.
+<a href=#212 id=212 data-nosnippet>212</a>    /// It is a self-consistent `Reciprocal` that will not cause panics in functions that take it.
+<a href=#213 id=213 data-nosnippet>213</a>    ///
+<a href=#214 id=214 data-nosnippet>214</a>    /// NOTE: intended for using it as a placeholder during compile-time array generation,
+<a href=#215 id=215 data-nosnippet>215</a>    /// don't rely on the contents.
+<a href=#216 id=216 data-nosnippet>216</a>    </span><span class="attr">#[must_use]
+<a href=#217 id=217 data-nosnippet>217</a>    </span><span class="kw">pub const fn </span>default() -&gt; <span class="self">Self </span>{
+<a href=#218 id=218 data-nosnippet>218</a>        <span class="self">Self </span>{
+<a href=#219 id=219 data-nosnippet>219</a>            divisor_normalized: Word::MAX,
+<a href=#220 id=220 data-nosnippet>220</a>            shift: <span class="number">0</span>,
+<a href=#221 id=221 data-nosnippet>221</a>            <span class="comment">// The result of calling `reciprocal(Word::MAX)`
+<a href=#222 id=222 data-nosnippet>222</a>            // This holds both for 32- and 64-bit versions.
+<a href=#223 id=223 data-nosnippet>223</a>            </span>reciprocal: <span class="number">1</span>,
+<a href=#224 id=224 data-nosnippet>224</a>        }
+<a href=#225 id=225 data-nosnippet>225</a>    }
+<a href=#226 id=226 data-nosnippet>226</a>
+<a href=#227 id=227 data-nosnippet>227</a>    <span class="doccomment">/// Get the shift value
+<a href=#228 id=228 data-nosnippet>228</a>    </span><span class="attr">#[must_use]
+<a href=#229 id=229 data-nosnippet>229</a>    </span><span class="kw">pub const fn </span>shift(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+<a href=#230 id=230 data-nosnippet>230</a>        <span class="self">self</span>.shift
+<a href=#231 id=231 data-nosnippet>231</a>    }
+<a href=#232 id=232 data-nosnippet>232</a>
+<a href=#233 id=233 data-nosnippet>233</a>    <span class="doccomment">/// Adjusted reciprocal for 3x2 division
+<a href=#234 id=234 data-nosnippet>234</a>    ///
+<a href=#235 id=235 data-nosnippet>235</a>    /// This method corresponds to Algorithm 6
+<a href=#236 id=236 data-nosnippet>236</a>    </span><span class="attr">#[must_use]
+<a href=#237 id=237 data-nosnippet>237</a>    </span><span class="kw">pub const fn </span>reciprocal_3by2(<span class="kw-2">&amp;</span><span class="self">self</span>, d0: Word, d1: Word) -&gt; Word {
+<a href=#238 id=238 data-nosnippet>238</a>        <span class="macro">debug_assert!</span>(<span class="self">self</span>.shift == <span class="number">0 </span>&amp;&amp; d1 == <span class="self">self</span>.divisor_normalized);
+<a href=#239 id=239 data-nosnippet>239</a>
+<a href=#240 id=240 data-nosnippet>240</a>        <span class="kw">let </span>v = <span class="self">self</span>.reciprocal;
+<a href=#241 id=241 data-nosnippet>241</a>        <span class="kw">let </span>p = d1.wrapping_mul(v).wrapping_add(d0);
+<a href=#242 id=242 data-nosnippet>242</a>
+<a href=#243 id=243 data-nosnippet>243</a>        <span class="kw">let </span>p_lt_d0 = word::choice_from_lt(p, d0);
+<a href=#244 id=244 data-nosnippet>244</a>        <span class="kw">let </span>v = word::select(v, v.wrapping_sub(<span class="number">1</span>), p_lt_d0);
+<a href=#245 id=245 data-nosnippet>245</a>
+<a href=#246 id=246 data-nosnippet>246</a>        <span class="kw">let </span>p_ge_d1 = word::choice_from_le(d1, p).and(p_lt_d0);
+<a href=#247 id=247 data-nosnippet>247</a>        <span class="kw">let </span>v = word::select(v, v.wrapping_sub(<span class="number">1</span>), p_ge_d1);
+<a href=#248 id=248 data-nosnippet>248</a>        <span class="kw">let </span>p = word::select(p, p.wrapping_sub(d1), p_ge_d1);
+<a href=#249 id=249 data-nosnippet>249</a>        <span class="kw">let </span>p = word::select(p, p.wrapping_sub(d1), p_lt_d0);
+<a href=#250 id=250 data-nosnippet>250</a>
+<a href=#251 id=251 data-nosnippet>251</a>        <span class="kw">let </span>(t0, t1) = widening_mul(v, d0);
+<a href=#252 id=252 data-nosnippet>252</a>        <span class="kw">let </span>p = p.wrapping_add(t1);
+<a href=#253 id=253 data-nosnippet>253</a>
+<a href=#254 id=254 data-nosnippet>254</a>        <span class="kw">let </span>p_lt_t1 = word::choice_from_lt(p, t1);
+<a href=#255 id=255 data-nosnippet>255</a>        <span class="kw">let </span>v = word::select(v, v.wrapping_sub(<span class="number">1</span>), p_lt_t1);
+<a href=#256 id=256 data-nosnippet>256</a>        <span class="kw">let </span>d = word::join(d0, d1);
+<a href=#257 id=257 data-nosnippet>257</a>        <span class="kw">let </span>t0p = word::join(t0, p);
+<a href=#258 id=258 data-nosnippet>258</a>        <span class="kw">let </span>t0p_ge_d = word::choice_from_wide_le(d, t0p).and(p_lt_t1);
+<a href=#259 id=259 data-nosnippet>259</a>        word::select(v, v.wrapping_sub(<span class="number">1</span>), t0p_ge_d)
+<a href=#260 id=260 data-nosnippet>260</a>    }
+<a href=#261 id=261 data-nosnippet>261</a>}
+<a href=#262 id=262 data-nosnippet>262</a>
+<a href=#263 id=263 data-nosnippet>263</a><span class="kw">impl </span>CtSelect <span class="kw">for </span>Reciprocal {
+<a href=#264 id=264 data-nosnippet>264</a>    <span class="kw">fn </span>ct_select(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>, choice: Choice) -&gt; <span class="self">Self </span>{
+<a href=#265 id=265 data-nosnippet>265</a>        <span class="self">Self </span>{
+<a href=#266 id=266 data-nosnippet>266</a>            divisor_normalized: Word::ct_select(
+<a href=#267 id=267 data-nosnippet>267</a>                <span class="kw-2">&amp;</span><span class="self">self</span>.divisor_normalized,
+<a href=#268 id=268 data-nosnippet>268</a>                <span class="kw-2">&amp;</span>other.divisor_normalized,
+<a href=#269 id=269 data-nosnippet>269</a>                choice,
+<a href=#270 id=270 data-nosnippet>270</a>            ),
+<a href=#271 id=271 data-nosnippet>271</a>            shift: u32::ct_select(<span class="kw-2">&amp;</span><span class="self">self</span>.shift, <span class="kw-2">&amp;</span>other.shift, choice),
+<a href=#272 id=272 data-nosnippet>272</a>            reciprocal: Word::ct_select(<span class="kw-2">&amp;</span><span class="self">self</span>.reciprocal, <span class="kw-2">&amp;</span>other.reciprocal, choice),
+<a href=#273 id=273 data-nosnippet>273</a>        }
+<a href=#274 id=274 data-nosnippet>274</a>    }
+<a href=#275 id=275 data-nosnippet>275</a>}
+<a href=#276 id=276 data-nosnippet>276</a>
+<a href=#277 id=277 data-nosnippet>277</a><span class="comment">// `CtOption.map()` needs this; for some reason it doesn't use the value it already has
+<a href=#278 id=278 data-nosnippet>278</a>// for the `None` branch.
+<a href=#279 id=279 data-nosnippet>279</a></span><span class="kw">impl </span>Default <span class="kw">for </span>Reciprocal {
+<a href=#280 id=280 data-nosnippet>280</a>    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+<a href=#281 id=281 data-nosnippet>281</a>        <span class="self">Self</span>::default()
+<a href=#282 id=282 data-nosnippet>282</a>    }
+<a href=#283 id=283 data-nosnippet>283</a>}
+<a href=#284 id=284 data-nosnippet>284</a>
+<a href=#285 id=285 data-nosnippet>285</a><span class="doccomment">/// Divides `u` by the divisor encoded in the `reciprocal`, and returns the remainder.
+<a href=#286 id=286 data-nosnippet>286</a></span><span class="attr">#[inline(always)]
+<a href=#287 id=287 data-nosnippet>287</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const fn </span>rem_limb_with_reciprocal&lt;<span class="kw">const </span>L: usize&gt;(
+<a href=#288 id=288 data-nosnippet>288</a>    u: <span class="kw-2">&amp;</span>Uint&lt;L&gt;,
+<a href=#289 id=289 data-nosnippet>289</a>    reciprocal: <span class="kw-2">&amp;</span>Reciprocal,
+<a href=#290 id=290 data-nosnippet>290</a>) -&gt; Limb {
+<a href=#291 id=291 data-nosnippet>291</a>    <span class="kw">let </span>(u_shifted, u_hi) = u.shl_limb_with_carry(reciprocal.shift, Limb::ZERO);
+<a href=#292 id=292 data-nosnippet>292</a>    <span class="kw">let </span><span class="kw-2">mut </span>r = u_hi.<span class="number">0</span>;
+<a href=#293 id=293 data-nosnippet>293</a>
+<a href=#294 id=294 data-nosnippet>294</a>    <span class="kw">let </span><span class="kw-2">mut </span>j = L;
+<a href=#295 id=295 data-nosnippet>295</a>    <span class="kw">while </span>j &gt; <span class="number">0 </span>{
+<a href=#296 id=296 data-nosnippet>296</a>        j -= <span class="number">1</span>;
+<a href=#297 id=297 data-nosnippet>297</a>        <span class="kw">let </span>(<span class="kw">_</span>, rj) = div2by1(u_shifted.as_limbs()[j].<span class="number">0</span>, r, reciprocal);
+<a href=#298 id=298 data-nosnippet>298</a>        r = rj;
+<a href=#299 id=299 data-nosnippet>299</a>    }
+<a href=#300 id=300 data-nosnippet>300</a>    Limb(r &gt;&gt; reciprocal.shift)
+<a href=#301 id=301 data-nosnippet>301</a>}
+<a href=#302 id=302 data-nosnippet>302</a>
+<a href=#303 id=303 data-nosnippet>303</a><span class="doccomment">/// Computes `(a * b) % d`.
+<a href=#304 id=304 data-nosnippet>304</a></span><span class="attr">#[inline(always)]
+<a href=#305 id=305 data-nosnippet>305</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const fn </span>mul_rem(a: Limb, b: Limb, d: NonZero&lt;Limb&gt;) -&gt; Limb {
+<a href=#306 id=306 data-nosnippet>306</a>    <span class="kw">let </span>rec = Reciprocal::new(d);
+<a href=#307 id=307 data-nosnippet>307</a>    <span class="kw">let </span>(lo, hi) = widening_mul(a.<span class="number">0</span>, b.<span class="number">0</span>);
+<a href=#308 id=308 data-nosnippet>308</a>    rem_limb_with_reciprocal(<span class="kw-2">&amp;</span>Uint::from_words([lo, hi]), <span class="kw-2">&amp;</span>rec)
+<a href=#309 id=309 data-nosnippet>309</a>}
+<a href=#310 id=310 data-nosnippet>310</a>
+<a href=#311 id=311 data-nosnippet>311</a><span class="attr">#[cfg(test)]
+<a href=#312 id=312 data-nosnippet>312</a></span><span class="kw">mod </span>tests {
+<a href=#313 id=313 data-nosnippet>313</a>    <span class="kw">use super</span>::{Reciprocal, div2by1, reciprocal};
+<a href=#314 id=314 data-nosnippet>314</a>    <span class="kw">use crate</span>::{Limb, NonZero, Uint, WideWord, Word, word};
+<a href=#315 id=315 data-nosnippet>315</a>
+<a href=#316 id=316 data-nosnippet>316</a>    <span class="attr">#[test]
+<a href=#317 id=317 data-nosnippet>317</a>    </span><span class="kw">fn </span>reciprocal_valid() {
+<a href=#318 id=318 data-nosnippet>318</a>        <span class="attr">#![allow(clippy::integer_division_remainder_used, reason = <span class="string">"test"</span>)]
+<a href=#319 id=319 data-nosnippet>319</a>        </span><span class="kw">fn </span>test(d: Word) {
+<a href=#320 id=320 data-nosnippet>320</a>            <span class="kw">let </span>v = reciprocal(d);
+<a href=#321 id=321 data-nosnippet>321</a>
+<a href=#322 id=322 data-nosnippet>322</a>            <span class="comment">// the reciprocal must be equal to floor((β^2 - 1) / d) - β
+<a href=#323 id=323 data-nosnippet>323</a>            // v = floor((β^2 - 1) / d) - β = floor((β - 1 - d)*β + β - 1&gt;/d)
+<a href=#324 id=324 data-nosnippet>324</a>            </span><span class="kw">let </span>expected = WideWord::MAX / WideWord::from(d) - WideWord::from(Word::MAX) - <span class="number">1</span>;
+<a href=#325 id=325 data-nosnippet>325</a>            <span class="macro">assert_eq!</span>(WideWord::from(v), expected);
+<a href=#326 id=326 data-nosnippet>326</a>        }
+<a href=#327 id=327 data-nosnippet>327</a>
+<a href=#328 id=328 data-nosnippet>328</a>        test(Word::MAX);
+<a href=#329 id=329 data-nosnippet>329</a>        test(<span class="number">1 </span>&lt;&lt; (Word::BITS - <span class="number">1</span>));
+<a href=#330 id=330 data-nosnippet>330</a>        test((<span class="number">1 </span>&lt;&lt; (Word::BITS - <span class="number">1</span>)) | <span class="number">1</span>);
+<a href=#331 id=331 data-nosnippet>331</a>    }
+<a href=#332 id=332 data-nosnippet>332</a>
+<a href=#333 id=333 data-nosnippet>333</a>    <span class="attr">#[test]
+<a href=#334 id=334 data-nosnippet>334</a>    </span><span class="kw">fn </span>reciprocal_3by2_valid() {
+<a href=#335 id=335 data-nosnippet>335</a>        <span class="kw">fn </span>test(d: WideWord) {
+<a href=#336 id=336 data-nosnippet>336</a>            <span class="kw">let </span>(d0, d1) = word::split_wide(d);
+<a href=#337 id=337 data-nosnippet>337</a>            <span class="kw">let </span>v0 = Reciprocal::new(NonZero::&lt;Limb&gt;::new_unwrap(Limb(d1)));
+<a href=#338 id=338 data-nosnippet>338</a>            <span class="kw">let </span>v = v0.reciprocal_3by2(d0, d1);
+<a href=#339 id=339 data-nosnippet>339</a>
+<a href=#340 id=340 data-nosnippet>340</a>            <span class="comment">// the reciprocal must be equal to v = floor((β^3 − 1)/d) − β
+<a href=#341 id=341 data-nosnippet>341</a>            // (β^3 − βd - 1)/d - 1 &lt; v &lt;= (β^3 − βd - 1)/d
+<a href=#342 id=342 data-nosnippet>342</a>            // β^3 − βd - 1 - d &lt; v*d &lt;= β^3 − βd - 1
+<a href=#343 id=343 data-nosnippet>343</a>            // β^3-1 - d &lt; (v+β)d &lt;= β^3-1
+<a href=#344 id=344 data-nosnippet>344</a>            </span><span class="kw">let </span>actual = (Uint::&lt;<span class="number">3</span>&gt;::from_word(v)
+<a href=#345 id=345 data-nosnippet>345</a>                + Uint::&lt;<span class="number">3</span>&gt;::ZERO.set_bit_vartime(Word::BITS, <span class="bool-val">true</span>))
+<a href=#346 id=346 data-nosnippet>346</a>            .checked_mul(<span class="kw-2">&amp;</span>Uint::&lt;<span class="number">3</span>&gt;::from_wide_word(d))
+<a href=#347 id=347 data-nosnippet>347</a>            .expect(<span class="string">"overflow"</span>);
+<a href=#348 id=348 data-nosnippet>348</a>            <span class="kw">let </span>min = Uint::&lt;<span class="number">3</span>&gt;::MAX - Uint::&lt;<span class="number">3</span>&gt;::from_wide_word(d);
+<a href=#349 id=349 data-nosnippet>349</a>            <span class="macro">assert!</span>(actual &gt; min, <span class="string">"{actual} &lt;= {min}"</span>);
+<a href=#350 id=350 data-nosnippet>350</a>        }
+<a href=#351 id=351 data-nosnippet>351</a>
+<a href=#352 id=352 data-nosnippet>352</a>        test(WideWord::MAX);
+<a href=#353 id=353 data-nosnippet>353</a>        test(<span class="number">1 </span>&lt;&lt; (WideWord::BITS - <span class="number">1</span>));
+<a href=#354 id=354 data-nosnippet>354</a>        test((<span class="number">1 </span>&lt;&lt; (WideWord::BITS - <span class="number">1</span>)) | <span class="number">1</span>);
+<a href=#355 id=355 data-nosnippet>355</a>    }
+<a href=#356 id=356 data-nosnippet>356</a>
+<a href=#357 id=357 data-nosnippet>357</a>    <span class="attr">#[test]
+<a href=#358 id=358 data-nosnippet>358</a>    </span><span class="kw">fn </span>div2by1_overflow() {
+<a href=#359 id=359 data-nosnippet>359</a>        <span class="comment">// A regression test for a situation when in div2by1() an operation (`q1 + 1`)
+<a href=#360 id=360 data-nosnippet>360</a>        // that is protected from overflowing by a condition in the original paper (`r &gt;= d`)
+<a href=#361 id=361 data-nosnippet>361</a>        // still overflows because we're calculating the results for both branches.
+<a href=#362 id=362 data-nosnippet>362</a>        </span><span class="kw">let </span>r = Reciprocal::new(NonZero::new(Limb(Word::MAX - <span class="number">1</span>)).unwrap());
+<a href=#363 id=363 data-nosnippet>363</a>        <span class="macro">assert_eq!</span>(
+<a href=#364 id=364 data-nosnippet>364</a>            div2by1(Word::MAX - <span class="number">63</span>, Word::MAX - <span class="number">2</span>, <span class="kw-2">&amp;</span>r),
+<a href=#365 id=365 data-nosnippet>365</a>            (Word::MAX, Word::MAX - <span class="number">65</span>)
+<a href=#366 id=366 data-nosnippet>366</a>        );
+<a href=#367 id=367 data-nosnippet>367</a>    }
+<a href=#368 id=368 data-nosnippet>368</a>}
+</code></pre></div></section></main></body></html>

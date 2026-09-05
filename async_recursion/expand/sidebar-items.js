@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ArgLifetime"],"fn":["expand","transform_block","transform_sig"],"struct":["ReferenceVisitor"]};

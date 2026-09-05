@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["MallocSizeOf"],"fn":["malloc_size_of_derive"]};

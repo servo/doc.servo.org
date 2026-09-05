@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["uniform_float_impl",1]],"struct":["UniformFloat"]};

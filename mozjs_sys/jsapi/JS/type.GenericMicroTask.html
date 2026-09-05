@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="[SMDOC] JS::Value type"><title>GenericMicroTask in mozjs_sys::jsapi::JS - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="mozjs_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc type"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">GenericMicroTask</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../mozjs_sys/index.html">mozjs_<wbr>sys</a><span class="version">153.0.0-0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Generic<wbr>Micro<wbr>Task</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#spectre-mitigations" title="Spectre mitigations">Spectre mitigations</a></li></ul><h3><a href="#aliased-type">Aliased Type</a></h3><h3><a href="#fields">Fields</a></h3><ul class="block field"><li><a href="#structfield.asBits_" title="asBits_">asBits_</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In mozjs_<wbr>sys::<wbr>jsapi::<wbr>JS</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../index.html">mozjs_sys</a>::<wbr><a href="../index.html">jsapi</a>::<wbr><a href="index.html">JS</a></div><h1>Type Alias <span class="type">Generic<wbr>Micro<wbr>Task</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../src/mozjs_sys/home/runner/work/servo/servo/target/debug/build/mozjs_sys-1d1305378769113a/out/build/jsapi.rs.html#15055">Source</a> </span></div><pre class="rust item-decl"><code>pub type GenericMicroTask = <a class="struct" href="struct.Value.html" title="struct mozjs_sys::jsapi::JS::Value">Value</a>;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>[SMDOC] JS::Value type</p>
+<p>JS::Value is the interface for a single JavaScript Engine value.  A few
+general notes on JS::Value:</p>
+<ul>
+<li>
+<p>JS::Value has setX() and isX() members for X in</p>
+<p>{ Int32, Double, String, Symbol, BigInt, Boolean, Undefined, Null,
+Object, Magic }</p>
+<p>JS::Value also contains toX() for each of the non-singleton types.</p>
+</li>
+<li>
+<p>Magic is a singleton type whose payload contains either a JSWhyMagic
+“reason” for the magic value or a uint32_t value. By providing JSWhyMagic
+values when creating and checking for magic values, it is possible to
+assert, at runtime, that only magic values with the expected reason flow
+through a particular value. For example, if cx-&gt;exception has a magic
+value, the reason must be JS_GENERATOR_CLOSING.</p>
+</li>
+<li>
+<p>To help prevent mistakenly boxing a nullable JSObject* as an object,
+Value::setObject takes a JSObject&amp;. (Conversely, Value::toObject returns a
+JSObject&amp;.)  A convenience member Value::setObjectOrNull is provided.</p>
+</li>
+<li>
+<p>Note that JS::Value is 8 bytes on 32 and 64-bit architectures. Because most
+of our users are now on 64-bit platforms, code should prefer passing
+JS::Value by value instead of |const Value&amp;|.</p>
+</li>
+</ul>
+<h2 id="spectre-mitigations"><a class="doc-anchor" href="#spectre-mitigations">§</a>Spectre mitigations</h2>
+<p>To mitigate Spectre attacks, we do the following:</p>
+<ul>
+<li>
+<p>On 64-bit platforms, when unboxing a Value, we XOR the bits with the
+expected type tag (instead of masking the payload bits). This guarantees
+that toString, toObject, toSymbol will return an invalid pointer (because
+some high bits will be set) when called on a Value with a different type
+tag.</p>
+</li>
+<li>
+<p>On 32-bit platforms,when unboxing an object/string/symbol Value, we use a
+conditional move (not speculated) to zero the payload register if the type
+doesn’t match.</p>
+</li>
+</ul>
+</div></details><h2 id="aliased-type" class="section-header">Aliased Type<a href="#aliased-type" class="anchor">§</a></h2><pre class="rust item-decl"><code><div class="code-attribute">#[repr(C)]</div>pub struct GenericMicroTask {
+    pub asBits_: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.u64.html">u64</a>,
+}</code></pre><h2 id="fields" class="fields section-header">Fields<a href="#fields" class="anchor">§</a></h2><span id="structfield.asBits_" class="structfield section-header"><a href="#structfield.asBits_" class="anchor field">§</a><code>asBits_: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.u64.html">u64</a></code></span><script src="../../../type.impl/mozjs_sys/jsapi/JS/struct.Value.js" data-self-path="mozjs_sys::generated::root::JS::GenericMicroTask" async></script></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["devtools","document_collection","document_loader","script_mutation_observers","script_thread","script_window_proxies","svg_font","timers","webdriver_handlers"]};

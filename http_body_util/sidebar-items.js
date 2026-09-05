@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Either"],"mod":["collected","combinators","either","empty","full","limited","stream","util"],"struct":["BodyDataStream","BodyStream","Collected","Empty","Full","LengthLimitError","Limited","StreamBody"],"trait":["BodyExt"]};

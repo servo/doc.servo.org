@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_GHOST_ALLOCATION","DEFAULT_HOT_ALLOCATION"],"fn":["available_parallelism"],"struct":["Error","Options","OptionsBuilder"]};

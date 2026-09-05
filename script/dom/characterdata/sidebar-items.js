@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["cdatasection","characterdata","comment","processinginstruction","text"]};

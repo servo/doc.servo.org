@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["XRInputSourceEvent_Binding"],"struct":["XRInputSourceEventInit"],"trait":["XRInputSourceEventMethods"]};

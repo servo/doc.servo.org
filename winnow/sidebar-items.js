@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ascii","binary","combinator","error","macros","parser","prelude","stream","token","util"],"trait":["ModalParser","Parser"]};

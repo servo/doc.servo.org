@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["Deserialize","Serialize"],"mod":["bound","de","deprecated","dummy","fragment","internals","pretend","ser","this"],"struct":["private"]};

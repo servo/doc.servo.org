@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MacroEntry","MacroString"],"struct":["DebugMacinfo","DebugMacro","MacroIter","MacroUnitHeader"]};

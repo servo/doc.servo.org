@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["B1","B2"],"fn":["cbrtf"]};

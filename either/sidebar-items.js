@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Either"],"fn":["_unsized_ref_propagation","_unsized_std_propagation"],"macro":[["check_t",1],["for_both",1],["impl_fmt_traits",1],["impl_specific_ref_and_mut",1],["map_both",1],["try_left",1],["try_right",1]],"mod":["into_either","iterator"],"struct":["IterEither"],"trait":["IntoEither"]};

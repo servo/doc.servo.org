@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fallback_descriptor","font_to_fontdescriptor","fontfamily_to_singlefontfamily"],"struct":["SvgFontResolver"]};

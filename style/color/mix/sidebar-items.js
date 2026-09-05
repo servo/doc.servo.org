@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ComponentMixOutcome","HueInterpolationMethod"],"fn":["adjust_hue","convert_for_mix","interpolate_alpha","interpolate_hue","interpolate_premultiplied","interpolate_premultiplied_component","mix_many","mix_with_weights","normalize_hue"],"struct":["ColorInterpolationMethod","ColorMixItem","InterpolatedAlpha"]};

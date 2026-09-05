@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_FontFace"],"fn":["parse_font_face_descriptors","serialize_parsed_descriptors"],"struct":["FontFace","FontFaceErrorReporter"]};

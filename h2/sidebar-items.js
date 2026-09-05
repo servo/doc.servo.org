@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["poll_fn"],"macro":[["proto_err",1],["ready",1]],"mod":["client","codec","error","ext","frame","hpack","proto","server","share"],"struct":["Error","FlowControl","Ping","PingPong","PollFn","Pong","Reason","RecvStream","SendStream","StreamId"]};

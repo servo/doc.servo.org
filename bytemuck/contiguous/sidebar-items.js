@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_contiguous",1]],"trait":["Contiguous"]};

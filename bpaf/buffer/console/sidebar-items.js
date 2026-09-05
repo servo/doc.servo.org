@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_TAB","MAX_WIDTH","PADDING"],"enum":["Color"]};

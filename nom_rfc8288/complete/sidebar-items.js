@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NUM_EMPTY_ELEMENTS"],"enum":["LinkParseError","ParseStrictness"],"fn":["link","link_inner","link_lenient","link_strict","list","qdtext","quoted_pair","quoted_string","quoted_string_alloca","tchar","token"],"struct":["LinkData","LinkDataOwned","LinkParam","LinkParamOwned"]};

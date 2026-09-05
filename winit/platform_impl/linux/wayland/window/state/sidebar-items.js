@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIN_WINDOW_SIZE"],"enum":["FrameCallbackState"],"fn":["into_sctk_adwaita_config"],"struct":["GrabState","WindowState"],"type":["WinitFrame"]};

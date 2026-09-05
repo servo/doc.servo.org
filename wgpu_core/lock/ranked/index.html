@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Lock types that enforce well-ranked lock acquisition order."><title>wgpu_core::lock::ranked - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="wgpu_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module ranked</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../wgpu_core/index.html">wgpu_<wbr>core</a><span class="version">30.0.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module ranked</a></h2><h3><a href="#reexports">Module Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="../index.html">In wgpu_<wbr>core::<wbr>lock</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../index.html">wgpu_core</a>::<wbr><a href="../index.html">lock</a></div><h1>Module <span>ranked</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../src/wgpu_core/lock/ranked.rs.html#1-443">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Lock types that enforce well-ranked lock acquisition order.</p>
+<p>This module’s <a href="struct.Mutex.html" title="struct wgpu_core::lock::ranked::Mutex"><code>Mutex</code></a> and [<code>RwLock</code> types are instrumented to check that
+<code>wgpu-core</code> acquires locks according to their rank, to prevent deadlocks. To
+use it, put <code>--cfg wgpu_validate_locks</code> in <code>RUSTFLAGS</code>.</p>
+<p>The <a href="../rank/struct.LockRank.html" title="struct wgpu_core::lock::rank::LockRank"><code>LockRank</code></a> constants in the <a href="../rank/index.html" title="mod wgpu_core::lock::rank"><code>lock::rank</code></a> module describe edges in a
+directed graph of lock acquisitions: each lock’s rank says, if this is the most
+recently acquired lock that you are still holding, then these are the locks you
+are allowed to acquire next.</p>
+<p>As long as this graph doesn’t have cycles, any number of threads can acquire
+locks along paths through the graph without deadlock:</p>
+<ul>
+<li>
+<p>Assume that if a thread is holding a lock, then it will either release it,
+or block trying to acquire another one. No thread just sits on its locks
+forever for unrelated reasons. If it did, then that would be a source of
+deadlock “outside the system” that we can’t do anything about.</p>
+</li>
+<li>
+<p>This module asserts that threads acquire and release locks in a stack-like
+order: a lock is dropped only when it is the <em>most recently acquired</em> lock
+<em>still held</em> - call this the “youngest” lock. This stack-like ordering
+isn’t a Rust requirement; Rust lets you drop guards in any order you like.
+This is a restriction we impose.</p>
+</li>
+<li>
+<p>Consider the directed graph whose nodes are locks, and whose edges go from
+each lock to its permitted followers, the locks in its <a href="../rank/struct.LockRank.html#structfield.followers" title="field wgpu_core::lock::rank::LockRank::followers"><code>LockRank::followers</code></a>
+set. The definition of the <a href="../rank/index.html" title="mod wgpu_core::lock::rank"><code>lock::rank</code></a> module’s <a href="../rank/struct.LockRank.html" title="struct wgpu_core::lock::rank::LockRank"><code>LockRank</code></a> constants
+ensures that this graph has no cycles, including trivial cycles from a node to
+itself.</p>
+</li>
+<li>
+<p>This module then asserts that each thread attempts to acquire a lock only if
+it is among its youngest lock’s permitted followers. Thus, as a thread
+acquires locks, it must be traversing a path through the graph along its
+edges.</p>
+</li>
+<li>
+<p>Because there are no cycles in the graph, whenever one thread is blocked
+waiting to acquire a lock, that lock must be held by a different thread: if
+you were allowed to acquire a lock you already hold, that would be a cycle in
+the graph.</p>
+</li>
+<li>
+<p>Furthermore, because the graph has no cycles, as we work our way from each
+thread to the thread it is blocked waiting for, we must eventually reach an
+end point: there must be some thread that is able to acquire its next lock, or
+that is about to release a lock.</p>
+</li>
+</ul>
+<p>Thus, the system as a whole is always able to make progress: it is free of
+deadlocks.</p>
+<p>Note that this validation only monitors each thread’s behavior in isolation:
+there’s only thread-local state, nothing communicated between threads. So we
+don’t detect deadlocks, per se, only the potential to cause deadlocks. This
+means that the validation is conservative, but more reproducible, since it’s not
+dependent on any particular interleaving of execution.</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.RankData"><code>pub use <a class="struct" href="struct.LockState.html" title="struct wgpu_core::lock::ranked::LockState">LockState</a> as RankData;</code></dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.LockState.html" title="struct wgpu_core::lock::ranked::LockState">Lock<wbr>State</a></dt><dd>Per-thread state for the deadlock checker.</dd><dt><a class="struct" href="struct.LockStateGuard.html" title="struct wgpu_core::lock::ranked::LockStateGuard">Lock<wbr>State<wbr>Guard</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>A container that restores a <a href="struct.LockState.html" title="struct wgpu_core::lock::ranked::LockState"><code>LockState</code></a> when dropped.</dd><dt><a class="struct" href="struct.Mutex.html" title="struct wgpu_core::lock::ranked::Mutex">Mutex</a></dt><dd>A <code>Mutex</code> instrumented for deadlock prevention.</dd><dt><a class="struct" href="struct.MutexGuard.html" title="struct wgpu_core::lock::ranked::MutexGuard">Mutex<wbr>Guard</a></dt><dd>A guard produced by locking <a href="struct.Mutex.html" title="struct wgpu_core::lock::ranked::Mutex"><code>Mutex</code></a>.</dd><dt><a class="struct" href="struct.RwLock.html" title="struct wgpu_core::lock::ranked::RwLock">RwLock</a></dt><dd>An <code>RwLock</code> instrumented for deadlock prevention.</dd><dt><a class="struct" href="struct.RwLockReadGuard.html" title="struct wgpu_core::lock::ranked::RwLockReadGuard">RwLock<wbr>Read<wbr>Guard</a></dt><dd>A read guard produced by locking <a href="struct.RwLock.html" title="struct wgpu_core::lock::ranked::RwLock"><code>RwLock</code></a> for reading.</dd><dt><a class="struct" href="struct.RwLockWriteGuard.html" title="struct wgpu_core::lock::ranked::RwLockWriteGuard">RwLock<wbr>Write<wbr>Guard</a></dt><dd>A write guard produced by locking <a href="struct.RwLock.html" title="struct wgpu_core::lock::ranked::RwLock"><code>RwLock</code></a> for writing.</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.LOCK_STATE.html" title="constant wgpu_core::lock::ranked::LOCK_STATE">LOCK_<wbr>STATE</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.acquire.html" title="fn wgpu_core::lock::ranked::acquire">acquire</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Check and record the acquisition of a lock with <code>new_rank</code>.</dd><dt><a class="fn" href="fn.release.html" title="fn wgpu_core::lock::ranked::release">release</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Record the release of a lock whose saved state was <code>saved</code>.</dd></dl></section></div></main></body></html>

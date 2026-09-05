@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LayoutTable"],"fn":["coverage_binary_cached","coverage_index","coverage_index_cached","covered","glyph_class","glyph_class_cached","is_gdef_blocklisted"],"mod":["contextual","gpos","gsub","lookup"],"struct":["ClassDefInfo","CoverageInfo","GdefTable","GposTable","GsubTable","OtCache","OtTables"]};

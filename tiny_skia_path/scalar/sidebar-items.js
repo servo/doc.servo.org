@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCALAR_MAX","SCALAR_NEARLY_ZERO","SCALAR_ROOT_2_OVER_2"],"trait":["Scalar"]};

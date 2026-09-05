@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["FULL_WIDTH_MAPPINGS"]};

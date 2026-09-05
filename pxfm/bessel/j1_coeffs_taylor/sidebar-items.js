@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["J1_COEFFS_TAYLOR"]};

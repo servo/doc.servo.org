@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Copied","CopiedConsumer","CopiedFolder","CopiedProducer"]};

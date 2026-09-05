@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["generate_matcher","generate_pattern_string","generate_regular_expression_and_name_list"],"struct":["Component"]};

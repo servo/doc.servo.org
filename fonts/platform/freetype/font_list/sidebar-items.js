@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["default_system_generic_font_family","fallback_font_families","font_stretch_from_fontconfig_pattern","font_style_from_fontconfig_pattern","font_weight_from_fontconfig_pattern","for_each_available_family","for_each_variation"]};

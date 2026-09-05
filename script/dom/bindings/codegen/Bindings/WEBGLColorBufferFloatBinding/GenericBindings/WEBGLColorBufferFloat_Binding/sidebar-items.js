@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetProtoObject","Wrap"],"mod":["WEBGLColorBufferFloatConstants"],"static":["Class"],"trait":["WEBGLColorBufferFloatMethods"]};

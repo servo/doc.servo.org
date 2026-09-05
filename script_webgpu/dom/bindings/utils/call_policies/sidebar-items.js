@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CrossOriginCallable","LenientThis","LenientThisTargetClassMaybeCrossOrigin","Normal","TargetClassMaybeCrossOrigin"]};

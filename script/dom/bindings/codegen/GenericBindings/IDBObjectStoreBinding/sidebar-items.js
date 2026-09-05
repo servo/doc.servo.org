@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["IDBObjectStore_Binding"],"struct":["IDBIndexParameters"],"trait":["IDBObjectStoreMethods"]};

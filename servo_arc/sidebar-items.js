@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_REFCOUNT","STATIC_REFCOUNT"],"enum":["ArcUnionBorrow"],"fn":["data_offset"],"struct":["Arc","ArcBorrow","ArcInner","ArcUnion","HeaderSlice","UniqueArc"],"type":["ThinArc","ThinArcUnion"]};

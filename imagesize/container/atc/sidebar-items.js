@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AtcCompression"],"fn":["detect_compression","matches","size"]};

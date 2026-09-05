@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INLINE_LEN","MAX_STACK_ALLOCATION","NONE_STR"],"enum":["GStrError","GStringFromError","Inner"],"struct":["GStr","GStrInteriorNulError","GString","GStringInteriorNulError","GStringNoTrailingNulError","GStringPtr","GStringUtf8Error"],"trait":["IntoGStr","IntoOptionalGStr"]};

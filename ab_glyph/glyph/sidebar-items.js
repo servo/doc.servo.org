@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GlyphImageFormat"],"mod":["v2"],"struct":["Glyph","GlyphId","GlyphImage","GlyphSvg"]};

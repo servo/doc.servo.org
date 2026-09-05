@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Mutably borrows three different `JSCell`s at the same time."><title>three_cells_borrow_mut in mozjs::cell - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="mozjs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">three_cells_borrow_mut</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../mozjs/index.html">mozjs</a><span class="version">0.25.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">three_<wbr>cells_<wbr>borrow_<wbr>mut</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#panics" title="Panics">Panics</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In mozjs::<wbr>cell</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">mozjs</a>::<wbr><a href="index.html">cell</a></div><h1>Function <span class="fn">three_<wbr>cells_<wbr>borrow_<wbr>mut</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/mozjs/cell.rs.html#329-366">Source</a> </span></div><pre class="rust item-decl"><code>pub fn three_cells_borrow_mut&lt;'c1, 'c2, 'c3, 'cx, 'r1, 'r2, 'r3, T1, T2, T3&gt;(
+    cell1: &amp;'c1 <a class="struct" href="struct.JSCell.html" title="struct mozjs::cell::JSCell">JSCell</a>&lt;T1&gt;,
+    cell2: &amp;'c2 <a class="struct" href="struct.JSCell.html" title="struct mozjs::cell::JSCell">JSCell</a>&lt;T2&gt;,
+    cell3: &amp;'c3 <a class="struct" href="struct.JSCell.html" title="struct mozjs::cell::JSCell">JSCell</a>&lt;T3&gt;,
+    _exclusive: &amp;'cx mut <a class="struct" href="../context/struct.NoGC.html" title="struct mozjs::context::NoGC">NoGC</a>,
+) -&gt; (<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.reference.html">&amp;'r1 mut T1</a>, <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.reference.html">&amp;'r2 mut T2</a>, <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.reference.html">&amp;'r3 mut T3</a>)<div class="where">where
+    'c1: 'r1,
+    'c2: 'r2,
+    'c3: 'r3,
+    'cx: 'r1 + 'r2 + 'r3,</div></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Mutably borrows three different <a href="struct.JSCell.html" title="struct mozjs::cell::JSCell"><code>JSCell</code></a>s at the same time.</p>
+<p>This is impossible to do with normal <a href="struct.JSCell.html#method.borrow_mut" title="method mozjs::cell::JSCell::borrow_mut"><code>JSCell::borrow_mut</code></a>,
+because it would require three mutable borrows of the same <a href="../context/struct.NoGC.html" title="struct mozjs::context::NoGC"><code>NoGC</code></a> token at the same time:</p>
+
+<div class="example-wrap compile_fail"><a href="#" class="tooltip" title="This example deliberately fails to compile">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mozjs::context::NoGC;
+<span class="kw">use </span>mozjs::cell::JSCell;
+<span class="kw">fn </span>f(no_gc: <span class="kw-2">&amp;mut </span>NoGC, cell1: <span class="kw-2">&amp;</span>JSCell&lt;String&gt;, cell2: <span class="kw-2">&amp;</span>JSCell&lt;String&gt;, cell3: <span class="kw-2">&amp;</span>JSCell&lt;String&gt;) {
+    <span class="kw">let </span>borrow1 = cell1.borrow_mut(no_gc);
+    <span class="kw">let </span>borrow2 = cell2.borrow_mut(no_gc);
+    <span class="kw">let </span>borrow3 = cell3.borrow_mut(no_gc); <span class="comment">// cannot borrow `no_gc` as mutable more than once at a time
+    </span>std::mem::swap(borrow1, borrow2);
+    std::mem::swap(borrow2, borrow3);
+}</code></pre></div>
+<p>instead one should do it like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>mozjs::context::NoGC;
+<span class="kw">use </span>mozjs::cell::JSCell;
+<span class="kw">fn </span>f(no_gc: <span class="kw-2">&amp;mut </span>NoGC, cell1: <span class="kw-2">&amp;</span>JSCell&lt;String&gt;, cell2: <span class="kw-2">&amp;</span>JSCell&lt;String&gt;, cell3: <span class="kw-2">&amp;</span>JSCell&lt;String&gt;) {
+    <span class="kw">let </span>(borrow1, borrow2, borrow3) = mozjs::cell::three_cells_borrow_mut(cell1, cell2, cell3, no_gc);
+    std::mem::swap(borrow1, borrow2);
+    std::mem::swap(borrow2, borrow3);
+}</code></pre></div><h2 id="panics"><a class="doc-anchor" href="#panics">§</a>Panics</h2>
+<p>Panics if any two of <code>cell1</code>, <code>cell2</code> and <code>cell3</code> are the same cell.</p>
+</div></details></section></div></main></body></html>

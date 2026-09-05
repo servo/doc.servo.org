@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Device","Manager","Offer","Source"],"macro":[["impl_dispatch_device",1],["impl_dispatch_manager",1],["impl_dispatch_offer",1],["impl_dispatch_source",1]]};

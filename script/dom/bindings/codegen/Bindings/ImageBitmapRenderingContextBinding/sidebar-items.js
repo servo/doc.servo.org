@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","ImageBitmapRenderingContext_Binding"],"trait":["ImageBitmapRenderingContextMethods"],"type":["ImageBitmapRenderingContextSettings"]};

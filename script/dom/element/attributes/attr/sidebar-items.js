@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Attr"],"fn":["is_boolean_attribute","is_relevant_attribute"],"struct":["Attr"]};

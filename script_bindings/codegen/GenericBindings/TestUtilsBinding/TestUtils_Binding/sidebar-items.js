@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","gc","init_gc_methodinfo","init_sStaticMethods_prefs","init_sStaticMethods_specs","init_statics"],"static":["NAMESPACE_OBJECT_CLASS","gc_methodinfo","sStaticMethods","sStaticMethods_specs"],"trait":["TestUtilsMethods"]};

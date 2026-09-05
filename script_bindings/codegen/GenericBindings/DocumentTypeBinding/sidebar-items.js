@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["DocumentType_Binding"]};

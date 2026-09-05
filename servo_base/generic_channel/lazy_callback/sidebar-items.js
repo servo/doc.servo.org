@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CallbackSetterVariants","LazyCallbackVariants"],"fn":["lazy_callback","lazy_callback_inprocess","lazy_callback_ipc"],"struct":["CallbackSetter","LazyCallback","LazyCallbackSetterVisitor"]};

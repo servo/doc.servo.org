@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FileReaderResult"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["FileReader_Binding"],"trait":["FileReaderMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["bluesteins_algorithm","butterflies","dft","good_thomas_algorithm","mixed_radix","raders_algorithm","radix3","radix4","radixn"],"struct":["BluesteinsAlgorithm","Dft","GoodThomasAlgorithm","GoodThomasAlgorithmSmall","MixedRadix","MixedRadixSmall","RadersAlgorithm","Radix3","Radix4"]};

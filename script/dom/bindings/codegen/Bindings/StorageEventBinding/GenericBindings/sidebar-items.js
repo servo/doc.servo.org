@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["StorageEvent_Binding"],"struct":["StorageEventInit"],"trait":["StorageEventMethods"]};

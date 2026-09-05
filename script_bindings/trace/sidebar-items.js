@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["trace_object","trace_reflector"],"macro":[["unsafe_no_jsmanaged_fields",1]],"struct":["NoTrace","RootedTraceableBox"],"trait":["CustomTraceable"]};

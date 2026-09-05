@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CENTS_PER_RANGE","FFT_MAX_SIZE","FFT_MIN_SIZE"],"struct":["PeriodicWave","PeriodicWaveOptions","Wavetable"],"type":["Wave"]};

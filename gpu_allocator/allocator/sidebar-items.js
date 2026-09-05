@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllocationType"],"fn":["fmt_bytes"],"mod":["dedicated_block_allocator","free_list_allocator"],"struct":["AllocationReport","AllocatorReport","MemoryBlockReport"],"trait":["SubAllocator","SubAllocatorBase"]};

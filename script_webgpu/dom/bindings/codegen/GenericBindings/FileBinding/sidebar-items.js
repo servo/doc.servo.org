@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["File_Binding"],"struct":["FilePropertyBag"],"trait":["FileMethods"]};

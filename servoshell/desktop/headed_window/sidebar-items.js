@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INITIAL_WINDOW_TITLE"],"fn":["load_icon","winit_phase_to_touch_event_type"],"struct":["HeadedWindow","TouchEventSimulator","XRWindow","XRWindowPose"]};

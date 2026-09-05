@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Command"],"macro":[["__emit__",1],["serde_object_reference_struct",1]],"struct":["ArcReferences","IdReferences"],"trait":["ReferenceType"],"type":["ArcCommand"]};

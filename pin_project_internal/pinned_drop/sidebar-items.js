@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["attribute","expand_impl","validate_impl","validate_sig"]};

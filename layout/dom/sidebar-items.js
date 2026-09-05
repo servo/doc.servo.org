@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LayoutBox","WeakLayoutBox"],"struct":["BoxSlot","DOMLayoutData","InnerDOMLayoutData","PseudoLayoutData"],"trait":["NodeExt"]};

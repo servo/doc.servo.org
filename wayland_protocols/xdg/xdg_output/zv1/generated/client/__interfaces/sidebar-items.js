@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["ZXDG_OUTPUT_MANAGER_V1_INTERFACE","ZXDG_OUTPUT_V1_INTERFACE","types_null","zxdg_output_manager_v1_interface","zxdg_output_manager_v1_requests","zxdg_output_manager_v1_requests_get_xdg_output_types","zxdg_output_v1_events","zxdg_output_v1_interface","zxdg_output_v1_requests"],"struct":["SyncWrapper"]};

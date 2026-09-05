@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Steiner Tree algorithm."><title>steiner_tree in petgraph::algo::steiner_tree - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="petgraph" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">steiner_tree</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../petgraph/index.html">petgraph</a><span class="version">0.8.3</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">steiner_<wbr>tree</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#arguments" title="Arguments">Arguments</a></li><li><a href="#returns" title="Returns">Returns</a></li><li><a href="#complexity" title="Complexity">Complexity</a></li><li><a href="#example" title="Example">Example</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In petgraph::<wbr>algo::<wbr>steiner_<wbr>tree</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../index.html">petgraph</a>::<wbr><a href="../index.html">algo</a>::<wbr><a href="index.html">steiner_tree</a></div><h1>Function <span class="fn">steiner_<wbr>tree</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../src/petgraph/algo/steiner_tree.rs.html#179-211">Source</a> </span></div><pre class="rust item-decl"><code>pub fn steiner_tree&lt;N, E, Ix&gt;(
+    graph: &amp;<a class="type" href="../../graph_impl/type.UnGraph.html" title="type petgraph::graph_impl::UnGraph">UnGraph</a>&lt;N, E, Ix&gt;,
+    terminals: &amp;[<a class="struct" href="../../graph_impl/struct.NodeIndex.html" title="struct petgraph::graph_impl::NodeIndex">NodeIndex</a>&lt;Ix&gt;],
+) -&gt; <a class="struct" href="../../stable_graph/struct.StableGraph.html" title="struct petgraph::stable_graph::StableGraph">StableGraph</a>&lt;N, E, <a class="enum" href="../../enum.Undirected.html" title="enum petgraph::Undirected">Undirected</a>, Ix&gt;<div class="where">where
+    N: <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/default/trait.Default.html" title="trait core::default::Default">Default</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/cmp/trait.Eq.html" title="trait core::cmp::Eq">Eq</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/hash/trait.Hash.html" title="trait core::hash::Hash">Hash</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a>,
+    E: <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/cmp/trait.Eq.html" title="trait core::cmp::Eq">Eq</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/cmp/trait.Ord.html" title="trait core::cmp::Ord">Ord</a> + <a class="trait" href="../trait.Measure.html" title="trait petgraph::algo::Measure">Measure</a> + <a class="trait" href="../trait.BoundedMeasure.html" title="trait petgraph::algo::BoundedMeasure">BoundedMeasure</a>,
+    Ix: <a class="trait" href="../../graph_impl/trait.IndexType.html" title="trait petgraph::graph_impl::IndexType">IndexType</a>,</div></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><a href="https://en.wikipedia.org/wiki/Steiner_tree_problem">Steiner Tree</a> algorithm.</p>
+<p>Computes the Steiner tree of an undirected connected graph given a set of terminal nodes via
+<a href="https://doi.org/10.1007/BF00288961">Kou’s algorithm</a>. Implementation details are the same as in the <a href="https://networkx.org/documentation/stable/_modules/networkx/algorithms/approximation/steinertree.html#steiner_tree">NetworkX implementation</a>.</p>
+<h3 id="arguments"><a class="doc-anchor" href="#arguments">§</a>Arguments</h3>
+<ul>
+<li><code>graph</code>: The undirected graph in which to find the Steiner tree.</li>
+<li><code>terminals</code>: A slice of node indices representing the terminals for which the Steiner tree is computed.</li>
+</ul>
+<h3 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h3>
+<p>A <code>StableGraph</code> containing the nodes and edges of the Steiner tree.</p>
+<h3 id="complexity"><a class="doc-anchor" href="#complexity">§</a>Complexity</h3>
+<p>Time complexity: <strong>O(|S| |V|²)</strong>.
+where <strong>|V|</strong> the number of vertices (i.e nodes) and <strong>|S|</strong> the number of provided terminals.</p>
+<h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>petgraph::Graph;
+<span class="kw">use </span>petgraph::algo::steiner_tree::steiner_tree;
+<span class="kw">use </span>petgraph::graph::UnGraph;
+<span class="kw">let </span><span class="kw-2">mut </span>graph = UnGraph::&lt;(), i32&gt;::default();
+<span class="kw">let </span>a = graph.add_node(());
+<span class="kw">let </span>b = graph.add_node(());
+<span class="kw">let </span>c = graph.add_node(());
+<span class="kw">let </span>d = graph.add_node(());
+<span class="kw">let </span>e = graph.add_node(());
+<span class="kw">let </span>f = graph.add_node(());
+graph.extend_with_edges([
+    (a, b, <span class="number">7</span>),
+    (a, f, <span class="number">6</span>),
+    (b, c, <span class="number">1</span>),
+    (b, f, <span class="number">5</span>),
+    (c, d, <span class="number">1</span>),
+    (c, e, <span class="number">3</span>),
+    (d, e, <span class="number">1</span>),
+    (d, f, <span class="number">4</span>),
+    (e, f, <span class="number">10</span>),
+]);
+<span class="kw">let </span>terminals = <span class="macro">vec!</span>[a, c, e, f];
+<span class="kw">let </span>tree = steiner_tree(<span class="kw-2">&amp;</span>graph, <span class="kw-2">&amp;</span>terminals);
+<span class="macro">assert_eq!</span>(tree.edge_weights().sum::&lt;i32&gt;(), <span class="number">12</span>);</code></pre></div></div></details></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BackendMsg","SupportsMediaType"],"externcrate":["audio","player","streams","traits","webrtc"],"static":["INSTANCE"],"struct":["ClientContextId","MediaInstanceError","ServoMedia"],"trait":["Backend","BackendDeInit","BackendInit","MediaInstance"]};

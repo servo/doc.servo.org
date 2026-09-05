@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","TestBindingMaplikeWithPrimitiveMaplike_Binding","TestBindingMaplikeWithPrimitive_Binding"],"trait":["TestBindingMaplikeWithPrimitiveMaplikeMethods","TestBindingMaplikeWithPrimitiveMethods"]};

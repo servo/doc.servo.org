@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["command","split","tcp","unix","vsock"],"struct":["Split"],"trait":["ReadHalf","Socket","WriteHalf"],"type":["BoxedSplit","RecvmsgResult"]};

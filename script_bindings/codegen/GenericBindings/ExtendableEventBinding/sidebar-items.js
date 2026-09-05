@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ExtendableEvent_Binding"],"struct":["ExtendableEventInit"]};

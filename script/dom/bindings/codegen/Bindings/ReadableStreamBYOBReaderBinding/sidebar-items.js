@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ByteTeeReadIntoRequest_Binding","ByteTeeReadRequest_Binding","ByteTeeUnderlyingSource_Binding","GenericBindings","ReadableStreamBYOBReader_Binding"],"trait":["ByteTeeReadIntoRequestMethods","ByteTeeReadRequestMethods","ByteTeeUnderlyingSourceMethods","ReadableStreamBYOBReaderMethods"],"type":["ReadableStreamBYOBReaderReadOptions"]};

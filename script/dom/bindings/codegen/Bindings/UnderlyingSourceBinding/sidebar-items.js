@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings"],"type":["ReadableStreamController","UnderlyingSource","UnderlyingSourceCancelCallback","UnderlyingSourcePullCallback","UnderlyingSourceStartCallback"]};

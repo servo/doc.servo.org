@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["NodeOrText"],"fn":["any_not_whitespace","current_node"],"mod":["types"],"static":["XMLNS_URI","XML_URI"],"struct":["NamespaceMap","NamespaceMapStack","XmlTreeBuilder","XmlTreeBuilderOpts"],"trait":["ElemName","Tracer","TreeSink"],"type":["InsResult"]};

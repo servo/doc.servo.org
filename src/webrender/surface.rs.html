@@ -1,0 +1,920 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/webrender-0.70.0/src/surface.rs`."><title>surface.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="webrender" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../../static.files/src-script-813739b1.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">webrender/</div>surface.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="doccomment">//! Contains functionality to help building the render task graph from a series of off-screen
+<a href=#6 id=6 data-nosnippet>6</a>//! surfaces that are created during the prepare pass, and other surface related types and
+<a href=#7 id=7 data-nosnippet>7</a>//! helpers.
+<a href=#8 id=8 data-nosnippet>8</a>
+<a href=#9 id=9 data-nosnippet>9</a></span><span class="kw">use </span>api::units::<span class="kw-2">*</span>;
+<a href=#10 id=10 data-nosnippet>10</a><span class="kw">use </span><span class="kw">crate</span>::box_shadow::BLUR_SAMPLE_SCALE;
+<a href=#11 id=11 data-nosnippet>11</a><span class="kw">use </span><span class="kw">crate</span>::command_buffer::{CommandBufferBuilderKind, CommandBufferList, CommandBufferBuilder, CommandBufferIndex};
+<a href=#12 id=12 data-nosnippet>12</a><span class="kw">use </span><span class="kw">crate</span>::internal_types::{FastHashMap, Filter};
+<a href=#13 id=13 data-nosnippet>13</a><span class="kw">use </span><span class="kw">crate</span>::picture::PictureCompositeMode;
+<a href=#14 id=14 data-nosnippet>14</a><span class="kw">use </span><span class="kw">crate</span>::tile_cache::{TileKey, SubSliceIndex, MAX_COMPOSITOR_SURFACES};
+<a href=#15 id=15 data-nosnippet>15</a><span class="kw">use </span><span class="kw">crate</span>::prim_store::PictureIndex;
+<a href=#16 id=16 data-nosnippet>16</a><span class="kw">use </span><span class="kw">crate</span>::render_task_graph::{RenderTaskId, RenderTaskGraphBuilder};
+<a href=#17 id=17 data-nosnippet>17</a><span class="kw">use </span><span class="kw">crate</span>::render_target::ResolveOp;
+<a href=#18 id=18 data-nosnippet>18</a><span class="kw">use </span><span class="kw">crate</span>::render_task::{RenderTask, RenderTaskKind, RenderTaskLocation};
+<a href=#19 id=19 data-nosnippet>19</a><span class="kw">use </span><span class="kw">crate</span>::space::SpaceMapper;
+<a href=#20 id=20 data-nosnippet>20</a><span class="kw">use </span><span class="kw">crate</span>::spatial_tree::{SpatialTree, SpatialNodeIndex};
+<a href=#21 id=21 data-nosnippet>21</a><span class="kw">use </span><span class="kw">crate</span>::util::MaxRect;
+<a href=#22 id=22 data-nosnippet>22</a><span class="kw">use </span><span class="kw">crate</span>::visibility::{DrawState, PrimitiveDrawHeader, FrameVisibilityContext};
+<a href=#23 id=23 data-nosnippet>23</a><span class="kw">pub use </span><span class="kw">crate</span>::picture_composite_mode::get_surface_rects;
+<a href=#24 id=24 data-nosnippet>24</a>
+<a href=#25 id=25 data-nosnippet>25</a>
+<a href=#26 id=26 data-nosnippet>26</a><span class="doccomment">/// Maximum blur radius for blur filter
+<a href=#27 id=27 data-nosnippet>27</a></span><span class="kw">const </span>MAX_BLUR_RADIUS: f32 = <span class="number">100.</span>;
+<a href=#28 id=28 data-nosnippet>28</a>
+<a href=#29 id=29 data-nosnippet>29</a><span class="doccomment">/// An index into the surface array
+<a href=#30 id=30 data-nosnippet>30</a></span><span class="attr">#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+<a href=#31 id=31 data-nosnippet>31</a>#[cfg_attr(feature = <span class="string">"capture"</span>, derive(Serialize))]
+<a href=#32 id=32 data-nosnippet>32</a>#[cfg_attr(feature = <span class="string">"replay"</span>, derive(Deserialize))]
+<a href=#33 id=33 data-nosnippet>33</a></span><span class="kw">pub struct </span>SurfaceIndex(<span class="kw">pub </span>usize);
+<a href=#34 id=34 data-nosnippet>34</a>
+<a href=#35 id=35 data-nosnippet>35</a><span class="doccomment">/// Specify whether a surface allows subpixel AA text rendering.
+<a href=#36 id=36 data-nosnippet>36</a></span><span class="attr">#[derive(Debug, Copy, Clone)]
+<a href=#37 id=37 data-nosnippet>37</a></span><span class="kw">pub enum </span>SubpixelMode {
+<a href=#38 id=38 data-nosnippet>38</a>    <span class="doccomment">/// This surface allows subpixel AA text
+<a href=#39 id=39 data-nosnippet>39</a>    </span>Allow,
+<a href=#40 id=40 data-nosnippet>40</a>    <span class="doccomment">/// Subpixel AA text cannot be drawn on this surface
+<a href=#41 id=41 data-nosnippet>41</a>    </span>Deny,
+<a href=#42 id=42 data-nosnippet>42</a>    <span class="doccomment">/// Subpixel AA can be drawn on this surface, if not intersecting
+<a href=#43 id=43 data-nosnippet>43</a>    /// with the excluded regions, and inside the allowed rect.
+<a href=#44 id=44 data-nosnippet>44</a>    </span>Conditional {
+<a href=#45 id=45 data-nosnippet>45</a>        allowed_rect: PictureRect,
+<a href=#46 id=46 data-nosnippet>46</a>        prohibited_rect: PictureRect,
+<a href=#47 id=47 data-nosnippet>47</a>    },
+<a href=#48 id=48 data-nosnippet>48</a>}
+<a href=#49 id=49 data-nosnippet>49</a>
+<a href=#50 id=50 data-nosnippet>50</a><span class="doccomment">/// Information about an offscreen surface. For now,
+<a href=#51 id=51 data-nosnippet>51</a>/// it contains information about the size and coordinate
+<a href=#52 id=52 data-nosnippet>52</a>/// system of the surface. In the future, it will contain
+<a href=#53 id=53 data-nosnippet>53</a>/// information about the contents of the surface, which
+<a href=#54 id=54 data-nosnippet>54</a>/// will allow surfaces to be cached / retained between
+<a href=#55 id=55 data-nosnippet>55</a>/// frames and display lists.
+<a href=#56 id=56 data-nosnippet>56</a></span><span class="kw">pub struct </span>SurfaceInfo {
+<a href=#57 id=57 data-nosnippet>57</a>    <span class="doccomment">/// A local rect defining the size of this surface, in the
+<a href=#58 id=58 data-nosnippet>58</a>    /// coordinate system of the parent surface. This contains
+<a href=#59 id=59 data-nosnippet>59</a>    /// the unclipped bounding rect of child primitives.
+<a href=#60 id=60 data-nosnippet>60</a>    ///
+<a href=#61 id=61 data-nosnippet>61</a>    /// SNAPTODO: This rect is built by mapping per-cluster bounding
+<a href=#62 id=62 data-nosnippet>62</a>    /// rects (and child-surface coverage rects) into this surface's
+<a href=#63 id=63 data-nosnippet>63</a>    /// picture space via `map_local_to_picture`. Even once the source
+<a href=#64 id=64 data-nosnippet>64</a>    /// cluster bound is a true union of per-prim *snapped* local
+<a href=#65 id=65 data-nosnippet>65</a>    /// rects, the resulting `unclipped_local_rect` is not guaranteed
+<a href=#66 id=66 data-nosnippet>66</a>    /// to be snapped: any 2D transform that isn't an axis-aligned,
+<a href=#67 id=67 data-nosnippet>67</a>    /// integer-pixel translation between the cluster/child-surface
+<a href=#68 id=68 data-nosnippet>68</a>    /// spatial node and this surface's spatial node will produce
+<a href=#69 id=69 data-nosnippet>69</a>    /// sub-pixel edges in picture space. Float blur-margin inflation
+<a href=#70 id=70 data-nosnippet>70</a>    /// inside `composite_mode.get_coverage` can also break the snap.
+<a href=#71 id=71 data-nosnippet>71</a>    /// Consumers that need a snapped value will either need to
+<a href=#72 id=72 data-nosnippet>72</a>    /// re-snap in surface space or restrict the snap path to surfaces
+<a href=#73 id=73 data-nosnippet>73</a>    /// where the cross-space mapping preserves grid alignment (see
+<a href=#74 id=74 data-nosnippet>74</a>    /// `SurfaceInfo.allow_snapping`).
+<a href=#75 id=75 data-nosnippet>75</a>    </span><span class="kw">pub </span>unclipped_local_rect: PictureRect,
+<a href=#76 id=76 data-nosnippet>76</a>    <span class="doccomment">/// The local space coverage of child primitives after they are
+<a href=#77 id=77 data-nosnippet>77</a>    /// are clipped to their owning clip-chain.
+<a href=#78 id=78 data-nosnippet>78</a>    </span><span class="kw">pub </span>clipped_local_rect: PictureRect,
+<a href=#79 id=79 data-nosnippet>79</a>    <span class="doccomment">/// The (conservative) valid part of this surface rect. Used
+<a href=#80 id=80 data-nosnippet>80</a>    /// to reduce the size of render target allocation.
+<a href=#81 id=81 data-nosnippet>81</a>    </span><span class="kw">pub </span>clipping_rect: PictureRect,
+<a href=#82 id=82 data-nosnippet>82</a>    <span class="doccomment">/// The rectangle to use for culling and clipping.
+<a href=#83 id=83 data-nosnippet>83</a>    </span><span class="kw">pub </span>culling_rect: VisRect,
+<a href=#84 id=84 data-nosnippet>84</a>    <span class="doccomment">/// Helper structs for mapping local rects in different
+<a href=#85 id=85 data-nosnippet>85</a>    /// coordinate systems into the picture coordinates.
+<a href=#86 id=86 data-nosnippet>86</a>    </span><span class="kw">pub </span>map_local_to_picture: SpaceMapper&lt;LayoutPixel, PicturePixel&gt;,
+<a href=#87 id=87 data-nosnippet>87</a>    <span class="doccomment">/// The positioning node for the surface itself,
+<a href=#88 id=88 data-nosnippet>88</a>    </span><span class="kw">pub </span>surface_spatial_node_index: SpatialNodeIndex,
+<a href=#89 id=89 data-nosnippet>89</a>    <span class="doccomment">/// The rasterization root for this surface.
+<a href=#90 id=90 data-nosnippet>90</a>    </span><span class="kw">pub </span>raster_spatial_node_index: SpatialNodeIndex,
+<a href=#91 id=91 data-nosnippet>91</a>    <span class="doccomment">/// The spatial node for culling and clipping (anything using VisPixel).
+<a href=#92 id=92 data-nosnippet>92</a>    /// TODO: Replace with the raster spatial node.
+<a href=#93 id=93 data-nosnippet>93</a>    </span><span class="kw">pub </span>visibility_spatial_node_index: SpatialNodeIndex,
+<a href=#94 id=94 data-nosnippet>94</a>    <span class="doccomment">/// The device pixel ratio specific to this surface.
+<a href=#95 id=95 data-nosnippet>95</a>    </span><span class="kw">pub </span>device_pixel_scale: DevicePixelScale,
+<a href=#96 id=96 data-nosnippet>96</a>    <span class="doccomment">/// The scale factors of the surface to world transform.
+<a href=#97 id=97 data-nosnippet>97</a>    </span><span class="kw">pub </span>world_scale_factors: (f32, f32),
+<a href=#98 id=98 data-nosnippet>98</a>    <span class="doccomment">/// Local scale factors surface to raster transform
+<a href=#99 id=99 data-nosnippet>99</a>    </span><span class="kw">pub </span>local_scale: (f32, f32),
+<a href=#100 id=100 data-nosnippet>100</a>    <span class="doccomment">/// If true, we know this surface is completely opaque.
+<a href=#101 id=101 data-nosnippet>101</a>    </span><span class="kw">pub </span>is_opaque: bool,
+<a href=#102 id=102 data-nosnippet>102</a>    <span class="doccomment">/// If true, allow snapping on this and child surfaces
+<a href=#103 id=103 data-nosnippet>103</a>    </span><span class="kw">pub </span>allow_snapping: bool,
+<a href=#104 id=104 data-nosnippet>104</a>    <span class="doccomment">/// If true, the scissor rect must be set when drawing this surface
+<a href=#105 id=105 data-nosnippet>105</a>    </span><span class="kw">pub </span>force_scissor_rect: bool,
+<a href=#106 id=106 data-nosnippet>106</a>}
+<a href=#107 id=107 data-nosnippet>107</a>
+<a href=#108 id=108 data-nosnippet>108</a><span class="kw">impl </span>SurfaceInfo {
+<a href=#109 id=109 data-nosnippet>109</a>    <span class="kw">pub fn </span>new(
+<a href=#110 id=110 data-nosnippet>110</a>        surface_spatial_node_index: SpatialNodeIndex,
+<a href=#111 id=111 data-nosnippet>111</a>        raster_spatial_node_index: SpatialNodeIndex,
+<a href=#112 id=112 data-nosnippet>112</a>        world_rect: WorldRect,
+<a href=#113 id=113 data-nosnippet>113</a>        spatial_tree: <span class="kw-2">&amp;</span>SpatialTree,
+<a href=#114 id=114 data-nosnippet>114</a>        device_pixel_scale: DevicePixelScale,
+<a href=#115 id=115 data-nosnippet>115</a>        world_scale_factors: (f32, f32),
+<a href=#116 id=116 data-nosnippet>116</a>        local_scale: (f32, f32),
+<a href=#117 id=117 data-nosnippet>117</a>        allow_snapping: bool,
+<a href=#118 id=118 data-nosnippet>118</a>        force_scissor_rect: bool,
+<a href=#119 id=119 data-nosnippet>119</a>    ) -&gt; <span class="self">Self </span>{
+<a href=#120 id=120 data-nosnippet>120</a>        <span class="kw">let </span>map_surface_to_world = SpaceMapper::new_with_target(
+<a href=#121 id=121 data-nosnippet>121</a>            spatial_tree.root_reference_frame_index(),
+<a href=#122 id=122 data-nosnippet>122</a>            surface_spatial_node_index,
+<a href=#123 id=123 data-nosnippet>123</a>            world_rect,
+<a href=#124 id=124 data-nosnippet>124</a>            spatial_tree,
+<a href=#125 id=125 data-nosnippet>125</a>        );
+<a href=#126 id=126 data-nosnippet>126</a>
+<a href=#127 id=127 data-nosnippet>127</a>        <span class="kw">let </span>pic_bounds = map_surface_to_world
+<a href=#128 id=128 data-nosnippet>128</a>            .unmap(<span class="kw-2">&amp;</span>map_surface_to_world.bounds)
+<a href=#129 id=129 data-nosnippet>129</a>            .unwrap_or_else(PictureRect::max_rect);
+<a href=#130 id=130 data-nosnippet>130</a>
+<a href=#131 id=131 data-nosnippet>131</a>        <span class="kw">let </span>map_local_to_picture = SpaceMapper::new(
+<a href=#132 id=132 data-nosnippet>132</a>            surface_spatial_node_index,
+<a href=#133 id=133 data-nosnippet>133</a>            pic_bounds,
+<a href=#134 id=134 data-nosnippet>134</a>        );
+<a href=#135 id=135 data-nosnippet>135</a>
+<a href=#136 id=136 data-nosnippet>136</a>        <span class="comment">// TODO: replace the root with raster space.
+<a href=#137 id=137 data-nosnippet>137</a>        </span><span class="kw">let </span>visibility_spatial_node_index = spatial_tree.root_reference_frame_index();
+<a href=#138 id=138 data-nosnippet>138</a>
+<a href=#139 id=139 data-nosnippet>139</a>        SurfaceInfo {
+<a href=#140 id=140 data-nosnippet>140</a>            unclipped_local_rect: PictureRect::zero(),
+<a href=#141 id=141 data-nosnippet>141</a>            clipped_local_rect: PictureRect::zero(),
+<a href=#142 id=142 data-nosnippet>142</a>            is_opaque: <span class="bool-val">false</span>,
+<a href=#143 id=143 data-nosnippet>143</a>            clipping_rect: PictureRect::zero(),
+<a href=#144 id=144 data-nosnippet>144</a>            map_local_to_picture,
+<a href=#145 id=145 data-nosnippet>145</a>            raster_spatial_node_index,
+<a href=#146 id=146 data-nosnippet>146</a>            surface_spatial_node_index,
+<a href=#147 id=147 data-nosnippet>147</a>            visibility_spatial_node_index,
+<a href=#148 id=148 data-nosnippet>148</a>            device_pixel_scale,
+<a href=#149 id=149 data-nosnippet>149</a>            world_scale_factors,
+<a href=#150 id=150 data-nosnippet>150</a>            local_scale,
+<a href=#151 id=151 data-nosnippet>151</a>            allow_snapping,
+<a href=#152 id=152 data-nosnippet>152</a>            force_scissor_rect,
+<a href=#153 id=153 data-nosnippet>153</a>            <span class="comment">// TODO: At the moment all culling is done in world space but
+<a href=#154 id=154 data-nosnippet>154</a>            // but the plan is to move it to raster space.
+<a href=#155 id=155 data-nosnippet>155</a>            </span>culling_rect: world_rect.cast_unit(),
+<a href=#156 id=156 data-nosnippet>156</a>        }
+<a href=#157 id=157 data-nosnippet>157</a>    }
+<a href=#158 id=158 data-nosnippet>158</a>
+<a href=#159 id=159 data-nosnippet>159</a>    <span class="doccomment">/// Clamps the blur radius depending on scale factors.
+<a href=#160 id=160 data-nosnippet>160</a>    </span><span class="kw">pub fn </span>clamp_blur_radius(
+<a href=#161 id=161 data-nosnippet>161</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#162 id=162 data-nosnippet>162</a>        x_blur_radius: f32,
+<a href=#163 id=163 data-nosnippet>163</a>        y_blur_radius: f32,
+<a href=#164 id=164 data-nosnippet>164</a>    ) -&gt; (f32, f32) {
+<a href=#165 id=165 data-nosnippet>165</a>        <span class="comment">// Clamping must occur after scale factors are applied, but scale factors are not applied
+<a href=#166 id=166 data-nosnippet>166</a>        // until later on. To clamp the blur radius, we first apply the scale factors and then clamp
+<a href=#167 id=167 data-nosnippet>167</a>        // and finally revert the scale factors.
+<a href=#168 id=168 data-nosnippet>168</a>
+<a href=#169 id=169 data-nosnippet>169</a>        </span><span class="kw">let </span>sx_blur_radius = x_blur_radius * <span class="self">self</span>.local_scale.<span class="number">0</span>;
+<a href=#170 id=170 data-nosnippet>170</a>        <span class="kw">let </span>sy_blur_radius = y_blur_radius * <span class="self">self</span>.local_scale.<span class="number">1</span>;
+<a href=#171 id=171 data-nosnippet>171</a>
+<a href=#172 id=172 data-nosnippet>172</a>        <span class="kw">let </span>largest_scaled_blur_radius = f32::max(
+<a href=#173 id=173 data-nosnippet>173</a>            sx_blur_radius * <span class="self">self</span>.world_scale_factors.<span class="number">0</span>,
+<a href=#174 id=174 data-nosnippet>174</a>            sy_blur_radius * <span class="self">self</span>.world_scale_factors.<span class="number">1</span>,
+<a href=#175 id=175 data-nosnippet>175</a>        );
+<a href=#176 id=176 data-nosnippet>176</a>
+<a href=#177 id=177 data-nosnippet>177</a>        <span class="kw">if </span>largest_scaled_blur_radius &gt; MAX_BLUR_RADIUS {
+<a href=#178 id=178 data-nosnippet>178</a>            <span class="kw">let </span>sf = MAX_BLUR_RADIUS / largest_scaled_blur_radius;
+<a href=#179 id=179 data-nosnippet>179</a>            (x_blur_radius * sf, y_blur_radius * sf)
+<a href=#180 id=180 data-nosnippet>180</a>        } <span class="kw">else </span>{
+<a href=#181 id=181 data-nosnippet>181</a>            <span class="comment">// Return the original blur radius to avoid any rounding errors
+<a href=#182 id=182 data-nosnippet>182</a>            </span>(x_blur_radius, y_blur_radius)
+<a href=#183 id=183 data-nosnippet>183</a>        }
+<a href=#184 id=184 data-nosnippet>184</a>    }
+<a href=#185 id=185 data-nosnippet>185</a>
+<a href=#186 id=186 data-nosnippet>186</a>    <span class="kw">pub fn </span>update_culling_rect(
+<a href=#187 id=187 data-nosnippet>187</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#188 id=188 data-nosnippet>188</a>        parent_culling_rect: VisRect,
+<a href=#189 id=189 data-nosnippet>189</a>        composite_mode: <span class="kw-2">&amp;</span>PictureCompositeMode,
+<a href=#190 id=190 data-nosnippet>190</a>        frame_context: <span class="kw-2">&amp;</span>FrameVisibilityContext,
+<a href=#191 id=191 data-nosnippet>191</a>    ) {
+<a href=#192 id=192 data-nosnippet>192</a>        <span class="comment">// Set the default culling rect to be the parent, in case we fail
+<a href=#193 id=193 data-nosnippet>193</a>        // any mappings below due to weird perspective or invalid transforms.
+<a href=#194 id=194 data-nosnippet>194</a>        </span><span class="self">self</span>.culling_rect = parent_culling_rect;
+<a href=#195 id=195 data-nosnippet>195</a>
+<a href=#196 id=196 data-nosnippet>196</a>        <span class="kw">if let </span>PictureCompositeMode::Filter(Filter::Blur { width, height, should_inflate, .. }) = composite_mode {
+<a href=#197 id=197 data-nosnippet>197</a>            <span class="kw">if </span><span class="kw-2">*</span>should_inflate {
+<a href=#198 id=198 data-nosnippet>198</a>                <span class="comment">// Space mapping vis &lt;-&gt; picture space
+<a href=#199 id=199 data-nosnippet>199</a>                </span><span class="kw">let </span>map_surface_to_vis = SpaceMapper::new_with_target(
+<a href=#200 id=200 data-nosnippet>200</a>                    <span class="comment">// TODO: switch from root to raster space.
+<a href=#201 id=201 data-nosnippet>201</a>                    </span>frame_context.root_spatial_node_index,
+<a href=#202 id=202 data-nosnippet>202</a>                    <span class="self">self</span>.surface_spatial_node_index,
+<a href=#203 id=203 data-nosnippet>203</a>                    parent_culling_rect,
+<a href=#204 id=204 data-nosnippet>204</a>                    frame_context.spatial_tree,
+<a href=#205 id=205 data-nosnippet>205</a>                );
+<a href=#206 id=206 data-nosnippet>206</a>
+<a href=#207 id=207 data-nosnippet>207</a>                <span class="comment">// Unmap the parent culling rect to surface space. Note that this may be
+<a href=#208 id=208 data-nosnippet>208</a>                // quite conservative in the case of a complex transform, especially perspective.
+<a href=#209 id=209 data-nosnippet>209</a>                </span><span class="kw">if let </span><span class="prelude-val">Some</span>(local_parent_culling_rect) = map_surface_to_vis.unmap(<span class="kw-2">&amp;</span>parent_culling_rect) {
+<a href=#210 id=210 data-nosnippet>210</a>                    <span class="kw">let </span>(width_factor, height_factor) = <span class="self">self</span>.clamp_blur_radius(<span class="kw-2">*</span>width, <span class="kw-2">*</span>height);
+<a href=#211 id=211 data-nosnippet>211</a>
+<a href=#212 id=212 data-nosnippet>212</a>                    <span class="comment">// Inflate by the local-space amount this surface extends.
+<a href=#213 id=213 data-nosnippet>213</a>                    </span><span class="kw">let </span>expanded_rect: PictureBox2D = local_parent_culling_rect.inflate(
+<a href=#214 id=214 data-nosnippet>214</a>                        width_factor.ceil() * BLUR_SAMPLE_SCALE,
+<a href=#215 id=215 data-nosnippet>215</a>                        height_factor.ceil() * BLUR_SAMPLE_SCALE,
+<a href=#216 id=216 data-nosnippet>216</a>                    );
+<a href=#217 id=217 data-nosnippet>217</a>
+<a href=#218 id=218 data-nosnippet>218</a>                    <span class="comment">// Map back to the expected vis-space culling rect
+<a href=#219 id=219 data-nosnippet>219</a>                    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(rect) = map_surface_to_vis.map(<span class="kw-2">&amp;</span>expanded_rect) {
+<a href=#220 id=220 data-nosnippet>220</a>                        <span class="self">self</span>.culling_rect = rect;
+<a href=#221 id=221 data-nosnippet>221</a>                    }
+<a href=#222 id=222 data-nosnippet>222</a>                }
+<a href=#223 id=223 data-nosnippet>223</a>            }
+<a href=#224 id=224 data-nosnippet>224</a>        }
+<a href=#225 id=225 data-nosnippet>225</a>    }
+<a href=#226 id=226 data-nosnippet>226</a>
+<a href=#227 id=227 data-nosnippet>227</a>    <span class="kw">pub fn </span>map_to_device_rect(
+<a href=#228 id=228 data-nosnippet>228</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#229 id=229 data-nosnippet>229</a>        picture_rect: <span class="kw-2">&amp;</span>PictureRect,
+<a href=#230 id=230 data-nosnippet>230</a>        spatial_tree: <span class="kw-2">&amp;</span>SpatialTree,
+<a href=#231 id=231 data-nosnippet>231</a>    ) -&gt; DeviceRect {
+<a href=#232 id=232 data-nosnippet>232</a>        <span class="kw">let </span>raster_rect = <span class="kw">if </span><span class="self">self</span>.raster_spatial_node_index != <span class="self">self</span>.surface_spatial_node_index {
+<a href=#233 id=233 data-nosnippet>233</a>            <span class="comment">// Currently, the surface's spatial node can be different from its raster node only
+<a href=#234 id=234 data-nosnippet>234</a>            // for surfaces in the root coordinate system for snapping reasons.
+<a href=#235 id=235 data-nosnippet>235</a>            // See `PictureInstance::assign_surface`.
+<a href=#236 id=236 data-nosnippet>236</a>            </span><span class="macro">assert_eq!</span>(<span class="self">self</span>.device_pixel_scale.<span class="number">0</span>, <span class="number">1.0</span>);
+<a href=#237 id=237 data-nosnippet>237</a>            <span class="macro">assert_eq!</span>(<span class="self">self</span>.raster_spatial_node_index, spatial_tree.root_reference_frame_index());
+<a href=#238 id=238 data-nosnippet>238</a>
+<a href=#239 id=239 data-nosnippet>239</a>            <span class="kw">let </span>pic_to_raster = SpaceMapper::new_with_target(
+<a href=#240 id=240 data-nosnippet>240</a>                <span class="self">self</span>.raster_spatial_node_index,
+<a href=#241 id=241 data-nosnippet>241</a>                <span class="self">self</span>.surface_spatial_node_index,
+<a href=#242 id=242 data-nosnippet>242</a>                WorldRect::max_rect(),
+<a href=#243 id=243 data-nosnippet>243</a>                spatial_tree,
+<a href=#244 id=244 data-nosnippet>244</a>            );
+<a href=#245 id=245 data-nosnippet>245</a>
+<a href=#246 id=246 data-nosnippet>246</a>            pic_to_raster.map(<span class="kw-2">&amp;</span>picture_rect).unwrap()
+<a href=#247 id=247 data-nosnippet>247</a>        } <span class="kw">else </span>{
+<a href=#248 id=248 data-nosnippet>248</a>            picture_rect.cast_unit()
+<a href=#249 id=249 data-nosnippet>249</a>        };
+<a href=#250 id=250 data-nosnippet>250</a>
+<a href=#251 id=251 data-nosnippet>251</a>        raster_rect * <span class="self">self</span>.device_pixel_scale
+<a href=#252 id=252 data-nosnippet>252</a>    }
+<a href=#253 id=253 data-nosnippet>253</a>
+<a href=#254 id=254 data-nosnippet>254</a>    <span class="doccomment">/// Clip and transform a local rect to a device rect suitable for allocating
+<a href=#255 id=255 data-nosnippet>255</a>    /// a child off-screen surface of this surface (e.g. for clip-masks)
+<a href=#256 id=256 data-nosnippet>256</a>    </span><span class="kw">pub fn </span>get_surface_rect(
+<a href=#257 id=257 data-nosnippet>257</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#258 id=258 data-nosnippet>258</a>        local_rect: <span class="kw-2">&amp;</span>PictureRect,
+<a href=#259 id=259 data-nosnippet>259</a>        spatial_tree: <span class="kw-2">&amp;</span>SpatialTree,
+<a href=#260 id=260 data-nosnippet>260</a>    ) -&gt; <span class="prelude-ty">Option</span>&lt;DeviceIntRect&gt; {
+<a href=#261 id=261 data-nosnippet>261</a>        <span class="kw">let </span>local_rect = <span class="kw">match </span>local_rect.intersection(<span class="kw-2">&amp;</span><span class="self">self</span>.clipping_rect) {
+<a href=#262 id=262 data-nosnippet>262</a>            <span class="prelude-val">Some</span>(rect) =&gt; rect,
+<a href=#263 id=263 data-nosnippet>263</a>            <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
+<a href=#264 id=264 data-nosnippet>264</a>        };
+<a href=#265 id=265 data-nosnippet>265</a>
+<a href=#266 id=266 data-nosnippet>266</a>        <span class="kw">let </span>raster_rect = <span class="kw">if </span><span class="self">self</span>.raster_spatial_node_index != <span class="self">self</span>.surface_spatial_node_index {
+<a href=#267 id=267 data-nosnippet>267</a>            <span class="macro">assert_eq!</span>(<span class="self">self</span>.device_pixel_scale.<span class="number">0</span>, <span class="number">1.0</span>);
+<a href=#268 id=268 data-nosnippet>268</a>
+<a href=#269 id=269 data-nosnippet>269</a>            <span class="kw">let </span>local_to_world = SpaceMapper::new_with_target(
+<a href=#270 id=270 data-nosnippet>270</a>                spatial_tree.root_reference_frame_index(),
+<a href=#271 id=271 data-nosnippet>271</a>                <span class="self">self</span>.surface_spatial_node_index,
+<a href=#272 id=272 data-nosnippet>272</a>                WorldRect::max_rect(),
+<a href=#273 id=273 data-nosnippet>273</a>                spatial_tree,
+<a href=#274 id=274 data-nosnippet>274</a>            );
+<a href=#275 id=275 data-nosnippet>275</a>
+<a href=#276 id=276 data-nosnippet>276</a>            local_to_world.map(<span class="kw-2">&amp;</span>local_rect).unwrap()
+<a href=#277 id=277 data-nosnippet>277</a>        } <span class="kw">else </span>{
+<a href=#278 id=278 data-nosnippet>278</a>            <span class="comment">// The content should have been culled out earlier.
+<a href=#279 id=279 data-nosnippet>279</a>            </span><span class="macro">assert!</span>(<span class="self">self</span>.device_pixel_scale.<span class="number">0 </span>&gt; <span class="number">0.0</span>);
+<a href=#280 id=280 data-nosnippet>280</a>
+<a href=#281 id=281 data-nosnippet>281</a>            local_rect.cast_unit()
+<a href=#282 id=282 data-nosnippet>282</a>        };
+<a href=#283 id=283 data-nosnippet>283</a>
+<a href=#284 id=284 data-nosnippet>284</a>        <span class="kw">let </span>surface_rect = (raster_rect * <span class="self">self</span>.device_pixel_scale).round_out().to_i32();
+<a href=#285 id=285 data-nosnippet>285</a>        <span class="kw">if </span>surface_rect.is_empty() {
+<a href=#286 id=286 data-nosnippet>286</a>            <span class="comment">// The local_rect computed above may have non-empty size that is very
+<a href=#287 id=287 data-nosnippet>287</a>            // close to zero. Due to limited arithmetic precision, the SpaceMapper
+<a href=#288 id=288 data-nosnippet>288</a>            // might transform the near-zero-sized rect into a zero-sized one.
+<a href=#289 id=289 data-nosnippet>289</a>            </span><span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#290 id=290 data-nosnippet>290</a>        }
+<a href=#291 id=291 data-nosnippet>291</a>
+<a href=#292 id=292 data-nosnippet>292</a>        <span class="prelude-val">Some</span>(surface_rect)
+<a href=#293 id=293 data-nosnippet>293</a>    }
+<a href=#294 id=294 data-nosnippet>294</a>}
+<a href=#295 id=295 data-nosnippet>295</a>
+<a href=#296 id=296 data-nosnippet>296</a><span class="comment">// Information about the render task(s) for a given tile
+<a href=#297 id=297 data-nosnippet>297</a></span><span class="attr">#[cfg_attr(feature = <span class="string">"capture"</span>, derive(Serialize))]
+<a href=#298 id=298 data-nosnippet>298</a>#[cfg_attr(feature = <span class="string">"replay"</span>, derive(Deserialize))]
+<a href=#299 id=299 data-nosnippet>299</a></span><span class="kw">pub struct </span>SurfaceTileDescriptor {
+<a href=#300 id=300 data-nosnippet>300</a>    <span class="doccomment">/// Target render task for commands added to this tile. This is changed
+<a href=#301 id=301 data-nosnippet>301</a>    /// each time a sub-graph is encountered on this tile
+<a href=#302 id=302 data-nosnippet>302</a>    </span><span class="kw">pub </span>current_task_id: RenderTaskId,
+<a href=#303 id=303 data-nosnippet>303</a>    <span class="doccomment">/// The compositing task for this tile, if required. This is only needed
+<a href=#304 id=304 data-nosnippet>304</a>    /// when a tile contains one or more sub-graphs.
+<a href=#305 id=305 data-nosnippet>305</a>    </span><span class="kw">pub </span>composite_task_id: <span class="prelude-ty">Option</span>&lt;RenderTaskId&gt;,
+<a href=#306 id=306 data-nosnippet>306</a>    <span class="doccomment">/// Dirty rect for this tile
+<a href=#307 id=307 data-nosnippet>307</a>    </span><span class="kw">pub </span>dirty_rect: PictureRect,
+<a href=#308 id=308 data-nosnippet>308</a>}
+<a href=#309 id=309 data-nosnippet>309</a>
+<a href=#310 id=310 data-nosnippet>310</a><span class="comment">// Details of how a surface is rendered
+<a href=#311 id=311 data-nosnippet>311</a></span><span class="kw">pub enum </span>SurfaceDescriptorKind {
+<a href=#312 id=312 data-nosnippet>312</a>    <span class="comment">// Picture cache tiles
+<a href=#313 id=313 data-nosnippet>313</a>    </span>Tiled {
+<a href=#314 id=314 data-nosnippet>314</a>        tiles: FastHashMap&lt;TileKey, SurfaceTileDescriptor&gt;,
+<a href=#315 id=315 data-nosnippet>315</a>    },
+<a href=#316 id=316 data-nosnippet>316</a>    <span class="comment">// A single surface (e.g. for an opacity filter)
+<a href=#317 id=317 data-nosnippet>317</a>    </span>Simple {
+<a href=#318 id=318 data-nosnippet>318</a>        render_task_id: RenderTaskId,
+<a href=#319 id=319 data-nosnippet>319</a>        dirty_rect: PictureRect,
+<a href=#320 id=320 data-nosnippet>320</a>    },
+<a href=#321 id=321 data-nosnippet>321</a>    <span class="comment">// A surface with 1+ intermediate tasks (e.g. blur)
+<a href=#322 id=322 data-nosnippet>322</a>    </span>Chained {
+<a href=#323 id=323 data-nosnippet>323</a>        render_task_id: RenderTaskId,
+<a href=#324 id=324 data-nosnippet>324</a>        root_task_id: RenderTaskId,
+<a href=#325 id=325 data-nosnippet>325</a>        dirty_rect: PictureRect,
+<a href=#326 id=326 data-nosnippet>326</a>    },
+<a href=#327 id=327 data-nosnippet>327</a>}
+<a href=#328 id=328 data-nosnippet>328</a>
+<a href=#329 id=329 data-nosnippet>329</a><span class="comment">// Describes how a surface is rendered
+<a href=#330 id=330 data-nosnippet>330</a></span><span class="kw">pub struct </span>SurfaceDescriptor {
+<a href=#331 id=331 data-nosnippet>331</a>    kind: SurfaceDescriptorKind,
+<a href=#332 id=332 data-nosnippet>332</a>}
+<a href=#333 id=333 data-nosnippet>333</a>
+<a href=#334 id=334 data-nosnippet>334</a><span class="kw">impl </span>SurfaceDescriptor {
+<a href=#335 id=335 data-nosnippet>335</a>    <span class="comment">// Create a picture cache tiled surface
+<a href=#336 id=336 data-nosnippet>336</a>    </span><span class="kw">pub fn </span>new_tiled(
+<a href=#337 id=337 data-nosnippet>337</a>        tiles: FastHashMap&lt;TileKey, SurfaceTileDescriptor&gt;,
+<a href=#338 id=338 data-nosnippet>338</a>    ) -&gt; <span class="self">Self </span>{
+<a href=#339 id=339 data-nosnippet>339</a>        SurfaceDescriptor {
+<a href=#340 id=340 data-nosnippet>340</a>            kind: SurfaceDescriptorKind::Tiled {
+<a href=#341 id=341 data-nosnippet>341</a>                tiles,
+<a href=#342 id=342 data-nosnippet>342</a>            },
+<a href=#343 id=343 data-nosnippet>343</a>        }
+<a href=#344 id=344 data-nosnippet>344</a>    }
+<a href=#345 id=345 data-nosnippet>345</a>
+<a href=#346 id=346 data-nosnippet>346</a>    <span class="comment">// Create a chained surface (e.g. blur)
+<a href=#347 id=347 data-nosnippet>347</a>    </span><span class="kw">pub fn </span>new_chained(
+<a href=#348 id=348 data-nosnippet>348</a>        render_task_id: RenderTaskId,
+<a href=#349 id=349 data-nosnippet>349</a>        root_task_id: RenderTaskId,
+<a href=#350 id=350 data-nosnippet>350</a>        dirty_rect: PictureRect,
+<a href=#351 id=351 data-nosnippet>351</a>    ) -&gt; <span class="self">Self </span>{
+<a href=#352 id=352 data-nosnippet>352</a>        SurfaceDescriptor {
+<a href=#353 id=353 data-nosnippet>353</a>            kind: SurfaceDescriptorKind::Chained {
+<a href=#354 id=354 data-nosnippet>354</a>                render_task_id,
+<a href=#355 id=355 data-nosnippet>355</a>                root_task_id,
+<a href=#356 id=356 data-nosnippet>356</a>                dirty_rect,
+<a href=#357 id=357 data-nosnippet>357</a>            },
+<a href=#358 id=358 data-nosnippet>358</a>        }
+<a href=#359 id=359 data-nosnippet>359</a>    }
+<a href=#360 id=360 data-nosnippet>360</a>
+<a href=#361 id=361 data-nosnippet>361</a>    <span class="comment">// Create a simple surface (e.g. opacity)
+<a href=#362 id=362 data-nosnippet>362</a>    </span><span class="kw">pub fn </span>new_simple(
+<a href=#363 id=363 data-nosnippet>363</a>        render_task_id: RenderTaskId,
+<a href=#364 id=364 data-nosnippet>364</a>        dirty_rect: PictureRect,
+<a href=#365 id=365 data-nosnippet>365</a>    ) -&gt; <span class="self">Self </span>{
+<a href=#366 id=366 data-nosnippet>366</a>        SurfaceDescriptor {
+<a href=#367 id=367 data-nosnippet>367</a>            kind: SurfaceDescriptorKind::Simple {
+<a href=#368 id=368 data-nosnippet>368</a>                render_task_id,
+<a href=#369 id=369 data-nosnippet>369</a>                dirty_rect,
+<a href=#370 id=370 data-nosnippet>370</a>            },
+<a href=#371 id=371 data-nosnippet>371</a>        }
+<a href=#372 id=372 data-nosnippet>372</a>    }
+<a href=#373 id=373 data-nosnippet>373</a>}
+<a href=#374 id=374 data-nosnippet>374</a>
+<a href=#375 id=375 data-nosnippet>375</a><span class="comment">// Describes a list of command buffers that we are adding primitives to
+<a href=#376 id=376 data-nosnippet>376</a>// for a given surface. These are created from a command buffer builder
+<a href=#377 id=377 data-nosnippet>377</a>// as an optimization - skipping the indirection pic_task -&gt; cmd_buffer_index
+<a href=#378 id=378 data-nosnippet>378</a></span><span class="kw">struct </span>CommandBufferTargets {
+<a href=#379 id=379 data-nosnippet>379</a>    available_cmd_buffers: Vec&lt;Vec&lt;(PictureRect, CommandBufferIndex)&gt;&gt;,
+<a href=#380 id=380 data-nosnippet>380</a>}
+<a href=#381 id=381 data-nosnippet>381</a>
+<a href=#382 id=382 data-nosnippet>382</a><span class="kw">impl </span>CommandBufferTargets {
+<a href=#383 id=383 data-nosnippet>383</a>    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+<a href=#384 id=384 data-nosnippet>384</a>        CommandBufferTargets {
+<a href=#385 id=385 data-nosnippet>385</a>            available_cmd_buffers: <span class="macro">vec!</span>[Vec::new(); MAX_COMPOSITOR_SURFACES+<span class="number">1</span>],
+<a href=#386 id=386 data-nosnippet>386</a>        }
+<a href=#387 id=387 data-nosnippet>387</a>    }
+<a href=#388 id=388 data-nosnippet>388</a>
+<a href=#389 id=389 data-nosnippet>389</a>    <span class="kw">fn </span>init(
+<a href=#390 id=390 data-nosnippet>390</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#391 id=391 data-nosnippet>391</a>        cb: <span class="kw-2">&amp;</span>CommandBufferBuilder,
+<a href=#392 id=392 data-nosnippet>392</a>        rg_builder: <span class="kw-2">&amp;</span>RenderTaskGraphBuilder,
+<a href=#393 id=393 data-nosnippet>393</a>    ) {
+<a href=#394 id=394 data-nosnippet>394</a>        <span class="kw">for </span>available_cmd_buffers <span class="kw">in </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.available_cmd_buffers {
+<a href=#395 id=395 data-nosnippet>395</a>            available_cmd_buffers.clear();
+<a href=#396 id=396 data-nosnippet>396</a>        }
+<a href=#397 id=397 data-nosnippet>397</a>
+<a href=#398 id=398 data-nosnippet>398</a>        <span class="kw">match </span>cb.kind {
+<a href=#399 id=399 data-nosnippet>399</a>            CommandBufferBuilderKind::Tiled { <span class="kw-2">ref </span>tiles, .. } =&gt; {
+<a href=#400 id=400 data-nosnippet>400</a>                <span class="kw">for </span>(key, desc) <span class="kw">in </span>tiles {
+<a href=#401 id=401 data-nosnippet>401</a>                    <span class="kw">let </span>task = rg_builder.get_task(desc.current_task_id);
+<a href=#402 id=402 data-nosnippet>402</a>                    <span class="kw">match </span>task.kind {
+<a href=#403 id=403 data-nosnippet>403</a>                        RenderTaskKind::Picture(<span class="kw-2">ref </span>info) =&gt; {
+<a href=#404 id=404 data-nosnippet>404</a>                            <span class="kw">let </span>available_cmd_buffers = <span class="kw-2">&amp;mut </span><span class="self">self</span>.available_cmd_buffers[key.sub_slice_index.as_usize()];
+<a href=#405 id=405 data-nosnippet>405</a>                            available_cmd_buffers.push((desc.dirty_rect, info.cmd_buffer_index));
+<a href=#406 id=406 data-nosnippet>406</a>                        }
+<a href=#407 id=407 data-nosnippet>407</a>                        <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(<span class="string">"bug: not a picture"</span>),
+<a href=#408 id=408 data-nosnippet>408</a>                    }
+<a href=#409 id=409 data-nosnippet>409</a>                }
+<a href=#410 id=410 data-nosnippet>410</a>            }
+<a href=#411 id=411 data-nosnippet>411</a>            CommandBufferBuilderKind::Simple { render_task_id, dirty_rect, .. } =&gt; {
+<a href=#412 id=412 data-nosnippet>412</a>                <span class="kw">let </span>task = rg_builder.get_task(render_task_id);
+<a href=#413 id=413 data-nosnippet>413</a>                <span class="kw">match </span>task.kind {
+<a href=#414 id=414 data-nosnippet>414</a>                    RenderTaskKind::Picture(<span class="kw-2">ref </span>info) =&gt; {
+<a href=#415 id=415 data-nosnippet>415</a>                        <span class="kw">for </span>sub_slice_buffer <span class="kw">in </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.available_cmd_buffers {
+<a href=#416 id=416 data-nosnippet>416</a>                            sub_slice_buffer.push((dirty_rect, info.cmd_buffer_index));
+<a href=#417 id=417 data-nosnippet>417</a>                        }
+<a href=#418 id=418 data-nosnippet>418</a>                    }
+<a href=#419 id=419 data-nosnippet>419</a>                    <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(<span class="string">"bug: not a picture"</span>),
+<a href=#420 id=420 data-nosnippet>420</a>                }
+<a href=#421 id=421 data-nosnippet>421</a>            }
+<a href=#422 id=422 data-nosnippet>422</a>            CommandBufferBuilderKind::Invalid =&gt; {}
+<a href=#423 id=423 data-nosnippet>423</a>        };
+<a href=#424 id=424 data-nosnippet>424</a>    }
+<a href=#425 id=425 data-nosnippet>425</a>
+<a href=#426 id=426 data-nosnippet>426</a>    <span class="doccomment">/// For a given rect and sub-slice, get a list of command buffers to write commands to
+<a href=#427 id=427 data-nosnippet>427</a>    </span><span class="kw">fn </span>get_cmd_buffer_targets_for_rect(
+<a href=#428 id=428 data-nosnippet>428</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#429 id=429 data-nosnippet>429</a>        rect: <span class="kw-2">&amp;</span>PictureRect,
+<a href=#430 id=430 data-nosnippet>430</a>        sub_slice_index: SubSliceIndex,
+<a href=#431 id=431 data-nosnippet>431</a>        targets: <span class="kw-2">&amp;mut </span>Vec&lt;CommandBufferIndex&gt;,
+<a href=#432 id=432 data-nosnippet>432</a>    ) -&gt; bool {
+<a href=#433 id=433 data-nosnippet>433</a>
+<a href=#434 id=434 data-nosnippet>434</a>        <span class="kw">for </span>(dirty_rect, cmd_buffer_index) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.available_cmd_buffers[sub_slice_index.as_usize()] {
+<a href=#435 id=435 data-nosnippet>435</a>            <span class="kw">if </span>dirty_rect.intersects(rect) {
+<a href=#436 id=436 data-nosnippet>436</a>                targets.push(<span class="kw-2">*</span>cmd_buffer_index);
+<a href=#437 id=437 data-nosnippet>437</a>            }
+<a href=#438 id=438 data-nosnippet>438</a>        }
+<a href=#439 id=439 data-nosnippet>439</a>
+<a href=#440 id=440 data-nosnippet>440</a>        !targets.is_empty()
+<a href=#441 id=441 data-nosnippet>441</a>    }
+<a href=#442 id=442 data-nosnippet>442</a>}
+<a href=#443 id=443 data-nosnippet>443</a>
+<a href=#444 id=444 data-nosnippet>444</a><span class="comment">// Main helper interface to build a graph of surfaces. In future patches this
+<a href=#445 id=445 data-nosnippet>445</a>// will support building sub-graphs.
+<a href=#446 id=446 data-nosnippet>446</a></span><span class="kw">pub struct </span>SurfaceBuilder {
+<a href=#447 id=447 data-nosnippet>447</a>    <span class="comment">// The currently set cmd buffer targets (updated during push/pop)
+<a href=#448 id=448 data-nosnippet>448</a>    </span>current_cmd_buffers: CommandBufferTargets,
+<a href=#449 id=449 data-nosnippet>449</a>    <span class="comment">// Stack of surfaces that are parents to the current targets
+<a href=#450 id=450 data-nosnippet>450</a>    </span>builder_stack: Vec&lt;CommandBufferBuilder&gt;,
+<a href=#451 id=451 data-nosnippet>451</a>    <span class="comment">// A map of the output render tasks from any sub-graphs that haven't
+<a href=#452 id=452 data-nosnippet>452</a>    // been consumed by BackdropRender prims yet
+<a href=#453 id=453 data-nosnippet>453</a>    </span><span class="kw">pub </span>sub_graph_output_map: FastHashMap&lt;PictureIndex, RenderTaskId&gt;,
+<a href=#454 id=454 data-nosnippet>454</a>}
+<a href=#455 id=455 data-nosnippet>455</a>
+<a href=#456 id=456 data-nosnippet>456</a><span class="kw">impl </span>SurfaceBuilder {
+<a href=#457 id=457 data-nosnippet>457</a>    <span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+<a href=#458 id=458 data-nosnippet>458</a>        SurfaceBuilder {
+<a href=#459 id=459 data-nosnippet>459</a>            current_cmd_buffers: CommandBufferTargets::new(),
+<a href=#460 id=460 data-nosnippet>460</a>            builder_stack: Vec::new(),
+<a href=#461 id=461 data-nosnippet>461</a>            sub_graph_output_map: FastHashMap::default(),
+<a href=#462 id=462 data-nosnippet>462</a>        }
+<a href=#463 id=463 data-nosnippet>463</a>    }
+<a href=#464 id=464 data-nosnippet>464</a>
+<a href=#465 id=465 data-nosnippet>465</a>    <span class="doccomment">/// Register the current surface as the source of a resolve for the task sub-graph that
+<a href=#466 id=466 data-nosnippet>466</a>    /// is currently on the surface builder stack.
+<a href=#467 id=467 data-nosnippet>467</a>    </span><span class="kw">pub fn </span>register_resolve_source(
+<a href=#468 id=468 data-nosnippet>468</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#469 id=469 data-nosnippet>469</a>    ) {
+<a href=#470 id=470 data-nosnippet>470</a>        <span class="kw">let </span>surface_task_id = <span class="kw">match </span><span class="self">self</span>.builder_stack.last().unwrap().kind {
+<a href=#471 id=471 data-nosnippet>471</a>            CommandBufferBuilderKind::Tiled { .. } | CommandBufferBuilderKind::Invalid =&gt; {
+<a href=#472 id=472 data-nosnippet>472</a>                <span class="macro">panic!</span>(<span class="string">"bug: only supported for non-tiled surfaces"</span>);
+<a href=#473 id=473 data-nosnippet>473</a>            }
+<a href=#474 id=474 data-nosnippet>474</a>            CommandBufferBuilderKind::Simple { render_task_id, .. } =&gt; render_task_id,
+<a href=#475 id=475 data-nosnippet>475</a>        };
+<a href=#476 id=476 data-nosnippet>476</a>
+<a href=#477 id=477 data-nosnippet>477</a>        <span class="kw">for </span>builder <span class="kw">in </span><span class="self">self</span>.builder_stack.iter_mut().rev() {
+<a href=#478 id=478 data-nosnippet>478</a>            <span class="kw">if </span>builder.establishes_sub_graph {
+<a href=#479 id=479 data-nosnippet>479</a>                <span class="macro">assert_eq!</span>(builder.resolve_source, <span class="prelude-val">None</span>);
+<a href=#480 id=480 data-nosnippet>480</a>                builder.resolve_source = <span class="prelude-val">Some</span>(surface_task_id);
+<a href=#481 id=481 data-nosnippet>481</a>                <span class="kw">return</span>;
+<a href=#482 id=482 data-nosnippet>482</a>            }
+<a href=#483 id=483 data-nosnippet>483</a>        }
+<a href=#484 id=484 data-nosnippet>484</a>
+<a href=#485 id=485 data-nosnippet>485</a>        <span class="macro">unreachable!</span>(<span class="string">"bug: resolve source with no sub-graph"</span>);
+<a href=#486 id=486 data-nosnippet>486</a>    }
+<a href=#487 id=487 data-nosnippet>487</a>
+<a href=#488 id=488 data-nosnippet>488</a>    <span class="kw">pub fn </span>push_surface(
+<a href=#489 id=489 data-nosnippet>489</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#490 id=490 data-nosnippet>490</a>        surface_index: SurfaceIndex,
+<a href=#491 id=491 data-nosnippet>491</a>        is_sub_graph: bool,
+<a href=#492 id=492 data-nosnippet>492</a>        clipping_rect: PictureRect,
+<a href=#493 id=493 data-nosnippet>493</a>        descriptor: <span class="prelude-ty">Option</span>&lt;SurfaceDescriptor&gt;,
+<a href=#494 id=494 data-nosnippet>494</a>        surfaces: <span class="kw-2">&amp;mut </span>[SurfaceInfo],
+<a href=#495 id=495 data-nosnippet>495</a>        rg_builder: <span class="kw-2">&amp;</span>RenderTaskGraphBuilder,
+<a href=#496 id=496 data-nosnippet>496</a>    ) {
+<a href=#497 id=497 data-nosnippet>497</a>        <span class="comment">// Init the surface
+<a href=#498 id=498 data-nosnippet>498</a>        </span>surfaces[surface_index.<span class="number">0</span>].clipping_rect = clipping_rect;
+<a href=#499 id=499 data-nosnippet>499</a>
+<a href=#500 id=500 data-nosnippet>500</a>        <span class="kw">let </span>builder = <span class="kw">if let </span><span class="prelude-val">Some</span>(descriptor) = descriptor {
+<a href=#501 id=501 data-nosnippet>501</a>            <span class="kw">match </span>descriptor.kind {
+<a href=#502 id=502 data-nosnippet>502</a>                SurfaceDescriptorKind::Tiled { tiles } =&gt; {
+<a href=#503 id=503 data-nosnippet>503</a>                    CommandBufferBuilder::new_tiled(
+<a href=#504 id=504 data-nosnippet>504</a>                        tiles,
+<a href=#505 id=505 data-nosnippet>505</a>                    )
+<a href=#506 id=506 data-nosnippet>506</a>                }
+<a href=#507 id=507 data-nosnippet>507</a>                SurfaceDescriptorKind::Simple { render_task_id, dirty_rect, .. } =&gt; {
+<a href=#508 id=508 data-nosnippet>508</a>                    CommandBufferBuilder::new_simple(
+<a href=#509 id=509 data-nosnippet>509</a>                        render_task_id,
+<a href=#510 id=510 data-nosnippet>510</a>                        is_sub_graph,
+<a href=#511 id=511 data-nosnippet>511</a>                        <span class="prelude-val">None</span>,
+<a href=#512 id=512 data-nosnippet>512</a>                        dirty_rect,
+<a href=#513 id=513 data-nosnippet>513</a>                    )
+<a href=#514 id=514 data-nosnippet>514</a>                }
+<a href=#515 id=515 data-nosnippet>515</a>                SurfaceDescriptorKind::Chained { render_task_id, root_task_id, dirty_rect, .. } =&gt; {
+<a href=#516 id=516 data-nosnippet>516</a>                    CommandBufferBuilder::new_simple(
+<a href=#517 id=517 data-nosnippet>517</a>                        render_task_id,
+<a href=#518 id=518 data-nosnippet>518</a>                        is_sub_graph,
+<a href=#519 id=519 data-nosnippet>519</a>                        <span class="prelude-val">Some</span>(root_task_id),
+<a href=#520 id=520 data-nosnippet>520</a>                        dirty_rect,
+<a href=#521 id=521 data-nosnippet>521</a>                    )
+<a href=#522 id=522 data-nosnippet>522</a>                }
+<a href=#523 id=523 data-nosnippet>523</a>            }
+<a href=#524 id=524 data-nosnippet>524</a>        } <span class="kw">else </span>{
+<a href=#525 id=525 data-nosnippet>525</a>            CommandBufferBuilder::empty()
+<a href=#526 id=526 data-nosnippet>526</a>        };
+<a href=#527 id=527 data-nosnippet>527</a>
+<a href=#528 id=528 data-nosnippet>528</a>        <span class="self">self</span>.current_cmd_buffers.init(<span class="kw-2">&amp;</span>builder, rg_builder);
+<a href=#529 id=529 data-nosnippet>529</a>        <span class="self">self</span>.builder_stack.push(builder);
+<a href=#530 id=530 data-nosnippet>530</a>    }
+<a href=#531 id=531 data-nosnippet>531</a>
+<a href=#532 id=532 data-nosnippet>532</a>    <span class="comment">// Add a child render task (e.g. a render task cache item, or a clip mask) as a
+<a href=#533 id=533 data-nosnippet>533</a>    // dependency of the current surface
+<a href=#534 id=534 data-nosnippet>534</a>    </span><span class="kw">pub fn </span>add_child_render_task(
+<a href=#535 id=535 data-nosnippet>535</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#536 id=536 data-nosnippet>536</a>        child_task_id: RenderTaskId,
+<a href=#537 id=537 data-nosnippet>537</a>        rg_builder: <span class="kw-2">&amp;mut </span>RenderTaskGraphBuilder,
+<a href=#538 id=538 data-nosnippet>538</a>    ) {
+<a href=#539 id=539 data-nosnippet>539</a>        <span class="kw">let </span>builder = <span class="self">self</span>.builder_stack.last().unwrap();
+<a href=#540 id=540 data-nosnippet>540</a>
+<a href=#541 id=541 data-nosnippet>541</a>        <span class="kw">match </span>builder.kind {
+<a href=#542 id=542 data-nosnippet>542</a>            CommandBufferBuilderKind::Tiled { <span class="kw-2">ref </span>tiles } =&gt; {
+<a href=#543 id=543 data-nosnippet>543</a>                <span class="kw">for </span>(<span class="kw">_</span>, descriptor) <span class="kw">in </span>tiles {
+<a href=#544 id=544 data-nosnippet>544</a>                    rg_builder.add_dependency(
+<a href=#545 id=545 data-nosnippet>545</a>                        descriptor.current_task_id,
+<a href=#546 id=546 data-nosnippet>546</a>                        child_task_id,
+<a href=#547 id=547 data-nosnippet>547</a>                    );
+<a href=#548 id=548 data-nosnippet>548</a>                }
+<a href=#549 id=549 data-nosnippet>549</a>            }
+<a href=#550 id=550 data-nosnippet>550</a>            CommandBufferBuilderKind::Simple { render_task_id, .. } =&gt; {
+<a href=#551 id=551 data-nosnippet>551</a>                rg_builder.add_dependency(
+<a href=#552 id=552 data-nosnippet>552</a>                    render_task_id,
+<a href=#553 id=553 data-nosnippet>553</a>                    child_task_id,
+<a href=#554 id=554 data-nosnippet>554</a>                );
+<a href=#555 id=555 data-nosnippet>555</a>            }
+<a href=#556 id=556 data-nosnippet>556</a>            CommandBufferBuilderKind::Invalid { .. } =&gt; {}
+<a href=#557 id=557 data-nosnippet>557</a>        }
+<a href=#558 id=558 data-nosnippet>558</a>    }
+<a href=#559 id=559 data-nosnippet>559</a>
+<a href=#560 id=560 data-nosnippet>560</a>    <span class="comment">// Add a picture render task as a dependency of the parent surface. This is a
+<a href=#561 id=561 data-nosnippet>561</a>    // special case with extra complexity as the root of the surface may change
+<a href=#562 id=562 data-nosnippet>562</a>    // when inside a sub-graph. It's currently only needed for drop-shadow effects.
+<a href=#563 id=563 data-nosnippet>563</a>    </span><span class="kw">pub fn </span>add_picture_render_task(
+<a href=#564 id=564 data-nosnippet>564</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#565 id=565 data-nosnippet>565</a>        child_task_id: RenderTaskId,
+<a href=#566 id=566 data-nosnippet>566</a>    ) {
+<a href=#567 id=567 data-nosnippet>567</a>        <span class="self">self</span>.builder_stack
+<a href=#568 id=568 data-nosnippet>568</a>            .last_mut()
+<a href=#569 id=569 data-nosnippet>569</a>            .unwrap()
+<a href=#570 id=570 data-nosnippet>570</a>            .extra_dependencies
+<a href=#571 id=571 data-nosnippet>571</a>            .push(child_task_id);
+<a href=#572 id=572 data-nosnippet>572</a>    }
+<a href=#573 id=573 data-nosnippet>573</a>
+<a href=#574 id=574 data-nosnippet>574</a>    <span class="comment">// Get a list of command buffer indices that primitives should be pushed
+<a href=#575 id=575 data-nosnippet>575</a>    // to for a given current visbility / dirty state
+<a href=#576 id=576 data-nosnippet>576</a>    </span><span class="kw">pub fn </span>get_cmd_buffer_targets_for_prim(
+<a href=#577 id=577 data-nosnippet>577</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#578 id=578 data-nosnippet>578</a>        vis: <span class="kw-2">&amp;</span>PrimitiveDrawHeader,
+<a href=#579 id=579 data-nosnippet>579</a>        targets: <span class="kw-2">&amp;mut </span>Vec&lt;CommandBufferIndex&gt;,
+<a href=#580 id=580 data-nosnippet>580</a>    ) -&gt; bool {
+<a href=#581 id=581 data-nosnippet>581</a>        targets.clear();
+<a href=#582 id=582 data-nosnippet>582</a>
+<a href=#583 id=583 data-nosnippet>583</a>        <span class="kw">match </span>vis.state {
+<a href=#584 id=584 data-nosnippet>584</a>            DrawState::Unset =&gt; {
+<a href=#585 id=585 data-nosnippet>585</a>                <span class="macro">panic!</span>(<span class="string">"bug: invalid vis state"</span>);
+<a href=#586 id=586 data-nosnippet>586</a>            }
+<a href=#587 id=587 data-nosnippet>587</a>            DrawState::Culled =&gt; {
+<a href=#588 id=588 data-nosnippet>588</a>                <span class="bool-val">false
+<a href=#589 id=589 data-nosnippet>589</a>            </span>}
+<a href=#590 id=590 data-nosnippet>590</a>            DrawState::Visible { sub_slice_index, .. } =&gt; {
+<a href=#591 id=591 data-nosnippet>591</a>                <span class="self">self</span>.current_cmd_buffers.get_cmd_buffer_targets_for_rect(
+<a href=#592 id=592 data-nosnippet>592</a>                    <span class="kw-2">&amp;</span>vis.clip_chain.pic_coverage_rect,
+<a href=#593 id=593 data-nosnippet>593</a>                    sub_slice_index,
+<a href=#594 id=594 data-nosnippet>594</a>                    targets,
+<a href=#595 id=595 data-nosnippet>595</a>                )
+<a href=#596 id=596 data-nosnippet>596</a>            }
+<a href=#597 id=597 data-nosnippet>597</a>            DrawState::PassThrough =&gt; {
+<a href=#598 id=598 data-nosnippet>598</a>                <span class="bool-val">true
+<a href=#599 id=599 data-nosnippet>599</a>            </span>}
+<a href=#600 id=600 data-nosnippet>600</a>        }
+<a href=#601 id=601 data-nosnippet>601</a>    }
+<a href=#602 id=602 data-nosnippet>602</a>
+<a href=#603 id=603 data-nosnippet>603</a>    <span class="kw">pub fn </span>pop_empty_surface(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+<a href=#604 id=604 data-nosnippet>604</a>        <span class="kw">let </span>builder = <span class="self">self</span>.builder_stack.pop().unwrap();
+<a href=#605 id=605 data-nosnippet>605</a>        <span class="macro">assert!</span>(!builder.establishes_sub_graph);
+<a href=#606 id=606 data-nosnippet>606</a>    }
+<a href=#607 id=607 data-nosnippet>607</a>
+<a href=#608 id=608 data-nosnippet>608</a>    <span class="comment">// Finish adding primitives and child tasks to a surface and pop it off the stack
+<a href=#609 id=609 data-nosnippet>609</a>    </span><span class="kw">pub fn </span>pop_surface(
+<a href=#610 id=610 data-nosnippet>610</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+<a href=#611 id=611 data-nosnippet>611</a>        pic_index: PictureIndex,
+<a href=#612 id=612 data-nosnippet>612</a>        rg_builder: <span class="kw-2">&amp;mut </span>RenderTaskGraphBuilder,
+<a href=#613 id=613 data-nosnippet>613</a>        cmd_buffers: <span class="kw-2">&amp;mut </span>CommandBufferList,
+<a href=#614 id=614 data-nosnippet>614</a>    ) {
+<a href=#615 id=615 data-nosnippet>615</a>        <span class="kw">let </span>builder = <span class="self">self</span>.builder_stack.pop().unwrap();
+<a href=#616 id=616 data-nosnippet>616</a>
+<a href=#617 id=617 data-nosnippet>617</a>        <span class="kw">if </span>builder.establishes_sub_graph {
+<a href=#618 id=618 data-nosnippet>618</a>            <span class="comment">// If we are popping a sub-graph off the stack the dependency setup is rather more complex...
+<a href=#619 id=619 data-nosnippet>619</a>            </span><span class="kw">match </span>builder.kind {
+<a href=#620 id=620 data-nosnippet>620</a>                CommandBufferBuilderKind::Tiled { .. } | CommandBufferBuilderKind::Invalid =&gt; {
+<a href=#621 id=621 data-nosnippet>621</a>                    <span class="macro">unreachable!</span>(<span class="string">"bug: sub-graphs can only be simple surfaces"</span>);
+<a href=#622 id=622 data-nosnippet>622</a>                }
+<a href=#623 id=623 data-nosnippet>623</a>                CommandBufferBuilderKind::Simple { render_task_id: child_render_task_id, root_task_id: child_root_task_id, .. } =&gt; {
+<a href=#624 id=624 data-nosnippet>624</a>                    <span class="comment">// Get info about the resolve operation to copy from parent surface or tiles to the picture cache task
+<a href=#625 id=625 data-nosnippet>625</a>                    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(resolve_task_id) = builder.resolve_source {
+<a href=#626 id=626 data-nosnippet>626</a>                        <span class="kw">let </span><span class="kw-2">mut </span>src_task_ids = Vec::new();
+<a href=#627 id=627 data-nosnippet>627</a>
+<a href=#628 id=628 data-nosnippet>628</a>                        <span class="comment">// Make the output of the sub-graph a dependency of the new replacement tile task
+<a href=#629 id=629 data-nosnippet>629</a>                        </span><span class="kw">let </span>_old = <span class="self">self</span>.sub_graph_output_map.insert(
+<a href=#630 id=630 data-nosnippet>630</a>                            pic_index,
+<a href=#631 id=631 data-nosnippet>631</a>                            child_root_task_id.unwrap_or(child_render_task_id),
+<a href=#632 id=632 data-nosnippet>632</a>                        );
+<a href=#633 id=633 data-nosnippet>633</a>                        <span class="macro">debug_assert!</span>(_old.is_none());
+<a href=#634 id=634 data-nosnippet>634</a>
+<a href=#635 id=635 data-nosnippet>635</a>                        <span class="comment">// Set up dependencies for the sub-graph. The basic concepts below are the same, but for
+<a href=#636 id=636 data-nosnippet>636</a>                        // tiled surfaces are a little more complex as there are multiple tasks to set up.
+<a href=#637 id=637 data-nosnippet>637</a>                        //  (a) Set up new task(s) on parent surface that write to the same location
+<a href=#638 id=638 data-nosnippet>638</a>                        //  (b) Set up a resolve target to copy from parent surface tasks(s) to the resolve target
+<a href=#639 id=639 data-nosnippet>639</a>                        //  (c) Make the old parent surface tasks input dependencies of the resolve target
+<a href=#640 id=640 data-nosnippet>640</a>                        //  (d) Make the sub-graph output an input dependency of the new task(s).
+<a href=#641 id=641 data-nosnippet>641</a>
+<a href=#642 id=642 data-nosnippet>642</a>                        </span><span class="kw">match </span><span class="self">self</span>.builder_stack.last_mut().unwrap().kind {
+<a href=#643 id=643 data-nosnippet>643</a>                            CommandBufferBuilderKind::Tiled { <span class="kw-2">ref mut </span>tiles } =&gt; {
+<a href=#644 id=644 data-nosnippet>644</a>                                <span class="kw">let </span>keys: Vec&lt;TileKey&gt; = tiles.keys().cloned().collect();
+<a href=#645 id=645 data-nosnippet>645</a>
+<a href=#646 id=646 data-nosnippet>646</a>                                <span class="comment">// For each tile in parent surface
+<a href=#647 id=647 data-nosnippet>647</a>                                </span><span class="kw">for </span>key <span class="kw">in </span>keys {
+<a href=#648 id=648 data-nosnippet>648</a>                                    <span class="kw">let </span>descriptor = tiles.remove(<span class="kw-2">&amp;</span>key).unwrap();
+<a href=#649 id=649 data-nosnippet>649</a>                                    <span class="kw">let </span>parent_task_id = descriptor.current_task_id;
+<a href=#650 id=650 data-nosnippet>650</a>                                    <span class="kw">let </span>parent_task = rg_builder.get_task_mut(parent_task_id);
+<a href=#651 id=651 data-nosnippet>651</a>
+<a href=#652 id=652 data-nosnippet>652</a>                                    <span class="kw">match </span>parent_task.location {
+<a href=#653 id=653 data-nosnippet>653</a>                                        RenderTaskLocation::Unallocated { .. } | RenderTaskLocation::Existing { .. } =&gt; {
+<a href=#654 id=654 data-nosnippet>654</a>                                            <span class="comment">// Get info about the parent tile task location and params
+<a href=#655 id=655 data-nosnippet>655</a>                                            </span><span class="kw">let </span>location = RenderTaskLocation::Existing {
+<a href=#656 id=656 data-nosnippet>656</a>                                                parent_task_id,
+<a href=#657 id=657 data-nosnippet>657</a>                                                size: parent_task.location.size(),
+<a href=#658 id=658 data-nosnippet>658</a>                                            };
+<a href=#659 id=659 data-nosnippet>659</a>
+<a href=#660 id=660 data-nosnippet>660</a>                                            <span class="kw">let </span>pic_task = <span class="kw">match </span>parent_task.kind {
+<a href=#661 id=661 data-nosnippet>661</a>                                                RenderTaskKind::Picture(<span class="kw-2">ref mut </span>pic_task) =&gt; {
+<a href=#662 id=662 data-nosnippet>662</a>                                                    <span class="kw">let </span>cmd_buffer_index = cmd_buffers.create_cmd_buffer();
+<a href=#663 id=663 data-nosnippet>663</a>                                                    <span class="kw">let </span>new_pic_task = pic_task.duplicate(cmd_buffer_index);
+<a href=#664 id=664 data-nosnippet>664</a>
+<a href=#665 id=665 data-nosnippet>665</a>                                                    <span class="comment">// Add the resolve src to copy from tile -&gt; picture input task
+<a href=#666 id=666 data-nosnippet>666</a>                                                    </span>src_task_ids.push(parent_task_id);
+<a href=#667 id=667 data-nosnippet>667</a>
+<a href=#668 id=668 data-nosnippet>668</a>                                                    new_pic_task
+<a href=#669 id=669 data-nosnippet>669</a>                                                }
+<a href=#670 id=670 data-nosnippet>670</a>                                                <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">"bug: not a picture"</span>),
+<a href=#671 id=671 data-nosnippet>671</a>                                            };
+<a href=#672 id=672 data-nosnippet>672</a>
+<a href=#673 id=673 data-nosnippet>673</a>                                            <span class="comment">// Make the existing tile an input dependency of the resolve target
+<a href=#674 id=674 data-nosnippet>674</a>                                            </span>rg_builder.add_dependency(
+<a href=#675 id=675 data-nosnippet>675</a>                                                resolve_task_id,
+<a href=#676 id=676 data-nosnippet>676</a>                                                parent_task_id,
+<a href=#677 id=677 data-nosnippet>677</a>                                            );
+<a href=#678 id=678 data-nosnippet>678</a>
+<a href=#679 id=679 data-nosnippet>679</a>                                            <span class="comment">// Create the new task to replace the tile task
+<a href=#680 id=680 data-nosnippet>680</a>                                            </span><span class="kw">let </span>new_task_id = rg_builder.add().init(
+<a href=#681 id=681 data-nosnippet>681</a>                                                RenderTask::new(
+<a href=#682 id=682 data-nosnippet>682</a>                                                    location,          <span class="comment">// draw to same place
+<a href=#683 id=683 data-nosnippet>683</a>                                                    </span>RenderTaskKind::Picture(pic_task),
+<a href=#684 id=684 data-nosnippet>684</a>                                                ),
+<a href=#685 id=685 data-nosnippet>685</a>                                            );
+<a href=#686 id=686 data-nosnippet>686</a>
+<a href=#687 id=687 data-nosnippet>687</a>                                            <span class="comment">// Ensure that the parent task will get scheduled earlier during
+<a href=#688 id=688 data-nosnippet>688</a>                                            // pass assignment since we are reusing the existing surface,
+<a href=#689 id=689 data-nosnippet>689</a>                                            // even though it's not technically needed for rendering order.
+<a href=#690 id=690 data-nosnippet>690</a>                                            </span>rg_builder.add_dependency(
+<a href=#691 id=691 data-nosnippet>691</a>                                                new_task_id,
+<a href=#692 id=692 data-nosnippet>692</a>                                                parent_task_id,
+<a href=#693 id=693 data-nosnippet>693</a>                                            );
+<a href=#694 id=694 data-nosnippet>694</a>
+<a href=#695 id=695 data-nosnippet>695</a>                                            <span class="comment">// Update the surface builder with the now current target for future primitives
+<a href=#696 id=696 data-nosnippet>696</a>                                            </span>tiles.insert(
+<a href=#697 id=697 data-nosnippet>697</a>                                                key,
+<a href=#698 id=698 data-nosnippet>698</a>                                                SurfaceTileDescriptor {
+<a href=#699 id=699 data-nosnippet>699</a>                                                    current_task_id: new_task_id,
+<a href=#700 id=700 data-nosnippet>700</a>                                                    ..descriptor
+<a href=#701 id=701 data-nosnippet>701</a>                                                },
+<a href=#702 id=702 data-nosnippet>702</a>                                            );
+<a href=#703 id=703 data-nosnippet>703</a>                                        }
+<a href=#704 id=704 data-nosnippet>704</a>                                        RenderTaskLocation::Static { .. } =&gt; {
+<a href=#705 id=705 data-nosnippet>705</a>                                            <span class="comment">// Update the surface builder with the now current target for future primitives
+<a href=#706 id=706 data-nosnippet>706</a>                                            </span>tiles.insert(
+<a href=#707 id=707 data-nosnippet>707</a>                                                key,
+<a href=#708 id=708 data-nosnippet>708</a>                                                descriptor,
+<a href=#709 id=709 data-nosnippet>709</a>                                            );
+<a href=#710 id=710 data-nosnippet>710</a>                                        }
+<a href=#711 id=711 data-nosnippet>711</a>                                        <span class="kw">_ </span>=&gt; {
+<a href=#712 id=712 data-nosnippet>712</a>                                            <span class="macro">panic!</span>(<span class="string">"bug: unexpected task location"</span>);
+<a href=#713 id=713 data-nosnippet>713</a>                                        }
+<a href=#714 id=714 data-nosnippet>714</a>                                    }
+<a href=#715 id=715 data-nosnippet>715</a>                                }
+<a href=#716 id=716 data-nosnippet>716</a>                            }
+<a href=#717 id=717 data-nosnippet>717</a>                            CommandBufferBuilderKind::Simple { render_task_id: <span class="kw-2">ref mut </span>parent_task_id, root_task_id: <span class="kw-2">ref </span>parent_root_task_id, .. } =&gt; {
+<a href=#718 id=718 data-nosnippet>718</a>                                <span class="kw">let </span>parent_task = rg_builder.get_task_mut(<span class="kw-2">*</span>parent_task_id);
+<a href=#719 id=719 data-nosnippet>719</a>
+<a href=#720 id=720 data-nosnippet>720</a>                                <span class="comment">// Get info about the parent tile task location and params
+<a href=#721 id=721 data-nosnippet>721</a>                                </span><span class="kw">let </span>location = RenderTaskLocation::Existing {
+<a href=#722 id=722 data-nosnippet>722</a>                                    parent_task_id: <span class="kw-2">*</span>parent_task_id,
+<a href=#723 id=723 data-nosnippet>723</a>                                    size: parent_task.location.size(),
+<a href=#724 id=724 data-nosnippet>724</a>                                };
+<a href=#725 id=725 data-nosnippet>725</a>                                <span class="kw">let </span>pic_task = <span class="kw">match </span>parent_task.kind {
+<a href=#726 id=726 data-nosnippet>726</a>                                    RenderTaskKind::Picture(<span class="kw-2">ref mut </span>pic_task) =&gt; {
+<a href=#727 id=727 data-nosnippet>727</a>                                        <span class="kw">let </span>cmd_buffer_index = cmd_buffers.create_cmd_buffer();
+<a href=#728 id=728 data-nosnippet>728</a>
+<a href=#729 id=729 data-nosnippet>729</a>                                        <span class="kw">let </span>new_pic_task = pic_task.duplicate(cmd_buffer_index);
+<a href=#730 id=730 data-nosnippet>730</a>
+<a href=#731 id=731 data-nosnippet>731</a>                                        <span class="comment">// Add the resolve src to copy from tile -&gt; picture input task
+<a href=#732 id=732 data-nosnippet>732</a>                                        </span>src_task_ids.push(<span class="kw-2">*</span>parent_task_id);
+<a href=#733 id=733 data-nosnippet>733</a>
+<a href=#734 id=734 data-nosnippet>734</a>                                        new_pic_task
+<a href=#735 id=735 data-nosnippet>735</a>                                    }
+<a href=#736 id=736 data-nosnippet>736</a>                                    <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">"bug: not a picture"</span>),
+<a href=#737 id=737 data-nosnippet>737</a>                                };
+<a href=#738 id=738 data-nosnippet>738</a>
+<a href=#739 id=739 data-nosnippet>739</a>                                <span class="comment">// Make the existing surface an input dependency of the resolve target
+<a href=#740 id=740 data-nosnippet>740</a>                                </span>rg_builder.add_dependency(
+<a href=#741 id=741 data-nosnippet>741</a>                                    resolve_task_id,
+<a href=#742 id=742 data-nosnippet>742</a>                                    <span class="kw-2">*</span>parent_task_id,
+<a href=#743 id=743 data-nosnippet>743</a>                                );
+<a href=#744 id=744 data-nosnippet>744</a>
+<a href=#745 id=745 data-nosnippet>745</a>                                <span class="comment">// Create the new task to replace the parent surface task
+<a href=#746 id=746 data-nosnippet>746</a>                                </span><span class="kw">let </span>new_task_id = rg_builder.add().init(
+<a href=#747 id=747 data-nosnippet>747</a>                                    RenderTask::new(
+<a href=#748 id=748 data-nosnippet>748</a>                                        location,          <span class="comment">// draw to same place
+<a href=#749 id=749 data-nosnippet>749</a>                                        </span>RenderTaskKind::Picture(pic_task),
+<a href=#750 id=750 data-nosnippet>750</a>                                    ),
+<a href=#751 id=751 data-nosnippet>751</a>                                );
+<a href=#752 id=752 data-nosnippet>752</a>
+<a href=#753 id=753 data-nosnippet>753</a>                                <span class="comment">// Ensure that the parent task will get scheduled earlier during
+<a href=#754 id=754 data-nosnippet>754</a>                                // pass assignment since we are reusing the existing surface,
+<a href=#755 id=755 data-nosnippet>755</a>                                // even though it's not technically needed for rendering order.
+<a href=#756 id=756 data-nosnippet>756</a>                                </span>rg_builder.add_dependency(
+<a href=#757 id=757 data-nosnippet>757</a>                                    new_task_id,
+<a href=#758 id=758 data-nosnippet>758</a>                                    <span class="kw-2">*</span>parent_task_id,
+<a href=#759 id=759 data-nosnippet>759</a>                                );
+<a href=#760 id=760 data-nosnippet>760</a>
+<a href=#761 id=761 data-nosnippet>761</a>                                <span class="comment">// If the parent is a chained surface (e.g. a CSS blur or drop-shadow
+<a href=#762 id=762 data-nosnippet>762</a>                                // filter), its filter pass (root_task_id) reads from the same texture
+<a href=#763 id=763 data-nosnippet>763</a>                                // as parent_task_id. Ensure it executes after new_task_id has written
+<a href=#764 id=764 data-nosnippet>764</a>                                // post-backdrop-capture content (e.g. backdrop-filter children) to
+<a href=#765 id=765 data-nosnippet>765</a>                                // that texture, otherwise those primitives will be missing from the
+<a href=#766 id=766 data-nosnippet>766</a>                                // filter output.
+<a href=#767 id=767 data-nosnippet>767</a>                                </span><span class="kw">if let </span><span class="prelude-val">Some</span>(root_task_id) = <span class="kw-2">*</span>parent_root_task_id {
+<a href=#768 id=768 data-nosnippet>768</a>                                    rg_builder.add_dependency(
+<a href=#769 id=769 data-nosnippet>769</a>                                        root_task_id,
+<a href=#770 id=770 data-nosnippet>770</a>                                        new_task_id,
+<a href=#771 id=771 data-nosnippet>771</a>                                    );
+<a href=#772 id=772 data-nosnippet>772</a>                                }
+<a href=#773 id=773 data-nosnippet>773</a>
+<a href=#774 id=774 data-nosnippet>774</a>                                <span class="comment">// Update the surface builder with the now current target for future primitives
+<a href=#775 id=775 data-nosnippet>775</a>                                </span><span class="kw-2">*</span>parent_task_id = new_task_id;
+<a href=#776 id=776 data-nosnippet>776</a>                            }
+<a href=#777 id=777 data-nosnippet>777</a>                            CommandBufferBuilderKind::Invalid =&gt; {
+<a href=#778 id=778 data-nosnippet>778</a>                                <span class="macro">unreachable!</span>();
+<a href=#779 id=779 data-nosnippet>779</a>                            }
+<a href=#780 id=780 data-nosnippet>780</a>                        }
+<a href=#781 id=781 data-nosnippet>781</a>
+<a href=#782 id=782 data-nosnippet>782</a>                        <span class="kw">let </span>dest_task = rg_builder.get_task_mut(resolve_task_id);
+<a href=#783 id=783 data-nosnippet>783</a>
+<a href=#784 id=784 data-nosnippet>784</a>                        <span class="kw">match </span>dest_task.kind {
+<a href=#785 id=785 data-nosnippet>785</a>                            RenderTaskKind::Picture(<span class="kw-2">ref mut </span>dest_task_info) =&gt; {
+<a href=#786 id=786 data-nosnippet>786</a>                                <span class="macro">assert!</span>(dest_task_info.resolve_op.is_none());
+<a href=#787 id=787 data-nosnippet>787</a>                                dest_task_info.resolve_op = <span class="prelude-val">Some</span>(ResolveOp {
+<a href=#788 id=788 data-nosnippet>788</a>                                    src_task_ids,
+<a href=#789 id=789 data-nosnippet>789</a>                                    dest_task_id: resolve_task_id,
+<a href=#790 id=790 data-nosnippet>790</a>                                })
+<a href=#791 id=791 data-nosnippet>791</a>                            }
+<a href=#792 id=792 data-nosnippet>792</a>                            <span class="kw">_ </span>=&gt; {
+<a href=#793 id=793 data-nosnippet>793</a>                                <span class="macro">unreachable!</span>(<span class="string">"bug: not a picture"</span>);
+<a href=#794 id=794 data-nosnippet>794</a>                            }
+<a href=#795 id=795 data-nosnippet>795</a>                        }
+<a href=#796 id=796 data-nosnippet>796</a>                    }
+<a href=#797 id=797 data-nosnippet>797</a>
+<a href=#798 id=798 data-nosnippet>798</a>                    <span class="comment">// This can occur if there is an edge case where the resolve target is found
+<a href=#799 id=799 data-nosnippet>799</a>                    // not visible even though the filter chain was (for example, in the case of
+<a href=#800 id=800 data-nosnippet>800</a>                    // an extreme scale causing floating point inaccuracies). Adding a dependency
+<a href=#801 id=801 data-nosnippet>801</a>                    // here is also a safety in case for some reason the backdrop render primitive
+<a href=#802 id=802 data-nosnippet>802</a>                    // doesn't pick up the dependency, ensuring that it gets scheduled and freed
+<a href=#803 id=803 data-nosnippet>803</a>                    // as early as possible.
+<a href=#804 id=804 data-nosnippet>804</a>                    </span><span class="kw">match </span><span class="self">self</span>.builder_stack.last().unwrap().kind {
+<a href=#805 id=805 data-nosnippet>805</a>                        CommandBufferBuilderKind::Tiled { <span class="kw-2">ref </span>tiles } =&gt; {
+<a href=#806 id=806 data-nosnippet>806</a>                            <span class="comment">// For a tiled render task, add as a dependency to every tile.
+<a href=#807 id=807 data-nosnippet>807</a>                            </span><span class="kw">for </span>(<span class="kw">_</span>, descriptor) <span class="kw">in </span>tiles {
+<a href=#808 id=808 data-nosnippet>808</a>                                rg_builder.add_dependency(
+<a href=#809 id=809 data-nosnippet>809</a>                                    descriptor.current_task_id,
+<a href=#810 id=810 data-nosnippet>810</a>                                    child_root_task_id.unwrap_or(child_render_task_id),
+<a href=#811 id=811 data-nosnippet>811</a>                                );
+<a href=#812 id=812 data-nosnippet>812</a>                            }
+<a href=#813 id=813 data-nosnippet>813</a>                        }
+<a href=#814 id=814 data-nosnippet>814</a>                        CommandBufferBuilderKind::Simple { render_task_id: parent_task_id, .. } =&gt; {
+<a href=#815 id=815 data-nosnippet>815</a>                            rg_builder.add_dependency(
+<a href=#816 id=816 data-nosnippet>816</a>                                parent_task_id,
+<a href=#817 id=817 data-nosnippet>817</a>                                child_root_task_id.unwrap_or(child_render_task_id),
+<a href=#818 id=818 data-nosnippet>818</a>                            );
+<a href=#819 id=819 data-nosnippet>819</a>                        }
+<a href=#820 id=820 data-nosnippet>820</a>                        CommandBufferBuilderKind::Invalid =&gt; {
+<a href=#821 id=821 data-nosnippet>821</a>                            <span class="macro">unreachable!</span>();
+<a href=#822 id=822 data-nosnippet>822</a>                        }
+<a href=#823 id=823 data-nosnippet>823</a>                    }
+<a href=#824 id=824 data-nosnippet>824</a>                }
+<a href=#825 id=825 data-nosnippet>825</a>            }
+<a href=#826 id=826 data-nosnippet>826</a>        } <span class="kw">else </span>{
+<a href=#827 id=827 data-nosnippet>827</a>            <span class="kw">match </span>builder.kind {
+<a href=#828 id=828 data-nosnippet>828</a>                CommandBufferBuilderKind::Tiled { <span class="kw-2">ref </span>tiles } =&gt; {
+<a href=#829 id=829 data-nosnippet>829</a>                    <span class="kw">for </span>(<span class="kw">_</span>, descriptor) <span class="kw">in </span>tiles {
+<a href=#830 id=830 data-nosnippet>830</a>                        <span class="kw">if let </span><span class="prelude-val">Some</span>(composite_task_id) = descriptor.composite_task_id {
+<a href=#831 id=831 data-nosnippet>831</a>                            rg_builder.add_dependency(
+<a href=#832 id=832 data-nosnippet>832</a>                                composite_task_id,
+<a href=#833 id=833 data-nosnippet>833</a>                                descriptor.current_task_id,
+<a href=#834 id=834 data-nosnippet>834</a>                            );
+<a href=#835 id=835 data-nosnippet>835</a>
+<a href=#836 id=836 data-nosnippet>836</a>                            <span class="kw">let </span>composite_task = rg_builder.get_task_mut(composite_task_id);
+<a href=#837 id=837 data-nosnippet>837</a>                            <span class="kw">match </span>composite_task.kind {
+<a href=#838 id=838 data-nosnippet>838</a>                                RenderTaskKind::TileComposite(<span class="kw-2">ref mut </span>info) =&gt; {
+<a href=#839 id=839 data-nosnippet>839</a>                                    info.task_id = <span class="prelude-val">Some</span>(descriptor.current_task_id);
+<a href=#840 id=840 data-nosnippet>840</a>                                }
+<a href=#841 id=841 data-nosnippet>841</a>                                <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(<span class="string">"bug: not a tile composite"</span>),
+<a href=#842 id=842 data-nosnippet>842</a>                            }
+<a href=#843 id=843 data-nosnippet>843</a>                        }
+<a href=#844 id=844 data-nosnippet>844</a>                    }
+<a href=#845 id=845 data-nosnippet>845</a>                }
+<a href=#846 id=846 data-nosnippet>846</a>                CommandBufferBuilderKind::Simple { render_task_id: child_task_id, root_task_id: child_root_task_id, .. } =&gt; {
+<a href=#847 id=847 data-nosnippet>847</a>                    <span class="kw">match </span><span class="self">self</span>.builder_stack.last().unwrap().kind {
+<a href=#848 id=848 data-nosnippet>848</a>                        CommandBufferBuilderKind::Tiled { <span class="kw-2">ref </span>tiles } =&gt; {
+<a href=#849 id=849 data-nosnippet>849</a>                            <span class="comment">// For a tiled render task, add as a dependency to every tile.
+<a href=#850 id=850 data-nosnippet>850</a>                            </span><span class="kw">for </span>(<span class="kw">_</span>, descriptor) <span class="kw">in </span>tiles {
+<a href=#851 id=851 data-nosnippet>851</a>                                rg_builder.add_dependency(
+<a href=#852 id=852 data-nosnippet>852</a>                                    descriptor.current_task_id,
+<a href=#853 id=853 data-nosnippet>853</a>                                    child_root_task_id.unwrap_or(child_task_id),
+<a href=#854 id=854 data-nosnippet>854</a>                                );
+<a href=#855 id=855 data-nosnippet>855</a>                            }
+<a href=#856 id=856 data-nosnippet>856</a>                        }
+<a href=#857 id=857 data-nosnippet>857</a>                        CommandBufferBuilderKind::Simple { render_task_id: parent_task_id, .. } =&gt; {
+<a href=#858 id=858 data-nosnippet>858</a>                            rg_builder.add_dependency(
+<a href=#859 id=859 data-nosnippet>859</a>                                parent_task_id,
+<a href=#860 id=860 data-nosnippet>860</a>                                child_root_task_id.unwrap_or(child_task_id),
+<a href=#861 id=861 data-nosnippet>861</a>                            );
+<a href=#862 id=862 data-nosnippet>862</a>                        }
+<a href=#863 id=863 data-nosnippet>863</a>                        CommandBufferBuilderKind::Invalid =&gt; {
+<a href=#864 id=864 data-nosnippet>864</a>                        }
+<a href=#865 id=865 data-nosnippet>865</a>                    }
+<a href=#866 id=866 data-nosnippet>866</a>                }
+<a href=#867 id=867 data-nosnippet>867</a>                CommandBufferBuilderKind::Invalid =&gt; {
+<a href=#868 id=868 data-nosnippet>868</a>                }
+<a href=#869 id=869 data-nosnippet>869</a>            }
+<a href=#870 id=870 data-nosnippet>870</a>        }
+<a href=#871 id=871 data-nosnippet>871</a>
+<a href=#872 id=872 data-nosnippet>872</a>        <span class="comment">// Step through the dependencies for this builder and add them to the finalized
+<a href=#873 id=873 data-nosnippet>873</a>        // render task root(s) for this surface
+<a href=#874 id=874 data-nosnippet>874</a>        </span><span class="kw">match </span>builder.kind {
+<a href=#875 id=875 data-nosnippet>875</a>            CommandBufferBuilderKind::Tiled { <span class="kw-2">ref </span>tiles } =&gt; {
+<a href=#876 id=876 data-nosnippet>876</a>                <span class="kw">for </span>(<span class="kw">_</span>, descriptor) <span class="kw">in </span>tiles {
+<a href=#877 id=877 data-nosnippet>877</a>                    <span class="kw">for </span>task_id <span class="kw">in </span><span class="kw-2">&amp;</span>builder.extra_dependencies {
+<a href=#878 id=878 data-nosnippet>878</a>                        rg_builder.add_dependency(
+<a href=#879 id=879 data-nosnippet>879</a>                            descriptor.current_task_id,
+<a href=#880 id=880 data-nosnippet>880</a>                            <span class="kw-2">*</span>task_id,
+<a href=#881 id=881 data-nosnippet>881</a>                        );
+<a href=#882 id=882 data-nosnippet>882</a>                    }
+<a href=#883 id=883 data-nosnippet>883</a>                }
+<a href=#884 id=884 data-nosnippet>884</a>            }
+<a href=#885 id=885 data-nosnippet>885</a>            CommandBufferBuilderKind::Simple { render_task_id, .. } =&gt; {
+<a href=#886 id=886 data-nosnippet>886</a>                <span class="kw">for </span>task_id <span class="kw">in </span><span class="kw-2">&amp;</span>builder.extra_dependencies {
+<a href=#887 id=887 data-nosnippet>887</a>                    rg_builder.add_dependency(
+<a href=#888 id=888 data-nosnippet>888</a>                        render_task_id,
+<a href=#889 id=889 data-nosnippet>889</a>                        <span class="kw-2">*</span>task_id,
+<a href=#890 id=890 data-nosnippet>890</a>                    );
+<a href=#891 id=891 data-nosnippet>891</a>                }
+<a href=#892 id=892 data-nosnippet>892</a>            }
+<a href=#893 id=893 data-nosnippet>893</a>            CommandBufferBuilderKind::Invalid { .. } =&gt; {}
+<a href=#894 id=894 data-nosnippet>894</a>        }
+<a href=#895 id=895 data-nosnippet>895</a>
+<a href=#896 id=896 data-nosnippet>896</a>        <span class="comment">// Set up the cmd-buffer targets to write prims into the popped surface
+<a href=#897 id=897 data-nosnippet>897</a>        </span><span class="self">self</span>.current_cmd_buffers.init(
+<a href=#898 id=898 data-nosnippet>898</a>            <span class="self">self</span>.builder_stack.last().unwrap_or(<span class="kw-2">&amp;</span>CommandBufferBuilder::empty()), rg_builder
+<a href=#899 id=899 data-nosnippet>899</a>        );
+<a href=#900 id=900 data-nosnippet>900</a>    }
+<a href=#901 id=901 data-nosnippet>901</a>
+<a href=#902 id=902 data-nosnippet>902</a>    <span class="kw">pub fn </span>finalize(<span class="self">self</span>) {
+<a href=#903 id=903 data-nosnippet>903</a>        <span class="macro">assert!</span>(<span class="self">self</span>.builder_stack.is_empty());
+<a href=#904 id=904 data-nosnippet>904</a>    }
+<a href=#905 id=905 data-nosnippet>905</a>}
+<a href=#906 id=906 data-nosnippet>906</a>
+<a href=#907 id=907 data-nosnippet>907</a>
+<a href=#908 id=908 data-nosnippet>908</a><span class="kw">pub fn </span>calculate_screen_uv(
+<a href=#909 id=909 data-nosnippet>909</a>    p: DevicePoint,
+<a href=#910 id=910 data-nosnippet>910</a>    clipped: DeviceRect,
+<a href=#911 id=911 data-nosnippet>911</a>) -&gt; DeviceHomogeneousVector {
+<a href=#912 id=912 data-nosnippet>912</a>    <span class="comment">// TODO(gw): Switch to a simple mix, no bilerp / homogeneous vec needed anymore
+<a href=#913 id=913 data-nosnippet>913</a>    </span>DeviceHomogeneousVector::new(
+<a href=#914 id=914 data-nosnippet>914</a>        (p.x - clipped.min.x) / (clipped.max.x - clipped.min.x),
+<a href=#915 id=915 data-nosnippet>915</a>        (p.y - clipped.min.y) / (clipped.max.y - clipped.min.y),
+<a href=#916 id=916 data-nosnippet>916</a>        <span class="number">0.0</span>,
+<a href=#917 id=917 data-nosnippet>917</a>        <span class="number">1.0</span>,
+<a href=#918 id=918 data-nosnippet>918</a>    )
+<a href=#919 id=919 data-nosnippet>919</a>}
+</code></pre></div></section></main></body></html>

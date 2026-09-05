@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PoppedLayer","RecordedLayerKind"],"fn":["snapped_scene_size"],"struct":["CommandRecorder","LayerClip","LayerProps","Node","OpenLayer","RecordedLayer"],"trait":["Drawable"]};

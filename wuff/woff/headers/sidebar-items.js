@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WOFF1_SIG","WOFF2_SIG"],"enum":["WoffVersion"],"fn":["is_transformed"],"struct":["CollectionDirectory","CollectionDirectoryEntry","TableDirectory","TableDirectoryEntry","WOFF2FontInfo","Woff2","WoffHeader"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["encode_from_bytes","hash_from_bytes","hash_to_scalar"],"trait":["GroupDigest"]};

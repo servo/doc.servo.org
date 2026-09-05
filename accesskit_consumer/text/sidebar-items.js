@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RangePropertyValue"],"fn":["character_index_at_point","text_node_filter"],"macro":[["inherited_flags",1],["inherited_properties",1]],"struct":["InnerPosition","Position","Range","WeakRange"]};

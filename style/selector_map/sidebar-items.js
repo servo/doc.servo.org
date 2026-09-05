@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["RARE_PSEUDO_CLASS_STATES"],"enum":["Bucket"],"fn":["find_bucket","specific_bucket_for"],"struct":["MaybeCaseInsensitiveHashMap","PrecomputedHasher","SelectorMap"],"trait":["SelectorMapEntry"],"type":["DisjointBuckets","PrecomputedHashMap","PrecomputedHashSet","RelevantAttributes"]};

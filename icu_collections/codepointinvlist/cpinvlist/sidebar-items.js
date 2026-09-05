@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALL_VEC","BMP_INV_LIST_VEC","BMP_MAX","__IMPL_VarULE_FOR_CodePointInversionListULE_ULE_SIZE"],"struct":["CodePointInversionList","CodePointInversionListULE"]};

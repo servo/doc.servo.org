@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Inherits","PropertyRegistrationError"],"fn":["parse_property_block"],"struct":["PropertyRuleName"],"type":["InitialValue"]};

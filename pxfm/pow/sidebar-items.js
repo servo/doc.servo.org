@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_pow","f_powi","f_powi_hard","pow","pow_exp10_fallback","pow_exp2_fallback","pow_rational128"]};

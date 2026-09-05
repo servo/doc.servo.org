@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["generated_add_assign_definition_rgb",1],["generated_div_assign_definition_rgb",1],["generated_float_definition_rgb",1],["generated_integral_definition_rgb",1],["generated_mul_assign_definition_rgb",1]],"struct":["Rgb"],"trait":["FusedExp","FusedExp10","FusedExp2","FusedLog","FusedLog10","FusedLog2","FusedPow"]};

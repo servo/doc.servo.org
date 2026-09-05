@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["DefaultTeeReadRequest_Binding","DefaultTeeUnderlyingSource_Binding","GenericBindings","ReadableStreamDefaultReader_Binding"],"trait":["DefaultTeeReadRequestMethods","DefaultTeeUnderlyingSourceMethods","ReadableStreamDefaultReaderMethods"],"type":["ReadableStreamReadResult","ReadableStreamReader"]};

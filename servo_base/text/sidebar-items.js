@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["UnicodeBlock"],"fn":["increment_offsets_for_utf8_byte","is_bidi_control","is_cjk","len_utf16_for_utf8_byte","unicode_plane"],"macro":[["unicode_length_type",1]],"struct":["RangeAny","Utf16CodeUnits","Utf32CodeUnits","Utf32CodeUnitsOrNodeOffset","Utf8CodeUnits"],"trait":["UnicodeBlockMethod"]};

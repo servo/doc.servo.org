@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ErrorKind","Event","Reply","Request","RequestInfo"],"fn":["get_request_name","get_request_name_internal","parse_reply","parse_reply_fds","request_name","response_type","sequence_number"],"mod":["bigreq","ge","randr","render","shape","xc_misc","xfixes","xinput","xkb","xproto"]};

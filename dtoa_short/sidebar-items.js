@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["restrict_prec","write","write_with_prec"],"struct":["Notation"],"trait":["Floating"],"type":["DtoaResult"]};

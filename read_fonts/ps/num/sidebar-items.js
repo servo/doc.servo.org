@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BCD_INTEGER_LIMIT","BCD_NUMBER_LIMIT","BCD_OVERFLOW","BCD_POWER_TENS","BCD_UNDERFLOW"],"fn":["parse_fixed_dynamic","parse_int"],"struct":["BcdComponents"]};

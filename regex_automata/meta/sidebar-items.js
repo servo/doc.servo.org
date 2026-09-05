@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["error","limited","literal","prefix","regex","reverse_inner","reverse_suffix","stopat","strategy","wrappers"],"struct":["BuildError","Builder","Cache","CapturesMatches","Config","FindMatches","Regex","Split","SplitN"]};

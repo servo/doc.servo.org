@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["K"],"fn":["k_expo2"]};

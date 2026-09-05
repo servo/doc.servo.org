@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UNSIGNED_LONG_MAX"],"enum":["AttrValue","LengthOrPercentageOrAuto"],"fn":["do_parse_integer","parse_double","parse_integer","parse_legacy_color","parse_length","parse_nonzero_length","parse_unsigned_integer"],"struct":["AttrIdentifier"]};

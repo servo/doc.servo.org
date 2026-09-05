@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["canonicalize","is_safe_to_strip_unc","simplified"]};

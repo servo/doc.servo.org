@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":["Equivalence","GPUDeviceTrait","GPUExternalTextureTrait","WebGPUGlobalTrait","WebGPUPromiseTrait"]};

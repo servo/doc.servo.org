@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PresentationStyle"],"mod":["ClipboardItem_Binding","Clipboard_Binding","GenericBindings","PresentationStyleValues"],"trait":["ClipboardItemMethods","ClipboardMethods"],"type":["ClipboardItemData","ClipboardItemOptions","ClipboardItems"]};

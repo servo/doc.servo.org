@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["size_scale","size_scale_f64"],"struct":["IntSize","Size"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GLBaseFilter"],"trait":["GLBaseFilterExt"]};

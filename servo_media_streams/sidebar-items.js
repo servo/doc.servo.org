@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MediaStreamType"],"mod":["capture","device_monitor","registry"],"trait":["MediaOutput","MediaSocket","MediaStream"]};

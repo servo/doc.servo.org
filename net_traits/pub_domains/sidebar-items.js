@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_pub_domain","is_reg_domain","is_same_site","load_pub_domains","pub_suffix","public_suffix_list_size_of","reg_suffix","registered_domain_name"],"static":["PUB_DOMAINS"],"struct":["PubDomainRules"]};
