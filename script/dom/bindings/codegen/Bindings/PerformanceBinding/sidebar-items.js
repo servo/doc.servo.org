@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","Performance_Binding"],"trait":["PerformanceMethods"],"type":["DOMHighResTimeStamp","PerformanceEntryList","PerformanceMarkOptions","PerformanceMeasureOptions"]};

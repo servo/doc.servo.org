@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_CSSStyleDeclaration"],"enum":["CSSModificationAccess","CSSStyleOwner","PotentiallyParsedPropertyId"],"fn":["remove_property"],"macro":[["css_properties",1]],"static":["ENABLED_LONGHAND_PROPERTIES"],"struct":["CSSStyleDeclaration"]};

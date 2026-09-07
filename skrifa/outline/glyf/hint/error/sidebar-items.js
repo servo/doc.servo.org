@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HintErrorKind"],"struct":["HintError"]};

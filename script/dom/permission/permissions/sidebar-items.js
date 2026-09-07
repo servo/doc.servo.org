@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Permissions"],"enum":["Operation"],"fn":["descriptor_permission_state","prompt_user_from_embedder","request_permission_to_use"],"struct":["Permissions"],"trait":["PermissionAlgorithm"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_unscaled_style_metrics","scale_cjk_axis_metrics","scale_default_axis_metrics","scale_style_metrics"]};

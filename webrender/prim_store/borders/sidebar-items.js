@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ImageBorder","ImageBorderData","ImageBorderScratch","NormalBorderData","NormalBorderPrim","NormalBorderScratch"],"type":["ImageBorderDataHandle","ImageBorderKey","ImageBorderTemplate","NormalBorderDataHandle","NormalBorderKey","NormalBorderTemplate"]};

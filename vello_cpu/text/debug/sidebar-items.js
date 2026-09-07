@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["COLORS"],"fn":["fill_glyph_bounds"],"static":["COLOR_INDEX"]};

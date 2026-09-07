@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["KDE_LOCKSCREEN_OVERLAY_V1_INTERFACE","kde_lockscreen_overlay_v1_interface","kde_lockscreen_overlay_v1_requests","kde_lockscreen_overlay_v1_requests_allow_types","types_null"],"struct":["SyncWrapper"]};

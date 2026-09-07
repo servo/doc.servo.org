@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Body","FieldSet"],"fn":["ident_to_long","ident_to_short","split_ehelp_into","split_options_help"],"struct":["Branch","EnumBranch","ParsedEnumBranch","Top"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HB_BUFFER_SCRATCH_FLAG_AAT_HAS_DELETED","START_OF_TEXT"],"fn":["get_class"],"struct":["AatApplyContext"],"trait":["CollectGlyphs","TypedCollectGlyphs"],"type":["ClassCache"]};

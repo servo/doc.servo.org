@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["derive","derive_struct_fields"],"struct":["ValueInfoFieldAttrs","ValueInfoInputAttrs","ValueInfoVariantAttrs"]};

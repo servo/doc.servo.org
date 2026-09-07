@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_INLINE_CONTOURS","MAX_INLINE_POINTS"],"enum":["Direction","Orientation"],"fn":["is_corner_flat_aot","is_corner_flat_jit"],"struct":["Contour","Outline","Point"]};

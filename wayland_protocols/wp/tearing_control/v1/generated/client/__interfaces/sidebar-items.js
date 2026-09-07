@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["WP_TEARING_CONTROL_MANAGER_V1_INTERFACE","WP_TEARING_CONTROL_V1_INTERFACE","types_null","wp_tearing_control_manager_v1_interface","wp_tearing_control_manager_v1_requests","wp_tearing_control_manager_v1_requests_get_tearing_control_types","wp_tearing_control_v1_interface","wp_tearing_control_v1_requests"],"struct":["SyncWrapper"]};

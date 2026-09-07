@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllocationStrategy","AtlasError","AtlasSpaceDiagnostics"],"struct":["AllocId","Allocation","Atlas","AtlasAllocation","AtlasConfig","AtlasId","AtlasLayerDiagnostics","AtlasUsageStats","Dimensions","MultiAtlasManager","Percentage"]};

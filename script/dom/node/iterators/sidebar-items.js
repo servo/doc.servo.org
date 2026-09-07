@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PrePostIteration","ShadowIncluding"],"struct":["FollowingNodeIterator","PrecedingNodeIterator","SimpleNodeIterator","TreeIterator","UnrootedFollowingFlatTreeNodesTraversal","UnrootedFollowingNodeIterator","UnrootedPrecedingNodeIterator","UnrootedSimpleNodeIterator","UnrootedTreeIterator"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_window_sizes",1]],"trait":["WindowSize","WnafGroup","WnafSize"]};

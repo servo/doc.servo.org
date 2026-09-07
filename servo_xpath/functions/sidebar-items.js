@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["lang_matches","local_name","name","namespace_uri","normalize_space","substring","substring_after","substring_before","translate"]};

@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Applies the given `macro_rules!` macro to the decorated item."><title>apply in macro_rules_attribute - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="macro_rules_attribute" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc attr"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">apply</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../macro_rules_attribute/index.html">macro_<wbr>rules_<wbr>attribute</a><span class="version">0.2.2</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">apply</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#examples" title="Examples">Examples</a><ul><li><a href="#deriving-getters-for-a-non-generic-struct" title="Deriving getters for a (non-generic) `struct`">Deriving getters for a (non-generic) <code>struct</code></a></li></ul></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate macro_<wbr>rules_<wbr>attribute</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">macro_rules_attribute</a></div><h1>Attribute Macro <span class="attr">apply</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/macro_rules_attribute_proc_macro/mod.rs.html#15-19">Source</a> </span></div><pre class="rust item-decl"><code>#[apply]</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Applies the given <code>macro_rules!</code> macro to the decorated item.</p>
+<p>This, as with any <code>proc_macro_attribute</code>, <strong>consumes</strong> the item it
+decorates: it is the <code>macro_rules!</code> macro job to generate it (<em>it is thus
+able to modify it</em>!).</p>
+<p>For a version with “read-only” access to the item it decorates, see
+<a href="attr.macro_rules_derive.html" title="attr macro_rules_attribute::macro_rules_derive"><code>macro_rules_derive</code></a>.</p>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3><h4 id="deriving-getters-for-a-non-generic-struct"><a class="doc-anchor" href="#deriving-getters-for-a-non-generic-struct">§</a>Deriving getters for a (non-generic) <code>struct</code></h4>
+<p>Imagine having define the following handy <code>make_getters!</code> (<code>macro_rules!</code>)
+macro:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">macro_rules!</span> make_getters {(
+   $(<span class="attr">#[<span class="macro-nonterminal">$struct_meta</span>:meta]</span>)*
+   <span class="macro-nonterminal">$struct_vis</span>:vis
+   <span class="kw">struct </span><span class="macro-nonterminal">$StructName</span>:ident {
+       $(
+           $(<span class="attr">#[<span class="macro-nonterminal">$field_meta</span>:meta]</span>)*
+           <span class="macro-nonterminal">$field_vis</span>:vis <span class="comment">// this visibility will be applied to the getters instead
+           </span><span class="macro-nonterminal">$field_name</span>:ident : <span class="macro-nonterminal">$field_ty</span>:ty
+       ),* $(,)<span class="question-mark">?
+   </span>}
+) =&gt; (
+   <span class="comment">// First, generate the struct definition we have been given, but with
+   // private fields instead.
+   </span>$(<span class="attr">#[<span class="macro-nonterminal">$struct_meta</span>]</span>)*
+   <span class="macro-nonterminal">$struct_vis
+   </span><span class="kw">struct </span><span class="macro-nonterminal">$StructName </span>{
+       $(
+           $(<span class="attr">#[<span class="macro-nonterminal">$field_meta</span>]</span>)*
+           <span class="comment">// notice the lack of visibility =&gt; private fields
+           </span><span class="macro-nonterminal">$field_name</span>: <span class="macro-nonterminal">$field_ty</span>,
+       )*
+   }
+
+   <span class="comment">// Then, implement the getters:
+   </span><span class="kw">impl </span><span class="macro-nonterminal">$StructName </span>{
+       $(
+           <span class="attr">#[inline]
+           </span><span class="macro-nonterminal">$field_vis
+           </span><span class="kw">fn </span><span class="macro-nonterminal">$field_name </span>(<span class="self">self</span>: <span class="kw-2">&amp;</span><span class="lifetime">'_ </span><span class="self">Self</span>)
+             -&gt; <span class="kw-2">&amp;</span><span class="lifetime">'_ </span><span class="macro-nonterminal">$field_ty
+           </span>{
+               <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="macro-nonterminal">$field_name
+           </span>}
+       )*
+   }
+)}</code></pre></div>
+<p>Basically allowing you to write:</p>
+
+<div class="example-wrap compile_fail"><a href="#" class="tooltip" title="This example deliberately fails to compile">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>example::Person;
+<span class="kw">mod </span>example {
+   <span class="macro">make_getters!</span> {
+       <span class="doccomment">/// The macro handles meta attributes such as docstrings
+       </span><span class="kw">pub
+       struct </span>Person {
+           <span class="kw">pub
+           </span>name: String,
+
+           <span class="kw">pub
+           </span>age: u8,
+       }
+   }
+}
+
+<span class="kw">fn </span>is_new_born (person: <span class="kw-2">&amp;</span><span class="lifetime">'_ </span><span class="kw-2">mut </span>Person)
+ -&gt; bool
+{
+   <span class="comment">// Reading the value through the getter is fine…
+   </span><span class="kw">return </span><span class="kw-2">*</span>person.age() == <span class="number">0</span>;
+   <span class="comment">// But trying to mutate it by skipping the getter is not 💪
+   </span>person.age = <span class="number">0</span>;
+<span class="comment">// ^ error[E0616]: field `age` of struct `example::Person` is private
+</span>}</code></pre></div>
+<p>This is fine, <em>etc.</em>, but that rightward drift on <code>make_getters! {</code> syntax
+problematic:</p>
+<ul>
+<li>
+<p>Incurs in extra rightward drift and thus, noise.</p>
+</li>
+<li>
+<p>Worse, <strong>it leads to a non-escalable / composable pattern</strong>: if we had a
+second macro, say <code>make_setters!</code>, our syntax is unable to handle both
+macros being called on the same type definition.</p>
+</li>
+</ul>
+<p>Hence <code>::macro_rules_attribute</code>’s <code>#[<a href="attr.macro_rules_attribute.html" title="attr macro_rules_attribute::macro_rules_attribute">apply</a>]</code> (formerly called
+<code>#[macro_rules_attribute]</code> itself) helper:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[macro_use]
+</span><span class="kw">extern crate </span>macro_rules_attribute;
+
+<span class="kw">use </span>example::Person;
+<span class="kw">mod </span>example {
+   <span class="attr">#[apply(make_getters!)] </span><span class="comment">// or `#[apply(make_getters)]`: the final `!` is not mandatory
+   </span><span class="doccomment">/// The macro handles meta attributes such as docstrings
+   </span><span class="kw">pub
+   struct </span>Person {
+       <span class="kw">pub
+       </span>name: String,
+
+       <span class="kw">pub
+       </span>age: u8,
+   }
+
+}
+
+<span class="kw">fn </span>is_new_born (person: <span class="kw-2">&amp;</span><span class="lifetime">'_ </span>Person)
+ -&gt; bool
+{
+   <span class="comment">// Reading the value through the getter is fine…
+   </span><span class="kw-2">*</span>person.age() == <span class="number">0
+   </span><span class="comment">// But trying to mutate it by skipping the getter is not 💪
+   // person.age == 0
+   // ^ error[E0616]: field `age` of struct `example::Person` is private
+</span>}</code></pre></div></div></details></section></div></main></body></html>

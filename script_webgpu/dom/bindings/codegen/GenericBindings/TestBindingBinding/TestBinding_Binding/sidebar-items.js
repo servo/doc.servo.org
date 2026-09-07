@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap"],"mod":["TestBindingConstants"],"static":["Class"],"trait":["TestBindingMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_VARINT_LENGTH"],"fn":["read_varint_meta2","read_varint_meta3","try_read_varint_meta3_from_tstore","write_varint_meta2","write_varint_meta3"]};

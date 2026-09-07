@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ShadowRootMode","SlotAssignmentMode"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ShadowRootModeValues","ShadowRoot_Binding","SlotAssignmentModeValues"],"trait":["ShadowRootMethods"]};

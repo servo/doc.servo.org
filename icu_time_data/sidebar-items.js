@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_data_provider",1],["impl_timezone_identifiers_iana_core_v1",1],["impl_timezone_identifiers_iana_extended_v1",1],["impl_timezone_identifiers_windows_v1",1],["impl_timezone_periods_v1",1],["make_provider",1]]};

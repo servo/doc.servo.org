@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["not_implemented",1]],"mod":["higher_level","impossible","libc_internals","memory_allocation","quite_yet","yet"]};

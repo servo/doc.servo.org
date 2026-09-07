@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["db_filename","ensure_safe_sqlite_threading_mode","get_autocommit"],"struct":["InnerConnection"]};

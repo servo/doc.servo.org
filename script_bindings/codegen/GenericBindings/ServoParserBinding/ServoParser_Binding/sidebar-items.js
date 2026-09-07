@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["CreateInterfaceObjects","GetProtoObject","Wrap","_finalize","_trace","init_domjs_class","init_sAttributes_prefs","init_sAttributes_specs","init_statics"],"static":["CLASS_OPS","Class","PrototypeClass","sAttributes","sAttributes_specs"],"trait":["ServoParserMethods"]};

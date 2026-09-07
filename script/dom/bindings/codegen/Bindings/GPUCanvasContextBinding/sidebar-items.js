@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GPUCanvasContext_Binding","GenericBindings"],"trait":["GPUCanvasContextMethods"]};

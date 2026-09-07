@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["read_fonts",[]],["skrifa",[["impl&lt;P&gt; <a class=\"trait\" href=\"read_fonts/ps/cs/trait.CommandSink.html\" title=\"trait read_fonts::ps::cs::CommandSink\">CommandSink</a> for <a class=\"struct\" href=\"skrifa/outline/cff/struct.PenSink.html\" title=\"struct skrifa::outline::cff::PenSink\">PenSink</a>&lt;'_, P&gt;<div class=\"where\">where\n    P: <a class=\"trait\" href=\"skrifa/outline/trait.OutlinePen.html\" title=\"trait skrifa::outline::OutlinePen\">OutlinePen</a>,</div>",0],["impl&lt;S: <a class=\"trait\" href=\"read_fonts/ps/cs/trait.CommandSink.html\" title=\"trait read_fonts::ps::cs::CommandSink\">CommandSink</a>&gt; <a class=\"trait\" href=\"read_fonts/ps/cs/trait.CommandSink.html\" title=\"trait read_fonts::ps::cs::CommandSink\">CommandSink</a> for <a class=\"struct\" href=\"skrifa/outline/cff/hint/struct.HintingSink.html\" title=\"struct skrifa::outline::cff::hint::HintingSink\">HintingSink</a>&lt;'_, S&gt;",0],["impl&lt;S: <a class=\"trait\" href=\"read_fonts/ps/cs/trait.CommandSink.html\" title=\"trait read_fonts::ps::cs::CommandSink\">CommandSink</a>&gt; <a class=\"trait\" href=\"read_fonts/ps/cs/trait.CommandSink.html\" title=\"trait read_fonts::ps::cs::CommandSink\">CommandSink</a> for <a class=\"struct\" href=\"skrifa/outline/cff/struct.HintedTransformingSink.html\" title=\"struct skrifa::outline::cff::HintedTransformingSink\">HintedTransformingSink</a>&lt;'_, S&gt;",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[17,1400]}

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericCircle","GenericCrossFadeImage","GenericEllipse","GenericEndingShape","GenericGradient","GenericGradientItem","GenericImage","GradientCompatMode","ShapeExtent"],"struct":["ColorStop","GenericCrossFade","GenericCrossFadeElement","GenericImageSet","GenericImageSetItem","GradientFlags","PaintWorklet"],"trait":["LineDirection"]};

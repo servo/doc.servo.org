@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["gid",1],["uid",1],["xid",1]],"mod":["disk","impl_get_set"],"struct":["DiskUsage"]};

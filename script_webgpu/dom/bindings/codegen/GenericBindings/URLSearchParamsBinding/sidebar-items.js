@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["URLSearchParamsDefineDOMInterface","URLSearchParamsGetProtoObject","URLSearchParamsIteratorGetProtoObject","URLSearchParamsIteratorWrap","URLSearchParamsWrap"],"mod":["URLSearchParamsIterator_Binding","URLSearchParams_Binding"],"trait":["URLSearchParamsIteratorMethods","URLSearchParamsMethods"]};

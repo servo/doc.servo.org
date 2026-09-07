@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCALE_BITS"],"fn":["clamp_avx","idct_avx2","idct_avx2_4x4","shuffle"],"macro":[["permute_store",1]]};

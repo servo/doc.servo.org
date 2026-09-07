@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BUCKET_A1","BUCKET_A2","BUCKET_DEFAULT","BUCKET_FALLBACK","BUCKET_I1","BUCKET_LLVMPIPE","BUCKET_M1","BUCKET_N1","BUCKET_NO_F16","BUCKET_WARP","EXEMPT_FEATURES","UPLEVEL"],"fn":["apply_limit_buckets","buckets","check_limits"],"struct":["Bucket","BucketedAdapterInfo","FailedLimit"]};

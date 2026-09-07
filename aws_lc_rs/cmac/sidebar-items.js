@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["AES_128","AES_192","AES_256","DES_EDE3_FOR_LEGACY_USE_ONLY","MAX_CMAC_TAG_LEN","TDES_FOR_LEGACY_USE_ONLY"],"enum":["AlgorithmId"],"fn":["internal_sign","sign","sign_to_buffer","verify"],"struct":["Algorithm","Context","Key","Tag"]};

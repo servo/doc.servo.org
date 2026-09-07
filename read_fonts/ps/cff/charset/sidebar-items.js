@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EXPERT_CHARSET","EXPERT_SUBSET_CHARSET"],"enum":["CharsetKind","CustomCharset","IterKind"],"fn":["glyph_id_from_ranges","next_range","string_id_from_ranges"],"struct":["Charset","Format0","Format1","Format2","Iter","Range1","Range2","RangeIter"],"trait":["CharsetRange"]};

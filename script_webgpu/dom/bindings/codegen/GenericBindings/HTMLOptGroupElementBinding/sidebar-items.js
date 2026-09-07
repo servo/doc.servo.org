@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap"],"mod":["HTMLOptGroupElement_Binding"],"trait":["HTMLOptGroupElementMethods"]};

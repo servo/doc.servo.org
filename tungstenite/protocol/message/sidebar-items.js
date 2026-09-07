@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IncompleteMessageCollector","Message","MessageType"],"mod":["string_collect"],"struct":["IncompleteMessage"]};

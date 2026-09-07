@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["next_array","slice_assume_init_mut"],"struct":["ArrayBuilder"]};

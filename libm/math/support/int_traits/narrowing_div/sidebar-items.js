@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["div_three_digits_by_two"],"macro":[["impl_narrowing_div_primitive",1],["impl_narrowing_div_recurse",1]],"trait":["NarrowingDiv"]};

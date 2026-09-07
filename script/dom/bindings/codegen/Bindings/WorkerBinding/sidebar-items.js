@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WorkerType"],"fn":["Wrap"],"mod":["GenericBindings","WorkerTypeValues","Worker_Binding"],"trait":["WorkerMethods"],"type":["WorkerOptions"]};

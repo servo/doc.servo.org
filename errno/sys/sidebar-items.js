@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STRERROR_NAME"],"fn":["errno","errno_location","from_utf8_lossy","set_errno","with_description"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AttributeItem","ErrorTypeAttributeNamedArgument"],"mod":["kw"],"struct":["Attributes","CrateAttribute","ErrorTypeAttribute","ErrorTypeConstructorAttribute","ErrorTypeNameAttribute"]};

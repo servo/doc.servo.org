@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply_alignment_fallback","compute_alignment_offset","resolve_self_alignment_safety"]};

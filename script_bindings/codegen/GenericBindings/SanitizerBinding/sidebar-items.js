@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SanitizerPresets"],"mod":["SanitizerPresetsValues","Sanitizer_Binding"],"struct":["SanitizerAttributeNamespace","SanitizerConfig","SanitizerElementNamespace","SanitizerElementNamespaceWithAttributes","SanitizerProcessingInstruction","SetHTMLOptions","SetHTMLUnsafeOptions"]};

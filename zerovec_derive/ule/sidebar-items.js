@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["derive_impl","generate_ule_validators","make_ule_fields"]};

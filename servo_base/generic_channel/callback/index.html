@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Generic Callbacks"><title>servo_base::generic_channel::callback - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="servo_base" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module callback</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../servo_base/index.html">servo_<wbr>base</a><span class="version">0.6.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module callback</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#generic-callbacks" title="Generic Callbacks">Generic Callbacks</a><ul><li><a href="#callback-scenario-visualization" title="Callback scenario visualization">Callback scenario visualization</a></li><li><a href="#optimizing-single-process-mode" title="Optimizing single-process mode.">Optimizing single-process mode.</a></li></ul></li></ul><h3><a href="#structs">Module Items</a></h3><ul class="block"><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="../index.html">In servo_<wbr>base::<wbr>generic_<wbr>channel</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../index.html">servo_base</a>::<wbr><a href="../index.html">generic_channel</a></div><h1>Module <span>callback</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../src/servo_base/generic_channel/callback.rs.html#5-380">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="generic-callbacks"><a class="doc-anchor" href="#generic-callbacks">§</a>Generic Callbacks</h2>
+<p>When sending cross-process messages, we sometimes want to run custom callbacks when the
+recipient has finished processing. The callback should run in the sender’s address space, and
+could be something like enqueuing a task.
+In Multi-process mode we can implement this by providing an <code>IpcSender</code> to the recipient,
+which the recipient can use to send some data back to the senders process.
+To avoid blocking the sender, we can pass the callback to the ROUTER, which runs the callback
+when receiving the Ipc message.
+The callback will be run on every reply message from the recipient. <code>IpcSender</code>s are also
+<code>Clone</code>able, so the Router will sequentialise callbacks.</p>
+<h3 id="callback-scenario-visualization"><a class="doc-anchor" href="#callback-scenario-visualization">§</a>Callback scenario visualization</h3>
+<p>The following visualization showcases how Ipc and the router thread are currently used
+to run callbacks asynchronously on the sender process. The recipient may keep the
+ReplySender alive and send an arbitrary amount of messages / replies.</p>
+<div class="example-wrap"><pre class="language-none"><code>              Process A                      |              Process B
+                                             |
++---------+   IPC: SendMessage(ReplySender)  |          +-------------+  clone  +-------------+
+| Sender  |-------------------------------------------&gt; |  Recipient  | ------&gt; | ReplySender |
++---------+                                  |          +-------------+         +-------------+
+  |                                          |                 |                       |
+  | RegisterCallback A  +---------+          |  Send Reply 1   |        Send Reply 2   |
+  + ------------------&gt; | Router  | &lt;--------------------------+-----------------------+
+                        +---------+          |
+                            | A(reply1)      |
+                            | A(reply2)      |
+                            |     ...        |
+                            v                |
+                                             |</code></pre></div><h3 id="optimizing-single-process-mode"><a class="doc-anchor" href="#optimizing-single-process-mode">§</a>Optimizing single-process mode.</h3>
+<p>In Single-process mode, there is no need for the Recipient to send an IpcReply,
+since they are in the same address space and could just execute the callback directly.
+Since we want to create an abstraction over such callbacks, we need to consider constraints
+that the existing multiprocess Ipc solution imposes on us:</p>
+<ul>
+<li>Support for <code>FnMut</code> callbacks (internal mutable state + multiple calls)</li>
+<li>The abstraction should be <code>Clone</code>able</li>
+</ul>
+<p>These constraints motivate the <a href="../struct.GenericCallback.html" title="struct servo_base::generic_channel::GenericCallback">GenericCallback</a> type, which supports <code>FnMut</code> callbacks
+and is clonable. This requires wrapping the callback with <code>Arc&lt;Mutex&lt;&gt;&gt;</code>, which also adds
+synchronization, which could be something that existing callbacks rely on.</p>
+<h4 id="future-work"><a class="doc-anchor" href="#future-work">§</a>Future work</h4>
+<ul>
+<li>Further abstractions for callbacks with fewer constraints, e.g. callbacks
+which don’t need to be cloned by the recipient, or non-mutable callbacks.</li>
+<li>A tracing option to measure callback runtime and identify callbacks which misbehave (block)
+for a long time.</li>
+</ul>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.GenericCallback.html" title="struct servo_base::generic_channel::callback::GenericCallback">Generic<wbr>Callback</a></dt><dd>A mechanism to run a callback in the process this callback was constructed in.</dd><dt><a class="struct" href="struct.GenericCallbackVisitor.html" title="struct servo_base::generic_channel::callback::GenericCallbackVisitor">Generic<wbr>Callback<wbr>Visitor</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.GenericCallbackVariants.html" title="enum servo_base::generic_channel::callback::GenericCallbackVariants">Generic<wbr>Callback<wbr>Variants</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.MsgCallback.html" title="type servo_base::generic_channel::callback::MsgCallback">MsgCallback</a></dt><dd>The callback type of our messages.</dd></dl></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bron_kerbosch_pivot","maximal_cliques"]};

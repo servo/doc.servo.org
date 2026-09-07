@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cautious"],"struct":["Drain","InPlaceSeed","IntoIter","Splice","Vec"]};

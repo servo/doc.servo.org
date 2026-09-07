@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["three_cells_borrow_mut","two_cells_borrow_mut"],"struct":["JSCell","JSRefCell","Ref","RefMut"]};

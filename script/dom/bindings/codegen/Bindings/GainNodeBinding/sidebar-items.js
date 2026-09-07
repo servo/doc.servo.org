@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GainNode_Binding","GenericBindings"],"trait":["GainNodeMethods"],"type":["GainOptions"]};

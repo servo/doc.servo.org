@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["MediaStreamTrackAudioSourceNode_Binding"],"struct":["MediaStreamTrackAudioSourceOptions"]};

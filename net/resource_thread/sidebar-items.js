@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create_http_states","load_root_cert_store_from_file","new_core_resource_thread","new_resource_threads"],"struct":["AuthCache","AuthCacheEntry","CoreResourceManager","ResourceChannelManager"]};

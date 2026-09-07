@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["beta","betaf","betainc","betaincf","digamma","digamma_coeffs","digammaf","gamma_p","gamma_pf","gamma_q","gamma_qf","lgamma","lgamma_r","lgamma_rf","lgammaf","lnbeta","lnbetaf","tgamma","tgammaf","trigamma","trigammaf"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["dump_unmeasured","heap_reports","is_tracking_unmeasured","usable_size"],"mod":["libc_compat","platform"],"static":["ALLOC","enclosing_size"],"struct":["Allocator","HeapReport"],"type":["EnclosingSizeFn"]};

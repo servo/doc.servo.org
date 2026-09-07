@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["choose_idct_1x1_func","choose_idct_4x4_func","choose_idct_func"],"mod":["avx2","scalar"]};

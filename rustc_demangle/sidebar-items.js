@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SIZE"],"enum":["DemangleStyle"],"fn":["demangle","is_ascii_alphanumeric","is_ascii_punctuation","is_symbol_like","try_demangle"],"mod":["legacy","v0"],"struct":["Demangle","SizeLimitExhausted","SizeLimitedFmtAdapter","TryDemangleError"]};

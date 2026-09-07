@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Resize"],"struct":["Zoom"],"type":["BaselineShift","ContainIntrinsicSize","LineClamp","OverflowClipMargin","Perspective"]};

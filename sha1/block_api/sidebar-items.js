@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compress"],"struct":["Sha1Core"]};

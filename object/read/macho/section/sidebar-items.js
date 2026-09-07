@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MachOSection","MachOSectionInternal","MachOSectionIterator"],"trait":["Section"],"type":["MachOSection32","MachOSection64","MachOSectionIterator32","MachOSectionIterator64"]};

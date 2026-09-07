@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ParamSpecArray","ParamSpecArrayBuilder","ParamSpecFraction","ParamSpecFractionBuilder"],"trait":["GstParamSpecBuilderExt"]};

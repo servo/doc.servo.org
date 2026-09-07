@@ -1,0 +1,1042 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `components/script/dom/servoparser/async_html.rs`."><title>async_html.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="script" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">script/dom/servoparser/</div>async_html.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-4"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="attr">#![cfg_attr(crown, expect(crown::unrooted_must_root))]
+<a href=#6 id=6 data-nosnippet>6</a>
+<a href=#7 id=7 data-nosnippet>7</a></span><span class="kw">use </span>std::borrow::Cow;
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>std::cell::{Cell, Ref, RefCell, RefMut};
+<a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span>std::collections::vec_deque::VecDeque;
+<a href=#10 id=10 data-nosnippet>10</a><span class="kw">use </span>std::rc::Rc;
+<a href=#11 id=11 data-nosnippet>11</a><span class="kw">use </span>std::thread;
+<a href=#12 id=12 data-nosnippet>12</a>
+<a href=#13 id=13 data-nosnippet>13</a><span class="kw">use </span>crossbeam_channel::{Receiver, Sender, unbounded};
+<a href=#14 id=14 data-nosnippet>14</a><span class="kw">use </span>html5ever::buffer_queue::BufferQueue;
+<a href=#15 id=15 data-nosnippet>15</a><span class="kw">use </span>html5ever::tendril::fmt::UTF8;
+<a href=#16 id=16 data-nosnippet>16</a><span class="kw">use </span>html5ever::tendril::{SendTendril, StrTendril, Tendril};
+<a href=#17 id=17 data-nosnippet>17</a><span class="kw">use </span>html5ever::tokenizer::{Tokenizer <span class="kw">as </span>HtmlTokenizer, TokenizerOpts};
+<a href=#18 id=18 data-nosnippet>18</a><span class="kw">use </span>html5ever::tree_builder::{
+<a href=#19 id=19 data-nosnippet>19</a>    ElementFlags, NodeOrText <span class="kw">as </span>HtmlNodeOrText, QuirksMode, TreeBuilder, TreeBuilderOpts, TreeSink,
+<a href=#20 id=20 data-nosnippet>20</a>};
+<a href=#21 id=21 data-nosnippet>21</a><span class="kw">use </span>html5ever::{Attribute <span class="kw">as </span>HtmlAttribute, ExpandedName, QualName, local_name, ns};
+<a href=#22 id=22 data-nosnippet>22</a><span class="kw">use </span>markup5ever::TokenizerResult;
+<a href=#23 id=23 data-nosnippet>23</a><span class="kw">use </span>rustc_hash::FxHashMap;
+<a href=#24 id=24 data-nosnippet>24</a><span class="kw">use </span>servo_url::ServoUrl;
+<a href=#25 id=25 data-nosnippet>25</a><span class="kw">use </span>style::context::QuirksMode <span class="kw">as </span>ServoQuirksMode;
+<a href=#26 id=26 data-nosnippet>26</a>
+<a href=#27 id=27 data-nosnippet>27</a><span class="kw">use </span><span class="kw">crate</span>::dom::bindings::codegen::Bindings::HTMLTemplateElementBinding::HTMLTemplateElementMethods;
+<a href=#28 id=28 data-nosnippet>28</a><span class="kw">use </span><span class="kw">crate</span>::dom::bindings::codegen::Bindings::NodeBinding::NodeMethods;
+<a href=#29 id=29 data-nosnippet>29</a><span class="kw">use </span><span class="kw">crate</span>::dom::bindings::inheritance::Castable;
+<a href=#30 id=30 data-nosnippet>30</a><span class="kw">use </span><span class="kw">crate</span>::dom::bindings::root::{Dom, DomRoot};
+<a href=#31 id=31 data-nosnippet>31</a><span class="kw">use </span><span class="kw">crate</span>::dom::bindings::str::DOMString;
+<a href=#32 id=32 data-nosnippet>32</a><span class="kw">use </span><span class="kw">crate</span>::dom::comment::Comment;
+<a href=#33 id=33 data-nosnippet>33</a><span class="kw">use </span><span class="kw">crate</span>::dom::customelementregistry::CustomElementReactionStack;
+<a href=#34 id=34 data-nosnippet>34</a><span class="kw">use </span><span class="kw">crate</span>::dom::document::Document;
+<a href=#35 id=35 data-nosnippet>35</a><span class="kw">use </span><span class="kw">crate</span>::dom::documenttype::DocumentType;
+<a href=#36 id=36 data-nosnippet>36</a><span class="kw">use </span><span class="kw">crate</span>::dom::element::{Element, ElementCreator};
+<a href=#37 id=37 data-nosnippet>37</a><span class="kw">use </span><span class="kw">crate</span>::dom::html::htmlformelement::{FormControlElementHelpers, HTMLFormElement};
+<a href=#38 id=38 data-nosnippet>38</a><span class="kw">use </span><span class="kw">crate</span>::dom::html::htmlscriptelement::HTMLScriptElement;
+<a href=#39 id=39 data-nosnippet>39</a><span class="kw">use </span><span class="kw">crate</span>::dom::html::htmltemplateelement::HTMLTemplateElement;
+<a href=#40 id=40 data-nosnippet>40</a><span class="kw">use </span><span class="kw">crate</span>::dom::node::Node;
+<a href=#41 id=41 data-nosnippet>41</a><span class="kw">use </span><span class="kw">crate</span>::dom::node::virtualmethods::vtable_for;
+<a href=#42 id=42 data-nosnippet>42</a><span class="kw">use </span><span class="kw">crate</span>::dom::processinginstruction::ProcessingInstruction;
+<a href=#43 id=43 data-nosnippet>43</a><span class="kw">use </span><span class="kw">crate</span>::dom::servoparser::{
+<a href=#44 id=44 data-nosnippet>44</a>    ElementAttribute, ParsingAlgorithm, attach_declarative_shadow_inner, create_element_for_token,
+<a href=#45 id=45 data-nosnippet>45</a>};
+<a href=#46 id=46 data-nosnippet>46</a>
+<a href=#47 id=47 data-nosnippet>47</a><span class="kw">type </span>ParseNodeId = usize;
+<a href=#48 id=48 data-nosnippet>48</a>
+<a href=#49 id=49 data-nosnippet>49</a><span class="attr">#[derive(Clone, Debug, JSTraceable, MallocSizeOf)]
+<a href=#50 id=50 data-nosnippet>50</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>ParseNode {
+<a href=#51 id=51 data-nosnippet>51</a>    id: ParseNodeId,
+<a href=#52 id=52 data-nosnippet>52</a>    <span class="attr">#[no_trace]
+<a href=#53 id=53 data-nosnippet>53</a>    </span>qual_name: <span class="prelude-ty">Option</span>&lt;QualName&gt;,
+<a href=#54 id=54 data-nosnippet>54</a>}
+<a href=#55 id=55 data-nosnippet>55</a>
+<a href=#56 id=56 data-nosnippet>56</a><span class="attr">#[derive(Debug, JSTraceable, MallocSizeOf)]
+<a href=#57 id=57 data-nosnippet>57</a></span><span class="kw">enum </span>NodeOrText {
+<a href=#58 id=58 data-nosnippet>58</a>    Node(ParseNode),
+<a href=#59 id=59 data-nosnippet>59</a>    Text(String),
+<a href=#60 id=60 data-nosnippet>60</a>}
+<a href=#61 id=61 data-nosnippet>61</a>
+<a href=#62 id=62 data-nosnippet>62</a><span class="attr">#[derive(Debug, JSTraceable, MallocSizeOf)]
+<a href=#63 id=63 data-nosnippet>63</a></span><span class="kw">struct </span>Attribute {
+<a href=#64 id=64 data-nosnippet>64</a>    <span class="attr">#[no_trace]
+<a href=#65 id=65 data-nosnippet>65</a>    </span>name: QualName,
+<a href=#66 id=66 data-nosnippet>66</a>    value: String,
+<a href=#67 id=67 data-nosnippet>67</a>}
+<a href=#68 id=68 data-nosnippet>68</a>
+<a href=#69 id=69 data-nosnippet>69</a><span class="attr">#[derive(Debug, JSTraceable, MallocSizeOf)]
+<a href=#70 id=70 data-nosnippet>70</a></span><span class="kw">enum </span>ParseOperation {
+<a href=#71 id=71 data-nosnippet>71</a>    GetTemplateContents {
+<a href=#72 id=72 data-nosnippet>72</a>        target: ParseNodeId,
+<a href=#73 id=73 data-nosnippet>73</a>        contents: ParseNodeId,
+<a href=#74 id=74 data-nosnippet>74</a>    },
+<a href=#75 id=75 data-nosnippet>75</a>    CreateElement {
+<a href=#76 id=76 data-nosnippet>76</a>        node: ParseNodeId,
+<a href=#77 id=77 data-nosnippet>77</a>        <span class="attr">#[no_trace]
+<a href=#78 id=78 data-nosnippet>78</a>        </span>name: QualName,
+<a href=#79 id=79 data-nosnippet>79</a>        attrs: Vec&lt;Attribute&gt;,
+<a href=#80 id=80 data-nosnippet>80</a>        current_line: u64,
+<a href=#81 id=81 data-nosnippet>81</a>        had_duplicate_attributes: bool,
+<a href=#82 id=82 data-nosnippet>82</a>    },
+<a href=#83 id=83 data-nosnippet>83</a>    CreateComment {
+<a href=#84 id=84 data-nosnippet>84</a>        text: String,
+<a href=#85 id=85 data-nosnippet>85</a>        node: ParseNodeId,
+<a href=#86 id=86 data-nosnippet>86</a>    },
+<a href=#87 id=87 data-nosnippet>87</a>    AppendBeforeSibling {
+<a href=#88 id=88 data-nosnippet>88</a>        sibling: ParseNodeId,
+<a href=#89 id=89 data-nosnippet>89</a>        node: NodeOrText,
+<a href=#90 id=90 data-nosnippet>90</a>    },
+<a href=#91 id=91 data-nosnippet>91</a>    AppendBasedOnParentNode {
+<a href=#92 id=92 data-nosnippet>92</a>        element: ParseNodeId,
+<a href=#93 id=93 data-nosnippet>93</a>        prev_element: ParseNodeId,
+<a href=#94 id=94 data-nosnippet>94</a>        node: NodeOrText,
+<a href=#95 id=95 data-nosnippet>95</a>    },
+<a href=#96 id=96 data-nosnippet>96</a>    Append {
+<a href=#97 id=97 data-nosnippet>97</a>        parent: ParseNodeId,
+<a href=#98 id=98 data-nosnippet>98</a>        node: NodeOrText,
+<a href=#99 id=99 data-nosnippet>99</a>    },
+<a href=#100 id=100 data-nosnippet>100</a>    AppendDoctypeToDocument {
+<a href=#101 id=101 data-nosnippet>101</a>        name: String,
+<a href=#102 id=102 data-nosnippet>102</a>        public_id: String,
+<a href=#103 id=103 data-nosnippet>103</a>        system_id: String,
+<a href=#104 id=104 data-nosnippet>104</a>    },
+<a href=#105 id=105 data-nosnippet>105</a>    AddAttrsIfMissing {
+<a href=#106 id=106 data-nosnippet>106</a>        target: ParseNodeId,
+<a href=#107 id=107 data-nosnippet>107</a>        attrs: Vec&lt;Attribute&gt;,
+<a href=#108 id=108 data-nosnippet>108</a>    },
+<a href=#109 id=109 data-nosnippet>109</a>    RemoveFromParent {
+<a href=#110 id=110 data-nosnippet>110</a>        target: ParseNodeId,
+<a href=#111 id=111 data-nosnippet>111</a>    },
+<a href=#112 id=112 data-nosnippet>112</a>    MarkScriptAlreadyStarted {
+<a href=#113 id=113 data-nosnippet>113</a>        node: ParseNodeId,
+<a href=#114 id=114 data-nosnippet>114</a>    },
+<a href=#115 id=115 data-nosnippet>115</a>    ReparentChildren {
+<a href=#116 id=116 data-nosnippet>116</a>        parent: ParseNodeId,
+<a href=#117 id=117 data-nosnippet>117</a>        new_parent: ParseNodeId,
+<a href=#118 id=118 data-nosnippet>118</a>    },
+<a href=#119 id=119 data-nosnippet>119</a>    AssociateWithForm {
+<a href=#120 id=120 data-nosnippet>120</a>        target: ParseNodeId,
+<a href=#121 id=121 data-nosnippet>121</a>        form: ParseNodeId,
+<a href=#122 id=122 data-nosnippet>122</a>        element: ParseNodeId,
+<a href=#123 id=123 data-nosnippet>123</a>        prev_element: <span class="prelude-ty">Option</span>&lt;ParseNodeId&gt;,
+<a href=#124 id=124 data-nosnippet>124</a>    },
+<a href=#125 id=125 data-nosnippet>125</a>    CreatePI {
+<a href=#126 id=126 data-nosnippet>126</a>        node: ParseNodeId,
+<a href=#127 id=127 data-nosnippet>127</a>        target: String,
+<a href=#128 id=128 data-nosnippet>128</a>        data: String,
+<a href=#129 id=129 data-nosnippet>129</a>    },
+<a href=#130 id=130 data-nosnippet>130</a>    Pop {
+<a href=#131 id=131 data-nosnippet>131</a>        node: ParseNodeId,
+<a href=#132 id=132 data-nosnippet>132</a>    },
+<a href=#133 id=133 data-nosnippet>133</a>    SetQuirksMode {
+<a href=#134 id=134 data-nosnippet>134</a>        <span class="attr">#[ignore_malloc_size_of = <span class="string">"Defined in style"</span>]
+<a href=#135 id=135 data-nosnippet>135</a>        #[no_trace]
+<a href=#136 id=136 data-nosnippet>136</a>        </span>mode: ServoQuirksMode,
+<a href=#137 id=137 data-nosnippet>137</a>    },
+<a href=#138 id=138 data-nosnippet>138</a>    AttachDeclarativeShadowRoot {
+<a href=#139 id=139 data-nosnippet>139</a>        location: ParseNodeId,
+<a href=#140 id=140 data-nosnippet>140</a>        template: ParseNodeId,
+<a href=#141 id=141 data-nosnippet>141</a>        attributes: Vec&lt;Attribute&gt;,
+<a href=#142 id=142 data-nosnippet>142</a>        <span class="doccomment">/// Used to notify the parser thread whether or not attaching the shadow root succeeded
+<a href=#143 id=143 data-nosnippet>143</a>        </span><span class="attr">#[no_trace]
+<a href=#144 id=144 data-nosnippet>144</a>        </span>sender: Sender&lt;bool&gt;,
+<a href=#145 id=145 data-nosnippet>145</a>    },
+<a href=#146 id=146 data-nosnippet>146</a>}
+<a href=#147 id=147 data-nosnippet>147</a>
+<a href=#148 id=148 data-nosnippet>148</a><span class="attr">#[derive(MallocSizeOf)]
+<a href=#149 id=149 data-nosnippet>149</a></span><span class="kw">enum </span>FromParserThreadMsg {
+<a href=#150 id=150 data-nosnippet>150</a>    TokenizerResultDone {
+<a href=#151 id=151 data-nosnippet>151</a>        updated_input: VecDeque&lt;SendTendril&lt;UTF8&gt;&gt;,
+<a href=#152 id=152 data-nosnippet>152</a>    },
+<a href=#153 id=153 data-nosnippet>153</a>    TokenizerResultScript {
+<a href=#154 id=154 data-nosnippet>154</a>        script: ParseNode,
+<a href=#155 id=155 data-nosnippet>155</a>        updated_input: VecDeque&lt;SendTendril&lt;UTF8&gt;&gt;,
+<a href=#156 id=156 data-nosnippet>156</a>    },
+<a href=#157 id=157 data-nosnippet>157</a>    EncodingIndicator {
+<a href=#158 id=158 data-nosnippet>158</a>        encoding: SendTendril&lt;UTF8&gt;,
+<a href=#159 id=159 data-nosnippet>159</a>        updated_input: VecDeque&lt;SendTendril&lt;UTF8&gt;&gt;,
+<a href=#160 id=160 data-nosnippet>160</a>    },
+<a href=#161 id=161 data-nosnippet>161</a>    <span class="doccomment">/// Sent to main thread to signify that the parser thread's end method has returned.
+<a href=#162 id=162 data-nosnippet>162</a>    </span>End,
+<a href=#163 id=163 data-nosnippet>163</a>    ProcessOperation(ParseOperation),
+<a href=#164 id=164 data-nosnippet>164</a>}
+<a href=#165 id=165 data-nosnippet>165</a>
+<a href=#166 id=166 data-nosnippet>166</a><span class="attr">#[derive(MallocSizeOf)]
+<a href=#167 id=167 data-nosnippet>167</a></span><span class="kw">enum </span>ToParserThreadMsg {
+<a href=#168 id=168 data-nosnippet>168</a>    Feed { input: VecDeque&lt;SendTendril&lt;UTF8&gt;&gt; },
+<a href=#169 id=169 data-nosnippet>169</a>    End,
+<a href=#170 id=170 data-nosnippet>170</a>    SetPlainTextState,
+<a href=#171 id=171 data-nosnippet>171</a>}
+<a href=#172 id=172 data-nosnippet>172</a>
+<a href=#173 id=173 data-nosnippet>173</a><span class="kw">fn </span>create_buffer_queue(<span class="kw-2">mut </span>buffers: VecDeque&lt;SendTendril&lt;UTF8&gt;&gt;) -&gt; BufferQueue {
+<a href=#174 id=174 data-nosnippet>174</a>    <span class="kw">let </span>buffer_queue = BufferQueue::default();
+<a href=#175 id=175 data-nosnippet>175</a>    <span class="kw">while let </span><span class="prelude-val">Some</span>(st) = buffers.pop_front() {
+<a href=#176 id=176 data-nosnippet>176</a>        buffer_queue.push_back(StrTendril::from(st));
+<a href=#177 id=177 data-nosnippet>177</a>    }
+<a href=#178 id=178 data-nosnippet>178</a>    buffer_queue
+<a href=#179 id=179 data-nosnippet>179</a>}
+<a href=#180 id=180 data-nosnippet>180</a>
+<a href=#181 id=181 data-nosnippet>181</a><span class="comment">// The async HTML Tokenizer consists of two separate types threads working together:
+<a href=#182 id=182 data-nosnippet>182</a>// the main thread, which communicates with the rest of script, and the parser thread, which
+<a href=#183 id=183 data-nosnippet>183</a>// feeds input to the tokenizer from html5ever.
+<a href=#184 id=184 data-nosnippet>184</a>//
+<a href=#185 id=185 data-nosnippet>185</a>// Steps:
+<a href=#186 id=186 data-nosnippet>186</a>// 1. A call to Tokenizer::new will spin up a new parser thread, which starts listening for messages from Tokenizer.
+<a href=#187 id=187 data-nosnippet>187</a>// 2. Upon receiving an input from ServoParser, the tokenizer forwards it to the parser thread, where it starts
+<a href=#188 id=188 data-nosnippet>188</a>//    creating the necessary tree actions based on the input.
+<a href=#189 id=189 data-nosnippet>189</a>// 3. The parser thread sends these tree actions to the main thread as soon as it creates them. The main thread
+<a href=#190 id=190 data-nosnippet>190</a>//    then executes the received actions.
+<a href=#191 id=191 data-nosnippet>191</a>//
+<a href=#192 id=192 data-nosnippet>192</a>//    _____________                           _______________
+<a href=#193 id=193 data-nosnippet>193</a>//   |             |                         |               |
+<a href=#194 id=194 data-nosnippet>194</a>//   |             |                         |               |
+<a href=#195 id=195 data-nosnippet>195</a>//   |             |   ToParserThreadMsg     |               |
+<a href=#196 id=196 data-nosnippet>196</a>//   |             |------------------------&gt;| Parser Thread |
+<a href=#197 id=197 data-nosnippet>197</a>//   |    Main     |                         |               |
+<a href=#198 id=198 data-nosnippet>198</a>//   |   Thread    |   FromParserThreadMsg   |               |
+<a href=#199 id=199 data-nosnippet>199</a>//   |             |&lt;------------------------|    ________   |
+<a href=#200 id=200 data-nosnippet>200</a>//   |             |                         |   |        |  |
+<a href=#201 id=201 data-nosnippet>201</a>//   |             |   FromParserThreadMsg   |   |  Sink  |  |
+<a href=#202 id=202 data-nosnippet>202</a>//   |             |&lt;------------------------|---|        |  |
+<a href=#203 id=203 data-nosnippet>203</a>//   |             |                         |   |________|  |
+<a href=#204 id=204 data-nosnippet>204</a>//   |_____________|                         |_______________|
+<a href=#205 id=205 data-nosnippet>205</a>//
+<a href=#206 id=206 data-nosnippet>206</a></span><span class="attr">#[derive(JSTraceable, MallocSizeOf)]
+<a href=#207 id=207 data-nosnippet>207</a>#[cfg_attr(crown, crown::unrooted_must_root_lint::must_root)]
+<a href=#208 id=208 data-nosnippet>208</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Tokenizer {
+<a href=#209 id=209 data-nosnippet>209</a>    document: Dom&lt;Document&gt;,
+<a href=#210 id=210 data-nosnippet>210</a>    <span class="attr">#[no_trace]
+<a href=#211 id=211 data-nosnippet>211</a>    </span>from_parser_thread_receiver: Receiver&lt;FromParserThreadMsg&gt;,
+<a href=#212 id=212 data-nosnippet>212</a>    <span class="doccomment">/// Sender from the main thread to the parser thread.
+<a href=#213 id=213 data-nosnippet>213</a>    </span><span class="attr">#[no_trace]
+<a href=#214 id=214 data-nosnippet>214</a>    </span>to_parser_thread_sender: Sender&lt;ToParserThreadMsg&gt;,
+<a href=#215 id=215 data-nosnippet>215</a>    nodes: RefCell&lt;FxHashMap&lt;ParseNodeId, Dom&lt;Node&gt;&gt;&gt;,
+<a href=#216 id=216 data-nosnippet>216</a>    <span class="attr">#[no_trace]
+<a href=#217 id=217 data-nosnippet>217</a>    </span>url: ServoUrl,
+<a href=#218 id=218 data-nosnippet>218</a>    parsing_algorithm: ParsingAlgorithm,
+<a href=#219 id=219 data-nosnippet>219</a>    <span class="attr">#[conditional_malloc_size_of]
+<a href=#220 id=220 data-nosnippet>220</a>    </span>custom_element_reaction_stack: Rc&lt;CustomElementReactionStack&gt;,
+<a href=#221 id=221 data-nosnippet>221</a>    current_line: Cell&lt;u64&gt;,
+<a href=#222 id=222 data-nosnippet>222</a>    has_ended: Cell&lt;bool&gt;,
+<a href=#223 id=223 data-nosnippet>223</a>}
+<a href=#224 id=224 data-nosnippet>224</a>
+<a href=#225 id=225 data-nosnippet>225</a><span class="kw">impl </span>Tokenizer {
+<a href=#226 id=226 data-nosnippet>226</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(
+<a href=#227 id=227 data-nosnippet>227</a>        document: <span class="kw-2">&amp;</span>Document,
+<a href=#228 id=228 data-nosnippet>228</a>        url: ServoUrl,
+<a href=#229 id=229 data-nosnippet>229</a>        fragment_context: <span class="prelude-ty">Option</span>&lt;<span class="kw">super</span>::FragmentContext&gt;,
+<a href=#230 id=230 data-nosnippet>230</a>    ) -&gt; <span class="self">Self </span>{
+<a href=#231 id=231 data-nosnippet>231</a>        <span class="comment">// Messages from the main thread to the parser thread
+<a href=#232 id=232 data-nosnippet>232</a>        </span><span class="kw">let </span>(to_parser_thread_sender, from_main_thread_receiver) = unbounded();
+<a href=#233 id=233 data-nosnippet>233</a>        <span class="comment">// Messages from the parser thread to the main thread
+<a href=#234 id=234 data-nosnippet>234</a>        </span><span class="kw">let </span>(to_main_thread_sender, from_parser_thread_receiver) = unbounded();
+<a href=#235 id=235 data-nosnippet>235</a>
+<a href=#236 id=236 data-nosnippet>236</a>        <span class="kw">let </span>algorithm = <span class="kw">match </span>fragment_context {
+<a href=#237 id=237 data-nosnippet>237</a>            <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; ParsingAlgorithm::Fragment,
+<a href=#238 id=238 data-nosnippet>238</a>            <span class="prelude-val">None </span>=&gt; ParsingAlgorithm::Normal,
+<a href=#239 id=239 data-nosnippet>239</a>        };
+<a href=#240 id=240 data-nosnippet>240</a>
+<a href=#241 id=241 data-nosnippet>241</a>        <span class="kw">let </span>custom_element_reaction_stack = document.custom_element_reaction_stack();
+<a href=#242 id=242 data-nosnippet>242</a>        <span class="kw">let </span>tokenizer = Tokenizer {
+<a href=#243 id=243 data-nosnippet>243</a>            document: Dom::from_ref(document),
+<a href=#244 id=244 data-nosnippet>244</a>            from_parser_thread_receiver,
+<a href=#245 id=245 data-nosnippet>245</a>            to_parser_thread_sender,
+<a href=#246 id=246 data-nosnippet>246</a>            nodes: RefCell::new(FxHashMap::default()),
+<a href=#247 id=247 data-nosnippet>247</a>            url,
+<a href=#248 id=248 data-nosnippet>248</a>            parsing_algorithm: algorithm,
+<a href=#249 id=249 data-nosnippet>249</a>            custom_element_reaction_stack,
+<a href=#250 id=250 data-nosnippet>250</a>            current_line: Cell::new(<span class="number">1</span>),
+<a href=#251 id=251 data-nosnippet>251</a>            has_ended: Cell::new(<span class="bool-val">false</span>),
+<a href=#252 id=252 data-nosnippet>252</a>        };
+<a href=#253 id=253 data-nosnippet>253</a>        tokenizer.insert_node(<span class="number">0</span>, Dom::from_ref(document.upcast()));
+<a href=#254 id=254 data-nosnippet>254</a>
+<a href=#255 id=255 data-nosnippet>255</a>        <span class="kw">let </span>sink = Sink::new(
+<a href=#256 id=256 data-nosnippet>256</a>            to_main_thread_sender.clone(),
+<a href=#257 id=257 data-nosnippet>257</a>            document.allow_declarative_shadow_roots(),
+<a href=#258 id=258 data-nosnippet>258</a>        );
+<a href=#259 id=259 data-nosnippet>259</a>        <span class="kw">let </span><span class="kw-2">mut </span>form_parse_node = <span class="prelude-val">None</span>;
+<a href=#260 id=260 data-nosnippet>260</a>        <span class="kw">let </span><span class="kw-2">mut </span>parser_fragment_context = <span class="prelude-val">None</span>;
+<a href=#261 id=261 data-nosnippet>261</a>        <span class="kw">if let </span><span class="prelude-val">Some</span>(fragment_context) = fragment_context {
+<a href=#262 id=262 data-nosnippet>262</a>            <span class="kw">let </span>node = sink.new_parse_node();
+<a href=#263 id=263 data-nosnippet>263</a>            tokenizer.insert_node(node.id, Dom::from_ref(fragment_context.context_elem));
+<a href=#264 id=264 data-nosnippet>264</a>            parser_fragment_context =
+<a href=#265 id=265 data-nosnippet>265</a>                <span class="prelude-val">Some</span>((node, fragment_context.context_element_allows_scripting));
+<a href=#266 id=266 data-nosnippet>266</a>
+<a href=#267 id=267 data-nosnippet>267</a>            form_parse_node = fragment_context.form_elem.map(|form_elem| {
+<a href=#268 id=268 data-nosnippet>268</a>                <span class="kw">let </span>node = sink.new_parse_node();
+<a href=#269 id=269 data-nosnippet>269</a>                tokenizer.insert_node(node.id, Dom::from_ref(form_elem));
+<a href=#270 id=270 data-nosnippet>270</a>                node
+<a href=#271 id=271 data-nosnippet>271</a>            });
+<a href=#272 id=272 data-nosnippet>272</a>        };
+<a href=#273 id=273 data-nosnippet>273</a>
+<a href=#274 id=274 data-nosnippet>274</a>        <span class="comment">// Create new thread for parser. This is where parser actions
+<a href=#275 id=275 data-nosnippet>275</a>        // will be generated from the input provided. These parser actions are then passed
+<a href=#276 id=276 data-nosnippet>276</a>        // onto the main thread to be executed.
+<a href=#277 id=277 data-nosnippet>277</a>        </span><span class="kw">let </span>scripting_enabled = document.has_browsing_context();
+<a href=#278 id=278 data-nosnippet>278</a>        thread::Builder::new()
+<a href=#279 id=279 data-nosnippet>279</a>            .name(<span class="macro">format!</span>(<span class="string">"Parse:{}"</span>, tokenizer.url.debug_compact()))
+<a href=#280 id=280 data-nosnippet>280</a>            .spawn(<span class="kw">move </span>|| {
+<a href=#281 id=281 data-nosnippet>281</a>                run(
+<a href=#282 id=282 data-nosnippet>282</a>                    sink,
+<a href=#283 id=283 data-nosnippet>283</a>                    parser_fragment_context,
+<a href=#284 id=284 data-nosnippet>284</a>                    form_parse_node,
+<a href=#285 id=285 data-nosnippet>285</a>                    to_main_thread_sender,
+<a href=#286 id=286 data-nosnippet>286</a>                    from_main_thread_receiver,
+<a href=#287 id=287 data-nosnippet>287</a>                    scripting_enabled,
+<a href=#288 id=288 data-nosnippet>288</a>                );
+<a href=#289 id=289 data-nosnippet>289</a>            })
+<a href=#290 id=290 data-nosnippet>290</a>            .expect(<span class="string">"HTML Parser thread spawning failed"</span>);
+<a href=#291 id=291 data-nosnippet>291</a>
+<a href=#292 id=292 data-nosnippet>292</a>        tokenizer
+<a href=#293 id=293 data-nosnippet>293</a>    }
+<a href=#294 id=294 data-nosnippet>294</a>
+<a href=#295 id=295 data-nosnippet>295</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>feed(
+<a href=#296 id=296 data-nosnippet>296</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#297 id=297 data-nosnippet>297</a>        input: <span class="kw-2">&amp;</span>BufferQueue,
+<a href=#298 id=298 data-nosnippet>298</a>        cx: <span class="kw-2">&amp;mut </span>js::context::JSContext,
+<a href=#299 id=299 data-nosnippet>299</a>    ) -&gt; TokenizerResult&lt;DomRoot&lt;HTMLScriptElement&gt;&gt; {
+<a href=#300 id=300 data-nosnippet>300</a>        <span class="kw">let </span><span class="kw-2">mut </span>send_tendrils = VecDeque::new();
+<a href=#301 id=301 data-nosnippet>301</a>        <span class="kw">while let </span><span class="prelude-val">Some</span>(str) = input.pop_front() {
+<a href=#302 id=302 data-nosnippet>302</a>            send_tendrils.push_back(SendTendril::from(str));
+<a href=#303 id=303 data-nosnippet>303</a>        }
+<a href=#304 id=304 data-nosnippet>304</a>
+<a href=#305 id=305 data-nosnippet>305</a>        <span class="comment">// Send message to parser thread, asking it to start reading from the input.
+<a href=#306 id=306 data-nosnippet>306</a>        // Parser operation messages will be sent to main thread as they are evaluated.
+<a href=#307 id=307 data-nosnippet>307</a>        </span><span class="self">self</span>.to_parser_thread_sender
+<a href=#308 id=308 data-nosnippet>308</a>            .send(ToParserThreadMsg::Feed {
+<a href=#309 id=309 data-nosnippet>309</a>                input: send_tendrils,
+<a href=#310 id=310 data-nosnippet>310</a>            })
+<a href=#311 id=311 data-nosnippet>311</a>            .unwrap();
+<a href=#312 id=312 data-nosnippet>312</a>
+<a href=#313 id=313 data-nosnippet>313</a>        <span class="kw">loop </span>{
+<a href=#314 id=314 data-nosnippet>314</a>            <span class="macro">debug_assert!</span>(!<span class="self">self</span>.has_ended.get());
+<a href=#315 id=315 data-nosnippet>315</a>
+<a href=#316 id=316 data-nosnippet>316</a>            <span class="kw">match </span><span class="self">self
+<a href=#317 id=317 data-nosnippet>317</a>                </span>.from_parser_thread_receiver
+<a href=#318 id=318 data-nosnippet>318</a>                .recv()
+<a href=#319 id=319 data-nosnippet>319</a>                .expect(<span class="string">"Unexpected channel panic in main thread."</span>)
+<a href=#320 id=320 data-nosnippet>320</a>            {
+<a href=#321 id=321 data-nosnippet>321</a>                FromParserThreadMsg::ProcessOperation(parse_op) =&gt; {
+<a href=#322 id=322 data-nosnippet>322</a>                    <span class="self">self</span>.process_operation(parse_op, cx);
+<a href=#323 id=323 data-nosnippet>323</a>
+<a href=#324 id=324 data-nosnippet>324</a>                    <span class="comment">// The parser might have been aborted during the execution
+<a href=#325 id=325 data-nosnippet>325</a>                    // of `parse_op`.
+<a href=#326 id=326 data-nosnippet>326</a>                    </span><span class="kw">if </span><span class="self">self</span>.has_ended.get() {
+<a href=#327 id=327 data-nosnippet>327</a>                        <span class="kw">return </span>TokenizerResult::Done;
+<a href=#328 id=328 data-nosnippet>328</a>                    }
+<a href=#329 id=329 data-nosnippet>329</a>                },
+<a href=#330 id=330 data-nosnippet>330</a>                FromParserThreadMsg::TokenizerResultDone { updated_input } =&gt; {
+<a href=#331 id=331 data-nosnippet>331</a>                    <span class="kw">let </span>buffer_queue = create_buffer_queue(updated_input);
+<a href=#332 id=332 data-nosnippet>332</a>                    input.replace_with(buffer_queue);
+<a href=#333 id=333 data-nosnippet>333</a>                    <span class="kw">return </span>TokenizerResult::Done;
+<a href=#334 id=334 data-nosnippet>334</a>                },
+<a href=#335 id=335 data-nosnippet>335</a>                FromParserThreadMsg::TokenizerResultScript {
+<a href=#336 id=336 data-nosnippet>336</a>                    script,
+<a href=#337 id=337 data-nosnippet>337</a>                    updated_input,
+<a href=#338 id=338 data-nosnippet>338</a>                } =&gt; {
+<a href=#339 id=339 data-nosnippet>339</a>                    <span class="kw">let </span>buffer_queue = create_buffer_queue(updated_input);
+<a href=#340 id=340 data-nosnippet>340</a>                    input.replace_with(buffer_queue);
+<a href=#341 id=341 data-nosnippet>341</a>                    <span class="kw">let </span>script = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>script.id);
+<a href=#342 id=342 data-nosnippet>342</a>                    <span class="kw">return </span>TokenizerResult::Script(DomRoot::from_ref(script.downcast().unwrap()));
+<a href=#343 id=343 data-nosnippet>343</a>                },
+<a href=#344 id=344 data-nosnippet>344</a>                FromParserThreadMsg::EncodingIndicator { updated_input, .. } =&gt; {
+<a href=#345 id=345 data-nosnippet>345</a>                    <span class="comment">// We don't handle encoding indicators yet, so just tell the
+<a href=#346 id=346 data-nosnippet>346</a>                    // parser thread to continue.
+<a href=#347 id=347 data-nosnippet>347</a>                    </span><span class="self">self</span>.to_parser_thread_sender
+<a href=#348 id=348 data-nosnippet>348</a>                        .send(ToParserThreadMsg::Feed {
+<a href=#349 id=349 data-nosnippet>349</a>                            input: updated_input,
+<a href=#350 id=350 data-nosnippet>350</a>                        })
+<a href=#351 id=351 data-nosnippet>351</a>                        .unwrap();
+<a href=#352 id=352 data-nosnippet>352</a>                },
+<a href=#353 id=353 data-nosnippet>353</a>                <span class="kw">_ </span>=&gt; <span class="macro">unreachable!</span>(),
+<a href=#354 id=354 data-nosnippet>354</a>            };
+<a href=#355 id=355 data-nosnippet>355</a>        }
+<a href=#356 id=356 data-nosnippet>356</a>    }
+<a href=#357 id=357 data-nosnippet>357</a>
+<a href=#358 id=358 data-nosnippet>358</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>end(<span class="kw-2">&amp;</span><span class="self">self</span>, cx: <span class="kw-2">&amp;mut </span>js::context::JSContext) {
+<a href=#359 id=359 data-nosnippet>359</a>        <span class="kw">if </span><span class="self">self</span>.has_ended.replace(<span class="bool-val">true</span>) {
+<a href=#360 id=360 data-nosnippet>360</a>            <span class="kw">return</span>;
+<a href=#361 id=361 data-nosnippet>361</a>        }
+<a href=#362 id=362 data-nosnippet>362</a>
+<a href=#363 id=363 data-nosnippet>363</a>        <span class="self">self</span>.to_parser_thread_sender
+<a href=#364 id=364 data-nosnippet>364</a>            .send(ToParserThreadMsg::End)
+<a href=#365 id=365 data-nosnippet>365</a>            .unwrap();
+<a href=#366 id=366 data-nosnippet>366</a>
+<a href=#367 id=367 data-nosnippet>367</a>        <span class="kw">loop </span>{
+<a href=#368 id=368 data-nosnippet>368</a>            <span class="kw">match </span><span class="self">self
+<a href=#369 id=369 data-nosnippet>369</a>                </span>.from_parser_thread_receiver
+<a href=#370 id=370 data-nosnippet>370</a>                .recv()
+<a href=#371 id=371 data-nosnippet>371</a>                .expect(<span class="string">"Unexpected channel panic in main thread."</span>)
+<a href=#372 id=372 data-nosnippet>372</a>            {
+<a href=#373 id=373 data-nosnippet>373</a>                FromParserThreadMsg::ProcessOperation(parse_op) =&gt; {
+<a href=#374 id=374 data-nosnippet>374</a>                    <span class="self">self</span>.process_operation(parse_op, cx);
+<a href=#375 id=375 data-nosnippet>375</a>                },
+<a href=#376 id=376 data-nosnippet>376</a>                FromParserThreadMsg::TokenizerResultDone { updated_input: <span class="kw">_ </span>} |
+<a href=#377 id=377 data-nosnippet>377</a>                FromParserThreadMsg::TokenizerResultScript { .. } |
+<a href=#378 id=378 data-nosnippet>378</a>                FromParserThreadMsg::EncodingIndicator { .. } =&gt; <span class="kw">continue</span>,
+<a href=#379 id=379 data-nosnippet>379</a>                FromParserThreadMsg::End =&gt; <span class="kw">return</span>,
+<a href=#380 id=380 data-nosnippet>380</a>            };
+<a href=#381 id=381 data-nosnippet>381</a>        }
+<a href=#382 id=382 data-nosnippet>382</a>    }
+<a href=#383 id=383 data-nosnippet>383</a>
+<a href=#384 id=384 data-nosnippet>384</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>url(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>ServoUrl {
+<a href=#385 id=385 data-nosnippet>385</a>        <span class="kw-2">&amp;</span><span class="self">self</span>.url
+<a href=#386 id=386 data-nosnippet>386</a>    }
+<a href=#387 id=387 data-nosnippet>387</a>
+<a href=#388 id=388 data-nosnippet>388</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_plaintext_state(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+<a href=#389 id=389 data-nosnippet>389</a>        <span class="self">self</span>.to_parser_thread_sender
+<a href=#390 id=390 data-nosnippet>390</a>            .send(ToParserThreadMsg::SetPlainTextState)
+<a href=#391 id=391 data-nosnippet>391</a>            .unwrap();
+<a href=#392 id=392 data-nosnippet>392</a>    }
+<a href=#393 id=393 data-nosnippet>393</a>
+<a href=#394 id=394 data-nosnippet>394</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>get_current_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+<a href=#395 id=395 data-nosnippet>395</a>        <span class="self">self</span>.current_line.get() <span class="kw">as </span>u32
+<a href=#396 id=396 data-nosnippet>396</a>    }
+<a href=#397 id=397 data-nosnippet>397</a>
+<a href=#398 id=398 data-nosnippet>398</a>    <span class="kw">fn </span>insert_node(<span class="kw-2">&amp;</span><span class="self">self</span>, id: ParseNodeId, node: Dom&lt;Node&gt;) {
+<a href=#399 id=399 data-nosnippet>399</a>        <span class="macro">assert!</span>(<span class="self">self</span>.nodes.borrow_mut().insert(id, node).is_none());
+<a href=#400 id=400 data-nosnippet>400</a>    }
+<a href=#401 id=401 data-nosnippet>401</a>
+<a href=#402 id=402 data-nosnippet>402</a>    <span class="kw">fn </span>get_node&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, id: <span class="kw-2">&amp;</span>ParseNodeId) -&gt; Ref&lt;<span class="lifetime">'a</span>, Dom&lt;Node&gt;&gt; {
+<a href=#403 id=403 data-nosnippet>403</a>        Ref::map(<span class="self">self</span>.nodes.borrow(), |nodes| {
+<a href=#404 id=404 data-nosnippet>404</a>            nodes.get(id).expect(<span class="string">"Node not found!"</span>)
+<a href=#405 id=405 data-nosnippet>405</a>        })
+<a href=#406 id=406 data-nosnippet>406</a>    }
+<a href=#407 id=407 data-nosnippet>407</a>
+<a href=#408 id=408 data-nosnippet>408</a>    <span class="kw">fn </span>append_before_sibling(
+<a href=#409 id=409 data-nosnippet>409</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#410 id=410 data-nosnippet>410</a>        cx: <span class="kw-2">&amp;mut </span>js::context::JSContext,
+<a href=#411 id=411 data-nosnippet>411</a>        sibling: ParseNodeId,
+<a href=#412 id=412 data-nosnippet>412</a>        node: NodeOrText,
+<a href=#413 id=413 data-nosnippet>413</a>    ) {
+<a href=#414 id=414 data-nosnippet>414</a>        <span class="kw">let </span>node = <span class="kw">match </span>node {
+<a href=#415 id=415 data-nosnippet>415</a>            NodeOrText::Node(n) =&gt; {
+<a href=#416 id=416 data-nosnippet>416</a>                HtmlNodeOrText::AppendNode(Dom::from_ref(<span class="kw-2">&amp;**</span><span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>n.id)))
+<a href=#417 id=417 data-nosnippet>417</a>            },
+<a href=#418 id=418 data-nosnippet>418</a>            NodeOrText::Text(text) =&gt; HtmlNodeOrText::AppendText(Tendril::from(text)),
+<a href=#419 id=419 data-nosnippet>419</a>        };
+<a href=#420 id=420 data-nosnippet>420</a>        <span class="kw">let </span>sibling = <span class="kw-2">&amp;**</span><span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>sibling);
+<a href=#421 id=421 data-nosnippet>421</a>        <span class="kw">let </span>parent = <span class="kw-2">&amp;*</span>sibling
+<a href=#422 id=422 data-nosnippet>422</a>            .GetParentNode()
+<a href=#423 id=423 data-nosnippet>423</a>            .expect(<span class="string">"append_before_sibling called on node without parent"</span>);
+<a href=#424 id=424 data-nosnippet>424</a>
+<a href=#425 id=425 data-nosnippet>425</a>        <span class="kw">super</span>::insert(
+<a href=#426 id=426 data-nosnippet>426</a>            cx,
+<a href=#427 id=427 data-nosnippet>427</a>            parent,
+<a href=#428 id=428 data-nosnippet>428</a>            <span class="prelude-val">Some</span>(sibling),
+<a href=#429 id=429 data-nosnippet>429</a>            node,
+<a href=#430 id=430 data-nosnippet>430</a>            <span class="self">self</span>.parsing_algorithm,
+<a href=#431 id=431 data-nosnippet>431</a>            <span class="kw-2">&amp;</span><span class="self">self</span>.custom_element_reaction_stack,
+<a href=#432 id=432 data-nosnippet>432</a>        );
+<a href=#433 id=433 data-nosnippet>433</a>    }
+<a href=#434 id=434 data-nosnippet>434</a>
+<a href=#435 id=435 data-nosnippet>435</a>    <span class="kw">fn </span>append(<span class="kw-2">&amp;</span><span class="self">self</span>, cx: <span class="kw-2">&amp;mut </span>js::context::JSContext, parent: ParseNodeId, node: NodeOrText) {
+<a href=#436 id=436 data-nosnippet>436</a>        <span class="kw">let </span>node = <span class="kw">match </span>node {
+<a href=#437 id=437 data-nosnippet>437</a>            NodeOrText::Node(n) =&gt; {
+<a href=#438 id=438 data-nosnippet>438</a>                HtmlNodeOrText::AppendNode(Dom::from_ref(<span class="kw-2">&amp;**</span><span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>n.id)))
+<a href=#439 id=439 data-nosnippet>439</a>            },
+<a href=#440 id=440 data-nosnippet>440</a>            NodeOrText::Text(text) =&gt; HtmlNodeOrText::AppendText(Tendril::from(text)),
+<a href=#441 id=441 data-nosnippet>441</a>        };
+<a href=#442 id=442 data-nosnippet>442</a>
+<a href=#443 id=443 data-nosnippet>443</a>        <span class="kw">let </span>parent = <span class="kw-2">&amp;**</span><span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>parent);
+<a href=#444 id=444 data-nosnippet>444</a>        <span class="kw">super</span>::insert(
+<a href=#445 id=445 data-nosnippet>445</a>            cx,
+<a href=#446 id=446 data-nosnippet>446</a>            parent,
+<a href=#447 id=447 data-nosnippet>447</a>            <span class="prelude-val">None</span>,
+<a href=#448 id=448 data-nosnippet>448</a>            node,
+<a href=#449 id=449 data-nosnippet>449</a>            <span class="self">self</span>.parsing_algorithm,
+<a href=#450 id=450 data-nosnippet>450</a>            <span class="kw-2">&amp;</span><span class="self">self</span>.custom_element_reaction_stack,
+<a href=#451 id=451 data-nosnippet>451</a>        );
+<a href=#452 id=452 data-nosnippet>452</a>    }
+<a href=#453 id=453 data-nosnippet>453</a>
+<a href=#454 id=454 data-nosnippet>454</a>    <span class="kw">fn </span>has_parent_node(<span class="kw-2">&amp;</span><span class="self">self</span>, node: ParseNodeId) -&gt; bool {
+<a href=#455 id=455 data-nosnippet>455</a>        <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>node).GetParentNode().is_some()
+<a href=#456 id=456 data-nosnippet>456</a>    }
+<a href=#457 id=457 data-nosnippet>457</a>
+<a href=#458 id=458 data-nosnippet>458</a>    <span class="kw">fn </span>same_tree(<span class="kw-2">&amp;</span><span class="self">self</span>, x: ParseNodeId, y: ParseNodeId) -&gt; bool {
+<a href=#459 id=459 data-nosnippet>459</a>        <span class="kw">let </span>x = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>x);
+<a href=#460 id=460 data-nosnippet>460</a>        <span class="kw">let </span>y = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>y);
+<a href=#461 id=461 data-nosnippet>461</a>
+<a href=#462 id=462 data-nosnippet>462</a>        <span class="kw">let </span>x = x.downcast::&lt;Element&gt;().expect(<span class="string">"Element node expected"</span>);
+<a href=#463 id=463 data-nosnippet>463</a>        <span class="kw">let </span>y = y.downcast::&lt;Element&gt;().expect(<span class="string">"Element node expected"</span>);
+<a href=#464 id=464 data-nosnippet>464</a>        x.is_in_same_home_subtree(y)
+<a href=#465 id=465 data-nosnippet>465</a>    }
+<a href=#466 id=466 data-nosnippet>466</a>
+<a href=#467 id=467 data-nosnippet>467</a>    <span class="kw">fn </span>process_operation(<span class="kw-2">&amp;</span><span class="self">self</span>, op: ParseOperation, cx: <span class="kw-2">&amp;mut </span>js::context::JSContext) {
+<a href=#468 id=468 data-nosnippet>468</a>        <span class="kw">let </span>document = DomRoot::from_ref(<span class="kw-2">&amp;**</span><span class="self">self</span>.get_node(<span class="kw-2">&amp;</span><span class="number">0</span>));
+<a href=#469 id=469 data-nosnippet>469</a>        <span class="kw">let </span>document = document
+<a href=#470 id=470 data-nosnippet>470</a>            .downcast::&lt;Document&gt;()
+<a href=#471 id=471 data-nosnippet>471</a>            .expect(<span class="string">"Document node should be downcasted!"</span>);
+<a href=#472 id=472 data-nosnippet>472</a>        <span class="kw">match </span>op {
+<a href=#473 id=473 data-nosnippet>473</a>            ParseOperation::GetTemplateContents { target, contents } =&gt; {
+<a href=#474 id=474 data-nosnippet>474</a>                <span class="kw">let </span>target = DomRoot::from_ref(<span class="kw-2">&amp;**</span><span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>target));
+<a href=#475 id=475 data-nosnippet>475</a>                <span class="kw">let </span>template = target
+<a href=#476 id=476 data-nosnippet>476</a>                    .downcast::&lt;HTMLTemplateElement&gt;()
+<a href=#477 id=477 data-nosnippet>477</a>                    .expect(<span class="string">"Tried to extract contents from non-template element while parsing"</span>);
+<a href=#478 id=478 data-nosnippet>478</a>                <span class="self">self</span>.insert_node(contents, Dom::from_ref(template.Content(cx).upcast()));
+<a href=#479 id=479 data-nosnippet>479</a>            },
+<a href=#480 id=480 data-nosnippet>480</a>            ParseOperation::CreateElement {
+<a href=#481 id=481 data-nosnippet>481</a>                node,
+<a href=#482 id=482 data-nosnippet>482</a>                name,
+<a href=#483 id=483 data-nosnippet>483</a>                attrs,
+<a href=#484 id=484 data-nosnippet>484</a>                current_line,
+<a href=#485 id=485 data-nosnippet>485</a>                had_duplicate_attributes,
+<a href=#486 id=486 data-nosnippet>486</a>            } =&gt; {
+<a href=#487 id=487 data-nosnippet>487</a>                <span class="self">self</span>.current_line.set(current_line);
+<a href=#488 id=488 data-nosnippet>488</a>                <span class="kw">let </span>attrs = attrs
+<a href=#489 id=489 data-nosnippet>489</a>                    .into_iter()
+<a href=#490 id=490 data-nosnippet>490</a>                    .map(|attr| ElementAttribute::new(attr.name, DOMString::from(attr.value)))
+<a href=#491 id=491 data-nosnippet>491</a>                    .collect();
+<a href=#492 id=492 data-nosnippet>492</a>                <span class="kw">let </span>element = create_element_for_token(
+<a href=#493 id=493 data-nosnippet>493</a>                    cx,
+<a href=#494 id=494 data-nosnippet>494</a>                    name,
+<a href=#495 id=495 data-nosnippet>495</a>                    attrs,
+<a href=#496 id=496 data-nosnippet>496</a>                    <span class="kw-2">&amp;</span><span class="self">self</span>.document,
+<a href=#497 id=497 data-nosnippet>497</a>                    ElementCreator::ParserCreated(current_line),
+<a href=#498 id=498 data-nosnippet>498</a>                    ParsingAlgorithm::Normal,
+<a href=#499 id=499 data-nosnippet>499</a>                    <span class="kw-2">&amp;</span><span class="self">self</span>.custom_element_reaction_stack,
+<a href=#500 id=500 data-nosnippet>500</a>                    had_duplicate_attributes,
+<a href=#501 id=501 data-nosnippet>501</a>                );
+<a href=#502 id=502 data-nosnippet>502</a>                <span class="self">self</span>.insert_node(node, Dom::from_ref(element.upcast()));
+<a href=#503 id=503 data-nosnippet>503</a>            },
+<a href=#504 id=504 data-nosnippet>504</a>            ParseOperation::CreateComment { text, node } =&gt; {
+<a href=#505 id=505 data-nosnippet>505</a>                <span class="kw">let </span>comment = Comment::new(cx, DOMString::from(text), document, <span class="prelude-val">None</span>);
+<a href=#506 id=506 data-nosnippet>506</a>                <span class="self">self</span>.insert_node(node, Dom::from_ref(comment.upcast()));
+<a href=#507 id=507 data-nosnippet>507</a>            },
+<a href=#508 id=508 data-nosnippet>508</a>            ParseOperation::AppendBeforeSibling { sibling, node } =&gt; {
+<a href=#509 id=509 data-nosnippet>509</a>                <span class="self">self</span>.append_before_sibling(cx, sibling, node);
+<a href=#510 id=510 data-nosnippet>510</a>            },
+<a href=#511 id=511 data-nosnippet>511</a>            ParseOperation::Append { parent, node } =&gt; {
+<a href=#512 id=512 data-nosnippet>512</a>                <span class="self">self</span>.append(cx, parent, node);
+<a href=#513 id=513 data-nosnippet>513</a>            },
+<a href=#514 id=514 data-nosnippet>514</a>            ParseOperation::AppendBasedOnParentNode {
+<a href=#515 id=515 data-nosnippet>515</a>                element,
+<a href=#516 id=516 data-nosnippet>516</a>                prev_element,
+<a href=#517 id=517 data-nosnippet>517</a>                node,
+<a href=#518 id=518 data-nosnippet>518</a>            } =&gt; {
+<a href=#519 id=519 data-nosnippet>519</a>                <span class="kw">if </span><span class="self">self</span>.has_parent_node(element) {
+<a href=#520 id=520 data-nosnippet>520</a>                    <span class="self">self</span>.append_before_sibling(cx, element, node);
+<a href=#521 id=521 data-nosnippet>521</a>                } <span class="kw">else </span>{
+<a href=#522 id=522 data-nosnippet>522</a>                    <span class="self">self</span>.append(cx, prev_element, node);
+<a href=#523 id=523 data-nosnippet>523</a>                }
+<a href=#524 id=524 data-nosnippet>524</a>            },
+<a href=#525 id=525 data-nosnippet>525</a>            ParseOperation::AppendDoctypeToDocument {
+<a href=#526 id=526 data-nosnippet>526</a>                name,
+<a href=#527 id=527 data-nosnippet>527</a>                public_id,
+<a href=#528 id=528 data-nosnippet>528</a>                system_id,
+<a href=#529 id=529 data-nosnippet>529</a>            } =&gt; {
+<a href=#530 id=530 data-nosnippet>530</a>                <span class="kw">let </span>doctype = DocumentType::new(
+<a href=#531 id=531 data-nosnippet>531</a>                    cx,
+<a href=#532 id=532 data-nosnippet>532</a>                    DOMString::from(name),
+<a href=#533 id=533 data-nosnippet>533</a>                    <span class="prelude-val">Some</span>(DOMString::from(public_id)),
+<a href=#534 id=534 data-nosnippet>534</a>                    <span class="prelude-val">Some</span>(DOMString::from(system_id)),
+<a href=#535 id=535 data-nosnippet>535</a>                    document,
+<a href=#536 id=536 data-nosnippet>536</a>                );
+<a href=#537 id=537 data-nosnippet>537</a>
+<a href=#538 id=538 data-nosnippet>538</a>                document
+<a href=#539 id=539 data-nosnippet>539</a>                    .upcast::&lt;Node&gt;()
+<a href=#540 id=540 data-nosnippet>540</a>                    .AppendChild(cx, doctype.upcast())
+<a href=#541 id=541 data-nosnippet>541</a>                    .expect(<span class="string">"Appending failed"</span>);
+<a href=#542 id=542 data-nosnippet>542</a>            },
+<a href=#543 id=543 data-nosnippet>543</a>            ParseOperation::AddAttrsIfMissing { target, attrs } =&gt; {
+<a href=#544 id=544 data-nosnippet>544</a>                <span class="kw">let </span>node = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>target);
+<a href=#545 id=545 data-nosnippet>545</a>                <span class="kw">let </span>elem = node
+<a href=#546 id=546 data-nosnippet>546</a>                    .downcast::&lt;Element&gt;()
+<a href=#547 id=547 data-nosnippet>547</a>                    .expect(<span class="string">"tried to set attrs on non-Element in HTML parsing"</span>);
+<a href=#548 id=548 data-nosnippet>548</a>                <span class="kw">for </span>attr <span class="kw">in </span>attrs {
+<a href=#549 id=549 data-nosnippet>549</a>                    elem.set_attribute_from_parser(cx, attr.name, DOMString::from(attr.value));
+<a href=#550 id=550 data-nosnippet>550</a>                }
+<a href=#551 id=551 data-nosnippet>551</a>            },
+<a href=#552 id=552 data-nosnippet>552</a>            ParseOperation::RemoveFromParent { target } =&gt; {
+<a href=#553 id=553 data-nosnippet>553</a>                <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>parent) = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>target).GetParentNode() {
+<a href=#554 id=554 data-nosnippet>554</a>                    parent.RemoveChild(cx, <span class="kw-2">&amp;</span><span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>target)).unwrap();
+<a href=#555 id=555 data-nosnippet>555</a>                }
+<a href=#556 id=556 data-nosnippet>556</a>            },
+<a href=#557 id=557 data-nosnippet>557</a>            ParseOperation::MarkScriptAlreadyStarted { node } =&gt; {
+<a href=#558 id=558 data-nosnippet>558</a>                <span class="kw">let </span>node = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>node);
+<a href=#559 id=559 data-nosnippet>559</a>                <span class="kw">let </span>script = node.downcast::&lt;HTMLScriptElement&gt;();
+<a href=#560 id=560 data-nosnippet>560</a>                <span class="kw">if let </span><span class="prelude-val">Some</span>(script) = script {
+<a href=#561 id=561 data-nosnippet>561</a>                    script.set_already_started(<span class="bool-val">true</span>)
+<a href=#562 id=562 data-nosnippet>562</a>                }
+<a href=#563 id=563 data-nosnippet>563</a>            },
+<a href=#564 id=564 data-nosnippet>564</a>            ParseOperation::ReparentChildren { parent, new_parent } =&gt; {
+<a href=#565 id=565 data-nosnippet>565</a>                <span class="kw">let </span>parent = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>parent);
+<a href=#566 id=566 data-nosnippet>566</a>                <span class="kw">let </span>new_parent = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>new_parent);
+<a href=#567 id=567 data-nosnippet>567</a>                <span class="kw">while let </span><span class="prelude-val">Some</span>(child) = parent.GetFirstChild() {
+<a href=#568 id=568 data-nosnippet>568</a>                    new_parent.AppendChild(cx, <span class="kw-2">&amp;</span>child).unwrap();
+<a href=#569 id=569 data-nosnippet>569</a>                }
+<a href=#570 id=570 data-nosnippet>570</a>            },
+<a href=#571 id=571 data-nosnippet>571</a>            ParseOperation::AssociateWithForm {
+<a href=#572 id=572 data-nosnippet>572</a>                target,
+<a href=#573 id=573 data-nosnippet>573</a>                form,
+<a href=#574 id=574 data-nosnippet>574</a>                element,
+<a href=#575 id=575 data-nosnippet>575</a>                prev_element,
+<a href=#576 id=576 data-nosnippet>576</a>            } =&gt; {
+<a href=#577 id=577 data-nosnippet>577</a>                <span class="kw">let </span>tree_node = prev_element.map_or(element, |prev| {
+<a href=#578 id=578 data-nosnippet>578</a>                    <span class="kw">if </span><span class="self">self</span>.has_parent_node(element) {
+<a href=#579 id=579 data-nosnippet>579</a>                        element
+<a href=#580 id=580 data-nosnippet>580</a>                    } <span class="kw">else </span>{
+<a href=#581 id=581 data-nosnippet>581</a>                        prev
+<a href=#582 id=582 data-nosnippet>582</a>                    }
+<a href=#583 id=583 data-nosnippet>583</a>                });
+<a href=#584 id=584 data-nosnippet>584</a>
+<a href=#585 id=585 data-nosnippet>585</a>                <span class="kw">if </span>!<span class="self">self</span>.same_tree(tree_node, form) {
+<a href=#586 id=586 data-nosnippet>586</a>                    <span class="kw">return</span>;
+<a href=#587 id=587 data-nosnippet>587</a>                }
+<a href=#588 id=588 data-nosnippet>588</a>                <span class="kw">let </span>form = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>form);
+<a href=#589 id=589 data-nosnippet>589</a>                <span class="kw">let </span>form = DomRoot::downcast::&lt;HTMLFormElement&gt;(DomRoot::from_ref(<span class="kw-2">&amp;**</span>form))
+<a href=#590 id=590 data-nosnippet>590</a>                    .expect(<span class="string">"Owner must be a form element"</span>);
+<a href=#591 id=591 data-nosnippet>591</a>
+<a href=#592 id=592 data-nosnippet>592</a>                <span class="kw">let </span>node = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>target);
+<a href=#593 id=593 data-nosnippet>593</a>                <span class="kw">let </span>elem = node.downcast::&lt;Element&gt;();
+<a href=#594 id=594 data-nosnippet>594</a>                <span class="kw">let </span>control = elem.and_then(|e| e.as_maybe_form_control());
+<a href=#595 id=595 data-nosnippet>595</a>
+<a href=#596 id=596 data-nosnippet>596</a>                <span class="kw">if let </span><span class="prelude-val">Some</span>(control) = control {
+<a href=#597 id=597 data-nosnippet>597</a>                    control.set_form_owner_from_parser(cx, <span class="kw-2">&amp;</span>form);
+<a href=#598 id=598 data-nosnippet>598</a>                }
+<a href=#599 id=599 data-nosnippet>599</a>            },
+<a href=#600 id=600 data-nosnippet>600</a>            ParseOperation::Pop { node } =&gt; {
+<a href=#601 id=601 data-nosnippet>601</a>                vtable_for(<span class="kw-2">&amp;</span><span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>node)).pop(cx);
+<a href=#602 id=602 data-nosnippet>602</a>            },
+<a href=#603 id=603 data-nosnippet>603</a>            ParseOperation::CreatePI { node, target, data } =&gt; {
+<a href=#604 id=604 data-nosnippet>604</a>                <span class="kw">let </span>pi = ProcessingInstruction::new(
+<a href=#605 id=605 data-nosnippet>605</a>                    cx,
+<a href=#606 id=606 data-nosnippet>606</a>                    DOMString::from(target),
+<a href=#607 id=607 data-nosnippet>607</a>                    DOMString::from(data),
+<a href=#608 id=608 data-nosnippet>608</a>                    document,
+<a href=#609 id=609 data-nosnippet>609</a>                );
+<a href=#610 id=610 data-nosnippet>610</a>                <span class="self">self</span>.insert_node(node, Dom::from_ref(pi.upcast()));
+<a href=#611 id=611 data-nosnippet>611</a>            },
+<a href=#612 id=612 data-nosnippet>612</a>            ParseOperation::SetQuirksMode { mode } =&gt; {
+<a href=#613 id=613 data-nosnippet>613</a>                document.set_quirks_mode(mode);
+<a href=#614 id=614 data-nosnippet>614</a>            },
+<a href=#615 id=615 data-nosnippet>615</a>            ParseOperation::AttachDeclarativeShadowRoot {
+<a href=#616 id=616 data-nosnippet>616</a>                location,
+<a href=#617 id=617 data-nosnippet>617</a>                template,
+<a href=#618 id=618 data-nosnippet>618</a>                attributes,
+<a href=#619 id=619 data-nosnippet>619</a>                sender,
+<a href=#620 id=620 data-nosnippet>620</a>            } =&gt; {
+<a href=#621 id=621 data-nosnippet>621</a>                <span class="kw">let </span>location = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>location);
+<a href=#622 id=622 data-nosnippet>622</a>                <span class="kw">let </span>template = <span class="self">self</span>.get_node(<span class="kw-2">&amp;</span>template);
+<a href=#623 id=623 data-nosnippet>623</a>                <span class="kw">let </span>attributes: Vec&lt;<span class="kw">_</span>&gt; = attributes
+<a href=#624 id=624 data-nosnippet>624</a>                    .into_iter()
+<a href=#625 id=625 data-nosnippet>625</a>                    .map(|attribute| HtmlAttribute {
+<a href=#626 id=626 data-nosnippet>626</a>                        name: attribute.name,
+<a href=#627 id=627 data-nosnippet>627</a>                        value: StrTendril::from(attribute.value),
+<a href=#628 id=628 data-nosnippet>628</a>                    })
+<a href=#629 id=629 data-nosnippet>629</a>                    .collect();
+<a href=#630 id=630 data-nosnippet>630</a>
+<a href=#631 id=631 data-nosnippet>631</a>                <span class="kw">let </span>did_succeed =
+<a href=#632 id=632 data-nosnippet>632</a>                    attach_declarative_shadow_inner(cx, <span class="kw-2">&amp;</span>location, <span class="kw-2">&amp;</span>template, <span class="kw-2">&amp;</span>attributes);
+<a href=#633 id=633 data-nosnippet>633</a>                sender.send(did_succeed).unwrap();
+<a href=#634 id=634 data-nosnippet>634</a>            },
+<a href=#635 id=635 data-nosnippet>635</a>        }
+<a href=#636 id=636 data-nosnippet>636</a>    }
+<a href=#637 id=637 data-nosnippet>637</a>}
+<a href=#638 id=638 data-nosnippet>638</a>
+<a href=#639 id=639 data-nosnippet>639</a><span class="doccomment">/// Run the parser.
+<a href=#640 id=640 data-nosnippet>640</a>///
+<a href=#641 id=641 data-nosnippet>641</a>/// The `fragment_context` argument is `Some` in the fragment case and describes the context
+<a href=#642 id=642 data-nosnippet>642</a>/// node as well as whether scripting is enabled for the context node. Note that whether or not
+<a href=#643 id=643 data-nosnippet>643</a>/// scripting is enabled for the context node does not affect whether scripting is enabled for the
+<a href=#644 id=644 data-nosnippet>644</a>/// parser, that is determined by the `scripting_enabled` argument.
+<a href=#645 id=645 data-nosnippet>645</a></span><span class="kw">fn </span>run(
+<a href=#646 id=646 data-nosnippet>646</a>    sink: Sink,
+<a href=#647 id=647 data-nosnippet>647</a>    fragment_context: <span class="prelude-ty">Option</span>&lt;(ParseNode, bool)&gt;,
+<a href=#648 id=648 data-nosnippet>648</a>    form_parse_node: <span class="prelude-ty">Option</span>&lt;ParseNode&gt;,
+<a href=#649 id=649 data-nosnippet>649</a>    sender: Sender&lt;FromParserThreadMsg&gt;,
+<a href=#650 id=650 data-nosnippet>650</a>    receiver: Receiver&lt;ToParserThreadMsg&gt;,
+<a href=#651 id=651 data-nosnippet>651</a>    scripting_enabled: bool,
+<a href=#652 id=652 data-nosnippet>652</a>) {
+<a href=#653 id=653 data-nosnippet>653</a>    <span class="kw">let </span>options = TreeBuilderOpts {
+<a href=#654 id=654 data-nosnippet>654</a>        scripting_enabled,
+<a href=#655 id=655 data-nosnippet>655</a>        ..Default::default()
+<a href=#656 id=656 data-nosnippet>656</a>    };
+<a href=#657 id=657 data-nosnippet>657</a>
+<a href=#658 id=658 data-nosnippet>658</a>    <span class="kw">let </span>html_tokenizer = <span class="kw">if let </span><span class="prelude-val">Some</span>((context_node, context_scripting_enabled)) = fragment_context {
+<a href=#659 id=659 data-nosnippet>659</a>        <span class="kw">let </span>tree_builder =
+<a href=#660 id=660 data-nosnippet>660</a>            TreeBuilder::new_for_fragment(sink, context_node, form_parse_node, options);
+<a href=#661 id=661 data-nosnippet>661</a>
+<a href=#662 id=662 data-nosnippet>662</a>        <span class="kw">let </span>tok_options = TokenizerOpts {
+<a href=#663 id=663 data-nosnippet>663</a>            initial_state: <span class="prelude-val">Some</span>(
+<a href=#664 id=664 data-nosnippet>664</a>                tree_builder.tokenizer_state_for_context_elem(context_scripting_enabled),
+<a href=#665 id=665 data-nosnippet>665</a>            ),
+<a href=#666 id=666 data-nosnippet>666</a>            ..Default::default()
+<a href=#667 id=667 data-nosnippet>667</a>        };
+<a href=#668 id=668 data-nosnippet>668</a>
+<a href=#669 id=669 data-nosnippet>669</a>        HtmlTokenizer::new(tree_builder, tok_options)
+<a href=#670 id=670 data-nosnippet>670</a>    } <span class="kw">else </span>{
+<a href=#671 id=671 data-nosnippet>671</a>        HtmlTokenizer::new(TreeBuilder::new(sink, options), Default::default())
+<a href=#672 id=672 data-nosnippet>672</a>    };
+<a href=#673 id=673 data-nosnippet>673</a>
+<a href=#674 id=674 data-nosnippet>674</a>    <span class="kw">loop </span>{
+<a href=#675 id=675 data-nosnippet>675</a>        <span class="kw">match </span>receiver
+<a href=#676 id=676 data-nosnippet>676</a>            .recv()
+<a href=#677 id=677 data-nosnippet>677</a>            .expect(<span class="string">"Unexpected channel panic in html parser thread"</span>)
+<a href=#678 id=678 data-nosnippet>678</a>        {
+<a href=#679 id=679 data-nosnippet>679</a>            ToParserThreadMsg::Feed { input } =&gt; {
+<a href=#680 id=680 data-nosnippet>680</a>                <span class="kw">let </span>input = create_buffer_queue(input);
+<a href=#681 id=681 data-nosnippet>681</a>                <span class="kw">let </span>res = html_tokenizer.feed(<span class="kw-2">&amp;</span>input);
+<a href=#682 id=682 data-nosnippet>682</a>
+<a href=#683 id=683 data-nosnippet>683</a>                <span class="comment">// Gather changes to 'input' and place them in 'updated_input',
+<a href=#684 id=684 data-nosnippet>684</a>                // which will be sent to the main thread to update feed method's 'input'
+<a href=#685 id=685 data-nosnippet>685</a>                </span><span class="kw">let </span><span class="kw-2">mut </span>updated_input = VecDeque::new();
+<a href=#686 id=686 data-nosnippet>686</a>                <span class="kw">while let </span><span class="prelude-val">Some</span>(st) = input.pop_front() {
+<a href=#687 id=687 data-nosnippet>687</a>                    updated_input.push_back(SendTendril::from(st));
+<a href=#688 id=688 data-nosnippet>688</a>                }
+<a href=#689 id=689 data-nosnippet>689</a>
+<a href=#690 id=690 data-nosnippet>690</a>                <span class="kw">let </span>res = <span class="kw">match </span>res {
+<a href=#691 id=691 data-nosnippet>691</a>                    TokenizerResult::Done =&gt; {
+<a href=#692 id=692 data-nosnippet>692</a>                        FromParserThreadMsg::TokenizerResultDone { updated_input }
+<a href=#693 id=693 data-nosnippet>693</a>                    },
+<a href=#694 id=694 data-nosnippet>694</a>                    TokenizerResult::Script(script) =&gt; FromParserThreadMsg::TokenizerResultScript {
+<a href=#695 id=695 data-nosnippet>695</a>                        script,
+<a href=#696 id=696 data-nosnippet>696</a>                        updated_input,
+<a href=#697 id=697 data-nosnippet>697</a>                    },
+<a href=#698 id=698 data-nosnippet>698</a>                    TokenizerResult::EncodingIndicator(encoding) =&gt; {
+<a href=#699 id=699 data-nosnippet>699</a>                        FromParserThreadMsg::EncodingIndicator {
+<a href=#700 id=700 data-nosnippet>700</a>                            encoding: SendTendril::from(encoding),
+<a href=#701 id=701 data-nosnippet>701</a>                            updated_input,
+<a href=#702 id=702 data-nosnippet>702</a>                        }
+<a href=#703 id=703 data-nosnippet>703</a>                    },
+<a href=#704 id=704 data-nosnippet>704</a>                };
+<a href=#705 id=705 data-nosnippet>705</a>                sender.send(res).unwrap();
+<a href=#706 id=706 data-nosnippet>706</a>            },
+<a href=#707 id=707 data-nosnippet>707</a>            ToParserThreadMsg::End =&gt; {
+<a href=#708 id=708 data-nosnippet>708</a>                html_tokenizer.end();
+<a href=#709 id=709 data-nosnippet>709</a>                sender.send(FromParserThreadMsg::End).unwrap();
+<a href=#710 id=710 data-nosnippet>710</a>                <span class="kw">break</span>;
+<a href=#711 id=711 data-nosnippet>711</a>            },
+<a href=#712 id=712 data-nosnippet>712</a>            ToParserThreadMsg::SetPlainTextState =&gt; html_tokenizer.set_plaintext_state(),
+<a href=#713 id=713 data-nosnippet>713</a>        };
+<a href=#714 id=714 data-nosnippet>714</a>    }
+<a href=#715 id=715 data-nosnippet>715</a>}
+<a href=#716 id=716 data-nosnippet>716</a>
+<a href=#717 id=717 data-nosnippet>717</a><span class="attr">#[derive(Default, JSTraceable, MallocSizeOf)]
+<a href=#718 id=718 data-nosnippet>718</a></span><span class="kw">struct </span>ParseNodeData {
+<a href=#719 id=719 data-nosnippet>719</a>    contents: <span class="prelude-ty">Option</span>&lt;ParseNode&gt;,
+<a href=#720 id=720 data-nosnippet>720</a>    is_integration_point: bool,
+<a href=#721 id=721 data-nosnippet>721</a>}
+<a href=#722 id=722 data-nosnippet>722</a>
+<a href=#723 id=723 data-nosnippet>723</a><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Sink {
+<a href=#724 id=724 data-nosnippet>724</a>    current_line: Cell&lt;u64&gt;,
+<a href=#725 id=725 data-nosnippet>725</a>    parse_node_data: RefCell&lt;FxHashMap&lt;ParseNodeId, ParseNodeData&gt;&gt;,
+<a href=#726 id=726 data-nosnippet>726</a>    next_parse_node_id: Cell&lt;ParseNodeId&gt;,
+<a href=#727 id=727 data-nosnippet>727</a>    document_node: ParseNode,
+<a href=#728 id=728 data-nosnippet>728</a>    sender: Sender&lt;FromParserThreadMsg&gt;,
+<a href=#729 id=729 data-nosnippet>729</a>    allow_declarative_shadow_roots: bool,
+<a href=#730 id=730 data-nosnippet>730</a>}
+<a href=#731 id=731 data-nosnippet>731</a>
+<a href=#732 id=732 data-nosnippet>732</a><span class="kw">impl </span>Sink {
+<a href=#733 id=733 data-nosnippet>733</a>    <span class="kw">fn </span>new(sender: Sender&lt;FromParserThreadMsg&gt;, allow_declarative_shadow_roots: bool) -&gt; Sink {
+<a href=#734 id=734 data-nosnippet>734</a>        <span class="kw">let </span>sink = Sink {
+<a href=#735 id=735 data-nosnippet>735</a>            current_line: Cell::new(<span class="number">1</span>),
+<a href=#736 id=736 data-nosnippet>736</a>            parse_node_data: RefCell::new(FxHashMap::default()),
+<a href=#737 id=737 data-nosnippet>737</a>            next_parse_node_id: Cell::new(<span class="number">1</span>),
+<a href=#738 id=738 data-nosnippet>738</a>            document_node: ParseNode {
+<a href=#739 id=739 data-nosnippet>739</a>                id: <span class="number">0</span>,
+<a href=#740 id=740 data-nosnippet>740</a>                qual_name: <span class="prelude-val">None</span>,
+<a href=#741 id=741 data-nosnippet>741</a>            },
+<a href=#742 id=742 data-nosnippet>742</a>            sender,
+<a href=#743 id=743 data-nosnippet>743</a>            allow_declarative_shadow_roots,
+<a href=#744 id=744 data-nosnippet>744</a>        };
+<a href=#745 id=745 data-nosnippet>745</a>        <span class="kw">let </span>data = ParseNodeData::default();
+<a href=#746 id=746 data-nosnippet>746</a>        sink.insert_parse_node_data(<span class="number">0</span>, data);
+<a href=#747 id=747 data-nosnippet>747</a>        sink
+<a href=#748 id=748 data-nosnippet>748</a>    }
+<a href=#749 id=749 data-nosnippet>749</a>
+<a href=#750 id=750 data-nosnippet>750</a>    <span class="kw">fn </span>new_parse_node(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ParseNode {
+<a href=#751 id=751 data-nosnippet>751</a>        <span class="kw">let </span>id = <span class="self">self</span>.next_parse_node_id.get();
+<a href=#752 id=752 data-nosnippet>752</a>        <span class="kw">let </span>data = ParseNodeData::default();
+<a href=#753 id=753 data-nosnippet>753</a>        <span class="self">self</span>.insert_parse_node_data(id, data);
+<a href=#754 id=754 data-nosnippet>754</a>        <span class="self">self</span>.next_parse_node_id.set(id + <span class="number">1</span>);
+<a href=#755 id=755 data-nosnippet>755</a>        ParseNode {
+<a href=#756 id=756 data-nosnippet>756</a>            id,
+<a href=#757 id=757 data-nosnippet>757</a>            qual_name: <span class="prelude-val">None</span>,
+<a href=#758 id=758 data-nosnippet>758</a>        }
+<a href=#759 id=759 data-nosnippet>759</a>    }
+<a href=#760 id=760 data-nosnippet>760</a>
+<a href=#761 id=761 data-nosnippet>761</a>    <span class="kw">fn </span>send_op(<span class="kw-2">&amp;</span><span class="self">self</span>, op: ParseOperation) {
+<a href=#762 id=762 data-nosnippet>762</a>        <span class="self">self</span>.sender
+<a href=#763 id=763 data-nosnippet>763</a>            .send(FromParserThreadMsg::ProcessOperation(op))
+<a href=#764 id=764 data-nosnippet>764</a>            .unwrap();
+<a href=#765 id=765 data-nosnippet>765</a>    }
+<a href=#766 id=766 data-nosnippet>766</a>
+<a href=#767 id=767 data-nosnippet>767</a>    <span class="kw">fn </span>insert_parse_node_data(<span class="kw-2">&amp;</span><span class="self">self</span>, id: ParseNodeId, data: ParseNodeData) {
+<a href=#768 id=768 data-nosnippet>768</a>        <span class="macro">assert!</span>(<span class="self">self</span>.parse_node_data.borrow_mut().insert(id, data).is_none());
+<a href=#769 id=769 data-nosnippet>769</a>    }
+<a href=#770 id=770 data-nosnippet>770</a>
+<a href=#771 id=771 data-nosnippet>771</a>    <span class="kw">fn </span>get_parse_node_data&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, id: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>ParseNodeId) -&gt; Ref&lt;<span class="lifetime">'a</span>, ParseNodeData&gt; {
+<a href=#772 id=772 data-nosnippet>772</a>        Ref::map(<span class="self">self</span>.parse_node_data.borrow(), |data| {
+<a href=#773 id=773 data-nosnippet>773</a>            data.get(id).expect(<span class="string">"Parse Node data not found!"</span>)
+<a href=#774 id=774 data-nosnippet>774</a>        })
+<a href=#775 id=775 data-nosnippet>775</a>    }
+<a href=#776 id=776 data-nosnippet>776</a>
+<a href=#777 id=777 data-nosnippet>777</a>    <span class="kw">fn </span>get_parse_node_data_mut&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, id: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>ParseNodeId) -&gt; RefMut&lt;<span class="lifetime">'a</span>, ParseNodeData&gt; {
+<a href=#778 id=778 data-nosnippet>778</a>        RefMut::map(<span class="self">self</span>.parse_node_data.borrow_mut(), |data| {
+<a href=#779 id=779 data-nosnippet>779</a>            data.get_mut(id).expect(<span class="string">"Parse Node data not found!"</span>)
+<a href=#780 id=780 data-nosnippet>780</a>        })
+<a href=#781 id=781 data-nosnippet>781</a>    }
+<a href=#782 id=782 data-nosnippet>782</a>}
+<a href=#783 id=783 data-nosnippet>783</a>
+<a href=#784 id=784 data-nosnippet>784</a><span class="kw">impl </span>TreeSink <span class="kw">for </span>Sink {
+<a href=#785 id=785 data-nosnippet>785</a>    <span class="kw">type </span>Output = <span class="self">Self</span>;
+<a href=#786 id=786 data-nosnippet>786</a>    <span class="kw">fn </span>finish(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
+<a href=#787 id=787 data-nosnippet>787</a>        <span class="self">self
+<a href=#788 id=788 data-nosnippet>788</a>    </span>}
+<a href=#789 id=789 data-nosnippet>789</a>
+<a href=#790 id=790 data-nosnippet>790</a>    <span class="kw">type </span>Handle = ParseNode;
+<a href=#791 id=791 data-nosnippet>791</a>    <span class="kw">type </span>ElemName&lt;<span class="lifetime">'a</span>&gt;
+<a href=#792 id=792 data-nosnippet>792</a>        = ExpandedName&lt;<span class="lifetime">'a</span>&gt;
+<a href=#793 id=793 data-nosnippet>793</a>    <span class="kw">where
+<a href=#794 id=794 data-nosnippet>794</a>        </span><span class="self">Self</span>: <span class="lifetime">'a</span>;
+<a href=#795 id=795 data-nosnippet>795</a>
+<a href=#796 id=796 data-nosnippet>796</a>    <span class="kw">fn </span>get_document(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span>::Handle {
+<a href=#797 id=797 data-nosnippet>797</a>        <span class="self">self</span>.document_node.clone()
+<a href=#798 id=798 data-nosnippet>798</a>    }
+<a href=#799 id=799 data-nosnippet>799</a>
+<a href=#800 id=800 data-nosnippet>800</a>    <span class="kw">fn </span>get_template_contents(<span class="kw-2">&amp;</span><span class="self">self</span>, target: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle) -&gt; <span class="self">Self</span>::Handle {
+<a href=#801 id=801 data-nosnippet>801</a>        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>contents) = <span class="self">self</span>.get_parse_node_data(<span class="kw-2">&amp;</span>target.id).contents {
+<a href=#802 id=802 data-nosnippet>802</a>            <span class="kw">return </span>contents.clone();
+<a href=#803 id=803 data-nosnippet>803</a>        }
+<a href=#804 id=804 data-nosnippet>804</a>        <span class="kw">let </span>node = <span class="self">self</span>.new_parse_node();
+<a href=#805 id=805 data-nosnippet>805</a>        {
+<a href=#806 id=806 data-nosnippet>806</a>            <span class="kw">let </span><span class="kw-2">mut </span>data = <span class="self">self</span>.get_parse_node_data_mut(<span class="kw-2">&amp;</span>target.id);
+<a href=#807 id=807 data-nosnippet>807</a>            data.contents = <span class="prelude-val">Some</span>(node.clone());
+<a href=#808 id=808 data-nosnippet>808</a>        }
+<a href=#809 id=809 data-nosnippet>809</a>        <span class="self">self</span>.send_op(ParseOperation::GetTemplateContents {
+<a href=#810 id=810 data-nosnippet>810</a>            target: target.id,
+<a href=#811 id=811 data-nosnippet>811</a>            contents: node.id,
+<a href=#812 id=812 data-nosnippet>812</a>        });
+<a href=#813 id=813 data-nosnippet>813</a>        node
+<a href=#814 id=814 data-nosnippet>814</a>    }
+<a href=#815 id=815 data-nosnippet>815</a>
+<a href=#816 id=816 data-nosnippet>816</a>    <span class="kw">fn </span>same_node(<span class="kw-2">&amp;</span><span class="self">self</span>, x: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle, y: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle) -&gt; bool {
+<a href=#817 id=817 data-nosnippet>817</a>        x.id == y.id
+<a href=#818 id=818 data-nosnippet>818</a>    }
+<a href=#819 id=819 data-nosnippet>819</a>
+<a href=#820 id=820 data-nosnippet>820</a>    <span class="kw">fn </span>elem_name&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, target: <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">Self</span>::Handle) -&gt; ExpandedName&lt;<span class="lifetime">'a</span>&gt; {
+<a href=#821 id=821 data-nosnippet>821</a>        target
+<a href=#822 id=822 data-nosnippet>822</a>            .qual_name
+<a href=#823 id=823 data-nosnippet>823</a>            .as_ref()
+<a href=#824 id=824 data-nosnippet>824</a>            .expect(<span class="string">"Expected qual name of node!"</span>)
+<a href=#825 id=825 data-nosnippet>825</a>            .expanded()
+<a href=#826 id=826 data-nosnippet>826</a>    }
+<a href=#827 id=827 data-nosnippet>827</a>
+<a href=#828 id=828 data-nosnippet>828</a>    <span class="kw">fn </span>create_element(
+<a href=#829 id=829 data-nosnippet>829</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#830 id=830 data-nosnippet>830</a>        name: QualName,
+<a href=#831 id=831 data-nosnippet>831</a>        html_attrs: Vec&lt;HtmlAttribute&gt;,
+<a href=#832 id=832 data-nosnippet>832</a>        flags: ElementFlags,
+<a href=#833 id=833 data-nosnippet>833</a>    ) -&gt; <span class="self">Self</span>::Handle {
+<a href=#834 id=834 data-nosnippet>834</a>        <span class="kw">let </span><span class="kw-2">mut </span>node = <span class="self">self</span>.new_parse_node();
+<a href=#835 id=835 data-nosnippet>835</a>        node.qual_name = <span class="prelude-val">Some</span>(name.clone());
+<a href=#836 id=836 data-nosnippet>836</a>        {
+<a href=#837 id=837 data-nosnippet>837</a>            <span class="kw">let </span><span class="kw-2">mut </span>node_data = <span class="self">self</span>.get_parse_node_data_mut(<span class="kw-2">&amp;</span>node.id);
+<a href=#838 id=838 data-nosnippet>838</a>            node_data.is_integration_point = html_attrs.iter().any(|attr| {
+<a href=#839 id=839 data-nosnippet>839</a>                <span class="kw">let </span>attr_value = <span class="kw-2">&amp;</span>String::from(attr.value.clone());
+<a href=#840 id=840 data-nosnippet>840</a>                (attr.name.local == <span class="macro">local_name!</span>(<span class="string">"encoding"</span>) &amp;&amp; attr.name.ns == <span class="macro">ns!</span>()) &amp;&amp;
+<a href=#841 id=841 data-nosnippet>841</a>                    (attr_value.eq_ignore_ascii_case(<span class="string">"text/html"</span>) ||
+<a href=#842 id=842 data-nosnippet>842</a>                        attr_value.eq_ignore_ascii_case(<span class="string">"application/xhtml+xml"</span>))
+<a href=#843 id=843 data-nosnippet>843</a>            });
+<a href=#844 id=844 data-nosnippet>844</a>        }
+<a href=#845 id=845 data-nosnippet>845</a>        <span class="kw">let </span>attrs = html_attrs
+<a href=#846 id=846 data-nosnippet>846</a>            .into_iter()
+<a href=#847 id=847 data-nosnippet>847</a>            .map(|attr| Attribute {
+<a href=#848 id=848 data-nosnippet>848</a>                name: attr.name,
+<a href=#849 id=849 data-nosnippet>849</a>                value: String::from(attr.value),
+<a href=#850 id=850 data-nosnippet>850</a>            })
+<a href=#851 id=851 data-nosnippet>851</a>            .collect();
+<a href=#852 id=852 data-nosnippet>852</a>
+<a href=#853 id=853 data-nosnippet>853</a>        <span class="self">self</span>.send_op(ParseOperation::CreateElement {
+<a href=#854 id=854 data-nosnippet>854</a>            node: node.id,
+<a href=#855 id=855 data-nosnippet>855</a>            name,
+<a href=#856 id=856 data-nosnippet>856</a>            attrs,
+<a href=#857 id=857 data-nosnippet>857</a>            current_line: <span class="self">self</span>.current_line.get(),
+<a href=#858 id=858 data-nosnippet>858</a>            had_duplicate_attributes: flags.had_duplicate_attributes,
+<a href=#859 id=859 data-nosnippet>859</a>        });
+<a href=#860 id=860 data-nosnippet>860</a>        node
+<a href=#861 id=861 data-nosnippet>861</a>    }
+<a href=#862 id=862 data-nosnippet>862</a>
+<a href=#863 id=863 data-nosnippet>863</a>    <span class="kw">fn </span>create_comment(<span class="kw-2">&amp;</span><span class="self">self</span>, text: StrTendril) -&gt; <span class="self">Self</span>::Handle {
+<a href=#864 id=864 data-nosnippet>864</a>        <span class="kw">let </span>node = <span class="self">self</span>.new_parse_node();
+<a href=#865 id=865 data-nosnippet>865</a>        <span class="self">self</span>.send_op(ParseOperation::CreateComment {
+<a href=#866 id=866 data-nosnippet>866</a>            text: String::from(text),
+<a href=#867 id=867 data-nosnippet>867</a>            node: node.id,
+<a href=#868 id=868 data-nosnippet>868</a>        });
+<a href=#869 id=869 data-nosnippet>869</a>        node
+<a href=#870 id=870 data-nosnippet>870</a>    }
+<a href=#871 id=871 data-nosnippet>871</a>
+<a href=#872 id=872 data-nosnippet>872</a>    <span class="kw">fn </span>create_pi(<span class="kw-2">&amp;</span><span class="self">self</span>, target: StrTendril, data: StrTendril) -&gt; ParseNode {
+<a href=#873 id=873 data-nosnippet>873</a>        <span class="kw">let </span>node = <span class="self">self</span>.new_parse_node();
+<a href=#874 id=874 data-nosnippet>874</a>        <span class="self">self</span>.send_op(ParseOperation::CreatePI {
+<a href=#875 id=875 data-nosnippet>875</a>            node: node.id,
+<a href=#876 id=876 data-nosnippet>876</a>            target: String::from(target),
+<a href=#877 id=877 data-nosnippet>877</a>            data: String::from(data),
+<a href=#878 id=878 data-nosnippet>878</a>        });
+<a href=#879 id=879 data-nosnippet>879</a>        node
+<a href=#880 id=880 data-nosnippet>880</a>    }
+<a href=#881 id=881 data-nosnippet>881</a>
+<a href=#882 id=882 data-nosnippet>882</a>    <span class="kw">fn </span>associate_with_form(
+<a href=#883 id=883 data-nosnippet>883</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#884 id=884 data-nosnippet>884</a>        target: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle,
+<a href=#885 id=885 data-nosnippet>885</a>        form: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle,
+<a href=#886 id=886 data-nosnippet>886</a>        nodes: (<span class="kw-2">&amp;</span><span class="self">Self</span>::Handle, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="self">Self</span>::Handle&gt;),
+<a href=#887 id=887 data-nosnippet>887</a>    ) {
+<a href=#888 id=888 data-nosnippet>888</a>        <span class="kw">let </span>(element, prev_element) = nodes;
+<a href=#889 id=889 data-nosnippet>889</a>        <span class="self">self</span>.send_op(ParseOperation::AssociateWithForm {
+<a href=#890 id=890 data-nosnippet>890</a>            target: target.id,
+<a href=#891 id=891 data-nosnippet>891</a>            form: form.id,
+<a href=#892 id=892 data-nosnippet>892</a>            element: element.id,
+<a href=#893 id=893 data-nosnippet>893</a>            prev_element: prev_element.map(|p| p.id),
+<a href=#894 id=894 data-nosnippet>894</a>        });
+<a href=#895 id=895 data-nosnippet>895</a>    }
+<a href=#896 id=896 data-nosnippet>896</a>
+<a href=#897 id=897 data-nosnippet>897</a>    <span class="kw">fn </span>append_before_sibling(
+<a href=#898 id=898 data-nosnippet>898</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#899 id=899 data-nosnippet>899</a>        sibling: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle,
+<a href=#900 id=900 data-nosnippet>900</a>        new_node: HtmlNodeOrText&lt;<span class="self">Self</span>::Handle&gt;,
+<a href=#901 id=901 data-nosnippet>901</a>    ) {
+<a href=#902 id=902 data-nosnippet>902</a>        <span class="kw">let </span>new_node = <span class="kw">match </span>new_node {
+<a href=#903 id=903 data-nosnippet>903</a>            HtmlNodeOrText::AppendNode(node) =&gt; NodeOrText::Node(node),
+<a href=#904 id=904 data-nosnippet>904</a>            HtmlNodeOrText::AppendText(text) =&gt; NodeOrText::Text(String::from(text)),
+<a href=#905 id=905 data-nosnippet>905</a>        };
+<a href=#906 id=906 data-nosnippet>906</a>        <span class="self">self</span>.send_op(ParseOperation::AppendBeforeSibling {
+<a href=#907 id=907 data-nosnippet>907</a>            sibling: sibling.id,
+<a href=#908 id=908 data-nosnippet>908</a>            node: new_node,
+<a href=#909 id=909 data-nosnippet>909</a>        });
+<a href=#910 id=910 data-nosnippet>910</a>    }
+<a href=#911 id=911 data-nosnippet>911</a>
+<a href=#912 id=912 data-nosnippet>912</a>    <span class="kw">fn </span>append_based_on_parent_node(
+<a href=#913 id=913 data-nosnippet>913</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#914 id=914 data-nosnippet>914</a>        elem: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle,
+<a href=#915 id=915 data-nosnippet>915</a>        prev_elem: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle,
+<a href=#916 id=916 data-nosnippet>916</a>        child: HtmlNodeOrText&lt;<span class="self">Self</span>::Handle&gt;,
+<a href=#917 id=917 data-nosnippet>917</a>    ) {
+<a href=#918 id=918 data-nosnippet>918</a>        <span class="kw">let </span>child = <span class="kw">match </span>child {
+<a href=#919 id=919 data-nosnippet>919</a>            HtmlNodeOrText::AppendNode(node) =&gt; NodeOrText::Node(node),
+<a href=#920 id=920 data-nosnippet>920</a>            HtmlNodeOrText::AppendText(text) =&gt; NodeOrText::Text(String::from(text)),
+<a href=#921 id=921 data-nosnippet>921</a>        };
+<a href=#922 id=922 data-nosnippet>922</a>        <span class="self">self</span>.send_op(ParseOperation::AppendBasedOnParentNode {
+<a href=#923 id=923 data-nosnippet>923</a>            element: elem.id,
+<a href=#924 id=924 data-nosnippet>924</a>            prev_element: prev_elem.id,
+<a href=#925 id=925 data-nosnippet>925</a>            node: child,
+<a href=#926 id=926 data-nosnippet>926</a>        });
+<a href=#927 id=927 data-nosnippet>927</a>    }
+<a href=#928 id=928 data-nosnippet>928</a>
+<a href=#929 id=929 data-nosnippet>929</a>    <span class="kw">fn </span>parse_error(<span class="kw-2">&amp;</span><span class="self">self</span>, msg: Cow&lt;<span class="lifetime">'static</span>, str&gt;) {
+<a href=#930 id=930 data-nosnippet>930</a>        <span class="macro">debug!</span>(<span class="string">"Parse error: {}"</span>, msg);
+<a href=#931 id=931 data-nosnippet>931</a>    }
+<a href=#932 id=932 data-nosnippet>932</a>
+<a href=#933 id=933 data-nosnippet>933</a>    <span class="kw">fn </span>set_quirks_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: QuirksMode) {
+<a href=#934 id=934 data-nosnippet>934</a>        <span class="kw">let </span>mode = <span class="kw">match </span>mode {
+<a href=#935 id=935 data-nosnippet>935</a>            QuirksMode::Quirks =&gt; ServoQuirksMode::Quirks,
+<a href=#936 id=936 data-nosnippet>936</a>            QuirksMode::LimitedQuirks =&gt; ServoQuirksMode::LimitedQuirks,
+<a href=#937 id=937 data-nosnippet>937</a>            QuirksMode::NoQuirks =&gt; ServoQuirksMode::NoQuirks,
+<a href=#938 id=938 data-nosnippet>938</a>        };
+<a href=#939 id=939 data-nosnippet>939</a>        <span class="self">self</span>.send_op(ParseOperation::SetQuirksMode { mode });
+<a href=#940 id=940 data-nosnippet>940</a>    }
+<a href=#941 id=941 data-nosnippet>941</a>
+<a href=#942 id=942 data-nosnippet>942</a>    <span class="kw">fn </span>append(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle, child: HtmlNodeOrText&lt;<span class="self">Self</span>::Handle&gt;) {
+<a href=#943 id=943 data-nosnippet>943</a>        <span class="kw">let </span>child = <span class="kw">match </span>child {
+<a href=#944 id=944 data-nosnippet>944</a>            HtmlNodeOrText::AppendNode(node) =&gt; NodeOrText::Node(node),
+<a href=#945 id=945 data-nosnippet>945</a>            HtmlNodeOrText::AppendText(text) =&gt; NodeOrText::Text(String::from(text)),
+<a href=#946 id=946 data-nosnippet>946</a>        };
+<a href=#947 id=947 data-nosnippet>947</a>        <span class="self">self</span>.send_op(ParseOperation::Append {
+<a href=#948 id=948 data-nosnippet>948</a>            parent: parent.id,
+<a href=#949 id=949 data-nosnippet>949</a>            node: child,
+<a href=#950 id=950 data-nosnippet>950</a>        });
+<a href=#951 id=951 data-nosnippet>951</a>    }
+<a href=#952 id=952 data-nosnippet>952</a>
+<a href=#953 id=953 data-nosnippet>953</a>    <span class="kw">fn </span>append_doctype_to_document(
+<a href=#954 id=954 data-nosnippet>954</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#955 id=955 data-nosnippet>955</a>        name: StrTendril,
+<a href=#956 id=956 data-nosnippet>956</a>        public_id: StrTendril,
+<a href=#957 id=957 data-nosnippet>957</a>        system_id: StrTendril,
+<a href=#958 id=958 data-nosnippet>958</a>    ) {
+<a href=#959 id=959 data-nosnippet>959</a>        <span class="self">self</span>.send_op(ParseOperation::AppendDoctypeToDocument {
+<a href=#960 id=960 data-nosnippet>960</a>            name: String::from(name),
+<a href=#961 id=961 data-nosnippet>961</a>            public_id: String::from(public_id),
+<a href=#962 id=962 data-nosnippet>962</a>            system_id: String::from(system_id),
+<a href=#963 id=963 data-nosnippet>963</a>        });
+<a href=#964 id=964 data-nosnippet>964</a>    }
+<a href=#965 id=965 data-nosnippet>965</a>
+<a href=#966 id=966 data-nosnippet>966</a>    <span class="kw">fn </span>add_attrs_if_missing(<span class="kw-2">&amp;</span><span class="self">self</span>, target: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle, html_attrs: Vec&lt;HtmlAttribute&gt;) {
+<a href=#967 id=967 data-nosnippet>967</a>        <span class="kw">let </span>attrs = html_attrs
+<a href=#968 id=968 data-nosnippet>968</a>            .into_iter()
+<a href=#969 id=969 data-nosnippet>969</a>            .map(|attr| Attribute {
+<a href=#970 id=970 data-nosnippet>970</a>                name: attr.name,
+<a href=#971 id=971 data-nosnippet>971</a>                value: String::from(attr.value),
+<a href=#972 id=972 data-nosnippet>972</a>            })
+<a href=#973 id=973 data-nosnippet>973</a>            .collect();
+<a href=#974 id=974 data-nosnippet>974</a>        <span class="self">self</span>.send_op(ParseOperation::AddAttrsIfMissing {
+<a href=#975 id=975 data-nosnippet>975</a>            target: target.id,
+<a href=#976 id=976 data-nosnippet>976</a>            attrs,
+<a href=#977 id=977 data-nosnippet>977</a>        });
+<a href=#978 id=978 data-nosnippet>978</a>    }
+<a href=#979 id=979 data-nosnippet>979</a>
+<a href=#980 id=980 data-nosnippet>980</a>    <span class="kw">fn </span>remove_from_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, target: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle) {
+<a href=#981 id=981 data-nosnippet>981</a>        <span class="self">self</span>.send_op(ParseOperation::RemoveFromParent { target: target.id });
+<a href=#982 id=982 data-nosnippet>982</a>    }
+<a href=#983 id=983 data-nosnippet>983</a>
+<a href=#984 id=984 data-nosnippet>984</a>    <span class="kw">fn </span>mark_script_already_started(<span class="kw-2">&amp;</span><span class="self">self</span>, node: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle) {
+<a href=#985 id=985 data-nosnippet>985</a>        <span class="self">self</span>.send_op(ParseOperation::MarkScriptAlreadyStarted { node: node.id });
+<a href=#986 id=986 data-nosnippet>986</a>    }
+<a href=#987 id=987 data-nosnippet>987</a>
+<a href=#988 id=988 data-nosnippet>988</a>    <span class="kw">fn </span>reparent_children(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle, new_parent: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle) {
+<a href=#989 id=989 data-nosnippet>989</a>        <span class="self">self</span>.send_op(ParseOperation::ReparentChildren {
+<a href=#990 id=990 data-nosnippet>990</a>            parent: parent.id,
+<a href=#991 id=991 data-nosnippet>991</a>            new_parent: new_parent.id,
+<a href=#992 id=992 data-nosnippet>992</a>        });
+<a href=#993 id=993 data-nosnippet>993</a>    }
+<a href=#994 id=994 data-nosnippet>994</a>
+<a href=#995 id=995 data-nosnippet>995</a>    <span class="doccomment">/// &lt;https://html.spec.whatwg.org/multipage/#html-integration-point&gt;
+<a href=#996 id=996 data-nosnippet>996</a>    /// Specifically, the `&lt;annotation-xml&gt;` cases.
+<a href=#997 id=997 data-nosnippet>997</a>    </span><span class="kw">fn </span>is_mathml_annotation_xml_integration_point(<span class="kw-2">&amp;</span><span class="self">self</span>, handle: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle) -&gt; bool {
+<a href=#998 id=998 data-nosnippet>998</a>        <span class="kw">let </span>node_data = <span class="self">self</span>.get_parse_node_data(<span class="kw-2">&amp;</span>handle.id);
+<a href=#999 id=999 data-nosnippet>999</a>        node_data.is_integration_point
+<a href=#1000 id=1000 data-nosnippet>1000</a>    }
+<a href=#1001 id=1001 data-nosnippet>1001</a>
+<a href=#1002 id=1002 data-nosnippet>1002</a>    <span class="kw">fn </span>set_current_line(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: u64) {
+<a href=#1003 id=1003 data-nosnippet>1003</a>        <span class="self">self</span>.current_line.set(line_number);
+<a href=#1004 id=1004 data-nosnippet>1004</a>    }
+<a href=#1005 id=1005 data-nosnippet>1005</a>
+<a href=#1006 id=1006 data-nosnippet>1006</a>    <span class="kw">fn </span>pop(<span class="kw-2">&amp;</span><span class="self">self</span>, node: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle) {
+<a href=#1007 id=1007 data-nosnippet>1007</a>        <span class="self">self</span>.send_op(ParseOperation::Pop { node: node.id });
+<a href=#1008 id=1008 data-nosnippet>1008</a>    }
+<a href=#1009 id=1009 data-nosnippet>1009</a>
+<a href=#1010 id=1010 data-nosnippet>1010</a>    <span class="kw">fn </span>allow_declarative_shadow_roots(<span class="kw-2">&amp;</span><span class="self">self</span>, _intended_parent: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle) -&gt; bool {
+<a href=#1011 id=1011 data-nosnippet>1011</a>        <span class="self">self</span>.allow_declarative_shadow_roots
+<a href=#1012 id=1012 data-nosnippet>1012</a>    }
+<a href=#1013 id=1013 data-nosnippet>1013</a>
+<a href=#1014 id=1014 data-nosnippet>1014</a>    <span class="kw">fn </span>attach_declarative_shadow(
+<a href=#1015 id=1015 data-nosnippet>1015</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#1016 id=1016 data-nosnippet>1016</a>        location: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle,
+<a href=#1017 id=1017 data-nosnippet>1017</a>        template: <span class="kw-2">&amp;</span><span class="self">Self</span>::Handle,
+<a href=#1018 id=1018 data-nosnippet>1018</a>        attributes: <span class="kw-2">&amp;</span>[HtmlAttribute],
+<a href=#1019 id=1019 data-nosnippet>1019</a>    ) -&gt; bool {
+<a href=#1020 id=1020 data-nosnippet>1020</a>        <span class="kw">let </span>attributes = attributes
+<a href=#1021 id=1021 data-nosnippet>1021</a>            .iter()
+<a href=#1022 id=1022 data-nosnippet>1022</a>            .map(|attribute| Attribute {
+<a href=#1023 id=1023 data-nosnippet>1023</a>                name: attribute.name.clone(),
+<a href=#1024 id=1024 data-nosnippet>1024</a>                value: String::from(attribute.value.clone()),
+<a href=#1025 id=1025 data-nosnippet>1025</a>            })
+<a href=#1026 id=1026 data-nosnippet>1026</a>            .collect();
+<a href=#1027 id=1027 data-nosnippet>1027</a>
+<a href=#1028 id=1028 data-nosnippet>1028</a>        <span class="comment">// Unfortunately the parser can only proceed after it knows whether attaching the shadow root
+<a href=#1029 id=1029 data-nosnippet>1029</a>        // succeeded or failed. Attaching a shadow root can fail for many different reasons,
+<a href=#1030 id=1030 data-nosnippet>1030</a>        // and so we need to block until the script thread has processed this operation.
+<a href=#1031 id=1031 data-nosnippet>1031</a>        </span><span class="kw">let </span>(sender, receiver) = unbounded();
+<a href=#1032 id=1032 data-nosnippet>1032</a>        <span class="self">self</span>.send_op(ParseOperation::AttachDeclarativeShadowRoot {
+<a href=#1033 id=1033 data-nosnippet>1033</a>            location: location.id,
+<a href=#1034 id=1034 data-nosnippet>1034</a>            template: template.id,
+<a href=#1035 id=1035 data-nosnippet>1035</a>            attributes,
+<a href=#1036 id=1036 data-nosnippet>1036</a>            sender,
+<a href=#1037 id=1037 data-nosnippet>1037</a>        });
+<a href=#1038 id=1038 data-nosnippet>1038</a>
+<a href=#1039 id=1039 data-nosnippet>1039</a>        receiver.recv().unwrap()
+<a href=#1040 id=1040 data-nosnippet>1040</a>    }
+<a href=#1041 id=1041 data-nosnippet>1041</a>}
+</code></pre></div></section></main></body></html>

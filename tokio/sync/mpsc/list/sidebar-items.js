@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TryPopResult"],"fn":["channel"],"struct":["Rx","Tx"]};

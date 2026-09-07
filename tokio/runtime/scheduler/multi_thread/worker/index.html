@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A scheduler is initialized with a fixed number of workers. Each worker is driven by a thread. Each worker has a “core” which contains data such as the run queue and other state. When `block_in_place` is called, the worker’s “core” is handed off to a new thread allowing the scheduler to continue to make progress while the originating thread blocks."><title>tokio::runtime::scheduler::multi_thread::worker - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../../" data-static-root-path="../../../../../static.files/" data-current-crate="tokio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module worker</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../../../tokio/index.html">tokio</a><span class="version">1.53.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module worker</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#shutdown" title="Shutdown">Shutdown</a><ul><li><a href="#spawns-during-shutdown" title="Spawns during shutdown">Spawns during shutdown</a></li></ul></li></ul><h3><a href="#modules">Module Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#functions" title="Functions">Functions</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="../index.html">In tokio::<wbr>runtime::<wbr>scheduler::<wbr>multi_<wbr>thread</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../../../index.html">tokio</a>::<wbr><a href="../../../index.html">runtime</a>::<wbr><a href="../../index.html">scheduler</a>::<wbr><a href="../index.html">multi_thread</a></div><h1>Module <span>worker</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../../../src/tokio/runtime/scheduler/multi_thread/worker.rs.html#1-1593">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A scheduler is initialized with a fixed number of workers. Each worker is
+driven by a thread. Each worker has a “core” which contains data such as the
+run queue and other state. When <code>block_in_place</code> is called, the worker’s
+“core” is handed off to a new thread allowing the scheduler to continue to
+make progress while the originating thread blocks.</p>
+<h2 id="shutdown"><a class="doc-anchor" href="#shutdown">§</a>Shutdown</h2>
+<p>Shutting down the runtime involves the following steps:</p>
+<ol>
+<li>
+<p>The Shared::close method is called. This closes the inject queue and
+<code>OwnedTasks</code> instance and wakes up all worker threads.</p>
+</li>
+<li>
+<p>Each worker thread observes the close signal next time it runs
+Core::maintenance by checking whether the inject queue is closed.
+The <code>Core::is_shutdown</code> flag is set to true.</p>
+</li>
+<li>
+<p>The worker thread calls <code>pre_shutdown</code> in parallel. Here, the worker
+will keep removing tasks from <code>OwnedTasks</code> until it is empty. No new
+tasks can be pushed to the <code>OwnedTasks</code> during or after this step as it
+was closed in step 1.</p>
+</li>
+<li>
+<p>The workers call Shared::shutdown to enter the single-threaded phase of
+shutdown. These calls will push their core to <code>Shared::shutdown_cores</code>,
+and the last thread to push its core will finish the shutdown procedure.</p>
+</li>
+<li>
+<p>The local run queue of each core is emptied, then the inject queue is
+emptied.</p>
+</li>
+</ol>
+<p>At this point, shutdown has completed. It is not possible for any of the
+collections to contain any tasks at this point, as each collection was
+closed first, then emptied afterwards.</p>
+<h3 id="spawns-during-shutdown"><a class="doc-anchor" href="#spawns-during-shutdown">§</a>Spawns during shutdown</h3>
+<p>When spawning tasks during shutdown, there are two cases:</p>
+<ul>
+<li>The spawner observes the <code>OwnedTasks</code> being open, and the inject queue is
+closed.</li>
+<li>The spawner observes the <code>OwnedTasks</code> being closed and doesn’t check the
+inject queue.</li>
+</ul>
+<p>The first case can only happen if the <code>OwnedTasks::bind</code> call happens before
+or during step 1 of shutdown. In this case, the runtime will clean up the
+task in step 3 of shutdown.</p>
+<p>In the latter case, the task was not spawned and the task is immediately
+cancelled by the spawner.</p>
+<p>The correctness of shutdown requires both the inject queue and <code>OwnedTasks</code>
+collection to have a closed bit. With a close bit on only the inject queue,
+spawning could run in to a situation where a task is successfully bound long
+after the runtime has shut down. With a close bit on only the <code>OwnedTasks</code>,
+the first spawning situation could result in the notification being pushed
+to the inject queue after step 6 of shutdown, which would leave a task in
+the inject queue indefinitely. This would be a ref-count cycle and a memory
+leak.</p>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="metrics/index.html" title="mod tokio::runtime::scheduler::multi_thread::worker::metrics">metrics</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="taskdump_mock/index.html" title="mod tokio::runtime::scheduler::multi_thread::worker::taskdump_mock">taskdump_<wbr>mock</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.Context.html" title="struct tokio::runtime::scheduler::multi_thread::worker::Context">Context</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Thread-local context</dd><dt><a class="struct" href="struct.Core.html" title="struct tokio::runtime::scheduler::multi_thread::worker::Core">Core</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Core data</dd><dt><a class="struct" href="struct.InjectGuard.html" title="struct tokio::runtime::scheduler::multi_thread::worker::InjectGuard">Inject<wbr>Guard</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="struct" href="struct.Launch.html" title="struct tokio::runtime::scheduler::multi_thread::worker::Launch">Launch</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Starts the workers</dd><dt><a class="struct" href="struct.Remote.html" title="struct tokio::runtime::scheduler::multi_thread::worker::Remote">Remote</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Used to communicate with a worker from other threads.</dd><dt><a class="struct" href="struct.Shared.html" title="struct tokio::runtime::scheduler::multi_thread::worker::Shared">Shared</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>State shared across all workers</dd><dt><a class="struct" href="struct.Synced.html" title="struct tokio::runtime::scheduler::multi_thread::worker::Synced">Synced</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Data synchronized by the scheduler mutex</dd><dt><a class="struct" href="struct.Worker.html" title="struct tokio::runtime::scheduler::multi_thread::worker::Worker">Worker</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>A scheduler worker</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.MAX_LIFO_POLLS_PER_TICK.html" title="constant tokio::runtime::scheduler::multi_thread::worker::MAX_LIFO_POLLS_PER_TICK">MAX_<wbr>LIFO_<wbr>POLLS_<wbr>PER_<wbr>TICK</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Value picked out of thin-air. Running the LIFO slot a handful of times
+seems sufficient to benefit from locality. More than 3 times probably is
+over-weighting. The value can be tuned in the future with data that shows
+improvements.</dd></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.block_in_place.html" title="fn tokio::runtime::scheduler::multi_thread::worker::block_in_place">block_<wbr>in_<wbr>place</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.create.html" title="fn tokio::runtime::scheduler::multi_thread::worker::create">create</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.run.html" title="fn tokio::runtime::scheduler::multi_thread::worker::run">run</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.with_current.html" title="fn tokio::runtime::scheduler::multi_thread::worker::with_current">with_<wbr>current</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.Notified.html" title="type tokio::runtime::scheduler::multi_thread::worker::Notified">Notified</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>A notified task handle</dd><dt><a class="type" href="type.RunResult.html" title="type tokio::runtime::scheduler::multi_thread::worker::RunResult">RunResult</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Running a task may consume the core. If the core is still available when
+running the task completes, it is returned. Otherwise, the worker will need
+to stop processing.</dd></dl></section></div></main></body></html>

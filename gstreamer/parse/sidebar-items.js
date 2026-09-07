@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bin_from_description","bin_from_description_full","bin_from_description_with_name","bin_from_description_with_name_full","launch","launch_full","launchv","launchv_full"]};

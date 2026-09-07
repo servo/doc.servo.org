@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["lerp"],"struct":["ArrayFetchVector3f","ArrayFetchVector4f","Cube","Fetch4Vec3","Fetch4Vec4","Hypercube"],"trait":["ArrayFetch","Fetcher4"]};

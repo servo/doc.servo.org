@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["Geolocation_Binding"],"struct":["PositionCallback","PositionErrorCallback","PositionOptions"],"trait":["GeolocationMethods"]};

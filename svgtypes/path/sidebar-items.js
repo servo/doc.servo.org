@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PathSegment","SimplePathSegment"],"fn":["is_absolute","is_cmd","is_number_start","next_impl","parse_flag","to_relative"],"struct":["PathParser","SimplifyingPathParser"]};

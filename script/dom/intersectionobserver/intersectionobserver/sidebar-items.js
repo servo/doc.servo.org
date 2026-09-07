@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_IntersectionObserver"],"enum":["ThresholdIndex","UnrootedElementOrDocument"],"fn":["compute_the_intersection","intersect_rectangle","parse_a_margin"],"struct":["IntersectionObservationOutput","IntersectionObserver","IntersectionObserverRegistration"],"type":["IntersectionRoot"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_WritableStream"],"enum":["WritableStreamState"],"fn":["create_writable_stream"],"struct":["AbortAlgorithmFulfillmentHandler","AbortAlgorithmRejectionHandler","CrossRealmTransformWritable","PendingAbortRequest","WritableStream"]};

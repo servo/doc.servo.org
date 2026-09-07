@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compress","compress512"],"mod":["avx2_cpuid","soft","x86_avx2"]};

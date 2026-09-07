@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetConstructorObject","Wrap"],"mod":["DOMMatrixReadOnly_Binding","GenericBindings"],"trait":["DOMMatrixReadOnlyMethods"]};

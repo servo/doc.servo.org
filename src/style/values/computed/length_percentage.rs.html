@@ -1,0 +1,1044 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/stylo-482338307e42a9ea/a5b0464/style/values/computed/length_percentage.rs`."><title>length_percentage.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="style" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">style/values/computed/</div>length_percentage.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-4"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="doccomment">//! `&lt;length-percentage&gt;` computed values, and related ones.
+<a href=#6 id=6 data-nosnippet>6</a>//!
+<a href=#7 id=7 data-nosnippet>7</a>//! The over-all design is a tagged pointer, with the lower bit of the pointer
+<a href=#8 id=8 data-nosnippet>8</a>//! being non-zero if it is a non-calc value. See `tagged_numeric` for the
+<a href=#9 id=9 data-nosnippet>9</a>//! shared implementation details.
+<a href=#10 id=10 data-nosnippet>10</a>
+<a href=#11 id=11 data-nosnippet>11</a></span><span class="kw">use super</span>::{position::AnchorSide, Context, Length, Percentage, ToComputedValue};
+<a href=#12 id=12 data-nosnippet>12</a><span class="kw">use </span><span class="kw">crate</span>::derives::<span class="kw-2">*</span>;
+<a href=#13 id=13 data-nosnippet>13</a><span class="attr">#[cfg(feature = <span class="string">"gecko"</span>)]
+<a href=#14 id=14 data-nosnippet>14</a></span><span class="kw">use </span><span class="kw">crate</span>::gecko_bindings::structs::{AnchorPosOffsetResolutionParams, GeckoFontMetrics};
+<a href=#15 id=15 data-nosnippet>15</a><span class="kw">use </span><span class="kw">crate</span>::logical_geometry::{PhysicalAxis, PhysicalSide};
+<a href=#16 id=16 data-nosnippet>16</a><span class="kw">use </span><span class="kw">crate</span>::typed_om::{ToTyped, TypedValue};
+<a href=#17 id=17 data-nosnippet>17</a><span class="kw">use </span><span class="kw">crate</span>::values::animated::{
+<a href=#18 id=18 data-nosnippet>18</a>    Animate, Context <span class="kw">as </span>AnimatedContext, Procedure, ToAnimatedValue, ToAnimatedZero,
+<a href=#19 id=19 data-nosnippet>19</a>};
+<a href=#20 id=20 data-nosnippet>20</a><span class="kw">use </span><span class="kw">crate</span>::values::computed::position::TryTacticAdjustment;
+<a href=#21 id=21 data-nosnippet>21</a><span class="kw">use </span><span class="kw">crate</span>::values::distance::{ComputeSquaredDistance, SquaredDistance};
+<a href=#22 id=22 data-nosnippet>22</a><span class="kw">use </span><span class="kw">crate</span>::values::generics::calc::GenericAnchorFunctionFallback;
+<a href=#23 id=23 data-nosnippet>23</a><span class="attr">#[cfg(feature = <span class="string">"gecko"</span>)]
+<a href=#24 id=24 data-nosnippet>24</a></span><span class="kw">use </span><span class="kw">crate</span>::values::generics::length::AnchorResolutionResult;
+<a href=#25 id=25 data-nosnippet>25</a><span class="kw">use </span><span class="kw">crate</span>::values::generics::position::GenericAnchorSide;
+<a href=#26 id=26 data-nosnippet>26</a><span class="kw">use </span><span class="kw">crate</span>::values::generics::{calc, ClampToNonNegative, NonNegative};
+<a href=#27 id=27 data-nosnippet>27</a><span class="kw">use </span><span class="kw">crate</span>::values::resolved::{Context <span class="kw">as </span>ResolvedContext, ToResolvedValue};
+<a href=#28 id=28 data-nosnippet>28</a><span class="kw">use </span><span class="kw">crate</span>::values::specified::length::{EqualsPercentage, FontBaseSize, LineHeightBase};
+<a href=#29 id=29 data-nosnippet>29</a><span class="kw">use </span><span class="kw">crate</span>::values::specified::number::NoCalcNumber;
+<a href=#30 id=30 data-nosnippet>30</a><span class="kw">use </span><span class="kw">crate</span>::values::specified::percentage::NoCalcPercentage;
+<a href=#31 id=31 data-nosnippet>31</a><span class="kw">use </span><span class="kw">crate</span>::values::tagged_numeric::{<span class="self">self </span><span class="kw">as </span>tagged, NumericUnion};
+<a href=#32 id=32 data-nosnippet>32</a><span class="kw">use </span><span class="kw">crate</span>::values::{specified, CSSFloat};
+<a href=#33 id=33 data-nosnippet>33</a><span class="kw">use crate</span>::{Zero, ZeroNoPercent};
+<a href=#34 id=34 data-nosnippet>34</a><span class="kw">use </span>app_units::Au;
+<a href=#35 id=35 data-nosnippet>35</a><span class="kw">use </span>serde::{Deserialize, Serialize};
+<a href=#36 id=36 data-nosnippet>36</a><span class="kw">use </span>std::fmt::{<span class="self">self</span>, Write};
+<a href=#37 id=37 data-nosnippet>37</a><span class="kw">use </span>style_traits::values::specified::AllowedNumericType;
+<a href=#38 id=38 data-nosnippet>38</a><span class="kw">use </span>style_traits::{CssWriter, ToCss};
+<a href=#39 id=39 data-nosnippet>39</a><span class="kw">use </span>thin_vec::ThinVec;
+<a href=#40 id=40 data-nosnippet>40</a>
+<a href=#41 id=41 data-nosnippet>41</a><span class="kw">pub use </span><span class="kw">super</span>::calc::ComputedLeaf;
+<a href=#42 id=42 data-nosnippet>42</a>
+<a href=#43 id=43 data-nosnippet>43</a><span class="doccomment">/// The discriminator used for inline LengthPercentage variants.
+<a href=#44 id=44 data-nosnippet>44</a></span><span class="attr">#[derive(Clone, Copy, Debug, MallocSizeOf, PartialEq, ToShmem)]
+<a href=#45 id=45 data-nosnippet>45</a>#[repr(u8)]
+<a href=#46 id=46 data-nosnippet>46</a></span><span class="kw">pub enum </span>LengthPercentageTag {
+<a href=#47 id=47 data-nosnippet>47</a>    <span class="doccomment">/// A `&lt;length&gt;` value.
+<a href=#48 id=48 data-nosnippet>48</a>    </span>Length = <span class="number">0</span>,
+<a href=#49 id=49 data-nosnippet>49</a>    <span class="doccomment">/// A `&lt;percentage&gt;` value.
+<a href=#50 id=50 data-nosnippet>50</a>    </span>Percentage = <span class="number">1</span>,
+<a href=#51 id=51 data-nosnippet>51</a>}
+<a href=#52 id=52 data-nosnippet>52</a>
+<a href=#53 id=53 data-nosnippet>53</a><span class="doccomment">/// A `&lt;length-percentage&gt;` value. This can be either a `&lt;length&gt;`, a
+<a href=#54 id=54 data-nosnippet>54</a>/// `&lt;percentage&gt;`, or a combination of both via `calc()`.
+<a href=#55 id=55 data-nosnippet>55</a>///
+<a href=#56 id=56 data-nosnippet>56</a>/// https://drafts.csswg.org/css-values-4/#typedef-length-percentage
+<a href=#57 id=57 data-nosnippet>57</a>///
+<a href=#58 id=58 data-nosnippet>58</a>/// cbindgen:derive-eq=false
+<a href=#59 id=59 data-nosnippet>59</a>/// cbindgen:derive-neq=false
+<a href=#60 id=60 data-nosnippet>60</a></span><span class="attr">#[derive(MallocSizeOf)]
+<a href=#61 id=61 data-nosnippet>61</a>#[repr(C)]
+<a href=#62 id=62 data-nosnippet>62</a></span><span class="kw">pub struct </span>LengthPercentage(NumericUnion&lt;LengthPercentageTag, f32, CalcLengthPercentage&gt;);
+<a href=#63 id=63 data-nosnippet>63</a>
+<a href=#64 id=64 data-nosnippet>64</a><span class="kw">impl </span>ToAnimatedValue <span class="kw">for </span>LengthPercentage {
+<a href=#65 id=65 data-nosnippet>65</a>    <span class="kw">type </span>AnimatedValue = <span class="self">Self</span>;
+<a href=#66 id=66 data-nosnippet>66</a>
+<a href=#67 id=67 data-nosnippet>67</a>    <span class="kw">fn </span>to_animated_value(<span class="self">self</span>, context: <span class="kw-2">&amp;</span>AnimatedContext) -&gt; <span class="self">Self</span>::AnimatedValue {
+<a href=#68 id=68 data-nosnippet>68</a>        <span class="kw">if </span>context.style.effective_zoom.is_one() {
+<a href=#69 id=69 data-nosnippet>69</a>            <span class="kw">return </span><span class="self">self</span>;
+<a href=#70 id=70 data-nosnippet>70</a>        }
+<a href=#71 id=71 data-nosnippet>71</a>        <span class="self">self</span>.map_lengths(|l| l.to_animated_value(context))
+<a href=#72 id=72 data-nosnippet>72</a>    }
+<a href=#73 id=73 data-nosnippet>73</a>
+<a href=#74 id=74 data-nosnippet>74</a>    <span class="attr">#[inline]
+<a href=#75 id=75 data-nosnippet>75</a>    </span><span class="kw">fn </span>from_animated_value(value: <span class="self">Self</span>::AnimatedValue) -&gt; <span class="self">Self </span>{
+<a href=#76 id=76 data-nosnippet>76</a>        value
+<a href=#77 id=77 data-nosnippet>77</a>    }
+<a href=#78 id=78 data-nosnippet>78</a>}
+<a href=#79 id=79 data-nosnippet>79</a>
+<a href=#80 id=80 data-nosnippet>80</a><span class="kw">impl </span>ToResolvedValue <span class="kw">for </span>LengthPercentage {
+<a href=#81 id=81 data-nosnippet>81</a>    <span class="kw">type </span>ResolvedValue = <span class="self">Self</span>;
+<a href=#82 id=82 data-nosnippet>82</a>
+<a href=#83 id=83 data-nosnippet>83</a>    <span class="kw">fn </span>to_resolved_value(<span class="self">self</span>, context: <span class="kw-2">&amp;</span>ResolvedContext) -&gt; <span class="self">Self</span>::ResolvedValue {
+<a href=#84 id=84 data-nosnippet>84</a>        <span class="kw">if </span>context.style.effective_zoom.is_one() {
+<a href=#85 id=85 data-nosnippet>85</a>            <span class="kw">return </span><span class="self">self</span>;
+<a href=#86 id=86 data-nosnippet>86</a>        }
+<a href=#87 id=87 data-nosnippet>87</a>        <span class="self">self</span>.map_lengths(|l| l.to_resolved_value(context))
+<a href=#88 id=88 data-nosnippet>88</a>    }
+<a href=#89 id=89 data-nosnippet>89</a>
+<a href=#90 id=90 data-nosnippet>90</a>    <span class="attr">#[inline]
+<a href=#91 id=91 data-nosnippet>91</a>    </span><span class="kw">fn </span>from_resolved_value(value: <span class="self">Self</span>::ResolvedValue) -&gt; <span class="self">Self </span>{
+<a href=#92 id=92 data-nosnippet>92</a>        value
+<a href=#93 id=93 data-nosnippet>93</a>    }
+<a href=#94 id=94 data-nosnippet>94</a>}
+<a href=#95 id=95 data-nosnippet>95</a>
+<a href=#96 id=96 data-nosnippet>96</a><span class="kw">impl </span>EqualsPercentage <span class="kw">for </span>LengthPercentage {
+<a href=#97 id=97 data-nosnippet>97</a>    <span class="kw">fn </span>equals_percentage(<span class="kw-2">&amp;</span><span class="self">self</span>, v: CSSFloat) -&gt; bool {
+<a href=#98 id=98 data-nosnippet>98</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#99 id=99 data-nosnippet>99</a>            Unpacked::Percentage(p) =&gt; p.<span class="number">0 </span>== v,
+<a href=#100 id=100 data-nosnippet>100</a>            <span class="kw">_ </span>=&gt; <span class="bool-val">false</span>,
+<a href=#101 id=101 data-nosnippet>101</a>        }
+<a href=#102 id=102 data-nosnippet>102</a>    }
+<a href=#103 id=103 data-nosnippet>103</a>}
+<a href=#104 id=104 data-nosnippet>104</a>
+<a href=#105 id=105 data-nosnippet>105</a><span class="doccomment">/// An unpacked `&lt;length-percentage&gt;` that borrows the `calc()` variant.
+<a href=#106 id=106 data-nosnippet>106</a></span><span class="attr">#[derive(Clone, Debug, PartialEq, ToCss, ToTyped)]
+<a href=#107 id=107 data-nosnippet>107</a></span><span class="kw">pub enum </span>Unpacked&lt;<span class="lifetime">'a</span>&gt; {
+<a href=#108 id=108 data-nosnippet>108</a>    <span class="doccomment">/// A `calc()` value
+<a href=#109 id=109 data-nosnippet>109</a>    </span>Calc(<span class="kw-2">&amp;</span><span class="lifetime">'a </span>CalcLengthPercentage),
+<a href=#110 id=110 data-nosnippet>110</a>    <span class="doccomment">/// A length value
+<a href=#111 id=111 data-nosnippet>111</a>    </span>Length(Length),
+<a href=#112 id=112 data-nosnippet>112</a>    <span class="doccomment">/// A percentage value
+<a href=#113 id=113 data-nosnippet>113</a>    </span>Percentage(Percentage),
+<a href=#114 id=114 data-nosnippet>114</a>}
+<a href=#115 id=115 data-nosnippet>115</a>
+<a href=#116 id=116 data-nosnippet>116</a><span class="doccomment">/// An unpacked `&lt;length-percentage&gt;` that mutably borrows the `calc()` variant.
+<a href=#117 id=117 data-nosnippet>117</a></span><span class="kw">enum </span>UnpackedMut&lt;<span class="lifetime">'a</span>&gt; {
+<a href=#118 id=118 data-nosnippet>118</a>    Calc(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="kw-2">mut </span>CalcLengthPercentage),
+<a href=#119 id=119 data-nosnippet>119</a>    Length(Length),
+<a href=#120 id=120 data-nosnippet>120</a>    Percentage(Percentage),
+<a href=#121 id=121 data-nosnippet>121</a>}
+<a href=#122 id=122 data-nosnippet>122</a>
+<a href=#123 id=123 data-nosnippet>123</a><span class="doccomment">/// An unpacked `&lt;length-percentage&gt;` that owns the `calc()` variant, for
+<a href=#124 id=124 data-nosnippet>124</a>/// serialization purposes.
+<a href=#125 id=125 data-nosnippet>125</a></span><span class="attr">#[derive(Deserialize, PartialEq, Serialize)]
+<a href=#126 id=126 data-nosnippet>126</a></span><span class="kw">enum </span>Serializable {
+<a href=#127 id=127 data-nosnippet>127</a>    Calc(CalcLengthPercentage),
+<a href=#128 id=128 data-nosnippet>128</a>    Length(Length),
+<a href=#129 id=129 data-nosnippet>129</a>    Percentage(Percentage),
+<a href=#130 id=130 data-nosnippet>130</a>}
+<a href=#131 id=131 data-nosnippet>131</a>
+<a href=#132 id=132 data-nosnippet>132</a><span class="kw">impl </span>LengthPercentage {
+<a href=#133 id=133 data-nosnippet>133</a>    <span class="doccomment">/// 1px length value for SVG defaults
+<a href=#134 id=134 data-nosnippet>134</a>    </span><span class="attr">#[inline]
+<a href=#135 id=135 data-nosnippet>135</a>    </span><span class="kw">pub fn </span>one() -&gt; <span class="self">Self </span>{
+<a href=#136 id=136 data-nosnippet>136</a>        <span class="self">Self</span>::new_length(Length::new(<span class="number">1.</span>))
+<a href=#137 id=137 data-nosnippet>137</a>    }
+<a href=#138 id=138 data-nosnippet>138</a>
+<a href=#139 id=139 data-nosnippet>139</a>    <span class="doccomment">/// 0%
+<a href=#140 id=140 data-nosnippet>140</a>    </span><span class="attr">#[inline]
+<a href=#141 id=141 data-nosnippet>141</a>    </span><span class="kw">pub fn </span>zero_percent() -&gt; <span class="self">Self </span>{
+<a href=#142 id=142 data-nosnippet>142</a>        <span class="self">Self</span>::new_percent(Percentage::zero())
+<a href=#143 id=143 data-nosnippet>143</a>    }
+<a href=#144 id=144 data-nosnippet>144</a>
+<a href=#145 id=145 data-nosnippet>145</a>    <span class="doccomment">/// 100%
+<a href=#146 id=146 data-nosnippet>146</a>    </span><span class="attr">#[inline]
+<a href=#147 id=147 data-nosnippet>147</a>    </span><span class="kw">pub fn </span>hundred_percent() -&gt; <span class="self">Self </span>{
+<a href=#148 id=148 data-nosnippet>148</a>        <span class="self">Self</span>::new_percent(Percentage::hundred())
+<a href=#149 id=149 data-nosnippet>149</a>    }
+<a href=#150 id=150 data-nosnippet>150</a>
+<a href=#151 id=151 data-nosnippet>151</a>    <span class="kw">fn </span>to_calc_node(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; CalcNode {
+<a href=#152 id=152 data-nosnippet>152</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#153 id=153 data-nosnippet>153</a>            Unpacked::Length(l) =&gt; CalcNode::Leaf(ComputedLeaf::Length(l)),
+<a href=#154 id=154 data-nosnippet>154</a>            Unpacked::Percentage(p) =&gt; CalcNode::Leaf(ComputedLeaf::Percentage(p)),
+<a href=#155 id=155 data-nosnippet>155</a>            Unpacked::Calc(p) =&gt; p.node.clone(),
+<a href=#156 id=156 data-nosnippet>156</a>        }
+<a href=#157 id=157 data-nosnippet>157</a>    }
+<a href=#158 id=158 data-nosnippet>158</a>
+<a href=#159 id=159 data-nosnippet>159</a>    <span class="kw">fn </span>map_lengths(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut </span>map_fn: <span class="kw">impl </span>FnMut(Length) -&gt; Length) -&gt; <span class="self">Self </span>{
+<a href=#160 id=160 data-nosnippet>160</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#161 id=161 data-nosnippet>161</a>            Unpacked::Length(l) =&gt; <span class="self">Self</span>::new_length(map_fn(l)),
+<a href=#162 id=162 data-nosnippet>162</a>            Unpacked::Percentage(p) =&gt; <span class="self">Self</span>::new_percent(p),
+<a href=#163 id=163 data-nosnippet>163</a>            Unpacked::Calc(lp) =&gt; <span class="self">Self</span>::new_calc_unchecked(Box::new(CalcLengthPercentage {
+<a href=#164 id=164 data-nosnippet>164</a>                clamping_mode: lp.clamping_mode,
+<a href=#165 id=165 data-nosnippet>165</a>                node: lp.node.map_leaves(|leaf| <span class="kw">match </span><span class="kw-2">*</span>leaf {
+<a href=#166 id=166 data-nosnippet>166</a>                    ComputedLeaf::Length(<span class="kw-2">ref </span>l) =&gt; ComputedLeaf::Length(map_fn(<span class="kw-2">*</span>l)),
+<a href=#167 id=167 data-nosnippet>167</a>                    <span class="kw-2">ref </span>l =&gt; l.clone(),
+<a href=#168 id=168 data-nosnippet>168</a>                }),
+<a href=#169 id=169 data-nosnippet>169</a>            })),
+<a href=#170 id=170 data-nosnippet>170</a>        }
+<a href=#171 id=171 data-nosnippet>171</a>    }
+<a href=#172 id=172 data-nosnippet>172</a>
+<a href=#173 id=173 data-nosnippet>173</a>    <span class="doccomment">/// Constructs a length value.
+<a href=#174 id=174 data-nosnippet>174</a>    </span><span class="attr">#[inline]
+<a href=#175 id=175 data-nosnippet>175</a>    </span><span class="kw">pub fn </span>new_length(length: Length) -&gt; <span class="self">Self </span>{
+<a href=#176 id=176 data-nosnippet>176</a>        <span class="self">Self</span>(NumericUnion::inline(
+<a href=#177 id=177 data-nosnippet>177</a>            LengthPercentageTag::Length,
+<a href=#178 id=178 data-nosnippet>178</a>            length.px(),
+<a href=#179 id=179 data-nosnippet>179</a>        ))
+<a href=#180 id=180 data-nosnippet>180</a>    }
+<a href=#181 id=181 data-nosnippet>181</a>
+<a href=#182 id=182 data-nosnippet>182</a>    <span class="doccomment">/// Constructs a percentage value.
+<a href=#183 id=183 data-nosnippet>183</a>    </span><span class="attr">#[inline]
+<a href=#184 id=184 data-nosnippet>184</a>    </span><span class="kw">pub fn </span>new_percent(percentage: Percentage) -&gt; <span class="self">Self </span>{
+<a href=#185 id=185 data-nosnippet>185</a>        <span class="self">Self</span>(NumericUnion::inline(
+<a href=#186 id=186 data-nosnippet>186</a>            LengthPercentageTag::Percentage,
+<a href=#187 id=187 data-nosnippet>187</a>            percentage.<span class="number">0</span>,
+<a href=#188 id=188 data-nosnippet>188</a>        ))
+<a href=#189 id=189 data-nosnippet>189</a>    }
+<a href=#190 id=190 data-nosnippet>190</a>
+<a href=#191 id=191 data-nosnippet>191</a>    <span class="doccomment">/// Given a `LengthPercentage` value `v`, construct the value representing
+<a href=#192 id=192 data-nosnippet>192</a>    /// `calc(100% - v)`.
+<a href=#193 id=193 data-nosnippet>193</a>    </span><span class="kw">pub fn </span>hundred_percent_minus(v: <span class="self">Self</span>, clamping_mode: AllowedNumericType) -&gt; <span class="self">Self </span>{
+<a href=#194 id=194 data-nosnippet>194</a>        <span class="comment">// TODO: This could in theory take ownership of the calc node in `v` if
+<a href=#195 id=195 data-nosnippet>195</a>        // possible instead of cloning.
+<a href=#196 id=196 data-nosnippet>196</a>        </span><span class="kw">let </span><span class="kw-2">mut </span>node = v.to_calc_node();
+<a href=#197 id=197 data-nosnippet>197</a>        node.negate();
+<a href=#198 id=198 data-nosnippet>198</a>
+<a href=#199 id=199 data-nosnippet>199</a>        <span class="kw">let </span>new_node = CalcNode::Sum(
+<a href=#200 id=200 data-nosnippet>200</a>            <span class="macro">vec!</span>[
+<a href=#201 id=201 data-nosnippet>201</a>                CalcNode::Leaf(ComputedLeaf::Percentage(Percentage::hundred())),
+<a href=#202 id=202 data-nosnippet>202</a>                node,
+<a href=#203 id=203 data-nosnippet>203</a>            ]
+<a href=#204 id=204 data-nosnippet>204</a>            .into(),
+<a href=#205 id=205 data-nosnippet>205</a>        );
+<a href=#206 id=206 data-nosnippet>206</a>
+<a href=#207 id=207 data-nosnippet>207</a>        <span class="self">Self</span>::new_calc(new_node, clamping_mode)
+<a href=#208 id=208 data-nosnippet>208</a>    }
+<a href=#209 id=209 data-nosnippet>209</a>
+<a href=#210 id=210 data-nosnippet>210</a>    <span class="doccomment">/// Given a list of `LengthPercentage` values, construct the value representing
+<a href=#211 id=211 data-nosnippet>211</a>    /// `calc(100% - the sum of the list)`.
+<a href=#212 id=212 data-nosnippet>212</a>    </span><span class="kw">pub fn </span>hundred_percent_minus_list(list: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="self">Self</span>], clamping_mode: AllowedNumericType) -&gt; <span class="self">Self </span>{
+<a href=#213 id=213 data-nosnippet>213</a>        <span class="kw">let </span><span class="kw-2">mut </span>new_list = <span class="macro">vec!</span>[CalcNode::Leaf(ComputedLeaf::Percentage(
+<a href=#214 id=214 data-nosnippet>214</a>            Percentage::hundred(),
+<a href=#215 id=215 data-nosnippet>215</a>        ))];
+<a href=#216 id=216 data-nosnippet>216</a>
+<a href=#217 id=217 data-nosnippet>217</a>        <span class="kw">for </span>lp <span class="kw">in </span>list.iter() {
+<a href=#218 id=218 data-nosnippet>218</a>            <span class="kw">let </span><span class="kw-2">mut </span>node = lp.to_calc_node();
+<a href=#219 id=219 data-nosnippet>219</a>            node.negate();
+<a href=#220 id=220 data-nosnippet>220</a>            new_list.push(node)
+<a href=#221 id=221 data-nosnippet>221</a>        }
+<a href=#222 id=222 data-nosnippet>222</a>
+<a href=#223 id=223 data-nosnippet>223</a>        <span class="self">Self</span>::new_calc(CalcNode::Sum(new_list.into()), clamping_mode)
+<a href=#224 id=224 data-nosnippet>224</a>    }
+<a href=#225 id=225 data-nosnippet>225</a>
+<a href=#226 id=226 data-nosnippet>226</a>    <span class="doccomment">/// Constructs a `calc()` value.
+<a href=#227 id=227 data-nosnippet>227</a>    </span><span class="attr">#[inline]
+<a href=#228 id=228 data-nosnippet>228</a>    </span><span class="kw">pub fn </span>new_calc(<span class="kw-2">mut </span>node: CalcNode, clamping_mode: AllowedNumericType) -&gt; <span class="self">Self </span>{
+<a href=#229 id=229 data-nosnippet>229</a>        node.simplify_and_sort();
+<a href=#230 id=230 data-nosnippet>230</a>
+<a href=#231 id=231 data-nosnippet>231</a>        <span class="kw">match </span>node {
+<a href=#232 id=232 data-nosnippet>232</a>            CalcNode::Leaf(l) =&gt; {
+<a href=#233 id=233 data-nosnippet>233</a>                <span class="kw">return match </span>l {
+<a href=#234 id=234 data-nosnippet>234</a>                    ComputedLeaf::Length(l) =&gt; {
+<a href=#235 id=235 data-nosnippet>235</a>                        <span class="self">Self</span>::new_length(Length::new(clamping_mode.clamp(l.px())).normalized())
+<a href=#236 id=236 data-nosnippet>236</a>                    },
+<a href=#237 id=237 data-nosnippet>237</a>                    ComputedLeaf::Percentage(p) =&gt; <span class="self">Self</span>::new_percent(Percentage(
+<a href=#238 id=238 data-nosnippet>238</a>                        clamping_mode.clamp(<span class="kw">crate</span>::values::normalize(p.<span class="number">0</span>)),
+<a href=#239 id=239 data-nosnippet>239</a>                    )),
+<a href=#240 id=240 data-nosnippet>240</a>                    ComputedLeaf::Number(number) =&gt; {
+<a href=#241 id=241 data-nosnippet>241</a>                        <span class="macro">debug_assert!</span>(
+<a href=#242 id=242 data-nosnippet>242</a>                            <span class="bool-val">false</span>,
+<a href=#243 id=243 data-nosnippet>243</a>                            <span class="string">"The final result of a &lt;length-percentage&gt; should never be a number"
+<a href=#244 id=244 data-nosnippet>244</a>                        </span>);
+<a href=#245 id=245 data-nosnippet>245</a>                        <span class="self">Self</span>::new_length(Length::new(number))
+<a href=#246 id=246 data-nosnippet>246</a>                    },
+<a href=#247 id=247 data-nosnippet>247</a>                    ComputedLeaf::Angle(..)
+<a href=#248 id=248 data-nosnippet>248</a>                    | ComputedLeaf::Time(..)
+<a href=#249 id=249 data-nosnippet>249</a>                    | ComputedLeaf::Resolution(..) =&gt; {
+<a href=#250 id=250 data-nosnippet>250</a>                        <span class="macro">debug_assert!</span>(
+<a href=#251 id=251 data-nosnippet>251</a>                            <span class="bool-val">false</span>,
+<a href=#252 id=252 data-nosnippet>252</a>                            <span class="string">"The final result of a &lt;length-percentage&gt; should never be an angle, time, or resolution"
+<a href=#253 id=253 data-nosnippet>253</a>                        </span>);
+<a href=#254 id=254 data-nosnippet>254</a>                        <span class="self">Self</span>::zero()
+<a href=#255 id=255 data-nosnippet>255</a>                    },
+<a href=#256 id=256 data-nosnippet>256</a>                };
+<a href=#257 id=257 data-nosnippet>257</a>            },
+<a href=#258 id=258 data-nosnippet>258</a>            <span class="kw">_ </span>=&gt; <span class="self">Self</span>::new_calc_unchecked(Box::new(CalcLengthPercentage {
+<a href=#259 id=259 data-nosnippet>259</a>                clamping_mode,
+<a href=#260 id=260 data-nosnippet>260</a>                node,
+<a href=#261 id=261 data-nosnippet>261</a>            })),
+<a href=#262 id=262 data-nosnippet>262</a>        }
+<a href=#263 id=263 data-nosnippet>263</a>    }
+<a href=#264 id=264 data-nosnippet>264</a>
+<a href=#265 id=265 data-nosnippet>265</a>    <span class="doccomment">/// Private version of new_calc() that constructs a calc() variant without
+<a href=#266 id=266 data-nosnippet>266</a>    /// checking.
+<a href=#267 id=267 data-nosnippet>267</a>    </span><span class="kw">fn </span>new_calc_unchecked(calc: Box&lt;CalcLengthPercentage&gt;) -&gt; <span class="self">Self </span>{
+<a href=#268 id=268 data-nosnippet>268</a>        <span class="self">Self</span>(NumericUnion::boxed(calc))
+<a href=#269 id=269 data-nosnippet>269</a>    }
+<a href=#270 id=270 data-nosnippet>270</a>
+<a href=#271 id=271 data-nosnippet>271</a>    <span class="attr">#[inline]
+<a href=#272 id=272 data-nosnippet>272</a>    </span><span class="kw">fn </span>unpack_mut&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="kw-2">mut </span><span class="self">self</span>) -&gt; UnpackedMut&lt;<span class="lifetime">'a</span>&gt; {
+<a href=#273 id=273 data-nosnippet>273</a>        <span class="kw">match </span><span class="self">self</span>.<span class="number">0</span>.unpack_mut() {
+<a href=#274 id=274 data-nosnippet>274</a>            tagged::UnpackedMut::Boxed(calc) =&gt; UnpackedMut::Calc(calc),
+<a href=#275 id=275 data-nosnippet>275</a>            tagged::UnpackedMut::Inline(t, n) =&gt; <span class="kw">match </span><span class="kw-2">*</span>t {
+<a href=#276 id=276 data-nosnippet>276</a>                LengthPercentageTag::Length =&gt; UnpackedMut::Length(Length::new(<span class="kw-2">*</span>n)),
+<a href=#277 id=277 data-nosnippet>277</a>                LengthPercentageTag::Percentage =&gt; UnpackedMut::Percentage(Percentage(<span class="kw-2">*</span>n)),
+<a href=#278 id=278 data-nosnippet>278</a>            },
+<a href=#279 id=279 data-nosnippet>279</a>        }
+<a href=#280 id=280 data-nosnippet>280</a>    }
+<a href=#281 id=281 data-nosnippet>281</a>
+<a href=#282 id=282 data-nosnippet>282</a>    <span class="doccomment">/// Unpack the tagged pointer representation of a length-percentage into an enum
+<a href=#283 id=283 data-nosnippet>283</a>    /// representation with separate tag and value.
+<a href=#284 id=284 data-nosnippet>284</a>    </span><span class="attr">#[inline]
+<a href=#285 id=285 data-nosnippet>285</a>    </span><span class="kw">pub fn </span>unpack&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>) -&gt; Unpacked&lt;<span class="lifetime">'a</span>&gt; {
+<a href=#286 id=286 data-nosnippet>286</a>        <span class="kw">match </span><span class="self">self</span>.<span class="number">0</span>.unpack() {
+<a href=#287 id=287 data-nosnippet>287</a>            tagged::Unpacked::Boxed(calc) =&gt; Unpacked::Calc(calc),
+<a href=#288 id=288 data-nosnippet>288</a>            tagged::Unpacked::Inline(LengthPercentageTag::Length, v) =&gt; {
+<a href=#289 id=289 data-nosnippet>289</a>                Unpacked::Length(Length::new(v))
+<a href=#290 id=290 data-nosnippet>290</a>            },
+<a href=#291 id=291 data-nosnippet>291</a>            tagged::Unpacked::Inline(LengthPercentageTag::Percentage, v) =&gt; {
+<a href=#292 id=292 data-nosnippet>292</a>                Unpacked::Percentage(Percentage(v))
+<a href=#293 id=293 data-nosnippet>293</a>            },
+<a href=#294 id=294 data-nosnippet>294</a>        }
+<a href=#295 id=295 data-nosnippet>295</a>    }
+<a href=#296 id=296 data-nosnippet>296</a>
+<a href=#297 id=297 data-nosnippet>297</a>    <span class="attr">#[inline]
+<a href=#298 id=298 data-nosnippet>298</a>    </span><span class="kw">fn </span>to_serializable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Serializable {
+<a href=#299 id=299 data-nosnippet>299</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#300 id=300 data-nosnippet>300</a>            Unpacked::Calc(c) =&gt; Serializable::Calc(c.clone()),
+<a href=#301 id=301 data-nosnippet>301</a>            Unpacked::Length(l) =&gt; Serializable::Length(l),
+<a href=#302 id=302 data-nosnippet>302</a>            Unpacked::Percentage(p) =&gt; Serializable::Percentage(p),
+<a href=#303 id=303 data-nosnippet>303</a>        }
+<a href=#304 id=304 data-nosnippet>304</a>    }
+<a href=#305 id=305 data-nosnippet>305</a>
+<a href=#306 id=306 data-nosnippet>306</a>    <span class="attr">#[inline]
+<a href=#307 id=307 data-nosnippet>307</a>    </span><span class="kw">fn </span>from_serializable(s: Serializable) -&gt; <span class="self">Self </span>{
+<a href=#308 id=308 data-nosnippet>308</a>        <span class="kw">match </span>s {
+<a href=#309 id=309 data-nosnippet>309</a>            Serializable::Calc(c) =&gt; <span class="self">Self</span>::new_calc_unchecked(Box::new(c)),
+<a href=#310 id=310 data-nosnippet>310</a>            Serializable::Length(l) =&gt; <span class="self">Self</span>::new_length(l),
+<a href=#311 id=311 data-nosnippet>311</a>            Serializable::Percentage(p) =&gt; <span class="self">Self</span>::new_percent(p),
+<a href=#312 id=312 data-nosnippet>312</a>        }
+<a href=#313 id=313 data-nosnippet>313</a>    }
+<a href=#314 id=314 data-nosnippet>314</a>
+<a href=#315 id=315 data-nosnippet>315</a>    <span class="doccomment">/// Resolves the percentage.
+<a href=#316 id=316 data-nosnippet>316</a>    </span><span class="attr">#[inline]
+<a href=#317 id=317 data-nosnippet>317</a>    </span><span class="kw">pub fn </span>resolve(<span class="kw-2">&amp;</span><span class="self">self</span>, basis: Length) -&gt; Length {
+<a href=#318 id=318 data-nosnippet>318</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#319 id=319 data-nosnippet>319</a>            Unpacked::Length(l) =&gt; l,
+<a href=#320 id=320 data-nosnippet>320</a>            Unpacked::Percentage(p) =&gt; (basis * p.<span class="number">0</span>).normalized(),
+<a href=#321 id=321 data-nosnippet>321</a>            Unpacked::Calc(<span class="kw-2">ref </span>c) =&gt; c.resolve(basis),
+<a href=#322 id=322 data-nosnippet>322</a>        }
+<a href=#323 id=323 data-nosnippet>323</a>    }
+<a href=#324 id=324 data-nosnippet>324</a>
+<a href=#325 id=325 data-nosnippet>325</a>    <span class="doccomment">/// Resolves the percentage. Just an alias of resolve().
+<a href=#326 id=326 data-nosnippet>326</a>    </span><span class="attr">#[inline]
+<a href=#327 id=327 data-nosnippet>327</a>    </span><span class="kw">pub fn </span>percentage_relative_to(<span class="kw-2">&amp;</span><span class="self">self</span>, basis: Length) -&gt; Length {
+<a href=#328 id=328 data-nosnippet>328</a>        <span class="self">self</span>.resolve(basis)
+<a href=#329 id=329 data-nosnippet>329</a>    }
+<a href=#330 id=330 data-nosnippet>330</a>
+<a href=#331 id=331 data-nosnippet>331</a>    <span class="doccomment">/// Return whether there's any percentage in this value.
+<a href=#332 id=332 data-nosnippet>332</a>    </span><span class="attr">#[inline]
+<a href=#333 id=333 data-nosnippet>333</a>    </span><span class="kw">pub fn </span>has_percentage(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+<a href=#334 id=334 data-nosnippet>334</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#335 id=335 data-nosnippet>335</a>            Unpacked::Length(..) =&gt; <span class="bool-val">false</span>,
+<a href=#336 id=336 data-nosnippet>336</a>            Unpacked::Percentage(..) | Unpacked::Calc(..) =&gt; <span class="bool-val">true</span>,
+<a href=#337 id=337 data-nosnippet>337</a>        }
+<a href=#338 id=338 data-nosnippet>338</a>    }
+<a href=#339 id=339 data-nosnippet>339</a>
+<a href=#340 id=340 data-nosnippet>340</a>    <span class="doccomment">/// Converts to a `&lt;length&gt;` if possible.
+<a href=#341 id=341 data-nosnippet>341</a>    </span><span class="kw">pub fn </span>to_length(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Length&gt; {
+<a href=#342 id=342 data-nosnippet>342</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#343 id=343 data-nosnippet>343</a>            Unpacked::Length(l) =&gt; <span class="prelude-val">Some</span>(l),
+<a href=#344 id=344 data-nosnippet>344</a>            Unpacked::Percentage(..) | Unpacked::Calc(..) =&gt; {
+<a href=#345 id=345 data-nosnippet>345</a>                <span class="macro">debug_assert!</span>(<span class="self">self</span>.has_percentage());
+<a href=#346 id=346 data-nosnippet>346</a>                <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#347 id=347 data-nosnippet>347</a>            },
+<a href=#348 id=348 data-nosnippet>348</a>        }
+<a href=#349 id=349 data-nosnippet>349</a>    }
+<a href=#350 id=350 data-nosnippet>350</a>
+<a href=#351 id=351 data-nosnippet>351</a>    <span class="doccomment">/// Converts to a `&lt;percentage&gt;` if possible.
+<a href=#352 id=352 data-nosnippet>352</a>    </span><span class="attr">#[inline]
+<a href=#353 id=353 data-nosnippet>353</a>    </span><span class="kw">pub fn </span>to_percentage(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Percentage&gt; {
+<a href=#354 id=354 data-nosnippet>354</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#355 id=355 data-nosnippet>355</a>            Unpacked::Percentage(p) =&gt; <span class="prelude-val">Some</span>(p),
+<a href=#356 id=356 data-nosnippet>356</a>            Unpacked::Length(..) | Unpacked::Calc(..) =&gt; <span class="prelude-val">None</span>,
+<a href=#357 id=357 data-nosnippet>357</a>        }
+<a href=#358 id=358 data-nosnippet>358</a>    }
+<a href=#359 id=359 data-nosnippet>359</a>
+<a href=#360 id=360 data-nosnippet>360</a>    <span class="doccomment">/// Converts to a `&lt;percentage&gt;` with given basis. Returns None if the basis is 0.
+<a href=#361 id=361 data-nosnippet>361</a>    </span><span class="attr">#[inline]
+<a href=#362 id=362 data-nosnippet>362</a>    </span><span class="kw">pub fn </span>to_percentage_of(<span class="kw-2">&amp;</span><span class="self">self</span>, basis: Length) -&gt; <span class="prelude-ty">Option</span>&lt;Percentage&gt; {
+<a href=#363 id=363 data-nosnippet>363</a>        <span class="kw">if </span>basis.px() == <span class="number">0. </span>{
+<a href=#364 id=364 data-nosnippet>364</a>            <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#365 id=365 data-nosnippet>365</a>        }
+<a href=#366 id=366 data-nosnippet>366</a>        <span class="prelude-val">Some</span>(<span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#367 id=367 data-nosnippet>367</a>            Unpacked::Length(l) =&gt; Percentage(l.px() / basis.px()),
+<a href=#368 id=368 data-nosnippet>368</a>            Unpacked::Percentage(p) =&gt; p,
+<a href=#369 id=369 data-nosnippet>369</a>            Unpacked::Calc(<span class="kw-2">ref </span>c) =&gt; Percentage(c.resolve(basis).px() / basis.px()),
+<a href=#370 id=370 data-nosnippet>370</a>        })
+<a href=#371 id=371 data-nosnippet>371</a>    }
+<a href=#372 id=372 data-nosnippet>372</a>
+<a href=#373 id=373 data-nosnippet>373</a>    <span class="doccomment">/// Returns the used value.
+<a href=#374 id=374 data-nosnippet>374</a>    </span><span class="attr">#[inline]
+<a href=#375 id=375 data-nosnippet>375</a>    </span><span class="kw">pub fn </span>to_used_value(<span class="kw-2">&amp;</span><span class="self">self</span>, containing_length: Au) -&gt; Au {
+<a href=#376 id=376 data-nosnippet>376</a>        <span class="kw">let </span>length = <span class="self">self</span>.to_pixel_length(containing_length);
+<a href=#377 id=377 data-nosnippet>377</a>        <span class="kw">if let </span>Unpacked::Percentage(<span class="kw">_</span>) = <span class="self">self</span>.unpack() {
+<a href=#378 id=378 data-nosnippet>378</a>            <span class="kw">return </span>Au::from_f32_px_trunc(length.px());
+<a href=#379 id=379 data-nosnippet>379</a>        }
+<a href=#380 id=380 data-nosnippet>380</a>        Au::from(length)
+<a href=#381 id=381 data-nosnippet>381</a>    }
+<a href=#382 id=382 data-nosnippet>382</a>
+<a href=#383 id=383 data-nosnippet>383</a>    <span class="doccomment">/// Returns the used value as CSSPixelLength.
+<a href=#384 id=384 data-nosnippet>384</a>    </span><span class="attr">#[inline]
+<a href=#385 id=385 data-nosnippet>385</a>    </span><span class="kw">pub fn </span>to_pixel_length(<span class="kw-2">&amp;</span><span class="self">self</span>, containing_length: Au) -&gt; Length {
+<a href=#386 id=386 data-nosnippet>386</a>        <span class="self">self</span>.resolve(containing_length.into())
+<a href=#387 id=387 data-nosnippet>387</a>    }
+<a href=#388 id=388 data-nosnippet>388</a>
+<a href=#389 id=389 data-nosnippet>389</a>    <span class="doccomment">/// Convert the computed value into used value.
+<a href=#390 id=390 data-nosnippet>390</a>    </span><span class="attr">#[inline]
+<a href=#391 id=391 data-nosnippet>391</a>    </span><span class="kw">pub fn </span>maybe_to_used_value(<span class="kw-2">&amp;</span><span class="self">self</span>, container_len: <span class="prelude-ty">Option</span>&lt;Au&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Au&gt; {
+<a href=#392 id=392 data-nosnippet>392</a>        <span class="self">self</span>.maybe_percentage_relative_to(container_len.map(Length::from))
+<a href=#393 id=393 data-nosnippet>393</a>            .map(<span class="kw">if let </span>Unpacked::Percentage(<span class="kw">_</span>) = <span class="self">self</span>.unpack() {
+<a href=#394 id=394 data-nosnippet>394</a>                |length: Length| Au::from_f32_px_trunc(length.px())
+<a href=#395 id=395 data-nosnippet>395</a>            } <span class="kw">else </span>{
+<a href=#396 id=396 data-nosnippet>396</a>                Au::from
+<a href=#397 id=397 data-nosnippet>397</a>            })
+<a href=#398 id=398 data-nosnippet>398</a>    }
+<a href=#399 id=399 data-nosnippet>399</a>
+<a href=#400 id=400 data-nosnippet>400</a>    <span class="doccomment">/// If there are special rules for computing percentages in a value (e.g.
+<a href=#401 id=401 data-nosnippet>401</a>    /// the height property), they apply whenever a calc() expression contains
+<a href=#402 id=402 data-nosnippet>402</a>    /// percentages.
+<a href=#403 id=403 data-nosnippet>403</a>    </span><span class="kw">pub fn </span>maybe_percentage_relative_to(<span class="kw-2">&amp;</span><span class="self">self</span>, container_len: <span class="prelude-ty">Option</span>&lt;Length&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Length&gt; {
+<a href=#404 id=404 data-nosnippet>404</a>        <span class="kw">if let </span>Unpacked::Length(l) = <span class="self">self</span>.unpack() {
+<a href=#405 id=405 data-nosnippet>405</a>            <span class="kw">return </span><span class="prelude-val">Some</span>(l);
+<a href=#406 id=406 data-nosnippet>406</a>        }
+<a href=#407 id=407 data-nosnippet>407</a>        <span class="prelude-val">Some</span>(<span class="self">self</span>.resolve(container_len<span class="question-mark">?</span>))
+<a href=#408 id=408 data-nosnippet>408</a>    }
+<a href=#409 id=409 data-nosnippet>409</a>}
+<a href=#410 id=410 data-nosnippet>410</a>
+<a href=#411 id=411 data-nosnippet>411</a><span class="kw">impl </span>ClampToNonNegative <span class="kw">for </span>LengthPercentage {
+<a href=#412 id=412 data-nosnippet>412</a>    <span class="doccomment">/// Returns the clamped non-negative values.
+<a href=#413 id=413 data-nosnippet>413</a>    </span><span class="attr">#[inline]
+<a href=#414 id=414 data-nosnippet>414</a>    </span><span class="kw">fn </span>clamp_to_non_negative(<span class="kw-2">mut </span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+<a href=#415 id=415 data-nosnippet>415</a>        <span class="kw">match </span><span class="self">self</span>.unpack_mut() {
+<a href=#416 id=416 data-nosnippet>416</a>            UnpackedMut::Length(l) =&gt; <span class="self">Self</span>::new_length(l.clamp_to_non_negative()),
+<a href=#417 id=417 data-nosnippet>417</a>            UnpackedMut::Percentage(p) =&gt; <span class="self">Self</span>::new_percent(p.clamp_to_non_negative()),
+<a href=#418 id=418 data-nosnippet>418</a>            UnpackedMut::Calc(<span class="kw-2">ref mut </span>c) =&gt; {
+<a href=#419 id=419 data-nosnippet>419</a>                c.clamping_mode = AllowedNumericType::NonNegative;
+<a href=#420 id=420 data-nosnippet>420</a>                <span class="self">self
+<a href=#421 id=421 data-nosnippet>421</a>            </span>},
+<a href=#422 id=422 data-nosnippet>422</a>        }
+<a href=#423 id=423 data-nosnippet>423</a>    }
+<a href=#424 id=424 data-nosnippet>424</a>}
+<a href=#425 id=425 data-nosnippet>425</a>
+<a href=#426 id=426 data-nosnippet>426</a><span class="kw">impl </span>PartialEq <span class="kw">for </span>LengthPercentage {
+<a href=#427 id=427 data-nosnippet>427</a>    <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
+<a href=#428 id=428 data-nosnippet>428</a>        <span class="self">self</span>.unpack() == other.unpack()
+<a href=#429 id=429 data-nosnippet>429</a>    }
+<a href=#430 id=430 data-nosnippet>430</a>}
+<a href=#431 id=431 data-nosnippet>431</a>
+<a href=#432 id=432 data-nosnippet>432</a><span class="kw">impl </span>fmt::Debug <span class="kw">for </span>LengthPercentage {
+<a href=#433 id=433 data-nosnippet>433</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, formatter: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
+<a href=#434 id=434 data-nosnippet>434</a>        <span class="self">self</span>.unpack().fmt(formatter)
+<a href=#435 id=435 data-nosnippet>435</a>    }
+<a href=#436 id=436 data-nosnippet>436</a>}
+<a href=#437 id=437 data-nosnippet>437</a>
+<a href=#438 id=438 data-nosnippet>438</a><span class="kw">impl </span>ToAnimatedZero <span class="kw">for </span>LengthPercentage {
+<a href=#439 id=439 data-nosnippet>439</a>    <span class="kw">fn </span>to_animated_zero(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ()&gt; {
+<a href=#440 id=440 data-nosnippet>440</a>        <span class="prelude-val">Ok</span>(<span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#441 id=441 data-nosnippet>441</a>            Unpacked::Length(l) =&gt; <span class="self">Self</span>::new_length(l.to_animated_zero()<span class="question-mark">?</span>),
+<a href=#442 id=442 data-nosnippet>442</a>            Unpacked::Percentage(p) =&gt; <span class="self">Self</span>::new_percent(p.to_animated_zero()<span class="question-mark">?</span>),
+<a href=#443 id=443 data-nosnippet>443</a>            Unpacked::Calc(c) =&gt; <span class="self">Self</span>::new_calc_unchecked(Box::new(c.to_animated_zero()<span class="question-mark">?</span>)),
+<a href=#444 id=444 data-nosnippet>444</a>        })
+<a href=#445 id=445 data-nosnippet>445</a>    }
+<a href=#446 id=446 data-nosnippet>446</a>}
+<a href=#447 id=447 data-nosnippet>447</a>
+<a href=#448 id=448 data-nosnippet>448</a><span class="kw">impl </span>Clone <span class="kw">for </span>LengthPercentage {
+<a href=#449 id=449 data-nosnippet>449</a>    <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
+<a href=#450 id=450 data-nosnippet>450</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#451 id=451 data-nosnippet>451</a>            Unpacked::Length(l) =&gt; <span class="self">Self</span>::new_length(l),
+<a href=#452 id=452 data-nosnippet>452</a>            Unpacked::Percentage(p) =&gt; <span class="self">Self</span>::new_percent(p),
+<a href=#453 id=453 data-nosnippet>453</a>            Unpacked::Calc(c) =&gt; <span class="self">Self</span>::new_calc_unchecked(Box::new(c.clone())),
+<a href=#454 id=454 data-nosnippet>454</a>        }
+<a href=#455 id=455 data-nosnippet>455</a>    }
+<a href=#456 id=456 data-nosnippet>456</a>}
+<a href=#457 id=457 data-nosnippet>457</a>
+<a href=#458 id=458 data-nosnippet>458</a><span class="kw">impl </span>ToComputedValue <span class="kw">for </span>specified::LengthPercentage {
+<a href=#459 id=459 data-nosnippet>459</a>    <span class="kw">type </span>ComputedValue = LengthPercentage;
+<a href=#460 id=460 data-nosnippet>460</a>
+<a href=#461 id=461 data-nosnippet>461</a>    <span class="kw">fn </span>to_computed_value(<span class="kw-2">&amp;</span><span class="self">self</span>, context: <span class="kw-2">&amp;</span>Context) -&gt; LengthPercentage {
+<a href=#462 id=462 data-nosnippet>462</a>        <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
+<a href=#463 id=463 data-nosnippet>463</a>            specified::LengthPercentage::Length(<span class="kw-2">ref </span>value) =&gt; {
+<a href=#464 id=464 data-nosnippet>464</a>                LengthPercentage::new_length(value.to_computed_value(context))
+<a href=#465 id=465 data-nosnippet>465</a>            },
+<a href=#466 id=466 data-nosnippet>466</a>            specified::LengthPercentage::Percentage(value) =&gt; {
+<a href=#467 id=467 data-nosnippet>467</a>                LengthPercentage::new_percent(value.to_computed_value(context))
+<a href=#468 id=468 data-nosnippet>468</a>            },
+<a href=#469 id=469 data-nosnippet>469</a>            specified::LengthPercentage::Calc(<span class="kw-2">ref </span>calc) =&gt; (<span class="kw-2">**</span>calc).to_computed_value(context),
+<a href=#470 id=470 data-nosnippet>470</a>        }
+<a href=#471 id=471 data-nosnippet>471</a>    }
+<a href=#472 id=472 data-nosnippet>472</a>
+<a href=#473 id=473 data-nosnippet>473</a>    <span class="kw">fn </span>from_computed_value(computed: <span class="kw-2">&amp;</span>LengthPercentage) -&gt; <span class="self">Self </span>{
+<a href=#474 id=474 data-nosnippet>474</a>        <span class="kw">match </span>computed.unpack() {
+<a href=#475 id=475 data-nosnippet>475</a>            Unpacked::Length(<span class="kw-2">ref </span>l) =&gt; {
+<a href=#476 id=476 data-nosnippet>476</a>                specified::LengthPercentage::Length(ToComputedValue::from_computed_value(l))
+<a href=#477 id=477 data-nosnippet>477</a>            },
+<a href=#478 id=478 data-nosnippet>478</a>            Unpacked::Percentage(p) =&gt; {
+<a href=#479 id=479 data-nosnippet>479</a>                specified::LengthPercentage::Percentage(NoCalcPercentage::new(p.<span class="number">0</span>))
+<a href=#480 id=480 data-nosnippet>480</a>            },
+<a href=#481 id=481 data-nosnippet>481</a>            Unpacked::Calc(c) =&gt; {
+<a href=#482 id=482 data-nosnippet>482</a>                <span class="comment">// We simplify before constructing the LengthPercentage if
+<a href=#483 id=483 data-nosnippet>483</a>                // needed, so this is always fine.
+<a href=#484 id=484 data-nosnippet>484</a>                </span>specified::LengthPercentage::Calc(Box::new(
+<a href=#485 id=485 data-nosnippet>485</a>                    specified::CalcLengthPercentage::from_computed_value(c),
+<a href=#486 id=486 data-nosnippet>486</a>                ))
+<a href=#487 id=487 data-nosnippet>487</a>            },
+<a href=#488 id=488 data-nosnippet>488</a>        }
+<a href=#489 id=489 data-nosnippet>489</a>    }
+<a href=#490 id=490 data-nosnippet>490</a>}
+<a href=#491 id=491 data-nosnippet>491</a>
+<a href=#492 id=492 data-nosnippet>492</a><span class="kw">impl </span>ComputeSquaredDistance <span class="kw">for </span>LengthPercentage {
+<a href=#493 id=493 data-nosnippet>493</a>    <span class="attr">#[inline]
+<a href=#494 id=494 data-nosnippet>494</a>    </span><span class="kw">fn </span>compute_squared_distance(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;SquaredDistance, ()&gt; {
+<a href=#495 id=495 data-nosnippet>495</a>        <span class="comment">// A somewhat arbitrary base, it doesn't really make sense to mix
+<a href=#496 id=496 data-nosnippet>496</a>        // lengths with percentages, but we can't do much better here, and this
+<a href=#497 id=497 data-nosnippet>497</a>        // ensures that the distance between length-only and percentage-only
+<a href=#498 id=498 data-nosnippet>498</a>        // lengths makes sense.
+<a href=#499 id=499 data-nosnippet>499</a>        </span><span class="kw">let </span>basis = Length::new(<span class="number">100.</span>);
+<a href=#500 id=500 data-nosnippet>500</a>        <span class="self">self</span>.resolve(basis)
+<a href=#501 id=501 data-nosnippet>501</a>            .compute_squared_distance(<span class="kw-2">&amp;</span>other.resolve(basis))
+<a href=#502 id=502 data-nosnippet>502</a>    }
+<a href=#503 id=503 data-nosnippet>503</a>}
+<a href=#504 id=504 data-nosnippet>504</a>
+<a href=#505 id=505 data-nosnippet>505</a><span class="kw">impl </span>ToCss <span class="kw">for </span>LengthPercentage {
+<a href=#506 id=506 data-nosnippet>506</a>    <span class="kw">fn </span>to_css&lt;W&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>CssWriter&lt;W&gt;) -&gt; fmt::Result
+<a href=#507 id=507 data-nosnippet>507</a>    <span class="kw">where
+<a href=#508 id=508 data-nosnippet>508</a>        </span>W: Write,
+<a href=#509 id=509 data-nosnippet>509</a>    {
+<a href=#510 id=510 data-nosnippet>510</a>        <span class="self">self</span>.unpack().to_css(dest)
+<a href=#511 id=511 data-nosnippet>511</a>    }
+<a href=#512 id=512 data-nosnippet>512</a>}
+<a href=#513 id=513 data-nosnippet>513</a>
+<a href=#514 id=514 data-nosnippet>514</a><span class="kw">impl </span>ToTyped <span class="kw">for </span>LengthPercentage {
+<a href=#515 id=515 data-nosnippet>515</a>    <span class="kw">fn </span>to_typed(<span class="kw-2">&amp;</span><span class="self">self</span>, dest: <span class="kw-2">&amp;mut </span>ThinVec&lt;TypedValue&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), ()&gt; {
+<a href=#516 id=516 data-nosnippet>516</a>        <span class="self">self</span>.unpack().to_typed(dest)
+<a href=#517 id=517 data-nosnippet>517</a>    }
+<a href=#518 id=518 data-nosnippet>518</a>}
+<a href=#519 id=519 data-nosnippet>519</a>
+<a href=#520 id=520 data-nosnippet>520</a><span class="kw">impl </span>Zero <span class="kw">for </span>LengthPercentage {
+<a href=#521 id=521 data-nosnippet>521</a>    <span class="kw">fn </span>zero() -&gt; <span class="self">Self </span>{
+<a href=#522 id=522 data-nosnippet>522</a>        LengthPercentage::new_length(Length::zero())
+<a href=#523 id=523 data-nosnippet>523</a>    }
+<a href=#524 id=524 data-nosnippet>524</a>
+<a href=#525 id=525 data-nosnippet>525</a>    <span class="doccomment">/// Returns true if the computed value is absolute 0 or 0%.
+<a href=#526 id=526 data-nosnippet>526</a>    </span><span class="attr">#[inline]
+<a href=#527 id=527 data-nosnippet>527</a>    </span><span class="kw">fn </span>is_zero(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+<a href=#528 id=528 data-nosnippet>528</a>        <span class="kw">match </span><span class="self">self</span>.unpack() {
+<a href=#529 id=529 data-nosnippet>529</a>            Unpacked::Length(l) =&gt; l.px() == <span class="number">0.0</span>,
+<a href=#530 id=530 data-nosnippet>530</a>            Unpacked::Percentage(p) =&gt; p.<span class="number">0 </span>== <span class="number">0.0</span>,
+<a href=#531 id=531 data-nosnippet>531</a>            Unpacked::Calc(..) =&gt; <span class="bool-val">false</span>,
+<a href=#532 id=532 data-nosnippet>532</a>        }
+<a href=#533 id=533 data-nosnippet>533</a>    }
+<a href=#534 id=534 data-nosnippet>534</a>}
+<a href=#535 id=535 data-nosnippet>535</a>
+<a href=#536 id=536 data-nosnippet>536</a><span class="kw">impl </span>ZeroNoPercent <span class="kw">for </span>LengthPercentage {
+<a href=#537 id=537 data-nosnippet>537</a>    <span class="attr">#[inline]
+<a href=#538 id=538 data-nosnippet>538</a>    </span><span class="kw">fn </span>is_zero_no_percent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+<a href=#539 id=539 data-nosnippet>539</a>        <span class="self">self</span>.to_length().is_some_and(|l| l.px() == <span class="number">0.0</span>)
+<a href=#540 id=540 data-nosnippet>540</a>    }
+<a href=#541 id=541 data-nosnippet>541</a>}
+<a href=#542 id=542 data-nosnippet>542</a>
+<a href=#543 id=543 data-nosnippet>543</a><span class="kw">impl </span>Serialize <span class="kw">for </span>LengthPercentage {
+<a href=#544 id=544 data-nosnippet>544</a>    <span class="kw">fn </span>serialize&lt;S&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+<a href=#545 id=545 data-nosnippet>545</a>    <span class="kw">where
+<a href=#546 id=546 data-nosnippet>546</a>        </span>S: serde::Serializer,
+<a href=#547 id=547 data-nosnippet>547</a>    {
+<a href=#548 id=548 data-nosnippet>548</a>        <span class="self">self</span>.to_serializable().serialize(serializer)
+<a href=#549 id=549 data-nosnippet>549</a>    }
+<a href=#550 id=550 data-nosnippet>550</a>}
+<a href=#551 id=551 data-nosnippet>551</a>
+<a href=#552 id=552 data-nosnippet>552</a><span class="kw">impl</span>&lt;<span class="lifetime">'de</span>&gt; Deserialize&lt;<span class="lifetime">'de</span>&gt; <span class="kw">for </span>LengthPercentage {
+<a href=#553 id=553 data-nosnippet>553</a>    <span class="kw">fn </span>deserialize&lt;D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt;
+<a href=#554 id=554 data-nosnippet>554</a>    <span class="kw">where
+<a href=#555 id=555 data-nosnippet>555</a>        </span>D: serde::Deserializer&lt;<span class="lifetime">'de</span>&gt;,
+<a href=#556 id=556 data-nosnippet>556</a>    {
+<a href=#557 id=557 data-nosnippet>557</a>        <span class="prelude-val">Ok</span>(<span class="self">Self</span>::from_serializable(Serializable::deserialize(
+<a href=#558 id=558 data-nosnippet>558</a>            deserializer,
+<a href=#559 id=559 data-nosnippet>559</a>        )<span class="question-mark">?</span>))
+<a href=#560 id=560 data-nosnippet>560</a>    }
+<a href=#561 id=561 data-nosnippet>561</a>}
+<a href=#562 id=562 data-nosnippet>562</a>
+<a href=#563 id=563 data-nosnippet>563</a><span class="doccomment">/// The computed version of a calc() node for `&lt;length-percentage&gt;` values.
+<a href=#564 id=564 data-nosnippet>564</a></span><span class="kw">pub type </span>CalcNode = calc::GenericCalcNode&lt;ComputedLeaf&gt;;
+<a href=#565 id=565 data-nosnippet>565</a>
+<a href=#566 id=566 data-nosnippet>566</a><span class="doccomment">/// The representation of a calc() function with mixed lengths and percentages.
+<a href=#567 id=567 data-nosnippet>567</a></span><span class="attr">#[derive(
+<a href=#568 id=568 data-nosnippet>568</a>    Clone,
+<a href=#569 id=569 data-nosnippet>569</a>    Debug,
+<a href=#570 id=570 data-nosnippet>570</a>    Deserialize,
+<a href=#571 id=571 data-nosnippet>571</a>    MallocSizeOf,
+<a href=#572 id=572 data-nosnippet>572</a>    Serialize,
+<a href=#573 id=573 data-nosnippet>573</a>    ToAnimatedZero,
+<a href=#574 id=574 data-nosnippet>574</a>    ToResolvedValue,
+<a href=#575 id=575 data-nosnippet>575</a>    ToCss,
+<a href=#576 id=576 data-nosnippet>576</a>    ToTyped,
+<a href=#577 id=577 data-nosnippet>577</a>)]
+<a href=#578 id=578 data-nosnippet>578</a>#[repr(C)]
+<a href=#579 id=579 data-nosnippet>579</a></span><span class="kw">pub struct </span>CalcLengthPercentage {
+<a href=#580 id=580 data-nosnippet>580</a>    <span class="attr">#[animation(constant)]
+<a href=#581 id=581 data-nosnippet>581</a>    #[css(skip)]
+<a href=#582 id=582 data-nosnippet>582</a>    </span>clamping_mode: AllowedNumericType,
+<a href=#583 id=583 data-nosnippet>583</a>    node: CalcNode,
+<a href=#584 id=584 data-nosnippet>584</a>}
+<a href=#585 id=585 data-nosnippet>585</a>
+<a href=#586 id=586 data-nosnippet>586</a><span class="doccomment">/// Type for anchor side in `calc()` and other math fucntions.
+<a href=#587 id=587 data-nosnippet>587</a></span><span class="kw">pub type </span>CalcAnchorSide = GenericAnchorSide&lt;Box&lt;CalcNode&gt;&gt;;
+<a href=#588 id=588 data-nosnippet>588</a>
+<a href=#589 id=589 data-nosnippet>589</a><span class="doccomment">/// Result of resolving `CalcLengthPercentage`
+<a href=#590 id=590 data-nosnippet>590</a></span><span class="kw">pub struct </span>CalcLengthPercentageResolution {
+<a href=#591 id=591 data-nosnippet>591</a>    <span class="doccomment">/// The resolved length.
+<a href=#592 id=592 data-nosnippet>592</a>    </span><span class="kw">pub </span>result: Length,
+<a href=#593 id=593 data-nosnippet>593</a>    <span class="doccomment">/// Did the resolution of this calc node require resolving percentages?
+<a href=#594 id=594 data-nosnippet>594</a>    </span><span class="kw">pub </span>percentage_used: bool,
+<a href=#595 id=595 data-nosnippet>595</a>}
+<a href=#596 id=596 data-nosnippet>596</a>
+<a href=#597 id=597 data-nosnippet>597</a><span class="doccomment">/// What anchor positioning functions are allowed to resolve in calc percentage
+<a href=#598 id=598 data-nosnippet>598</a>/// values.
+<a href=#599 id=599 data-nosnippet>599</a></span><span class="attr">#[repr(C)]
+<a href=#600 id=600 data-nosnippet>600</a>#[derive(Clone, Copy)]
+<a href=#601 id=601 data-nosnippet>601</a></span><span class="kw">pub enum </span>AllowAnchorPosResolutionInCalcPercentage {
+<a href=#602 id=602 data-nosnippet>602</a>    <span class="doccomment">/// Both `anchor()` and `anchor-size()` are valid and should be resolved.
+<a href=#603 id=603 data-nosnippet>603</a>    </span>Both(PhysicalSide),
+<a href=#604 id=604 data-nosnippet>604</a>    <span class="doccomment">/// Only `anchor-size()` is valid and should be resolved.
+<a href=#605 id=605 data-nosnippet>605</a>    </span>AnchorSizeOnly(PhysicalAxis),
+<a href=#606 id=606 data-nosnippet>606</a>}
+<a href=#607 id=607 data-nosnippet>607</a>
+<a href=#608 id=608 data-nosnippet>608</a><span class="kw">impl </span>AllowAnchorPosResolutionInCalcPercentage {
+<a href=#609 id=609 data-nosnippet>609</a>    <span class="attr">#[cfg(feature = <span class="string">"gecko"</span>)]
+<a href=#610 id=610 data-nosnippet>610</a>    </span><span class="doccomment">/// Get the `anchor-size()` resolution axis.
+<a href=#611 id=611 data-nosnippet>611</a>    </span><span class="kw">pub fn </span>to_axis(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PhysicalAxis {
+<a href=#612 id=612 data-nosnippet>612</a>        <span class="kw">match </span><span class="self">self </span>{
+<a href=#613 id=613 data-nosnippet>613</a>            <span class="self">Self</span>::AnchorSizeOnly(axis) =&gt; <span class="kw-2">*</span>axis,
+<a href=#614 id=614 data-nosnippet>614</a>            <span class="self">Self</span>::Both(side) =&gt; {
+<a href=#615 id=615 data-nosnippet>615</a>                <span class="kw">if </span><span class="macro">matches!</span>(side, PhysicalSide::Top | PhysicalSide::Bottom) {
+<a href=#616 id=616 data-nosnippet>616</a>                    PhysicalAxis::Vertical
+<a href=#617 id=617 data-nosnippet>617</a>                } <span class="kw">else </span>{
+<a href=#618 id=618 data-nosnippet>618</a>                    PhysicalAxis::Horizontal
+<a href=#619 id=619 data-nosnippet>619</a>                }
+<a href=#620 id=620 data-nosnippet>620</a>            },
+<a href=#621 id=621 data-nosnippet>621</a>        }
+<a href=#622 id=622 data-nosnippet>622</a>    }
+<a href=#623 id=623 data-nosnippet>623</a>}
+<a href=#624 id=624 data-nosnippet>624</a>
+<a href=#625 id=625 data-nosnippet>625</a><span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>CalcAnchorSide&gt; <span class="kw">for </span>AnchorSide {
+<a href=#626 id=626 data-nosnippet>626</a>    <span class="kw">fn </span>from(value: <span class="kw-2">&amp;</span>CalcAnchorSide) -&gt; <span class="self">Self </span>{
+<a href=#627 id=627 data-nosnippet>627</a>        <span class="kw">match </span>value {
+<a href=#628 id=628 data-nosnippet>628</a>            CalcAnchorSide::Keyword(k) =&gt; <span class="self">Self</span>::Keyword(<span class="kw-2">*</span>k),
+<a href=#629 id=629 data-nosnippet>629</a>            CalcAnchorSide::Percentage(p) =&gt; {
+<a href=#630 id=630 data-nosnippet>630</a>                <span class="kw">if let </span>CalcNode::Leaf(ComputedLeaf::Percentage(p)) = <span class="kw-2">**</span>p {
+<a href=#631 id=631 data-nosnippet>631</a>                    <span class="self">Self</span>::Percentage(p)
+<a href=#632 id=632 data-nosnippet>632</a>                } <span class="kw">else </span>{
+<a href=#633 id=633 data-nosnippet>633</a>                    <span class="macro">unreachable!</span>(<span class="string">"Should have parsed simplified percentage."</span>);
+<a href=#634 id=634 data-nosnippet>634</a>                }
+<a href=#635 id=635 data-nosnippet>635</a>            },
+<a href=#636 id=636 data-nosnippet>636</a>        }
+<a href=#637 id=637 data-nosnippet>637</a>    }
+<a href=#638 id=638 data-nosnippet>638</a>}
+<a href=#639 id=639 data-nosnippet>639</a>
+<a href=#640 id=640 data-nosnippet>640</a><span class="kw">impl </span>CalcLengthPercentage {
+<a href=#641 id=641 data-nosnippet>641</a>    <span class="doccomment">/// Resolves the percentage.
+<a href=#642 id=642 data-nosnippet>642</a>    </span><span class="attr">#[inline]
+<a href=#643 id=643 data-nosnippet>643</a>    </span><span class="kw">pub fn </span>resolve(<span class="kw-2">&amp;</span><span class="self">self</span>, basis: Length) -&gt; Length {
+<a href=#644 id=644 data-nosnippet>644</a>        <span class="comment">// unwrap() is fine because the conversion below is infallible.
+<a href=#645 id=645 data-nosnippet>645</a>        </span><span class="kw">if let </span>ComputedLeaf::Length(px) = <span class="self">self
+<a href=#646 id=646 data-nosnippet>646</a>            </span>.node
+<a href=#647 id=647 data-nosnippet>647</a>            .resolve_map(|leaf| {
+<a href=#648 id=648 data-nosnippet>648</a>                <span class="prelude-val">Ok</span>(<span class="kw">if let </span>ComputedLeaf::Percentage(p) = leaf {
+<a href=#649 id=649 data-nosnippet>649</a>                    ComputedLeaf::Length(Length::new(basis.px() * p.<span class="number">0</span>))
+<a href=#650 id=650 data-nosnippet>650</a>                } <span class="kw">else </span>{
+<a href=#651 id=651 data-nosnippet>651</a>                    leaf.clone()
+<a href=#652 id=652 data-nosnippet>652</a>                })
+<a href=#653 id=653 data-nosnippet>653</a>            })
+<a href=#654 id=654 data-nosnippet>654</a>            .unwrap()
+<a href=#655 id=655 data-nosnippet>655</a>        {
+<a href=#656 id=656 data-nosnippet>656</a>            Length::new(<span class="self">self</span>.clamping_mode.clamp(px.px())).normalized()
+<a href=#657 id=657 data-nosnippet>657</a>        } <span class="kw">else </span>{
+<a href=#658 id=658 data-nosnippet>658</a>            <span class="macro">unreachable!</span>(<span class="string">"resolve_map should turn percentages to lengths, and parsing should ensure that we don't end up with a number"</span>);
+<a href=#659 id=659 data-nosnippet>659</a>        }
+<a href=#660 id=660 data-nosnippet>660</a>    }
+<a href=#661 id=661 data-nosnippet>661</a>
+<a href=#662 id=662 data-nosnippet>662</a>    <span class="doccomment">/// Return a clone of this node with all anchor functions computed and replaced with
+<a href=#663 id=663 data-nosnippet>663</a>    /// corresponding values, returning error if the resolution is invalid.
+<a href=#664 id=664 data-nosnippet>664</a>    </span><span class="attr">#[inline]
+<a href=#665 id=665 data-nosnippet>665</a>    #[cfg(feature = <span class="string">"gecko"</span>)]
+<a href=#666 id=666 data-nosnippet>666</a>    </span><span class="kw">pub fn </span>resolve_anchor(
+<a href=#667 id=667 data-nosnippet>667</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#668 id=668 data-nosnippet>668</a>        allowed: AllowAnchorPosResolutionInCalcPercentage,
+<a href=#669 id=669 data-nosnippet>669</a>        params: <span class="kw-2">&amp;</span>AnchorPosOffsetResolutionParams,
+<a href=#670 id=670 data-nosnippet>670</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;(CalcNode, AllowedNumericType), ()&gt; {
+<a href=#671 id=671 data-nosnippet>671</a>        <span class="kw">use </span><span class="kw">crate</span>::values::{
+<a href=#672 id=672 data-nosnippet>672</a>            computed::{length::resolve_anchor_size, AnchorFunction},
+<a href=#673 id=673 data-nosnippet>673</a>            generics::{length::GenericAnchorSizeFunction, position::GenericAnchorFunction},
+<a href=#674 id=674 data-nosnippet>674</a>        };
+<a href=#675 id=675 data-nosnippet>675</a>
+<a href=#676 id=676 data-nosnippet>676</a>        <span class="kw">fn </span>resolve_anchor_function&lt;<span class="lifetime">'a</span>&gt;(
+<a href=#677 id=677 data-nosnippet>677</a>            f: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>GenericAnchorFunction&lt;
+<a href=#678 id=678 data-nosnippet>678</a>                Box&lt;CalcNode&gt;,
+<a href=#679 id=679 data-nosnippet>679</a>                Box&lt;GenericAnchorFunctionFallback&lt;ComputedLeaf&gt;&gt;,
+<a href=#680 id=680 data-nosnippet>680</a>            &gt;,
+<a href=#681 id=681 data-nosnippet>681</a>            side: PhysicalSide,
+<a href=#682 id=682 data-nosnippet>682</a>            params: <span class="kw-2">&amp;</span>AnchorPosOffsetResolutionParams,
+<a href=#683 id=683 data-nosnippet>683</a>        ) -&gt; AnchorResolutionResult&lt;<span class="lifetime">'a</span>, Box&lt;CalcNode&gt;&gt; {
+<a href=#684 id=684 data-nosnippet>684</a>            <span class="kw">let </span>anchor_side: <span class="kw-2">&amp;</span>CalcAnchorSide = <span class="kw-2">&amp;</span>f.side;
+<a href=#685 id=685 data-nosnippet>685</a>            <span class="kw">let </span>resolved = <span class="kw">if </span>f.valid_for(side, params.mBaseParams.mPosition) {
+<a href=#686 id=686 data-nosnippet>686</a>                AnchorFunction::resolve(<span class="kw-2">&amp;</span>f.target_element, <span class="kw-2">&amp;</span>anchor_side.into(), side, params).ok()
+<a href=#687 id=687 data-nosnippet>687</a>            } <span class="kw">else </span>{
+<a href=#688 id=688 data-nosnippet>688</a>                <span class="prelude-val">None
+<a href=#689 id=689 data-nosnippet>689</a>            </span>};
+<a href=#690 id=690 data-nosnippet>690</a>
+<a href=#691 id=691 data-nosnippet>691</a>            resolved.map_or_else(
+<a href=#692 id=692 data-nosnippet>692</a>                || {
+<a href=#693 id=693 data-nosnippet>693</a>                    <span class="kw">let </span><span class="prelude-val">Some</span>(fb) = f.fallback.as_ref() <span class="kw">else </span>{
+<a href=#694 id=694 data-nosnippet>694</a>                        <span class="kw">return </span>AnchorResolutionResult::Invalid;
+<a href=#695 id=695 data-nosnippet>695</a>                    };
+<a href=#696 id=696 data-nosnippet>696</a>                    <span class="kw">let </span><span class="kw-2">mut </span>node = Box::new(fb.node.clone());
+<a href=#697 id=697 data-nosnippet>697</a>                    <span class="kw">let </span>result = node.map_node(|node| {
+<a href=#698 id=698 data-nosnippet>698</a>                        resolve_anchor_functions(
+<a href=#699 id=699 data-nosnippet>699</a>                            node,
+<a href=#700 id=700 data-nosnippet>700</a>                            AllowAnchorPosResolutionInCalcPercentage::Both(side),
+<a href=#701 id=701 data-nosnippet>701</a>                            params,
+<a href=#702 id=702 data-nosnippet>702</a>                        )
+<a href=#703 id=703 data-nosnippet>703</a>                    });
+<a href=#704 id=704 data-nosnippet>704</a>                    <span class="kw">if </span>result.is_err() {
+<a href=#705 id=705 data-nosnippet>705</a>                        <span class="kw">return </span>AnchorResolutionResult::Invalid;
+<a href=#706 id=706 data-nosnippet>706</a>                    }
+<a href=#707 id=707 data-nosnippet>707</a>                    AnchorResolutionResult::Resolved(node)
+<a href=#708 id=708 data-nosnippet>708</a>                },
+<a href=#709 id=709 data-nosnippet>709</a>                |v| {
+<a href=#710 id=710 data-nosnippet>710</a>                    AnchorResolutionResult::Resolved(Box::new(CalcNode::Leaf(
+<a href=#711 id=711 data-nosnippet>711</a>                        ComputedLeaf::Length(v),
+<a href=#712 id=712 data-nosnippet>712</a>                    )))
+<a href=#713 id=713 data-nosnippet>713</a>                },
+<a href=#714 id=714 data-nosnippet>714</a>            )
+<a href=#715 id=715 data-nosnippet>715</a>        }
+<a href=#716 id=716 data-nosnippet>716</a>
+<a href=#717 id=717 data-nosnippet>717</a>        <span class="kw">fn </span>resolve_anchor_size_function&lt;<span class="lifetime">'a</span>&gt;(
+<a href=#718 id=718 data-nosnippet>718</a>            f: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>GenericAnchorSizeFunction&lt;Box&lt;GenericAnchorFunctionFallback&lt;ComputedLeaf&gt;&gt;&gt;,
+<a href=#719 id=719 data-nosnippet>719</a>            allowed: AllowAnchorPosResolutionInCalcPercentage,
+<a href=#720 id=720 data-nosnippet>720</a>            params: <span class="kw-2">&amp;</span>AnchorPosOffsetResolutionParams,
+<a href=#721 id=721 data-nosnippet>721</a>        ) -&gt; AnchorResolutionResult&lt;<span class="lifetime">'a</span>, Box&lt;CalcNode&gt;&gt; {
+<a href=#722 id=722 data-nosnippet>722</a>            <span class="kw">let </span>axis = allowed.to_axis();
+<a href=#723 id=723 data-nosnippet>723</a>            <span class="kw">let </span>resolved = <span class="kw">if </span>f.valid_for(params.mBaseParams.mPosition) {
+<a href=#724 id=724 data-nosnippet>724</a>                resolve_anchor_size(<span class="kw-2">&amp;</span>f.target_element, axis, f.size, <span class="kw-2">&amp;</span>params.mBaseParams).ok()
+<a href=#725 id=725 data-nosnippet>725</a>            } <span class="kw">else </span>{
+<a href=#726 id=726 data-nosnippet>726</a>                <span class="prelude-val">None
+<a href=#727 id=727 data-nosnippet>727</a>            </span>};
+<a href=#728 id=728 data-nosnippet>728</a>
+<a href=#729 id=729 data-nosnippet>729</a>            resolved.map_or_else(
+<a href=#730 id=730 data-nosnippet>730</a>                || {
+<a href=#731 id=731 data-nosnippet>731</a>                    <span class="kw">let </span><span class="prelude-val">Some</span>(fb) = f.fallback.as_ref() <span class="kw">else </span>{
+<a href=#732 id=732 data-nosnippet>732</a>                        <span class="kw">return </span>AnchorResolutionResult::Invalid;
+<a href=#733 id=733 data-nosnippet>733</a>                    };
+<a href=#734 id=734 data-nosnippet>734</a>                    <span class="kw">let </span><span class="kw-2">mut </span>node = Box::new(fb.node.clone());
+<a href=#735 id=735 data-nosnippet>735</a>                    <span class="kw">let </span>result =
+<a href=#736 id=736 data-nosnippet>736</a>                        node.map_node(|node| resolve_anchor_functions(node, allowed, params));
+<a href=#737 id=737 data-nosnippet>737</a>                    <span class="kw">if </span>result.is_err() {
+<a href=#738 id=738 data-nosnippet>738</a>                        <span class="kw">return </span>AnchorResolutionResult::Invalid;
+<a href=#739 id=739 data-nosnippet>739</a>                    }
+<a href=#740 id=740 data-nosnippet>740</a>                    AnchorResolutionResult::Resolved(node)
+<a href=#741 id=741 data-nosnippet>741</a>                },
+<a href=#742 id=742 data-nosnippet>742</a>                |v| {
+<a href=#743 id=743 data-nosnippet>743</a>                    AnchorResolutionResult::Resolved(Box::new(CalcNode::Leaf(
+<a href=#744 id=744 data-nosnippet>744</a>                        ComputedLeaf::Length(v),
+<a href=#745 id=745 data-nosnippet>745</a>                    )))
+<a href=#746 id=746 data-nosnippet>746</a>                },
+<a href=#747 id=747 data-nosnippet>747</a>            )
+<a href=#748 id=748 data-nosnippet>748</a>        }
+<a href=#749 id=749 data-nosnippet>749</a>
+<a href=#750 id=750 data-nosnippet>750</a>        <span class="kw">fn </span>resolve_anchor_functions(
+<a href=#751 id=751 data-nosnippet>751</a>            node: <span class="kw-2">&amp;</span>CalcNode,
+<a href=#752 id=752 data-nosnippet>752</a>            allowed: AllowAnchorPosResolutionInCalcPercentage,
+<a href=#753 id=753 data-nosnippet>753</a>            params: <span class="kw-2">&amp;</span>AnchorPosOffsetResolutionParams,
+<a href=#754 id=754 data-nosnippet>754</a>        ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;CalcNode&gt;, ()&gt; {
+<a href=#755 id=755 data-nosnippet>755</a>            <span class="kw">let </span>resolution = <span class="kw">match </span>node {
+<a href=#756 id=756 data-nosnippet>756</a>                CalcNode::Anchor(f) =&gt; {
+<a href=#757 id=757 data-nosnippet>757</a>                    <span class="kw">let </span>prop_side = <span class="kw">match </span>allowed {
+<a href=#758 id=758 data-nosnippet>758</a>                        AllowAnchorPosResolutionInCalcPercentage::Both(side) =&gt; side,
+<a href=#759 id=759 data-nosnippet>759</a>                        AllowAnchorPosResolutionInCalcPercentage::AnchorSizeOnly(<span class="kw">_</span>) =&gt; {
+<a href=#760 id=760 data-nosnippet>760</a>                            <span class="macro">unreachable!</span>(<span class="string">"anchor() found where disallowed"</span>)
+<a href=#761 id=761 data-nosnippet>761</a>                        },
+<a href=#762 id=762 data-nosnippet>762</a>                    };
+<a href=#763 id=763 data-nosnippet>763</a>                    resolve_anchor_function(f, prop_side, params)
+<a href=#764 id=764 data-nosnippet>764</a>                },
+<a href=#765 id=765 data-nosnippet>765</a>                CalcNode::AnchorSize(f) =&gt; resolve_anchor_size_function(f, allowed, params),
+<a href=#766 id=766 data-nosnippet>766</a>                <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
+<a href=#767 id=767 data-nosnippet>767</a>            };
+<a href=#768 id=768 data-nosnippet>768</a>
+<a href=#769 id=769 data-nosnippet>769</a>            <span class="kw">match </span>resolution {
+<a href=#770 id=770 data-nosnippet>770</a>                AnchorResolutionResult::Invalid =&gt; <span class="prelude-val">Err</span>(()),
+<a href=#771 id=771 data-nosnippet>771</a>                AnchorResolutionResult::Fallback(fb) =&gt; {
+<a href=#772 id=772 data-nosnippet>772</a>                    <span class="comment">// TODO(dshin, bug 1923759): At least for now, fallbacks should not contain any anchor function.
+<a href=#773 id=773 data-nosnippet>773</a>                    </span><span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw-2">*</span>fb.clone()))
+<a href=#774 id=774 data-nosnippet>774</a>                },
+<a href=#775 id=775 data-nosnippet>775</a>                AnchorResolutionResult::Resolved(v) =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="kw-2">*</span>v.clone())),
+<a href=#776 id=776 data-nosnippet>776</a>            }
+<a href=#777 id=777 data-nosnippet>777</a>        }
+<a href=#778 id=778 data-nosnippet>778</a>
+<a href=#779 id=779 data-nosnippet>779</a>        <span class="kw">let </span><span class="kw-2">mut </span>node = <span class="self">self</span>.node.clone();
+<a href=#780 id=780 data-nosnippet>780</a>        node.map_node(|node| resolve_anchor_functions(node, allowed, params))<span class="question-mark">?</span>;
+<a href=#781 id=781 data-nosnippet>781</a>        <span class="prelude-val">Ok</span>((node, <span class="self">self</span>.clamping_mode))
+<a href=#782 id=782 data-nosnippet>782</a>    }
+<a href=#783 id=783 data-nosnippet>783</a>}
+<a href=#784 id=784 data-nosnippet>784</a>
+<a href=#785 id=785 data-nosnippet>785</a><span class="comment">// NOTE(emilio): We don't compare `clamping_mode` since we want to preserve the
+<a href=#786 id=786 data-nosnippet>786</a>// invariant that `from_computed_value(length).to_computed_value(..) == length`.
+<a href=#787 id=787 data-nosnippet>787</a>//
+<a href=#788 id=788 data-nosnippet>788</a>// Right now for e.g. a non-negative length, we set clamping_mode to `All`
+<a href=#789 id=789 data-nosnippet>789</a>// unconditionally for non-calc values, and to `NonNegative` for calc.
+<a href=#790 id=790 data-nosnippet>790</a>//
+<a href=#791 id=791 data-nosnippet>791</a>// If we determine that it's sound, from_computed_value() can generate an
+<a href=#792 id=792 data-nosnippet>792</a>// absolute length, which then would get `All` as the clamping mode.
+<a href=#793 id=793 data-nosnippet>793</a>//
+<a href=#794 id=794 data-nosnippet>794</a>// We may want to just eagerly-detect whether we can clamp in
+<a href=#795 id=795 data-nosnippet>795</a>// `LengthPercentage::new` and switch to `AllowedNumericType::NonNegative` then,
+<a href=#796 id=796 data-nosnippet>796</a>// maybe.
+<a href=#797 id=797 data-nosnippet>797</a></span><span class="kw">impl </span>PartialEq <span class="kw">for </span>CalcLengthPercentage {
+<a href=#798 id=798 data-nosnippet>798</a>    <span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
+<a href=#799 id=799 data-nosnippet>799</a>        <span class="self">self</span>.node == other.node
+<a href=#800 id=800 data-nosnippet>800</a>    }
+<a href=#801 id=801 data-nosnippet>801</a>}
+<a href=#802 id=802 data-nosnippet>802</a>
+<a href=#803 id=803 data-nosnippet>803</a><span class="kw">impl </span>specified::CalcLengthPercentage {
+<a href=#804 id=804 data-nosnippet>804</a>    <span class="doccomment">/// Compute the value, zooming any absolute units by the zoom function.
+<a href=#805 id=805 data-nosnippet>805</a>    </span><span class="kw">fn </span>to_computed_value_with_zoom&lt;F&gt;(
+<a href=#806 id=806 data-nosnippet>806</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#807 id=807 data-nosnippet>807</a>        context: <span class="kw-2">&amp;</span>Context,
+<a href=#808 id=808 data-nosnippet>808</a>        zoom_fn: F,
+<a href=#809 id=809 data-nosnippet>809</a>        base_size: FontBaseSize,
+<a href=#810 id=810 data-nosnippet>810</a>        line_height_base: LineHeightBase,
+<a href=#811 id=811 data-nosnippet>811</a>    ) -&gt; LengthPercentage
+<a href=#812 id=812 data-nosnippet>812</a>    <span class="kw">where
+<a href=#813 id=813 data-nosnippet>813</a>        </span>F: Fn(Length) -&gt; Length,
+<a href=#814 id=814 data-nosnippet>814</a>    {
+<a href=#815 id=815 data-nosnippet>815</a>        <span class="kw">use </span><span class="kw">crate</span>::values::specified::calc::Leaf;
+<a href=#816 id=816 data-nosnippet>816</a>
+<a href=#817 id=817 data-nosnippet>817</a>        <span class="kw">let </span>node = <span class="self">self</span>.<span class="number">0</span>.node.map_leaves(|leaf| <span class="kw">match </span><span class="kw-2">*</span>leaf {
+<a href=#818 id=818 data-nosnippet>818</a>            Leaf::Percentage(p) =&gt; ComputedLeaf::Percentage(Percentage(p.get())),
+<a href=#819 id=819 data-nosnippet>819</a>            Leaf::Length(l) =&gt; ComputedLeaf::Length({
+<a href=#820 id=820 data-nosnippet>820</a>                <span class="kw">let </span>result =
+<a href=#821 id=821 data-nosnippet>821</a>                    l.to_computed_value_with_base_size(context, base_size, line_height_base);
+<a href=#822 id=822 data-nosnippet>822</a>                <span class="kw">if </span>l.should_zoom_text() {
+<a href=#823 id=823 data-nosnippet>823</a>                    zoom_fn(result)
+<a href=#824 id=824 data-nosnippet>824</a>                } <span class="kw">else </span>{
+<a href=#825 id=825 data-nosnippet>825</a>                    result
+<a href=#826 id=826 data-nosnippet>826</a>                }
+<a href=#827 id=827 data-nosnippet>827</a>            }),
+<a href=#828 id=828 data-nosnippet>828</a>            Leaf::Number(n) =&gt; ComputedLeaf::Number(n.get()),
+<a href=#829 id=829 data-nosnippet>829</a>            Leaf::Angle(a) =&gt; {
+<a href=#830 id=830 data-nosnippet>830</a>                ComputedLeaf::Angle(specified::Angle::new(a).to_computed_value(context))
+<a href=#831 id=831 data-nosnippet>831</a>            },
+<a href=#832 id=832 data-nosnippet>832</a>            Leaf::Time(t) =&gt; ComputedLeaf::Time(specified::Time::new(t).to_computed_value(context)),
+<a href=#833 id=833 data-nosnippet>833</a>            Leaf::Resolution(r) =&gt; {
+<a href=#834 id=834 data-nosnippet>834</a>                ComputedLeaf::Resolution(specified::Resolution::new(r).to_computed_value(context))
+<a href=#835 id=835 data-nosnippet>835</a>            },
+<a href=#836 id=836 data-nosnippet>836</a>            Leaf::ColorComponent(..) =&gt; <span class="macro">unreachable!</span>(<span class="string">"Shouldn't have parsed"</span>),
+<a href=#837 id=837 data-nosnippet>837</a>            Leaf::TreeCountingFunction(t) =&gt; {
+<a href=#838 id=838 data-nosnippet>838</a>                ComputedLeaf::Number(t.to_computed_value(context) <span class="kw">as </span>f32)
+<a href=#839 id=839 data-nosnippet>839</a>            },
+<a href=#840 id=840 data-nosnippet>840</a>        });
+<a href=#841 id=841 data-nosnippet>841</a>
+<a href=#842 id=842 data-nosnippet>842</a>        LengthPercentage::new_calc(node, <span class="self">self</span>.<span class="number">0</span>.clamping_mode)
+<a href=#843 id=843 data-nosnippet>843</a>    }
+<a href=#844 id=844 data-nosnippet>844</a>
+<a href=#845 id=845 data-nosnippet>845</a>    <span class="doccomment">/// Compute font-size or line-height taking into account text-zoom if necessary.
+<a href=#846 id=846 data-nosnippet>846</a>    </span><span class="kw">pub fn </span>to_computed_value_zoomed(
+<a href=#847 id=847 data-nosnippet>847</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#848 id=848 data-nosnippet>848</a>        context: <span class="kw-2">&amp;</span>Context,
+<a href=#849 id=849 data-nosnippet>849</a>        base_size: FontBaseSize,
+<a href=#850 id=850 data-nosnippet>850</a>        line_height_base: LineHeightBase,
+<a href=#851 id=851 data-nosnippet>851</a>    ) -&gt; LengthPercentage {
+<a href=#852 id=852 data-nosnippet>852</a>        <span class="self">self</span>.to_computed_value_with_zoom(
+<a href=#853 id=853 data-nosnippet>853</a>            context,
+<a href=#854 id=854 data-nosnippet>854</a>            |abs| context.maybe_zoom_text(abs),
+<a href=#855 id=855 data-nosnippet>855</a>            base_size,
+<a href=#856 id=856 data-nosnippet>856</a>            line_height_base,
+<a href=#857 id=857 data-nosnippet>857</a>        )
+<a href=#858 id=858 data-nosnippet>858</a>    }
+<a href=#859 id=859 data-nosnippet>859</a>
+<a href=#860 id=860 data-nosnippet>860</a>    <span class="doccomment">/// Compute the value into pixel length as CSSFloat without context,
+<a href=#861 id=861 data-nosnippet>861</a>    /// so it returns Err(()) if there is any non-absolute unit.
+<a href=#862 id=862 data-nosnippet>862</a>    </span><span class="kw">pub fn </span>to_computed_pixel_length_without_context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;CSSFloat, ()&gt; {
+<a href=#863 id=863 data-nosnippet>863</a>        <span class="kw">use </span><span class="kw">crate</span>::values::specified::calc::Leaf;
+<a href=#864 id=864 data-nosnippet>864</a>
+<a href=#865 id=865 data-nosnippet>865</a>        <span class="comment">// Simplification should've turned this into an absolute length,
+<a href=#866 id=866 data-nosnippet>866</a>        // otherwise it wouldn't have been able to.
+<a href=#867 id=867 data-nosnippet>867</a>        </span><span class="kw">match </span><span class="self">self</span>.<span class="number">0</span>.node {
+<a href=#868 id=868 data-nosnippet>868</a>            calc::CalcNode::Leaf(Leaf::Length(<span class="kw-2">ref </span>l)) =&gt; {
+<a href=#869 id=869 data-nosnippet>869</a>                l.to_computed_pixel_length_without_context()
+<a href=#870 id=870 data-nosnippet>870</a>            },
+<a href=#871 id=871 data-nosnippet>871</a>            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(()),
+<a href=#872 id=872 data-nosnippet>872</a>        }
+<a href=#873 id=873 data-nosnippet>873</a>    }
+<a href=#874 id=874 data-nosnippet>874</a>
+<a href=#875 id=875 data-nosnippet>875</a>    <span class="doccomment">/// Computes the value without a style context, returning None if any leaf
+<a href=#876 id=876 data-nosnippet>876</a>    /// needs a one to resolve (e.g. a font- or viewport-relative length).
+<a href=#877 id=877 data-nosnippet>877</a>    /// Absolute lengths and percentages (and calc() combining them) resolve
+<a href=#878 id=878 data-nosnippet>878</a>    /// correctly.
+<a href=#879 id=879 data-nosnippet>879</a>    </span><span class="kw">pub fn </span>compute_without_context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LengthPercentage&gt; {
+<a href=#880 id=880 data-nosnippet>880</a>        <span class="kw">use </span><span class="kw">crate</span>::values::specified::calc::Leaf;
+<a href=#881 id=881 data-nosnippet>881</a>
+<a href=#882 id=882 data-nosnippet>882</a>        <span class="kw">let </span><span class="kw-2">mut </span>resolvable = <span class="bool-val">true</span>;
+<a href=#883 id=883 data-nosnippet>883</a>        <span class="kw">let </span>node = <span class="self">self</span>.<span class="number">0</span>.node.map_leaves(|leaf| <span class="kw">match </span><span class="kw-2">*</span>leaf {
+<a href=#884 id=884 data-nosnippet>884</a>            Leaf::Percentage(p) =&gt; ComputedLeaf::Percentage(Percentage(p.get())),
+<a href=#885 id=885 data-nosnippet>885</a>            Leaf::Length(l) =&gt; {
+<a href=#886 id=886 data-nosnippet>886</a>                ComputedLeaf::Length(<span class="kw">match </span>l.to_computed_pixel_length_without_context() {
+<a href=#887 id=887 data-nosnippet>887</a>                    <span class="prelude-val">Ok</span>(px) =&gt; Length::new(px),
+<a href=#888 id=888 data-nosnippet>888</a>                    <span class="prelude-val">Err</span>(()) =&gt; {
+<a href=#889 id=889 data-nosnippet>889</a>                        resolvable = <span class="bool-val">false</span>;
+<a href=#890 id=890 data-nosnippet>890</a>                        Length::new(<span class="number">0.</span>)
+<a href=#891 id=891 data-nosnippet>891</a>                    },
+<a href=#892 id=892 data-nosnippet>892</a>                })
+<a href=#893 id=893 data-nosnippet>893</a>            },
+<a href=#894 id=894 data-nosnippet>894</a>            Leaf::Number(n) =&gt; ComputedLeaf::Number(n.get()),
+<a href=#895 id=895 data-nosnippet>895</a>            <span class="kw">_ </span>=&gt; {
+<a href=#896 id=896 data-nosnippet>896</a>                resolvable = <span class="bool-val">false</span>;
+<a href=#897 id=897 data-nosnippet>897</a>                ComputedLeaf::Number(<span class="number">0.</span>)
+<a href=#898 id=898 data-nosnippet>898</a>            },
+<a href=#899 id=899 data-nosnippet>899</a>        });
+<a href=#900 id=900 data-nosnippet>900</a>
+<a href=#901 id=901 data-nosnippet>901</a>        <span class="kw">if </span>!resolvable {
+<a href=#902 id=902 data-nosnippet>902</a>            <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#903 id=903 data-nosnippet>903</a>        }
+<a href=#904 id=904 data-nosnippet>904</a>        <span class="prelude-val">Some</span>(LengthPercentage::new_calc(node, <span class="self">self</span>.<span class="number">0</span>.clamping_mode))
+<a href=#905 id=905 data-nosnippet>905</a>    }
+<a href=#906 id=906 data-nosnippet>906</a>
+<a href=#907 id=907 data-nosnippet>907</a>    <span class="doccomment">/// Compute the value into pixel length as CSSFloat, using the get_font_metrics function
+<a href=#908 id=908 data-nosnippet>908</a>    /// if provided to resolve font-relative dimensions.
+<a href=#909 id=909 data-nosnippet>909</a>    </span><span class="attr">#[cfg(feature = <span class="string">"gecko"</span>)]
+<a href=#910 id=910 data-nosnippet>910</a>    </span><span class="kw">pub fn </span>to_computed_pixel_length_with_font_metrics(
+<a href=#911 id=911 data-nosnippet>911</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#912 id=912 data-nosnippet>912</a>        get_font_metrics: <span class="prelude-ty">Option</span>&lt;<span class="kw">impl </span>Fn() -&gt; GeckoFontMetrics&gt;,
+<a href=#913 id=913 data-nosnippet>913</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;CSSFloat, ()&gt; {
+<a href=#914 id=914 data-nosnippet>914</a>        <span class="kw">use </span><span class="kw">crate</span>::values::specified::calc::Leaf;
+<a href=#915 id=915 data-nosnippet>915</a>
+<a href=#916 id=916 data-nosnippet>916</a>        <span class="kw">match </span><span class="self">self</span>.<span class="number">0</span>.node {
+<a href=#917 id=917 data-nosnippet>917</a>            calc::CalcNode::Leaf(Leaf::Length(<span class="kw-2">ref </span>l)) =&gt; {
+<a href=#918 id=918 data-nosnippet>918</a>                l.to_computed_pixel_length_with_font_metrics(get_font_metrics)
+<a href=#919 id=919 data-nosnippet>919</a>            },
+<a href=#920 id=920 data-nosnippet>920</a>            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(()),
+<a href=#921 id=921 data-nosnippet>921</a>        }
+<a href=#922 id=922 data-nosnippet>922</a>    }
+<a href=#923 id=923 data-nosnippet>923</a>
+<a href=#924 id=924 data-nosnippet>924</a>    <span class="doccomment">/// Compute the calc using the current font-size and line-height. (and without text-zoom).
+<a href=#925 id=925 data-nosnippet>925</a>    </span><span class="kw">pub fn </span>to_computed_value(<span class="kw-2">&amp;</span><span class="self">self</span>, context: <span class="kw-2">&amp;</span>Context) -&gt; LengthPercentage {
+<a href=#926 id=926 data-nosnippet>926</a>        <span class="self">self</span>.to_computed_value_with_zoom(
+<a href=#927 id=927 data-nosnippet>927</a>            context,
+<a href=#928 id=928 data-nosnippet>928</a>            |abs| abs,
+<a href=#929 id=929 data-nosnippet>929</a>            FontBaseSize::CurrentStyle,
+<a href=#930 id=930 data-nosnippet>930</a>            LineHeightBase::CurrentStyle,
+<a href=#931 id=931 data-nosnippet>931</a>        )
+<a href=#932 id=932 data-nosnippet>932</a>    }
+<a href=#933 id=933 data-nosnippet>933</a>
+<a href=#934 id=934 data-nosnippet>934</a>    <span class="attr">#[inline]
+<a href=#935 id=935 data-nosnippet>935</a>    </span><span class="kw">fn </span>from_computed_value(computed: <span class="kw-2">&amp;</span>CalcLengthPercentage) -&gt; <span class="self">Self </span>{
+<a href=#936 id=936 data-nosnippet>936</a>        <span class="kw">use </span><span class="kw">crate</span>::values::specified::angle::NoCalcAngle;
+<a href=#937 id=937 data-nosnippet>937</a>        <span class="kw">use </span><span class="kw">crate</span>::values::specified::calc::Leaf;
+<a href=#938 id=938 data-nosnippet>938</a>        <span class="kw">use </span><span class="kw">crate</span>::values::specified::length::NoCalcLength;
+<a href=#939 id=939 data-nosnippet>939</a>        <span class="kw">use </span><span class="kw">crate</span>::values::specified::resolution::NoCalcResolution;
+<a href=#940 id=940 data-nosnippet>940</a>        <span class="kw">use </span><span class="kw">crate</span>::values::specified::time::NoCalcTime;
+<a href=#941 id=941 data-nosnippet>941</a>
+<a href=#942 id=942 data-nosnippet>942</a>        specified::CalcLengthPercentage(specified::CalcNumeric {
+<a href=#943 id=943 data-nosnippet>943</a>            clamping_mode: computed.clamping_mode,
+<a href=#944 id=944 data-nosnippet>944</a>            node: computed.node.map_leaves(|l| <span class="kw">match </span>l {
+<a href=#945 id=945 data-nosnippet>945</a>                ComputedLeaf::Length(l) =&gt; Leaf::Length(NoCalcLength::from_px(l.px())),
+<a href=#946 id=946 data-nosnippet>946</a>                ComputedLeaf::Percentage(p) =&gt; Leaf::Percentage(NoCalcPercentage::new(p.<span class="number">0</span>)),
+<a href=#947 id=947 data-nosnippet>947</a>                ComputedLeaf::Number(n) =&gt; Leaf::Number(NoCalcNumber::new(<span class="kw-2">*</span>n)),
+<a href=#948 id=948 data-nosnippet>948</a>                ComputedLeaf::Angle(a) =&gt; Leaf::Angle(NoCalcAngle::from_degrees(a.degrees())),
+<a href=#949 id=949 data-nosnippet>949</a>                ComputedLeaf::Time(t) =&gt; Leaf::Time(NoCalcTime::from_seconds(t.seconds())),
+<a href=#950 id=950 data-nosnippet>950</a>                ComputedLeaf::Resolution(r) =&gt; {
+<a href=#951 id=951 data-nosnippet>951</a>                    Leaf::Resolution(NoCalcResolution::from_dppx(r.dppx()))
+<a href=#952 id=952 data-nosnippet>952</a>                },
+<a href=#953 id=953 data-nosnippet>953</a>            }),
+<a href=#954 id=954 data-nosnippet>954</a>        })
+<a href=#955 id=955 data-nosnippet>955</a>    }
+<a href=#956 id=956 data-nosnippet>956</a>}
+<a href=#957 id=957 data-nosnippet>957</a>
+<a href=#958 id=958 data-nosnippet>958</a><span class="doccomment">/// https://drafts.csswg.org/css-transitions/#animtype-lpcalc
+<a href=#959 id=959 data-nosnippet>959</a>/// https://drafts.csswg.org/css-values-4/#combine-math
+<a href=#960 id=960 data-nosnippet>960</a>/// https://drafts.csswg.org/css-values-4/#combine-mixed
+<a href=#961 id=961 data-nosnippet>961</a></span><span class="kw">impl </span>Animate <span class="kw">for </span>LengthPercentage {
+<a href=#962 id=962 data-nosnippet>962</a>    <span class="attr">#[inline]
+<a href=#963 id=963 data-nosnippet>963</a>    </span><span class="kw">fn </span>animate(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>, procedure: Procedure) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ()&gt; {
+<a href=#964 id=964 data-nosnippet>964</a>        <span class="prelude-val">Ok</span>(<span class="kw">match </span>(<span class="self">self</span>.unpack(), other.unpack()) {
+<a href=#965 id=965 data-nosnippet>965</a>            (Unpacked::Length(one), Unpacked::Length(other)) =&gt; {
+<a href=#966 id=966 data-nosnippet>966</a>                <span class="self">Self</span>::new_length(one.animate(<span class="kw-2">&amp;</span>other, procedure)<span class="question-mark">?</span>)
+<a href=#967 id=967 data-nosnippet>967</a>            },
+<a href=#968 id=968 data-nosnippet>968</a>            (Unpacked::Percentage(one), Unpacked::Percentage(other)) =&gt; {
+<a href=#969 id=969 data-nosnippet>969</a>                <span class="self">Self</span>::new_percent(one.animate(<span class="kw-2">&amp;</span>other, procedure)<span class="question-mark">?</span>)
+<a href=#970 id=970 data-nosnippet>970</a>            },
+<a href=#971 id=971 data-nosnippet>971</a>            <span class="kw">_ </span>=&gt; {
+<a href=#972 id=972 data-nosnippet>972</a>                <span class="kw">use </span>calc::CalcNodeLeaf;
+<a href=#973 id=973 data-nosnippet>973</a>
+<a href=#974 id=974 data-nosnippet>974</a>                <span class="kw">fn </span>product_with(<span class="kw-2">mut </span>node: CalcNode, product: f32) -&gt; CalcNode {
+<a href=#975 id=975 data-nosnippet>975</a>                    <span class="kw">let </span><span class="kw-2">mut </span>number = CalcNode::Leaf(ComputedLeaf::new_number(product));
+<a href=#976 id=976 data-nosnippet>976</a>                    <span class="kw">if </span>!node.try_product_in_place(<span class="kw-2">&amp;mut </span>number) {
+<a href=#977 id=977 data-nosnippet>977</a>                        CalcNode::Product(<span class="macro">vec!</span>[node, number].into())
+<a href=#978 id=978 data-nosnippet>978</a>                    } <span class="kw">else </span>{
+<a href=#979 id=979 data-nosnippet>979</a>                        node
+<a href=#980 id=980 data-nosnippet>980</a>                    }
+<a href=#981 id=981 data-nosnippet>981</a>                }
+<a href=#982 id=982 data-nosnippet>982</a>
+<a href=#983 id=983 data-nosnippet>983</a>                <span class="kw">let </span>(l, r) = procedure.weights();
+<a href=#984 id=984 data-nosnippet>984</a>                <span class="kw">let </span>one = product_with(<span class="self">self</span>.to_calc_node(), l <span class="kw">as </span>f32);
+<a href=#985 id=985 data-nosnippet>985</a>                <span class="kw">let </span>other = product_with(other.to_calc_node(), r <span class="kw">as </span>f32);
+<a href=#986 id=986 data-nosnippet>986</a>
+<a href=#987 id=987 data-nosnippet>987</a>                <span class="self">Self</span>::new_calc(
+<a href=#988 id=988 data-nosnippet>988</a>                    CalcNode::Sum(<span class="macro">vec!</span>[one, other].into()),
+<a href=#989 id=989 data-nosnippet>989</a>                    AllowedNumericType::All,
+<a href=#990 id=990 data-nosnippet>990</a>                )
+<a href=#991 id=991 data-nosnippet>991</a>            },
+<a href=#992 id=992 data-nosnippet>992</a>        })
+<a href=#993 id=993 data-nosnippet>993</a>    }
+<a href=#994 id=994 data-nosnippet>994</a>}
+<a href=#995 id=995 data-nosnippet>995</a>
+<a href=#996 id=996 data-nosnippet>996</a><span class="doccomment">/// A wrapper of LengthPercentage, whose value must be &gt;= 0.
+<a href=#997 id=997 data-nosnippet>997</a></span><span class="kw">pub type </span>NonNegativeLengthPercentage = NonNegative&lt;LengthPercentage&gt;;
+<a href=#998 id=998 data-nosnippet>998</a>
+<a href=#999 id=999 data-nosnippet>999</a><span class="kw">impl </span>NonNegativeLengthPercentage {
+<a href=#1000 id=1000 data-nosnippet>1000</a>    <span class="doccomment">/// Returns the used value.
+<a href=#1001 id=1001 data-nosnippet>1001</a>    </span><span class="attr">#[inline]
+<a href=#1002 id=1002 data-nosnippet>1002</a>    </span><span class="kw">pub fn </span>to_used_value(<span class="kw-2">&amp;</span><span class="self">self</span>, containing_length: Au) -&gt; Au {
+<a href=#1003 id=1003 data-nosnippet>1003</a>        <span class="kw">let </span>resolved = <span class="self">self</span>.<span class="number">0</span>.to_used_value(containing_length);
+<a href=#1004 id=1004 data-nosnippet>1004</a>        std::cmp::max(resolved, Au(<span class="number">0</span>))
+<a href=#1005 id=1005 data-nosnippet>1005</a>    }
+<a href=#1006 id=1006 data-nosnippet>1006</a>
+<a href=#1007 id=1007 data-nosnippet>1007</a>    <span class="doccomment">/// Convert the computed value into used value.
+<a href=#1008 id=1008 data-nosnippet>1008</a>    </span><span class="attr">#[inline]
+<a href=#1009 id=1009 data-nosnippet>1009</a>    </span><span class="kw">pub fn </span>maybe_to_used_value(<span class="kw-2">&amp;</span><span class="self">self</span>, containing_length: <span class="prelude-ty">Option</span>&lt;Au&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Au&gt; {
+<a href=#1010 id=1010 data-nosnippet>1010</a>        <span class="kw">let </span>resolved = <span class="self">self</span>.<span class="number">0</span>.maybe_to_used_value(containing_length)<span class="question-mark">?</span>;
+<a href=#1011 id=1011 data-nosnippet>1011</a>        <span class="prelude-val">Some</span>(std::cmp::max(resolved, Au(<span class="number">0</span>)))
+<a href=#1012 id=1012 data-nosnippet>1012</a>    }
+<a href=#1013 id=1013 data-nosnippet>1013</a>}
+<a href=#1014 id=1014 data-nosnippet>1014</a>
+<a href=#1015 id=1015 data-nosnippet>1015</a><span class="kw">impl </span>TryTacticAdjustment <span class="kw">for </span>LengthPercentage {
+<a href=#1016 id=1016 data-nosnippet>1016</a>    <span class="kw">fn </span>try_tactic_adjustment(<span class="kw-2">&amp;mut </span><span class="self">self</span>, old_side: PhysicalSide, new_side: PhysicalSide) {
+<a href=#1017 id=1017 data-nosnippet>1017</a>        <span class="kw">match </span><span class="self">self</span>.unpack_mut() {
+<a href=#1018 id=1018 data-nosnippet>1018</a>            UnpackedMut::Calc(calc) =&gt; calc.node.try_tactic_adjustment(old_side, new_side),
+<a href=#1019 id=1019 data-nosnippet>1019</a>            UnpackedMut::Percentage(<span class="kw-2">mut </span>p) =&gt; {
+<a href=#1020 id=1020 data-nosnippet>1020</a>                p.try_tactic_adjustment(old_side, new_side);
+<a href=#1021 id=1021 data-nosnippet>1021</a>                <span class="kw-2">*</span><span class="self">self </span>= <span class="self">Self</span>::new_percent(p);
+<a href=#1022 id=1022 data-nosnippet>1022</a>            },
+<a href=#1023 id=1023 data-nosnippet>1023</a>            UnpackedMut::Length(..) =&gt; {},
+<a href=#1024 id=1024 data-nosnippet>1024</a>        }
+<a href=#1025 id=1025 data-nosnippet>1025</a>    }
+<a href=#1026 id=1026 data-nosnippet>1026</a>}
+<a href=#1027 id=1027 data-nosnippet>1027</a>
+<a href=#1028 id=1028 data-nosnippet>1028</a><span class="kw">impl </span>TryTacticAdjustment <span class="kw">for </span>GenericAnchorFunctionFallback&lt;ComputedLeaf&gt; {
+<a href=#1029 id=1029 data-nosnippet>1029</a>    <span class="kw">fn </span>try_tactic_adjustment(<span class="kw-2">&amp;mut </span><span class="self">self</span>, old_side: PhysicalSide, new_side: PhysicalSide) {
+<a href=#1030 id=1030 data-nosnippet>1030</a>        <span class="self">self</span>.node.try_tactic_adjustment(old_side, new_side)
+<a href=#1031 id=1031 data-nosnippet>1031</a>    }
+<a href=#1032 id=1032 data-nosnippet>1032</a>}
+<a href=#1033 id=1033 data-nosnippet>1033</a>
+<a href=#1034 id=1034 data-nosnippet>1034</a><span class="kw">impl </span>TryTacticAdjustment <span class="kw">for </span>CalcNode {
+<a href=#1035 id=1035 data-nosnippet>1035</a>    <span class="kw">fn </span>try_tactic_adjustment(<span class="kw-2">&amp;mut </span><span class="self">self</span>, old_side: PhysicalSide, new_side: PhysicalSide) {
+<a href=#1036 id=1036 data-nosnippet>1036</a>        <span class="self">self</span>.visit_depth_first(|node| <span class="kw">match </span>node {
+<a href=#1037 id=1037 data-nosnippet>1037</a>            <span class="self">Self</span>::Leaf(ComputedLeaf::Percentage(p)) =&gt; p.try_tactic_adjustment(old_side, new_side),
+<a href=#1038 id=1038 data-nosnippet>1038</a>            <span class="self">Self</span>::Anchor(a) =&gt; a.try_tactic_adjustment(old_side, new_side),
+<a href=#1039 id=1039 data-nosnippet>1039</a>            <span class="self">Self</span>::AnchorSize(a) =&gt; a.try_tactic_adjustment(old_side, new_side),
+<a href=#1040 id=1040 data-nosnippet>1040</a>            <span class="kw">_ </span>=&gt; {},
+<a href=#1041 id=1041 data-nosnippet>1041</a>        });
+<a href=#1042 id=1042 data-nosnippet>1042</a>    }
+<a href=#1043 id=1043 data-nosnippet>1043</a>}
+</code></pre></div></section></main></body></html>

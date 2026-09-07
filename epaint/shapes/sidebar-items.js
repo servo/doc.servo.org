@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["bezier_shape","circle_shape","ellipse_shape","paint_callback","path_shape","rect_shape","shape","text_shape"]};

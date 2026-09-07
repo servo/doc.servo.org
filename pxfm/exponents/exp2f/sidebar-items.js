@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TBLSIZE"],"fn":["dirty_exp2f","exp2f_fma_impl","exp2f_gen","f_exp2f"],"static":["EXP2FT","EXP2F_TABLE"],"struct":["Exp2Table"]};

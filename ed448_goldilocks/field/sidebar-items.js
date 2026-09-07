@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["GOLDILOCKS_BASE_POINT","TWISTED_EDWARDS_BASE_POINT"],"mod":["element","scalar"],"struct":["MODULUS"],"type":["ConstMontyType"]};

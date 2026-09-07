@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["ignored",1]],"struct":["Ignored"]};

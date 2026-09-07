@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FIXED_PERSIAN_EPOCH","MIN_NON_LEAP_CORRECTION","NON_LEAP_CORRECTION"],"fn":["arithmetic_persian_from_fixed","arithmetic_persian_year_from_fixed","fast_persian_from_fixed","fast_persian_year_from_fixed","fixed_from_arithmetic_persian","fixed_from_fast_persian","is_arithmetic_leap_year","is_leap_year"]};

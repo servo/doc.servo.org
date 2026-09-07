@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["define_name_type_impls",1],["impl_str_basic",1]]};

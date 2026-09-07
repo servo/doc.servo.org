@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["add12","add22","mul12"],"struct":["TripleDouble"]};

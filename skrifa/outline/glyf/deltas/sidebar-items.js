@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["composite_glyph","compute_deltas_for_glyph","interpolate_deltas","simple_glyph"],"struct":["Jiggler","RefPoints","SimpleGlyph"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLOCK_CAP","DESTROY","FLUSH_THRESHOLD_BYTES","HAS_NEXT","LAP","MAX_BATCH","MIN_CAP","READ","SHIFT","WRITE"],"enum":["Flavor","Steal"],"struct":["Block","Buffer","Injector","Inner","Position","Slot","Stealer","Worker"]};

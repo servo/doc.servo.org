@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_powm1f","powm1_exp2m1_fast","powm1f_log2_fast"]};

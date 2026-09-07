@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_default_url","is_domain_like","is_localhost","location_bar_input_to_url","parse_url_or_filename","try_as_domain","try_as_file","try_as_search_page"]};

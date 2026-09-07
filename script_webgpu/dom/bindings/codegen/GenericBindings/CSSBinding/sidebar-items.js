@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetConstructorObject"],"mod":["CSS_Binding"],"struct":["PropertyDefinition"],"trait":["CSSMethods"]};

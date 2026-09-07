@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["alternate","ligature","multiple","reverse_chain","single"]};

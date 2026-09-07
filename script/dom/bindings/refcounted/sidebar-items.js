@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LIVE_REFERENCES"],"fn":["trace_refcounted_objects"],"struct":["LivePromiseReferences","Trusted","TrustedPromise"]};

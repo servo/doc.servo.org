@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["consume_rec_postfix","split_vec","walk_tree","walk_tree_postfix","walk_tree_prefix"],"struct":["WalkTree","WalkTreePostfix","WalkTreePostfixProducer","WalkTreePrefix","WalkTreePrefixProducer"]};

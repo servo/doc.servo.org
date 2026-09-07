@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ED25519_PUBLIC_KEY_LEN","ED25519_SEED_LEN","ED25519_SIGNATURE_LEN"],"fn":["generate_key","parse_ed25519_public_key"],"struct":["Ed25519KeyPair","EdDSAParameters","PublicKey","Seed"]};

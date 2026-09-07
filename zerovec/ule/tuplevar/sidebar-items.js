@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["tuple_varule",1]],"struct":["Tuple2VarULE","Tuple3VarULE","Tuple4VarULE","Tuple5VarULE","Tuple6VarULE"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GamepadHapticEffectRequestType"],"struct":["DefaultGamepadDelegate","GamepadHapticEffectRequest"],"trait":["GamepadDelegate"]};

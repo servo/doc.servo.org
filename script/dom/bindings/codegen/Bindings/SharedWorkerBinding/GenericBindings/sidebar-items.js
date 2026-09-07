@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["SharedWorker_Binding"],"struct":["SharedWorkerOptions"],"trait":["SharedWorkerMethods"]};

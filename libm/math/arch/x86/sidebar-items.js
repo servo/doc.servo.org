@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["sqrt","sqrtf"],"mod":["detect","fma"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_PAGE_ZOOM","MAX_PAGE_ZOOM","MIN_PAGE_ZOOM","SEPARATORS"],"enum":["UserScalable","ViewportDescriptionParseError"],"struct":["ViewportDescription"]};

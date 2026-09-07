@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DiplomatResult"],"type":["DiplomatOption"],"union":["DiplomatResultValue"]};

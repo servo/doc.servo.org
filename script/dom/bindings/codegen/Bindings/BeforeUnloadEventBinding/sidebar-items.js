@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["BeforeUnloadEvent_Binding","GenericBindings"],"trait":["BeforeUnloadEventMethods"]};

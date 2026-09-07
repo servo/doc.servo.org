@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["K1","K2","K3","K4","K5","K_1024_HIGH","K_1024_LOW","K_2048_HIGH","K_2048_LOW","MIN_AVX512_BYTES","MIN_FOLD_BY_4_BYTES","P_X","U_PRIME"],"enum":["Kind"],"fn":["calculate","calculate_avx2","calculate_avx512","get","get256","get512","reduce128","reduce256","reduce512","reduce_128_to_crc"],"struct":["State"]};

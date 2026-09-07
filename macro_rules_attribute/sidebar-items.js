@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["apply","derive","macro_rules_attribute","macro_rules_derive"],"derive":["Custom"],"macro":[["__emit__",1],["attribute_alias",1],["derive_alias",1],["this_macro_is_private",1]],"mod":["nested_derive"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["deserialize","deserialize_homogeneous_enum","prepare_enum_variant_enum"]};

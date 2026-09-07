@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["K_MAX_PLAUSIBLE_COMPRESSION_RATIO"],"fn":["compute_header_size","decompress_woff2_with_custom_brotli","generate_header","iter_tables_for_font","read_num_hmetrics","reconstruct_font","write_empty_offset_table_entry"],"struct":["HeaderData","TableMetadata"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["USER_CONTENT_MANAGER_ID","USER_SCRIPT_ID","USER_STYLE_SHEET_ID"],"struct":["UserContentManagerId","UserContents","UserScript","UserScriptId","UserStyleSheet"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["Y1_COEFFS_REMEZ"]};

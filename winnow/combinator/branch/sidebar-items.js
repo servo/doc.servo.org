@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["alt"],"macro":[["alt_trait",1],["alt_trait_impl",1],["alt_trait_inner",1],["succ",1]],"trait":["Alt"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ApacheBugFlag","MediaType","NoSniffFlag"],"struct":["BinaryOrPlaintextClassifier","ByteMatcher","GroupedClassifier","MimeClassifier","Mp4Matcher","TagTerminatedByteMatcher"],"trait":["MIMEChecker"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RopeMovement"],"fn":["contents_vec"],"struct":["Rope","RopeChars","RopeIndex","RopeMovementIterator","RopeSlice"]};

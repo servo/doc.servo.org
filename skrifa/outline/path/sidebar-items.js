@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PendingState","ToPathError"],"fn":["contour_to_path","contour_to_path_freetype","contour_to_path_harfbuzz","to_path"],"struct":["ContourPoint"]};

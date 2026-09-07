@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REPLACEMENT_CHARACTER"],"enum":["DecodeError","Utf8CompletionResult"],"fn":["decode_utf8"],"struct":["IncompleteUtf8"]};

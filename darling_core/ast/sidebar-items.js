@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Data","GenericParam","NestedMeta","Style"],"mod":["data","generics"],"struct":["Fields","Generics"],"trait":["GenericParamExt"]};

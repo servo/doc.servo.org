@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_sqrt1pm1","sqrt1pm1_near_zero_hard"]};

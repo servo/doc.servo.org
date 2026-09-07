@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["derive","derive_to_value"],"struct":["ComputedValueAttrs","ToValueAttrs"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_y1","y0_small_argument_moderate","y1_asympt","y1_asympt_fast","y1_asympt_hard","y1_near_zero","y1_near_zero_fast","y1_small_argument_fast","y1_small_argument_hard","y1_transient_hard","y1_transient_zone","y1_transient_zone_fast"]};

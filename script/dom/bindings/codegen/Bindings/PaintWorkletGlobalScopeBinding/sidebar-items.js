@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","PaintWorkletGlobalScope_Binding"],"trait":["PaintWorkletGlobalScopeMethods"]};

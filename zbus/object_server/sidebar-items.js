@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DispatchResult","DispatchResult2"],"mod":["dispatch_notifier","interface","node","signal_emitter"],"struct":["InterfaceDeref","InterfaceDerefMut","InterfaceRef","ObjectServer","ResponseDispatchNotifier","SignalEmitter"],"trait":["Interface"],"type":["SignalContext"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_or_init_flags_cache"],"macro":[["select_once",1],["unique_masks",1]],"struct":["Flags"]};

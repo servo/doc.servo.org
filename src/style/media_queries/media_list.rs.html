@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/stylo-482338307e42a9ea/a5b0464/style/media_queries/media_list.rs`."><title>media_list.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="style" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">style/media_queries/</div>media_list.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="doccomment">//! A media query list:
+<a href=#6 id=6 data-nosnippet>6</a>//!
+<a href=#7 id=7 data-nosnippet>7</a>//! https://drafts.csswg.org/mediaqueries/#typedef-media-query-list
+<a href=#8 id=8 data-nosnippet>8</a>
+<a href=#9 id=9 data-nosnippet>9</a></span><span class="kw">use super</span>::{MediaQuery, Qualifier};
+<a href=#10 id=10 data-nosnippet>10</a><span class="kw">use </span><span class="kw">crate</span>::context::QuirksMode;
+<a href=#11 id=11 data-nosnippet>11</a><span class="kw">use </span><span class="kw">crate</span>::derives::<span class="kw-2">*</span>;
+<a href=#12 id=12 data-nosnippet>12</a><span class="kw">use </span><span class="kw">crate</span>::device::Device;
+<a href=#13 id=13 data-nosnippet>13</a><span class="kw">use </span><span class="kw">crate</span>::dom::AttributeTracker;
+<a href=#14 id=14 data-nosnippet>14</a><span class="kw">use </span><span class="kw">crate</span>::error_reporting::ContextualParseError;
+<a href=#15 id=15 data-nosnippet>15</a><span class="kw">use </span><span class="kw">crate</span>::parser::ParserContext;
+<a href=#16 id=16 data-nosnippet>16</a><span class="kw">use </span><span class="kw">crate</span>::stylesheets::CustomMediaEvaluator;
+<a href=#17 id=17 data-nosnippet>17</a><span class="kw">use </span><span class="kw">crate</span>::values::computed;
+<a href=#18 id=18 data-nosnippet>18</a><span class="kw">use </span>cssparser::{Delimiter, Parser};
+<a href=#19 id=19 data-nosnippet>19</a><span class="kw">use </span>cssparser::{ParserInput, Token};
+<a href=#20 id=20 data-nosnippet>20</a><span class="kw">use </span>selectors::kleene_value::KleeneValue;
+<a href=#21 id=21 data-nosnippet>21</a><span class="kw">use </span>style_traits::ParsingMode;
+<a href=#22 id=22 data-nosnippet>22</a>
+<a href=#23 id=23 data-nosnippet>23</a><span class="doccomment">/// A type that encapsulates a media query list.
+<a href=#24 id=24 data-nosnippet>24</a></span><span class="attr">#[derive(Clone, MallocSizeOf, ToCss, ToShmem)]
+<a href=#25 id=25 data-nosnippet>25</a>#[css(comma, derive_debug)]
+<a href=#26 id=26 data-nosnippet>26</a></span><span class="kw">pub struct </span>MediaList {
+<a href=#27 id=27 data-nosnippet>27</a>    <span class="doccomment">/// The list of media queries.
+<a href=#28 id=28 data-nosnippet>28</a>    </span><span class="attr">#[css(iterable)]
+<a href=#29 id=29 data-nosnippet>29</a>    </span><span class="kw">pub </span>media_queries: Vec&lt;MediaQuery&gt;,
+<a href=#30 id=30 data-nosnippet>30</a>}
+<a href=#31 id=31 data-nosnippet>31</a>
+<a href=#32 id=32 data-nosnippet>32</a><span class="kw">impl </span>MediaList {
+<a href=#33 id=33 data-nosnippet>33</a>    <span class="doccomment">/// Parse a media query list from CSS.
+<a href=#34 id=34 data-nosnippet>34</a>    ///
+<a href=#35 id=35 data-nosnippet>35</a>    /// Always returns a media query list. If any invalid media query is
+<a href=#36 id=36 data-nosnippet>36</a>    /// found, the media query list is only filled with the equivalent of
+<a href=#37 id=37 data-nosnippet>37</a>    /// "not all", see:
+<a href=#38 id=38 data-nosnippet>38</a>    ///
+<a href=#39 id=39 data-nosnippet>39</a>    /// &lt;https://drafts.csswg.org/mediaqueries/#error-handling&gt;
+<a href=#40 id=40 data-nosnippet>40</a>    </span><span class="kw">pub fn </span>parse(context: <span class="kw-2">&amp;mut </span>ParserContext, input: <span class="kw-2">&amp;mut </span>Parser) -&gt; <span class="self">Self </span>{
+<a href=#41 id=41 data-nosnippet>41</a>        context.with_parsing_mode(ParsingMode::MEDIA_QUERY_CONDITION, |context| {
+<a href=#42 id=42 data-nosnippet>42</a>            <span class="kw">if </span>input.is_exhausted() {
+<a href=#43 id=43 data-nosnippet>43</a>                <span class="kw">return </span><span class="self">Self</span>::empty();
+<a href=#44 id=44 data-nosnippet>44</a>            }
+<a href=#45 id=45 data-nosnippet>45</a>
+<a href=#46 id=46 data-nosnippet>46</a>            <span class="kw">let </span><span class="kw-2">mut </span>media_queries = <span class="macro">vec!</span>[];
+<a href=#47 id=47 data-nosnippet>47</a>            <span class="kw">loop </span>{
+<a href=#48 id=48 data-nosnippet>48</a>                <span class="kw">let </span>start_position = input.position();
+<a href=#49 id=49 data-nosnippet>49</a>                <span class="kw">match </span>input.parse_until_before(Delimiter::Comma, |i| MediaQuery::parse(context, i))
+<a href=#50 id=50 data-nosnippet>50</a>                {
+<a href=#51 id=51 data-nosnippet>51</a>                    <span class="prelude-val">Ok</span>(mq) =&gt; {
+<a href=#52 id=52 data-nosnippet>52</a>                        media_queries.push(mq);
+<a href=#53 id=53 data-nosnippet>53</a>                    },
+<a href=#54 id=54 data-nosnippet>54</a>                    <span class="prelude-val">Err</span>(err) =&gt; {
+<a href=#55 id=55 data-nosnippet>55</a>                        media_queries.push(MediaQuery::never_matching());
+<a href=#56 id=56 data-nosnippet>56</a>                        <span class="kw">let </span>location = err.location;
+<a href=#57 id=57 data-nosnippet>57</a>                        <span class="kw">let </span>error = ContextualParseError::InvalidMediaRule(
+<a href=#58 id=58 data-nosnippet>58</a>                            input.slice_from(start_position),
+<a href=#59 id=59 data-nosnippet>59</a>                            err,
+<a href=#60 id=60 data-nosnippet>60</a>                        );
+<a href=#61 id=61 data-nosnippet>61</a>                        context.log_css_error(location, error);
+<a href=#62 id=62 data-nosnippet>62</a>                    },
+<a href=#63 id=63 data-nosnippet>63</a>                }
+<a href=#64 id=64 data-nosnippet>64</a>
+<a href=#65 id=65 data-nosnippet>65</a>                <span class="kw">match </span>input.next() {
+<a href=#66 id=66 data-nosnippet>66</a>                    <span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span>Token::Comma) =&gt; {},
+<a href=#67 id=67 data-nosnippet>67</a>                    <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="macro">unreachable!</span>(),
+<a href=#68 id=68 data-nosnippet>68</a>                    <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">break</span>,
+<a href=#69 id=69 data-nosnippet>69</a>                }
+<a href=#70 id=70 data-nosnippet>70</a>            }
+<a href=#71 id=71 data-nosnippet>71</a>
+<a href=#72 id=72 data-nosnippet>72</a>            MediaList { media_queries }
+<a href=#73 id=73 data-nosnippet>73</a>        })
+<a href=#74 id=74 data-nosnippet>74</a>    }
+<a href=#75 id=75 data-nosnippet>75</a>
+<a href=#76 id=76 data-nosnippet>76</a>    <span class="doccomment">/// Create an empty MediaList.
+<a href=#77 id=77 data-nosnippet>77</a>    </span><span class="kw">pub fn </span>empty() -&gt; <span class="self">Self </span>{
+<a href=#78 id=78 data-nosnippet>78</a>        MediaList {
+<a href=#79 id=79 data-nosnippet>79</a>            media_queries: <span class="macro">vec!</span>[],
+<a href=#80 id=80 data-nosnippet>80</a>        }
+<a href=#81 id=81 data-nosnippet>81</a>    }
+<a href=#82 id=82 data-nosnippet>82</a>
+<a href=#83 id=83 data-nosnippet>83</a>    <span class="doccomment">/// Evaluate a whole `MediaList` against `Device`.
+<a href=#84 id=84 data-nosnippet>84</a>    </span><span class="kw">pub fn </span>evaluate(
+<a href=#85 id=85 data-nosnippet>85</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#86 id=86 data-nosnippet>86</a>        device: <span class="kw-2">&amp;</span>Device,
+<a href=#87 id=87 data-nosnippet>87</a>        quirks_mode: QuirksMode,
+<a href=#88 id=88 data-nosnippet>88</a>        custom: <span class="kw-2">&amp;mut </span>CustomMediaEvaluator,
+<a href=#89 id=89 data-nosnippet>89</a>    ) -&gt; bool {
+<a href=#90 id=90 data-nosnippet>90</a>        computed::Context::for_media_query_evaluation(device, quirks_mode, |context| {
+<a href=#91 id=91 data-nosnippet>91</a>            <span class="self">self</span>.matches(context, custom).to_bool(<span class="comment">/* unknown = */ </span><span class="bool-val">false</span>)
+<a href=#92 id=92 data-nosnippet>92</a>        })
+<a href=#93 id=93 data-nosnippet>93</a>    }
+<a href=#94 id=94 data-nosnippet>94</a>
+<a href=#95 id=95 data-nosnippet>95</a>    <span class="doccomment">/// Evaluate the current `MediaList` with a pre-existing context and custom-media evaluator.
+<a href=#96 id=96 data-nosnippet>96</a>    </span><span class="kw">pub fn </span>matches(
+<a href=#97 id=97 data-nosnippet>97</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#98 id=98 data-nosnippet>98</a>        context: <span class="kw-2">&amp;</span>computed::Context,
+<a href=#99 id=99 data-nosnippet>99</a>        custom: <span class="kw-2">&amp;mut </span>CustomMediaEvaluator,
+<a href=#100 id=100 data-nosnippet>100</a>    ) -&gt; KleeneValue {
+<a href=#101 id=101 data-nosnippet>101</a>        <span class="comment">// Check if it is an empty media query list or any queries match.
+<a href=#102 id=102 data-nosnippet>102</a>        // https://drafts.csswg.org/mediaqueries-4/#mq-list
+<a href=#103 id=103 data-nosnippet>103</a>        </span><span class="kw">if </span><span class="self">self</span>.media_queries.is_empty() {
+<a href=#104 id=104 data-nosnippet>104</a>            <span class="kw">return </span>KleeneValue::True;
+<a href=#105 id=105 data-nosnippet>105</a>        }
+<a href=#106 id=106 data-nosnippet>106</a>        KleeneValue::any(<span class="self">self</span>.media_queries.iter(), |mq| {
+<a href=#107 id=107 data-nosnippet>107</a>            <span class="kw">let </span><span class="kw-2">mut </span>query_match = <span class="kw">if </span>mq.media_type.matches(context.device().media_type()) {
+<a href=#108 id=108 data-nosnippet>108</a>                mq.condition.as_ref().map_or(KleeneValue::True, |c| {
+<a href=#109 id=109 data-nosnippet>109</a>                    c.matches(context, custom, <span class="kw-2">&amp;mut </span>AttributeTracker::new_dummy())
+<a href=#110 id=110 data-nosnippet>110</a>                })
+<a href=#111 id=111 data-nosnippet>111</a>            } <span class="kw">else </span>{
+<a href=#112 id=112 data-nosnippet>112</a>                KleeneValue::False
+<a href=#113 id=113 data-nosnippet>113</a>            };
+<a href=#114 id=114 data-nosnippet>114</a>            <span class="comment">// Apply the logical NOT qualifier to the result
+<a href=#115 id=115 data-nosnippet>115</a>            </span><span class="kw">if </span><span class="macro">matches!</span>(mq.qualifier, <span class="prelude-val">Some</span>(Qualifier::Not)) {
+<a href=#116 id=116 data-nosnippet>116</a>                query_match = !query_match;
+<a href=#117 id=117 data-nosnippet>117</a>            }
+<a href=#118 id=118 data-nosnippet>118</a>            query_match
+<a href=#119 id=119 data-nosnippet>119</a>        })
+<a href=#120 id=120 data-nosnippet>120</a>    }
+<a href=#121 id=121 data-nosnippet>121</a>
+<a href=#122 id=122 data-nosnippet>122</a>    <span class="doccomment">/// Whether this `MediaList` contains no media queries.
+<a href=#123 id=123 data-nosnippet>123</a>    </span><span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+<a href=#124 id=124 data-nosnippet>124</a>        <span class="self">self</span>.media_queries.is_empty()
+<a href=#125 id=125 data-nosnippet>125</a>    }
+<a href=#126 id=126 data-nosnippet>126</a>
+<a href=#127 id=127 data-nosnippet>127</a>    <span class="doccomment">/// Whether this `MediaList` depends on the viewport size.
+<a href=#128 id=128 data-nosnippet>128</a>    </span><span class="kw">pub fn </span>is_viewport_dependent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+<a href=#129 id=129 data-nosnippet>129</a>        <span class="self">self</span>.media_queries.iter().any(|q| q.is_viewport_dependent())
+<a href=#130 id=130 data-nosnippet>130</a>    }
+<a href=#131 id=131 data-nosnippet>131</a>
+<a href=#132 id=132 data-nosnippet>132</a>    <span class="doccomment">/// Append a new media query item to the media list.
+<a href=#133 id=133 data-nosnippet>133</a>    /// &lt;https://drafts.csswg.org/cssom/#dom-medialist-appendmedium&gt;
+<a href=#134 id=134 data-nosnippet>134</a>    ///
+<a href=#135 id=135 data-nosnippet>135</a>    /// Returns true if added, false if fail to parse the medium string.
+<a href=#136 id=136 data-nosnippet>136</a>    </span><span class="kw">pub fn </span>append_medium(<span class="kw-2">&amp;mut </span><span class="self">self</span>, context: <span class="kw-2">&amp;</span>ParserContext, new_medium: <span class="kw-2">&amp;</span>str) -&gt; bool {
+<a href=#137 id=137 data-nosnippet>137</a>        <span class="kw">let </span><span class="kw-2">mut </span>input = ParserInput::new(new_medium);
+<a href=#138 id=138 data-nosnippet>138</a>        <span class="kw">let </span><span class="kw-2">mut </span>parser = Parser::new(<span class="kw-2">&amp;mut </span>input);
+<a href=#139 id=139 data-nosnippet>139</a>        <span class="kw">let </span>new_query = <span class="kw">match </span>MediaQuery::parse(<span class="kw-2">&amp;</span>context, <span class="kw-2">&amp;mut </span>parser) {
+<a href=#140 id=140 data-nosnippet>140</a>            <span class="prelude-val">Ok</span>(query) =&gt; query,
+<a href=#141 id=141 data-nosnippet>141</a>            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
+<a href=#142 id=142 data-nosnippet>142</a>                <span class="kw">return </span><span class="bool-val">false</span>;
+<a href=#143 id=143 data-nosnippet>143</a>            },
+<a href=#144 id=144 data-nosnippet>144</a>        };
+<a href=#145 id=145 data-nosnippet>145</a>        <span class="comment">// This algorithm doesn't actually matches the current spec,
+<a href=#146 id=146 data-nosnippet>146</a>        // but it matches the behavior of Gecko and Edge.
+<a href=#147 id=147 data-nosnippet>147</a>        // See https://github.com/w3c/csswg-drafts/issues/697
+<a href=#148 id=148 data-nosnippet>148</a>        </span><span class="self">self</span>.media_queries.retain(|query| query != <span class="kw-2">&amp;</span>new_query);
+<a href=#149 id=149 data-nosnippet>149</a>        <span class="self">self</span>.media_queries.push(new_query);
+<a href=#150 id=150 data-nosnippet>150</a>        <span class="bool-val">true
+<a href=#151 id=151 data-nosnippet>151</a>    </span>}
+<a href=#152 id=152 data-nosnippet>152</a>
+<a href=#153 id=153 data-nosnippet>153</a>    <span class="doccomment">/// Delete a media query from the media list.
+<a href=#154 id=154 data-nosnippet>154</a>    /// &lt;https://drafts.csswg.org/cssom/#dom-medialist-deletemedium&gt;
+<a href=#155 id=155 data-nosnippet>155</a>    ///
+<a href=#156 id=156 data-nosnippet>156</a>    /// Returns true if found and deleted, false otherwise.
+<a href=#157 id=157 data-nosnippet>157</a>    </span><span class="kw">pub fn </span>delete_medium(<span class="kw-2">&amp;mut </span><span class="self">self</span>, context: <span class="kw-2">&amp;</span>ParserContext, old_medium: <span class="kw-2">&amp;</span>str) -&gt; bool {
+<a href=#158 id=158 data-nosnippet>158</a>        <span class="kw">let </span><span class="kw-2">mut </span>input = ParserInput::new(old_medium);
+<a href=#159 id=159 data-nosnippet>159</a>        <span class="kw">let </span><span class="kw-2">mut </span>parser = Parser::new(<span class="kw-2">&amp;mut </span>input);
+<a href=#160 id=160 data-nosnippet>160</a>        <span class="kw">let </span>old_query = <span class="kw">match </span>MediaQuery::parse(context, <span class="kw-2">&amp;mut </span>parser) {
+<a href=#161 id=161 data-nosnippet>161</a>            <span class="prelude-val">Ok</span>(query) =&gt; query,
+<a href=#162 id=162 data-nosnippet>162</a>            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
+<a href=#163 id=163 data-nosnippet>163</a>                <span class="kw">return </span><span class="bool-val">false</span>;
+<a href=#164 id=164 data-nosnippet>164</a>            },
+<a href=#165 id=165 data-nosnippet>165</a>        };
+<a href=#166 id=166 data-nosnippet>166</a>        <span class="kw">let </span>old_len = <span class="self">self</span>.media_queries.len();
+<a href=#167 id=167 data-nosnippet>167</a>        <span class="self">self</span>.media_queries.retain(|query| query != <span class="kw-2">&amp;</span>old_query);
+<a href=#168 id=168 data-nosnippet>168</a>        old_len != <span class="self">self</span>.media_queries.len()
+<a href=#169 id=169 data-nosnippet>169</a>    }
+<a href=#170 id=170 data-nosnippet>170</a>}
+</code></pre></div></section></main></body></html>

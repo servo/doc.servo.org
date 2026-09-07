@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InitType"],"fn":["call_default_constructor","create_callback_interface_objects","create_interface","create_namespace_interface_objects","init_cached_constructor"],"struct":["CallbackInit","InterfaceInit","NamespaceInit"],"type":["HasPropertyFn","ParentFn"]};

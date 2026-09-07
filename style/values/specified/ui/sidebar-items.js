@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CursorKind","Inert","MozTheme","PointerEvents","UserFocus","UserSelect"],"struct":["BoolInteger"],"type":["Cursor","CursorImage","ScrollbarColor"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_a_sandboxing_directive"],"struct":["SandboxingFlagSet"]};

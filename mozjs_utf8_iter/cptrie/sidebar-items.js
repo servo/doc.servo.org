@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Utf8CharsWithTrie","Utf8CharsWithTrieDefaultForAscii"],"trait":["Utf8CharsWithTrieDefaultForAsciiEx","Utf8CharsWithTrieEx"]};

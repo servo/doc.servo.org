@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EventType","KeySynthType"],"struct":["DeviceEvent","DeviceEventControllerProxy","EventListenerMode","KeyDefinition"]};

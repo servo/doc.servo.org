@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["capacity_of","non_little_cpus","parse_cpu_list","pin_thread_to_medium_or_large_cpus"],"static":["NON_LITTLE_CPU_CORES"],"type":["CoreId"]};

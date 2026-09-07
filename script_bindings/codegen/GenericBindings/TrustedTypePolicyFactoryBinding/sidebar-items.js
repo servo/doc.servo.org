@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["TrustedTypePolicyFactory_Binding"],"struct":["CreateHTMLCallback","CreateScriptCallback","CreateScriptURLCallback","TrustedTypePolicyOptions"]};

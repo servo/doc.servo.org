@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["start_webgpu_thread"],"mod":["canvas_context","poll_thread","wgpu_thread"]};

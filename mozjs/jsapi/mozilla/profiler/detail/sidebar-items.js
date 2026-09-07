@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["InChunkPointer"],"type":["InChunkPointer_Byte","InChunkPointer_Length"]};

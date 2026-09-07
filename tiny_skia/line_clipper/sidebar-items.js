@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_POINTS"],"fn":["clip","contains_no_empty_check","intersect","is_between_unsorted","nested_lt","pin_unsorted_f32","pin_unsorted_f64","sect_clamp_with_vertical","sect_with_horizontal","sect_with_vertical"]};

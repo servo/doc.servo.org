@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OpenKind","PopupAnchor","PopupCloseBehavior","PopupKind","SetOpenCommand"],"struct":["Popup"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TableDropOpt"],"struct":["TableDropStatement"]};

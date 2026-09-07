@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["iter"],"macro":[["collect",1],["submit",1]],"mod":["private","value_iter","void_iter"],"trait":["Collect"],"type":["iter"]};

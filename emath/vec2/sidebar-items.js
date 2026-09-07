@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["vec2"],"struct":["Vec2"]};

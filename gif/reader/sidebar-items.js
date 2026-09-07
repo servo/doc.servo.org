@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EXT_NAME_ICC","EXT_NAME_NETSCAPE","EXT_NAME_XMP"],"enum":["AppExtensionState","MemoryLimit"],"mod":["converter","decoder"],"struct":["DecodeOptions","Decoder","DecoderIter","ReadDecoder"]};

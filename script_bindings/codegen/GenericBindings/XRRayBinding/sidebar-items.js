@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["XRRay_Binding"],"struct":["XRRayDirectionInit"]};

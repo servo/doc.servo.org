@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IpNet","IpSubnets"],"fn":["merge_intervals","next_ipv4_subnet","next_ipv6_subnet"],"struct":["Ipv4Net","Ipv4Subnets","Ipv6Net","Ipv6Subnets","PrefixLenError"],"trait":["Contains"]};

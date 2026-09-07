@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Notification"],"enum":["ResourceType"],"fn":["create_notification","create_notification_with_settings_object","get_notifications_permission_state","request_notification_permission","validate_and_normalize_vibration_pattern"],"struct":["Action","Notification","ResourceFetchListener"]};

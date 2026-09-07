@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_ct_assign_slice_with_cmov",1],["impl_ct_assign_with_cmov",1]],"trait":["CtAssign","CtAssignSlice"]};

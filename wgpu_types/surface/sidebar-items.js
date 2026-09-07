@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CompositeAlphaMode","DisplayGamut","PresentMode","SurfaceColorSpace","SurfaceStatus"],"struct":["DisplayChromaticity","DisplayCoarseRange","DisplayHdrInfo","DisplayHeadroom","DisplayLuminance","PresentationTimestamp","SurfaceCapabilities","SurfaceColorSpaces","SurfaceConfiguration","SurfaceFormatCapabilities"]};

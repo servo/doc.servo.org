@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["debug_flags","read_into_defaulted_vector","read_into_uninitialized_vector"],"type":["VkResult"]};

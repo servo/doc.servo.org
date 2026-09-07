@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Derive implementation of the `ToTyped` trait."><title>derive in stylo_derive::to_typed - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="stylo_derive" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">derive</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../stylo_derive/index.html">stylo_<wbr>derive</a><span class="version">0.20.0</span></h2></div><div class="sidebar-elems"><div id="rustdoc-modnav"><h2><a href="index.html">In stylo_<wbr>derive::<wbr>to_<wbr>typed</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">stylo_derive</a>::<wbr><a href="index.html">to_typed</a></div><h1>Function <span class="fn">derive</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/stylo_derive/to_typed.rs.html#103-213">Source</a> </span></div><pre class="rust item-decl"><code>pub fn derive(input: <a class="struct" href="https://docs.rs/syn/2.0.119/syn/derive/struct.DeriveInput.html" title="struct syn::derive::DeriveInput">DeriveInput</a>) -&gt; <a class="struct" href="https://docs.rs/proc-macro2/1.0.107/proc_macro2/struct.TokenStream.html" title="struct proc_macro2::TokenStream">TokenStream</a></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Derive implementation of the <code>ToTyped</code> trait.</p>
+<p>This derive supports both enums and structs:</p>
+<ul>
+<li>
+<p>Enums</p>
+<ul>
+<li>
+<p>Pure keyword enums: Enums made up entirely of unit variants
+(e.g. <code>enum Visibility { Visible, Hidden, Collapse }</code>). In this case,
+the derive optimizes by delegating to <code>ToCss</code> once for the whole value,
+then wrapping the result in <code>TypedValue::Keyword</code>.</p>
+</li>
+<li>
+<p>Mixed enums with unit variants: Enums that contain both unit
+variants (keywords) and data-carrying variants. The derive generates a
+<code>match</code> implementation where unit variants are reified as
+<code>TypedValue::Keyword</code>, and fielded variants reify by calling
+<code>.to_typed()</code> on their inner values by default. Variants or types
+marked with <code>skip_derive_fields</code> return <code>Err(())</code> instead.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Structs</p>
+<ul>
+<li>
+<p>Bitflags structs marked with <code>#[css(bitflags(...))]</code> are handled by
+deriving keyword reification from their bitflag metadata.</p>
+</li>
+<li>
+<p>Other structs are handled similarly to data-carrying variants in mixed
+enums. Unless <code>skip_derive_fields</code> is set, <code>.to_typed()</code> is generated
+for their inner values; otherwise, they return <code>Err(())</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Unit variants are mapped to keywords using their Rust identifier converted
+via <code>to_css_identifier</code>. Attributes like <code>#[css(keyword = "...")]</code> will
+override the behavior and use the provided keyword instead.</p>
+<p>For other kinds of types (e.g. unions), no <code>to_typed</code> method is generated;
+the default implementation applies, which always returns <code>Err(())</code>.</p>
+<p>This allows keywords to be reified automatically into <code>CSSKeywordValue</code>
+objects, while leaving more complex value types to be implemented
+incrementally as Typed OM support expands.</p>
+<p>Summary of derive attributes recognized by this derive:</p>
+<ul>
+<li>
+<p><code>#[css(bitflags(single = "...", mixed = "...", overlapping_bits))]</code> on a
+struct generates keyword reification for CSS bitflags types. Values that
+can be represented as a single CSS keyword are reified as
+<code>TypedValue::Keyword</code>; values that would serialize to multiple CSS
+keywords are treated as unsupported and return <code>Err(())</code>.</p>
+<p><code>overlapping_bits</code> is supported for bitflags where one keyword subsumes
+other internal bits, such as <code>contain: size</code>.</p>
+</li>
+<li>
+<p><code>#[typed(skip_derive_fields)]</code> on the type disables field recursion for
+structs and data-carrying enum variants.</p>
+</li>
+<li>
+<p><code>#[css(skip)]</code>, <code>#[typed(skip)]</code>, or <code>#[typed(todo)]</code> on a variant mark
+it as unsupported and cause the generated arm to return
+<code>Err(())</code>.</p>
+</li>
+<li>
+<p><code>#[css(skip)]</code> on a field disables reification for that field.</p>
+</li>
+<li>
+<p><code>#[css(skip_if = "...")]</code> / <code>#[typed(skip_if = "...")]</code> on a field
+conditionally disables reification for that field. If the provided
+function returns <code>true</code> for the field value, the field is ignored.</p>
+</li>
+<li>
+<p><code>#[css(contextual_skip_if = "...")]</code> /
+<code>#[typed(contextual_skip_if = "...")]</code> on a field conditionally disables
+reification for that field. The provided function is called with all
+fields in the current struct or variant. If it returns <code>true</code>, the field
+is ignored.</p>
+<p>Typed skip annotations override CSS skip annotations when both are
+present.</p>
+</li>
+<li>
+<p><code>#[css(keyword = "...")]</code> on a unit variant overrides the keyword
+string.</p>
+</li>
+<li>
+<p><code>#[css(comma)]</code> on the variant indicates that fields may reify to
+multiple separate values. When present, multiple <code>TypedValue</code>s may be
+produced across the supported fields, unless
+<code>#[typed(no_multiple_values)]</code> is also present. If multiple values are
+not allowed and the derived implementation would produce more than one
+item, it treats the value as unsupported and returns <code>Err(())</code>.</p>
+</li>
+<li>
+<p><code>#[typed(no_multiple_values)]</code> on a variant prevents it from reifying to
+multiple <code>TypedValue</code>s, even if <code>#[css(comma)]</code> is present.</p>
+</li>
+<li>
+<p><code>#[css(iterable)]</code> on a field indicates that the field is an iterable
+collection whose elements should be reified individually.</p>
+</li>
+<li>
+<p><code>#[css(if_empty = "...")]</code> on an iterable field causes the provided
+keyword to be emitted when the iterable contains no elements.</p>
+</li>
+<li>
+<p><code>#[css(represents_keyword)]</code> on a bool field causes the field name to be
+reified as a keyword when the field is true.</p>
+</li>
+</ul>
+</div></details></section></div></main></body></html>

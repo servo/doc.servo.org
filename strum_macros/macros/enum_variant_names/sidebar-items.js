@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["enum_variant_names_inner"]};

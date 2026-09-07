@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["upsample_horizontal_avx2","upsample_hv_avx2","upsample_vertical_avx2"]};

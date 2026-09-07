@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["extract_a_character_encoding_from_a_meta_element"]};

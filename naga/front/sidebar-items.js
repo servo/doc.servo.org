@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["interpolator","type_gen","wgsl"],"struct":["SymbolTable","Typifier"],"type":["Scope"]};

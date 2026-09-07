@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["SIN_K_PI_OVER_128"]};

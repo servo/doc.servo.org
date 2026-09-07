@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DecorationParts","Part","Rect"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLScriptElement"],"enum":["ExternalScriptKind","Script","ScriptType"],"fn":["fetch_a_classic_script","finish_fetching_a_script","script_fetch_request","substitute_with_local_script"],"static":["SCRIPT_JS_MIMES"],"struct":["ClassicContext","HTMLScriptElement"],"type":["ScriptResult"]};

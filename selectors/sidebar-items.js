@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["attr","bloom","builder","context","kleene_value","matching","nth_index_cache","parser","relative_selector","sink","tree","visitor"],"struct":["NthIndexCache","OpaqueElement"],"trait":["Element"]};

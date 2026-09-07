@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PipeEnd"],"fn":["get_file_flags","has_read_access","has_write_access","is_pipe","pipe","set_blocking","set_nonblocking"],"struct":["OpenOptions","Receiver","Sender"]};

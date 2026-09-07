@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ACCESSIBLE_PATH_PREFIX","ROOT_PATH"],"enum":["ObjectId"]};

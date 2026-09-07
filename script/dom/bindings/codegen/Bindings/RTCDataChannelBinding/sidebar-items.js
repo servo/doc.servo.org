@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RTCDataChannelState"],"fn":["Wrap"],"mod":["GenericBindings","RTCDataChannelStateValues","RTCDataChannel_Binding"],"trait":["RTCDataChannelMethods"],"type":["RTCDataChannelInit"]};

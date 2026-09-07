@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TableAlterOption"],"struct":["AddColumnOption","DropColumnOption","TableAlterStatement"]};

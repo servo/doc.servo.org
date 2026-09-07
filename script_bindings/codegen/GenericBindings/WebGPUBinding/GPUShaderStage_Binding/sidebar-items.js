@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","init_sConstants_prefs","init_sConstants_specs","init_statics"],"mod":["GPUShaderStageConstants"],"static":["NAMESPACE_OBJECT_CLASS","sConstants","sConstants_specs"],"trait":["GPUShaderStageMethods"]};

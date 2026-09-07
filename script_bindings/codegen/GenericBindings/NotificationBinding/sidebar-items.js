@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["NotificationDirection","NotificationPermission"],"mod":["NotificationDirectionValues","NotificationPermissionValues","Notification_Binding"],"struct":["GetNotificationOptions","NotificationAction","NotificationOptions","NotificationPermissionCallback"],"type":["EpochTimeStamp"]};

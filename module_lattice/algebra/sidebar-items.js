@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Elem","NttMatrix","NttPolynomial","NttVector","Polynomial","Vector"],"trait":["Field","MultiplyNtt"]};

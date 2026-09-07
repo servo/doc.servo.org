@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PiecesOffset","TimeZoneAnnotationKind"],"mod":["parser","pieces","printer"],"static":["DEFAULT_DATETIME_PARSER","DEFAULT_DATETIME_PRINTER","DEFAULT_SPAN_PARSER","DEFAULT_SPAN_PRINTER"],"struct":["DateTimeParser","DateTimePrinter","Pieces","PiecesNumericOffset","SpanParser","SpanPrinter","TimeZoneAnnotation","TimeZoneAnnotationName"]};

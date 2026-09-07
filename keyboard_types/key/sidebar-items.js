@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Key"],"fn":["is_key_string"],"struct":["UnrecognizedKeyError"]};

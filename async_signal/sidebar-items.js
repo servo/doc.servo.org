@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Signal"],"macro":[["define_signal_enum",1]],"mod":["pipe","signum"],"struct":["Signals"]};

@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Generate a piecewise linear approximation to a gradient ramp."><title>gradient in color - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="color" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">gradient</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../color/index.html">color</a><span class="version">0.3.3</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">gradient</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#motivation" title="Motivation">Motivation</a></li><li><a href="#example" title="Example">Example</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate color</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">color</a></div><h1>Function <span class="fn">gradient</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/color/gradient.rs.html#114-140">Source</a> </span></div><pre class="rust item-decl"><code>pub fn gradient&lt;CS: <a class="trait" href="trait.ColorSpace.html" title="trait color::ColorSpace">ColorSpace</a>&gt;(
+    color0: <a class="struct" href="struct.DynamicColor.html" title="struct color::DynamicColor">DynamicColor</a>,
+    color1: <a class="struct" href="struct.DynamicColor.html" title="struct color::DynamicColor">DynamicColor</a>,
+    interp_cs: <a class="enum" href="enum.ColorSpaceTag.html" title="enum color::ColorSpaceTag">ColorSpaceTag</a>,
+    direction: <a class="enum" href="enum.HueDirection.html" title="enum color::HueDirection">HueDirection</a>,
+    tolerance: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.f32.html">f32</a>,
+) -&gt; <a class="struct" href="struct.GradientIter.html" title="struct color::GradientIter">GradientIter</a>&lt;CS&gt; <a href="#" class="tooltip" data-notable-ty="GradientIter&lt;CS&gt;">ⓘ</a></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Generate a piecewise linear approximation to a gradient ramp.</p>
+<p>The target gradient ramp is the linear interpolation from <code>color0</code> to <code>color1</code> in the target
+color space specified by <code>interp_cs</code>. For efficiency, this function returns an
+<a href="struct.GradientIter.html" title="struct color::GradientIter">iterator over color stops</a> in the <code>CS</code> color space, such that the gradient ramp
+created by linearly interpolating between those stops in the <code>CS</code> color space is equal within
+the specified <code>tolerance</code> to the target gradient ramp.</p>
+<p>When the target interpolation color space is cylindrical, the hue can be interpolated in
+multiple ways. The <a href="enum.HueDirection.html" title="enum color::HueDirection"><code>direction</code></a> parameter controls the way in which the hue is
+interpolated.</p>
+<p>The given <code>tolerance</code> value specifies the maximum perceptual error in the approximation
+measured as the <a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean distance</a> in the <a href="struct.Oklab.html" title="struct color::Oklab">Oklab</a> color space (see also
+<a href="struct.PremulColor.html#method.difference" title="method color::PremulColor::difference"><code>PremulColor::difference</code></a>). This metric is known as
+<a href="https://www.w3.org/TR/css-color-4/#color-difference-OK">deltaEOK</a>. A reasonable value is 0.01, which in testing is nearly indistinguishable
+from the exact ramp. The number of stops scales roughly as the inverse square root of the
+tolerance.</p>
+<p>The error is measured at the midpoint of each segment, which in some cases may underestimate
+the error.</p>
+<p>For regular interpolation between two colors, see <a href="struct.DynamicColor.html#method.interpolate" title="method color::DynamicColor::interpolate"><code>DynamicColor::interpolate</code></a>.</p>
+<h2 id="motivation"><a class="doc-anchor" href="#motivation">§</a>Motivation</h2>
+<p>A major feature of CSS Color 4 is the ability to specify color interpolation in any
+interpolation color space <a href="https://www.w3.org/TR/css-color-4/#interpolation-space">CSS Color Module Level 4 § 12.1</a>, which may be quite a bit
+better than simple linear interpolation in sRGB (for example).</p>
+<p>One strategy for implementing these gradients is to interpolate in the appropriate
+(premultiplied) space, then map each resulting color to the space used for compositing. That
+can be expensive. An alternative strategy is to precompute a piecewise linear ramp that closely
+approximates the desired ramp, then render that using high performance techniques. This method
+computes such an approximation.</p>
+<h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
+<p>The following compares interpolating in the target color space Oklab with interpolating
+piecewise in the color space sRGB.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>color::{AlphaColor, ColorSpaceTag, DynamicColor, HueDirection, Oklab, Srgb};
+
+<span class="kw">let </span>start = DynamicColor::from_alpha_color(AlphaColor::&lt;Srgb&gt;::new([<span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">1.</span>]));
+<span class="kw">let </span>end = DynamicColor::from_alpha_color(AlphaColor::&lt;Srgb&gt;::new([<span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">1.</span>]));
+
+<span class="comment">// Interpolation in a target interpolation color space.
+</span><span class="kw">let </span>interp = start.interpolate(end, ColorSpaceTag::Oklab, HueDirection::default());
+<span class="comment">// Piecewise-approximated interpolation in a compositing color space.
+</span><span class="kw">let </span><span class="kw-2">mut </span>gradient = color::gradient::&lt;Srgb&gt;(
+    start,
+    end,
+    ColorSpaceTag::Oklab,
+    HueDirection::default(),
+    <span class="number">0.01</span>,
+);
+
+<span class="kw">let </span>(<span class="kw-2">mut </span>t0, <span class="kw-2">mut </span>stop0) = gradient.next().unwrap();
+<span class="kw">for </span>(t1, stop1) <span class="kw">in </span>gradient {
+    <span class="comment">// Compare a few points between the piecewise stops.
+    </span><span class="kw">for </span>point <span class="kw">in </span>[<span class="number">0.0</span>, <span class="number">0.1</span>, <span class="number">0.2</span>, <span class="number">0.3</span>, <span class="number">0.4</span>, <span class="number">0.5</span>, <span class="number">0.6</span>, <span class="number">0.7</span>, <span class="number">0.8</span>, <span class="number">0.9</span>] {
+        <span class="kw">let </span>interpolated_point = interp
+            .eval(t0 + (t1 - t0) * point)
+            .to_alpha_color::&lt;Srgb&gt;()
+            .discard_alpha();
+        <span class="kw">let </span>approximated_point = stop0.lerp_rect(stop1, point).discard_alpha();
+
+        <span class="comment">// The perceptual deltaEOK between the two is lower than the tolerance.
+        </span><span class="macro">assert!</span>(
+            approximated_point
+                .convert::&lt;Oklab&gt;()
+                .difference(interpolated_point.convert::&lt;Oklab&gt;())
+                &lt; <span class="number">0.01
+        </span>);
+    }
+
+    t0 = t1;
+    stop0 = stop1;
+}</code></pre></div></div></details><script type="text/json" id="notable-traits-data">{"GradientIter<CS>":"<h3>Notable traits for <code><a class=\"struct\" href=\"struct.GradientIter.html\" title=\"struct color::GradientIter\">GradientIter</a>&lt;CS&gt;</code></h3><pre><code><div class=\"where\">impl&lt;CS: <a class=\"trait\" href=\"trait.ColorSpace.html\" title=\"trait color::ColorSpace\">ColorSpace</a>&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/1.97.1/core/iter/traits/iterator/trait.Iterator.html\" title=\"trait core::iter::traits::iterator::Iterator\">Iterator</a> for <a class=\"struct\" href=\"struct.GradientIter.html\" title=\"struct color::GradientIter\">GradientIter</a>&lt;CS&gt;</div><div class=\"where\">    type <a href=\"https://doc.rust-lang.org/1.97.1/core/iter/traits/iterator/trait.Iterator.html#associatedtype.Item\" class=\"associatedtype\">Item</a> = (<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.97.1/std/primitive.f32.html\">f32</a>, <a class=\"struct\" href=\"struct.PremulColor.html\" title=\"struct color::PremulColor\">PremulColor</a>&lt;CS&gt;);</div>"}</script></section></div></main></body></html>

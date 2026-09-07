@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["File_Binding"],"struct":["FilePropertyBag"]};

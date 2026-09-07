@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["PageTransitionEvent_Binding"],"struct":["PageTransitionEventInit"]};

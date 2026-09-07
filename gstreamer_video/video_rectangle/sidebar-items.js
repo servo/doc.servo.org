@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["center_video_rectangle"],"struct":["VideoRectangle"]};

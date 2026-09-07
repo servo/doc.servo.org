@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","MessagePort_Binding"],"trait":["MessagePortMethods"],"type":["StructuredSerializeOptions"]};

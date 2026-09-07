@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["C1","C2","C3","C4","C5","C6"],"fn":["k_cos"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["WP_POINTER_WARP_V1_INTERFACE","types_null","wp_pointer_warp_v1_interface","wp_pointer_warp_v1_requests","wp_pointer_warp_v1_requests_warp_pointer_types"],"struct":["SyncWrapper"]};

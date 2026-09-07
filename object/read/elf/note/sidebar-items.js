@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GnuProperty","GnuPropertyIterator","Note","NoteIterator"],"trait":["NoteHeader"]};

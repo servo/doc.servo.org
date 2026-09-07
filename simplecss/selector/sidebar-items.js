@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AttributeOperator","Combinator","PseudoClass","SelectorToken","SimpleSelectorType","SubSelector"],"fn":["match_selector","parse"],"struct":["Component","Selector","SelectorTokenizer","SimpleSelector"],"trait":["Element"]};

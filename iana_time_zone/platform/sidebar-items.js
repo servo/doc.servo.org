@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["etc_localtime","etc_timezone","get_timezone_inner"],"mod":["openwrt"]};

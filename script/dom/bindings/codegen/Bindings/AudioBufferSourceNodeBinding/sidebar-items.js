@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["AudioBufferSourceNode_Binding","GenericBindings"],"trait":["AudioBufferSourceNodeMethods"],"type":["AudioBufferSourceOptions"]};

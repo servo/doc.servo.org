@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Radix16Decomposition"],"type":["Radix16Digits"]};

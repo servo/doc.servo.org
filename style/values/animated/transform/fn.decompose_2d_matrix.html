@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The relevant section of the transitions specification: https://drafts.csswg.org/web-animations-1/#animation-types http://dev.w3.org/csswg/css3-transitions/#animation-of-property-types- defers all of the details to the 2-D and 3-D transforms specifications. For the 2-D transforms specification (all that’s relevant for us, right now), the relevant section is: https://drafts.csswg.org/css-transforms-1/#interpolation-of-transforms This, in turn, refers to the unmatrix program in Graphics Gems, available from http://graphicsgems.org/ , and in particular as the file GraphicsGems/gemsii/unmatrix.c in http://graphicsgems.org/AllGems.tar.gz"><title>decompose_2d_matrix in style::values::animated::transform - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="style" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">decompose_2d_matrix</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../../style/index.html">style</a><span class="version">0.20.0</span></h2></div><div class="sidebar-elems"><div id="rustdoc-modnav"><h2><a href="index.html">In style::<wbr>values::<wbr>animated::<wbr>transform</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../../index.html">style</a>::<wbr><a href="../../index.html">values</a>::<wbr><a href="../index.html">animated</a>::<wbr><a href="index.html">transform</a></div><h1>Function <span class="fn">decompose_<wbr>2d_<wbr>matrix</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../../src/style/values/animated/transform.rs.html#828-877">Source</a> </span></div><pre class="rust item-decl"><code>fn decompose_2d_matrix(matrix: &amp;<a class="type" href="../../computed/transform/type.Matrix3D.html" title="type style::values::computed::transform::Matrix3D">Matrix3D</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="struct.MatrixDecomposed3D.html" title="struct style::values::animated::transform::MatrixDecomposed3D">MatrixDecomposed3D</a>, <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.unit.html">()</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The relevant section of the transitions specification:
+https://drafts.csswg.org/web-animations-1/#animation-types
+http://dev.w3.org/csswg/css3-transitions/#animation-of-property-types-
+defers all of the details to the 2-D and 3-D transforms specifications.
+For the 2-D transforms specification (all that’s relevant for us, right
+now), the relevant section is:
+https://drafts.csswg.org/css-transforms-1/#interpolation-of-transforms
+This, in turn, refers to the unmatrix program in Graphics Gems,
+available from http://graphicsgems.org/ , and in
+particular as the file GraphicsGems/gemsii/unmatrix.c
+in http://graphicsgems.org/AllGems.tar.gz</p>
+<p>The unmatrix reference is for general 3-D transform matrices (any of the
+16 components can have any value).</p>
+<p>For CSS 2-D transforms, we have a 2-D matrix with the bottom row constant:</p>
+<p>[ A C E ]
+[ B D F ]
+[ 0 0 1 ]</p>
+<p>For that case, I believe the algorithm in unmatrix reduces to:</p>
+<p>(1) If A * D - B * C == 0, the matrix is singular.  Fail.</p>
+<p>(2) Set translation components (Tx and Ty) to the translation parts of
+the matrix (E and F) and then ignore them for the rest of the time.
+(For us, E and F each actually consist of three constants:  a
+length, a multiplier for the width, and a multiplier for the
+height.  This actually requires its own decomposition, but I’ll
+keep that separate.)</p>
+<p>(3) Let the X scale (Sx) be sqrt(A^2 + B^2).  Then divide both A and B
+by it.</p>
+<p>(4) Let the XY shear (K) be A * C + B * D.  From C, subtract A times
+the XY shear.  From D, subtract B times the XY shear.</p>
+<p>(5) Let the Y scale (Sy) be sqrt(C^2 + D^2).  Divide C, D, and the XY
+shear (K) by it.</p>
+<p>(6) At this point, A * D - B * C is either 1 or -1.  If it is -1,
+negate the XY shear (K), the X scale (Sx), and A, B, C, and D.
+(Alternatively, we could negate the XY shear (K) and the Y scale
+(Sy).)</p>
+<p>(7) Let the rotation be R = atan2(B, A).</p>
+<p>Then the resulting decomposed transformation is:</p>
+<p>translate(Tx, Ty) rotate(R) skewX(atan(K)) scale(Sx, Sy)</p>
+<p>An interesting result of this is that all of the simple transform
+functions (i.e., all functions other than matrix()), in isolation,
+decompose back to themselves except for:
+‘skewY(φ)’, which is ‘matrix(1, tan(φ), 0, 1, 0, 0)’, which decomposes
+to ‘rotate(φ) skewX(φ) scale(sec(φ), cos(φ))’ since (ignoring the
+alternate sign possibilities that would get fixed in step 6):
+In step 3, the X scale factor is sqrt(1+tan²(φ)) = sqrt(sec²(φ)) =
+sec(φ). Thus, after step 3, A = 1/sec(φ) = cos(φ) and B = tan(φ) / sec(φ) =
+sin(φ). In step 4, the XY shear is sin(φ). Thus, after step 4, C =
+-cos(φ)sin(φ) and D = 1 - sin²(φ) = cos²(φ). Thus, in step 5, the Y scale is
+sqrt(cos²(φ)(sin²(φ) + cos²(φ)) = cos(φ). Thus, after step 5, C = -sin(φ), D
+= cos(φ), and the XY shear is tan(φ). Thus, in step 6, A * D - B * C =
+cos²(φ) + sin²(φ) = 1. In step 7, the rotation is thus φ.</p>
+<p>skew(θ, φ), which is matrix(1, tan(φ), tan(θ), 1, 0, 0), which decomposes
+to ‘rotate(φ) skewX(θ + φ) scale(sec(φ), cos(φ))’ since (ignoring
+the alternate sign possibilities that would get fixed in step 6):
+In step 3, the X scale factor is sqrt(1+tan²(φ)) = sqrt(sec²(φ)) =
+sec(φ). Thus, after step 3, A = 1/sec(φ) = cos(φ) and B = tan(φ) / sec(φ) =
+sin(φ). In step 4, the XY shear is cos(φ)tan(θ) + sin(φ). Thus, after step 4,
+C = tan(θ) - cos(φ)(cos(φ)tan(θ) + sin(φ)) = tan(θ)sin²(φ) - cos(φ)sin(φ)
+D = 1 - sin(φ)(cos(φ)tan(θ) + sin(φ)) = cos²(φ) - sin(φ)cos(φ)tan(θ)
+Thus, in step 5, the Y scale is sqrt(C² + D²) =
+sqrt(tan²(θ)(sin⁴(φ) + sin²(φ)cos²(φ)) -
+2 tan(θ)(sin³(φ)cos(φ) + sin(φ)cos³(φ)) +
+(sin²(φ)cos²(φ) + cos⁴(φ))) =
+sqrt(tan²(θ)sin²(φ) - 2 tan(θ)sin(φ)cos(φ) + cos²(φ)) =
+cos(φ) - tan(θ)sin(φ) (taking the negative of the obvious solution so
+we avoid flipping in step 6).
+After step 5, C = -sin(φ) and D = cos(φ), and the XY shear is
+(cos(φ)tan(θ) + sin(φ)) / (cos(φ) - tan(θ)sin(φ)) =
+(dividing both numerator and denominator by cos(φ))
+(tan(θ) + tan(φ)) / (1 - tan(θ)tan(φ)) = tan(θ + φ).
+(See http://en.wikipedia.org/wiki/List_of_trigonometric_identities .)
+Thus, in step 6, A * D - B * C = cos²(φ) + sin²(φ) = 1.
+In step 7, the rotation is thus φ.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>To check this result, we can multiply things back together:
+
+[ cos(φ) -sin(φ) ] [ <span class="number">1 </span>tan(θ + φ) ] [ sec(φ)    <span class="number">0   </span>]
+[ sin(φ)  cos(φ) ] [ <span class="number">0      1     </span>] [   <span class="number">0    </span>cos(φ) ]
+
+[ cos(φ)      cos(φ)tan(θ + φ) - sin(φ) ] [ sec(φ)    <span class="number">0   </span>]
+[ sin(φ)      sin(φ)tan(θ + φ) + cos(φ) ] [   <span class="number">0    </span>cos(φ) ]
+
+but since tan(θ + φ) = (tan(θ) + tan(φ)) / (<span class="number">1 </span>- tan(θ)tan(φ)),
+cos(φ)tan(θ + φ) - sin(φ)
+ = cos(φ)(tan(θ) + tan(φ)) - sin(φ) + sin(φ)tan(θ)tan(φ)
+ = cos(φ)tan(θ) + sin(φ) - sin(φ) + sin(φ)tan(θ)tan(φ)
+ = cos(φ)tan(θ) + sin(φ)tan(θ)tan(φ)
+ = tan(θ) (cos(φ) + sin(φ)tan(φ))
+ = tan(θ) sec(φ) (cos²(φ) + sin²(φ))
+ = tan(θ) sec(φ)
+and
+sin(φ)tan(θ + φ) + cos(φ)
+ = sin(φ)(tan(θ) + tan(φ)) + cos(φ) - cos(φ)tan(θ)tan(φ)
+ = tan(θ) (sin(φ) - sin(φ)) + sin(φ)tan(φ) + cos(φ)
+ = sec(φ) (sin²(φ) + cos²(φ))
+ = sec(φ)
+so the above is:
+[ cos(φ)  tan(θ) sec(φ) ] [ sec(φ)    <span class="number">0   </span>]
+[ sin(φ)     sec(φ)     ] [   <span class="number">0    </span>cos(φ) ]
+
+[    <span class="number">1   </span>tan(θ) ]
+[ tan(φ)    <span class="number">1   </span>]</code></pre></div>
+<p>Decompose a 2D matrix. This implements the above decomposition algorithm.</p>
+</div></details></section></div></main></body></html>

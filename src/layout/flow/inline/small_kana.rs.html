@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `components/layout/flow/inline/small_kana.rs`."><title>small_kana.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="layout" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">layout/flow/inline/</div>small_kana.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-2"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="doccomment">/// &lt;https://drafts.csswg.org/css-text-4/#small-kana&gt;
+<a href=#6 id=6 data-nosnippet>6</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">static </span>SMALL_KANA_MAPPINGS: phf::Map&lt;char, char&gt; = <span class="macro">phf::phf_map!</span> {
+<a href=#7 id=7 data-nosnippet>7</a>    <span class="string">'\u{3041}' </span>=&gt; <span class="string">'\u{3042}'</span>, <span class="comment">// ぁ → あ
+<a href=#8 id=8 data-nosnippet>8</a>    </span><span class="string">'\u{3043}' </span>=&gt; <span class="string">'\u{3044}'</span>, <span class="comment">// ぃ → い
+<a href=#9 id=9 data-nosnippet>9</a>    </span><span class="string">'\u{3045}' </span>=&gt; <span class="string">'\u{3046}'</span>, <span class="comment">// ぅ → う
+<a href=#10 id=10 data-nosnippet>10</a>    </span><span class="string">'\u{3047}' </span>=&gt; <span class="string">'\u{3048}'</span>, <span class="comment">// ぇ → え
+<a href=#11 id=11 data-nosnippet>11</a>    </span><span class="string">'\u{3049}' </span>=&gt; <span class="string">'\u{304A}'</span>, <span class="comment">// ぉ → お
+<a href=#12 id=12 data-nosnippet>12</a>    </span><span class="string">'\u{3095}' </span>=&gt; <span class="string">'\u{304B}'</span>, <span class="comment">// ゕ → か
+<a href=#13 id=13 data-nosnippet>13</a>    </span><span class="string">'\u{3096}' </span>=&gt; <span class="string">'\u{3051}'</span>, <span class="comment">// ゖ → け
+<a href=#14 id=14 data-nosnippet>14</a>    </span><span class="string">'\u{1B132}' </span>=&gt; <span class="string">'\u{3053}'</span>, <span class="comment">// 𛄲 → こ
+<a href=#15 id=15 data-nosnippet>15</a>    </span><span class="string">'\u{3063}' </span>=&gt; <span class="string">'\u{3064}'</span>, <span class="comment">// っ → つ
+<a href=#16 id=16 data-nosnippet>16</a>    </span><span class="string">'\u{3083}' </span>=&gt; <span class="string">'\u{3084}'</span>, <span class="comment">// ゃ → や
+<a href=#17 id=17 data-nosnippet>17</a>    </span><span class="string">'\u{3085}' </span>=&gt; <span class="string">'\u{3086}'</span>, <span class="comment">// ゅ → ゆ
+<a href=#18 id=18 data-nosnippet>18</a>    </span><span class="string">'\u{3087}' </span>=&gt; <span class="string">'\u{3088}'</span>, <span class="comment">// ょ → よ
+<a href=#19 id=19 data-nosnippet>19</a>    </span><span class="string">'\u{308E}' </span>=&gt; <span class="string">'\u{308F}'</span>, <span class="comment">// ゎ → わ
+<a href=#20 id=20 data-nosnippet>20</a>    </span><span class="string">'\u{1B150}' </span>=&gt; <span class="string">'\u{3090}'</span>, <span class="comment">// 𛅐 → ゐ
+<a href=#21 id=21 data-nosnippet>21</a>    </span><span class="string">'\u{1B151}' </span>=&gt; <span class="string">'\u{3091}'</span>, <span class="comment">// 𛅑 → ゑ
+<a href=#22 id=22 data-nosnippet>22</a>    </span><span class="string">'\u{1B152}' </span>=&gt; <span class="string">'\u{3092}'</span>, <span class="comment">// 𛅒 → を
+<a href=#23 id=23 data-nosnippet>23</a>    </span><span class="string">'\u{30A1}' </span>=&gt; <span class="string">'\u{30A2}'</span>, <span class="comment">// ァ → ア
+<a href=#24 id=24 data-nosnippet>24</a>    </span><span class="string">'\u{30A3}' </span>=&gt; <span class="string">'\u{30A4}'</span>, <span class="comment">// ィ → イ
+<a href=#25 id=25 data-nosnippet>25</a>    </span><span class="string">'\u{30A5}' </span>=&gt; <span class="string">'\u{30A6}'</span>, <span class="comment">// ゥ → ウ
+<a href=#26 id=26 data-nosnippet>26</a>    </span><span class="string">'\u{30A7}' </span>=&gt; <span class="string">'\u{30A8}'</span>, <span class="comment">// ェ → エ
+<a href=#27 id=27 data-nosnippet>27</a>    </span><span class="string">'\u{30A9}' </span>=&gt; <span class="string">'\u{30AA}'</span>, <span class="comment">// ォ → オ
+<a href=#28 id=28 data-nosnippet>28</a>    </span><span class="string">'\u{30F5}' </span>=&gt; <span class="string">'\u{30AB}'</span>, <span class="comment">// ヵ → カ
+<a href=#29 id=29 data-nosnippet>29</a>    </span><span class="string">'\u{31F0}' </span>=&gt; <span class="string">'\u{30AF}'</span>, <span class="comment">// ㇰ → ク
+<a href=#30 id=30 data-nosnippet>30</a>    </span><span class="string">'\u{30F6}' </span>=&gt; <span class="string">'\u{30B1}'</span>, <span class="comment">// ヶ → ケ
+<a href=#31 id=31 data-nosnippet>31</a>    </span><span class="string">'\u{1B155}' </span>=&gt; <span class="string">'\u{30B3}'</span>, <span class="comment">// 𛅕 → コ
+<a href=#32 id=32 data-nosnippet>32</a>    </span><span class="string">'\u{31F1}' </span>=&gt; <span class="string">'\u{30B7}'</span>, <span class="comment">// ㇱ → シ
+<a href=#33 id=33 data-nosnippet>33</a>    </span><span class="string">'\u{31F2}' </span>=&gt; <span class="string">'\u{30B9}'</span>, <span class="comment">// ㇲ → ス
+<a href=#34 id=34 data-nosnippet>34</a>    </span><span class="string">'\u{30C3}' </span>=&gt; <span class="string">'\u{30C4}'</span>, <span class="comment">// ッ → ツ
+<a href=#35 id=35 data-nosnippet>35</a>    </span><span class="string">'\u{31F3}' </span>=&gt; <span class="string">'\u{30C8}'</span>, <span class="comment">// ㇳ → ト
+<a href=#36 id=36 data-nosnippet>36</a>    </span><span class="string">'\u{31F4}' </span>=&gt; <span class="string">'\u{30CC}'</span>, <span class="comment">// ㇴ → ヌ
+<a href=#37 id=37 data-nosnippet>37</a>    </span><span class="string">'\u{31F5}' </span>=&gt; <span class="string">'\u{30CF}'</span>, <span class="comment">// ㇵ → ハ
+<a href=#38 id=38 data-nosnippet>38</a>    </span><span class="string">'\u{31F6}' </span>=&gt; <span class="string">'\u{30D2}'</span>, <span class="comment">// ㇶ → ヒ
+<a href=#39 id=39 data-nosnippet>39</a>    </span><span class="string">'\u{31F7}' </span>=&gt; <span class="string">'\u{30D5}'</span>, <span class="comment">// ㇷ → フ
+<a href=#40 id=40 data-nosnippet>40</a>    </span><span class="string">'\u{31F8}' </span>=&gt; <span class="string">'\u{30D8}'</span>, <span class="comment">// ㇸ → ヘ
+<a href=#41 id=41 data-nosnippet>41</a>    </span><span class="string">'\u{31F9}' </span>=&gt; <span class="string">'\u{30DB}'</span>, <span class="comment">// ㇹ → ホ
+<a href=#42 id=42 data-nosnippet>42</a>    </span><span class="string">'\u{31FA}' </span>=&gt; <span class="string">'\u{30E0}'</span>, <span class="comment">// ㇺ → ム
+<a href=#43 id=43 data-nosnippet>43</a>    </span><span class="string">'\u{30E3}' </span>=&gt; <span class="string">'\u{30E4}'</span>, <span class="comment">// ャ → ヤ
+<a href=#44 id=44 data-nosnippet>44</a>    </span><span class="string">'\u{30E5}' </span>=&gt; <span class="string">'\u{30E6}'</span>, <span class="comment">// ュ → ユ
+<a href=#45 id=45 data-nosnippet>45</a>    </span><span class="string">'\u{30E7}' </span>=&gt; <span class="string">'\u{30E8}'</span>, <span class="comment">// ョ → ヨ
+<a href=#46 id=46 data-nosnippet>46</a>    </span><span class="string">'\u{31FB}' </span>=&gt; <span class="string">'\u{30E9}'</span>, <span class="comment">// ㇻ → ラ
+<a href=#47 id=47 data-nosnippet>47</a>    </span><span class="string">'\u{31FC}' </span>=&gt; <span class="string">'\u{30EA}'</span>, <span class="comment">// ㇼ → リ
+<a href=#48 id=48 data-nosnippet>48</a>    </span><span class="string">'\u{31FD}' </span>=&gt; <span class="string">'\u{30EB}'</span>, <span class="comment">// ㇽ → ル
+<a href=#49 id=49 data-nosnippet>49</a>    </span><span class="string">'\u{31FE}' </span>=&gt; <span class="string">'\u{30EC}'</span>, <span class="comment">// ㇾ → レ
+<a href=#50 id=50 data-nosnippet>50</a>    </span><span class="string">'\u{31FF}' </span>=&gt; <span class="string">'\u{30ED}'</span>, <span class="comment">// ㇿ → ロ
+<a href=#51 id=51 data-nosnippet>51</a>    </span><span class="string">'\u{30EE}' </span>=&gt; <span class="string">'\u{30EF}'</span>, <span class="comment">// ヮ → ワ
+<a href=#52 id=52 data-nosnippet>52</a>    </span><span class="string">'\u{1B164}' </span>=&gt; <span class="string">'\u{30F0}'</span>, <span class="comment">// 𛅤 → ヰ
+<a href=#53 id=53 data-nosnippet>53</a>    </span><span class="string">'\u{1B165}' </span>=&gt; <span class="string">'\u{30F1}'</span>, <span class="comment">// 𛅥 → ヱ
+<a href=#54 id=54 data-nosnippet>54</a>    </span><span class="string">'\u{1B166}' </span>=&gt; <span class="string">'\u{30F2}'</span>, <span class="comment">// 𛅦 → ヲ
+<a href=#55 id=55 data-nosnippet>55</a>    </span><span class="string">'\u{1B167}' </span>=&gt; <span class="string">'\u{30F3}'</span>, <span class="comment">// 𛅧 → ン
+<a href=#56 id=56 data-nosnippet>56</a>    </span><span class="string">'\u{FF67}' </span>=&gt; <span class="string">'\u{FF71}'</span>, <span class="comment">// ｧ → ｱ
+<a href=#57 id=57 data-nosnippet>57</a>    </span><span class="string">'\u{FF68}' </span>=&gt; <span class="string">'\u{FF72}'</span>, <span class="comment">// ｨ → ｲ
+<a href=#58 id=58 data-nosnippet>58</a>    </span><span class="string">'\u{FF69}' </span>=&gt; <span class="string">'\u{FF73}'</span>, <span class="comment">// ｩ → ｳ
+<a href=#59 id=59 data-nosnippet>59</a>    </span><span class="string">'\u{FF6A}' </span>=&gt; <span class="string">'\u{FF74}'</span>, <span class="comment">// ｪ → ｴ
+<a href=#60 id=60 data-nosnippet>60</a>    </span><span class="string">'\u{FF6B}' </span>=&gt; <span class="string">'\u{FF75}'</span>, <span class="comment">// ｫ → ｵ
+<a href=#61 id=61 data-nosnippet>61</a>    </span><span class="string">'\u{FF6F}' </span>=&gt; <span class="string">'\u{FF82}'</span>, <span class="comment">// ｯ → ﾂ
+<a href=#62 id=62 data-nosnippet>62</a>    </span><span class="string">'\u{FF6C}' </span>=&gt; <span class="string">'\u{FF94}'</span>, <span class="comment">// ｬ → ﾔ
+<a href=#63 id=63 data-nosnippet>63</a>    </span><span class="string">'\u{FF6D}' </span>=&gt; <span class="string">'\u{FF95}'</span>, <span class="comment">// ｭ → ﾕ
+<a href=#64 id=64 data-nosnippet>64</a>    </span><span class="string">'\u{FF6E}' </span>=&gt; <span class="string">'\u{FF96}'</span>,  <span class="comment">// ｮ → ﾖ
+<a href=#65 id=65 data-nosnippet>65</a></span>};
+</code></pre></div></section></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["ANGLEInstancedArraysConstants","ANGLEInstancedArrays_Binding","GenericBindings"],"trait":["ANGLEInstancedArraysMethods"]};

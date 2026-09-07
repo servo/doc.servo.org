@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Computes an “almost” Montgomery multiplication of `x` and `y` into `out`, that is `out = x * y * 2^(-n*W) mod m + am` assuming `k = -1/m mod 2^W`, where `W` is the bit size of the limb, and `n * W` is the full bit size of the integer."><title>almost_montgomery_mul in crypto_bigint::modular::mul - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="crypto_bigint" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/meta/master/logo.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">almost_montgomery_mul</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../../../crypto_bigint/index.html"><img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo.svg" alt="logo"></a><h2><a href="../../../crypto_bigint/index.html">crypto_<wbr>bigint</a><span class="version">0.7.5</span></h2></div><div class="sidebar-elems"><div id="rustdoc-modnav"><h2><a href="index.html">In crypto_<wbr>bigint::<wbr>modular::<wbr>mul</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../index.html">crypto_bigint</a>::<wbr><a href="../index.html">modular</a>::<wbr><a href="index.html">mul</a></div><h1>Function <span class="fn">almost_<wbr>montgomery_<wbr>mul</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../src/crypto_bigint/modular/mul.rs.html#31-47">Source</a> </span></div><pre class="rust item-decl"><code>pub(crate) fn almost_montgomery_mul(
+    x: &amp;<a class="struct" href="../../struct.UintRef.html" title="struct crypto_bigint::UintRef">UintRef</a>,
+    y: &amp;<a class="struct" href="../../struct.UintRef.html" title="struct crypto_bigint::UintRef">UintRef</a>,
+    out: &amp;mut <a class="struct" href="../../struct.UintRef.html" title="struct crypto_bigint::UintRef">UintRef</a>,
+    modulus: &amp;<a class="struct" href="../../struct.UintRef.html" title="struct crypto_bigint::UintRef">UintRef</a>,
+    mod_neg_inv: <a class="struct" href="../../struct.Limb.html" title="struct crypto_bigint::Limb">Limb</a>,
+)</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Computes an “almost” Montgomery multiplication of <code>x</code> and <code>y</code> into <code>out</code>, that is
+<code>out = x * y * 2^(-n*W) mod m + am</code> assuming <code>k = -1/m mod 2^W</code>,
+where <code>W</code> is the bit size of the limb, and <code>n * W</code> is the full bit size of the integer.</p>
+<p>NOTE: <code>out</code> is assumed to be pre-zeroized.</p>
+<p>Unlike the standard Montgomery multiplication, we are reducing the final result only if
+it overflows <code>2^(n*W)</code>, not when it overflows <code>m</code>.</p>
+<p>This means that this function does not assume <code>x</code> and <code>y</code> are reduced <code>mod m</code>,
+and the result will be correct <code>mod m</code>, but potentially greater than <code>m</code>,
+and smaller than <code>2^(n * W) + m</code>.
+See “Efficient Software Implementations of Modular Exponentiation” by S. Gueron for details
+(<a href="https://eprint.iacr.org/2011/239.pdf">https://eprint.iacr.org/2011/239.pdf</a>).</p>
+<p>This function exhibits certain properties which were discovered via randomized tests,
+but (to my knowledge at this moment) have not been proven formally.
+Hereinafter we denote <code>f(x) = floor(x / m)</code>, that is <code>f</code> is the number of subtractions
+of the modulus required to fully reduce <code>x</code>.</p>
+<ol>
+<li>In general, if <code>f(x) = k</code> and <code>f(y) = n</code>, then <code>f(AMM(x, y)) &lt;= min(k, n) + 1</code>.
+That is the “reduction error” grows with every operation,
+but is determined by the argument with the lower error.</li>
+<li>To retrieve the number from Montgomery form we MM it by 1. In this case <code>f(AMM(x, 1)) = 0</code>,
+that is the result is always fully reduced regardless of <code>f(x)</code>.</li>
+<li><code>f(AMM(x, x)) &lt;= 1</code> regardless of <code>f(x)</code>. That is, squaring resets the error to at most 1.</li>
+</ol>
+</div></details></section></div></main></body></html>

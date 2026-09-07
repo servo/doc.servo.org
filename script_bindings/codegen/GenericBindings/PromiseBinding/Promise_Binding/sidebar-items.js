@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["CreateInterfaceObjects","GetProtoObject","init_sAttributes_prefs","init_sAttributes_specs","init_statics"],"static":["PrototypeClass","sAttributes","sAttributes_specs"],"trait":["PromiseMethods"]};

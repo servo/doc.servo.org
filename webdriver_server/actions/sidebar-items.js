@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ActionItem","InputSourceState","PendingActions"],"fn":["compute_tick_duration","touch_pointer_type_for"],"static":["ELEMENT_CLICK_BUTTON","MOVESCROLL_INTERVAL"],"struct":["PendingPointerMove","PendingScroll","PointerInputState"],"type":["ActionsByTick","TickActions"]};
