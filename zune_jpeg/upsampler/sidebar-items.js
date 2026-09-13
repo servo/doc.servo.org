@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["choose_horizontal_samp_function","choose_hv_samp_function","choose_v_samp_function","generic_sampler","upsample_no_op"],"mod":["avx2","scalar"]};

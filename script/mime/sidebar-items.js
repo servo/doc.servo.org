@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["APPLICATION","CHARSET","HTML","TEXT","XML"],"trait":["MimeExt"]};

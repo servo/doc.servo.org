@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Difference","Drain","ExtractIf","Intersection","IntoIter","Iter","Splice","SymmetricDifference","Union","UnitValue"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["icu4x_DateTime_from_string_mv1","icu4x_IsoDateTime_from_string_mv1"],"struct":["DateTime","IsoDateTime"]};

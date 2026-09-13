@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_shader_features"],"struct":["FeatureList","ShaderFeatureFlags"],"type":["ShaderFeatures"]};

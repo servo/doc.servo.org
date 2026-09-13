@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["bfloat","binary16","leading_zeros","num_traits","prelude","private","slice","vec"],"struct":["bf16","f16"]};

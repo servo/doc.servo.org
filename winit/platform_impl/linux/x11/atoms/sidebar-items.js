@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AtomName"],"macro":[["atom_manager",1]],"struct":["Atoms","AtomsCookie"]};

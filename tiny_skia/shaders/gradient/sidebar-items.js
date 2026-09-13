@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEGENERATE_THRESHOLD"],"struct":["Gradient","GradientStop"]};

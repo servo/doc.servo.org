@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["MessagePort_Binding"],"struct":["StructuredSerializeOptions"],"trait":["MessagePortMethods"]};

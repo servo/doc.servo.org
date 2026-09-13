@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DebuggerAddDebuggeeEventDefineDOMInterface","DebuggerAddDebuggeeEventGetProtoObject","DebuggerAddDebuggeeEventWrap","PipelineIdDefineDOMInterface","PipelineIdGetProtoObject","PipelineIdWrap"],"mod":["DebuggerAddDebuggeeEvent_Binding","PipelineId_Binding"],"trait":["DebuggerAddDebuggeeEventMethods","PipelineIdMethods"]};

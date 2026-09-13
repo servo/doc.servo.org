@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["accept","accept_with","acceptfrom","acceptfrom_with","bind","connect","connect_unspec","getpeername","getsockname","listen","recv","recvfrom","recvmsg","send","sendmmsg","sendmsg","sendmsg_addr","sendto","shutdown","socket","socket_with","socketpair"]};

@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Implements `JSTraceable` on structs and enums"><title>JSTraceable in servo_jstraceable_derive - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="servo_jstraceable_derive" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc derive"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">JSTraceable</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../servo_jstraceable_derive/index.html">servo_<wbr>jstraceable_<wbr>derive</a><span class="version">0.6.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">JSTraceable</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#safety" title="SAFETY">SAFETY</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate servo_<wbr>jstraceable_<wbr>derive</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">servo_jstraceable_derive</a></div><h1>Derive Macro <span class="derive">JSTraceable</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/servo_jstraceable_derive/lib.rs.html#8-80">Source</a> </span></div><pre class="rust item-decl"><code>#[derive(JSTraceable)]
+{
+    <span class="comment">// Attributes available to this derive:</span>
+    #[no_trace]
+    #[custom_trace]
+}
+</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Implements <code>JSTraceable</code> on structs and enums</p>
+<p>Example:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[derive(JSTraceable)]
+</span><span class="kw">struct </span>S {
+  js_managed: JSManagedType,
+  <span class="attr">#[no_trace]
+  </span>non_js: NonJSManagedType,
+  <span class="attr">#[custom_trace] </span><span class="comment">// Extern type implements CustomTraceable that is in servo =&gt; no problem with orphan rules
+  </span>extern_managed_type: Extern&lt;JSManagedType&gt;,
+}</code></pre></div>
+<p>creates:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">unsafe impl </span>JSTraceable <span class="kw">for </span>S {
+    <span class="attr">#[inline]
+    </span><span class="kw">unsafe fn </span>trace(<span class="kw-2">&amp;</span><span class="self">self</span>, tracer: <span class="kw-2">*mut </span>js::jsapi::JSTracer) {
+        <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
+            S {
+                js_managed: <span class="kw-2">ref </span>__binding_0,
+                non_js: <span class="kw-2">ref </span>__binding_1,
+                extern_managed_type: <span class="kw-2">ref </span>__binding_2,
+            } =&gt; {
+                {
+                    __binding_0.trace(tracer);
+                }
+                {
+                    <span class="comment">// __binding_1 is not traceable so we do not need to trace it
+                </span>}
+                {
+                    &lt;<span class="kw">crate</span>::dom::bindings::trace::CustomTraceable&gt;::trace(__binding_2, tracer);
+                }
+            },
+        }
+    }
+}</code></pre></div>
+<p>In cases where there is a need to make type (empty) traceable (<code>HashMap&lt;NoTraceable, Traceable&gt;</code>),
+NoTrace wrapper can be used, because it implements empty traceble:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">unsafe impl</span>&lt;T&gt; JSTraceable <span class="kw">for </span>NoTrace&lt;T&gt; {
+    <span class="kw">unsafe fn </span>trace(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">*mut </span>::js::jsapi::JSTracer) { <span class="comment">/* nop */</span>}
+}</code></pre></div><h3 id="safety"><a class="doc-anchor" href="#safety">§</a>SAFETY</h3>
+<p>Puting <code>#[no_trace]</code> on fields is safe if there are no types that are JS managed in that field.
+<code>#[no_trace]</code> should NOT be put on field that does implement (non-empty) <code>JSTraceable</code> (is JS managed).
+There are safeguards in place to prevent such mistakes. Example error:</p>
+<div class="example-wrap"><pre class="language-console"><code>error[E0282]: type annotations needed
+|
+| #[derive(JSTraceable, MallocSizeOf)]
+|          ^^^^^^^^^^^ cannot infer type of the type parameter `Self` declared on the trait `NoTraceOnJSTraceable`
+|
+= note: this error originates in the derive macro `JSTraceable`</code></pre></div>
+<p>If you can assure that type has empty JSTraceable impl, you can bypass guards, providing your reasoning:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[derive(JSTraceable)]
+</span><span class="kw">struct </span>S {
+  <span class="attr">#[no_trace = <span class="string">"Safe because both u32 and u64 are empty traceable"</span>]
+  </span>field: HashMap&lt;u32, u64&gt;,
+}</code></pre></div></div></details></section></div></main></body></html>

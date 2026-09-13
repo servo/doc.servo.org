@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_jincpif","jincf_near_zero","jincpif_asympt","jincpif_fma_impl","jincpif_gen","jincpif_small_argument"],"struct":["FmaJincpifBackend","GenJincpifBackend"],"trait":["JincpifBackend"]};

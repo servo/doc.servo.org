@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Frame","OpenList"],"fn":["is_feasible","isomorphisms","next_candidate","next_from_ix","pop_state","push_state"],"struct":["GraphMatcher"]};

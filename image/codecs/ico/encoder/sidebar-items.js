@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ICO_DIRENTRY_SIZE","ICO_ICONDIR_SIZE","ICO_IMAGE_TYPE"],"fn":["write_direntry","write_icondir"],"struct":["IcoEncoder","IcoFrame"]};

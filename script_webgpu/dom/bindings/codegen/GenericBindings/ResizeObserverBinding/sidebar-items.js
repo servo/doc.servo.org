@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ResizeObserverBoxOptions"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ResizeObserverBoxOptionsValues","ResizeObserver_Binding"],"struct":["ResizeObserverCallback","ResizeObserverOptions"],"trait":["ResizeObserverMethods"]};

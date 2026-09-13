@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["add","ct","invert","lincomb","mod_symbol","mul","neg","pow","sub"],"struct":["FixedMontyForm"]};

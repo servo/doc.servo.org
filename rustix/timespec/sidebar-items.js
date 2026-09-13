@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["as_libc_timespec_mut_ptr","as_libc_timespec_ptr","option_as_libc_timespec_ptr"],"struct":["Timespec"],"type":["Nsecs","Secs"]};

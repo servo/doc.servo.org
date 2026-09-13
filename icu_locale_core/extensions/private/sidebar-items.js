@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PRIVATE_EXT_CHAR","PRIVATE_EXT_STR"],"macro":[["subtag",1]],"mod":["other"],"struct":["Private","Subtag"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["debug",1],["log",1],["trace",1]]};

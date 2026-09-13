@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["base_dirs","project_dirs_from","project_dirs_from_path","trim_and_lowercase_then_replace_spaces","user_dirs"]};

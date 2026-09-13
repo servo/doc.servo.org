@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["handle_complex_language_utf8"],"mod":["inner"],"struct":["WordBreakInvariantOptions","WordBreakIterator","WordBreakIteratorWithWordType","WordBreakOptions","WordSegmenter","WordSegmenterBorrowed"],"trait":["WordBreakType"]};

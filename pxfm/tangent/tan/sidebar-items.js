@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_tan","tan_accurate","tan_eval","tan_eval_dd","tan_near_zero_hard"]};

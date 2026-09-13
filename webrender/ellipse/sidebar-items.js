@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STEP_COUNT"],"fn":["get_simpson_length"],"struct":["Ellipse"]};

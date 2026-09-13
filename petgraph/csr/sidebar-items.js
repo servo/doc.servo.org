@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BINARY_SEARCH_CUTOFF"],"enum":["CsrError"],"struct":["Csr","EdgeReference","EdgeReferences","Edges","EdgesNotSorted","Neighbors","NodeIdentifiers","NodeReferences"],"type":["EdgeIndex","NodeIndex"]};

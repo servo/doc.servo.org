@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["collect_into_vec","collect_with_consumer","special_extend","unzip_into_vecs"],"mod":["consumer"]};

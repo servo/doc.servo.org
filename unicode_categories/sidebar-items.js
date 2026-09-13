@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["table_binary_search"],"mod":["tables"],"trait":["UnicodeCategories"]};

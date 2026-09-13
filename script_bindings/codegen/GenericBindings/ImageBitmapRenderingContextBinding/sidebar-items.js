@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ImageBitmapRenderingContext_Binding"],"struct":["ImageBitmapRenderingContextSettings"]};

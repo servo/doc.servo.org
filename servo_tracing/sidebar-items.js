@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["instrument","instrument_all","skip"],"enum":["Directive"],"fn":["instrument_internal","should_apply_instrument_method"],"struct":["Fields","InstrumentConfiguration"]};

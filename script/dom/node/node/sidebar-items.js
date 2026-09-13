@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Node"],"enum":["CloneChildrenFlag","FlatTreeParent","ForceSlottableNodeReconciliation","NodeDamage","SuppressObserver"],"fn":["as_uintptr","first_node_not_in","from_untrusted_node_address"],"struct":["Node","NodeFlags","UniqueId"],"trait":["NodeTraits","VecPreOrderInsertionHelper"]};

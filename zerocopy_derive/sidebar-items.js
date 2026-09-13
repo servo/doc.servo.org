@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["ByteEq","ByteHash","FromBytes","FromZeros","Immutable","IntoBytes","KnownLayout","SplitAt","TryFromBytes","Unaligned"],"macro":[["derive",1],["ident",1]],"mod":["derive","repr","util"],"trait":["IntoTokenStream"]};

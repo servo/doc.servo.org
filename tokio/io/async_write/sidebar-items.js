@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["deref_async_write",1]],"trait":["AsyncWrite"]};

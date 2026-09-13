@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SentenceBreakInvariantOptions","SentenceBreakIterator","SentenceBreakOptions","SentenceSegmenter","SentenceSegmenterBorrowed"]};

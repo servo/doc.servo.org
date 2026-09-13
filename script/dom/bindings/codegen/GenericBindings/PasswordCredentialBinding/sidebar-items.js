@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PasswordCredentialInit"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["PasswordCredential_Binding"],"struct":["PasswordCredentialData"],"trait":["PasswordCredentialMethods"]};

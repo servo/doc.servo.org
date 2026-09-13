@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Aligned4","Aligned8"]};

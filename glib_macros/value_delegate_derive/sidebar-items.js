@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Arg","DeriveMode"],"fn":["impl_value_delegate"],"struct":["Args","ValueDelegateInput"]};

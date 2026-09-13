@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BaseOutlines"],"fn":["compute_tuple_deltas","expand_coords","scale_matrix"],"struct":["Outline","Outlines","ScalarCache","Scratchpad","TransformPen","VarcSharedContext"],"type":["Affine","AxisIndexVec","AxisValueVec","CoordVec","DeltaVec","GlyphStack","ScalarCacheVec"]};

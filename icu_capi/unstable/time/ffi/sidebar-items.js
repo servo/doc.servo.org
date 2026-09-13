@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["icu4x_Time_create_mv1","icu4x_Time_destroy_mv1","icu4x_Time_from_string_mv1","icu4x_Time_hour_mv1","icu4x_Time_minute_mv1","icu4x_Time_noon_mv1","icu4x_Time_second_mv1","icu4x_Time_start_of_day_mv1","icu4x_Time_subsecond_mv1"],"struct":["Time"]};

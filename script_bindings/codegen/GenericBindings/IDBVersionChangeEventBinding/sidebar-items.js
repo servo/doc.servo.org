@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["IDBVersionChangeEvent_Binding"],"struct":["IDBVersionChangeEventInit"]};

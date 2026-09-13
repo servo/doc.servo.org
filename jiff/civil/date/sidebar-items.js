@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DateWithDay","DateWithYear"],"fn":["month_add_one","month_add_overflowing"],"struct":["Date","DateArithmetic","DateDifference","DateSeries","DateWith"]};

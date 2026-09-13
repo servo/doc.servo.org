@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["exp2_accurate","exp2_fma_impl","exp2_gen","exp2_poly_dd","f_exp2"]};

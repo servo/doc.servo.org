@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["have_same_class","have_same_parts","have_same_presentational_hints","have_same_referenced_attrs","have_same_style_attribute","have_shareable_tree_counting_functions","may_match_different_id_rules","parents_allow_sharing","revalidate","revalidate_scope","shadow_root_style_data_equals"]};

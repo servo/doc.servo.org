@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_a_navigation_response_adherence_to_x_frame_options"]};

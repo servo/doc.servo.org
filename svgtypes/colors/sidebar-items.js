@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["displace","from_str","get_index","hash","split"],"static":["COLORS"],"struct":["Map"]};

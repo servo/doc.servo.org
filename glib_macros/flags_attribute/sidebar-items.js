@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WRONG_PLACE_MSG"],"fn":["gen_bitflags","gen_default","gen_flags_values","impl_flags","register_flags_as_dynamic","register_flags_as_static"],"struct":["AttrInput","FlagsDesc"]};

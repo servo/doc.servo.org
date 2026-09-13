@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["U0","U12","U15","U16","U6"]};

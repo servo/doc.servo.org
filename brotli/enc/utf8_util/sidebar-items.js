@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_mostly_utf8","parse_as_utf8"]};

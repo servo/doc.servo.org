@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Header","Kind","Parse","User"],"struct":["Error","ErrorImpl","TimedOut"],"type":["Cause","Result"]};

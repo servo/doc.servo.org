@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["READ_BUF_LEN"],"mod":["coding","frame","mask","utf8"],"struct":["CloseFrame","Frame","FrameCodec","FrameHeader","FrameSocket","Utf8Bytes"]};

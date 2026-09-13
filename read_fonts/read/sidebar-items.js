@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReadError"],"trait":["ComputeSize","Discriminant","FontRead","Format","ReadArgs","VarSize"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bidi_count_runs","bidi_destroy","bidi_get_base_direction","bidi_get_direction","bidi_get_length","bidi_get_levels","bidi_get_paragraph_level","bidi_get_visual_run","bidi_new","bidi_reorder_visual"],"struct":["LevelRun","UnicodeBidi"]};

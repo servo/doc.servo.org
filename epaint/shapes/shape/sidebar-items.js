@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Shape"],"fn":["dashes_from_line","points_from_line"]};

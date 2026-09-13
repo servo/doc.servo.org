@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CaptureKind","ClosureOrAsync","UpgradeBehaviour"],"fn":["clone_inner"],"struct":["Capture","Clone"]};

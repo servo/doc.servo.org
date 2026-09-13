@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply_value"],"mod":["cursive","mark","pair","single"]};

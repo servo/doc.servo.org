@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["derive","derive_known_layout_for_repr_c_struct"]};

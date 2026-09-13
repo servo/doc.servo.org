@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":["BinaryCharProperty","CustomCharProperty","EnumeratedCharProperty","NumericCharProperty","NumericCharPropertyValue"]};

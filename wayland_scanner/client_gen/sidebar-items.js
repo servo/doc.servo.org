@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["gen_methods","generate_client_objects","generate_objects_for"]};

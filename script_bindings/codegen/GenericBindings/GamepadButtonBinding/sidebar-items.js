@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GamepadButton_Binding"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHAR_CR","CHAR_LF"],"enum":["LineEnding"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FRAC_MODULUS_2","MODULUS"],"mod":["scalar_impl"],"struct":["Scalar"]};

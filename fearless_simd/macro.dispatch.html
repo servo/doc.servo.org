@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Access the applicable `Simd` for a given `level`, and perform an operation using it."><title>dispatch in fearless_simd - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="fearless_simd" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc macro"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">dispatch</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../fearless_simd/index.html">fearless_<wbr>simd</a><span class="version">0.4.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">dispatch</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#example" title="Example">Example</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate fearless_<wbr>simd</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">fearless_simd</a></div><h1>Macro <span class="macro">dispatch</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/fearless_simd/macros.rs.html#49-145">Source</a> </span></div><pre class="rust item-decl"><code>macro_rules! dispatch {
+    ($level:expr, $simd:pat =&gt; $op:expr) =&gt; { ... };
+    (@impl $level:expr, $simd:pat =&gt; $op:expr; $forced_fallback_arm: literal) =&gt; { ... };
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Access the applicable <a href="trait.Simd.html" title="trait fearless_simd::Simd"><code>Simd</code></a> for a given <code>level</code>, and perform an operation using it.</p>
+<p>This macro is the root of how any explicitly written SIMD functions in this crate are
+called from a non-SIMD context.</p>
+<p>The first parameter to the macro is the <a href="enum.Level.html" title="enum fearless_simd::Level"><code>Level</code></a>.
+You should prefer to construct a <a href="enum.Level.html" title="enum fearless_simd::Level"><code>Level</code></a> once and pass it around, rather than
+frequently calling <a href="enum.Level.html#method.new" title="associated function fearless_simd::Level::new"><code>Level::new()</code></a>.
+This is because <code>Level::new</code> has to detect which target features are available, which can be slow.</p>
+<p>The code of the operation will be repeated literally several times in the output, so you should prefer
+to keep this code small (as it will be type-checked, etc. for each supported SIMD level on your target).
+In most cases, it should be a single call to a function which is generic over <code>Simd</code> implementations,
+as seen in <a href="#examples">the examples</a>.
+For clarity, it will only be executed once per execution of <code>dispatch</code>.</p>
+<p>To guarantee target-feature-specific code generation, any functions called within the operation should
+be <code>#[inline(always)]</code>.</p>
+<p>Note that as an implementation detail of this macro, the operation will be executed inside a closure.
+This is what enables the target features to be enabled for the code inside the operation.
+A consequence of this is that early <code>return</code> and <code>?</code> will not work as expected.
+Note that in cases where you use <code>dispatch</code> to call a single function (which we expect to be the
+majority of cases), you can use <code>?</code> on the return value of dispatch instead.
+To emulate early return, you can use <a href="https://doc.rust-lang.org/1.97.1/core/ops/control_flow/enum.ControlFlow.html" title="enum core::ops::control_flow::ControlFlow"><code>ControlFlow</code></a> instead.</p>
+<h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>fearless_simd::{Level, Simd, dispatch};
+
+<span class="attr">#[inline(always)]
+</span><span class="kw">fn </span>sigmoid&lt;S: Simd&gt;(simd: S, x: <span class="kw-2">&amp;</span>[f32], out: <span class="kw-2">&amp;mut </span>[f32]) { <span class="comment">/* ... */ </span>}
+
+<span class="kw">let </span>level = Level::new();
+
+<span class="macro">dispatch!</span>(level, simd =&gt; sigmoid(simd, <span class="kw-2">&amp;</span>[<span class="comment">/*...*/</span>], <span class="kw-2">&amp;mut </span>[<span class="comment">/*...*/</span>]));</code></pre></div></div></details></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XRSessionMode"],"fn":["Wrap"],"mod":["GenericBindings","XRSessionModeValues","XRSystem_Binding"],"trait":["XRSystemMethods"],"type":["XRSessionInit"]};

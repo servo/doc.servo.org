@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["navigator","navigatorinfo","plugin","pluginarray"]};

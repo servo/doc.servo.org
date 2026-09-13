@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SecurityPolicyViolationEventDisposition"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["SecurityPolicyViolationEventDispositionValues","SecurityPolicyViolationEvent_Binding"],"struct":["SecurityPolicyViolationEventInit"],"trait":["SecurityPolicyViolationEventMethods"]};

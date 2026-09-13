@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["block_or_inline_to_inferred","inferred_to_block","inferred_to_inline"],"trait":["TryTacticAdjustment"],"type":["AnchorFunction","AnchorSide","AspectRatio","HorizontalPosition","Inset","Position","PositionOrAuto","VerticalPosition","ZIndex"]};

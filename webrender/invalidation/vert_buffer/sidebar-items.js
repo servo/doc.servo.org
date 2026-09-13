@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["VERT_QUANTIZE_SCALE"],"fn":["quantize"],"struct":["CornersCache","VertRange"]};

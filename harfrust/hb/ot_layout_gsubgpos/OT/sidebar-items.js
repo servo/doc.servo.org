@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_glyph_property","match_properties_mark"],"struct":["hb_ot_apply_context_t"]};

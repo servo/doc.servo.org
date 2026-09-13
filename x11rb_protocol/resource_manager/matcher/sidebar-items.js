@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HowMatched","MatchKind"],"fn":["check_match","compare_matches","match_entry"],"mod":["zip_longest"],"struct":["MatchComponent"]};

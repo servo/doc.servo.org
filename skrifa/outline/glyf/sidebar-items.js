@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PHANTOM_POINT_COUNT"],"fn":["hypot","map_point"],"mod":["deltas","hint","memory","outline"],"struct":["FreeTypeScaler","HarfBuzzScaler","Outlines","Scale26Dot6"],"trait":["Scaler"]};

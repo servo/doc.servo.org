@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AlternateKindRequiringResolution","FontFeatureValue"],"struct":["FontFeatureValueMap","HashKey","ResolvedFontVariantAlternates"]};

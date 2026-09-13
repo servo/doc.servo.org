@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ClipboardType","Error","MimeType","Seat"],"fn":["get_contents","get_contents_internal","get_mime_types","get_mime_types_internal","get_mime_types_ordered","get_offer"],"struct":["State"]};

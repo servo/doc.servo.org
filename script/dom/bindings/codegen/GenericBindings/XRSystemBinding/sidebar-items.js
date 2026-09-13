@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XRSessionMode"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["XRSessionModeValues","XRSystem_Binding"],"struct":["XRSessionInit"],"trait":["XRSystemMethods"]};

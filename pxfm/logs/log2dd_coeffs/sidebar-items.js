@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["LOG2_NEG_DD"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["PeriodicWave_Binding"],"struct":["PeriodicWaveConstraints","PeriodicWaveOptions"],"trait":["PeriodicWaveMethods"]};

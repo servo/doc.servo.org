@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DataPayloadInner","DataPayloadOrInner","DataPayloadOrInnerInner"],"struct":["Cart","DataPayload","DataPayloadOr","DataResponse","DataResponseMetadata"],"type":["CartInner"]};

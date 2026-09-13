@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["XRRay_Binding"],"struct":["XRRayDirectionInit"],"trait":["XRRayMethods"]};

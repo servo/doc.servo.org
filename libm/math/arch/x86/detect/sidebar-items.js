@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_cpu_features","load_x86_features"],"mod":["cpu_flags"]};

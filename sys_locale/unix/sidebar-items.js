@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LANG","LANGUAGE","LC_ALL","LC_MESSAGES"],"fn":["_get","get","posix_to_bcp47"],"struct":["StdEnv"],"trait":["EnvAccess"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Encoding","IntegerRadix","ScalarKind"],"mod":["scalar","string","ws"],"trait":["StringBuilder"]};

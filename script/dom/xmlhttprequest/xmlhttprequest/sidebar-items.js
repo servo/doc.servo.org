@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_XMLHttpRequest"],"enum":["XHRProgress","XMLHttpRequestState"],"fn":["is_field_value","serialize_document"],"struct":["GenerationId","XHRContext","XHRTimeoutCallback","XMLHttpRequest"],"type":["TrustedXHRAddress"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fast_channel","msg_channel","payload_channel","single_msg_channel","unbounded_channel"],"struct":["MsgReceiver","MsgSender","Payload","Receiver","Sender"],"type":["PayloadReceiver","PayloadSender"]};

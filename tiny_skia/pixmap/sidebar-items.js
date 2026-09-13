@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BYTES_PER_PIXEL"],"fn":["compute_data_len","data_len_for_size","min_row_bytes"],"struct":["Pixmap","PixmapMut","PixmapRef","SubPixmapMut"]};

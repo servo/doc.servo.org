@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","TrustedTypePolicyFactory_Binding"],"trait":["TrustedTypePolicyFactoryMethods"],"type":["CreateHTMLCallback","CreateScriptCallback","CreateScriptURLCallback","TrustedType","TrustedTypePolicyOptions"]};

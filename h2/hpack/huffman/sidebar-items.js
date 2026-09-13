@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BRANCH","TABLE_INDEX_MASK","TABLE_WIDTH"],"fn":["decode","encode"],"mod":["table"]};

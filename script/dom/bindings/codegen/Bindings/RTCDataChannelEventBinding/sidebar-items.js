@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","RTCDataChannelEvent_Binding"],"trait":["RTCDataChannelEventMethods"],"type":["RTCDataChannelEventInit"]};

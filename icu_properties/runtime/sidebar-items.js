@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BinaryProperty","EnumeratedProperty","MaskProperty","MiscProperty","NumericProperty","StringBinaryProperty","StringProperty"]};

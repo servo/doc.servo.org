@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_integer_with_clamping_mode","parse_number_with_clamping_mode"],"struct":["Integer","NoCalcNumber","Number"],"type":["GreaterThanOrEqualToOneNumber","NonNegativeInteger","NonNegativeNumber","PositiveInteger"]};

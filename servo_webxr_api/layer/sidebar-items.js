@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LayerInit","LayerLayout"],"static":["NEXT_LAYER_ID"],"struct":["ContextId","LayerGrandManager","LayerId","LayerManager","LayerManagerFactory","SubImage","SubImages"],"trait":["GLContexts","GLTypes","LayerGrandManagerAPI","LayerManagerAPI"]};

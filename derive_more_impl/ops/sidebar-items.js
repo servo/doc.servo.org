@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["add","add_assign"],"struct":["AssignStructuralExpansion","StructuralExpansion"],"trait":["StructuralExpansionFieldsExt"],"type":["SkippedFields"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cotpif_core","f_cotpif"]};

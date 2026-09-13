@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Declaration","ForwardAttrs","Initializer","MatchArms","ValuePopulator"]};

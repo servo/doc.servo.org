@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["DebuggerFrameEvent_Binding","GenericBindings"],"trait":["DebuggerFrameEventMethods"]};

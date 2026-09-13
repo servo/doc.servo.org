@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["advance_position","clamp_span_to_limited_grid","place_definite_grid_item","place_definite_secondary_axis_item","place_grid_items","place_indefinitely_positioned_item","record_grid_placement","resolve_indefinite_grid_span"]};

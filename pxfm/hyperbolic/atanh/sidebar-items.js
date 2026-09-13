@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["as_atanh_zero","atanh_refine","f_atanh"],"static":["ATANH_L1","ATANH_L2"]};

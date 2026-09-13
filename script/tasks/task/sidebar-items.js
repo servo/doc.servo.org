@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["task",1]],"struct":["CancellableTask","TaskCanceller"],"trait":["NonSendTaskBox","NonSendTaskOnce","TaskBox","TaskOnce"]};

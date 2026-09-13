@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IntrinsicSizingMode","Size","SizeConstraint"],"fn":["outer_inline"],"struct":["ContentSizes","InlineContentSizesResult","LazySize","LazySizeData","Sizes"],"trait":["ComputeInlineContentSizes"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColrStackEntry"],"fn":["convert_affine","convert_bounding_box","convert_composite_mode","convert_extend","convert_point","get_colr_info"],"struct":["ColrGlyphInfo","ColrPainter","GlyphInfoExtractor"],"trait":["ColrDrawSinkExt"]};

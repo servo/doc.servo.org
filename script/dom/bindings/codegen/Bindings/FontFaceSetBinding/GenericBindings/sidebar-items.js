@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["FontFaceSetDefineDOMInterface","FontFaceSetGetProtoObject","FontFaceSetSetlikeGetProtoObject","FontFaceSetSetlikeWrap","FontFaceSetWrap"],"mod":["FontFaceSetSetlike_Binding","FontFaceSet_Binding"],"trait":["FontFaceSetMethods","FontFaceSetSetlikeMethods"]};

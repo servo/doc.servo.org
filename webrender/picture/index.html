@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A picture represents a dynamically rendered image."><title>webrender::picture - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="webrender" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module picture</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../webrender/index.html">webrender</a><span class="version">0.70.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module picture</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#overview" title="Overview">Overview</a><ul><li><a href="#picture-caching" title="Picture caching">Picture caching</a></li><li><a href="#invalidation" title="Invalidation">Invalidation</a></li><li><a href="#display-list-shape" title="Display List shape">Display List shape</a></li><li><a href="#compositor-surfaces" title="Compositor Surfaces">Compositor Surfaces</a></li></ul></li></ul><h3><a href="#reexports">Module Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate webrender</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">webrender</a></div><h1>Module <span>picture</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/webrender/picture.rs.html#5-2564">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A picture represents a dynamically rendered image.</p>
+<h2 id="overview"><a class="doc-anchor" href="#overview">§</a>Overview</h2>
+<p>Pictures consists of:</p>
+<ul>
+<li>A number of primitives that are drawn onto the picture.</li>
+<li>A composite operation describing how to composite this
+picture into its parent.</li>
+<li>A configuration describing how to draw the primitives on
+this picture (e.g. in screen space or local space).</li>
+</ul>
+<p>The tree of pictures are generated during scene building.</p>
+<p>Depending on their composite operations pictures can be rendered into
+intermediate targets or folded into their parent picture.</p>
+<h3 id="picture-caching"><a class="doc-anchor" href="#picture-caching">§</a>Picture caching</h3>
+<p>Pictures can be cached to reduce the amount of rasterization happening per
+frame.</p>
+<p>When picture caching is enabled, the scene is cut into a small number of slices,
+typically:</p>
+<ul>
+<li>content slice</li>
+<li>UI slice</li>
+<li>background UI slice which is hidden by the other two slices most of the time.</li>
+</ul>
+<p>Each of these slice is made up of fixed-size large tiles of 2048x512 pixels
+(or 128x128 for the UI slice).</p>
+<p>Tiles can be either cached rasterized content into a texture or “clear tiles”
+that contain only a solid color rectangle rendered directly during the composite
+pass.</p>
+<h3 id="invalidation"><a class="doc-anchor" href="#invalidation">§</a>Invalidation</h3>
+<p>Each tile keeps track of the elements that affect it, which can be:</p>
+<ul>
+<li>primitives</li>
+<li>clips</li>
+<li>image keys</li>
+<li>opacity bindings</li>
+<li>transforms</li>
+</ul>
+<p>These dependency lists are built each frame and compared to the previous frame to
+see if the tile changed.</p>
+<p>The tile’s primitive dependency information is organized in a quadtree, each node
+storing an index buffer of tile primitive dependencies.</p>
+<p>The union of the invalidated leaves of each quadtree produces a per-tile dirty rect
+which defines the scissor rect used when replaying the tile’s drawing commands and
+can be used for partial present.</p>
+<h3 id="display-list-shape"><a class="doc-anchor" href="#display-list-shape">§</a>Display List shape</h3>
+<p>WR will first look for an iframe item in the root stacking context to apply
+picture caching to. If that’s not found, it will apply to the entire root
+stacking context of the display list. Apart from that, the format of the
+display list is not important to picture caching. Each time a new scroll root
+is encountered, a new picture cache slice will be created. If the display
+list contains more than some arbitrary number of slices (currently 8), the
+content will all be squashed into a single slice, in order to save GPU memory
+and compositing performance.</p>
+<h3 id="compositor-surfaces"><a class="doc-anchor" href="#compositor-surfaces">§</a>Compositor Surfaces</h3>
+<p>Sometimes, a primitive would prefer to exist as a native compositor surface.
+This allows a large and/or regularly changing primitive (such as a video, or
+webgl canvas) to be updated each frame without invalidating the content of
+tiles, and can provide a significant performance win and battery saving.</p>
+<p>Since drawing a primitive as a compositor surface alters the ordering of
+primitives in a tile, we use ‘overlay tiles’ to ensure correctness. If a
+tile has a compositor surface, <em>and</em> that tile has primitives that overlap
+the compositor surface rect, the tile switches to be drawn in alpha mode.</p>
+<p>We rely on only promoting compositor surfaces that are opaque primitives.
+With this assumption, the tile(s) that intersect the compositor surface get
+a ‘cutout’ in the rectangle where the compositor surface exists (not the
+entire tile), allowing that tile to be drawn as an alpha tile after the
+compositor surface.</p>
+<p>Tiles are only drawn in overlay mode if there is content that exists on top
+of the compositor surface. Otherwise, we can draw the tiles in the normal fast
+path before the compositor surface is drawn. Use of the per-tile valid and
+dirty rects ensure that we do a minimal amount of per-pixel work here to
+blend the overlay tile (this is not always optimal right now, but will be
+improved as a follow up).</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.SurfaceIndex"><code>pub use crate::surface::<a class="struct" href="../surface/struct.SurfaceIndex.html" title="struct webrender::surface::SurfaceIndex">SurfaceIndex</a>;</code></dt><dt id="reexport.SurfaceInfo"><code>pub use crate::surface::<a class="struct" href="../surface/struct.SurfaceInfo.html" title="struct webrender::surface::SurfaceInfo">SurfaceInfo</a>;</code></dt><dt id="reexport.SubpixelMode"><code>pub use crate::surface::<a class="enum" href="../surface/enum.SubpixelMode.html" title="enum webrender::surface::SubpixelMode">SubpixelMode</a>;</code></dt><dt id="reexport.calculate_screen_uv"><code>pub use crate::surface::<a class="fn" href="../surface/fn.calculate_screen_uv.html" title="fn webrender::surface::calculate_screen_uv">calculate_screen_uv</a>;</code></dt><dt id="reexport.PictureCompositeMode"><code>pub use crate::picture_composite_mode::<a class="enum" href="../picture_composite_mode/enum.PictureCompositeMode.html" title="enum webrender::picture_composite_mode::PictureCompositeMode">PictureCompositeMode</a>;</code></dt><dt id="reexport.prepare_composite_mode"><code>pub use crate::picture_composite_mode::<a class="fn" href="../picture_composite_mode/fn.prepare_composite_mode.html" title="fn webrender::picture_composite_mode::prepare_composite_mode">prepare_composite_mode</a>;</code></dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.BlitReason.html" title="struct webrender::picture::BlitReason">Blit<wbr>Reason</a></dt><dd>A set of flags describing why a picture may need a backing surface.</dd><dt><a class="struct" href="struct.ClusterFlags.html" title="struct webrender::picture::ClusterFlags">Cluster<wbr>Flags</a></dt><dd>A set of flags describing why a picture may need a backing surface.</dd><dt><a class="struct" href="struct.OrderedPictureChild.html" title="struct webrender::picture::OrderedPictureChild">Ordered<wbr>Picture<wbr>Child</a></dt><dd>Information about a preserve-3D hierarchy child that has been plane-split
+and ordered according to the view direction.</dd><dt><a class="struct" href="struct.PictureFlags.html" title="struct webrender::picture::PictureFlags">Picture<wbr>Flags</a></dt><dd>Flags describing properties for a given PictureInstance</dd><dt><a class="struct" href="struct.PictureInstance.html" title="struct webrender::picture::PictureInstance">Picture<wbr>Instance</a></dt><dt><a class="struct" href="struct.PictureScratch.html" title="struct webrender::picture::PictureScratch">Picture<wbr>Scratch</a></dt><dd>Per-frame scratch data for a Picture primitive. Pushed in <code>take_context</code>
+and read by both prepare and batch through the <code>scratch_handle</code> carried
+on <code>PrimitiveKind::Picture</code>.</dd><dt><a class="struct" href="struct.PictureScratchBuffer.html" title="struct webrender::picture::PictureScratchBuffer">Picture<wbr>Scratch<wbr>Buffer</a></dt><dt><a class="struct" href="struct.PrimitiveCluster.html" title="struct webrender::picture::PrimitiveCluster">Primitive<wbr>Cluster</a></dt><dd>Descriptor for a cluster of primitives. For now, this is quite basic but will be
+extended to handle more spatial clustering of primitives.</dd><dt><a class="struct" href="struct.PrimitiveList.html" title="struct webrender::picture::PrimitiveList">Primitive<wbr>List</a></dt><dd>A list of primitive instances that are added to a picture
+This ensures we can keep a list of primitives that
+are pictures, for a fast initial traversal of the picture
+tree without walking the instance list.</dd><dt><a class="struct" href="struct.RasterConfig.html" title="struct webrender::picture::RasterConfig">Raster<wbr>Config</a></dt></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.Picture3DContext.html" title="enum webrender::picture::Picture3DContext">Picture3D<wbr>Context</a></dt><dd>Enum value describing the place of a picture in a 3D context.</dd><dt><a class="enum" href="enum.ResolvedSurfaceTexture.html" title="enum webrender::picture::ResolvedSurfaceTexture">Resolved<wbr>Surface<wbr>Texture</a></dt><dd>This is the same as a <code>SurfaceTextureDescriptor</code> but has been resolved
+into a texture cache handle (if appropriate) that can be used by the
+batching and compositing code in the renderer.</dd><dt><a class="enum" href="enum.SurfaceTextureDescriptor.html" title="enum webrender::picture::SurfaceTextureDescriptor">Surface<wbr>Texture<wbr>Descriptor</a></dt><dd>A descriptor for the kind of texture that a picture cache tile will
+be drawn into.</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.MAX_BLUR_RADIUS.html" title="constant webrender::picture::MAX_BLUR_RADIUS">MAX_<wbr>BLUR_<wbr>RADIUS</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="constant" href="constant.MAX_COMPOSITOR_SURFACES_SIZE.html" title="constant webrender::picture::MAX_COMPOSITOR_SURFACES_SIZE">MAX_<wbr>COMPOSITOR_<wbr>SURFACES_<wbr>SIZE</a></dt><dd>Maximum size of a compositor surface.</dd></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.clamp.html" title="fn webrender::picture::clamp">clamp</a></dt><dt><a class="fn" href="fn.clampf.html" title="fn webrender::picture::clampf">clampf</a></dt><dt><a class="fn" href="fn.compute_subpixel_mode.html" title="fn webrender::picture::compute_subpixel_mode">compute_<wbr>subpixel_<wbr>mode</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.get_relative_scale_offset.html" title="fn webrender::picture::get_relative_scale_offset">get_<wbr>relative_<wbr>scale_<wbr>offset</a></dt><dt><a class="fn" href="fn.prepare_tiled_picture_surface.html" title="fn webrender::picture::prepare_tiled_picture_surface">prepare_<wbr>tiled_<wbr>picture_<wbr>surface</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Update dirty rects, ensure that tiles have backing surfaces and build
+the tile render tasks.</dd></dl></section></div></main></body></html>

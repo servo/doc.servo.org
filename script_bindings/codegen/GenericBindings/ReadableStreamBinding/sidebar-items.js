@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReadableStreamReaderMode","ReadableStreamType"],"mod":["ReadableStreamReaderModeValues","ReadableStreamTypeValues","ReadableStream_Binding"],"struct":["ReadableStreamGetReaderOptions","ReadableWritablePair","StreamPipeOptions"]};

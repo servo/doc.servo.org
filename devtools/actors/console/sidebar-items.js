@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ConsoleResource","Root"],"struct":["AutocompleteReply","ConsoleActor","ConsoleClearMessage","DevtoolsConsoleMessage","DevtoolsPageError","EvaluateJSAsyncReply","EvaluateJSEvent","EvaluateJSReply","PageErrorWrapper","SetPreferencesReply"]};

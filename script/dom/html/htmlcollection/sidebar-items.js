@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLCollection"],"enum":["CollectionKind"],"struct":["HTMLCollection","OptionU32"],"trait":["CollectionFilter","CollectionSource"]};

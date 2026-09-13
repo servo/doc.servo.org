@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["verify_signature","verify_signed_data"],"struct":["OwnedSignedData","SignedData","SubjectPublicKeyInfo"]};

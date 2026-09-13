@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["FontFaceSetSetlike_Binding","FontFaceSet_Binding","GenericBindings"],"trait":["FontFaceSetMethods","FontFaceSetSetlikeMethods"]};

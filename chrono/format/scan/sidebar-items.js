@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CommentState"],"fn":["char","colon_or_space","comment_2822","nanosecond","nanosecond_fixed","number","short_month0","short_or_long_month0","short_or_long_weekday","short_weekday","space","timezone_offset","timezone_offset_2822"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["deserialize","deserialize_externally_tagged_newtype_variant","deserialize_externally_tagged_variant","wrap_deserialize_variant_with"]};

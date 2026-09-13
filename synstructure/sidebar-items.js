@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AddBounds","BindStyle"],"fn":["fetch_generics","generics_fuse","get_or_insert_with","get_ty_params","merge_generics","trim_start_matches","unpretty_print"],"macro":[["decl_attribute",1],["decl_derive",1],["test_derive",1]],"struct":["BindingInfo","Structure","VariantAst","VariantInfo"],"trait":["MacroResult"]};

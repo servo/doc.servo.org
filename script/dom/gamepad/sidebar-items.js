@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["gamepad","gamepadbutton","gamepadevent","gamepadhapticactuator","gamepadpose"]};

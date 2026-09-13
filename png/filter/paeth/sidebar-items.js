@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["filter_paeth","filter_paeth_fpnge","filter_paeth_stbi","unfilter"]};

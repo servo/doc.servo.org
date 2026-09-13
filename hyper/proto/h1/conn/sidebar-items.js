@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["H2_PREFACE"],"enum":["KA","Reading","Writing"],"struct":["Conn","State"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SUPPORTED_IMAGE_MIME_TYPES"],"enum":["ParseState"],"fn":["collect_sequence_characters","is_supported_image_mime_type","is_valid_floating_point_number_string","is_valid_non_negative_integer_string","parse_a_sizes_attribute","parse_a_srcset_attribute"],"struct":["Descriptor","ImageSource","SourceSet"]};

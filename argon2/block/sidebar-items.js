@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TRUNC"],"macro":[["permute",1],["permute_step",1]],"struct":["Block","Blocks"]};

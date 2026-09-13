@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EXPANDED_SECRET_KEY_LENGTH","KEYPAIR_LENGTH","PUBLIC_KEY_LENGTH","SECRET_KEY_LENGTH","SIGNATURE_LENGTH"],"mod":["constants","errors","hazmat","pkcs8","signature","signing","verifying"],"struct":["Signature","SigningKey","VerifyingKey"],"trait":["Signer","Verifier"],"type":["SecretKey","SignatureError"]};

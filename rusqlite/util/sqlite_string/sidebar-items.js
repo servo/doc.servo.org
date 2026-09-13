@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NUL_REPLACE"],"fn":["alloc","make_nonnull"],"struct":["SqliteMallocString"]};

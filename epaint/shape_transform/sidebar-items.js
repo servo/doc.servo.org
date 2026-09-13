@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["adjust_color_mode","adjust_colors"]};

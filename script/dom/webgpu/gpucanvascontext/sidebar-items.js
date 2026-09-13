@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_GPUCanvasContext"],"fn":["supported_context_format"],"struct":["DroppableGPUCanvasContext","GPUCanvasConfiguration","GPUCanvasContext"]};

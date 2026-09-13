@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","WebGLObject_Binding"],"trait":["WebGLObjectMethods"]};

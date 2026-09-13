@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A safe Rust crate for working with the Wayland clipboard."><title>wl_clipboard_rs - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="wl_clipboard_rs" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate wl_clipboard_rs</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../wl_clipboard_rs/index.html">wl_<wbr>clipboard_<wbr>rs</a><span class="version">0.9.3</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#examples" title="Examples">Examples</a></li><li><a href="#included-terminal-utilities" title="Included terminal utilities">Included terminal utilities</a></li></ul><h3><a href="#modules">Crate Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>wl_<wbr>clipboard_<wbr>rs</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/wl_clipboard_rs/lib.rs.html#1-121">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A safe Rust crate for working with the Wayland clipboard.</p>
+<p>This crate is intended to be used by terminal applications, clipboard managers and other
+utilities which don’t spawn Wayland surfaces (windows). If your application has a window,
+please use the appropriate Wayland protocols for interacting with the Wayland clipboard
+(<code>wl_data_device</code> from the core Wayland protocol, the <code>primary_selection</code> protocol for the
+primary selection), for example via the
+<a href="https://crates.io/crates/smithay-clipboard">smithay-clipboard</a> crate.</p>
+<p>The protocol used for clipboard interaction is <code>ext-data-control</code> or <code>wlr-data-control</code>. When
+using the regular clipboard, the compositor must support any version of either protocol. When
+using the “primary” clipboard, the compositor must support any version of <code>ext-data-control</code>,
+or the second version of the <code>wlr-data-control</code> protocol.</p>
+<p>For example applications using these features, see <code>wl-clipboard-rs-tools/src/bin/wl_copy.rs</code>
+and <code>wl-clipboard-rs-tools/src/bin/wl_paste.rs</code> which implement terminal apps similar to
+<a href="https://github.com/bugaevc/wl-clipboard">wl-clipboard</a> or
+<code>wl-clipboard-rs-tools/src/bin/wl_clip.rs</code> which implements a Wayland version of <code>xclip</code>.</p>
+<p>The Rust implementation of the Wayland client is used by default; use the <code>native_lib</code> feature
+to link to <code>libwayland-client.so</code> for communication instead. A <code>dlopen</code> feature is also
+available for loading <code>libwayland-client.so</code> dynamically at runtime rather than linking to it.</p>
+<p>The code of the crate itself (and the code of the example utilities) is 100% safe Rust. This
+doesn’t include the dependencies.</p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<p>Copying to the regular clipboard:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>wl_clipboard_rs::copy::{MimeType, Options, Source};
+
+<span class="kw">let </span>opts = Options::new();
+opts.copy(Source::Bytes(<span class="string">"Hello world!"</span>.to_string().into_bytes().into()), MimeType::Autodetect)<span class="question-mark">?</span>;</code></pre></div>
+<p>Pasting plain text from the regular clipboard:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::io::Read;
+<span class="kw">use </span>wl_clipboard_rs::{paste::{get_contents, ClipboardType, Error, MimeType, Seat}};
+
+<span class="kw">let </span>result = get_contents(ClipboardType::Regular, Seat::Unspecified, MimeType::Text);
+<span class="kw">match </span>result {
+    <span class="prelude-val">Ok</span>((<span class="kw-2">mut </span>pipe, <span class="kw">_</span>)) =&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>contents = <span class="macro">vec!</span>[];
+        pipe.read_to_end(<span class="kw-2">&amp;mut </span>contents)<span class="question-mark">?</span>;
+        <span class="macro">println!</span>(<span class="string">"Pasted: {}"</span>, String::from_utf8_lossy(<span class="kw-2">&amp;</span>contents));
+    }
+
+    <span class="prelude-val">Err</span>(Error::NoSeats) | <span class="prelude-val">Err</span>(Error::ClipboardEmpty) | <span class="prelude-val">Err</span>(Error::NoMimeType) =&gt; {
+        <span class="comment">// The clipboard is empty or doesn't contain text, nothing to worry about.
+    </span>}
+
+    <span class="prelude-val">Err</span>(err) =&gt; <span class="prelude-val">Err</span>(err)<span class="question-mark">?
+</span>}</code></pre></div>
+<p>Checking if the “primary” clipboard is supported (note that this might be unnecessary depending
+on your crate usage, the regular copying and pasting functions do report if the primary
+selection is unsupported when it is requested):</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>wl_clipboard_rs::utils::{is_primary_selection_supported, PrimarySelectionCheckError};
+
+<span class="kw">match </span>is_primary_selection_supported() {
+    <span class="prelude-val">Ok</span>(supported) =&gt; {
+        <span class="comment">// We have our definitive result. False means that ext/wlr-data-control is present
+        // and did not signal the primary selection support, or that only wlr-data-control
+        // version 1 is present (which does not support primary selection).
+    </span>},
+    <span class="prelude-val">Err</span>(PrimarySelectionCheckError::NoSeats) =&gt; {
+        <span class="comment">// Impossible to give a definitive result. Primary selection may or may not be
+        // supported.
+
+        // The required protocol (ext-data-control, or wlr-data-control version 2) is there,
+        // but there are no seats. Unfortunately, at least one seat is needed to check for the
+        // primary clipboard support.
+    </span>},
+    <span class="prelude-val">Err</span>(PrimarySelectionCheckError::MissingProtocol) =&gt; {
+        <span class="comment">// The data-control protocol (required for wl-clipboard-rs operation) is not
+        // supported by the compositor.
+    </span>},
+    <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
+        <span class="comment">// Some communication error occurred.
+    </span>}
+}</code></pre></div><h2 id="included-terminal-utilities"><a class="doc-anchor" href="#included-terminal-utilities">§</a>Included terminal utilities</h2>
+<ul>
+<li><code>wl-paste</code>: implements <code>wl-paste</code> from
+<a href="https://github.com/bugaevc/wl-clipboard">wl-clipboard</a>.</li>
+<li><code>wl-copy</code>: implements <code>wl-copy</code> from <a href="https://github.com/bugaevc/wl-clipboard">wl-clipboard</a>.</li>
+<li><code>wl-clip</code>: a Wayland version of <code>xclip</code>.</li>
+</ul>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="common/index.html" title="mod wl_clipboard_rs::common">common</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="copy/index.html" title="mod wl_clipboard_rs::copy">copy</a></dt><dd>Copying and clearing clipboard contents.</dd><dt><a class="mod" href="data_control/index.html" title="mod wl_clipboard_rs::data_control">data_<wbr>control</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Abstraction over ext/wlr-data-control.</dd><dt><a class="mod" href="paste/index.html" title="mod wl_clipboard_rs::paste">paste</a></dt><dd>Getting the offered MIME types and the clipboard contents.</dd><dt><a class="mod" href="seat_data/index.html" title="mod wl_clipboard_rs::seat_data">seat_<wbr>data</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="utils/index.html" title="mod wl_clipboard_rs::utils">utils</a></dt><dd>Helper functions.</dd></dl></section></div></main></body></html>

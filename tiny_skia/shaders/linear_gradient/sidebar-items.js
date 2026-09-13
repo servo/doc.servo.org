@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["average_gradient_color","points_to_unit_ts","sdot","ts_from_sin_cos_at"],"struct":["LinearGradient"]};

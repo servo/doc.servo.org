@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["START_OF_FRAME_BASE","START_OF_FRAME_EXT_AR","START_OF_FRAME_EXT_SEQ","START_OF_FRAME_LOS_SEQ","START_OF_FRAME_LOS_SEQ_AR","START_OF_FRAME_PROG_DCT","START_OF_FRAME_PROG_DCT_AR","UN_ZIGZAG"],"enum":["SOFMarkers"],"fn":["calculate_padded_width","fill_default_mjpeg_tables","setup_component_params"],"struct":["Aligned16","Aligned32"]};

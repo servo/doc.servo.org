@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["srlab2_gamma","srlab2_linearize"],"struct":["Srlab2"]};

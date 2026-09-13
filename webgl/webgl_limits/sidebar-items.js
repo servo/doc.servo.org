@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["try_gl_parameter"],"trait":["GLExt","GLLimitsDetect"],"type":["GLenum"]};

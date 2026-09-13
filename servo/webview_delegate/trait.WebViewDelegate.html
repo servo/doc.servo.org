@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A trait that the embedder can implement to customize the behaviour of a `WebView` or to listen to events from a `WebView`. Multiple `WebView`s can share the same delegate instance. A `WebView`’s delegate needs to be set at the time of creation using `WebViewBuilder::delegate`."><title>WebViewDelegate in servo::webview_delegate - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="servo" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">WebViewDelegate</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../servo/index.html">servo</a><span class="version">0.6.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">WebView<wbr>Delegate</a></h2><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.hide_embedder_control" title="hide_embedder_control">hide_embedder_control</a></li><li><a href="#method.load_web_resource" title="load_web_resource">load_web_resource</a></li><li><a href="#method.notify_accessibility_tree_update" title="notify_accessibility_tree_update">notify_accessibility_tree_update</a></li><li><a href="#method.notify_animating_changed" title="notify_animating_changed">notify_animating_changed</a></li><li><a href="#method.notify_closed" title="notify_closed">notify_closed</a></li><li><a href="#method.notify_crashed" title="notify_crashed">notify_crashed</a></li><li><a href="#method.notify_cursor_changed" title="notify_cursor_changed">notify_cursor_changed</a></li><li><a href="#method.notify_favicon_changed" title="notify_favicon_changed">notify_favicon_changed</a></li><li><a href="#method.notify_focus_changed" title="notify_focus_changed">notify_focus_changed</a></li><li><a href="#method.notify_fullscreen_state_changed" title="notify_fullscreen_state_changed">notify_fullscreen_state_changed</a></li><li><a href="#method.notify_history_changed" title="notify_history_changed">notify_history_changed</a></li><li><a href="#method.notify_input_event_handled" title="notify_input_event_handled">notify_input_event_handled</a></li><li><a href="#method.notify_load_status_changed" title="notify_load_status_changed">notify_load_status_changed</a></li><li><a href="#method.notify_media_session_event" title="notify_media_session_event">notify_media_session_event</a></li><li><a href="#method.notify_new_frame_ready" title="notify_new_frame_ready">notify_new_frame_ready</a></li><li><a href="#method.notify_page_title_changed" title="notify_page_title_changed">notify_page_title_changed</a></li><li><a href="#method.notify_status_text_changed" title="notify_status_text_changed">notify_status_text_changed</a></li><li><a href="#method.notify_traversal_complete" title="notify_traversal_complete">notify_traversal_complete</a></li><li><a href="#method.notify_url_changed" title="notify_url_changed">notify_url_changed</a></li><li><a href="#method.request_authentication" title="request_authentication">request_authentication</a></li><li><a href="#method.request_create_new" title="request_create_new">request_create_new</a></li><li><a href="#method.request_move_to" title="request_move_to">request_move_to</a></li><li><a href="#method.request_navigation" title="request_navigation">request_navigation</a></li><li><a href="#method.request_permission" title="request_permission">request_permission</a></li><li><a href="#method.request_protocol_handler" title="request_protocol_handler">request_protocol_handler</a></li><li><a href="#method.request_resize_to" title="request_resize_to">request_resize_to</a></li><li><a href="#method.request_unload" title="request_unload">request_unload</a></li><li><a href="#method.screen_geometry" title="screen_geometry">screen_geometry</a></li><li><a href="#method.show_bluetooth_device_dialog" title="show_bluetooth_device_dialog">show_bluetooth_device_dialog</a></li><li><a href="#method.show_console_message" title="show_console_message">show_console_message</a></li><li><a href="#method.show_embedder_control" title="show_embedder_control">show_embedder_control</a></li><li><a href="#method.show_notification" title="show_notification">show_notification</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In servo::<wbr>webview_<wbr>delegate</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">servo</a>::<wbr><a href="index.html">webview_delegate</a></div><h1>Trait <span class="trait">WebView<wbr>Delegate</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/servo/webview_delegate.rs.html#918-1091">Source</a> </span></div><pre class="rust item-decl"><code>pub trait WebViewDelegate {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 32 methods</span></summary>    // Provided methods
+    fn <a href="#method.screen_geometry" class="fn">screen_geometry</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.ScreenGeometry.html" title="struct servo::ScreenGeometry">ScreenGeometry</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_url_changed" class="fn">notify_url_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _url: <a class="struct" href="../../url/struct.Url.html" title="struct url::Url">Url</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_page_title_changed" class="fn">notify_page_title_changed</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _title: <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_status_text_changed" class="fn">notify_status_text_changed</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _status: <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_focus_changed" class="fn">notify_focus_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _focused: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_animating_changed" class="fn">notify_animating_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _animating: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_load_status_changed" class="fn">notify_load_status_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _status: <a class="enum" href="../enum.LoadStatus.html" title="enum servo::LoadStatus">LoadStatus</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_cursor_changed" class="fn">notify_cursor_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _cursor: <a class="enum" href="../enum.Cursor.html" title="enum servo::Cursor">Cursor</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_favicon_changed" class="fn">notify_favicon_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_new_frame_ready" class="fn">notify_new_frame_ready</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_history_changed" class="fn">notify_history_changed</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _entries: <a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../url/struct.Url.html" title="struct url::Url">Url</a>&gt;,
+        _current: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.usize.html">usize</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_traversal_complete" class="fn">notify_traversal_complete</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _traversal_id: <a class="struct" href="../struct.TraversalId.html" title="struct servo::TraversalId">TraversalId</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_closed" class="fn">notify_closed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_input_event_handled" class="fn">notify_input_event_handled</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _event_id: <a class="struct" href="../struct.InputEventId.html" title="struct servo::InputEventId">InputEventId</a>,
+        _result: <a class="struct" href="../struct.InputEventResult.html" title="struct servo::InputEventResult">InputEventResult</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_crashed" class="fn">notify_crashed</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _reason: <a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+        _backtrace: <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_media_session_event" class="fn">notify_media_session_event</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _event: <a class="enum" href="../enum.MediaSessionEvent.html" title="enum servo::MediaSessionEvent">MediaSessionEvent</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_fullscreen_state_changed" class="fn">notify_fullscreen_state_changed</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _is_fullscreen: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.request_navigation" class="fn">request_navigation</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _navigation_request: <a class="struct" href="../struct.NavigationRequest.html" title="struct servo::NavigationRequest">NavigationRequest</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.request_unload" class="fn">request_unload</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _unload_request: <a class="struct" href="../struct.AllowOrDenyRequest.html" title="struct servo::AllowOrDenyRequest">AllowOrDenyRequest</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.request_move_to" class="fn">request_move_to</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _point: <a class="type" href="../type.DeviceIntPoint.html" title="type servo::DeviceIntPoint">DeviceIntPoint</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.request_protocol_handler" class="fn">request_protocol_handler</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _protocol_handler_registration: <a class="struct" href="struct.ProtocolHandlerRegistration.html" title="struct servo::webview_delegate::ProtocolHandlerRegistration">ProtocolHandlerRegistration</a>,
+        _allow_deny_request: <a class="struct" href="../struct.AllowOrDenyRequest.html" title="struct servo::AllowOrDenyRequest">AllowOrDenyRequest</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.request_resize_to" class="fn">request_resize_to</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _requested_outer_size: <a class="type" href="../type.DeviceIntSize.html" title="type servo::DeviceIntSize">DeviceIntSize</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.request_create_new" class="fn">request_create_new</a>(
+        &amp;self,
+        _parent_webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _request: <a class="struct" href="../struct.CreateNewWebViewRequest.html" title="struct servo::CreateNewWebViewRequest">CreateNewWebViewRequest</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.request_permission" class="fn">request_permission</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _request: <a class="struct" href="../struct.PermissionRequest.html" title="struct servo::PermissionRequest">PermissionRequest</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.request_authentication" class="fn">request_authentication</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _authentication_request: <a class="struct" href="../struct.AuthenticationRequest.html" title="struct servo::AuthenticationRequest">AuthenticationRequest</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.show_bluetooth_device_dialog" class="fn">show_bluetooth_device_dialog</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _request: <a class="struct" href="../struct.BluetoothDeviceSelectionRequest.html" title="struct servo::BluetoothDeviceSelectionRequest">BluetoothDeviceSelectionRequest</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.show_embedder_control" class="fn">show_embedder_control</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _embedder_control: <a class="enum" href="../enum.EmbedderControl.html" title="enum servo::EmbedderControl">EmbedderControl</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.hide_embedder_control" class="fn">hide_embedder_control</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _control_id: <a class="struct" href="../struct.EmbedderControlId.html" title="struct servo::EmbedderControlId">EmbedderControlId</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.load_web_resource" class="fn">load_web_resource</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _load: <a class="struct" href="../struct.WebResourceLoad.html" title="struct servo::WebResourceLoad">WebResourceLoad</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.show_notification" class="fn">show_notification</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _notification: <a class="struct" href="../struct.Notification.html" title="struct servo::Notification">Notification</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.show_console_message" class="fn">show_console_message</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _level: <a class="enum" href="../enum.ConsoleLogLevel.html" title="enum servo::ConsoleLogLevel">ConsoleLogLevel</a>,
+        _message: <a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.notify_accessibility_tree_update" class="fn">notify_accessibility_tree_update</a>(
+        &amp;self,
+        _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+        _tree_update: <a class="struct" href="../../accesskit/struct.TreeUpdate.html" title="struct accesskit::TreeUpdate">TreeUpdate</a>,
+    ) { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A trait that the embedder can implement to customize the behaviour of a <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> or to
+listen to events from a <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>. Multiple <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>s can share the same delegate
+instance. A <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>’s delegate needs to be set at the time of creation using
+<a href="../struct.WebViewBuilder.html#method.delegate" title="method servo::WebViewBuilder::delegate"><code>WebViewBuilder::delegate</code></a>.</p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.screen_geometry" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#922-924">Source</a><h4 class="code-header">fn <a href="#method.screen_geometry" class="fn">screen_geometry</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.ScreenGeometry.html" title="struct servo::ScreenGeometry">ScreenGeometry</a>&gt;</h4></section></summary><div class="docblock"><p>Get the <a href="../struct.ScreenGeometry.html" title="struct servo::ScreenGeometry"><code>ScreenGeometry</code></a> for this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>. If this is unimplemented or returns <code>None</code>
+the screen will have the size of the <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>’s <code>RenderingContext</code> and <code>WebView</code> will be
+considered to be positioned at the screen’s origin.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_url_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#927">Source</a><h4 class="code-header">fn <a href="#method.notify_url_changed" class="fn">notify_url_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _url: <a class="struct" href="../../url/struct.Url.html" title="struct url::Url">Url</a>)</h4></section></summary><div class="docblock"><p>The URL of the currently loaded page in this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has changed. The new
+URL can accessed via <a href="../struct.WebView.html#method.url" title="method servo::WebView::url"><code>WebView::url</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_page_title_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#930">Source</a><h4 class="code-header">fn <a href="#method.notify_page_title_changed" class="fn">notify_page_title_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _title: <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;)</h4></section></summary><div class="docblock"><p>The page title of the currently loaded page in this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has changed. The new
+title can accessed via <a href="../struct.WebView.html#method.page_title" title="method servo::WebView::page_title"><code>WebView::page_title</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_status_text_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#933">Source</a><h4 class="code-header">fn <a href="#method.notify_status_text_changed" class="fn">notify_status_text_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _status: <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;)</h4></section></summary><div class="docblock"><p>The status text of the currently loaded page in this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has changed. The new
+status text can accessed via <a href="../struct.WebView.html#method.status_text" title="method servo::WebView::status_text"><code>WebView::status_text</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_focus_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#936">Source</a><h4 class="code-header">fn <a href="#method.notify_focus_changed" class="fn">notify_focus_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _focused: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>This <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has either become focused or lost focus. Whether or not the
+<a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> is focused can be accessed via <a href="../struct.WebView.html#method.focused" title="method servo::WebView::focused"><code>WebView::focused</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_animating_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#941">Source</a><h4 class="code-header">fn <a href="#method.notify_animating_changed" class="fn">notify_animating_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _animating: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>This <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has either started to animate or stopped animating. When a
+<a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> is animating, it is up to the embedding application ensure that
+<code>Servo::spin_event_loop</code> is called at regular intervals in order to update the
+painted contents of the <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_load_status_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#944">Source</a><h4 class="code-header">fn <a href="#method.notify_load_status_changed" class="fn">notify_load_status_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _status: <a class="enum" href="../enum.LoadStatus.html" title="enum servo::LoadStatus">LoadStatus</a>)</h4></section></summary><div class="docblock"><p>The <code>LoadStatus</code> of the currently loading or loaded page in this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has changed. The new
+status can accessed via <a href="../struct.WebView.html#method.load_status" title="method servo::WebView::load_status"><code>WebView::load_status</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_cursor_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#947">Source</a><h4 class="code-header">fn <a href="#method.notify_cursor_changed" class="fn">notify_cursor_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _cursor: <a class="enum" href="../enum.Cursor.html" title="enum servo::Cursor">Cursor</a>)</h4></section></summary><div class="docblock"><p>The <a href="../enum.Cursor.html" title="enum servo::Cursor"><code>Cursor</code></a> of the currently loaded page in this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has changed. The new
+cursor can accessed via <a href="../struct.WebView.html#method.cursor" title="method servo::WebView::cursor"><code>WebView::cursor</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_favicon_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#950">Source</a><h4 class="code-header">fn <a href="#method.notify_favicon_changed" class="fn">notify_favicon_changed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>)</h4></section></summary><div class="docblock"><p>The favicon of the currently loaded page in this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has changed. The new
+favicon <a href="../struct.Image.html" title="struct servo::Image"><code>Image</code></a> can accessed via <a href="../struct.WebView.html#method.favicon" title="method servo::WebView::favicon"><code>WebView::favicon</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_new_frame_ready" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#952">Source</a><h4 class="code-header">fn <a href="#method.notify_new_frame_ready" class="fn">notify_new_frame_ready</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>)</h4></section></summary><div class="docblock"><p>Notify the embedder that it needs to present a new frame.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_history_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#956">Source</a><h4 class="code-header">fn <a href="#method.notify_history_changed" class="fn">notify_history_changed</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _entries: <a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../url/struct.Url.html" title="struct url::Url">Url</a>&gt;,
+    _current: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.usize.html">usize</a>,
+)</h4></section></summary><div class="docblock"><p>The navigation history of this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has changed. The navigation history is represented
+as a <code>Vec&lt;Url&gt;</code> and <code>_current</code> denotes the current index in the history. New navigations,
+back navigation, and forward navigation modify this index.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_traversal_complete" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#958">Source</a><h4 class="code-header">fn <a href="#method.notify_traversal_complete" class="fn">notify_traversal_complete</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _traversal_id: <a class="struct" href="../struct.TraversalId.html" title="struct servo::TraversalId">TraversalId</a>,
+)</h4></section></summary><div class="docblock"><p>A history traversal operation is complete.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_closed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#962">Source</a><h4 class="code-header">fn <a href="#method.notify_closed" class="fn">notify_closed</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>)</h4></section></summary><div class="docblock"><p>Page content has closed this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> via <code>window.close()</code>. It’s the embedder’s
+responsibility to remove the <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> from the interface when this notification
+occurs.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_input_event_handled" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#967-973">Source</a><h4 class="code-header">fn <a href="#method.notify_input_event_handled" class="fn">notify_input_event_handled</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _event_id: <a class="struct" href="../struct.InputEventId.html" title="struct servo::InputEventId">InputEventId</a>,
+    _result: <a class="struct" href="../struct.InputEventResult.html" title="struct servo::InputEventResult">InputEventResult</a>,
+)</h4></section></summary><div class="docblock"><p>An input event passed to this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> via <a href="../struct.WebView.html#method.notify_input_event" title="method servo::WebView::notify_input_event"><code>WebView::notify_input_event</code></a> has been handled
+by Servo. This allows post-procesing of input events, such as chaining up unhandled events
+to parent UI elements.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_crashed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#975">Source</a><h4 class="code-header">fn <a href="#method.notify_crashed" class="fn">notify_crashed</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _reason: <a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+    _backtrace: <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,
+)</h4></section></summary><div class="docblock"><p>A pipeline in the webview panicked. First string is the reason, second one is the backtrace.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_media_session_event" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#978">Source</a><h4 class="code-header">fn <a href="#method.notify_media_session_event" class="fn">notify_media_session_event</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _event: <a class="enum" href="../enum.MediaSessionEvent.html" title="enum servo::MediaSessionEvent">MediaSessionEvent</a>,
+)</h4></section></summary><div class="docblock"><p>Notifies the embedder about media session events
+(i.e. when there is metadata for the active media session, playback state changes…).</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_fullscreen_state_changed" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#984">Source</a><h4 class="code-header">fn <a href="#method.notify_fullscreen_state_changed" class="fn">notify_fullscreen_state_changed</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _is_fullscreen: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>,
+)</h4></section></summary><div class="docblock"><p>A notification that the <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has entered or exited fullscreen mode. This is an
+opportunity for the embedder to transition the containing window into or out of fullscreen
+mode and to show or hide extra UI elements. Regardless of how the notification is handled,
+the page will enter or leave fullscreen state internally according to the <a href="https://fullscreen.spec.whatwg.org/">Fullscreen
+API</a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.request_navigation" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#988">Source</a><h4 class="code-header">fn <a href="#method.request_navigation" class="fn">request_navigation</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _navigation_request: <a class="struct" href="../struct.NavigationRequest.html" title="struct servo::NavigationRequest">NavigationRequest</a>,
+)</h4></section></summary><div class="docblock"><p>Whether or not to allow a <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> to load a URL in its main frame or one of its
+nested <code>&lt;iframe&gt;</code>s. <a href="../struct.NavigationRequest.html" title="struct servo::NavigationRequest"><code>NavigationRequest</code></a>s are accepted by default.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.request_unload" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#991">Source</a><h4 class="code-header">fn <a href="#method.request_unload" class="fn">request_unload</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _unload_request: <a class="struct" href="../struct.AllowOrDenyRequest.html" title="struct servo::AllowOrDenyRequest">AllowOrDenyRequest</a>)</h4></section></summary><div class="docblock"><p>Whether or not to allow a <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>  to unload a <code>Document</code> in its main frame or one
+of its nested <code>&lt;iframe&gt;</code>s. By default, unloads are allowed.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.request_move_to" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#993">Source</a><h4 class="code-header">fn <a href="#method.request_move_to" class="fn">request_move_to</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _point: <a class="type" href="../type.DeviceIntPoint.html" title="type servo::DeviceIntPoint">DeviceIntPoint</a>)</h4></section></summary><div class="docblock"><p>Move the window to a point.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.request_protocol_handler" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#999-1005">Source</a><h4 class="code-header">fn <a href="#method.request_protocol_handler" class="fn">request_protocol_handler</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _protocol_handler_registration: <a class="struct" href="struct.ProtocolHandlerRegistration.html" title="struct servo::webview_delegate::ProtocolHandlerRegistration">ProtocolHandlerRegistration</a>,
+    _allow_deny_request: <a class="struct" href="../struct.AllowOrDenyRequest.html" title="struct servo::AllowOrDenyRequest">AllowOrDenyRequest</a>,
+)</h4></section></summary><div class="docblock"><p>Whether or not to allow a <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> to (un)register a protocol handler (e.g. <code>mailto:</code>).
+Typically an embedder application will show a permissions prompt when this happens
+to confirm a protocol handler is allowed. By default, requests are denied.
+For more information, see the specification:
+<a href="https://html.spec.whatwg.org/multipage/#custom-handlers">https://html.spec.whatwg.org/multipage/#custom-handlers</a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.request_resize_to" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1011">Source</a><h4 class="code-header">fn <a href="#method.request_resize_to" class="fn">request_resize_to</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _requested_outer_size: <a class="type" href="../type.DeviceIntSize.html" title="type servo::DeviceIntSize">DeviceIntSize</a>,
+)</h4></section></summary><div class="docblock"><p>Try to resize the window that contains this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> to the provided outer
+size. These resize requests can come from page content. Servo will ensure that the
+values are greater than zero, but it is up to the embedder to limit the maximum
+size. For instance, a reasonable limitation might be that the final size is no
+larger than the screen size.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.request_create_new" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1031">Source</a><h4 class="code-header">fn <a href="#method.request_create_new" class="fn">request_create_new</a>(
+    &amp;self,
+    _parent_webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _request: <a class="struct" href="../struct.CreateNewWebViewRequest.html" title="struct servo::CreateNewWebViewRequest">CreateNewWebViewRequest</a>,
+)</h4></section></summary><div class="docblock"><p>This method is called when web content makes a request to open a new
+<code>WebView</code>, such as via the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/open"><code>window.open</code></a> DOM API. If this request is
+ignored, no new <code>WebView</code> will be opened. Embedders can handle this method by
+using the provided <a href="../struct.CreateNewWebViewRequest.html" title="struct servo::CreateNewWebViewRequest"><code>CreateNewWebViewRequest</code></a> to build a new <code>WebView</code>.</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">fn </span>request_create_new(<span class="kw-2">&amp;</span><span class="self">self</span>, parent_webview: WebView, request: CreateNewWebViewRequest) {
+    <span class="kw">let </span>webview = request
+        .builder(<span class="self">self</span>.rendering_context())
+        .delegate(parent_webview.delegate())
+        .build();
+    <span class="self">self</span>.register_webview(webview);
+}</code></pre></div>
+<p><strong>Important:</strong> It is important to keep a live handle to the new <code>WebView</code> in the application or
+it will be immediately destroyed.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.request_permission" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1035">Source</a><h4 class="code-header">fn <a href="#method.request_permission" class="fn">request_permission</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _request: <a class="struct" href="../struct.PermissionRequest.html" title="struct servo::PermissionRequest">PermissionRequest</a>)</h4></section></summary><div class="docblock"><p>Content in a <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> is requesting permission to access a feature requiring
+permission from the user. The embedder should allow or deny the request, either by
+reading a cached value or querying the user for permission via the user interface.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.request_authentication" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1038-1043">Source</a><h4 class="code-header">fn <a href="#method.request_authentication" class="fn">request_authentication</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _authentication_request: <a class="struct" href="../struct.AuthenticationRequest.html" title="struct servo::AuthenticationRequest">AuthenticationRequest</a>,
+)</h4></section></summary><div class="docblock"><p>Request that the embedder supply credentials to use for HTTP authentication.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.show_bluetooth_device_dialog" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1046-1051">Source</a><h4 class="code-header">fn <a href="#method.show_bluetooth_device_dialog" class="fn">show_bluetooth_device_dialog</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _request: <a class="struct" href="../struct.BluetoothDeviceSelectionRequest.html" title="struct servo::BluetoothDeviceSelectionRequest">BluetoothDeviceSelectionRequest</a>,
+)</h4></section></summary><div class="docblock"><p>Open dialog to select bluetooth device.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.show_embedder_control" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1055">Source</a><h4 class="code-header">fn <a href="#method.show_embedder_control" class="fn">show_embedder_control</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _embedder_control: <a class="enum" href="../enum.EmbedderControl.html" title="enum servo::EmbedderControl">EmbedderControl</a>,
+)</h4></section></summary><div class="docblock"><p>Request that the embedder show UI elements for form controls that are not integrated
+into page content, such as dropdowns for <code>&lt;select&gt;</code> elements.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.hide_embedder_control" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1061">Source</a><h4 class="code-header">fn <a href="#method.hide_embedder_control" class="fn">hide_embedder_control</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _control_id: <a class="struct" href="../struct.EmbedderControlId.html" title="struct servo::EmbedderControlId">EmbedderControlId</a>,
+)</h4></section></summary><div class="docblock"><p>Request that the embedder hide and ignore a previous <a href="../enum.EmbedderControl.html" title="enum servo::EmbedderControl"><code>EmbedderControl</code></a> request, if it hasn’t
+already responded to it.</p>
+<p>After this point, any further responses to that request will be ignored.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.load_web_resource" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1070">Source</a><h4 class="code-header">fn <a href="#method.load_web_resource" class="fn">load_web_resource</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _load: <a class="struct" href="../struct.WebResourceLoad.html" title="struct servo::WebResourceLoad">WebResourceLoad</a>)</h4></section></summary><div class="docblock"><p>Triggered when this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> will load a web (HTTP/HTTPS) resource. The load may be
+intercepted and alternate contents can be loaded by the client by calling
+<a href="../struct.WebResourceLoad.html#method.intercept" title="method servo::WebResourceLoad::intercept"><code>WebResourceLoad::intercept</code></a>. If not handled, the load will continue as normal.</p>
+<p>Note: This delegate method is called for all resource loads associated with a <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>.
+For loads not associated with a <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>, such as those for service workers, Servo
+will call <a href="../trait.ServoDelegate.html#method.load_web_resource" title="method servo::ServoDelegate::load_web_resource"><code>crate::ServoDelegate::load_web_resource</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.show_notification" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1073">Source</a><h4 class="code-header">fn <a href="#method.show_notification" class="fn">show_notification</a>(&amp;self, _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>, _notification: <a class="struct" href="../struct.Notification.html" title="struct servo::Notification">Notification</a>)</h4></section></summary><div class="docblock"><p>Request to display a notification.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.show_console_message" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1077">Source</a><h4 class="code-header">fn <a href="#method.show_console_message" class="fn">show_console_message</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _level: <a class="enum" href="../enum.ConsoleLogLevel.html" title="enum servo::ConsoleLogLevel">ConsoleLogLevel</a>,
+    _message: <a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
+)</h4></section></summary><div class="docblock"><p>A console message was logged by content in this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>.
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Console_API">https://developer.mozilla.org/en-US/docs/Web/API/Console_API</a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.notify_accessibility_tree_update" class="method"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1085-1090">Source</a><h4 class="code-header">fn <a href="#method.notify_accessibility_tree_update" class="fn">notify_accessibility_tree_update</a>(
+    &amp;self,
+    _webview: <a class="struct" href="../struct.WebView.html" title="struct servo::WebView">WebView</a>,
+    _tree_update: <a class="struct" href="../../accesskit/struct.TreeUpdate.html" title="struct accesskit::TreeUpdate">TreeUpdate</a>,
+)</h4></section></summary><div class="docblock"><p>There is a new accessibility tree update from this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a>.</p>
+<p>Generally the impl should send this update to an AccessKit adapter, but it may need to queue
+the update for later, if the [graft node] for this <a href="../struct.WebView.html" title="struct servo::WebView"><code>WebView</code></a> has not yet been created
+<em>and</em> your impl is unable to create it (and send that update to AccessKit) before sending
+this update to AccessKit. For more details, see <a href="../struct.WebView.html#method.set_accessibility_active" title="method servo::WebView::set_accessibility_active"><code>WebView::set_accessibility_active</code></a>.</p>
+</div></details></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-WebViewDelegate-for-DefaultWebViewDelegate" class="impl"><a class="src rightside" href="../../src/servo/webview_delegate.rs.html#1094">Source</a><a href="#impl-WebViewDelegate-for-DefaultWebViewDelegate" class="anchor">§</a><h3 class="code-header">impl <a class="trait" href="../trait.WebViewDelegate.html" title="trait servo::WebViewDelegate">WebViewDelegate</a> for <a class="struct" href="struct.DefaultWebViewDelegate.html" title="struct servo::webview_delegate::DefaultWebViewDelegate">DefaultWebViewDelegate</a></h3></section></div><script src="../../trait.impl/servo/webview_delegate/trait.WebViewDelegate.js" async></script></section></div></main></body></html>

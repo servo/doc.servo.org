@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["do_in_place_scope","do_in_place_scope_fifo","get_in_place_thread_registry","in_place_scope","in_place_scope_fifo","scope","scope_fifo"],"struct":["Scope","ScopeBase","ScopeFifo","ScopePtr"]};

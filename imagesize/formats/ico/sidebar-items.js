@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ico_image_size","matches","size"]};

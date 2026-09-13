@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["CAPS_FEATURES_MEMORY_SYSTEM_MEMORY","CAPS_FEATURE_MEMORY_SYSTEM_MEMORY"],"struct":["CapsFeatures","CapsFeaturesRef","Iter"]};

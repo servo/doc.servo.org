@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["as_perfect_power","as_prime_power","miller_rabin"],"mod":["is_prime","perfect_power"]};

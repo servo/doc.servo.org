@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_DedicatedWorkerGlobalScope"],"enum":["DedicatedWorkerControlMsg","DedicatedWorkerScriptMsg","MixedMessage"],"fn":["fetch_a_classic_worker_script"],"struct":["AutoWorkerReset","DedicatedWorkerGlobalScope"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","Promise_Binding"],"trait":["PromiseMethods"],"type":["AnyCallback","PromiseJobCallback"]};

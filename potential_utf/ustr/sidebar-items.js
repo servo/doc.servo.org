@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PotentialUtf16","PotentialUtf8"]};

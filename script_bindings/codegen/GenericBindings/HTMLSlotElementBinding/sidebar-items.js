@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["HTMLSlotElement_Binding"],"struct":["AssignedNodesOptions"]};

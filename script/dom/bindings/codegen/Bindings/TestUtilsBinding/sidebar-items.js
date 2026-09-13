@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","TestUtils_Binding"],"trait":["TestUtilsMethods"]};

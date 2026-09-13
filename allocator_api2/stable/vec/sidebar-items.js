@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cautious"],"mod":["drain","into_iter","partial_eq","set_len_on_drop","splice"],"struct":["ExtendElement","InPlaceSeed","Vec"],"trait":["ExtendWith"]};

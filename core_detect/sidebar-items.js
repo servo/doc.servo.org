@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_for"],"macro":[["is_x86_feature_detected",1]],"mod":["arch","cache","macros","os"]};

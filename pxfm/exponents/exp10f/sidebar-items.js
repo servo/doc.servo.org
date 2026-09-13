@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EXP10F_COEFFS","EXP_2_MID","LOG2_B","MID_BITS","MID_MASK","M_LOGB_2_HI","M_LOGB_2_LO"],"fn":["exp10f_fma_impl","exp10f_gen","exp_b_range_reduc","f_exp10f"],"struct":["ExpBReduc"]};

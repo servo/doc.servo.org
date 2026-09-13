@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ATTRIBUTE_GETTERS"],"fn":["bg_color","color_to_string","family_name","fg_color","justification","language","size","strikethrough","style","underline","weight"]};

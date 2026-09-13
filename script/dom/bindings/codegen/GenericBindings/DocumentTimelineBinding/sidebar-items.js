@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["DocumentTimeline_Binding"],"struct":["DocumentTimelineOptions"],"trait":["DocumentTimelineMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["request_code_none",1],["request_code_read",1],["request_code_readwrite",1],["request_code_write",1]],"mod":["linux"],"type":["ioctl_num_type","ioctl_param_type"]};

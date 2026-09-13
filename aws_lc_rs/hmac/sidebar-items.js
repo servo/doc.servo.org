@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HMAC_SHA1_FOR_LEGACY_USE_ONLY","HMAC_SHA224","HMAC_SHA256","HMAC_SHA384","HMAC_SHA512"],"fn":["internal_sign","sign","sign_to_buffer","verify"],"struct":["Algorithm","Context","Key","LcHmacCtx","Tag"],"type":["Signature","SigningContext","SigningKey","VerificationKey"]};

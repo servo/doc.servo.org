@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ChunkBy","ChunkByMut","ChunkByProducer"],"trait":["ChunkBySlice"]};

@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="egui-file-dialog"><title>egui_file_dialog - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="egui_file_dialog" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate egui_file_dialog</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../egui_file_dialog/index.html">egui_<wbr>file_<wbr>dialog</a><span class="version">0.13.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#egui-file-dialog" title="egui-file-dialog">egui-file-dialog</a><ul><li><a href="#features" title="Features">Features</a></li><li><a href="#example" title="Example">Example</a></li></ul></li></ul><h3><a href="#modules">Crate Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#traits" title="Traits">Traits</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>egui_<wbr>file_<wbr>dialog</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/egui_file_dialog/lib.rs.html#1-237">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="egui-file-dialog"><a class="doc-anchor" href="#egui-file-dialog">§</a>egui-file-dialog</h2>
+<p>An easy-to-use and customizable file dialog (a.k.a. file explorer, file picker) for
+<a href="https://github.com/emilk/egui">egui</a>.</p>
+<p>Read more about the project: <a href="https://github.com/jannistpl/egui-file-dialog">https://github.com/jannistpl/egui-file-dialog</a></p>
+<h4 id="features"><a class="doc-anchor" href="#features">§</a>Features</h4>
+<ul>
+<li>Pick a file or a directory</li>
+<li>Save a file (Prompt user for a destination path)
+<ul>
+<li>Dialog to ask the user if the existing file should be overwritten</li>
+</ul>
+</li>
+<li>Pick multiple files and folders at once
+(ctrl/shift + click on linux/windows and cmd/shift + click on macOS)</li>
+<li>Open the dialog in a normal or modal window</li>
+<li>Create a new folder</li>
+<li>Keyboard navigation</li>
+<li>Option to show or hide hidden files and folders</li>
+<li>Option to show or hide system files</li>
+<li>Navigation buttons to open the parent or previous directories</li>
+<li>Search for items in a directory</li>
+<li>Add file filters the user can select from a dropdown</li>
+<li>Shortcut for user directories (Home, Documents, …) and system disks</li>
+<li>Pin folders to the left sidebar</li>
+<li>Manually edit the path via text</li>
+<li>Virtual file system support</li>
+<li>Customization highlights:
+<ul>
+<li>Customize which areas and functions of the dialog are visible</li>
+<li>Customize the text labels used by the dialog to enable multilingual support</li>
+<li>Customize file and folder icons</li>
+<li>Add custom quick access sections to the left sidebar</li>
+<li>Customize keybindings used by the file dialog</li>
+<li>Add a right panel with custom UI
+(An optional information panel to display file previews is included)</li>
+</ul>
+</li>
+</ul>
+<h3 id="example"><a class="doc-anchor" href="#example">§</a>Example</h3>
+<p>Detailed examples that can be run can be found in the
+<a href="https://github.com/jannistpl/egui-file-dialog/tree/develop/examples">examples</a> folder.</p>
+<p>The following example shows the basic use of the file dialog with
+<a href="https://github.com/emilk/egui/tree/master/crates/eframe">eframe</a> to select a file.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::path::PathBuf;
+
+<span class="kw">use </span>eframe::egui;
+<span class="kw">use </span>egui_file_dialog::FileDialog;
+
+<span class="kw">struct </span>MyApp {
+    file_dialog: FileDialog,
+    picked_file: <span class="prelude-ty">Option</span>&lt;PathBuf&gt;,
+}
+
+<span class="kw">impl </span>MyApp {
+    <span class="kw">pub fn </span>new(_cc: <span class="kw-2">&amp;</span>eframe::CreationContext) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            <span class="comment">// Create a new file dialog object
+            </span>file_dialog: FileDialog::new(),
+            picked_file: <span class="prelude-val">None</span>,
+        }
+    }
+}
+
+<span class="kw">impl </span>eframe::App <span class="kw">for </span>MyApp {
+    <span class="kw">fn </span>ui(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ui: <span class="kw-2">&amp;mut </span>egui::Ui, _frame: <span class="kw-2">&amp;mut </span>eframe::Frame) {
+        egui::CentralPanel::default().show_inside(ui, |ui| {
+            <span class="kw">if </span>ui.button(<span class="string">"Pick file"</span>).clicked() {
+                <span class="comment">// Open the file dialog to pick a file.
+                </span><span class="self">self</span>.file_dialog.pick_file();
+            }
+
+            ui.label(<span class="macro">format!</span>(<span class="string">"Picked file: {:?}"</span>, <span class="self">self</span>.picked_file));
+
+            <span class="comment">// Update the dialog
+            </span><span class="self">self</span>.file_dialog.update(ui);
+
+            <span class="comment">// Check if the user picked a file.
+            </span><span class="kw">if let </span><span class="prelude-val">Some</span>(path) = <span class="self">self</span>.file_dialog.take_picked() {
+                <span class="self">self</span>.picked_file = <span class="prelude-val">Some</span>(path.to_path_buf());
+            }
+        });
+    }
+}
+
+<span class="kw">fn </span>main() -&gt; eframe::Result&lt;()&gt; {
+    eframe::run_native(
+        <span class="string">"File dialog demo"</span>,
+        eframe::NativeOptions::default(),
+        Box::new(|ctx| <span class="prelude-val">Ok</span>(Box::new(MyApp::new(ctx)))),
+    )
+}</code></pre></div><h4 id="customization"><a class="doc-anchor" href="#customization">§</a>Customization</h4>
+<p>Many things can be customized so that the dialog can be used in different situations. <br />
+A few highlights of the customization are listed below. For all possible customization
+options, see the documentation on
+<a href="https://docs.rs/egui-file-dialog/latest/egui_file_dialog/struct.FileDialog.html">docs.rs</a>.</p>
+<ul>
+<li>Set which areas and functions of the dialog are visible using <code>FileDialog::show_*</code> methods</li>
+<li>Update the text labels that the dialog uses. See <a href="#multilingual-support">Multilingual support</a></li>
+<li>Customize file and folder icons using <code>FileDialog::set_file_icon</code>
+(Currently only unicode is supported)</li>
+<li>Customize keybindings used by the file dialog using <code>FileDialog::keybindings</code>.
+See <a href="#keybindings">Keybindings</a></li>
+<li>Add a right panel with custom UI using <code>FileDialog::update_with_right_panel_ui</code></li>
+</ul>
+<p>Since the dialog uses the egui style to look like the rest of the application,
+the appearance can be customized with <code>egui::Style</code> and <code>egui::Context::set_style</code>.</p>
+<p>The following example shows how a single file dialog can be customized. <br />
+If you need to configure multiple file dialog objects with the same or almost the same
+options, it is a good idea to use <code>FileDialogConfig</code> and <code>FileDialog::with_config</code>
+(See <code>FileDialogConfig</code> on <a href="https://docs.rs/egui-file-dialog/latest/egui_file_dialog/struct.FileDialogConfig.html">docs.rs</a>).</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::path::PathBuf;
+
+<span class="kw">use </span>egui_file_dialog::{FileDialog, Filter};
+
+FileDialog::new()
+    .initial_directory(PathBuf::from(<span class="string">"/path/to/app"</span>))
+    .default_file_name(<span class="string">"app.cfg"</span>)
+    .default_size([<span class="number">600.0</span>, <span class="number">400.0</span>])
+    .resizable(<span class="bool-val">false</span>)
+    .show_new_folder_button(<span class="bool-val">false</span>)
+    .show_search(<span class="bool-val">false</span>)
+    .show_path_edit_button(<span class="bool-val">false</span>)
+    <span class="comment">// Add a new quick access section to the left sidebar
+    </span>.add_quick_access(<span class="string">"Project"</span>, |s| {
+        s.add_path(<span class="string">"☆  Examples"</span>, <span class="string">"examples"</span>);
+        s.add_path(<span class="string">"📷  Media"</span>, <span class="string">"media"</span>);
+        s.add_path(<span class="string">"📂  Source"</span>, <span class="string">"src"</span>);
+    })
+    <span class="comment">// Markdown files should use the "document with text (U+1F5B9)" icon
+    </span>.set_file_icon(
+        <span class="string">"🖹"</span>,
+        Filter::new(|path: <span class="kw-2">&amp;</span>std::path::Path| path.extension().unwrap_or_default() == <span class="string">"md"</span>),
+    )
+    <span class="comment">// .gitignore files should use the "web-github (U+E624)" icon
+    </span>.set_file_icon(
+        <span class="string">""</span>,
+        Filter::new(|path: <span class="kw-2">&amp;</span>std::path::Path| path.file_name().unwrap_or_default() == <span class="string">".gitignore"</span>),
+    )
+    <span class="comment">// Add file filters the user can select in the bottom right
+    </span>.add_file_filter(
+        <span class="string">"PNG files"</span>,
+        Filter::new(|p: <span class="kw-2">&amp;</span>std::path::Path| p.extension().unwrap_or_default() == <span class="string">"png"</span>),
+    )
+    .add_file_filter(
+        <span class="string">"Rust source files"</span>,
+        Filter::new(|p: <span class="kw-2">&amp;</span>std::path::Path| p.extension().unwrap_or_default() == <span class="string">"rs"</span>),
+    );</code></pre></div><h4 id="multilingual-support"><a class="doc-anchor" href="#multilingual-support">§</a>Multilingual support</h4>
+<p>For desktop applications it is often necessary to offer different languages.
+While the dialog currently only offers English labels by default, the labels are
+fully customizable. This makes it possible to adapt the labels to different languages.</p>
+<p>The following example shows how the labels can be changed to display the file dialog in
+English or German. Checkout <code>examples/multilingual</code> for the full example.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>egui_file_dialog::{FileDialog, FileDialogLabels};
+
+<span class="kw">enum </span>Language {
+    English,
+    German,
+}
+
+<span class="kw">fn </span>get_labels_german() -&gt; FileDialogLabels {
+    FileDialogLabels {
+        title_select_directory: <span class="string">"📁 Ordner Öffnen"</span>.to_string(),
+        title_select_file: <span class="string">"📂 Datei Öffnen"</span>.to_string(),
+        title_save_file: <span class="string">"📥 Datei Speichern"</span>.to_string(),
+
+        <span class="comment">// ... See examples/multilingual for the other labels
+
+        </span>..Default::default()
+    }
+}
+
+<span class="doccomment">/// Updates the labels of the file dialog.
+/// Should be called every time the user selects a different language.
+</span><span class="kw">fn </span>update_labels(language: <span class="kw-2">&amp;</span>Language, file_dialog: <span class="kw-2">&amp;mut </span>FileDialog) {
+    <span class="kw-2">*</span>file_dialog.labels_mut() = <span class="kw">match </span>language {
+        <span class="comment">// English labels are used by default
+        </span>Language::English =&gt; FileDialogLabels::default(),
+        <span class="comment">// Use custom labels for German
+        </span>Language::German =&gt; get_labels_german(),
+    };
+}</code></pre></div><h4 id="persistent-data"><a class="doc-anchor" href="#persistent-data">§</a>Persistent data</h4>
+<p>The file dialog currently requires the following persistent data to be stored across
+multiple file dialog objects:</p>
+<ul>
+<li>Folders the user pinned to the left sidebar (<code>FileDialog::show_pinned_folders</code>)</li>
+<li>If hidden files and folders should be visible (<code>FileDialog::show_hidden_option</code>)</li>
+<li>If system files should be visible (<code>FileDialog::show_system_files_option</code>)</li>
+</ul>
+<p>If one of the above feature is activated, the data should be saved by the application.
+Otherwise, frustrating situations could arise for the user and the features would not
+offer much added value.</p>
+<p>All data that needs to be stored permanently is contained in the <code>FileDialogStorage</code> struct.
+This struct can be accessed using <code>FileDialog::storage</code> or <code>FileDialog::storage_mut</code> to save or
+load the persistent data. <br />
+By default the feature <code>serde</code> is enabled, which implements <code>serde::Serialize</code> and
+<code>serde::Deserialize</code> for the objects to be saved. However, the objects can also be
+accessed without the feature enabled.</p>
+<p>Checkout <code>examples/persistence</code> for an example.</p>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="config/index.html" title="mod egui_file_dialog::config">config</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="create_directory_dialog/index.html" title="mod egui_file_dialog::create_directory_dialog">create_<wbr>directory_<wbr>dialog</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="data/index.html" title="mod egui_file_dialog::data">data</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="file_dialog/index.html" title="mod egui_file_dialog::file_dialog">file_<wbr>dialog</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="file_system/index.html" title="mod egui_file_dialog::file_system">file_<wbr>system</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="modals/index.html" title="mod egui_file_dialog::modals">modals</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.DirectoryEntry.html" title="struct egui_file_dialog::DirectoryEntry">Directory<wbr>Entry</a></dt><dd>Contains the information of a directory item.</dd><dt><a class="struct" href="struct.Disk.html" title="struct egui_file_dialog::Disk">Disk</a></dt><dd>Wrapper above the <code>sysinfo::Disk</code> struct.
+Used for helper functions and so that more flexibility is guaranteed in the future if
+the names of the disks are generated dynamically.</dd><dt><a class="struct" href="struct.Disks.html" title="struct egui_file_dialog::Disks">Disks</a></dt><dd>Wrapper above the <code>sysinfo::Disks</code> struct</dd><dt><a class="struct" href="struct.FileDialog.html" title="struct egui_file_dialog::FileDialog">File<wbr>Dialog</a></dt><dd>Represents a file dialog instance.</dd><dt><a class="struct" href="struct.FileDialogConfig.html" title="struct egui_file_dialog::FileDialogConfig">File<wbr>Dialog<wbr>Config</a></dt><dd>Contains configuration values of a file dialog.</dd><dt><a class="struct" href="struct.FileDialogKeyBindings.html" title="struct egui_file_dialog::FileDialogKeyBindings">File<wbr>Dialog<wbr>KeyBindings</a></dt><dd>Stores the keybindings used for the file dialog.</dd><dt><a class="struct" href="struct.FileDialogLabels.html" title="struct egui_file_dialog::FileDialogLabels">File<wbr>Dialog<wbr>Labels</a></dt><dd>Contains the text labels that the file dialog uses.</dd><dt><a class="struct" href="struct.FileDialogStorage.html" title="struct egui_file_dialog::FileDialogStorage">File<wbr>Dialog<wbr>Storage</a></dt><dd>Contains data of the <code>FileDialog</code> that should be stored persistently.</dd><dt><a class="struct" href="struct.Filter.html" title="struct egui_file_dialog::Filter">Filter</a></dt><dd>Function that returns true if the specific item matches the filter.</dd><dt><a class="struct" href="struct.IconFilter.html" title="struct egui_file_dialog::IconFilter">Icon<wbr>Filter</a></dt><dd>Sets a specific icon for directory entries.</dd><dt><a class="struct" href="struct.Metadata.html" title="struct egui_file_dialog::Metadata">Metadata</a></dt><dd>Contains the metadata of a directory item.</dd><dt><a class="struct" href="struct.NativeFileSystem.html" title="struct egui_file_dialog::NativeFileSystem">Native<wbr>File<wbr>System</a></dt><dd>Implementation of <code>FileSystem</code> using the standard library</dd><dt><a class="struct" href="struct.PinnedFolder.html" title="struct egui_file_dialog::PinnedFolder">Pinned<wbr>Folder</a></dt><dd>Folder that the user pinned to the left sidebar.</dd><dt><a class="struct" href="struct.QuickAccess.html" title="struct egui_file_dialog::QuickAccess">Quick<wbr>Access</a></dt><dd>Stores a custom quick access section of the file dialog.</dd><dt><a class="struct" href="struct.QuickAccessPath.html" title="struct egui_file_dialog::QuickAccessPath">Quick<wbr>Access<wbr>Path</a></dt><dd>Stores the display name and the actual path of a quick access link.</dd><dt><a class="struct" href="struct.UserDirectories.html" title="struct egui_file_dialog::UserDirectories">User<wbr>Directories</a></dt><dd>Wrapper above <code>directories::UserDirs</code>.
+Currently only used to canonicalize the paths.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.DialogMode.html" title="enum egui_file_dialog::DialogMode">Dialog<wbr>Mode</a></dt><dd>Represents the mode the file dialog is currently in.</dd><dt><a class="enum" href="enum.DialogState.html" title="enum egui_file_dialog::DialogState">Dialog<wbr>State</a></dt><dd>Represents the state the file dialog is currently in.</dd><dt><a class="enum" href="enum.KeyBinding.html" title="enum egui_file_dialog::KeyBinding">KeyBinding</a></dt><dd>Defines a keybinding used for a specific action inside the file dialog.</dd><dt><a class="enum" href="enum.OpeningMode.html" title="enum egui_file_dialog::OpeningMode">Opening<wbr>Mode</a></dt><dd>Sets which directory is loaded when opening the file dialog.</dd></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.FileSystem.html" title="trait egui_file_dialog::FileSystem">File<wbr>System</a></dt><dd>An abstraction over the host system, allowing the file dialog to be used to browse e.g. in
+memory filesystems.</dd></dl></section></div></main></body></html>

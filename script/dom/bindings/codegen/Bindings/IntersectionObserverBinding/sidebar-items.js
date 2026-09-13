@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","IntersectionObserver_Binding"],"trait":["IntersectionObserverMethods"],"type":["IntersectionObserverCallback","IntersectionObserverInit"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLOCK_SIZE","MAX_BLOCKS"],"struct":["Cipher"]};

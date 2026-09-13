@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XRHitTestTrackableType"],"mod":["XRHitTestSource_Binding","XRHitTestTrackableTypeValues"],"struct":["XRHitTestOptionsInit"]};

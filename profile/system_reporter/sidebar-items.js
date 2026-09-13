@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SYSTEM_HEAP_ALLOCATED_STR","SYSTEM_HEAP_RESERVED_STR"],"fn":["collect_reports","mallinfo","page_size","proc_self_statm_field","proportional_set_size","resident","resident_segments","system_heap_info","vsize"],"struct":["SystemHeapInfo","struct_mallinfo"]};

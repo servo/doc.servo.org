@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MapInit","MapInitConsumer","MapInitProducer","MapWith","MapWithConsumer","MapWithFolder","MapWithIter","MapWithProducer"]};

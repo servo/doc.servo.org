@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["CloseEvent_Binding"],"struct":["CloseEventInit"]};

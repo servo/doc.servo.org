@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SEMI_BOLD_U16"],"enum":["FreeTypeFaceTableProviderData"],"fn":["fixed_26_dot_6_to_float","mozilla_glyphslot_embolden_less"],"struct":["FontTable","PlatformFont"]};

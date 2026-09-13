@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["Worklet_Binding"],"struct":["WorkletOptions"],"trait":["WorkletMethods"]};

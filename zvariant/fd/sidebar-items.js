@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Fd"],"macro":[["fd_impl",1]],"struct":["OwnedFd"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ComputePass","RenderPass","WebGPURequest"],"struct":["PendingTexture"],"type":["ComputePassId","RenderPassId"]};

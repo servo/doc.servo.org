@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TypeDef"],"fn":["is_basic"],"struct":["Enum","EnumValue","Mapping","Member","SimpleType","Struct"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["amd","amdx","android","arm","ext","fuchsia","ggp","google","huawei","img","intel","khr","lunarg","msft","mvk","nn","nv","nvx","qcom","qnx","sec","valve"]};

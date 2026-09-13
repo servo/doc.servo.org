@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["choice_from_eq","choice_from_gt","choice_from_le","choice_from_lsb","choice_from_lt","choice_from_mask","choice_from_msb","choice_from_nz","choice_from_wide_eq","choice_from_wide_le","choice_from_wide_nz","choice_to_mask","choice_to_wide_mask","join","select","select_wide","split_wide"],"type":["WideWord","Word"]};

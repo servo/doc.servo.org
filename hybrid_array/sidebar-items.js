@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_slice_length"],"mod":["flatten","from_fn","iter","sizes","traits"],"struct":["Array","TryFromIteratorError"],"trait":["ArraySize","AsArrayMut","AsArrayRef","AssocArraySize","Flatten","SliceExt","Unflatten"],"type":["ArrayN","SplitRefMutResult","SplitRefResult","SplitResult"]};

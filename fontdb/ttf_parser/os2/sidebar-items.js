@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SELECTION_OFFSET","WEIGHT_CLASS_OFFSET","WIDTH_CLASS_OFFSET"],"enum":["Style","Weight","Width"],"struct":["SelectionFlags","Table"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Continue","FocusableArea","SequentialFocusNavigationMechanism","SequentialFocusNavigationSearchContext"],"fn":["compare_tab_indices"],"struct":["DocumentFocusHandler","FocusableAreaKind","SequentialFocusNavigationSearch"]};

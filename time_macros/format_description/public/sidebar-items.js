@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OwnedFormatItemInner"],"mod":["component","modifier","optimizing"],"struct":["OwnedFormatItem"]};

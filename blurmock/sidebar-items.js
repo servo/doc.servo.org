@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["make_getter",1],["make_option_getter",1],["make_setter",1]],"mod":["fake_adapter","fake_characteristic","fake_descriptor","fake_device","fake_discovery_session","fake_service"]};

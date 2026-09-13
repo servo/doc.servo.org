@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["gen_message_enum","gen_msg_constants","gen_parse_body","gen_write_body","generate_enums_for"]};

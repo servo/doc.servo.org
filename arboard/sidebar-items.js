@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","LinuxClipboardKind"],"mod":["common","platform"],"struct":["Clear","Clipboard","Get","ImageData","Set"],"trait":["ClearExtLinux","GetExtLinux","SetExtLinux"]};

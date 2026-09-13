@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CUSTOM_FORMAT_PREFIX","_IMPL_DOMOBJECT_FOR_ClipboardItem"],"struct":["ClipboardItem","Representation","RepresentationDataPromiseFulfillmentHandler","RepresentationDataPromiseRejectionHandler"]};

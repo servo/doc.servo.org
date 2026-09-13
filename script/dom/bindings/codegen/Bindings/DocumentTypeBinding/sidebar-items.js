@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["DocumentType_Binding","GenericBindings"],"trait":["DocumentTypeMethods"]};

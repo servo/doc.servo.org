@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["expand","legacy_error"],"struct":["ConsiderLegacySyntax","Expansion"],"type":["StructAttribute","VariantAttribute"]};

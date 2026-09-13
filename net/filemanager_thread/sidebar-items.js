@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FILE_CHUNK_SIZE"],"enum":["BlobBounds","FileImpl"],"fn":["read_file_in_chunks","set_blob_response_headers"],"struct":["FileManager","FileManagerStore","FileMetaData","FileStoreEntry"]};

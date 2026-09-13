@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FontPaletteBase"],"fn":["parse_override_colors"],"struct":["FontPaletteOverrideColor","FontPaletteValuesDeclarationParser","FontPaletteValuesRule"]};

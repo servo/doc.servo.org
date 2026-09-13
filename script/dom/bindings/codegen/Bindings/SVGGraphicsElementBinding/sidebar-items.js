@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","SVGGraphicsElement_Binding"],"trait":["SVGGraphicsElementMethods"]};

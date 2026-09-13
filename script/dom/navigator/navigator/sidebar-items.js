@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Navigator"],"fn":["hardware_concurrency","matches_web_plus_protocol"],"static":["SAFELISTED_SCHEMES"],"struct":["BeaconFetchListener","Navigator"]};

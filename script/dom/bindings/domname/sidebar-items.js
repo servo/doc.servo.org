@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["XMLNS_NAMESPACE","XML_NAMESPACE"],"enum":["Context"],"fn":["is_custom_data_attribute","is_valid_attribute_local_name","is_valid_doctype_name","is_valid_element_local_name","is_valid_namespace_prefix","namespace_from_domstring","validate_and_extract"]};

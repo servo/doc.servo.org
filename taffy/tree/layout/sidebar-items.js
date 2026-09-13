@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DetailedLayoutInfo","RequestedAxis","RunMode","SizingMode"],"struct":["Baselines","CollapsibleMarginSet","Layout","LayoutInput","LayoutOutput"]};

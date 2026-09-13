@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_svg"],"struct":["DefaultTextureLoader","Entry","PrimaryKey"],"type":["Bucket"]};

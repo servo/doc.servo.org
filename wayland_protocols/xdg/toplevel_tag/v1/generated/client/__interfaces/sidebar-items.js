@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["XDG_TOPLEVEL_TAG_MANAGER_V1_INTERFACE","types_null","xdg_toplevel_tag_manager_v1_interface","xdg_toplevel_tag_manager_v1_requests","xdg_toplevel_tag_manager_v1_requests_set_toplevel_description_types","xdg_toplevel_tag_manager_v1_requests_set_toplevel_tag_types"],"struct":["SyncWrapper"]};

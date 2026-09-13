@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_CountQueuingStrategy"],"fn":["count_queuing_strategy_size","extract_high_water_mark","extract_size_algorithm"],"struct":["CountQueuingStrategy"]};

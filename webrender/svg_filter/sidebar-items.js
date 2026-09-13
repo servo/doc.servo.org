@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SVGFE_CONVOLVE_DIAMETER_LIMIT","SVGFE_CONVOLVE_VALUES_LIMIT"],"enum":["FilterGraphOp","FilterGraphOpKey","FilterGraphPictureBufferIdKey"],"fn":["get_coverage_source_svgfe","get_coverage_target_svgfe"],"struct":["FilterGraphNode","FilterGraphNodeKey","FilterGraphPictureReference","FilterGraphPictureReferenceKey"]};

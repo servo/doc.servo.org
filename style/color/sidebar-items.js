@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PRE_ALLOCATED_COLOR_MIX_ITEMS"],"enum":["ColorFunction","ColorSpace"],"macro":[["color_components_as",1]],"mod":["color_function","component","convert","gamut","mix","parsing","to_css"],"struct":["AbsoluteColor","ColorComponents","ColorFlags","ComponentDetails"],"type":["ColorMixItemList"]};

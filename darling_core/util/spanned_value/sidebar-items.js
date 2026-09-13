@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["spanned",1]],"struct":["SpannedValue"]};

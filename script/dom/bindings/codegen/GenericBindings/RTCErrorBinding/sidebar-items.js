@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RTCErrorDetailType"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["RTCErrorDetailTypeValues","RTCError_Binding"],"struct":["RTCErrorInit"],"trait":["RTCErrorMethods"]};

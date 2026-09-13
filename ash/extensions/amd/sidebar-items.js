@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["buffer_marker","shader_info"]};

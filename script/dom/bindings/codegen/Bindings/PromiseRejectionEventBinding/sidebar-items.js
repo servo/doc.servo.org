@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","PromiseRejectionEvent_Binding"],"trait":["PromiseRejectionEventMethods"],"type":["PromiseRejectionEventInit"]};

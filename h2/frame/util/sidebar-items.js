@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["debug_flags","strip_padding"],"struct":["DebugFlags"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INCR_LIMIT"],"enum":["ConventionsTestResult","SetBits"],"fn":["conventions_test","random_odd_integer","small_factors_test","trial_primes_num"],"struct":["Residues","SmallFactorsSieve","SmallFactorsSieveFactory"],"trait":["SieveFactory"],"type":["Residue"]};

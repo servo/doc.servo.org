@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SHADOW_PARAMS_ACTIVE","SHADOW_PARAMS_INACTIVE","SHADOW_SIZE"],"fn":["shadow"],"struct":["CachedPart","RenderedShadow","Shadow"]};

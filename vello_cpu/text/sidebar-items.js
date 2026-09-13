@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["atlas_page_image_id","clear_pixmap_region","copy_pixmap_to_atlas","ensure_page"],"mod":["debug"],"struct":["GlyphAtlasResources"],"type":["GlyphRunBuilder"]};

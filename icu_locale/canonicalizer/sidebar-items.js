@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["uts35_check_language_rules","uts35_replacement","uts35_rule_matches"],"struct":["LocaleCanonicalizer"]};

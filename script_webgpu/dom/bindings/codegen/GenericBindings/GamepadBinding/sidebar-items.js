@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GamepadHand"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["GamepadHandValues","Gamepad_Binding"],"trait":["GamepadMethods"]};

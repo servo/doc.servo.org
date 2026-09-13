@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DYNAMIC_TAG","INLINE_TAG","LEN_MASK","LEN_OFFSET","MAX_INLINE_LEN","STATIC_SHIFT_BITS","STATIC_TAG","TAG_MASK"],"fn":["inline_atom_slice","inline_atom_slice_mut"],"struct":["Atom"]};

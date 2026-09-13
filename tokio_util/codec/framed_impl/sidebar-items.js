@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INITIAL_CAPACITY"],"struct":["FramedImpl","RWFrames","ReadFrame","WriteFrame"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["CSSFontFeatureValuesMapMaplike_Binding","CSSFontFeatureValuesMap_Binding","CSSFontFeatureValuesRule_Binding","GenericBindings"],"trait":["CSSFontFeatureValuesMapMaplikeMethods","CSSFontFeatureValuesMapMethods","CSSFontFeatureValuesRuleMethods"]};

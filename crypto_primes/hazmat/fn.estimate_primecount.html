@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Estimate the number of primes smaller than x using the asymptotic expansion of `Li(x)` with 4 terms, i.e.:"><title>estimate_primecount in crypto_primes::hazmat - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="crypto_primes" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">estimate_primecount</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../crypto_primes/index.html">crypto_<wbr>primes</a><span class="version">0.7.2</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">estimate_<wbr>primecount</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#error-considerations" title="Error considerations">Error considerations</a><ul><li><a href="#truncation-error" title="Truncation Error">Truncation Error</a></li><li><a href="#theoretical-error" title="Theoretical Error">Theoretical Error</a></li><li><a href="#discussion" title="Discussion">Discussion</a></li></ul></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In crypto_<wbr>primes::<wbr>hazmat</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">crypto_primes</a>::<wbr><a href="index.html">hazmat</a></div><h1>Function <span class="fn">estimate_<wbr>primecount</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/crypto_primes/hazmat/primecount.rs.html#80-163">Source</a> </span></div><pre class="rust item-decl"><code>pub fn estimate_primecount&lt;const LIMBS: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.usize.html">usize</a>, const RHS_LIMBS: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.usize.html">usize</a>&gt;(
+    x: &amp;<a class="struct" href="../../crypto_bigint/uint/struct.Uint.html" title="struct crypto_bigint::uint::Uint">Uint</a>&lt;LIMBS&gt;,
+) -&gt; <a class="struct" href="../../crypto_bigint/uint/struct.Uint.html" title="struct crypto_bigint::uint::Uint">Uint</a>&lt;LIMBS&gt;<div class="where">where
+    <a class="struct" href="../../crypto_bigint/uint/struct.Uint.html" title="struct crypto_bigint::uint::Uint">Uint</a>&lt;LIMBS&gt;: <a class="trait" href="../../crypto_bigint/traits/trait.Concat.html" title="trait crypto_bigint::traits::Concat">Concat</a>&lt;LIMBS, Output = <a class="struct" href="../../crypto_bigint/uint/struct.Uint.html" title="struct crypto_bigint::uint::Uint">Uint</a>&lt;RHS_LIMBS&gt;&gt;,</div></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Estimate the number of primes smaller than x using the asymptotic expansion of <code>Li(x)</code> with 4 terms, i.e.:</p>
+<p>$$\pi(x) \approx \frac{x}{\ln x} \left(1 + \frac{1!}{\ln x} + \frac{2!}{\ln^2 x} + \frac{3!}{\ln^3 x}\right)$$</p>
+<p>For values of x up to ~$10^{29}$, consider using precalculated values for $\pi(x)$ from
+e.g. <a href="https://sweet.ua.pt/tos/primes.html">https://sweet.ua.pt/tos/primes.html</a>.</p>
+<h2 id="error-considerations"><a class="doc-anchor" href="#error-considerations">§</a>Error considerations</h2>
+<p>In addition to the usual floating point math limitations, there are two components to the error:</p>
+<ol>
+<li>The truncation error from using a limited number of terms (4) of the asymptotic expansion of Li(x): $|Li(x) -
+Li_{approx}(x)|$</li>
+<li>The theoretical error, given by the absolute difference between $\pi(x)$ and Li(x): $|\pi(x) - Li(x)|$</li>
+</ol>
+<h3 id="truncation-error"><a class="doc-anchor" href="#truncation-error">§</a>Truncation Error</h3>
+<p>The size of the truncation error for the 4-term approximation $Li_{approx}(x)$ is roughly the size of the first
+omitted term, which is $\frac{24x}{\ln^5 x}$.</p>
+<div><table><thead><tr><th style="text-align: left">Bits</th><th style="text-align: left">Truncation error (abs)</th><th style="text-align: left">Truncation error (rel)</th></tr></thead><tbody>
+<tr><td style="text-align: left">1024</td><td style="text-align: left">$\approx 2^{981}$</td><td style="text-align: left">$\approx 2^{-33}$</td></tr>
+<tr><td style="text-align: left">2048</td><td style="text-align: left">$\approx 2^{2000}$</td><td style="text-align: left">$\approx 2^{-37}$</td></tr>
+<tr><td style="text-align: left">4096</td><td style="text-align: left">$\approx 2^{4043}$</td><td style="text-align: left">$\approx 2^{-41}$</td></tr>
+</tbody></table>
+</div>
+<p><em>(Relative error is calculated as the first omitted term divided by $Li_{approx}(x)$)</em></p>
+<h3 id="theoretical-error"><a class="doc-anchor" href="#theoretical-error">§</a>Theoretical Error</h3>
+<p>Assuming RH, we can use Schoenfeld’s bound $|\pi(x) - \text{Li}(x)| &lt; \frac{\sqrt{x} \ln x}{8\pi}$.
+This gives a very small theoretical error bound compared to the best known unconditional bounds<sup id="fnref1"><a href="#fn1">1</a></sup>.</p>
+<div><table><thead><tr><th style="text-align: left">Bits</th><th style="text-align: left">Error Bound (abs)</th><th style="text-align: left">Error Bound (rel)</th></tr></thead><tbody>
+<tr><td style="text-align: left">1024</td><td style="text-align: left">&lt; $2^{517}$</td><td style="text-align: left">&lt; $2^{-497}$</td></tr>
+<tr><td style="text-align: left">2048</td><td style="text-align: left">&lt; $2^{1030}$</td><td style="text-align: left">&lt; $2^{-1007}$</td></tr>
+<tr><td style="text-align: left">4096</td><td style="text-align: left">&lt; $2^{2055}$</td><td style="text-align: left">&lt; $2^{-2029}$</td></tr>
+</tbody></table>
+</div>
+<p><em>(Relative error bound is calculated as Schoenfeld’s Bound (abs) divided by $Li_{approx}(x)$)</em></p>
+<h3 id="discussion"><a class="doc-anchor" href="#discussion">§</a>Discussion</h3>
+<p>Assuming RH, the dominant error term in estimating $\pi(x)$ with $Li_{approx}(x)$
+comes from truncating the asymptotic expansion of Li(x).
+While this truncation error is extremely small in relative terms, it is large in absolute terms.
+Improving the Li(x) approximation to be the same order of magnitude as the Schoenfeld bound would require using
+hundreds of terms from the asymptotic series (or employing more complex methods like continued fractions for the
+remainder, which is beyond the scope of this simple approximation). In relative terms the error bound is
+approximately $2^{-33}$ (for 1024 bits) down to $\sim 2^{-41}$ (for 4096 bits).
+This corresponds to an extremely small percentage error (significantly less than $10^{-8}$ %).</p>
+<p>It should be noted that while Li(x) is generally smaller than $\pi(x)$ for ‘small’ x, it is known that the sign of
+$\pi(x) - Li(x)$ changes infinitely often. It has been proven that there must be a crossing below $\sim 10^{316}$
+($\sim 2^{1051}$), which is well within the ranges used in this library. Thus, users should be aware that the
+estimate provided here can be both greater than and smaller than the actual value of $\pi(x)$.</p>
+<div class="footnotes"><hr><ol><li id="fn1"><p>T. Trudgian, “Updating the error term in the prime number theorem”,
+<a href="https://arxiv.org/abs/1401.2689">arXiv:1401.2689</a> (2014)&nbsp;<a href="#fnref1">↩</a></p></li><li id="fn2"><p>P. Dusart, “Estimates of Some Functions Over Primes without R.H.”,
+<a href="https://arxiv.org/pdf/1002.0442">arXiv:1002.0442</a> (2010)&nbsp;<a href="#fnref2">↩</a></p></li><li id="fn3"><p>P. Dusart, “Explicit estimates of some functions over primes”,
+The Ramanujan Journal 45(1) 227-251 (2018),
+DOI: <a href="https://link.springer.com/article/10.1007/s11139-016-9839-4">10.1007/s11139-016-9839-4</a>&nbsp;<a href="#fnref3">↩</a></p></li><li id="fn4"><p><a href="https://en.wikipedia.org/wiki/Prime-counting_function">https://en.wikipedia.org/wiki/Prime-counting_function</a>&nbsp;<a href="#fnref4">↩</a></p></li><li id="fn5"><p>L. Schoenfeld, “Sharper Bounds for the Chebyshev Functions θ(x) and ψ(x). II”,
+Math. Comp. 30(134) 337-360 (1976),
+DOI: <a href="https://www.jstor.org/stable/2005976">10.2307/2005976</a>&nbsp;<a href="#fnref5">↩</a></p></li></ol></div></div></details></section></div></main></body></html>

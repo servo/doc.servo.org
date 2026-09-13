@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["XRMediaBinding_Binding"],"struct":["XRMediaLayerInit"],"trait":["XRMediaBindingMethods"]};

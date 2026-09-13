@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BuildEntry","PiecewiseLinearFunction","PiecewiseLinearFunctionBuilder","PiecewiseLinearFunctionEntry"],"type":["PiecewiseLinearFunctionBuildParameters","ValueType"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["KEYSYMTAB","NO_SYMBOL"],"fn":["convert_case","keysym"],"mod":["automatically_generated","key"],"struct":["CodePair","KeyCode","Keysym"],"type":["RawKeyCode","RawKeysym"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLOCK_CAP"],"fn":["channel","unbounded_channel"],"mod":["block","bounded","chan","error","list","unbounded"],"struct":["OwnedPermit","Permit","PermitIterator","Receiver","Sender","UnboundedReceiver","UnboundedSender","WeakSender","WeakUnboundedSender"]};

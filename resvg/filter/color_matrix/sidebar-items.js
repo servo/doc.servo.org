@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply","from_normalized","to_normalized_components"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericAnimationDuration","GenericAnimationTimeline"],"fn":["to_css_with_default"],"struct":["GenericAnimationRangeEnd","GenericAnimationRangeStart","GenericAnimationRangeValue","GenericViewFunction","GenericViewTimelineInset"]};

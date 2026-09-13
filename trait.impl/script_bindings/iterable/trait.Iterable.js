@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["script",[["impl <a class=\"trait\" href=\"script/dom/bindings/iterable/trait.Iterable.html\" title=\"trait script::dom::bindings::iterable::Iterable\">Iterable</a> for <a class=\"struct\" href=\"script/dom/fetch/headers/struct.Headers.html\" title=\"struct script::dom::fetch::headers::Headers\">Headers</a>",0],["impl <a class=\"trait\" href=\"script/dom/bindings/iterable/trait.Iterable.html\" title=\"trait script::dom::bindings::iterable::Iterable\">Iterable</a> for <a class=\"struct\" href=\"script/dom/form/formdata/struct.FormData.html\" title=\"struct script::dom::form::formdata::FormData\">FormData</a>",0],["impl <a class=\"trait\" href=\"script/dom/bindings/iterable/trait.Iterable.html\" title=\"trait script::dom::bindings::iterable::Iterable\">Iterable</a> for <a class=\"struct\" href=\"script/dom/testing/testbindingpairiterable/struct.TestBindingPairIterable.html\" title=\"struct script::dom::testing::testbindingpairiterable::TestBindingPairIterable\">TestBindingPairIterable</a>",0],["impl <a class=\"trait\" href=\"script/dom/bindings/iterable/trait.Iterable.html\" title=\"trait script::dom::bindings::iterable::Iterable\">Iterable</a> for <a class=\"struct\" href=\"script/dom/url/urlsearchparams/struct.URLSearchParams.html\" title=\"struct script::dom::url::urlsearchparams::URLSearchParams\">URLSearchParams</a>",0],["impl <a class=\"trait\" href=\"script/dom/bindings/iterable/trait.Iterable.html\" title=\"trait script::dom::bindings::iterable::Iterable\">Iterable</a> for <a class=\"struct\" href=\"script/dom/webxr/xrhand/struct.XRHand.html\" title=\"struct script::dom::webxr::xrhand::XRHand\">XRHand</a>",0]]],["script_bindings",[]],["script_webgpu",[]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[1645,23,21]}

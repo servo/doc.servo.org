@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["as_expm1_accurate","expm1_fma_impl","expm1_gen","f_expm1","opoly_dd_generic"],"static":["EXPM1_DD1","EXPM1_DD2","EXPM1_T0","EXPM1_T1","TZ"]};

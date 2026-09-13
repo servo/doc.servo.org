@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCALAR_NEARLY_ZERO_F32","SCALAR_NEARLY_ZERO_F64"],"trait":["AffineExt","FloatExt"]};

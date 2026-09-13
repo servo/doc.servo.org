@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["poly_dd_3","poly_dekker_generic"]};

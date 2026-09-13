@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["pthread_getaffinity_np","pthread_getattr_np","pthread_getname_np","pthread_setaffinity_np","pthread_setname_np"]};

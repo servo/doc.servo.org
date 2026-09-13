@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["core_gamma_p","f_gamma_q"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REASONABLE_CLASS_LIST_SIZE","SHARING_CACHE_KEY","SHARING_CACHE_SIZE","SHARING_MAX_LEVELS"],"mod":["checks"],"struct":["OpaqueComputedValues","RevalidationResult","ScopeRevalidationResult","SharingCacheBase","StyleSharingCache","StyleSharingCandidate","StyleSharingTarget","ValidationData"],"type":["SharingCache","TypelessSharingCache"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PictureCompositeKey","PictureCompositeMode"],"fn":["calculate_uv_rect_kind","get_surface_rects","prepare_composite_mode","request_render_task"],"struct":["SurfaceAllocInfo"]};

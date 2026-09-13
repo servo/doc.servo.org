@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UTF16_BE_BOM","UTF16_LE_BOM","UTF8_BOM"],"enum":["DetectedEncoding","EncodingError"],"fn":["detect_encoding"],"struct":["Decoder"]};

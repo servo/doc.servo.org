@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["cfg_if",1],["default_fn",1]]};

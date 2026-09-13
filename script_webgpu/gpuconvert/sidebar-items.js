@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["convert_bind_group_entry","convert_bind_group_layout_entry","convert_load_op","convert_texture_descriptor","convert_texture_for_wgpu_with_cx"],"trait":["WebGPUConvert","WebGPUTryConvert"]};

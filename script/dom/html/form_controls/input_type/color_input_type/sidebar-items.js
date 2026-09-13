@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_color_value"],"struct":["ColorInputActivation","ColorInputShadowTree","ColorInputType"]};

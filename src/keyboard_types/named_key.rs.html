@@ -1,0 +1,1324 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.8.3/src/named_key.rs`."><title>named_key.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="keyboard_types" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../../static.files/src-script-813739b1.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">keyboard_types/</div>named_key.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-4"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a>
+<a href=#2 id=2 data-nosnippet>2</a><span class="comment">// AUTO GENERATED CODE - DO NOT EDIT
+<a href=#3 id=3 data-nosnippet>3</a></span><span class="attr">#![cfg_attr(rustfmt, rustfmt_skip)]
+<a href=#4 id=4 data-nosnippet>4</a>#![allow(clippy::doc_markdown)]
+<a href=#5 id=5 data-nosnippet>5</a>#![allow(deprecated)]
+<a href=#6 id=6 data-nosnippet>6</a>
+<a href=#7 id=7 data-nosnippet>7</a></span><span class="kw">use </span>core::fmt::{<span class="self">self</span>, Display};
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>core::str::FromStr;
+<a href=#9 id=9 data-nosnippet>9</a><span class="attr">#[cfg(not(feature = <span class="string">"std"</span>))]
+<a href=#10 id=10 data-nosnippet>10</a></span><span class="kw">use </span>core::error::Error;
+<a href=#11 id=11 data-nosnippet>11</a><span class="attr">#[cfg(feature = <span class="string">"std"</span>)]
+<a href=#12 id=12 data-nosnippet>12</a></span><span class="kw">use </span>std::error::Error;
+<a href=#13 id=13 data-nosnippet>13</a>
+<a href=#14 id=14 data-nosnippet>14</a><span class="doccomment">/// Key represents the meaning of a keypress.
+<a href=#15 id=15 data-nosnippet>15</a>///
+<a href=#16 id=16 data-nosnippet>16</a>/// Specification:
+<a href=#17 id=17 data-nosnippet>17</a>/// &lt;https://w3c.github.io/uievents-key/&gt;
+<a href=#18 id=18 data-nosnippet>18</a>///
+<a href=#19 id=19 data-nosnippet>19</a>/// Note: "Space" is deliberately not a named key (to match the specification), use
+<a href=#20 id=20 data-nosnippet>20</a>/// `Key::Character(" ")` instead.
+<a href=#21 id=21 data-nosnippet>21</a></span><span class="attr">#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+<a href=#22 id=22 data-nosnippet>22</a>#[cfg_attr(feature = <span class="string">"serde"</span>, derive(serde::Serialize, serde::Deserialize))]
+<a href=#23 id=23 data-nosnippet>23</a>#[non_exhaustive]
+<a href=#24 id=24 data-nosnippet>24</a></span><span class="kw">pub enum </span>NamedKey {
+<a href=#25 id=25 data-nosnippet>25</a>    <span class="doccomment">/// This key value is used when an implementation is unable to
+<a href=#26 id=26 data-nosnippet>26</a>    /// identify another key value, due to either hardware,
+<a href=#27 id=27 data-nosnippet>27</a>    /// platform, or software constraints.
+<a href=#28 id=28 data-nosnippet>28</a>    </span>Unidentified,
+<a href=#29 id=29 data-nosnippet>29</a>    <span class="doccomment">/// The &lt;kbd&gt;Alt&lt;/kbd&gt; (Alternative) key.&lt;br/&gt; This key enables the alternate modifier function for interpreting concurrent or subsequent keyboard input.&lt;br/&gt; This key value is also used for the Apple &lt;kbd&gt;Option&lt;/kbd&gt; key.
+<a href=#30 id=30 data-nosnippet>30</a>    </span>Alt,
+<a href=#31 id=31 data-nosnippet>31</a>    <span class="doccomment">/// The Alternate Graphics (&lt;kbd&gt;AltGr&lt;/kbd&gt; or &lt;kbd&gt;AltGraph&lt;/kbd&gt;) key.
+<a href=#32 id=32 data-nosnippet>32</a>    /// This key is used enable the ISO Level 3 shift modifier (the standard &lt;kbd&gt;Shift&lt;/kbd&gt; key is the level 2 modifier).
+<a href=#33 id=33 data-nosnippet>33</a>    /// See [ISO9995-1].
+<a href=#34 id=34 data-nosnippet>34</a>    </span>AltGraph,
+<a href=#35 id=35 data-nosnippet>35</a>    <span class="doccomment">/// The &lt;kbd&gt;Caps Lock&lt;/kbd&gt; (Capital) key.
+<a href=#36 id=36 data-nosnippet>36</a>    /// Toggle capital character lock function for interpreting subsequent keyboard input event.
+<a href=#37 id=37 data-nosnippet>37</a>    </span>CapsLock,
+<a href=#38 id=38 data-nosnippet>38</a>    <span class="doccomment">/// The &lt;kbd&gt;Control&lt;/kbd&gt; or &lt;kbd&gt;Ctrl&lt;/kbd&gt; key, to enable control modifier function for interpreting concurrent or subsequent keyboard input.
+<a href=#39 id=39 data-nosnippet>39</a>    </span>Control,
+<a href=#40 id=40 data-nosnippet>40</a>    <span class="doccomment">/// The Function switch &lt;kbd&gt;Fn&lt;/kbd&gt; key.&lt;br/&gt; Activating this key simultaneously with another key changes that key’s value to an alternate character or function.
+<a href=#41 id=41 data-nosnippet>41</a>    /// This key is often handled directly in the keyboard hardware and does not usually generate key events.
+<a href=#42 id=42 data-nosnippet>42</a>    </span>Fn,
+<a href=#43 id=43 data-nosnippet>43</a>    <span class="doccomment">/// The Function-Lock (&lt;kbd&gt;FnLock&lt;/kbd&gt; or &lt;kbd&gt;F-Lock&lt;/kbd&gt;) key.
+<a href=#44 id=44 data-nosnippet>44</a>    /// Activating this key switches the mode of the keyboard to changes some keys' values to an alternate character or function.
+<a href=#45 id=45 data-nosnippet>45</a>    /// This key is often handled directly in the keyboard hardware and does not usually generate key events.
+<a href=#46 id=46 data-nosnippet>46</a>    </span>FnLock,
+<a href=#47 id=47 data-nosnippet>47</a>    <span class="doccomment">/// The &lt;kbd&gt;Meta&lt;/kbd&gt; key, to enable meta modifier function for interpreting concurrent or subsequent keyboard input.
+<a href=#48 id=48 data-nosnippet>48</a>    /// This key value is used for the &lt;q&gt;Windows Logo&lt;/q&gt; key and the Apple &lt;kbd&gt;Command&lt;/kbd&gt; or &lt;kbd&gt;⌘&lt;/kbd&gt; key.
+<a href=#49 id=49 data-nosnippet>49</a>    /// In Linux (XKB) terminology, this is often referred to as "Super".
+<a href=#50 id=50 data-nosnippet>50</a>    </span><span class="attr">#[doc(alias = <span class="string">"Super"</span>)]
+<a href=#51 id=51 data-nosnippet>51</a>    </span>Meta,
+<a href=#52 id=52 data-nosnippet>52</a>    <span class="doccomment">/// The &lt;kbd&gt;NumLock&lt;/kbd&gt; or Number Lock key, to toggle numpad mode function for interpreting subsequent keyboard input.
+<a href=#53 id=53 data-nosnippet>53</a>    </span>NumLock,
+<a href=#54 id=54 data-nosnippet>54</a>    <span class="doccomment">/// The &lt;kbd&gt;Scroll Lock&lt;/kbd&gt; key, to toggle between scrolling and cursor movement modes.
+<a href=#55 id=55 data-nosnippet>55</a>    </span>ScrollLock,
+<a href=#56 id=56 data-nosnippet>56</a>    <span class="doccomment">/// The &lt;kbd&gt;Shift&lt;/kbd&gt; key, to enable shift modifier function for interpreting concurrent or subsequent keyboard input.
+<a href=#57 id=57 data-nosnippet>57</a>    </span>Shift,
+<a href=#58 id=58 data-nosnippet>58</a>    <span class="doccomment">/// The Symbol modifier key (used on some virtual keyboards).
+<a href=#59 id=59 data-nosnippet>59</a>    </span>Symbol,
+<a href=#60 id=60 data-nosnippet>60</a>    <span class="doccomment">/// The Symbol Lock key.
+<a href=#61 id=61 data-nosnippet>61</a>    </span>SymbolLock,
+<a href=#62 id=62 data-nosnippet>62</a>    <span class="doccomment">/// The &lt;kbd&gt;Hyper&lt;/kbd&gt; key.
+<a href=#63 id=63 data-nosnippet>63</a>    </span><span class="attr">#[deprecated = <span class="string">"marked as legacy in the spec, use Meta instead"</span>]
+<a href=#64 id=64 data-nosnippet>64</a>    </span>Hyper,
+<a href=#65 id=65 data-nosnippet>65</a>    <span class="doccomment">/// The &lt;kbd&gt;Super&lt;/kbd&gt; key.
+<a href=#66 id=66 data-nosnippet>66</a>    </span><span class="attr">#[deprecated = <span class="string">"marked as legacy in the spec, use Meta instead"</span>]
+<a href=#67 id=67 data-nosnippet>67</a>    </span>Super,
+<a href=#68 id=68 data-nosnippet>68</a>    <span class="doccomment">/// The &lt;kbd&gt;Enter&lt;/kbd&gt; or &lt;kbd&gt;↵&lt;/kbd&gt; key, to activate current selection or accept current input.&lt;br/&gt; This key value is also used for the &lt;kbd&gt;Return&lt;/kbd&gt; (Macintosh numpad) key.&lt;br/&gt; This key value is also used for the Android &lt;code class="android"&gt;KEYCODE_DPAD_CENTER&lt;/code&gt;.
+<a href=#69 id=69 data-nosnippet>69</a>    </span><span class="attr">#[doc(alias = <span class="string">"Return"</span>)]
+<a href=#70 id=70 data-nosnippet>70</a>    </span>Enter,
+<a href=#71 id=71 data-nosnippet>71</a>    <span class="doccomment">/// The Horizontal Tabulation &lt;kbd&gt;Tab&lt;/kbd&gt; key.
+<a href=#72 id=72 data-nosnippet>72</a>    </span>Tab,
+<a href=#73 id=73 data-nosnippet>73</a>    <span class="doccomment">/// The down arrow key, to navigate or traverse downward. (&lt;code class="android"&gt;KEYCODE_DPAD_DOWN&lt;/code&gt;)
+<a href=#74 id=74 data-nosnippet>74</a>    </span>ArrowDown,
+<a href=#75 id=75 data-nosnippet>75</a>    <span class="doccomment">/// The left arrow key, to navigate or traverse leftward. (&lt;code class="android"&gt;KEYCODE_DPAD_LEFT&lt;/code&gt;)
+<a href=#76 id=76 data-nosnippet>76</a>    </span>ArrowLeft,
+<a href=#77 id=77 data-nosnippet>77</a>    <span class="doccomment">/// The right arrow key, to navigate or traverse rightward. (&lt;code class="android"&gt;KEYCODE_DPAD_RIGHT&lt;/code&gt;)
+<a href=#78 id=78 data-nosnippet>78</a>    </span>ArrowRight,
+<a href=#79 id=79 data-nosnippet>79</a>    <span class="doccomment">/// The up arrow key, to navigate or traverse upward. (&lt;code class="android"&gt;KEYCODE_DPAD_UP&lt;/code&gt;)
+<a href=#80 id=80 data-nosnippet>80</a>    </span>ArrowUp,
+<a href=#81 id=81 data-nosnippet>81</a>    <span class="doccomment">/// The End key, used with keyboard entry to go to the end of content (&lt;code class="android"&gt;KEYCODE_MOVE_END&lt;/code&gt;).
+<a href=#82 id=82 data-nosnippet>82</a>    </span>End,
+<a href=#83 id=83 data-nosnippet>83</a>    <span class="doccomment">/// The Home key, used with keyboard entry, to go to start of content (&lt;code class="android"&gt;KEYCODE_MOVE_HOME&lt;/code&gt;).&lt;br/&gt; For the mobile phone &lt;kbd&gt;Home&lt;/kbd&gt; key (which goes to the phone’s main screen), use [`GoHome`][NamedKey::GoHome].
+<a href=#84 id=84 data-nosnippet>84</a>    </span>Home,
+<a href=#85 id=85 data-nosnippet>85</a>    <span class="doccomment">/// The Page Down key, to scroll down or display next page of content.
+<a href=#86 id=86 data-nosnippet>86</a>    </span>PageDown,
+<a href=#87 id=87 data-nosnippet>87</a>    <span class="doccomment">/// The Page Up key, to scroll up or display previous page of content.
+<a href=#88 id=88 data-nosnippet>88</a>    </span>PageUp,
+<a href=#89 id=89 data-nosnippet>89</a>    <span class="doccomment">/// The Backspace key. This key value is also used for the key labeled &lt;kbd&gt;Delete&lt;/kbd&gt; on MacOS keyboards.
+<a href=#90 id=90 data-nosnippet>90</a>    </span>Backspace,
+<a href=#91 id=91 data-nosnippet>91</a>    <span class="doccomment">/// Remove the currently selected input.
+<a href=#92 id=92 data-nosnippet>92</a>    </span>Clear,
+<a href=#93 id=93 data-nosnippet>93</a>    <span class="doccomment">/// Copy the current selection. (&lt;code class="appcommand"&gt;APPCOMMAND_COPY&lt;/code&gt;)
+<a href=#94 id=94 data-nosnippet>94</a>    </span>Copy,
+<a href=#95 id=95 data-nosnippet>95</a>    <span class="doccomment">/// The Cursor Select (Crsel) key.
+<a href=#96 id=96 data-nosnippet>96</a>    </span>CrSel,
+<a href=#97 id=97 data-nosnippet>97</a>    <span class="doccomment">/// Cut the current selection. (&lt;code class="appcommand"&gt;APPCOMMAND_CUT&lt;/code&gt;)
+<a href=#98 id=98 data-nosnippet>98</a>    </span>Cut,
+<a href=#99 id=99 data-nosnippet>99</a>    <span class="doccomment">/// The Delete (Del) Key.
+<a href=#100 id=100 data-nosnippet>100</a>    /// This key value is also used for the key labeled &lt;kbd&gt;Delete&lt;/kbd&gt; on MacOS keyboards when modified by the &lt;kbd&gt;Fn&lt;/kbd&gt; key.
+<a href=#101 id=101 data-nosnippet>101</a>    </span>Delete,
+<a href=#102 id=102 data-nosnippet>102</a>    <span class="doccomment">/// The Erase to End of Field key.
+<a href=#103 id=103 data-nosnippet>103</a>    /// This key deletes all characters from the current cursor position to the end of the current field.
+<a href=#104 id=104 data-nosnippet>104</a>    </span>EraseEof,
+<a href=#105 id=105 data-nosnippet>105</a>    <span class="doccomment">/// The Extend Selection (Exsel) key.
+<a href=#106 id=106 data-nosnippet>106</a>    </span>ExSel,
+<a href=#107 id=107 data-nosnippet>107</a>    <span class="doccomment">/// The Insert (Ins) key, to toggle between text modes for insertion or overtyping. (&lt;code class="android"&gt;KEYCODE_INSERT&lt;/code&gt;)
+<a href=#108 id=108 data-nosnippet>108</a>    </span>Insert,
+<a href=#109 id=109 data-nosnippet>109</a>    <span class="doccomment">/// The Paste key. (&lt;code class="appcommand"&gt;APPCOMMAND_PASTE&lt;/code&gt;)
+<a href=#110 id=110 data-nosnippet>110</a>    </span>Paste,
+<a href=#111 id=111 data-nosnippet>111</a>    <span class="doccomment">/// Redo the last action. (&lt;code class="appcommand"&gt;APPCOMMAND_REDO&lt;/code&gt;)
+<a href=#112 id=112 data-nosnippet>112</a>    </span>Redo,
+<a href=#113 id=113 data-nosnippet>113</a>    <span class="doccomment">/// Undo the last action. (&lt;code class="appcommand"&gt;APPCOMMAND_UNDO&lt;/code&gt;)
+<a href=#114 id=114 data-nosnippet>114</a>    </span>Undo,
+<a href=#115 id=115 data-nosnippet>115</a>    <span class="doccomment">/// The Accept (Commit, OK) key. Accept current option or input method sequence conversion.
+<a href=#116 id=116 data-nosnippet>116</a>    </span>Accept,
+<a href=#117 id=117 data-nosnippet>117</a>    <span class="doccomment">/// The Again key, to redo or repeat an action.
+<a href=#118 id=118 data-nosnippet>118</a>    </span>Again,
+<a href=#119 id=119 data-nosnippet>119</a>    <span class="doccomment">/// The Attention (Attn) key.
+<a href=#120 id=120 data-nosnippet>120</a>    </span>Attn,
+<a href=#121 id=121 data-nosnippet>121</a>    <span class="doccomment">/// The Cancel key.
+<a href=#122 id=122 data-nosnippet>122</a>    </span>Cancel,
+<a href=#123 id=123 data-nosnippet>123</a>    <span class="doccomment">/// Show the application’s context menu.
+<a href=#124 id=124 data-nosnippet>124</a>    /// This key is commonly found between the right &lt;kbd&gt;Meta&lt;/kbd&gt; key and the right &lt;kbd&gt;Control&lt;/kbd&gt; key.
+<a href=#125 id=125 data-nosnippet>125</a>    </span>ContextMenu,
+<a href=#126 id=126 data-nosnippet>126</a>    <span class="doccomment">/// The &lt;kbd&gt;Esc&lt;/kbd&gt; key. This key was originally used to initiate an escape sequence, but is
+<a href=#127 id=127 data-nosnippet>127</a>    /// now more generally used to exit or "escape" the current context, such as closing a dialog
+<a href=#128 id=128 data-nosnippet>128</a>    /// or exiting full screen mode.
+<a href=#129 id=129 data-nosnippet>129</a>    </span>Escape,
+<a href=#130 id=130 data-nosnippet>130</a>    <span class="doccomment">/// The Execute key.
+<a href=#131 id=131 data-nosnippet>131</a>    </span>Execute,
+<a href=#132 id=132 data-nosnippet>132</a>    <span class="doccomment">/// Open the Find dialog. (&lt;code class="appcommand"&gt;APPCOMMAND_FIND&lt;/code&gt;)
+<a href=#133 id=133 data-nosnippet>133</a>    </span>Find,
+<a href=#134 id=134 data-nosnippet>134</a>    <span class="doccomment">/// Open a help dialog or toggle display of help information. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_HELP&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_HELP&lt;/code&gt;&lt;/code&gt;)
+<a href=#135 id=135 data-nosnippet>135</a>    </span>Help,
+<a href=#136 id=136 data-nosnippet>136</a>    <span class="doccomment">/// Pause the current state or application (as appropriate).
+<a href=#137 id=137 data-nosnippet>137</a>    /// &lt;p class="note" role="note"&gt;Do not use this value for the &lt;kbd&gt;Pause&lt;/kbd&gt; button on media controllers. Use [`MediaPause`][NamedKey::MediaPause] instead.&lt;/p&gt;
+<a href=#138 id=138 data-nosnippet>138</a>    </span>Pause,
+<a href=#139 id=139 data-nosnippet>139</a>    <span class="doccomment">/// Play or resume the current state or application (as appropriate).
+<a href=#140 id=140 data-nosnippet>140</a>    /// &lt;p class="note" role="note"&gt;Do not use this value for the &lt;kbd&gt;Play&lt;/kbd&gt; button on media controllers. Use [`MediaPlay`][NamedKey::MediaPlay] instead.&lt;/p&gt;
+<a href=#141 id=141 data-nosnippet>141</a>    </span>Play,
+<a href=#142 id=142 data-nosnippet>142</a>    <span class="doccomment">/// The properties (Props) key.
+<a href=#143 id=143 data-nosnippet>143</a>    </span>Props,
+<a href=#144 id=144 data-nosnippet>144</a>    <span class="doccomment">/// The Select key.
+<a href=#145 id=145 data-nosnippet>145</a>    </span>Select,
+<a href=#146 id=146 data-nosnippet>146</a>    <span class="doccomment">/// The ZoomIn key. (&lt;code class="android"&gt;KEYCODE_ZOOM_IN&lt;/code&gt;)
+<a href=#147 id=147 data-nosnippet>147</a>    </span>ZoomIn,
+<a href=#148 id=148 data-nosnippet>148</a>    <span class="doccomment">/// The ZoomOut key. (&lt;code class="android"&gt;KEYCODE_ZOOM_OUT&lt;/code&gt;)
+<a href=#149 id=149 data-nosnippet>149</a>    </span>ZoomOut,
+<a href=#150 id=150 data-nosnippet>150</a>    <span class="doccomment">/// The Brightness Down key. Typically controls the display brightness. (&lt;code class="android"&gt;KEYCODE_BRIGHTNESS_DOWN&lt;/code&gt;)
+<a href=#151 id=151 data-nosnippet>151</a>    </span>BrightnessDown,
+<a href=#152 id=152 data-nosnippet>152</a>    <span class="doccomment">/// The Brightness Up key. Typically controls the display brightness. (&lt;code class="android"&gt;KEYCODE_BRIGHTNESS_UP&lt;/code&gt;)
+<a href=#153 id=153 data-nosnippet>153</a>    </span>BrightnessUp,
+<a href=#154 id=154 data-nosnippet>154</a>    <span class="doccomment">/// Toggle removable media to eject (open) and insert (close) state. (&lt;code class="android"&gt;KEYCODE_MEDIA_EJECT&lt;/code&gt;)
+<a href=#155 id=155 data-nosnippet>155</a>    </span>Eject,
+<a href=#156 id=156 data-nosnippet>156</a>    <span class="doccomment">/// The LogOff key.
+<a href=#157 id=157 data-nosnippet>157</a>    </span>LogOff,
+<a href=#158 id=158 data-nosnippet>158</a>    <span class="doccomment">/// Toggle power state. (&lt;code class="android"&gt;KEYCODE_POWER&lt;/code&gt;)
+<a href=#159 id=159 data-nosnippet>159</a>    /// &lt;p class="note" role="note"&gt;Note: Some devices might not expose this key to the operating environment.&lt;/p&gt;
+<a href=#160 id=160 data-nosnippet>160</a>    </span>Power,
+<a href=#161 id=161 data-nosnippet>161</a>    <span class="doccomment">/// The &lt;kbd&gt;PowerOff&lt;/kbd&gt; key. Sometime called &lt;kbd&gt;PowerDown&lt;/kbd&gt;.
+<a href=#162 id=162 data-nosnippet>162</a>    </span>PowerOff,
+<a href=#163 id=163 data-nosnippet>163</a>    <span class="doccomment">/// The &lt;kbd&gt;Print Screen&lt;/kbd&gt; or &lt;kbd&gt;SnapShot&lt;/kbd&gt; key, to initiate print-screen function.
+<a href=#164 id=164 data-nosnippet>164</a>    </span>PrintScreen,
+<a href=#165 id=165 data-nosnippet>165</a>    <span class="doccomment">/// The Hibernate key.
+<a href=#166 id=166 data-nosnippet>166</a>    /// This key saves the current state of the computer to disk so that it can be restored. The computer will then shutdown.
+<a href=#167 id=167 data-nosnippet>167</a>    </span>Hibernate,
+<a href=#168 id=168 data-nosnippet>168</a>    <span class="doccomment">/// The Standby key.
+<a href=#169 id=169 data-nosnippet>169</a>    /// This key turns off the display and places the computer into a low-power mode without completely shutting down.
+<a href=#170 id=170 data-nosnippet>170</a>    /// It is sometimes labelled &lt;kbd&gt;Suspend&lt;/kbd&gt; or &lt;kbd&gt;Sleep&lt;/kbd&gt; key. (&lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_SLEEP&lt;/code&gt;&lt;/code&gt;)
+<a href=#171 id=171 data-nosnippet>171</a>    </span>Standby,
+<a href=#172 id=172 data-nosnippet>172</a>    <span class="doccomment">/// The WakeUp key. (&lt;code class="android"&gt;KEYCODE_WAKEUP&lt;/code&gt;)
+<a href=#173 id=173 data-nosnippet>173</a>    </span>WakeUp,
+<a href=#174 id=174 data-nosnippet>174</a>    <span class="doccomment">/// The All Candidates key, to initiate the multi-candidate mode.
+<a href=#175 id=175 data-nosnippet>175</a>    </span>AllCandidates,
+<a href=#176 id=176 data-nosnippet>176</a>    <span class="doccomment">/// The Alphanumeric key.
+<a href=#177 id=177 data-nosnippet>177</a>    </span>Alphanumeric,
+<a href=#178 id=178 data-nosnippet>178</a>    <span class="doccomment">/// The Code Input key, to initiate the Code Input mode to allow characters to be entered by their code points.
+<a href=#179 id=179 data-nosnippet>179</a>    </span>CodeInput,
+<a href=#180 id=180 data-nosnippet>180</a>    <span class="doccomment">/// The Compose key, also known as &lt;em&gt;Multi_key&lt;/em&gt; on the X Window System.
+<a href=#181 id=181 data-nosnippet>181</a>    /// This key acts in a manner similar to a
+<a href=#182 id=182 data-nosnippet>182</a>    /// dead key, triggering a mode where subsequent key presses are combined to produce a different character.
+<a href=#183 id=183 data-nosnippet>183</a>    </span>Compose,
+<a href=#184 id=184 data-nosnippet>184</a>    <span class="doccomment">/// The Convert key, to convert the current input method sequence.
+<a href=#185 id=185 data-nosnippet>185</a>    </span>Convert,
+<a href=#186 id=186 data-nosnippet>186</a>    <span class="doccomment">/// A dead key combining key. It may be any combining key from any keyboard layout. For example, on a
+<a href=#187 id=187 data-nosnippet>187</a>    /// PC/AT French keyboard, using a French mapping and without any modifier activated, this is the key value &lt;code class="unicode"&gt;U+0302&lt;/code&gt; COMBINING CIRCUMFLEX ACCENT. In another layout this might be a different unicode combining key.&lt;br/&gt; For applications that need to differentiate between specific combining characters, the associated compositionupdate event’s data attribute provides the specific key value.
+<a href=#188 id=188 data-nosnippet>188</a>    </span>Dead,
+<a href=#189 id=189 data-nosnippet>189</a>    <span class="doccomment">/// The Final Mode &lt;kbd&gt;Final&lt;/kbd&gt; key used on some Asian keyboards, to enable the final mode for IMEs.
+<a href=#190 id=190 data-nosnippet>190</a>    </span>FinalMode,
+<a href=#191 id=191 data-nosnippet>191</a>    <span class="doccomment">/// Switch to the first character group. (ISO/IEC 9995)
+<a href=#192 id=192 data-nosnippet>192</a>    </span>GroupFirst,
+<a href=#193 id=193 data-nosnippet>193</a>    <span class="doccomment">/// Switch to the last character group. (ISO/IEC 9995)
+<a href=#194 id=194 data-nosnippet>194</a>    </span>GroupLast,
+<a href=#195 id=195 data-nosnippet>195</a>    <span class="doccomment">/// Switch to the next character group. (ISO/IEC 9995)
+<a href=#196 id=196 data-nosnippet>196</a>    </span>GroupNext,
+<a href=#197 id=197 data-nosnippet>197</a>    <span class="doccomment">/// Switch to the previous character group. (ISO/IEC 9995)
+<a href=#198 id=198 data-nosnippet>198</a>    </span>GroupPrevious,
+<a href=#199 id=199 data-nosnippet>199</a>    <span class="doccomment">/// The Mode Change key, to toggle between or cycle through input modes of IMEs.
+<a href=#200 id=200 data-nosnippet>200</a>    </span>ModeChange,
+<a href=#201 id=201 data-nosnippet>201</a>    <span class="doccomment">/// The Next Candidate function key.
+<a href=#202 id=202 data-nosnippet>202</a>    </span>NextCandidate,
+<a href=#203 id=203 data-nosnippet>203</a>    <span class="doccomment">/// The NonConvert ("Don’t Convert") key, to accept current input method sequence without conversion in IMEs.
+<a href=#204 id=204 data-nosnippet>204</a>    </span>NonConvert,
+<a href=#205 id=205 data-nosnippet>205</a>    <span class="doccomment">/// The Previous Candidate function key.
+<a href=#206 id=206 data-nosnippet>206</a>    </span>PreviousCandidate,
+<a href=#207 id=207 data-nosnippet>207</a>    <span class="doccomment">/// The Process key.
+<a href=#208 id=208 data-nosnippet>208</a>    </span>Process,
+<a href=#209 id=209 data-nosnippet>209</a>    <span class="doccomment">/// The Single Candidate function key.
+<a href=#210 id=210 data-nosnippet>210</a>    </span>SingleCandidate,
+<a href=#211 id=211 data-nosnippet>211</a>    <span class="doccomment">/// The Hangul (Korean characters) Mode key, to toggle between Hangul and English modes.
+<a href=#212 id=212 data-nosnippet>212</a>    </span>HangulMode,
+<a href=#213 id=213 data-nosnippet>213</a>    <span class="doccomment">/// The Hanja (Korean characters) Mode key.
+<a href=#214 id=214 data-nosnippet>214</a>    </span>HanjaMode,
+<a href=#215 id=215 data-nosnippet>215</a>    <span class="doccomment">/// The Junja (Korean characters) Mode key.
+<a href=#216 id=216 data-nosnippet>216</a>    </span>JunjaMode,
+<a href=#217 id=217 data-nosnippet>217</a>    <span class="doccomment">/// The Eisu key. This key may close the IME, but its purpose
+<a href=#218 id=218 data-nosnippet>218</a>    /// is defined by the current IME. (&lt;code class="android"&gt;KEYCODE_EISU&lt;/code&gt;)
+<a href=#219 id=219 data-nosnippet>219</a>    </span>Eisu,
+<a href=#220 id=220 data-nosnippet>220</a>    <span class="doccomment">/// The (Half-Width) Characters key.
+<a href=#221 id=221 data-nosnippet>221</a>    </span>Hankaku,
+<a href=#222 id=222 data-nosnippet>222</a>    <span class="doccomment">/// The Hiragana (Japanese Kana characters) key.
+<a href=#223 id=223 data-nosnippet>223</a>    </span>Hiragana,
+<a href=#224 id=224 data-nosnippet>224</a>    <span class="doccomment">/// The Hiragana/Katakana toggle key. (&lt;code class="android"&gt;KEYCODE_KATAKANA_HIRAGANA&lt;/code&gt;)
+<a href=#225 id=225 data-nosnippet>225</a>    </span>HiraganaKatakana,
+<a href=#226 id=226 data-nosnippet>226</a>    <span class="doccomment">/// The Kana Mode (Kana Lock) key. This key is used to enter
+<a href=#227 id=227 data-nosnippet>227</a>    /// hiragana mode (typically from romaji mode).
+<a href=#228 id=228 data-nosnippet>228</a>    </span>KanaMode,
+<a href=#229 id=229 data-nosnippet>229</a>    <span class="doccomment">/// The Kanji (Japanese name for ideographic characters of Chinese origin) Mode key.
+<a href=#230 id=230 data-nosnippet>230</a>    /// This key is typically used to switch to a hiragana keyboard for
+<a href=#231 id=231 data-nosnippet>231</a>    /// the purpose of converting input into kanji. (&lt;code class="android"&gt;KEYCODE_KANA&lt;/code&gt;)
+<a href=#232 id=232 data-nosnippet>232</a>    </span>KanjiMode,
+<a href=#233 id=233 data-nosnippet>233</a>    <span class="doccomment">/// The Katakana (Japanese Kana characters) key.
+<a href=#234 id=234 data-nosnippet>234</a>    </span>Katakana,
+<a href=#235 id=235 data-nosnippet>235</a>    <span class="doccomment">/// The Roman characters function key.
+<a href=#236 id=236 data-nosnippet>236</a>    </span>Romaji,
+<a href=#237 id=237 data-nosnippet>237</a>    <span class="doccomment">/// The Zenkaku (Full-Width) Characters key.
+<a href=#238 id=238 data-nosnippet>238</a>    </span>Zenkaku,
+<a href=#239 id=239 data-nosnippet>239</a>    <span class="doccomment">/// The Zenkaku/Hankaku (full-width/half-width) toggle key. (&lt;code class="android"&gt;KEYCODE_ZENKAKU_HANKAKU&lt;/code&gt;)
+<a href=#240 id=240 data-nosnippet>240</a>    </span>ZenkakuHankaku,
+<a href=#241 id=241 data-nosnippet>241</a>    <span class="doccomment">/// General purpose virtual function key, as index 1.
+<a href=#242 id=242 data-nosnippet>242</a>    </span>Soft1,
+<a href=#243 id=243 data-nosnippet>243</a>    <span class="doccomment">/// General purpose virtual function key, as index 2.
+<a href=#244 id=244 data-nosnippet>244</a>    </span>Soft2,
+<a href=#245 id=245 data-nosnippet>245</a>    <span class="doccomment">/// General purpose virtual function key, as index 3.
+<a href=#246 id=246 data-nosnippet>246</a>    </span>Soft3,
+<a href=#247 id=247 data-nosnippet>247</a>    <span class="doccomment">/// General purpose virtual function key, as index 4.
+<a href=#248 id=248 data-nosnippet>248</a>    </span>Soft4,
+<a href=#249 id=249 data-nosnippet>249</a>    <span class="doccomment">/// Select next (numerically or logically) lower channel. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_CHANNEL_DOWN&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_CHANNEL_DOWN&lt;/code&gt;&lt;/code&gt;)
+<a href=#250 id=250 data-nosnippet>250</a>    </span>ChannelDown,
+<a href=#251 id=251 data-nosnippet>251</a>    <span class="doccomment">/// Select next (numerically or logically) higher channel. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_CHANNEL_UP&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_CHANNEL_UP&lt;/code&gt;&lt;/code&gt;)
+<a href=#252 id=252 data-nosnippet>252</a>    </span>ChannelUp,
+<a href=#253 id=253 data-nosnippet>253</a>    <span class="doccomment">/// Close the current document or message (Note: This doesn’t close the application). (&lt;code class="appcommand"&gt;APPCOMMAND_CLOSE&lt;/code&gt;)
+<a href=#254 id=254 data-nosnippet>254</a>    </span>Close,
+<a href=#255 id=255 data-nosnippet>255</a>    <span class="doccomment">/// Open an editor to forward the current message. (&lt;code class="appcommand"&gt;APPCOMMAND_FORWARD_MAIL&lt;/code&gt;)
+<a href=#256 id=256 data-nosnippet>256</a>    </span>MailForward,
+<a href=#257 id=257 data-nosnippet>257</a>    <span class="doccomment">/// Open an editor to reply to the current message. (&lt;code class="appcommand"&gt;APPCOMMAND_REPLY_TO_MAIL&lt;/code&gt;)
+<a href=#258 id=258 data-nosnippet>258</a>    </span>MailReply,
+<a href=#259 id=259 data-nosnippet>259</a>    <span class="doccomment">/// Send the current message. (&lt;code class="appcommand"&gt;APPCOMMAND_SEND_MAIL&lt;/code&gt;)
+<a href=#260 id=260 data-nosnippet>260</a>    </span>MailSend,
+<a href=#261 id=261 data-nosnippet>261</a>    <span class="doccomment">/// Close the current media, for example to close a CD or DVD tray. (&lt;code class="android"&gt;KEYCODE_MEDIA_CLOSE&lt;/code&gt;)
+<a href=#262 id=262 data-nosnippet>262</a>    </span>MediaClose,
+<a href=#263 id=263 data-nosnippet>263</a>    <span class="doccomment">/// Initiate or continue forward playback at faster than normal speed, or increase speed if already fast forwarding. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_FAST_FORWARD&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_FAST_FORWARD&lt;/code&gt;&lt;/code&gt;)
+<a href=#264 id=264 data-nosnippet>264</a>    </span>MediaFastForward,
+<a href=#265 id=265 data-nosnippet>265</a>    <span class="doccomment">/// Pause the currently playing media. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_PAUSE&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_PAUSE&lt;/code&gt;&lt;/code&gt;)
+<a href=#266 id=266 data-nosnippet>266</a>    /// &lt;p class="note" role="note"&gt;Media controller devices should use this value rather than [`Pause`][NamedKey::Pause] for their pause keys.&lt;/p&gt;
+<a href=#267 id=267 data-nosnippet>267</a>    </span>MediaPause,
+<a href=#268 id=268 data-nosnippet>268</a>    <span class="doccomment">/// Initiate or continue media playback at normal speed, if not currently playing at normal speed. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_PLAY&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_PLAY&lt;/code&gt;&lt;/code&gt;)
+<a href=#269 id=269 data-nosnippet>269</a>    </span>MediaPlay,
+<a href=#270 id=270 data-nosnippet>270</a>    <span class="doccomment">/// Toggle media between play and pause states. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_PLAY_PAUSE&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_PLAY_PAUSE&lt;/code&gt;&lt;/code&gt;)
+<a href=#271 id=271 data-nosnippet>271</a>    </span>MediaPlayPause,
+<a href=#272 id=272 data-nosnippet>272</a>    <span class="doccomment">/// Initiate or resume recording of currently selected media. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_RECORD&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_RECORD&lt;/code&gt;&lt;/code&gt;)
+<a href=#273 id=273 data-nosnippet>273</a>    </span>MediaRecord,
+<a href=#274 id=274 data-nosnippet>274</a>    <span class="doccomment">/// Initiate or continue reverse playback at faster than normal speed, or increase speed if already rewinding. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_REWIND&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_REWIND&lt;/code&gt;&lt;/code&gt;)
+<a href=#275 id=275 data-nosnippet>275</a>    </span>MediaRewind,
+<a href=#276 id=276 data-nosnippet>276</a>    <span class="doccomment">/// Stop media playing, pausing, forwarding, rewinding, or recording, if not already stopped. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_STOP&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_STOP&lt;/code&gt;&lt;/code&gt;)
+<a href=#277 id=277 data-nosnippet>277</a>    </span>MediaStop,
+<a href=#278 id=278 data-nosnippet>278</a>    <span class="doccomment">/// Seek to next media or program track. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_NEXTTRACK&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_NEXT&lt;/code&gt;&lt;/code&gt;)
+<a href=#279 id=279 data-nosnippet>279</a>    </span>MediaTrackNext,
+<a href=#280 id=280 data-nosnippet>280</a>    <span class="doccomment">/// Seek to previous media or program track. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MEDIA_PREVIOUSTRACK&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_PREVIOUS&lt;/code&gt;&lt;/code&gt;)
+<a href=#281 id=281 data-nosnippet>281</a>    </span>MediaTrackPrevious,
+<a href=#282 id=282 data-nosnippet>282</a>    <span class="doccomment">/// Open a new document or message. (&lt;code class="appcommand"&gt;APPCOMMAND_NEW&lt;/code&gt;)
+<a href=#283 id=283 data-nosnippet>283</a>    </span>New,
+<a href=#284 id=284 data-nosnippet>284</a>    <span class="doccomment">/// Open an existing document or message. (&lt;code class="appcommand"&gt;APPCOMMAND_OPEN&lt;/code&gt;)
+<a href=#285 id=285 data-nosnippet>285</a>    </span>Open,
+<a href=#286 id=286 data-nosnippet>286</a>    <span class="doccomment">/// Print the current document or message. (&lt;code class="appcommand"&gt;APPCOMMAND_PRINT&lt;/code&gt;)
+<a href=#287 id=287 data-nosnippet>287</a>    </span>Print,
+<a href=#288 id=288 data-nosnippet>288</a>    <span class="doccomment">/// Save the current document or message. (&lt;code class="appcommand"&gt;APPCOMMAND_SAVE&lt;/code&gt;)
+<a href=#289 id=289 data-nosnippet>289</a>    </span>Save,
+<a href=#290 id=290 data-nosnippet>290</a>    <span class="doccomment">/// Spellcheck the current document or selection. (&lt;code class="appcommand"&gt;APPCOMMAND_SPELL_CHECK&lt;/code&gt;)
+<a href=#291 id=291 data-nosnippet>291</a>    </span>SpellCheck,
+<a href=#292 id=292 data-nosnippet>292</a>    <span class="doccomment">/// The &lt;kbd&gt;11&lt;/kbd&gt; key found on media numpads that
+<a href=#293 id=293 data-nosnippet>293</a>    /// have buttons from &lt;kbd&gt;1&lt;/kbd&gt; ... &lt;kbd&gt;12&lt;/kbd&gt;.
+<a href=#294 id=294 data-nosnippet>294</a>    </span>Key11,
+<a href=#295 id=295 data-nosnippet>295</a>    <span class="doccomment">/// The &lt;kbd&gt;12&lt;/kbd&gt; key found on media numpads that
+<a href=#296 id=296 data-nosnippet>296</a>    /// have buttons from &lt;kbd&gt;1&lt;/kbd&gt; ... &lt;kbd&gt;12&lt;/kbd&gt;.
+<a href=#297 id=297 data-nosnippet>297</a>    </span>Key12,
+<a href=#298 id=298 data-nosnippet>298</a>    <span class="doccomment">/// Adjust audio balance leftward. (&lt;code class="vk"&gt;VK_AUDIO_BALANCE_LEFT&lt;/code&gt;)
+<a href=#299 id=299 data-nosnippet>299</a>    </span>AudioBalanceLeft,
+<a href=#300 id=300 data-nosnippet>300</a>    <span class="doccomment">/// Adjust audio balance rightward. (&lt;code class="vk"&gt;VK_AUDIO_BALANCE_RIGHT&lt;/code&gt;)
+<a href=#301 id=301 data-nosnippet>301</a>    </span>AudioBalanceRight,
+<a href=#302 id=302 data-nosnippet>302</a>    <span class="doccomment">/// Decrease audio bass boost or cycle down through bass boost states. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_BASS_DOWN&lt;/code&gt;&lt;/code&gt;, &lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_BASS_BOOST_DOWN&lt;/code&gt;&lt;/code&gt;)
+<a href=#303 id=303 data-nosnippet>303</a>    </span>AudioBassBoostDown,
+<a href=#304 id=304 data-nosnippet>304</a>    <span class="doccomment">/// Toggle bass boost on/off. (&lt;code class="appcommand"&gt;APPCOMMAND_BASS_BOOST&lt;/code&gt;)
+<a href=#305 id=305 data-nosnippet>305</a>    </span>AudioBassBoostToggle,
+<a href=#306 id=306 data-nosnippet>306</a>    <span class="doccomment">/// Increase audio bass boost or cycle up through bass boost states. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_BASS_UP&lt;/code&gt;&lt;/code&gt;, &lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_BASS_BOOST_UP&lt;/code&gt;&lt;/code&gt;)
+<a href=#307 id=307 data-nosnippet>307</a>    </span>AudioBassBoostUp,
+<a href=#308 id=308 data-nosnippet>308</a>    <span class="doccomment">/// Adjust audio fader towards front. (&lt;code class="vk"&gt;VK_FADER_FRONT&lt;/code&gt;)
+<a href=#309 id=309 data-nosnippet>309</a>    </span>AudioFaderFront,
+<a href=#310 id=310 data-nosnippet>310</a>    <span class="doccomment">/// Adjust audio fader towards rear. (&lt;code class="vk"&gt;VK_FADER_REAR&lt;/code&gt;)
+<a href=#311 id=311 data-nosnippet>311</a>    </span>AudioFaderRear,
+<a href=#312 id=312 data-nosnippet>312</a>    <span class="doccomment">/// Advance surround audio mode to next available mode. (&lt;code class="vk"&gt;VK_SURROUND_MODE_NEXT&lt;/code&gt;)
+<a href=#313 id=313 data-nosnippet>313</a>    </span>AudioSurroundModeNext,
+<a href=#314 id=314 data-nosnippet>314</a>    <span class="doccomment">/// Decrease treble. (&lt;code class="appcommand"&gt;APPCOMMAND_TREBLE_DOWN&lt;/code&gt;)
+<a href=#315 id=315 data-nosnippet>315</a>    </span>AudioTrebleDown,
+<a href=#316 id=316 data-nosnippet>316</a>    <span class="doccomment">/// Increase treble. (&lt;code class="appcommand"&gt;APPCOMMAND_TREBLE_UP&lt;/code&gt;)
+<a href=#317 id=317 data-nosnippet>317</a>    </span>AudioTrebleUp,
+<a href=#318 id=318 data-nosnippet>318</a>    <span class="doccomment">/// Decrease audio volume. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_VOLUME_DOWN&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_VOLUME_DOWN&lt;/code&gt;&lt;/code&gt;)
+<a href=#319 id=319 data-nosnippet>319</a>    </span>AudioVolumeDown,
+<a href=#320 id=320 data-nosnippet>320</a>    <span class="doccomment">/// Increase audio volume. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_VOLUME_UP&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_VOLUME_UP&lt;/code&gt;&lt;/code&gt;)
+<a href=#321 id=321 data-nosnippet>321</a>    </span>AudioVolumeUp,
+<a href=#322 id=322 data-nosnippet>322</a>    <span class="doccomment">/// Toggle between muted state and prior volume level. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_VOLUME_MUTE&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_VOLUME_MUTE&lt;/code&gt;&lt;/code&gt;)
+<a href=#323 id=323 data-nosnippet>323</a>    </span>AudioVolumeMute,
+<a href=#324 id=324 data-nosnippet>324</a>    <span class="doccomment">/// Toggle the microphone on/off. (&lt;code class="appcommand"&gt;APPCOMMAND_MIC_ON_OFF_TOGGLE&lt;/code&gt;)
+<a href=#325 id=325 data-nosnippet>325</a>    </span>MicrophoneToggle,
+<a href=#326 id=326 data-nosnippet>326</a>    <span class="doccomment">/// Decrease microphone volume. (&lt;code class="appcommand"&gt;APPCOMMAND_MICROPHONE_VOLUME_DOWN&lt;/code&gt;)
+<a href=#327 id=327 data-nosnippet>327</a>    </span>MicrophoneVolumeDown,
+<a href=#328 id=328 data-nosnippet>328</a>    <span class="doccomment">/// Increase microphone volume. (&lt;code class="appcommand"&gt;APPCOMMAND_MICROPHONE_VOLUME_UP&lt;/code&gt;)
+<a href=#329 id=329 data-nosnippet>329</a>    </span>MicrophoneVolumeUp,
+<a href=#330 id=330 data-nosnippet>330</a>    <span class="doccomment">/// Mute the microphone. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_MICROPHONE_VOLUME_MUTE&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MUTE&lt;/code&gt;&lt;/code&gt;)
+<a href=#331 id=331 data-nosnippet>331</a>    </span>MicrophoneVolumeMute,
+<a href=#332 id=332 data-nosnippet>332</a>    <span class="doccomment">/// Show correction list when a word is incorrectly identified. (&lt;code class="appcommand"&gt;APPCOMMAND_CORRECTION_LIST&lt;/code&gt;)
+<a href=#333 id=333 data-nosnippet>333</a>    </span>SpeechCorrectionList,
+<a href=#334 id=334 data-nosnippet>334</a>    <span class="doccomment">/// Toggle between dictation mode and command/control mode. (&lt;code class="appcommand"&gt;APPCOMMAND_DICTATE_OR_COMMAND_CONTROL_TOGGLE&lt;/code&gt;)
+<a href=#335 id=335 data-nosnippet>335</a>    </span>SpeechInputToggle,
+<a href=#336 id=336 data-nosnippet>336</a>    <span class="doccomment">/// The first generic "LaunchApplication" key. This is commonly associated with launching "My Computer", and may have a computer symbol on the key. (&lt;code class="appcommand"&gt;APPCOMMAND_LAUNCH_APP1&lt;/code&gt;)
+<a href=#337 id=337 data-nosnippet>337</a>    </span>LaunchApplication1,
+<a href=#338 id=338 data-nosnippet>338</a>    <span class="doccomment">/// The second generic "LaunchApplication" key. This is commonly associated with launching "Calculator", and may have a calculator symbol on the key. (&lt;code class="appcommand"&gt;&lt;code class="appcommand"&gt;APPCOMMAND_LAUNCH_APP2&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_CALCULATOR&lt;/code&gt;&lt;/code&gt;)
+<a href=#339 id=339 data-nosnippet>339</a>    </span>LaunchApplication2,
+<a href=#340 id=340 data-nosnippet>340</a>    <span class="doccomment">/// The "Calendar" key. (&lt;code class="android"&gt;KEYCODE_CALENDAR&lt;/code&gt;)
+<a href=#341 id=341 data-nosnippet>341</a>    </span>LaunchCalendar,
+<a href=#342 id=342 data-nosnippet>342</a>    <span class="doccomment">/// The "Contacts" key. (&lt;code class="android"&gt;KEYCODE_CONTACTS&lt;/code&gt;)
+<a href=#343 id=343 data-nosnippet>343</a>    </span>LaunchContacts,
+<a href=#344 id=344 data-nosnippet>344</a>    <span class="doccomment">/// The "Mail" key. (&lt;code class="appcommand"&gt;APPCOMMAND_LAUNCH_MAIL&lt;/code&gt;)
+<a href=#345 id=345 data-nosnippet>345</a>    </span>LaunchMail,
+<a href=#346 id=346 data-nosnippet>346</a>    <span class="doccomment">/// The "Media Player" key. (&lt;code class="appcommand"&gt;APPCOMMAND_LAUNCH_MEDIA_SELECT&lt;/code&gt;)
+<a href=#347 id=347 data-nosnippet>347</a>    </span>LaunchMediaPlayer,
+<a href=#348 id=348 data-nosnippet>348</a>    <span class="doccomment">/// The "Music Player" key.
+<a href=#349 id=349 data-nosnippet>349</a>    </span>LaunchMusicPlayer,
+<a href=#350 id=350 data-nosnippet>350</a>    <span class="doccomment">/// The "Phone" key.
+<a href=#351 id=351 data-nosnippet>351</a>    </span>LaunchPhone,
+<a href=#352 id=352 data-nosnippet>352</a>    <span class="doccomment">/// The "Screen Saver" key.
+<a href=#353 id=353 data-nosnippet>353</a>    </span>LaunchScreenSaver,
+<a href=#354 id=354 data-nosnippet>354</a>    <span class="doccomment">/// The "Spreadsheet" key.
+<a href=#355 id=355 data-nosnippet>355</a>    </span>LaunchSpreadsheet,
+<a href=#356 id=356 data-nosnippet>356</a>    <span class="doccomment">/// The "Web Browser" key.
+<a href=#357 id=357 data-nosnippet>357</a>    </span>LaunchWebBrowser,
+<a href=#358 id=358 data-nosnippet>358</a>    <span class="doccomment">/// The "WebCam" key.
+<a href=#359 id=359 data-nosnippet>359</a>    </span>LaunchWebCam,
+<a href=#360 id=360 data-nosnippet>360</a>    <span class="doccomment">/// The "Word Processor" key.
+<a href=#361 id=361 data-nosnippet>361</a>    </span>LaunchWordProcessor,
+<a href=#362 id=362 data-nosnippet>362</a>    <span class="doccomment">/// Navigate to previous content or page in current history. (&lt;code class="appcommand"&gt;APPCOMMAND_BROWSER_BACKWARD&lt;/code&gt;)
+<a href=#363 id=363 data-nosnippet>363</a>    </span>BrowserBack,
+<a href=#364 id=364 data-nosnippet>364</a>    <span class="doccomment">/// Open the list of browser favorites. (&lt;code class="appcommand"&gt;APPCOMMAND_BROWSER_FAVORITES&lt;/code&gt;)
+<a href=#365 id=365 data-nosnippet>365</a>    </span>BrowserFavorites,
+<a href=#366 id=366 data-nosnippet>366</a>    <span class="doccomment">/// Navigate to next content or page in current history. (&lt;code class="appcommand"&gt;APPCOMMAND_BROWSER_FORWARD&lt;/code&gt;)
+<a href=#367 id=367 data-nosnippet>367</a>    </span>BrowserForward,
+<a href=#368 id=368 data-nosnippet>368</a>    <span class="doccomment">/// Go to the user’s preferred home page. (&lt;code class="appcommand"&gt;APPCOMMAND_BROWSER_HOME&lt;/code&gt;)
+<a href=#369 id=369 data-nosnippet>369</a>    </span>BrowserHome,
+<a href=#370 id=370 data-nosnippet>370</a>    <span class="doccomment">/// Refresh the current page or content. (&lt;code class="appcommand"&gt;APPCOMMAND_BROWSER_REFRESH&lt;/code&gt;)
+<a href=#371 id=371 data-nosnippet>371</a>    </span>BrowserRefresh,
+<a href=#372 id=372 data-nosnippet>372</a>    <span class="doccomment">/// Call up the user’s preferred search page. (&lt;code class="appcommand"&gt;APPCOMMAND_BROWSER_SEARCH&lt;/code&gt;)
+<a href=#373 id=373 data-nosnippet>373</a>    </span>BrowserSearch,
+<a href=#374 id=374 data-nosnippet>374</a>    <span class="doccomment">/// Stop loading the current page or content. (&lt;code class="appcommand"&gt;APPCOMMAND_BROWSER_STOP&lt;/code&gt;)
+<a href=#375 id=375 data-nosnippet>375</a>    </span>BrowserStop,
+<a href=#376 id=376 data-nosnippet>376</a>    <span class="doccomment">/// The Application switch key, which provides a list of recent apps to switch between. (&lt;code class="android"&gt;KEYCODE_APP_SWITCH&lt;/code&gt;)
+<a href=#377 id=377 data-nosnippet>377</a>    </span>AppSwitch,
+<a href=#378 id=378 data-nosnippet>378</a>    <span class="doccomment">/// The Call key. (&lt;code class="android"&gt;KEYCODE_CALL&lt;/code&gt;)
+<a href=#379 id=379 data-nosnippet>379</a>    </span>Call,
+<a href=#380 id=380 data-nosnippet>380</a>    <span class="doccomment">/// The Camera key. (&lt;code class="android"&gt;KEYCODE_CAMERA&lt;/code&gt;)
+<a href=#381 id=381 data-nosnippet>381</a>    </span>Camera,
+<a href=#382 id=382 data-nosnippet>382</a>    <span class="doccomment">/// The Camera focus key. (&lt;code class="android"&gt;KEYCODE_FOCUS&lt;/code&gt;)
+<a href=#383 id=383 data-nosnippet>383</a>    </span>CameraFocus,
+<a href=#384 id=384 data-nosnippet>384</a>    <span class="doccomment">/// The End Call key. (&lt;code class="android"&gt;KEYCODE_ENDCALL&lt;/code&gt;)
+<a href=#385 id=385 data-nosnippet>385</a>    </span>EndCall,
+<a href=#386 id=386 data-nosnippet>386</a>    <span class="doccomment">/// The Back key. (&lt;code class="android"&gt;KEYCODE_BACK&lt;/code&gt;)
+<a href=#387 id=387 data-nosnippet>387</a>    </span>GoBack,
+<a href=#388 id=388 data-nosnippet>388</a>    <span class="doccomment">/// The Home key, which goes to the phone’s main screen. (&lt;code class="android"&gt;KEYCODE_HOME&lt;/code&gt;)
+<a href=#389 id=389 data-nosnippet>389</a>    </span>GoHome,
+<a href=#390 id=390 data-nosnippet>390</a>    <span class="doccomment">/// The Headset Hook key. (&lt;code class="android"&gt;KEYCODE_HEADSETHOOK&lt;/code&gt;)
+<a href=#391 id=391 data-nosnippet>391</a>    </span>HeadsetHook,
+<a href=#392 id=392 data-nosnippet>392</a>    <span class="doccomment">/// The Last Number Redial key.
+<a href=#393 id=393 data-nosnippet>393</a>    </span>LastNumberRedial,
+<a href=#394 id=394 data-nosnippet>394</a>    <span class="doccomment">/// The Notification key. (&lt;code class="android"&gt;KEYCODE_NOTIFICATION&lt;/code&gt;)
+<a href=#395 id=395 data-nosnippet>395</a>    </span>Notification,
+<a href=#396 id=396 data-nosnippet>396</a>    <span class="doccomment">/// Toggle between manner mode state: silent, vibrate, ring, ... (&lt;code class="android"&gt;KEYCODE_MANNER_MODE&lt;/code&gt;)
+<a href=#397 id=397 data-nosnippet>397</a>    </span>MannerMode,
+<a href=#398 id=398 data-nosnippet>398</a>    <span class="doccomment">/// The Voice Dial key.
+<a href=#399 id=399 data-nosnippet>399</a>    </span>VoiceDial,
+<a href=#400 id=400 data-nosnippet>400</a>    <span class="doccomment">/// Switch to viewing TV. (&lt;code class="android"&gt;KEYCODE_TV&lt;/code&gt;)
+<a href=#401 id=401 data-nosnippet>401</a>    </span>TV,
+<a href=#402 id=402 data-nosnippet>402</a>    <span class="doccomment">/// TV 3D Mode. (&lt;code class="android"&gt;KEYCODE_3D_MODE&lt;/code&gt;)
+<a href=#403 id=403 data-nosnippet>403</a>    </span>TV3DMode,
+<a href=#404 id=404 data-nosnippet>404</a>    <span class="doccomment">/// Toggle between antenna and cable input. (&lt;code class="android"&gt;KEYCODE_TV_ANTENNA_CABLE&lt;/code&gt;)
+<a href=#405 id=405 data-nosnippet>405</a>    </span>TVAntennaCable,
+<a href=#406 id=406 data-nosnippet>406</a>    <span class="doccomment">/// Audio description. (&lt;code class="android"&gt;KEYCODE_TV_AUDIO_DESCRIPTION&lt;/code&gt;)
+<a href=#407 id=407 data-nosnippet>407</a>    </span>TVAudioDescription,
+<a href=#408 id=408 data-nosnippet>408</a>    <span class="doccomment">/// Audio description mixing volume down. (&lt;code class="android"&gt;KEYCODE_TV_AUDIO_DESCRIPTION_MIX_DOWN&lt;/code&gt;)
+<a href=#409 id=409 data-nosnippet>409</a>    </span>TVAudioDescriptionMixDown,
+<a href=#410 id=410 data-nosnippet>410</a>    <span class="doccomment">/// Audio description mixing volume up. (&lt;code class="android"&gt;KEYCODE_TV_AUDIO_DESCRIPTION_MIX_UP&lt;/code&gt;)
+<a href=#411 id=411 data-nosnippet>411</a>    </span>TVAudioDescriptionMixUp,
+<a href=#412 id=412 data-nosnippet>412</a>    <span class="doccomment">/// Contents menu. (&lt;code class="android"&gt;KEYCODE_TV_CONTENTS_MENU&lt;/code&gt;)
+<a href=#413 id=413 data-nosnippet>413</a>    </span>TVContentsMenu,
+<a href=#414 id=414 data-nosnippet>414</a>    <span class="doccomment">/// Contents menu. (&lt;code class="android"&gt;KEYCODE_TV_DATA_SERVICE&lt;/code&gt;)
+<a href=#415 id=415 data-nosnippet>415</a>    </span>TVDataService,
+<a href=#416 id=416 data-nosnippet>416</a>    <span class="doccomment">/// Switch the input mode on an external TV. (&lt;code class="android"&gt;KEYCODE_TV_INPUT&lt;/code&gt;)
+<a href=#417 id=417 data-nosnippet>417</a>    </span>TVInput,
+<a href=#418 id=418 data-nosnippet>418</a>    <span class="doccomment">/// Switch to component input #1. (&lt;code class="android"&gt;KEYCODE_TV_INPUT_COMPONENT_1&lt;/code&gt;)
+<a href=#419 id=419 data-nosnippet>419</a>    </span>TVInputComponent1,
+<a href=#420 id=420 data-nosnippet>420</a>    <span class="doccomment">/// Switch to component input #2. (&lt;code class="android"&gt;KEYCODE_TV_INPUT_COMPONENT_2&lt;/code&gt;)
+<a href=#421 id=421 data-nosnippet>421</a>    </span>TVInputComponent2,
+<a href=#422 id=422 data-nosnippet>422</a>    <span class="doccomment">/// Switch to composite input #1. (&lt;code class="android"&gt;KEYCODE_TV_INPUT_COMPOSITE_1&lt;/code&gt;)
+<a href=#423 id=423 data-nosnippet>423</a>    </span>TVInputComposite1,
+<a href=#424 id=424 data-nosnippet>424</a>    <span class="doccomment">/// Switch to composite input #2. (&lt;code class="android"&gt;KEYCODE_TV_INPUT_COMPOSITE_2&lt;/code&gt;)
+<a href=#425 id=425 data-nosnippet>425</a>    </span>TVInputComposite2,
+<a href=#426 id=426 data-nosnippet>426</a>    <span class="doccomment">/// Switch to HDMI input #1. (&lt;code class="android"&gt;KEYCODE_TV_INPUT_HDMI_1&lt;/code&gt;)
+<a href=#427 id=427 data-nosnippet>427</a>    </span>TVInputHDMI1,
+<a href=#428 id=428 data-nosnippet>428</a>    <span class="doccomment">/// Switch to HDMI input #2. (&lt;code class="android"&gt;KEYCODE_TV_INPUT_HDMI_2&lt;/code&gt;)
+<a href=#429 id=429 data-nosnippet>429</a>    </span>TVInputHDMI2,
+<a href=#430 id=430 data-nosnippet>430</a>    <span class="doccomment">/// Switch to HDMI input #3. (&lt;code class="android"&gt;KEYCODE_TV_INPUT_HDMI_3&lt;/code&gt;)
+<a href=#431 id=431 data-nosnippet>431</a>    </span>TVInputHDMI3,
+<a href=#432 id=432 data-nosnippet>432</a>    <span class="doccomment">/// Switch to HDMI input #4. (&lt;code class="android"&gt;KEYCODE_TV_INPUT_HDMI_4&lt;/code&gt;)
+<a href=#433 id=433 data-nosnippet>433</a>    </span>TVInputHDMI4,
+<a href=#434 id=434 data-nosnippet>434</a>    <span class="doccomment">/// Switch to VGA input #1. (&lt;code class="android"&gt;KEYCODE_TV_INPUT_VGA_1&lt;/code&gt;)
+<a href=#435 id=435 data-nosnippet>435</a>    </span>TVInputVGA1,
+<a href=#436 id=436 data-nosnippet>436</a>    <span class="doccomment">/// Media context menu. (&lt;code class="android"&gt;KEYCODE_TV_MEDIA_CONTEXT_MENU&lt;/code&gt;)
+<a href=#437 id=437 data-nosnippet>437</a>    </span>TVMediaContext,
+<a href=#438 id=438 data-nosnippet>438</a>    <span class="doccomment">/// Toggle network. (&lt;code class="android"&gt;KEYCODE_TV_NETWORK&lt;/code&gt;)
+<a href=#439 id=439 data-nosnippet>439</a>    </span>TVNetwork,
+<a href=#440 id=440 data-nosnippet>440</a>    <span class="doccomment">/// Number entry. (&lt;code class="android"&gt;KEYCODE_TV_NUMBER_ENTRY&lt;/code&gt;)
+<a href=#441 id=441 data-nosnippet>441</a>    </span>TVNumberEntry,
+<a href=#442 id=442 data-nosnippet>442</a>    <span class="doccomment">/// Toggle the power on an external TV. (&lt;code class="android"&gt;KEYCODE_TV_POWER&lt;/code&gt;)
+<a href=#443 id=443 data-nosnippet>443</a>    </span>TVPower,
+<a href=#444 id=444 data-nosnippet>444</a>    <span class="doccomment">/// Radio. (&lt;code class="android"&gt;KEYCODE_TV_RADIO_SERVICE&lt;/code&gt;)
+<a href=#445 id=445 data-nosnippet>445</a>    </span>TVRadioService,
+<a href=#446 id=446 data-nosnippet>446</a>    <span class="doccomment">/// Satellite. (&lt;code class="android"&gt;KEYCODE_TV_SATELLITE&lt;/code&gt;)
+<a href=#447 id=447 data-nosnippet>447</a>    </span>TVSatellite,
+<a href=#448 id=448 data-nosnippet>448</a>    <span class="doccomment">/// Broadcast Satellite. (&lt;code class="android"&gt;KEYCODE_TV_SATELLITE_BS&lt;/code&gt;)
+<a href=#449 id=449 data-nosnippet>449</a>    </span>TVSatelliteBS,
+<a href=#450 id=450 data-nosnippet>450</a>    <span class="doccomment">/// Communication Satellite. (&lt;code class="android"&gt;KEYCODE_TV_SATELLITE_CS&lt;/code&gt;)
+<a href=#451 id=451 data-nosnippet>451</a>    </span>TVSatelliteCS,
+<a href=#452 id=452 data-nosnippet>452</a>    <span class="doccomment">/// Toggle between available satellites. (&lt;code class="android"&gt;KEYCODE_TV_SATELLITE_SERVICE&lt;/code&gt;)
+<a href=#453 id=453 data-nosnippet>453</a>    </span>TVSatelliteToggle,
+<a href=#454 id=454 data-nosnippet>454</a>    <span class="doccomment">/// Analog Terrestrial. (&lt;code class="android"&gt;KEYCODE_TV_TERRESTRIAL_ANALOG&lt;/code&gt;)
+<a href=#455 id=455 data-nosnippet>455</a>    </span>TVTerrestrialAnalog,
+<a href=#456 id=456 data-nosnippet>456</a>    <span class="doccomment">/// Digital Terrestrial. (&lt;code class="android"&gt;KEYCODE_TV_TERRESTRIAL_DIGITAL&lt;/code&gt;)
+<a href=#457 id=457 data-nosnippet>457</a>    </span>TVTerrestrialDigital,
+<a href=#458 id=458 data-nosnippet>458</a>    <span class="doccomment">/// Timer programming. (&lt;code class="android"&gt;KEYCODE_TV_TIMER_PROGRAMMING&lt;/code&gt;)
+<a href=#459 id=459 data-nosnippet>459</a>    </span>TVTimer,
+<a href=#460 id=460 data-nosnippet>460</a>    <span class="doccomment">/// Switch the input mode on an external AVR (audio/video receiver). (&lt;code class="android"&gt;KEYCODE_AVR_INPUT&lt;/code&gt;)
+<a href=#461 id=461 data-nosnippet>461</a>    </span>AVRInput,
+<a href=#462 id=462 data-nosnippet>462</a>    <span class="doccomment">/// Toggle the power on an external AVR (audio/video receiver). (&lt;code class="android"&gt;KEYCODE_AVR_POWER&lt;/code&gt;)
+<a href=#463 id=463 data-nosnippet>463</a>    </span>AVRPower,
+<a href=#464 id=464 data-nosnippet>464</a>    <span class="doccomment">/// General purpose color-coded media function key, as index 0 (red). (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_COLORED_KEY_0&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_PROG_RED&lt;/code&gt;&lt;/code&gt;)
+<a href=#465 id=465 data-nosnippet>465</a>    </span>ColorF0Red,
+<a href=#466 id=466 data-nosnippet>466</a>    <span class="doccomment">/// General purpose color-coded media function key, as index 1 (green). (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_COLORED_KEY_1&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_PROG_GREEN&lt;/code&gt;&lt;/code&gt;)
+<a href=#467 id=467 data-nosnippet>467</a>    </span>ColorF1Green,
+<a href=#468 id=468 data-nosnippet>468</a>    <span class="doccomment">/// General purpose color-coded media function key, as index 2 (yellow). (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_COLORED_KEY_2&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_PROG_YELLOW&lt;/code&gt;&lt;/code&gt;)
+<a href=#469 id=469 data-nosnippet>469</a>    </span>ColorF2Yellow,
+<a href=#470 id=470 data-nosnippet>470</a>    <span class="doccomment">/// General purpose color-coded media function key, as index 3 (blue). (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_COLORED_KEY_3&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_PROG_BLUE&lt;/code&gt;&lt;/code&gt;)
+<a href=#471 id=471 data-nosnippet>471</a>    </span>ColorF3Blue,
+<a href=#472 id=472 data-nosnippet>472</a>    <span class="doccomment">/// General purpose color-coded media function key, as index 4 (grey). (&lt;code class="vk"&gt;VK_COLORED_KEY_4&lt;/code&gt;)
+<a href=#473 id=473 data-nosnippet>473</a>    </span>ColorF4Grey,
+<a href=#474 id=474 data-nosnippet>474</a>    <span class="doccomment">/// General purpose color-coded media function key, as index 5 (brown). (&lt;code class="vk"&gt;VK_COLORED_KEY_5&lt;/code&gt;)
+<a href=#475 id=475 data-nosnippet>475</a>    </span>ColorF5Brown,
+<a href=#476 id=476 data-nosnippet>476</a>    <span class="doccomment">/// Toggle the display of Closed Captions. (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_CC&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_CAPTIONS&lt;/code&gt;&lt;/code&gt;)
+<a href=#477 id=477 data-nosnippet>477</a>    </span>ClosedCaptionToggle,
+<a href=#478 id=478 data-nosnippet>478</a>    <span class="doccomment">/// Adjust brightness of device, by toggling between or cycling through states. (&lt;code class="vk"&gt;VK_DIMMER&lt;/code&gt;)
+<a href=#479 id=479 data-nosnippet>479</a>    </span>Dimmer,
+<a href=#480 id=480 data-nosnippet>480</a>    <span class="doccomment">/// Swap video sources. (&lt;code class="vk"&gt;VK_DISPLAY_SWAP&lt;/code&gt;)
+<a href=#481 id=481 data-nosnippet>481</a>    </span>DisplaySwap,
+<a href=#482 id=482 data-nosnippet>482</a>    <span class="doccomment">/// Select Digital Video Rrecorder. (&lt;code class="android"&gt;KEYCODE_DVR&lt;/code&gt;)
+<a href=#483 id=483 data-nosnippet>483</a>    </span>DVR,
+<a href=#484 id=484 data-nosnippet>484</a>    <span class="doccomment">/// Exit the current application. (&lt;code class="vk"&gt;VK_EXIT&lt;/code&gt;)
+<a href=#485 id=485 data-nosnippet>485</a>    </span>Exit,
+<a href=#486 id=486 data-nosnippet>486</a>    <span class="doccomment">/// Clear program or content stored as favorite 0. (&lt;code class="vk"&gt;VK_CLEAR_FAVORITE_0&lt;/code&gt;)
+<a href=#487 id=487 data-nosnippet>487</a>    </span>FavoriteClear0,
+<a href=#488 id=488 data-nosnippet>488</a>    <span class="doccomment">/// Clear program or content stored as favorite 1. (&lt;code class="vk"&gt;VK_CLEAR_FAVORITE_1&lt;/code&gt;)
+<a href=#489 id=489 data-nosnippet>489</a>    </span>FavoriteClear1,
+<a href=#490 id=490 data-nosnippet>490</a>    <span class="doccomment">/// Clear program or content stored as favorite 2. (&lt;code class="vk"&gt;VK_CLEAR_FAVORITE_2&lt;/code&gt;)
+<a href=#491 id=491 data-nosnippet>491</a>    </span>FavoriteClear2,
+<a href=#492 id=492 data-nosnippet>492</a>    <span class="doccomment">/// Clear program or content stored as favorite 3. (&lt;code class="vk"&gt;VK_CLEAR_FAVORITE_3&lt;/code&gt;)
+<a href=#493 id=493 data-nosnippet>493</a>    </span>FavoriteClear3,
+<a href=#494 id=494 data-nosnippet>494</a>    <span class="doccomment">/// Select (recall) program or content stored as favorite 0. (&lt;code class="vk"&gt;VK_RECALL_FAVORITE_0&lt;/code&gt;)
+<a href=#495 id=495 data-nosnippet>495</a>    </span>FavoriteRecall0,
+<a href=#496 id=496 data-nosnippet>496</a>    <span class="doccomment">/// Select (recall) program or content stored as favorite 1. (&lt;code class="vk"&gt;VK_RECALL_FAVORITE_1&lt;/code&gt;)
+<a href=#497 id=497 data-nosnippet>497</a>    </span>FavoriteRecall1,
+<a href=#498 id=498 data-nosnippet>498</a>    <span class="doccomment">/// Select (recall) program or content stored as favorite 2. (&lt;code class="vk"&gt;VK_RECALL_FAVORITE_2&lt;/code&gt;)
+<a href=#499 id=499 data-nosnippet>499</a>    </span>FavoriteRecall2,
+<a href=#500 id=500 data-nosnippet>500</a>    <span class="doccomment">/// Select (recall) program or content stored as favorite 3. (&lt;code class="vk"&gt;VK_RECALL_FAVORITE_3&lt;/code&gt;)
+<a href=#501 id=501 data-nosnippet>501</a>    </span>FavoriteRecall3,
+<a href=#502 id=502 data-nosnippet>502</a>    <span class="doccomment">/// Store current program or content as favorite 0. (&lt;code class="vk"&gt;VK_STORE_FAVORITE_0&lt;/code&gt;)
+<a href=#503 id=503 data-nosnippet>503</a>    </span>FavoriteStore0,
+<a href=#504 id=504 data-nosnippet>504</a>    <span class="doccomment">/// Store current program or content as favorite 1. (&lt;code class="vk"&gt;VK_STORE_FAVORITE_1&lt;/code&gt;)
+<a href=#505 id=505 data-nosnippet>505</a>    </span>FavoriteStore1,
+<a href=#506 id=506 data-nosnippet>506</a>    <span class="doccomment">/// Store current program or content as favorite 2. (&lt;code class="vk"&gt;VK_STORE_FAVORITE_2&lt;/code&gt;)
+<a href=#507 id=507 data-nosnippet>507</a>    </span>FavoriteStore2,
+<a href=#508 id=508 data-nosnippet>508</a>    <span class="doccomment">/// Store current program or content as favorite 3. (&lt;code class="vk"&gt;VK_STORE_FAVORITE_3&lt;/code&gt;)
+<a href=#509 id=509 data-nosnippet>509</a>    </span>FavoriteStore3,
+<a href=#510 id=510 data-nosnippet>510</a>    <span class="doccomment">/// Toggle display of program or content guide. (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_GUIDE&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_GUIDE&lt;/code&gt;&lt;/code&gt;)
+<a href=#511 id=511 data-nosnippet>511</a>    </span>Guide,
+<a href=#512 id=512 data-nosnippet>512</a>    <span class="doccomment">/// If guide is active and displayed, then display next day’s content. (&lt;code class="vk"&gt;VK_NEXT_DAY&lt;/code&gt;)
+<a href=#513 id=513 data-nosnippet>513</a>    </span>GuideNextDay,
+<a href=#514 id=514 data-nosnippet>514</a>    <span class="doccomment">/// If guide is active and displayed, then display previous day’s content. (&lt;code class="vk"&gt;VK_PREV_DAY&lt;/code&gt;)
+<a href=#515 id=515 data-nosnippet>515</a>    </span>GuidePreviousDay,
+<a href=#516 id=516 data-nosnippet>516</a>    <span class="doccomment">/// Toggle display of information about currently selected context or media. (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_INFO&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_INFO&lt;/code&gt;&lt;/code&gt;)
+<a href=#517 id=517 data-nosnippet>517</a>    </span>Info,
+<a href=#518 id=518 data-nosnippet>518</a>    <span class="doccomment">/// Toggle instant replay. (&lt;code class="vk"&gt;VK_INSTANT_REPLAY&lt;/code&gt;)
+<a href=#519 id=519 data-nosnippet>519</a>    </span>InstantReplay,
+<a href=#520 id=520 data-nosnippet>520</a>    <span class="doccomment">/// Launch linked content, if available and appropriate. (&lt;code class="vk"&gt;VK_LINK&lt;/code&gt;)
+<a href=#521 id=521 data-nosnippet>521</a>    </span>Link,
+<a href=#522 id=522 data-nosnippet>522</a>    <span class="doccomment">/// List the current program. (&lt;code class="vk"&gt;VK_LIST&lt;/code&gt;)
+<a href=#523 id=523 data-nosnippet>523</a>    </span>ListProgram,
+<a href=#524 id=524 data-nosnippet>524</a>    <span class="doccomment">/// Toggle display listing of currently available live content or programs. (&lt;code class="vk"&gt;VK_LIVE&lt;/code&gt;)
+<a href=#525 id=525 data-nosnippet>525</a>    </span>LiveContent,
+<a href=#526 id=526 data-nosnippet>526</a>    <span class="doccomment">/// Lock or unlock current content or program. (&lt;code class="vk"&gt;VK_LOCK&lt;/code&gt;)
+<a href=#527 id=527 data-nosnippet>527</a>    </span>Lock,
+<a href=#528 id=528 data-nosnippet>528</a>    <span class="doccomment">/// Show a list of media applications: audio/video players and image viewers. (&lt;code class="vk"&gt;VK_APPS&lt;/code&gt;)
+<a href=#529 id=529 data-nosnippet>529</a>    /// &lt;p class="note" role="note"&gt;Do not confuse this key value with the Windows' &lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_APPS&lt;/code&gt;&lt;/code&gt; / &lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_CONTEXT_MENU&lt;/code&gt;&lt;/code&gt; key, which is encoded as [`ContextMenu`][NamedKey::ContextMenu].&lt;/p&gt;
+<a href=#530 id=530 data-nosnippet>530</a>    </span>MediaApps,
+<a href=#531 id=531 data-nosnippet>531</a>    <span class="doccomment">/// Audio track key. (&lt;code class="android"&gt;KEYCODE_MEDIA_AUDIO_TRACK&lt;/code&gt;)
+<a href=#532 id=532 data-nosnippet>532</a>    </span>MediaAudioTrack,
+<a href=#533 id=533 data-nosnippet>533</a>    <span class="doccomment">/// Select previously selected channel or media. (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_LAST&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_LAST_CHANNEL&lt;/code&gt;&lt;/code&gt;)
+<a href=#534 id=534 data-nosnippet>534</a>    </span>MediaLast,
+<a href=#535 id=535 data-nosnippet>535</a>    <span class="doccomment">/// Skip backward to next content or program. (&lt;code class="android"&gt;KEYCODE_MEDIA_SKIP_BACKWARD&lt;/code&gt;)
+<a href=#536 id=536 data-nosnippet>536</a>    </span>MediaSkipBackward,
+<a href=#537 id=537 data-nosnippet>537</a>    <span class="doccomment">/// Skip forward to next content or program. (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_SKIP&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_MEDIA_SKIP_FORWARD&lt;/code&gt;&lt;/code&gt;)
+<a href=#538 id=538 data-nosnippet>538</a>    </span>MediaSkipForward,
+<a href=#539 id=539 data-nosnippet>539</a>    <span class="doccomment">/// Step backward to next content or program. (&lt;code class="android"&gt;KEYCODE_MEDIA_STEP_BACKWARD&lt;/code&gt;)
+<a href=#540 id=540 data-nosnippet>540</a>    </span>MediaStepBackward,
+<a href=#541 id=541 data-nosnippet>541</a>    <span class="doccomment">/// Step forward to next content or program. (&lt;code class="android"&gt;KEYCODE_MEDIA_STEP_FORWARD&lt;/code&gt;)
+<a href=#542 id=542 data-nosnippet>542</a>    </span>MediaStepForward,
+<a href=#543 id=543 data-nosnippet>543</a>    <span class="doccomment">/// Media top menu. (&lt;code class="android"&gt;KEYCODE_MEDIA_TOP_MENU&lt;/code&gt;)
+<a href=#544 id=544 data-nosnippet>544</a>    </span>MediaTopMenu,
+<a href=#545 id=545 data-nosnippet>545</a>    <span class="doccomment">/// Navigate in. (&lt;code class="android"&gt;KEYCODE_NAVIGATE_IN&lt;/code&gt;)
+<a href=#546 id=546 data-nosnippet>546</a>    </span>NavigateIn,
+<a href=#547 id=547 data-nosnippet>547</a>    <span class="doccomment">/// Navigate to next key. (&lt;code class="android"&gt;KEYCODE_NAVIGATE_NEXT&lt;/code&gt;)
+<a href=#548 id=548 data-nosnippet>548</a>    </span>NavigateNext,
+<a href=#549 id=549 data-nosnippet>549</a>    <span class="doccomment">/// Navigate out. (&lt;code class="android"&gt;KEYCODE_NAVIGATE_OUT&lt;/code&gt;)
+<a href=#550 id=550 data-nosnippet>550</a>    </span>NavigateOut,
+<a href=#551 id=551 data-nosnippet>551</a>    <span class="doccomment">/// Navigate to previous key. (&lt;code class="android"&gt;KEYCODE_NAVIGATE_PREVIOUS&lt;/code&gt;)
+<a href=#552 id=552 data-nosnippet>552</a>    </span>NavigatePrevious,
+<a href=#553 id=553 data-nosnippet>553</a>    <span class="doccomment">/// Cycle to next favorite channel (in favorites list). (&lt;code class="vk"&gt;VK_NEXT_FAVORITE_CHANNEL&lt;/code&gt;)
+<a href=#554 id=554 data-nosnippet>554</a>    </span>NextFavoriteChannel,
+<a href=#555 id=555 data-nosnippet>555</a>    <span class="doccomment">/// Cycle to next user profile (if there are multiple user profiles). (&lt;code class="vk"&gt;VK_USER&lt;/code&gt;)
+<a href=#556 id=556 data-nosnippet>556</a>    </span>NextUserProfile,
+<a href=#557 id=557 data-nosnippet>557</a>    <span class="doccomment">/// Access on-demand content or programs. (&lt;code class="vk"&gt;VK_ON_DEMAND&lt;/code&gt;)
+<a href=#558 id=558 data-nosnippet>558</a>    </span>OnDemand,
+<a href=#559 id=559 data-nosnippet>559</a>    <span class="doccomment">/// Pairing key to pair devices. (&lt;code class="android"&gt;KEYCODE_PAIRING&lt;/code&gt;)
+<a href=#560 id=560 data-nosnippet>560</a>    </span>Pairing,
+<a href=#561 id=561 data-nosnippet>561</a>    <span class="doccomment">/// Move picture-in-picture window down. (&lt;code class="vk"&gt;VK_PINP_DOWN&lt;/code&gt;)
+<a href=#562 id=562 data-nosnippet>562</a>    </span>PinPDown,
+<a href=#563 id=563 data-nosnippet>563</a>    <span class="doccomment">/// Move picture-in-picture window. (&lt;code class="vk"&gt;VK_PINP_MOVE&lt;/code&gt;)
+<a href=#564 id=564 data-nosnippet>564</a>    </span>PinPMove,
+<a href=#565 id=565 data-nosnippet>565</a>    <span class="doccomment">/// Toggle display of picture-in-picture window. (&lt;code class="vk"&gt;VK_PINP_TOGGLE&lt;/code&gt;)
+<a href=#566 id=566 data-nosnippet>566</a>    </span>PinPToggle,
+<a href=#567 id=567 data-nosnippet>567</a>    <span class="doccomment">/// Move picture-in-picture window up. (&lt;code class="vk"&gt;VK_PINP_UP&lt;/code&gt;)
+<a href=#568 id=568 data-nosnippet>568</a>    </span>PinPUp,
+<a href=#569 id=569 data-nosnippet>569</a>    <span class="doccomment">/// Decrease media playback speed. (&lt;code class="vk"&gt;VK_PLAY_SPEED_DOWN&lt;/code&gt;)
+<a href=#570 id=570 data-nosnippet>570</a>    </span>PlaySpeedDown,
+<a href=#571 id=571 data-nosnippet>571</a>    <span class="doccomment">/// Reset playback to normal speed. (&lt;code class="vk"&gt;VK_PLAY_SPEED_RESET&lt;/code&gt;)
+<a href=#572 id=572 data-nosnippet>572</a>    </span>PlaySpeedReset,
+<a href=#573 id=573 data-nosnippet>573</a>    <span class="doccomment">/// Increase media playback speed. (&lt;code class="vk"&gt;VK_PLAY_SPEED_UP&lt;/code&gt;)
+<a href=#574 id=574 data-nosnippet>574</a>    </span>PlaySpeedUp,
+<a href=#575 id=575 data-nosnippet>575</a>    <span class="doccomment">/// Toggle random media or content shuffle mode. (&lt;code class="vk"&gt;VK_RANDOM_TOGGLE&lt;/code&gt;)
+<a href=#576 id=576 data-nosnippet>576</a>    </span>RandomToggle,
+<a href=#577 id=577 data-nosnippet>577</a>    <span class="doccomment">/// Not a physical key, but this key code is sent when the remote control battery is low. (&lt;code class="vk"&gt;VK_RC_LOW_BATTERY&lt;/code&gt;)
+<a href=#578 id=578 data-nosnippet>578</a>    </span>RcLowBattery,
+<a href=#579 id=579 data-nosnippet>579</a>    <span class="doccomment">/// Toggle or cycle between media recording speeds. (&lt;code class="vk"&gt;VK_RECORD_SPEED_NEXT&lt;/code&gt;)
+<a href=#580 id=580 data-nosnippet>580</a>    </span>RecordSpeedNext,
+<a href=#581 id=581 data-nosnippet>581</a>    <span class="doccomment">/// Toggle RF (radio frequency) input bypass mode (pass RF input directly to the RF output). (&lt;code class="vk"&gt;VK_RF_BYPASS&lt;/code&gt;)
+<a href=#582 id=582 data-nosnippet>582</a>    </span>RfBypass,
+<a href=#583 id=583 data-nosnippet>583</a>    <span class="doccomment">/// Toggle scan channels mode. (&lt;code class="vk"&gt;VK_SCAN_CHANNELS_TOGGLE&lt;/code&gt;)
+<a href=#584 id=584 data-nosnippet>584</a>    </span>ScanChannelsToggle,
+<a href=#585 id=585 data-nosnippet>585</a>    <span class="doccomment">/// Advance display screen mode to next available mode. (&lt;code class="vk"&gt;VK_SCREEN_MODE_NEXT&lt;/code&gt;)
+<a href=#586 id=586 data-nosnippet>586</a>    </span>ScreenModeNext,
+<a href=#587 id=587 data-nosnippet>587</a>    <span class="doccomment">/// Toggle display of device settings screen. (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_SETTINGS&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_SETTINGS&lt;/code&gt;&lt;/code&gt;)
+<a href=#588 id=588 data-nosnippet>588</a>    </span>Settings,
+<a href=#589 id=589 data-nosnippet>589</a>    <span class="doccomment">/// Toggle split screen mode. (&lt;code class="vk"&gt;VK_SPLIT_SCREEN_TOGGLE&lt;/code&gt;)
+<a href=#590 id=590 data-nosnippet>590</a>    </span>SplitScreenToggle,
+<a href=#591 id=591 data-nosnippet>591</a>    <span class="doccomment">/// Switch the input mode on an external STB (set top box). (&lt;code class="android"&gt;KEYCODE_STB_INPUT&lt;/code&gt;)
+<a href=#592 id=592 data-nosnippet>592</a>    </span>STBInput,
+<a href=#593 id=593 data-nosnippet>593</a>    <span class="doccomment">/// Toggle the power on an external STB (set top box). (&lt;code class="android"&gt;KEYCODE_STB_POWER&lt;/code&gt;)
+<a href=#594 id=594 data-nosnippet>594</a>    </span>STBPower,
+<a href=#595 id=595 data-nosnippet>595</a>    <span class="doccomment">/// Toggle display of subtitles, if available. (&lt;code class="vk"&gt;VK_SUBTITLE&lt;/code&gt;)
+<a href=#596 id=596 data-nosnippet>596</a>    </span>Subtitle,
+<a href=#597 id=597 data-nosnippet>597</a>    <span class="doccomment">/// Toggle display of teletext, if available (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_TELETEXT&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_TV_TELETEXT&lt;/code&gt;&lt;/code&gt;).
+<a href=#598 id=598 data-nosnippet>598</a>    </span>Teletext,
+<a href=#599 id=599 data-nosnippet>599</a>    <span class="doccomment">/// Advance video mode to next available mode. (&lt;code class="vk"&gt;VK_VIDEO_MODE_NEXT&lt;/code&gt;)
+<a href=#600 id=600 data-nosnippet>600</a>    </span>VideoModeNext,
+<a href=#601 id=601 data-nosnippet>601</a>    <span class="doccomment">/// Cause device to identify itself in some manner, e.g., audibly or visibly. (&lt;code class="vk"&gt;VK_WINK&lt;/code&gt;)
+<a href=#602 id=602 data-nosnippet>602</a>    </span>Wink,
+<a href=#603 id=603 data-nosnippet>603</a>    <span class="doccomment">/// Toggle between full-screen and scaled content, or alter magnification level. (&lt;code class="vk"&gt;&lt;code class="vk"&gt;VK_ZOOM&lt;/code&gt;&lt;/code&gt;, &lt;code class="android"&gt;&lt;code class="android"&gt;KEYCODE_TV_ZOOM_MODE&lt;/code&gt;&lt;/code&gt;)
+<a href=#604 id=604 data-nosnippet>604</a>    </span>ZoomToggle,
+<a href=#605 id=605 data-nosnippet>605</a>    <span class="doccomment">/// The F1 key, a general purpose function key, as index 1.
+<a href=#606 id=606 data-nosnippet>606</a>    </span>F1,
+<a href=#607 id=607 data-nosnippet>607</a>    <span class="doccomment">/// The F2 key, a general purpose function key, as index 2.
+<a href=#608 id=608 data-nosnippet>608</a>    </span>F2,
+<a href=#609 id=609 data-nosnippet>609</a>    <span class="doccomment">/// The F3 key, a general purpose function key, as index 3.
+<a href=#610 id=610 data-nosnippet>610</a>    </span>F3,
+<a href=#611 id=611 data-nosnippet>611</a>    <span class="doccomment">/// The F4 key, a general purpose function key, as index 4.
+<a href=#612 id=612 data-nosnippet>612</a>    </span>F4,
+<a href=#613 id=613 data-nosnippet>613</a>    <span class="doccomment">/// The F5 key, a general purpose function key, as index 5.
+<a href=#614 id=614 data-nosnippet>614</a>    </span>F5,
+<a href=#615 id=615 data-nosnippet>615</a>    <span class="doccomment">/// The F6 key, a general purpose function key, as index 6.
+<a href=#616 id=616 data-nosnippet>616</a>    </span>F6,
+<a href=#617 id=617 data-nosnippet>617</a>    <span class="doccomment">/// The F7 key, a general purpose function key, as index 7.
+<a href=#618 id=618 data-nosnippet>618</a>    </span>F7,
+<a href=#619 id=619 data-nosnippet>619</a>    <span class="doccomment">/// The F8 key, a general purpose function key, as index 8.
+<a href=#620 id=620 data-nosnippet>620</a>    </span>F8,
+<a href=#621 id=621 data-nosnippet>621</a>    <span class="doccomment">/// The F9 key, a general purpose function key, as index 9.
+<a href=#622 id=622 data-nosnippet>622</a>    </span>F9,
+<a href=#623 id=623 data-nosnippet>623</a>    <span class="doccomment">/// The F10 key, a general purpose function key, as index 10.
+<a href=#624 id=624 data-nosnippet>624</a>    </span>F10,
+<a href=#625 id=625 data-nosnippet>625</a>    <span class="doccomment">/// The F11 key, a general purpose function key, as index 11.
+<a href=#626 id=626 data-nosnippet>626</a>    </span>F11,
+<a href=#627 id=627 data-nosnippet>627</a>    <span class="doccomment">/// The F12 key, a general purpose function key, as index 12.
+<a href=#628 id=628 data-nosnippet>628</a>    </span>F12,
+<a href=#629 id=629 data-nosnippet>629</a>    <span class="doccomment">/// The F13 key, a general purpose function key, as index 13.
+<a href=#630 id=630 data-nosnippet>630</a>    </span>F13,
+<a href=#631 id=631 data-nosnippet>631</a>    <span class="doccomment">/// The F14 key, a general purpose function key, as index 14.
+<a href=#632 id=632 data-nosnippet>632</a>    </span>F14,
+<a href=#633 id=633 data-nosnippet>633</a>    <span class="doccomment">/// The F15 key, a general purpose function key, as index 15.
+<a href=#634 id=634 data-nosnippet>634</a>    </span>F15,
+<a href=#635 id=635 data-nosnippet>635</a>    <span class="doccomment">/// The F16 key, a general purpose function key, as index 16.
+<a href=#636 id=636 data-nosnippet>636</a>    </span>F16,
+<a href=#637 id=637 data-nosnippet>637</a>    <span class="doccomment">/// The F17 key, a general purpose function key, as index 17.
+<a href=#638 id=638 data-nosnippet>638</a>    </span>F17,
+<a href=#639 id=639 data-nosnippet>639</a>    <span class="doccomment">/// The F18 key, a general purpose function key, as index 18.
+<a href=#640 id=640 data-nosnippet>640</a>    </span>F18,
+<a href=#641 id=641 data-nosnippet>641</a>    <span class="doccomment">/// The F19 key, a general purpose function key, as index 19.
+<a href=#642 id=642 data-nosnippet>642</a>    </span>F19,
+<a href=#643 id=643 data-nosnippet>643</a>    <span class="doccomment">/// The F20 key, a general purpose function key, as index 20.
+<a href=#644 id=644 data-nosnippet>644</a>    </span>F20,
+<a href=#645 id=645 data-nosnippet>645</a>    <span class="doccomment">/// The F21 key, a general purpose function key, as index 21.
+<a href=#646 id=646 data-nosnippet>646</a>    </span>F21,
+<a href=#647 id=647 data-nosnippet>647</a>    <span class="doccomment">/// The F22 key, a general purpose function key, as index 22.
+<a href=#648 id=648 data-nosnippet>648</a>    </span>F22,
+<a href=#649 id=649 data-nosnippet>649</a>    <span class="doccomment">/// The F23 key, a general purpose function key, as index 23.
+<a href=#650 id=650 data-nosnippet>650</a>    </span>F23,
+<a href=#651 id=651 data-nosnippet>651</a>    <span class="doccomment">/// The F24 key, a general purpose function key, as index 24.
+<a href=#652 id=652 data-nosnippet>652</a>    </span>F24,
+<a href=#653 id=653 data-nosnippet>653</a>    <span class="doccomment">/// The F25 key, a general purpose function key, as index 25.
+<a href=#654 id=654 data-nosnippet>654</a>    </span>F25,
+<a href=#655 id=655 data-nosnippet>655</a>    <span class="doccomment">/// The F26 key, a general purpose function key, as index 26.
+<a href=#656 id=656 data-nosnippet>656</a>    </span>F26,
+<a href=#657 id=657 data-nosnippet>657</a>    <span class="doccomment">/// The F27 key, a general purpose function key, as index 27.
+<a href=#658 id=658 data-nosnippet>658</a>    </span>F27,
+<a href=#659 id=659 data-nosnippet>659</a>    <span class="doccomment">/// The F28 key, a general purpose function key, as index 28.
+<a href=#660 id=660 data-nosnippet>660</a>    </span>F28,
+<a href=#661 id=661 data-nosnippet>661</a>    <span class="doccomment">/// The F29 key, a general purpose function key, as index 29.
+<a href=#662 id=662 data-nosnippet>662</a>    </span>F29,
+<a href=#663 id=663 data-nosnippet>663</a>    <span class="doccomment">/// The F30 key, a general purpose function key, as index 30.
+<a href=#664 id=664 data-nosnippet>664</a>    </span>F30,
+<a href=#665 id=665 data-nosnippet>665</a>    <span class="doccomment">/// The F31 key, a general purpose function key, as index 31.
+<a href=#666 id=666 data-nosnippet>666</a>    </span>F31,
+<a href=#667 id=667 data-nosnippet>667</a>    <span class="doccomment">/// The F32 key, a general purpose function key, as index 32.
+<a href=#668 id=668 data-nosnippet>668</a>    </span>F32,
+<a href=#669 id=669 data-nosnippet>669</a>    <span class="doccomment">/// The F33 key, a general purpose function key, as index 33.
+<a href=#670 id=670 data-nosnippet>670</a>    </span>F33,
+<a href=#671 id=671 data-nosnippet>671</a>    <span class="doccomment">/// The F34 key, a general purpose function key, as index 34.
+<a href=#672 id=672 data-nosnippet>672</a>    </span>F34,
+<a href=#673 id=673 data-nosnippet>673</a>    <span class="doccomment">/// The F35 key, a general purpose function key, as index 35.
+<a href=#674 id=674 data-nosnippet>674</a>    </span>F35,
+<a href=#675 id=675 data-nosnippet>675</a>}
+<a href=#676 id=676 data-nosnippet>676</a>
+<a href=#677 id=677 data-nosnippet>677</a>
+<a href=#678 id=678 data-nosnippet>678</a><span class="kw">impl </span>Display <span class="kw">for </span>NamedKey {
+<a href=#679 id=679 data-nosnippet>679</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
+<a href=#680 id=680 data-nosnippet>680</a>        <span class="kw">use </span><span class="self">self</span>::NamedKey::<span class="kw-2">*</span>;
+<a href=#681 id=681 data-nosnippet>681</a>        <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
+<a href=#682 id=682 data-nosnippet>682</a>            Unidentified =&gt; f.write_str(<span class="string">"Unidentified"</span>),
+<a href=#683 id=683 data-nosnippet>683</a>            Alt =&gt; f.write_str(<span class="string">"Alt"</span>),
+<a href=#684 id=684 data-nosnippet>684</a>            AltGraph =&gt; f.write_str(<span class="string">"AltGraph"</span>),
+<a href=#685 id=685 data-nosnippet>685</a>            CapsLock =&gt; f.write_str(<span class="string">"CapsLock"</span>),
+<a href=#686 id=686 data-nosnippet>686</a>            Control =&gt; f.write_str(<span class="string">"Control"</span>),
+<a href=#687 id=687 data-nosnippet>687</a>            Fn =&gt; f.write_str(<span class="string">"Fn"</span>),
+<a href=#688 id=688 data-nosnippet>688</a>            FnLock =&gt; f.write_str(<span class="string">"FnLock"</span>),
+<a href=#689 id=689 data-nosnippet>689</a>            Meta =&gt; f.write_str(<span class="string">"Meta"</span>),
+<a href=#690 id=690 data-nosnippet>690</a>            NumLock =&gt; f.write_str(<span class="string">"NumLock"</span>),
+<a href=#691 id=691 data-nosnippet>691</a>            ScrollLock =&gt; f.write_str(<span class="string">"ScrollLock"</span>),
+<a href=#692 id=692 data-nosnippet>692</a>            Shift =&gt; f.write_str(<span class="string">"Shift"</span>),
+<a href=#693 id=693 data-nosnippet>693</a>            Symbol =&gt; f.write_str(<span class="string">"Symbol"</span>),
+<a href=#694 id=694 data-nosnippet>694</a>            SymbolLock =&gt; f.write_str(<span class="string">"SymbolLock"</span>),
+<a href=#695 id=695 data-nosnippet>695</a>            Hyper =&gt; f.write_str(<span class="string">"Hyper"</span>),
+<a href=#696 id=696 data-nosnippet>696</a>            Super =&gt; f.write_str(<span class="string">"Super"</span>),
+<a href=#697 id=697 data-nosnippet>697</a>            Enter =&gt; f.write_str(<span class="string">"Enter"</span>),
+<a href=#698 id=698 data-nosnippet>698</a>            Tab =&gt; f.write_str(<span class="string">"Tab"</span>),
+<a href=#699 id=699 data-nosnippet>699</a>            ArrowDown =&gt; f.write_str(<span class="string">"ArrowDown"</span>),
+<a href=#700 id=700 data-nosnippet>700</a>            ArrowLeft =&gt; f.write_str(<span class="string">"ArrowLeft"</span>),
+<a href=#701 id=701 data-nosnippet>701</a>            ArrowRight =&gt; f.write_str(<span class="string">"ArrowRight"</span>),
+<a href=#702 id=702 data-nosnippet>702</a>            ArrowUp =&gt; f.write_str(<span class="string">"ArrowUp"</span>),
+<a href=#703 id=703 data-nosnippet>703</a>            End =&gt; f.write_str(<span class="string">"End"</span>),
+<a href=#704 id=704 data-nosnippet>704</a>            Home =&gt; f.write_str(<span class="string">"Home"</span>),
+<a href=#705 id=705 data-nosnippet>705</a>            PageDown =&gt; f.write_str(<span class="string">"PageDown"</span>),
+<a href=#706 id=706 data-nosnippet>706</a>            PageUp =&gt; f.write_str(<span class="string">"PageUp"</span>),
+<a href=#707 id=707 data-nosnippet>707</a>            Backspace =&gt; f.write_str(<span class="string">"Backspace"</span>),
+<a href=#708 id=708 data-nosnippet>708</a>            Clear =&gt; f.write_str(<span class="string">"Clear"</span>),
+<a href=#709 id=709 data-nosnippet>709</a>            Copy =&gt; f.write_str(<span class="string">"Copy"</span>),
+<a href=#710 id=710 data-nosnippet>710</a>            CrSel =&gt; f.write_str(<span class="string">"CrSel"</span>),
+<a href=#711 id=711 data-nosnippet>711</a>            Cut =&gt; f.write_str(<span class="string">"Cut"</span>),
+<a href=#712 id=712 data-nosnippet>712</a>            Delete =&gt; f.write_str(<span class="string">"Delete"</span>),
+<a href=#713 id=713 data-nosnippet>713</a>            EraseEof =&gt; f.write_str(<span class="string">"EraseEof"</span>),
+<a href=#714 id=714 data-nosnippet>714</a>            ExSel =&gt; f.write_str(<span class="string">"ExSel"</span>),
+<a href=#715 id=715 data-nosnippet>715</a>            Insert =&gt; f.write_str(<span class="string">"Insert"</span>),
+<a href=#716 id=716 data-nosnippet>716</a>            Paste =&gt; f.write_str(<span class="string">"Paste"</span>),
+<a href=#717 id=717 data-nosnippet>717</a>            Redo =&gt; f.write_str(<span class="string">"Redo"</span>),
+<a href=#718 id=718 data-nosnippet>718</a>            Undo =&gt; f.write_str(<span class="string">"Undo"</span>),
+<a href=#719 id=719 data-nosnippet>719</a>            Accept =&gt; f.write_str(<span class="string">"Accept"</span>),
+<a href=#720 id=720 data-nosnippet>720</a>            Again =&gt; f.write_str(<span class="string">"Again"</span>),
+<a href=#721 id=721 data-nosnippet>721</a>            Attn =&gt; f.write_str(<span class="string">"Attn"</span>),
+<a href=#722 id=722 data-nosnippet>722</a>            Cancel =&gt; f.write_str(<span class="string">"Cancel"</span>),
+<a href=#723 id=723 data-nosnippet>723</a>            ContextMenu =&gt; f.write_str(<span class="string">"ContextMenu"</span>),
+<a href=#724 id=724 data-nosnippet>724</a>            Escape =&gt; f.write_str(<span class="string">"Escape"</span>),
+<a href=#725 id=725 data-nosnippet>725</a>            Execute =&gt; f.write_str(<span class="string">"Execute"</span>),
+<a href=#726 id=726 data-nosnippet>726</a>            Find =&gt; f.write_str(<span class="string">"Find"</span>),
+<a href=#727 id=727 data-nosnippet>727</a>            Help =&gt; f.write_str(<span class="string">"Help"</span>),
+<a href=#728 id=728 data-nosnippet>728</a>            Pause =&gt; f.write_str(<span class="string">"Pause"</span>),
+<a href=#729 id=729 data-nosnippet>729</a>            Play =&gt; f.write_str(<span class="string">"Play"</span>),
+<a href=#730 id=730 data-nosnippet>730</a>            Props =&gt; f.write_str(<span class="string">"Props"</span>),
+<a href=#731 id=731 data-nosnippet>731</a>            Select =&gt; f.write_str(<span class="string">"Select"</span>),
+<a href=#732 id=732 data-nosnippet>732</a>            ZoomIn =&gt; f.write_str(<span class="string">"ZoomIn"</span>),
+<a href=#733 id=733 data-nosnippet>733</a>            ZoomOut =&gt; f.write_str(<span class="string">"ZoomOut"</span>),
+<a href=#734 id=734 data-nosnippet>734</a>            BrightnessDown =&gt; f.write_str(<span class="string">"BrightnessDown"</span>),
+<a href=#735 id=735 data-nosnippet>735</a>            BrightnessUp =&gt; f.write_str(<span class="string">"BrightnessUp"</span>),
+<a href=#736 id=736 data-nosnippet>736</a>            Eject =&gt; f.write_str(<span class="string">"Eject"</span>),
+<a href=#737 id=737 data-nosnippet>737</a>            LogOff =&gt; f.write_str(<span class="string">"LogOff"</span>),
+<a href=#738 id=738 data-nosnippet>738</a>            Power =&gt; f.write_str(<span class="string">"Power"</span>),
+<a href=#739 id=739 data-nosnippet>739</a>            PowerOff =&gt; f.write_str(<span class="string">"PowerOff"</span>),
+<a href=#740 id=740 data-nosnippet>740</a>            PrintScreen =&gt; f.write_str(<span class="string">"PrintScreen"</span>),
+<a href=#741 id=741 data-nosnippet>741</a>            Hibernate =&gt; f.write_str(<span class="string">"Hibernate"</span>),
+<a href=#742 id=742 data-nosnippet>742</a>            Standby =&gt; f.write_str(<span class="string">"Standby"</span>),
+<a href=#743 id=743 data-nosnippet>743</a>            WakeUp =&gt; f.write_str(<span class="string">"WakeUp"</span>),
+<a href=#744 id=744 data-nosnippet>744</a>            AllCandidates =&gt; f.write_str(<span class="string">"AllCandidates"</span>),
+<a href=#745 id=745 data-nosnippet>745</a>            Alphanumeric =&gt; f.write_str(<span class="string">"Alphanumeric"</span>),
+<a href=#746 id=746 data-nosnippet>746</a>            CodeInput =&gt; f.write_str(<span class="string">"CodeInput"</span>),
+<a href=#747 id=747 data-nosnippet>747</a>            Compose =&gt; f.write_str(<span class="string">"Compose"</span>),
+<a href=#748 id=748 data-nosnippet>748</a>            Convert =&gt; f.write_str(<span class="string">"Convert"</span>),
+<a href=#749 id=749 data-nosnippet>749</a>            Dead =&gt; f.write_str(<span class="string">"Dead"</span>),
+<a href=#750 id=750 data-nosnippet>750</a>            FinalMode =&gt; f.write_str(<span class="string">"FinalMode"</span>),
+<a href=#751 id=751 data-nosnippet>751</a>            GroupFirst =&gt; f.write_str(<span class="string">"GroupFirst"</span>),
+<a href=#752 id=752 data-nosnippet>752</a>            GroupLast =&gt; f.write_str(<span class="string">"GroupLast"</span>),
+<a href=#753 id=753 data-nosnippet>753</a>            GroupNext =&gt; f.write_str(<span class="string">"GroupNext"</span>),
+<a href=#754 id=754 data-nosnippet>754</a>            GroupPrevious =&gt; f.write_str(<span class="string">"GroupPrevious"</span>),
+<a href=#755 id=755 data-nosnippet>755</a>            ModeChange =&gt; f.write_str(<span class="string">"ModeChange"</span>),
+<a href=#756 id=756 data-nosnippet>756</a>            NextCandidate =&gt; f.write_str(<span class="string">"NextCandidate"</span>),
+<a href=#757 id=757 data-nosnippet>757</a>            NonConvert =&gt; f.write_str(<span class="string">"NonConvert"</span>),
+<a href=#758 id=758 data-nosnippet>758</a>            PreviousCandidate =&gt; f.write_str(<span class="string">"PreviousCandidate"</span>),
+<a href=#759 id=759 data-nosnippet>759</a>            Process =&gt; f.write_str(<span class="string">"Process"</span>),
+<a href=#760 id=760 data-nosnippet>760</a>            SingleCandidate =&gt; f.write_str(<span class="string">"SingleCandidate"</span>),
+<a href=#761 id=761 data-nosnippet>761</a>            HangulMode =&gt; f.write_str(<span class="string">"HangulMode"</span>),
+<a href=#762 id=762 data-nosnippet>762</a>            HanjaMode =&gt; f.write_str(<span class="string">"HanjaMode"</span>),
+<a href=#763 id=763 data-nosnippet>763</a>            JunjaMode =&gt; f.write_str(<span class="string">"JunjaMode"</span>),
+<a href=#764 id=764 data-nosnippet>764</a>            Eisu =&gt; f.write_str(<span class="string">"Eisu"</span>),
+<a href=#765 id=765 data-nosnippet>765</a>            Hankaku =&gt; f.write_str(<span class="string">"Hankaku"</span>),
+<a href=#766 id=766 data-nosnippet>766</a>            Hiragana =&gt; f.write_str(<span class="string">"Hiragana"</span>),
+<a href=#767 id=767 data-nosnippet>767</a>            HiraganaKatakana =&gt; f.write_str(<span class="string">"HiraganaKatakana"</span>),
+<a href=#768 id=768 data-nosnippet>768</a>            KanaMode =&gt; f.write_str(<span class="string">"KanaMode"</span>),
+<a href=#769 id=769 data-nosnippet>769</a>            KanjiMode =&gt; f.write_str(<span class="string">"KanjiMode"</span>),
+<a href=#770 id=770 data-nosnippet>770</a>            Katakana =&gt; f.write_str(<span class="string">"Katakana"</span>),
+<a href=#771 id=771 data-nosnippet>771</a>            Romaji =&gt; f.write_str(<span class="string">"Romaji"</span>),
+<a href=#772 id=772 data-nosnippet>772</a>            Zenkaku =&gt; f.write_str(<span class="string">"Zenkaku"</span>),
+<a href=#773 id=773 data-nosnippet>773</a>            ZenkakuHankaku =&gt; f.write_str(<span class="string">"ZenkakuHankaku"</span>),
+<a href=#774 id=774 data-nosnippet>774</a>            Soft1 =&gt; f.write_str(<span class="string">"Soft1"</span>),
+<a href=#775 id=775 data-nosnippet>775</a>            Soft2 =&gt; f.write_str(<span class="string">"Soft2"</span>),
+<a href=#776 id=776 data-nosnippet>776</a>            Soft3 =&gt; f.write_str(<span class="string">"Soft3"</span>),
+<a href=#777 id=777 data-nosnippet>777</a>            Soft4 =&gt; f.write_str(<span class="string">"Soft4"</span>),
+<a href=#778 id=778 data-nosnippet>778</a>            ChannelDown =&gt; f.write_str(<span class="string">"ChannelDown"</span>),
+<a href=#779 id=779 data-nosnippet>779</a>            ChannelUp =&gt; f.write_str(<span class="string">"ChannelUp"</span>),
+<a href=#780 id=780 data-nosnippet>780</a>            Close =&gt; f.write_str(<span class="string">"Close"</span>),
+<a href=#781 id=781 data-nosnippet>781</a>            MailForward =&gt; f.write_str(<span class="string">"MailForward"</span>),
+<a href=#782 id=782 data-nosnippet>782</a>            MailReply =&gt; f.write_str(<span class="string">"MailReply"</span>),
+<a href=#783 id=783 data-nosnippet>783</a>            MailSend =&gt; f.write_str(<span class="string">"MailSend"</span>),
+<a href=#784 id=784 data-nosnippet>784</a>            MediaClose =&gt; f.write_str(<span class="string">"MediaClose"</span>),
+<a href=#785 id=785 data-nosnippet>785</a>            MediaFastForward =&gt; f.write_str(<span class="string">"MediaFastForward"</span>),
+<a href=#786 id=786 data-nosnippet>786</a>            MediaPause =&gt; f.write_str(<span class="string">"MediaPause"</span>),
+<a href=#787 id=787 data-nosnippet>787</a>            MediaPlay =&gt; f.write_str(<span class="string">"MediaPlay"</span>),
+<a href=#788 id=788 data-nosnippet>788</a>            MediaPlayPause =&gt; f.write_str(<span class="string">"MediaPlayPause"</span>),
+<a href=#789 id=789 data-nosnippet>789</a>            MediaRecord =&gt; f.write_str(<span class="string">"MediaRecord"</span>),
+<a href=#790 id=790 data-nosnippet>790</a>            MediaRewind =&gt; f.write_str(<span class="string">"MediaRewind"</span>),
+<a href=#791 id=791 data-nosnippet>791</a>            MediaStop =&gt; f.write_str(<span class="string">"MediaStop"</span>),
+<a href=#792 id=792 data-nosnippet>792</a>            MediaTrackNext =&gt; f.write_str(<span class="string">"MediaTrackNext"</span>),
+<a href=#793 id=793 data-nosnippet>793</a>            MediaTrackPrevious =&gt; f.write_str(<span class="string">"MediaTrackPrevious"</span>),
+<a href=#794 id=794 data-nosnippet>794</a>            New =&gt; f.write_str(<span class="string">"New"</span>),
+<a href=#795 id=795 data-nosnippet>795</a>            Open =&gt; f.write_str(<span class="string">"Open"</span>),
+<a href=#796 id=796 data-nosnippet>796</a>            Print =&gt; f.write_str(<span class="string">"Print"</span>),
+<a href=#797 id=797 data-nosnippet>797</a>            Save =&gt; f.write_str(<span class="string">"Save"</span>),
+<a href=#798 id=798 data-nosnippet>798</a>            SpellCheck =&gt; f.write_str(<span class="string">"SpellCheck"</span>),
+<a href=#799 id=799 data-nosnippet>799</a>            Key11 =&gt; f.write_str(<span class="string">"Key11"</span>),
+<a href=#800 id=800 data-nosnippet>800</a>            Key12 =&gt; f.write_str(<span class="string">"Key12"</span>),
+<a href=#801 id=801 data-nosnippet>801</a>            AudioBalanceLeft =&gt; f.write_str(<span class="string">"AudioBalanceLeft"</span>),
+<a href=#802 id=802 data-nosnippet>802</a>            AudioBalanceRight =&gt; f.write_str(<span class="string">"AudioBalanceRight"</span>),
+<a href=#803 id=803 data-nosnippet>803</a>            AudioBassBoostDown =&gt; f.write_str(<span class="string">"AudioBassBoostDown"</span>),
+<a href=#804 id=804 data-nosnippet>804</a>            AudioBassBoostToggle =&gt; f.write_str(<span class="string">"AudioBassBoostToggle"</span>),
+<a href=#805 id=805 data-nosnippet>805</a>            AudioBassBoostUp =&gt; f.write_str(<span class="string">"AudioBassBoostUp"</span>),
+<a href=#806 id=806 data-nosnippet>806</a>            AudioFaderFront =&gt; f.write_str(<span class="string">"AudioFaderFront"</span>),
+<a href=#807 id=807 data-nosnippet>807</a>            AudioFaderRear =&gt; f.write_str(<span class="string">"AudioFaderRear"</span>),
+<a href=#808 id=808 data-nosnippet>808</a>            AudioSurroundModeNext =&gt; f.write_str(<span class="string">"AudioSurroundModeNext"</span>),
+<a href=#809 id=809 data-nosnippet>809</a>            AudioTrebleDown =&gt; f.write_str(<span class="string">"AudioTrebleDown"</span>),
+<a href=#810 id=810 data-nosnippet>810</a>            AudioTrebleUp =&gt; f.write_str(<span class="string">"AudioTrebleUp"</span>),
+<a href=#811 id=811 data-nosnippet>811</a>            AudioVolumeDown =&gt; f.write_str(<span class="string">"AudioVolumeDown"</span>),
+<a href=#812 id=812 data-nosnippet>812</a>            AudioVolumeUp =&gt; f.write_str(<span class="string">"AudioVolumeUp"</span>),
+<a href=#813 id=813 data-nosnippet>813</a>            AudioVolumeMute =&gt; f.write_str(<span class="string">"AudioVolumeMute"</span>),
+<a href=#814 id=814 data-nosnippet>814</a>            MicrophoneToggle =&gt; f.write_str(<span class="string">"MicrophoneToggle"</span>),
+<a href=#815 id=815 data-nosnippet>815</a>            MicrophoneVolumeDown =&gt; f.write_str(<span class="string">"MicrophoneVolumeDown"</span>),
+<a href=#816 id=816 data-nosnippet>816</a>            MicrophoneVolumeUp =&gt; f.write_str(<span class="string">"MicrophoneVolumeUp"</span>),
+<a href=#817 id=817 data-nosnippet>817</a>            MicrophoneVolumeMute =&gt; f.write_str(<span class="string">"MicrophoneVolumeMute"</span>),
+<a href=#818 id=818 data-nosnippet>818</a>            SpeechCorrectionList =&gt; f.write_str(<span class="string">"SpeechCorrectionList"</span>),
+<a href=#819 id=819 data-nosnippet>819</a>            SpeechInputToggle =&gt; f.write_str(<span class="string">"SpeechInputToggle"</span>),
+<a href=#820 id=820 data-nosnippet>820</a>            LaunchApplication1 =&gt; f.write_str(<span class="string">"LaunchApplication1"</span>),
+<a href=#821 id=821 data-nosnippet>821</a>            LaunchApplication2 =&gt; f.write_str(<span class="string">"LaunchApplication2"</span>),
+<a href=#822 id=822 data-nosnippet>822</a>            LaunchCalendar =&gt; f.write_str(<span class="string">"LaunchCalendar"</span>),
+<a href=#823 id=823 data-nosnippet>823</a>            LaunchContacts =&gt; f.write_str(<span class="string">"LaunchContacts"</span>),
+<a href=#824 id=824 data-nosnippet>824</a>            LaunchMail =&gt; f.write_str(<span class="string">"LaunchMail"</span>),
+<a href=#825 id=825 data-nosnippet>825</a>            LaunchMediaPlayer =&gt; f.write_str(<span class="string">"LaunchMediaPlayer"</span>),
+<a href=#826 id=826 data-nosnippet>826</a>            LaunchMusicPlayer =&gt; f.write_str(<span class="string">"LaunchMusicPlayer"</span>),
+<a href=#827 id=827 data-nosnippet>827</a>            LaunchPhone =&gt; f.write_str(<span class="string">"LaunchPhone"</span>),
+<a href=#828 id=828 data-nosnippet>828</a>            LaunchScreenSaver =&gt; f.write_str(<span class="string">"LaunchScreenSaver"</span>),
+<a href=#829 id=829 data-nosnippet>829</a>            LaunchSpreadsheet =&gt; f.write_str(<span class="string">"LaunchSpreadsheet"</span>),
+<a href=#830 id=830 data-nosnippet>830</a>            LaunchWebBrowser =&gt; f.write_str(<span class="string">"LaunchWebBrowser"</span>),
+<a href=#831 id=831 data-nosnippet>831</a>            LaunchWebCam =&gt; f.write_str(<span class="string">"LaunchWebCam"</span>),
+<a href=#832 id=832 data-nosnippet>832</a>            LaunchWordProcessor =&gt; f.write_str(<span class="string">"LaunchWordProcessor"</span>),
+<a href=#833 id=833 data-nosnippet>833</a>            BrowserBack =&gt; f.write_str(<span class="string">"BrowserBack"</span>),
+<a href=#834 id=834 data-nosnippet>834</a>            BrowserFavorites =&gt; f.write_str(<span class="string">"BrowserFavorites"</span>),
+<a href=#835 id=835 data-nosnippet>835</a>            BrowserForward =&gt; f.write_str(<span class="string">"BrowserForward"</span>),
+<a href=#836 id=836 data-nosnippet>836</a>            BrowserHome =&gt; f.write_str(<span class="string">"BrowserHome"</span>),
+<a href=#837 id=837 data-nosnippet>837</a>            BrowserRefresh =&gt; f.write_str(<span class="string">"BrowserRefresh"</span>),
+<a href=#838 id=838 data-nosnippet>838</a>            BrowserSearch =&gt; f.write_str(<span class="string">"BrowserSearch"</span>),
+<a href=#839 id=839 data-nosnippet>839</a>            BrowserStop =&gt; f.write_str(<span class="string">"BrowserStop"</span>),
+<a href=#840 id=840 data-nosnippet>840</a>            AppSwitch =&gt; f.write_str(<span class="string">"AppSwitch"</span>),
+<a href=#841 id=841 data-nosnippet>841</a>            Call =&gt; f.write_str(<span class="string">"Call"</span>),
+<a href=#842 id=842 data-nosnippet>842</a>            Camera =&gt; f.write_str(<span class="string">"Camera"</span>),
+<a href=#843 id=843 data-nosnippet>843</a>            CameraFocus =&gt; f.write_str(<span class="string">"CameraFocus"</span>),
+<a href=#844 id=844 data-nosnippet>844</a>            EndCall =&gt; f.write_str(<span class="string">"EndCall"</span>),
+<a href=#845 id=845 data-nosnippet>845</a>            GoBack =&gt; f.write_str(<span class="string">"GoBack"</span>),
+<a href=#846 id=846 data-nosnippet>846</a>            GoHome =&gt; f.write_str(<span class="string">"GoHome"</span>),
+<a href=#847 id=847 data-nosnippet>847</a>            HeadsetHook =&gt; f.write_str(<span class="string">"HeadsetHook"</span>),
+<a href=#848 id=848 data-nosnippet>848</a>            LastNumberRedial =&gt; f.write_str(<span class="string">"LastNumberRedial"</span>),
+<a href=#849 id=849 data-nosnippet>849</a>            Notification =&gt; f.write_str(<span class="string">"Notification"</span>),
+<a href=#850 id=850 data-nosnippet>850</a>            MannerMode =&gt; f.write_str(<span class="string">"MannerMode"</span>),
+<a href=#851 id=851 data-nosnippet>851</a>            VoiceDial =&gt; f.write_str(<span class="string">"VoiceDial"</span>),
+<a href=#852 id=852 data-nosnippet>852</a>            TV =&gt; f.write_str(<span class="string">"TV"</span>),
+<a href=#853 id=853 data-nosnippet>853</a>            TV3DMode =&gt; f.write_str(<span class="string">"TV3DMode"</span>),
+<a href=#854 id=854 data-nosnippet>854</a>            TVAntennaCable =&gt; f.write_str(<span class="string">"TVAntennaCable"</span>),
+<a href=#855 id=855 data-nosnippet>855</a>            TVAudioDescription =&gt; f.write_str(<span class="string">"TVAudioDescription"</span>),
+<a href=#856 id=856 data-nosnippet>856</a>            TVAudioDescriptionMixDown =&gt; f.write_str(<span class="string">"TVAudioDescriptionMixDown"</span>),
+<a href=#857 id=857 data-nosnippet>857</a>            TVAudioDescriptionMixUp =&gt; f.write_str(<span class="string">"TVAudioDescriptionMixUp"</span>),
+<a href=#858 id=858 data-nosnippet>858</a>            TVContentsMenu =&gt; f.write_str(<span class="string">"TVContentsMenu"</span>),
+<a href=#859 id=859 data-nosnippet>859</a>            TVDataService =&gt; f.write_str(<span class="string">"TVDataService"</span>),
+<a href=#860 id=860 data-nosnippet>860</a>            TVInput =&gt; f.write_str(<span class="string">"TVInput"</span>),
+<a href=#861 id=861 data-nosnippet>861</a>            TVInputComponent1 =&gt; f.write_str(<span class="string">"TVInputComponent1"</span>),
+<a href=#862 id=862 data-nosnippet>862</a>            TVInputComponent2 =&gt; f.write_str(<span class="string">"TVInputComponent2"</span>),
+<a href=#863 id=863 data-nosnippet>863</a>            TVInputComposite1 =&gt; f.write_str(<span class="string">"TVInputComposite1"</span>),
+<a href=#864 id=864 data-nosnippet>864</a>            TVInputComposite2 =&gt; f.write_str(<span class="string">"TVInputComposite2"</span>),
+<a href=#865 id=865 data-nosnippet>865</a>            TVInputHDMI1 =&gt; f.write_str(<span class="string">"TVInputHDMI1"</span>),
+<a href=#866 id=866 data-nosnippet>866</a>            TVInputHDMI2 =&gt; f.write_str(<span class="string">"TVInputHDMI2"</span>),
+<a href=#867 id=867 data-nosnippet>867</a>            TVInputHDMI3 =&gt; f.write_str(<span class="string">"TVInputHDMI3"</span>),
+<a href=#868 id=868 data-nosnippet>868</a>            TVInputHDMI4 =&gt; f.write_str(<span class="string">"TVInputHDMI4"</span>),
+<a href=#869 id=869 data-nosnippet>869</a>            TVInputVGA1 =&gt; f.write_str(<span class="string">"TVInputVGA1"</span>),
+<a href=#870 id=870 data-nosnippet>870</a>            TVMediaContext =&gt; f.write_str(<span class="string">"TVMediaContext"</span>),
+<a href=#871 id=871 data-nosnippet>871</a>            TVNetwork =&gt; f.write_str(<span class="string">"TVNetwork"</span>),
+<a href=#872 id=872 data-nosnippet>872</a>            TVNumberEntry =&gt; f.write_str(<span class="string">"TVNumberEntry"</span>),
+<a href=#873 id=873 data-nosnippet>873</a>            TVPower =&gt; f.write_str(<span class="string">"TVPower"</span>),
+<a href=#874 id=874 data-nosnippet>874</a>            TVRadioService =&gt; f.write_str(<span class="string">"TVRadioService"</span>),
+<a href=#875 id=875 data-nosnippet>875</a>            TVSatellite =&gt; f.write_str(<span class="string">"TVSatellite"</span>),
+<a href=#876 id=876 data-nosnippet>876</a>            TVSatelliteBS =&gt; f.write_str(<span class="string">"TVSatelliteBS"</span>),
+<a href=#877 id=877 data-nosnippet>877</a>            TVSatelliteCS =&gt; f.write_str(<span class="string">"TVSatelliteCS"</span>),
+<a href=#878 id=878 data-nosnippet>878</a>            TVSatelliteToggle =&gt; f.write_str(<span class="string">"TVSatelliteToggle"</span>),
+<a href=#879 id=879 data-nosnippet>879</a>            TVTerrestrialAnalog =&gt; f.write_str(<span class="string">"TVTerrestrialAnalog"</span>),
+<a href=#880 id=880 data-nosnippet>880</a>            TVTerrestrialDigital =&gt; f.write_str(<span class="string">"TVTerrestrialDigital"</span>),
+<a href=#881 id=881 data-nosnippet>881</a>            TVTimer =&gt; f.write_str(<span class="string">"TVTimer"</span>),
+<a href=#882 id=882 data-nosnippet>882</a>            AVRInput =&gt; f.write_str(<span class="string">"AVRInput"</span>),
+<a href=#883 id=883 data-nosnippet>883</a>            AVRPower =&gt; f.write_str(<span class="string">"AVRPower"</span>),
+<a href=#884 id=884 data-nosnippet>884</a>            ColorF0Red =&gt; f.write_str(<span class="string">"ColorF0Red"</span>),
+<a href=#885 id=885 data-nosnippet>885</a>            ColorF1Green =&gt; f.write_str(<span class="string">"ColorF1Green"</span>),
+<a href=#886 id=886 data-nosnippet>886</a>            ColorF2Yellow =&gt; f.write_str(<span class="string">"ColorF2Yellow"</span>),
+<a href=#887 id=887 data-nosnippet>887</a>            ColorF3Blue =&gt; f.write_str(<span class="string">"ColorF3Blue"</span>),
+<a href=#888 id=888 data-nosnippet>888</a>            ColorF4Grey =&gt; f.write_str(<span class="string">"ColorF4Grey"</span>),
+<a href=#889 id=889 data-nosnippet>889</a>            ColorF5Brown =&gt; f.write_str(<span class="string">"ColorF5Brown"</span>),
+<a href=#890 id=890 data-nosnippet>890</a>            ClosedCaptionToggle =&gt; f.write_str(<span class="string">"ClosedCaptionToggle"</span>),
+<a href=#891 id=891 data-nosnippet>891</a>            Dimmer =&gt; f.write_str(<span class="string">"Dimmer"</span>),
+<a href=#892 id=892 data-nosnippet>892</a>            DisplaySwap =&gt; f.write_str(<span class="string">"DisplaySwap"</span>),
+<a href=#893 id=893 data-nosnippet>893</a>            DVR =&gt; f.write_str(<span class="string">"DVR"</span>),
+<a href=#894 id=894 data-nosnippet>894</a>            Exit =&gt; f.write_str(<span class="string">"Exit"</span>),
+<a href=#895 id=895 data-nosnippet>895</a>            FavoriteClear0 =&gt; f.write_str(<span class="string">"FavoriteClear0"</span>),
+<a href=#896 id=896 data-nosnippet>896</a>            FavoriteClear1 =&gt; f.write_str(<span class="string">"FavoriteClear1"</span>),
+<a href=#897 id=897 data-nosnippet>897</a>            FavoriteClear2 =&gt; f.write_str(<span class="string">"FavoriteClear2"</span>),
+<a href=#898 id=898 data-nosnippet>898</a>            FavoriteClear3 =&gt; f.write_str(<span class="string">"FavoriteClear3"</span>),
+<a href=#899 id=899 data-nosnippet>899</a>            FavoriteRecall0 =&gt; f.write_str(<span class="string">"FavoriteRecall0"</span>),
+<a href=#900 id=900 data-nosnippet>900</a>            FavoriteRecall1 =&gt; f.write_str(<span class="string">"FavoriteRecall1"</span>),
+<a href=#901 id=901 data-nosnippet>901</a>            FavoriteRecall2 =&gt; f.write_str(<span class="string">"FavoriteRecall2"</span>),
+<a href=#902 id=902 data-nosnippet>902</a>            FavoriteRecall3 =&gt; f.write_str(<span class="string">"FavoriteRecall3"</span>),
+<a href=#903 id=903 data-nosnippet>903</a>            FavoriteStore0 =&gt; f.write_str(<span class="string">"FavoriteStore0"</span>),
+<a href=#904 id=904 data-nosnippet>904</a>            FavoriteStore1 =&gt; f.write_str(<span class="string">"FavoriteStore1"</span>),
+<a href=#905 id=905 data-nosnippet>905</a>            FavoriteStore2 =&gt; f.write_str(<span class="string">"FavoriteStore2"</span>),
+<a href=#906 id=906 data-nosnippet>906</a>            FavoriteStore3 =&gt; f.write_str(<span class="string">"FavoriteStore3"</span>),
+<a href=#907 id=907 data-nosnippet>907</a>            Guide =&gt; f.write_str(<span class="string">"Guide"</span>),
+<a href=#908 id=908 data-nosnippet>908</a>            GuideNextDay =&gt; f.write_str(<span class="string">"GuideNextDay"</span>),
+<a href=#909 id=909 data-nosnippet>909</a>            GuidePreviousDay =&gt; f.write_str(<span class="string">"GuidePreviousDay"</span>),
+<a href=#910 id=910 data-nosnippet>910</a>            Info =&gt; f.write_str(<span class="string">"Info"</span>),
+<a href=#911 id=911 data-nosnippet>911</a>            InstantReplay =&gt; f.write_str(<span class="string">"InstantReplay"</span>),
+<a href=#912 id=912 data-nosnippet>912</a>            Link =&gt; f.write_str(<span class="string">"Link"</span>),
+<a href=#913 id=913 data-nosnippet>913</a>            ListProgram =&gt; f.write_str(<span class="string">"ListProgram"</span>),
+<a href=#914 id=914 data-nosnippet>914</a>            LiveContent =&gt; f.write_str(<span class="string">"LiveContent"</span>),
+<a href=#915 id=915 data-nosnippet>915</a>            Lock =&gt; f.write_str(<span class="string">"Lock"</span>),
+<a href=#916 id=916 data-nosnippet>916</a>            MediaApps =&gt; f.write_str(<span class="string">"MediaApps"</span>),
+<a href=#917 id=917 data-nosnippet>917</a>            MediaAudioTrack =&gt; f.write_str(<span class="string">"MediaAudioTrack"</span>),
+<a href=#918 id=918 data-nosnippet>918</a>            MediaLast =&gt; f.write_str(<span class="string">"MediaLast"</span>),
+<a href=#919 id=919 data-nosnippet>919</a>            MediaSkipBackward =&gt; f.write_str(<span class="string">"MediaSkipBackward"</span>),
+<a href=#920 id=920 data-nosnippet>920</a>            MediaSkipForward =&gt; f.write_str(<span class="string">"MediaSkipForward"</span>),
+<a href=#921 id=921 data-nosnippet>921</a>            MediaStepBackward =&gt; f.write_str(<span class="string">"MediaStepBackward"</span>),
+<a href=#922 id=922 data-nosnippet>922</a>            MediaStepForward =&gt; f.write_str(<span class="string">"MediaStepForward"</span>),
+<a href=#923 id=923 data-nosnippet>923</a>            MediaTopMenu =&gt; f.write_str(<span class="string">"MediaTopMenu"</span>),
+<a href=#924 id=924 data-nosnippet>924</a>            NavigateIn =&gt; f.write_str(<span class="string">"NavigateIn"</span>),
+<a href=#925 id=925 data-nosnippet>925</a>            NavigateNext =&gt; f.write_str(<span class="string">"NavigateNext"</span>),
+<a href=#926 id=926 data-nosnippet>926</a>            NavigateOut =&gt; f.write_str(<span class="string">"NavigateOut"</span>),
+<a href=#927 id=927 data-nosnippet>927</a>            NavigatePrevious =&gt; f.write_str(<span class="string">"NavigatePrevious"</span>),
+<a href=#928 id=928 data-nosnippet>928</a>            NextFavoriteChannel =&gt; f.write_str(<span class="string">"NextFavoriteChannel"</span>),
+<a href=#929 id=929 data-nosnippet>929</a>            NextUserProfile =&gt; f.write_str(<span class="string">"NextUserProfile"</span>),
+<a href=#930 id=930 data-nosnippet>930</a>            OnDemand =&gt; f.write_str(<span class="string">"OnDemand"</span>),
+<a href=#931 id=931 data-nosnippet>931</a>            Pairing =&gt; f.write_str(<span class="string">"Pairing"</span>),
+<a href=#932 id=932 data-nosnippet>932</a>            PinPDown =&gt; f.write_str(<span class="string">"PinPDown"</span>),
+<a href=#933 id=933 data-nosnippet>933</a>            PinPMove =&gt; f.write_str(<span class="string">"PinPMove"</span>),
+<a href=#934 id=934 data-nosnippet>934</a>            PinPToggle =&gt; f.write_str(<span class="string">"PinPToggle"</span>),
+<a href=#935 id=935 data-nosnippet>935</a>            PinPUp =&gt; f.write_str(<span class="string">"PinPUp"</span>),
+<a href=#936 id=936 data-nosnippet>936</a>            PlaySpeedDown =&gt; f.write_str(<span class="string">"PlaySpeedDown"</span>),
+<a href=#937 id=937 data-nosnippet>937</a>            PlaySpeedReset =&gt; f.write_str(<span class="string">"PlaySpeedReset"</span>),
+<a href=#938 id=938 data-nosnippet>938</a>            PlaySpeedUp =&gt; f.write_str(<span class="string">"PlaySpeedUp"</span>),
+<a href=#939 id=939 data-nosnippet>939</a>            RandomToggle =&gt; f.write_str(<span class="string">"RandomToggle"</span>),
+<a href=#940 id=940 data-nosnippet>940</a>            RcLowBattery =&gt; f.write_str(<span class="string">"RcLowBattery"</span>),
+<a href=#941 id=941 data-nosnippet>941</a>            RecordSpeedNext =&gt; f.write_str(<span class="string">"RecordSpeedNext"</span>),
+<a href=#942 id=942 data-nosnippet>942</a>            RfBypass =&gt; f.write_str(<span class="string">"RfBypass"</span>),
+<a href=#943 id=943 data-nosnippet>943</a>            ScanChannelsToggle =&gt; f.write_str(<span class="string">"ScanChannelsToggle"</span>),
+<a href=#944 id=944 data-nosnippet>944</a>            ScreenModeNext =&gt; f.write_str(<span class="string">"ScreenModeNext"</span>),
+<a href=#945 id=945 data-nosnippet>945</a>            Settings =&gt; f.write_str(<span class="string">"Settings"</span>),
+<a href=#946 id=946 data-nosnippet>946</a>            SplitScreenToggle =&gt; f.write_str(<span class="string">"SplitScreenToggle"</span>),
+<a href=#947 id=947 data-nosnippet>947</a>            STBInput =&gt; f.write_str(<span class="string">"STBInput"</span>),
+<a href=#948 id=948 data-nosnippet>948</a>            STBPower =&gt; f.write_str(<span class="string">"STBPower"</span>),
+<a href=#949 id=949 data-nosnippet>949</a>            Subtitle =&gt; f.write_str(<span class="string">"Subtitle"</span>),
+<a href=#950 id=950 data-nosnippet>950</a>            Teletext =&gt; f.write_str(<span class="string">"Teletext"</span>),
+<a href=#951 id=951 data-nosnippet>951</a>            VideoModeNext =&gt; f.write_str(<span class="string">"VideoModeNext"</span>),
+<a href=#952 id=952 data-nosnippet>952</a>            Wink =&gt; f.write_str(<span class="string">"Wink"</span>),
+<a href=#953 id=953 data-nosnippet>953</a>            ZoomToggle =&gt; f.write_str(<span class="string">"ZoomToggle"</span>),
+<a href=#954 id=954 data-nosnippet>954</a>            F1 =&gt; f.write_str(<span class="string">"F1"</span>),
+<a href=#955 id=955 data-nosnippet>955</a>            F2 =&gt; f.write_str(<span class="string">"F2"</span>),
+<a href=#956 id=956 data-nosnippet>956</a>            F3 =&gt; f.write_str(<span class="string">"F3"</span>),
+<a href=#957 id=957 data-nosnippet>957</a>            F4 =&gt; f.write_str(<span class="string">"F4"</span>),
+<a href=#958 id=958 data-nosnippet>958</a>            F5 =&gt; f.write_str(<span class="string">"F5"</span>),
+<a href=#959 id=959 data-nosnippet>959</a>            F6 =&gt; f.write_str(<span class="string">"F6"</span>),
+<a href=#960 id=960 data-nosnippet>960</a>            F7 =&gt; f.write_str(<span class="string">"F7"</span>),
+<a href=#961 id=961 data-nosnippet>961</a>            F8 =&gt; f.write_str(<span class="string">"F8"</span>),
+<a href=#962 id=962 data-nosnippet>962</a>            F9 =&gt; f.write_str(<span class="string">"F9"</span>),
+<a href=#963 id=963 data-nosnippet>963</a>            F10 =&gt; f.write_str(<span class="string">"F10"</span>),
+<a href=#964 id=964 data-nosnippet>964</a>            F11 =&gt; f.write_str(<span class="string">"F11"</span>),
+<a href=#965 id=965 data-nosnippet>965</a>            F12 =&gt; f.write_str(<span class="string">"F12"</span>),
+<a href=#966 id=966 data-nosnippet>966</a>            F13 =&gt; f.write_str(<span class="string">"F13"</span>),
+<a href=#967 id=967 data-nosnippet>967</a>            F14 =&gt; f.write_str(<span class="string">"F14"</span>),
+<a href=#968 id=968 data-nosnippet>968</a>            F15 =&gt; f.write_str(<span class="string">"F15"</span>),
+<a href=#969 id=969 data-nosnippet>969</a>            F16 =&gt; f.write_str(<span class="string">"F16"</span>),
+<a href=#970 id=970 data-nosnippet>970</a>            F17 =&gt; f.write_str(<span class="string">"F17"</span>),
+<a href=#971 id=971 data-nosnippet>971</a>            F18 =&gt; f.write_str(<span class="string">"F18"</span>),
+<a href=#972 id=972 data-nosnippet>972</a>            F19 =&gt; f.write_str(<span class="string">"F19"</span>),
+<a href=#973 id=973 data-nosnippet>973</a>            F20 =&gt; f.write_str(<span class="string">"F20"</span>),
+<a href=#974 id=974 data-nosnippet>974</a>            F21 =&gt; f.write_str(<span class="string">"F21"</span>),
+<a href=#975 id=975 data-nosnippet>975</a>            F22 =&gt; f.write_str(<span class="string">"F22"</span>),
+<a href=#976 id=976 data-nosnippet>976</a>            F23 =&gt; f.write_str(<span class="string">"F23"</span>),
+<a href=#977 id=977 data-nosnippet>977</a>            F24 =&gt; f.write_str(<span class="string">"F24"</span>),
+<a href=#978 id=978 data-nosnippet>978</a>            F25 =&gt; f.write_str(<span class="string">"F25"</span>),
+<a href=#979 id=979 data-nosnippet>979</a>            F26 =&gt; f.write_str(<span class="string">"F26"</span>),
+<a href=#980 id=980 data-nosnippet>980</a>            F27 =&gt; f.write_str(<span class="string">"F27"</span>),
+<a href=#981 id=981 data-nosnippet>981</a>            F28 =&gt; f.write_str(<span class="string">"F28"</span>),
+<a href=#982 id=982 data-nosnippet>982</a>            F29 =&gt; f.write_str(<span class="string">"F29"</span>),
+<a href=#983 id=983 data-nosnippet>983</a>            F30 =&gt; f.write_str(<span class="string">"F30"</span>),
+<a href=#984 id=984 data-nosnippet>984</a>            F31 =&gt; f.write_str(<span class="string">"F31"</span>),
+<a href=#985 id=985 data-nosnippet>985</a>            F32 =&gt; f.write_str(<span class="string">"F32"</span>),
+<a href=#986 id=986 data-nosnippet>986</a>            F33 =&gt; f.write_str(<span class="string">"F33"</span>),
+<a href=#987 id=987 data-nosnippet>987</a>            F34 =&gt; f.write_str(<span class="string">"F34"</span>),
+<a href=#988 id=988 data-nosnippet>988</a>            F35 =&gt; f.write_str(<span class="string">"F35"</span>),
+<a href=#989 id=989 data-nosnippet>989</a>
+<a href=#990 id=990 data-nosnippet>990</a>        }
+<a href=#991 id=991 data-nosnippet>991</a>    }
+<a href=#992 id=992 data-nosnippet>992</a>}
+<a href=#993 id=993 data-nosnippet>993</a>
+<a href=#994 id=994 data-nosnippet>994</a><span class="kw">impl </span>FromStr <span class="kw">for </span>NamedKey {
+<a href=#995 id=995 data-nosnippet>995</a>    <span class="kw">type </span><span class="prelude-val">Err </span>= UnrecognizedNamedKeyError;
+<a href=#996 id=996 data-nosnippet>996</a>
+<a href=#997 id=997 data-nosnippet>997</a>    <span class="kw">fn </span>from_str(s: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt; {
+<a href=#998 id=998 data-nosnippet>998</a>        <span class="kw">use </span><span class="kw">crate</span>::NamedKey::<span class="kw-2">*</span>;
+<a href=#999 id=999 data-nosnippet>999</a>        <span class="kw">match </span>s {
+<a href=#1000 id=1000 data-nosnippet>1000</a>            <span class="string">"Unidentified" </span>=&gt; <span class="prelude-val">Ok</span>(Unidentified),
+<a href=#1001 id=1001 data-nosnippet>1001</a>            <span class="string">"Alt" </span>=&gt; <span class="prelude-val">Ok</span>(Alt),
+<a href=#1002 id=1002 data-nosnippet>1002</a>            <span class="string">"AltGraph" </span>=&gt; <span class="prelude-val">Ok</span>(AltGraph),
+<a href=#1003 id=1003 data-nosnippet>1003</a>            <span class="string">"CapsLock" </span>=&gt; <span class="prelude-val">Ok</span>(CapsLock),
+<a href=#1004 id=1004 data-nosnippet>1004</a>            <span class="string">"Control" </span>=&gt; <span class="prelude-val">Ok</span>(Control),
+<a href=#1005 id=1005 data-nosnippet>1005</a>            <span class="string">"Fn" </span>=&gt; <span class="prelude-val">Ok</span>(Fn),
+<a href=#1006 id=1006 data-nosnippet>1006</a>            <span class="string">"FnLock" </span>=&gt; <span class="prelude-val">Ok</span>(FnLock),
+<a href=#1007 id=1007 data-nosnippet>1007</a>            <span class="string">"Meta" </span>=&gt; <span class="prelude-val">Ok</span>(Meta),
+<a href=#1008 id=1008 data-nosnippet>1008</a>            <span class="string">"NumLock" </span>=&gt; <span class="prelude-val">Ok</span>(NumLock),
+<a href=#1009 id=1009 data-nosnippet>1009</a>            <span class="string">"ScrollLock" </span>=&gt; <span class="prelude-val">Ok</span>(ScrollLock),
+<a href=#1010 id=1010 data-nosnippet>1010</a>            <span class="string">"Shift" </span>=&gt; <span class="prelude-val">Ok</span>(Shift),
+<a href=#1011 id=1011 data-nosnippet>1011</a>            <span class="string">"Symbol" </span>=&gt; <span class="prelude-val">Ok</span>(Symbol),
+<a href=#1012 id=1012 data-nosnippet>1012</a>            <span class="string">"SymbolLock" </span>=&gt; <span class="prelude-val">Ok</span>(SymbolLock),
+<a href=#1013 id=1013 data-nosnippet>1013</a>            <span class="string">"Hyper" </span>=&gt; <span class="prelude-val">Ok</span>(Hyper),
+<a href=#1014 id=1014 data-nosnippet>1014</a>            <span class="string">"Super" </span>=&gt; <span class="prelude-val">Ok</span>(Super),
+<a href=#1015 id=1015 data-nosnippet>1015</a>            <span class="string">"Enter" </span>=&gt; <span class="prelude-val">Ok</span>(Enter),
+<a href=#1016 id=1016 data-nosnippet>1016</a>            <span class="string">"Tab" </span>=&gt; <span class="prelude-val">Ok</span>(Tab),
+<a href=#1017 id=1017 data-nosnippet>1017</a>            <span class="string">"ArrowDown" </span>=&gt; <span class="prelude-val">Ok</span>(ArrowDown),
+<a href=#1018 id=1018 data-nosnippet>1018</a>            <span class="string">"ArrowLeft" </span>=&gt; <span class="prelude-val">Ok</span>(ArrowLeft),
+<a href=#1019 id=1019 data-nosnippet>1019</a>            <span class="string">"ArrowRight" </span>=&gt; <span class="prelude-val">Ok</span>(ArrowRight),
+<a href=#1020 id=1020 data-nosnippet>1020</a>            <span class="string">"ArrowUp" </span>=&gt; <span class="prelude-val">Ok</span>(ArrowUp),
+<a href=#1021 id=1021 data-nosnippet>1021</a>            <span class="string">"End" </span>=&gt; <span class="prelude-val">Ok</span>(End),
+<a href=#1022 id=1022 data-nosnippet>1022</a>            <span class="string">"Home" </span>=&gt; <span class="prelude-val">Ok</span>(Home),
+<a href=#1023 id=1023 data-nosnippet>1023</a>            <span class="string">"PageDown" </span>=&gt; <span class="prelude-val">Ok</span>(PageDown),
+<a href=#1024 id=1024 data-nosnippet>1024</a>            <span class="string">"PageUp" </span>=&gt; <span class="prelude-val">Ok</span>(PageUp),
+<a href=#1025 id=1025 data-nosnippet>1025</a>            <span class="string">"Backspace" </span>=&gt; <span class="prelude-val">Ok</span>(Backspace),
+<a href=#1026 id=1026 data-nosnippet>1026</a>            <span class="string">"Clear" </span>=&gt; <span class="prelude-val">Ok</span>(Clear),
+<a href=#1027 id=1027 data-nosnippet>1027</a>            <span class="string">"Copy" </span>=&gt; <span class="prelude-val">Ok</span>(Copy),
+<a href=#1028 id=1028 data-nosnippet>1028</a>            <span class="string">"CrSel" </span>=&gt; <span class="prelude-val">Ok</span>(CrSel),
+<a href=#1029 id=1029 data-nosnippet>1029</a>            <span class="string">"Cut" </span>=&gt; <span class="prelude-val">Ok</span>(Cut),
+<a href=#1030 id=1030 data-nosnippet>1030</a>            <span class="string">"Delete" </span>=&gt; <span class="prelude-val">Ok</span>(Delete),
+<a href=#1031 id=1031 data-nosnippet>1031</a>            <span class="string">"EraseEof" </span>=&gt; <span class="prelude-val">Ok</span>(EraseEof),
+<a href=#1032 id=1032 data-nosnippet>1032</a>            <span class="string">"ExSel" </span>=&gt; <span class="prelude-val">Ok</span>(ExSel),
+<a href=#1033 id=1033 data-nosnippet>1033</a>            <span class="string">"Insert" </span>=&gt; <span class="prelude-val">Ok</span>(Insert),
+<a href=#1034 id=1034 data-nosnippet>1034</a>            <span class="string">"Paste" </span>=&gt; <span class="prelude-val">Ok</span>(Paste),
+<a href=#1035 id=1035 data-nosnippet>1035</a>            <span class="string">"Redo" </span>=&gt; <span class="prelude-val">Ok</span>(Redo),
+<a href=#1036 id=1036 data-nosnippet>1036</a>            <span class="string">"Undo" </span>=&gt; <span class="prelude-val">Ok</span>(Undo),
+<a href=#1037 id=1037 data-nosnippet>1037</a>            <span class="string">"Accept" </span>=&gt; <span class="prelude-val">Ok</span>(Accept),
+<a href=#1038 id=1038 data-nosnippet>1038</a>            <span class="string">"Again" </span>=&gt; <span class="prelude-val">Ok</span>(Again),
+<a href=#1039 id=1039 data-nosnippet>1039</a>            <span class="string">"Attn" </span>=&gt; <span class="prelude-val">Ok</span>(Attn),
+<a href=#1040 id=1040 data-nosnippet>1040</a>            <span class="string">"Cancel" </span>=&gt; <span class="prelude-val">Ok</span>(Cancel),
+<a href=#1041 id=1041 data-nosnippet>1041</a>            <span class="string">"ContextMenu" </span>=&gt; <span class="prelude-val">Ok</span>(ContextMenu),
+<a href=#1042 id=1042 data-nosnippet>1042</a>            <span class="string">"Escape" </span>=&gt; <span class="prelude-val">Ok</span>(Escape),
+<a href=#1043 id=1043 data-nosnippet>1043</a>            <span class="string">"Execute" </span>=&gt; <span class="prelude-val">Ok</span>(Execute),
+<a href=#1044 id=1044 data-nosnippet>1044</a>            <span class="string">"Find" </span>=&gt; <span class="prelude-val">Ok</span>(Find),
+<a href=#1045 id=1045 data-nosnippet>1045</a>            <span class="string">"Help" </span>=&gt; <span class="prelude-val">Ok</span>(Help),
+<a href=#1046 id=1046 data-nosnippet>1046</a>            <span class="string">"Pause" </span>=&gt; <span class="prelude-val">Ok</span>(Pause),
+<a href=#1047 id=1047 data-nosnippet>1047</a>            <span class="string">"Play" </span>=&gt; <span class="prelude-val">Ok</span>(Play),
+<a href=#1048 id=1048 data-nosnippet>1048</a>            <span class="string">"Props" </span>=&gt; <span class="prelude-val">Ok</span>(Props),
+<a href=#1049 id=1049 data-nosnippet>1049</a>            <span class="string">"Select" </span>=&gt; <span class="prelude-val">Ok</span>(Select),
+<a href=#1050 id=1050 data-nosnippet>1050</a>            <span class="string">"ZoomIn" </span>=&gt; <span class="prelude-val">Ok</span>(ZoomIn),
+<a href=#1051 id=1051 data-nosnippet>1051</a>            <span class="string">"ZoomOut" </span>=&gt; <span class="prelude-val">Ok</span>(ZoomOut),
+<a href=#1052 id=1052 data-nosnippet>1052</a>            <span class="string">"BrightnessDown" </span>=&gt; <span class="prelude-val">Ok</span>(BrightnessDown),
+<a href=#1053 id=1053 data-nosnippet>1053</a>            <span class="string">"BrightnessUp" </span>=&gt; <span class="prelude-val">Ok</span>(BrightnessUp),
+<a href=#1054 id=1054 data-nosnippet>1054</a>            <span class="string">"Eject" </span>=&gt; <span class="prelude-val">Ok</span>(Eject),
+<a href=#1055 id=1055 data-nosnippet>1055</a>            <span class="string">"LogOff" </span>=&gt; <span class="prelude-val">Ok</span>(LogOff),
+<a href=#1056 id=1056 data-nosnippet>1056</a>            <span class="string">"Power" </span>=&gt; <span class="prelude-val">Ok</span>(Power),
+<a href=#1057 id=1057 data-nosnippet>1057</a>            <span class="string">"PowerOff" </span>=&gt; <span class="prelude-val">Ok</span>(PowerOff),
+<a href=#1058 id=1058 data-nosnippet>1058</a>            <span class="string">"PrintScreen" </span>=&gt; <span class="prelude-val">Ok</span>(PrintScreen),
+<a href=#1059 id=1059 data-nosnippet>1059</a>            <span class="string">"Hibernate" </span>=&gt; <span class="prelude-val">Ok</span>(Hibernate),
+<a href=#1060 id=1060 data-nosnippet>1060</a>            <span class="string">"Standby" </span>=&gt; <span class="prelude-val">Ok</span>(Standby),
+<a href=#1061 id=1061 data-nosnippet>1061</a>            <span class="string">"WakeUp" </span>=&gt; <span class="prelude-val">Ok</span>(WakeUp),
+<a href=#1062 id=1062 data-nosnippet>1062</a>            <span class="string">"AllCandidates" </span>=&gt; <span class="prelude-val">Ok</span>(AllCandidates),
+<a href=#1063 id=1063 data-nosnippet>1063</a>            <span class="string">"Alphanumeric" </span>=&gt; <span class="prelude-val">Ok</span>(Alphanumeric),
+<a href=#1064 id=1064 data-nosnippet>1064</a>            <span class="string">"CodeInput" </span>=&gt; <span class="prelude-val">Ok</span>(CodeInput),
+<a href=#1065 id=1065 data-nosnippet>1065</a>            <span class="string">"Compose" </span>=&gt; <span class="prelude-val">Ok</span>(Compose),
+<a href=#1066 id=1066 data-nosnippet>1066</a>            <span class="string">"Convert" </span>=&gt; <span class="prelude-val">Ok</span>(Convert),
+<a href=#1067 id=1067 data-nosnippet>1067</a>            <span class="string">"Dead" </span>=&gt; <span class="prelude-val">Ok</span>(Dead),
+<a href=#1068 id=1068 data-nosnippet>1068</a>            <span class="string">"FinalMode" </span>=&gt; <span class="prelude-val">Ok</span>(FinalMode),
+<a href=#1069 id=1069 data-nosnippet>1069</a>            <span class="string">"GroupFirst" </span>=&gt; <span class="prelude-val">Ok</span>(GroupFirst),
+<a href=#1070 id=1070 data-nosnippet>1070</a>            <span class="string">"GroupLast" </span>=&gt; <span class="prelude-val">Ok</span>(GroupLast),
+<a href=#1071 id=1071 data-nosnippet>1071</a>            <span class="string">"GroupNext" </span>=&gt; <span class="prelude-val">Ok</span>(GroupNext),
+<a href=#1072 id=1072 data-nosnippet>1072</a>            <span class="string">"GroupPrevious" </span>=&gt; <span class="prelude-val">Ok</span>(GroupPrevious),
+<a href=#1073 id=1073 data-nosnippet>1073</a>            <span class="string">"ModeChange" </span>=&gt; <span class="prelude-val">Ok</span>(ModeChange),
+<a href=#1074 id=1074 data-nosnippet>1074</a>            <span class="string">"NextCandidate" </span>=&gt; <span class="prelude-val">Ok</span>(NextCandidate),
+<a href=#1075 id=1075 data-nosnippet>1075</a>            <span class="string">"NonConvert" </span>=&gt; <span class="prelude-val">Ok</span>(NonConvert),
+<a href=#1076 id=1076 data-nosnippet>1076</a>            <span class="string">"PreviousCandidate" </span>=&gt; <span class="prelude-val">Ok</span>(PreviousCandidate),
+<a href=#1077 id=1077 data-nosnippet>1077</a>            <span class="string">"Process" </span>=&gt; <span class="prelude-val">Ok</span>(Process),
+<a href=#1078 id=1078 data-nosnippet>1078</a>            <span class="string">"SingleCandidate" </span>=&gt; <span class="prelude-val">Ok</span>(SingleCandidate),
+<a href=#1079 id=1079 data-nosnippet>1079</a>            <span class="string">"HangulMode" </span>=&gt; <span class="prelude-val">Ok</span>(HangulMode),
+<a href=#1080 id=1080 data-nosnippet>1080</a>            <span class="string">"HanjaMode" </span>=&gt; <span class="prelude-val">Ok</span>(HanjaMode),
+<a href=#1081 id=1081 data-nosnippet>1081</a>            <span class="string">"JunjaMode" </span>=&gt; <span class="prelude-val">Ok</span>(JunjaMode),
+<a href=#1082 id=1082 data-nosnippet>1082</a>            <span class="string">"Eisu" </span>=&gt; <span class="prelude-val">Ok</span>(Eisu),
+<a href=#1083 id=1083 data-nosnippet>1083</a>            <span class="string">"Hankaku" </span>=&gt; <span class="prelude-val">Ok</span>(Hankaku),
+<a href=#1084 id=1084 data-nosnippet>1084</a>            <span class="string">"Hiragana" </span>=&gt; <span class="prelude-val">Ok</span>(Hiragana),
+<a href=#1085 id=1085 data-nosnippet>1085</a>            <span class="string">"HiraganaKatakana" </span>=&gt; <span class="prelude-val">Ok</span>(HiraganaKatakana),
+<a href=#1086 id=1086 data-nosnippet>1086</a>            <span class="string">"KanaMode" </span>=&gt; <span class="prelude-val">Ok</span>(KanaMode),
+<a href=#1087 id=1087 data-nosnippet>1087</a>            <span class="string">"KanjiMode" </span>=&gt; <span class="prelude-val">Ok</span>(KanjiMode),
+<a href=#1088 id=1088 data-nosnippet>1088</a>            <span class="string">"Katakana" </span>=&gt; <span class="prelude-val">Ok</span>(Katakana),
+<a href=#1089 id=1089 data-nosnippet>1089</a>            <span class="string">"Romaji" </span>=&gt; <span class="prelude-val">Ok</span>(Romaji),
+<a href=#1090 id=1090 data-nosnippet>1090</a>            <span class="string">"Zenkaku" </span>=&gt; <span class="prelude-val">Ok</span>(Zenkaku),
+<a href=#1091 id=1091 data-nosnippet>1091</a>            <span class="string">"ZenkakuHankaku" </span>=&gt; <span class="prelude-val">Ok</span>(ZenkakuHankaku),
+<a href=#1092 id=1092 data-nosnippet>1092</a>            <span class="string">"Soft1" </span>=&gt; <span class="prelude-val">Ok</span>(Soft1),
+<a href=#1093 id=1093 data-nosnippet>1093</a>            <span class="string">"Soft2" </span>=&gt; <span class="prelude-val">Ok</span>(Soft2),
+<a href=#1094 id=1094 data-nosnippet>1094</a>            <span class="string">"Soft3" </span>=&gt; <span class="prelude-val">Ok</span>(Soft3),
+<a href=#1095 id=1095 data-nosnippet>1095</a>            <span class="string">"Soft4" </span>=&gt; <span class="prelude-val">Ok</span>(Soft4),
+<a href=#1096 id=1096 data-nosnippet>1096</a>            <span class="string">"ChannelDown" </span>=&gt; <span class="prelude-val">Ok</span>(ChannelDown),
+<a href=#1097 id=1097 data-nosnippet>1097</a>            <span class="string">"ChannelUp" </span>=&gt; <span class="prelude-val">Ok</span>(ChannelUp),
+<a href=#1098 id=1098 data-nosnippet>1098</a>            <span class="string">"Close" </span>=&gt; <span class="prelude-val">Ok</span>(Close),
+<a href=#1099 id=1099 data-nosnippet>1099</a>            <span class="string">"MailForward" </span>=&gt; <span class="prelude-val">Ok</span>(MailForward),
+<a href=#1100 id=1100 data-nosnippet>1100</a>            <span class="string">"MailReply" </span>=&gt; <span class="prelude-val">Ok</span>(MailReply),
+<a href=#1101 id=1101 data-nosnippet>1101</a>            <span class="string">"MailSend" </span>=&gt; <span class="prelude-val">Ok</span>(MailSend),
+<a href=#1102 id=1102 data-nosnippet>1102</a>            <span class="string">"MediaClose" </span>=&gt; <span class="prelude-val">Ok</span>(MediaClose),
+<a href=#1103 id=1103 data-nosnippet>1103</a>            <span class="string">"MediaFastForward" </span>=&gt; <span class="prelude-val">Ok</span>(MediaFastForward),
+<a href=#1104 id=1104 data-nosnippet>1104</a>            <span class="string">"MediaPause" </span>=&gt; <span class="prelude-val">Ok</span>(MediaPause),
+<a href=#1105 id=1105 data-nosnippet>1105</a>            <span class="string">"MediaPlay" </span>=&gt; <span class="prelude-val">Ok</span>(MediaPlay),
+<a href=#1106 id=1106 data-nosnippet>1106</a>            <span class="string">"MediaPlayPause" </span>=&gt; <span class="prelude-val">Ok</span>(MediaPlayPause),
+<a href=#1107 id=1107 data-nosnippet>1107</a>            <span class="string">"MediaRecord" </span>=&gt; <span class="prelude-val">Ok</span>(MediaRecord),
+<a href=#1108 id=1108 data-nosnippet>1108</a>            <span class="string">"MediaRewind" </span>=&gt; <span class="prelude-val">Ok</span>(MediaRewind),
+<a href=#1109 id=1109 data-nosnippet>1109</a>            <span class="string">"MediaStop" </span>=&gt; <span class="prelude-val">Ok</span>(MediaStop),
+<a href=#1110 id=1110 data-nosnippet>1110</a>            <span class="string">"MediaTrackNext" </span>=&gt; <span class="prelude-val">Ok</span>(MediaTrackNext),
+<a href=#1111 id=1111 data-nosnippet>1111</a>            <span class="string">"MediaTrackPrevious" </span>=&gt; <span class="prelude-val">Ok</span>(MediaTrackPrevious),
+<a href=#1112 id=1112 data-nosnippet>1112</a>            <span class="string">"New" </span>=&gt; <span class="prelude-val">Ok</span>(New),
+<a href=#1113 id=1113 data-nosnippet>1113</a>            <span class="string">"Open" </span>=&gt; <span class="prelude-val">Ok</span>(Open),
+<a href=#1114 id=1114 data-nosnippet>1114</a>            <span class="string">"Print" </span>=&gt; <span class="prelude-val">Ok</span>(Print),
+<a href=#1115 id=1115 data-nosnippet>1115</a>            <span class="string">"Save" </span>=&gt; <span class="prelude-val">Ok</span>(Save),
+<a href=#1116 id=1116 data-nosnippet>1116</a>            <span class="string">"SpellCheck" </span>=&gt; <span class="prelude-val">Ok</span>(SpellCheck),
+<a href=#1117 id=1117 data-nosnippet>1117</a>            <span class="string">"Key11" </span>=&gt; <span class="prelude-val">Ok</span>(Key11),
+<a href=#1118 id=1118 data-nosnippet>1118</a>            <span class="string">"Key12" </span>=&gt; <span class="prelude-val">Ok</span>(Key12),
+<a href=#1119 id=1119 data-nosnippet>1119</a>            <span class="string">"AudioBalanceLeft" </span>=&gt; <span class="prelude-val">Ok</span>(AudioBalanceLeft),
+<a href=#1120 id=1120 data-nosnippet>1120</a>            <span class="string">"AudioBalanceRight" </span>=&gt; <span class="prelude-val">Ok</span>(AudioBalanceRight),
+<a href=#1121 id=1121 data-nosnippet>1121</a>            <span class="string">"AudioBassBoostDown" </span>=&gt; <span class="prelude-val">Ok</span>(AudioBassBoostDown),
+<a href=#1122 id=1122 data-nosnippet>1122</a>            <span class="string">"AudioBassBoostToggle" </span>=&gt; <span class="prelude-val">Ok</span>(AudioBassBoostToggle),
+<a href=#1123 id=1123 data-nosnippet>1123</a>            <span class="string">"AudioBassBoostUp" </span>=&gt; <span class="prelude-val">Ok</span>(AudioBassBoostUp),
+<a href=#1124 id=1124 data-nosnippet>1124</a>            <span class="string">"AudioFaderFront" </span>=&gt; <span class="prelude-val">Ok</span>(AudioFaderFront),
+<a href=#1125 id=1125 data-nosnippet>1125</a>            <span class="string">"AudioFaderRear" </span>=&gt; <span class="prelude-val">Ok</span>(AudioFaderRear),
+<a href=#1126 id=1126 data-nosnippet>1126</a>            <span class="string">"AudioSurroundModeNext" </span>=&gt; <span class="prelude-val">Ok</span>(AudioSurroundModeNext),
+<a href=#1127 id=1127 data-nosnippet>1127</a>            <span class="string">"AudioTrebleDown" </span>=&gt; <span class="prelude-val">Ok</span>(AudioTrebleDown),
+<a href=#1128 id=1128 data-nosnippet>1128</a>            <span class="string">"AudioTrebleUp" </span>=&gt; <span class="prelude-val">Ok</span>(AudioTrebleUp),
+<a href=#1129 id=1129 data-nosnippet>1129</a>            <span class="string">"AudioVolumeDown" </span>=&gt; <span class="prelude-val">Ok</span>(AudioVolumeDown),
+<a href=#1130 id=1130 data-nosnippet>1130</a>            <span class="string">"AudioVolumeUp" </span>=&gt; <span class="prelude-val">Ok</span>(AudioVolumeUp),
+<a href=#1131 id=1131 data-nosnippet>1131</a>            <span class="string">"AudioVolumeMute" </span>=&gt; <span class="prelude-val">Ok</span>(AudioVolumeMute),
+<a href=#1132 id=1132 data-nosnippet>1132</a>            <span class="string">"MicrophoneToggle" </span>=&gt; <span class="prelude-val">Ok</span>(MicrophoneToggle),
+<a href=#1133 id=1133 data-nosnippet>1133</a>            <span class="string">"MicrophoneVolumeDown" </span>=&gt; <span class="prelude-val">Ok</span>(MicrophoneVolumeDown),
+<a href=#1134 id=1134 data-nosnippet>1134</a>            <span class="string">"MicrophoneVolumeUp" </span>=&gt; <span class="prelude-val">Ok</span>(MicrophoneVolumeUp),
+<a href=#1135 id=1135 data-nosnippet>1135</a>            <span class="string">"MicrophoneVolumeMute" </span>=&gt; <span class="prelude-val">Ok</span>(MicrophoneVolumeMute),
+<a href=#1136 id=1136 data-nosnippet>1136</a>            <span class="string">"SpeechCorrectionList" </span>=&gt; <span class="prelude-val">Ok</span>(SpeechCorrectionList),
+<a href=#1137 id=1137 data-nosnippet>1137</a>            <span class="string">"SpeechInputToggle" </span>=&gt; <span class="prelude-val">Ok</span>(SpeechInputToggle),
+<a href=#1138 id=1138 data-nosnippet>1138</a>            <span class="string">"LaunchApplication1" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchApplication1),
+<a href=#1139 id=1139 data-nosnippet>1139</a>            <span class="string">"LaunchApplication2" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchApplication2),
+<a href=#1140 id=1140 data-nosnippet>1140</a>            <span class="string">"LaunchCalendar" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchCalendar),
+<a href=#1141 id=1141 data-nosnippet>1141</a>            <span class="string">"LaunchContacts" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchContacts),
+<a href=#1142 id=1142 data-nosnippet>1142</a>            <span class="string">"LaunchMail" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchMail),
+<a href=#1143 id=1143 data-nosnippet>1143</a>            <span class="string">"LaunchMediaPlayer" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchMediaPlayer),
+<a href=#1144 id=1144 data-nosnippet>1144</a>            <span class="string">"LaunchMusicPlayer" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchMusicPlayer),
+<a href=#1145 id=1145 data-nosnippet>1145</a>            <span class="string">"LaunchPhone" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchPhone),
+<a href=#1146 id=1146 data-nosnippet>1146</a>            <span class="string">"LaunchScreenSaver" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchScreenSaver),
+<a href=#1147 id=1147 data-nosnippet>1147</a>            <span class="string">"LaunchSpreadsheet" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchSpreadsheet),
+<a href=#1148 id=1148 data-nosnippet>1148</a>            <span class="string">"LaunchWebBrowser" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchWebBrowser),
+<a href=#1149 id=1149 data-nosnippet>1149</a>            <span class="string">"LaunchWebCam" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchWebCam),
+<a href=#1150 id=1150 data-nosnippet>1150</a>            <span class="string">"LaunchWordProcessor" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchWordProcessor),
+<a href=#1151 id=1151 data-nosnippet>1151</a>            <span class="string">"BrowserBack" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserBack),
+<a href=#1152 id=1152 data-nosnippet>1152</a>            <span class="string">"BrowserFavorites" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserFavorites),
+<a href=#1153 id=1153 data-nosnippet>1153</a>            <span class="string">"BrowserForward" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserForward),
+<a href=#1154 id=1154 data-nosnippet>1154</a>            <span class="string">"BrowserHome" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserHome),
+<a href=#1155 id=1155 data-nosnippet>1155</a>            <span class="string">"BrowserRefresh" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserRefresh),
+<a href=#1156 id=1156 data-nosnippet>1156</a>            <span class="string">"BrowserSearch" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserSearch),
+<a href=#1157 id=1157 data-nosnippet>1157</a>            <span class="string">"BrowserStop" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserStop),
+<a href=#1158 id=1158 data-nosnippet>1158</a>            <span class="string">"AppSwitch" </span>=&gt; <span class="prelude-val">Ok</span>(AppSwitch),
+<a href=#1159 id=1159 data-nosnippet>1159</a>            <span class="string">"Call" </span>=&gt; <span class="prelude-val">Ok</span>(Call),
+<a href=#1160 id=1160 data-nosnippet>1160</a>            <span class="string">"Camera" </span>=&gt; <span class="prelude-val">Ok</span>(Camera),
+<a href=#1161 id=1161 data-nosnippet>1161</a>            <span class="string">"CameraFocus" </span>=&gt; <span class="prelude-val">Ok</span>(CameraFocus),
+<a href=#1162 id=1162 data-nosnippet>1162</a>            <span class="string">"EndCall" </span>=&gt; <span class="prelude-val">Ok</span>(EndCall),
+<a href=#1163 id=1163 data-nosnippet>1163</a>            <span class="string">"GoBack" </span>=&gt; <span class="prelude-val">Ok</span>(GoBack),
+<a href=#1164 id=1164 data-nosnippet>1164</a>            <span class="string">"GoHome" </span>=&gt; <span class="prelude-val">Ok</span>(GoHome),
+<a href=#1165 id=1165 data-nosnippet>1165</a>            <span class="string">"HeadsetHook" </span>=&gt; <span class="prelude-val">Ok</span>(HeadsetHook),
+<a href=#1166 id=1166 data-nosnippet>1166</a>            <span class="string">"LastNumberRedial" </span>=&gt; <span class="prelude-val">Ok</span>(LastNumberRedial),
+<a href=#1167 id=1167 data-nosnippet>1167</a>            <span class="string">"Notification" </span>=&gt; <span class="prelude-val">Ok</span>(Notification),
+<a href=#1168 id=1168 data-nosnippet>1168</a>            <span class="string">"MannerMode" </span>=&gt; <span class="prelude-val">Ok</span>(MannerMode),
+<a href=#1169 id=1169 data-nosnippet>1169</a>            <span class="string">"VoiceDial" </span>=&gt; <span class="prelude-val">Ok</span>(VoiceDial),
+<a href=#1170 id=1170 data-nosnippet>1170</a>            <span class="string">"TV" </span>=&gt; <span class="prelude-val">Ok</span>(TV),
+<a href=#1171 id=1171 data-nosnippet>1171</a>            <span class="string">"TV3DMode" </span>=&gt; <span class="prelude-val">Ok</span>(TV3DMode),
+<a href=#1172 id=1172 data-nosnippet>1172</a>            <span class="string">"TVAntennaCable" </span>=&gt; <span class="prelude-val">Ok</span>(TVAntennaCable),
+<a href=#1173 id=1173 data-nosnippet>1173</a>            <span class="string">"TVAudioDescription" </span>=&gt; <span class="prelude-val">Ok</span>(TVAudioDescription),
+<a href=#1174 id=1174 data-nosnippet>1174</a>            <span class="string">"TVAudioDescriptionMixDown" </span>=&gt; <span class="prelude-val">Ok</span>(TVAudioDescriptionMixDown),
+<a href=#1175 id=1175 data-nosnippet>1175</a>            <span class="string">"TVAudioDescriptionMixUp" </span>=&gt; <span class="prelude-val">Ok</span>(TVAudioDescriptionMixUp),
+<a href=#1176 id=1176 data-nosnippet>1176</a>            <span class="string">"TVContentsMenu" </span>=&gt; <span class="prelude-val">Ok</span>(TVContentsMenu),
+<a href=#1177 id=1177 data-nosnippet>1177</a>            <span class="string">"TVDataService" </span>=&gt; <span class="prelude-val">Ok</span>(TVDataService),
+<a href=#1178 id=1178 data-nosnippet>1178</a>            <span class="string">"TVInput" </span>=&gt; <span class="prelude-val">Ok</span>(TVInput),
+<a href=#1179 id=1179 data-nosnippet>1179</a>            <span class="string">"TVInputComponent1" </span>=&gt; <span class="prelude-val">Ok</span>(TVInputComponent1),
+<a href=#1180 id=1180 data-nosnippet>1180</a>            <span class="string">"TVInputComponent2" </span>=&gt; <span class="prelude-val">Ok</span>(TVInputComponent2),
+<a href=#1181 id=1181 data-nosnippet>1181</a>            <span class="string">"TVInputComposite1" </span>=&gt; <span class="prelude-val">Ok</span>(TVInputComposite1),
+<a href=#1182 id=1182 data-nosnippet>1182</a>            <span class="string">"TVInputComposite2" </span>=&gt; <span class="prelude-val">Ok</span>(TVInputComposite2),
+<a href=#1183 id=1183 data-nosnippet>1183</a>            <span class="string">"TVInputHDMI1" </span>=&gt; <span class="prelude-val">Ok</span>(TVInputHDMI1),
+<a href=#1184 id=1184 data-nosnippet>1184</a>            <span class="string">"TVInputHDMI2" </span>=&gt; <span class="prelude-val">Ok</span>(TVInputHDMI2),
+<a href=#1185 id=1185 data-nosnippet>1185</a>            <span class="string">"TVInputHDMI3" </span>=&gt; <span class="prelude-val">Ok</span>(TVInputHDMI3),
+<a href=#1186 id=1186 data-nosnippet>1186</a>            <span class="string">"TVInputHDMI4" </span>=&gt; <span class="prelude-val">Ok</span>(TVInputHDMI4),
+<a href=#1187 id=1187 data-nosnippet>1187</a>            <span class="string">"TVInputVGA1" </span>=&gt; <span class="prelude-val">Ok</span>(TVInputVGA1),
+<a href=#1188 id=1188 data-nosnippet>1188</a>            <span class="string">"TVMediaContext" </span>=&gt; <span class="prelude-val">Ok</span>(TVMediaContext),
+<a href=#1189 id=1189 data-nosnippet>1189</a>            <span class="string">"TVNetwork" </span>=&gt; <span class="prelude-val">Ok</span>(TVNetwork),
+<a href=#1190 id=1190 data-nosnippet>1190</a>            <span class="string">"TVNumberEntry" </span>=&gt; <span class="prelude-val">Ok</span>(TVNumberEntry),
+<a href=#1191 id=1191 data-nosnippet>1191</a>            <span class="string">"TVPower" </span>=&gt; <span class="prelude-val">Ok</span>(TVPower),
+<a href=#1192 id=1192 data-nosnippet>1192</a>            <span class="string">"TVRadioService" </span>=&gt; <span class="prelude-val">Ok</span>(TVRadioService),
+<a href=#1193 id=1193 data-nosnippet>1193</a>            <span class="string">"TVSatellite" </span>=&gt; <span class="prelude-val">Ok</span>(TVSatellite),
+<a href=#1194 id=1194 data-nosnippet>1194</a>            <span class="string">"TVSatelliteBS" </span>=&gt; <span class="prelude-val">Ok</span>(TVSatelliteBS),
+<a href=#1195 id=1195 data-nosnippet>1195</a>            <span class="string">"TVSatelliteCS" </span>=&gt; <span class="prelude-val">Ok</span>(TVSatelliteCS),
+<a href=#1196 id=1196 data-nosnippet>1196</a>            <span class="string">"TVSatelliteToggle" </span>=&gt; <span class="prelude-val">Ok</span>(TVSatelliteToggle),
+<a href=#1197 id=1197 data-nosnippet>1197</a>            <span class="string">"TVTerrestrialAnalog" </span>=&gt; <span class="prelude-val">Ok</span>(TVTerrestrialAnalog),
+<a href=#1198 id=1198 data-nosnippet>1198</a>            <span class="string">"TVTerrestrialDigital" </span>=&gt; <span class="prelude-val">Ok</span>(TVTerrestrialDigital),
+<a href=#1199 id=1199 data-nosnippet>1199</a>            <span class="string">"TVTimer" </span>=&gt; <span class="prelude-val">Ok</span>(TVTimer),
+<a href=#1200 id=1200 data-nosnippet>1200</a>            <span class="string">"AVRInput" </span>=&gt; <span class="prelude-val">Ok</span>(AVRInput),
+<a href=#1201 id=1201 data-nosnippet>1201</a>            <span class="string">"AVRPower" </span>=&gt; <span class="prelude-val">Ok</span>(AVRPower),
+<a href=#1202 id=1202 data-nosnippet>1202</a>            <span class="string">"ColorF0Red" </span>=&gt; <span class="prelude-val">Ok</span>(ColorF0Red),
+<a href=#1203 id=1203 data-nosnippet>1203</a>            <span class="string">"ColorF1Green" </span>=&gt; <span class="prelude-val">Ok</span>(ColorF1Green),
+<a href=#1204 id=1204 data-nosnippet>1204</a>            <span class="string">"ColorF2Yellow" </span>=&gt; <span class="prelude-val">Ok</span>(ColorF2Yellow),
+<a href=#1205 id=1205 data-nosnippet>1205</a>            <span class="string">"ColorF3Blue" </span>=&gt; <span class="prelude-val">Ok</span>(ColorF3Blue),
+<a href=#1206 id=1206 data-nosnippet>1206</a>            <span class="string">"ColorF4Grey" </span>=&gt; <span class="prelude-val">Ok</span>(ColorF4Grey),
+<a href=#1207 id=1207 data-nosnippet>1207</a>            <span class="string">"ColorF5Brown" </span>=&gt; <span class="prelude-val">Ok</span>(ColorF5Brown),
+<a href=#1208 id=1208 data-nosnippet>1208</a>            <span class="string">"ClosedCaptionToggle" </span>=&gt; <span class="prelude-val">Ok</span>(ClosedCaptionToggle),
+<a href=#1209 id=1209 data-nosnippet>1209</a>            <span class="string">"Dimmer" </span>=&gt; <span class="prelude-val">Ok</span>(Dimmer),
+<a href=#1210 id=1210 data-nosnippet>1210</a>            <span class="string">"DisplaySwap" </span>=&gt; <span class="prelude-val">Ok</span>(DisplaySwap),
+<a href=#1211 id=1211 data-nosnippet>1211</a>            <span class="string">"DVR" </span>=&gt; <span class="prelude-val">Ok</span>(DVR),
+<a href=#1212 id=1212 data-nosnippet>1212</a>            <span class="string">"Exit" </span>=&gt; <span class="prelude-val">Ok</span>(Exit),
+<a href=#1213 id=1213 data-nosnippet>1213</a>            <span class="string">"FavoriteClear0" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteClear0),
+<a href=#1214 id=1214 data-nosnippet>1214</a>            <span class="string">"FavoriteClear1" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteClear1),
+<a href=#1215 id=1215 data-nosnippet>1215</a>            <span class="string">"FavoriteClear2" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteClear2),
+<a href=#1216 id=1216 data-nosnippet>1216</a>            <span class="string">"FavoriteClear3" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteClear3),
+<a href=#1217 id=1217 data-nosnippet>1217</a>            <span class="string">"FavoriteRecall0" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteRecall0),
+<a href=#1218 id=1218 data-nosnippet>1218</a>            <span class="string">"FavoriteRecall1" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteRecall1),
+<a href=#1219 id=1219 data-nosnippet>1219</a>            <span class="string">"FavoriteRecall2" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteRecall2),
+<a href=#1220 id=1220 data-nosnippet>1220</a>            <span class="string">"FavoriteRecall3" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteRecall3),
+<a href=#1221 id=1221 data-nosnippet>1221</a>            <span class="string">"FavoriteStore0" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteStore0),
+<a href=#1222 id=1222 data-nosnippet>1222</a>            <span class="string">"FavoriteStore1" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteStore1),
+<a href=#1223 id=1223 data-nosnippet>1223</a>            <span class="string">"FavoriteStore2" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteStore2),
+<a href=#1224 id=1224 data-nosnippet>1224</a>            <span class="string">"FavoriteStore3" </span>=&gt; <span class="prelude-val">Ok</span>(FavoriteStore3),
+<a href=#1225 id=1225 data-nosnippet>1225</a>            <span class="string">"Guide" </span>=&gt; <span class="prelude-val">Ok</span>(Guide),
+<a href=#1226 id=1226 data-nosnippet>1226</a>            <span class="string">"GuideNextDay" </span>=&gt; <span class="prelude-val">Ok</span>(GuideNextDay),
+<a href=#1227 id=1227 data-nosnippet>1227</a>            <span class="string">"GuidePreviousDay" </span>=&gt; <span class="prelude-val">Ok</span>(GuidePreviousDay),
+<a href=#1228 id=1228 data-nosnippet>1228</a>            <span class="string">"Info" </span>=&gt; <span class="prelude-val">Ok</span>(Info),
+<a href=#1229 id=1229 data-nosnippet>1229</a>            <span class="string">"InstantReplay" </span>=&gt; <span class="prelude-val">Ok</span>(InstantReplay),
+<a href=#1230 id=1230 data-nosnippet>1230</a>            <span class="string">"Link" </span>=&gt; <span class="prelude-val">Ok</span>(Link),
+<a href=#1231 id=1231 data-nosnippet>1231</a>            <span class="string">"ListProgram" </span>=&gt; <span class="prelude-val">Ok</span>(ListProgram),
+<a href=#1232 id=1232 data-nosnippet>1232</a>            <span class="string">"LiveContent" </span>=&gt; <span class="prelude-val">Ok</span>(LiveContent),
+<a href=#1233 id=1233 data-nosnippet>1233</a>            <span class="string">"Lock" </span>=&gt; <span class="prelude-val">Ok</span>(Lock),
+<a href=#1234 id=1234 data-nosnippet>1234</a>            <span class="string">"MediaApps" </span>=&gt; <span class="prelude-val">Ok</span>(MediaApps),
+<a href=#1235 id=1235 data-nosnippet>1235</a>            <span class="string">"MediaAudioTrack" </span>=&gt; <span class="prelude-val">Ok</span>(MediaAudioTrack),
+<a href=#1236 id=1236 data-nosnippet>1236</a>            <span class="string">"MediaLast" </span>=&gt; <span class="prelude-val">Ok</span>(MediaLast),
+<a href=#1237 id=1237 data-nosnippet>1237</a>            <span class="string">"MediaSkipBackward" </span>=&gt; <span class="prelude-val">Ok</span>(MediaSkipBackward),
+<a href=#1238 id=1238 data-nosnippet>1238</a>            <span class="string">"MediaSkipForward" </span>=&gt; <span class="prelude-val">Ok</span>(MediaSkipForward),
+<a href=#1239 id=1239 data-nosnippet>1239</a>            <span class="string">"MediaStepBackward" </span>=&gt; <span class="prelude-val">Ok</span>(MediaStepBackward),
+<a href=#1240 id=1240 data-nosnippet>1240</a>            <span class="string">"MediaStepForward" </span>=&gt; <span class="prelude-val">Ok</span>(MediaStepForward),
+<a href=#1241 id=1241 data-nosnippet>1241</a>            <span class="string">"MediaTopMenu" </span>=&gt; <span class="prelude-val">Ok</span>(MediaTopMenu),
+<a href=#1242 id=1242 data-nosnippet>1242</a>            <span class="string">"NavigateIn" </span>=&gt; <span class="prelude-val">Ok</span>(NavigateIn),
+<a href=#1243 id=1243 data-nosnippet>1243</a>            <span class="string">"NavigateNext" </span>=&gt; <span class="prelude-val">Ok</span>(NavigateNext),
+<a href=#1244 id=1244 data-nosnippet>1244</a>            <span class="string">"NavigateOut" </span>=&gt; <span class="prelude-val">Ok</span>(NavigateOut),
+<a href=#1245 id=1245 data-nosnippet>1245</a>            <span class="string">"NavigatePrevious" </span>=&gt; <span class="prelude-val">Ok</span>(NavigatePrevious),
+<a href=#1246 id=1246 data-nosnippet>1246</a>            <span class="string">"NextFavoriteChannel" </span>=&gt; <span class="prelude-val">Ok</span>(NextFavoriteChannel),
+<a href=#1247 id=1247 data-nosnippet>1247</a>            <span class="string">"NextUserProfile" </span>=&gt; <span class="prelude-val">Ok</span>(NextUserProfile),
+<a href=#1248 id=1248 data-nosnippet>1248</a>            <span class="string">"OnDemand" </span>=&gt; <span class="prelude-val">Ok</span>(OnDemand),
+<a href=#1249 id=1249 data-nosnippet>1249</a>            <span class="string">"Pairing" </span>=&gt; <span class="prelude-val">Ok</span>(Pairing),
+<a href=#1250 id=1250 data-nosnippet>1250</a>            <span class="string">"PinPDown" </span>=&gt; <span class="prelude-val">Ok</span>(PinPDown),
+<a href=#1251 id=1251 data-nosnippet>1251</a>            <span class="string">"PinPMove" </span>=&gt; <span class="prelude-val">Ok</span>(PinPMove),
+<a href=#1252 id=1252 data-nosnippet>1252</a>            <span class="string">"PinPToggle" </span>=&gt; <span class="prelude-val">Ok</span>(PinPToggle),
+<a href=#1253 id=1253 data-nosnippet>1253</a>            <span class="string">"PinPUp" </span>=&gt; <span class="prelude-val">Ok</span>(PinPUp),
+<a href=#1254 id=1254 data-nosnippet>1254</a>            <span class="string">"PlaySpeedDown" </span>=&gt; <span class="prelude-val">Ok</span>(PlaySpeedDown),
+<a href=#1255 id=1255 data-nosnippet>1255</a>            <span class="string">"PlaySpeedReset" </span>=&gt; <span class="prelude-val">Ok</span>(PlaySpeedReset),
+<a href=#1256 id=1256 data-nosnippet>1256</a>            <span class="string">"PlaySpeedUp" </span>=&gt; <span class="prelude-val">Ok</span>(PlaySpeedUp),
+<a href=#1257 id=1257 data-nosnippet>1257</a>            <span class="string">"RandomToggle" </span>=&gt; <span class="prelude-val">Ok</span>(RandomToggle),
+<a href=#1258 id=1258 data-nosnippet>1258</a>            <span class="string">"RcLowBattery" </span>=&gt; <span class="prelude-val">Ok</span>(RcLowBattery),
+<a href=#1259 id=1259 data-nosnippet>1259</a>            <span class="string">"RecordSpeedNext" </span>=&gt; <span class="prelude-val">Ok</span>(RecordSpeedNext),
+<a href=#1260 id=1260 data-nosnippet>1260</a>            <span class="string">"RfBypass" </span>=&gt; <span class="prelude-val">Ok</span>(RfBypass),
+<a href=#1261 id=1261 data-nosnippet>1261</a>            <span class="string">"ScanChannelsToggle" </span>=&gt; <span class="prelude-val">Ok</span>(ScanChannelsToggle),
+<a href=#1262 id=1262 data-nosnippet>1262</a>            <span class="string">"ScreenModeNext" </span>=&gt; <span class="prelude-val">Ok</span>(ScreenModeNext),
+<a href=#1263 id=1263 data-nosnippet>1263</a>            <span class="string">"Settings" </span>=&gt; <span class="prelude-val">Ok</span>(Settings),
+<a href=#1264 id=1264 data-nosnippet>1264</a>            <span class="string">"SplitScreenToggle" </span>=&gt; <span class="prelude-val">Ok</span>(SplitScreenToggle),
+<a href=#1265 id=1265 data-nosnippet>1265</a>            <span class="string">"STBInput" </span>=&gt; <span class="prelude-val">Ok</span>(STBInput),
+<a href=#1266 id=1266 data-nosnippet>1266</a>            <span class="string">"STBPower" </span>=&gt; <span class="prelude-val">Ok</span>(STBPower),
+<a href=#1267 id=1267 data-nosnippet>1267</a>            <span class="string">"Subtitle" </span>=&gt; <span class="prelude-val">Ok</span>(Subtitle),
+<a href=#1268 id=1268 data-nosnippet>1268</a>            <span class="string">"Teletext" </span>=&gt; <span class="prelude-val">Ok</span>(Teletext),
+<a href=#1269 id=1269 data-nosnippet>1269</a>            <span class="string">"VideoModeNext" </span>=&gt; <span class="prelude-val">Ok</span>(VideoModeNext),
+<a href=#1270 id=1270 data-nosnippet>1270</a>            <span class="string">"Wink" </span>=&gt; <span class="prelude-val">Ok</span>(Wink),
+<a href=#1271 id=1271 data-nosnippet>1271</a>            <span class="string">"ZoomToggle" </span>=&gt; <span class="prelude-val">Ok</span>(ZoomToggle),
+<a href=#1272 id=1272 data-nosnippet>1272</a>            <span class="string">"F1" </span>=&gt; <span class="prelude-val">Ok</span>(F1),
+<a href=#1273 id=1273 data-nosnippet>1273</a>            <span class="string">"F2" </span>=&gt; <span class="prelude-val">Ok</span>(F2),
+<a href=#1274 id=1274 data-nosnippet>1274</a>            <span class="string">"F3" </span>=&gt; <span class="prelude-val">Ok</span>(F3),
+<a href=#1275 id=1275 data-nosnippet>1275</a>            <span class="string">"F4" </span>=&gt; <span class="prelude-val">Ok</span>(F4),
+<a href=#1276 id=1276 data-nosnippet>1276</a>            <span class="string">"F5" </span>=&gt; <span class="prelude-val">Ok</span>(F5),
+<a href=#1277 id=1277 data-nosnippet>1277</a>            <span class="string">"F6" </span>=&gt; <span class="prelude-val">Ok</span>(F6),
+<a href=#1278 id=1278 data-nosnippet>1278</a>            <span class="string">"F7" </span>=&gt; <span class="prelude-val">Ok</span>(F7),
+<a href=#1279 id=1279 data-nosnippet>1279</a>            <span class="string">"F8" </span>=&gt; <span class="prelude-val">Ok</span>(F8),
+<a href=#1280 id=1280 data-nosnippet>1280</a>            <span class="string">"F9" </span>=&gt; <span class="prelude-val">Ok</span>(F9),
+<a href=#1281 id=1281 data-nosnippet>1281</a>            <span class="string">"F10" </span>=&gt; <span class="prelude-val">Ok</span>(F10),
+<a href=#1282 id=1282 data-nosnippet>1282</a>            <span class="string">"F11" </span>=&gt; <span class="prelude-val">Ok</span>(F11),
+<a href=#1283 id=1283 data-nosnippet>1283</a>            <span class="string">"F12" </span>=&gt; <span class="prelude-val">Ok</span>(F12),
+<a href=#1284 id=1284 data-nosnippet>1284</a>            <span class="string">"F13" </span>=&gt; <span class="prelude-val">Ok</span>(F13),
+<a href=#1285 id=1285 data-nosnippet>1285</a>            <span class="string">"F14" </span>=&gt; <span class="prelude-val">Ok</span>(F14),
+<a href=#1286 id=1286 data-nosnippet>1286</a>            <span class="string">"F15" </span>=&gt; <span class="prelude-val">Ok</span>(F15),
+<a href=#1287 id=1287 data-nosnippet>1287</a>            <span class="string">"F16" </span>=&gt; <span class="prelude-val">Ok</span>(F16),
+<a href=#1288 id=1288 data-nosnippet>1288</a>            <span class="string">"F17" </span>=&gt; <span class="prelude-val">Ok</span>(F17),
+<a href=#1289 id=1289 data-nosnippet>1289</a>            <span class="string">"F18" </span>=&gt; <span class="prelude-val">Ok</span>(F18),
+<a href=#1290 id=1290 data-nosnippet>1290</a>            <span class="string">"F19" </span>=&gt; <span class="prelude-val">Ok</span>(F19),
+<a href=#1291 id=1291 data-nosnippet>1291</a>            <span class="string">"F20" </span>=&gt; <span class="prelude-val">Ok</span>(F20),
+<a href=#1292 id=1292 data-nosnippet>1292</a>            <span class="string">"F21" </span>=&gt; <span class="prelude-val">Ok</span>(F21),
+<a href=#1293 id=1293 data-nosnippet>1293</a>            <span class="string">"F22" </span>=&gt; <span class="prelude-val">Ok</span>(F22),
+<a href=#1294 id=1294 data-nosnippet>1294</a>            <span class="string">"F23" </span>=&gt; <span class="prelude-val">Ok</span>(F23),
+<a href=#1295 id=1295 data-nosnippet>1295</a>            <span class="string">"F24" </span>=&gt; <span class="prelude-val">Ok</span>(F24),
+<a href=#1296 id=1296 data-nosnippet>1296</a>            <span class="string">"F25" </span>=&gt; <span class="prelude-val">Ok</span>(F25),
+<a href=#1297 id=1297 data-nosnippet>1297</a>            <span class="string">"F26" </span>=&gt; <span class="prelude-val">Ok</span>(F26),
+<a href=#1298 id=1298 data-nosnippet>1298</a>            <span class="string">"F27" </span>=&gt; <span class="prelude-val">Ok</span>(F27),
+<a href=#1299 id=1299 data-nosnippet>1299</a>            <span class="string">"F28" </span>=&gt; <span class="prelude-val">Ok</span>(F28),
+<a href=#1300 id=1300 data-nosnippet>1300</a>            <span class="string">"F29" </span>=&gt; <span class="prelude-val">Ok</span>(F29),
+<a href=#1301 id=1301 data-nosnippet>1301</a>            <span class="string">"F30" </span>=&gt; <span class="prelude-val">Ok</span>(F30),
+<a href=#1302 id=1302 data-nosnippet>1302</a>            <span class="string">"F31" </span>=&gt; <span class="prelude-val">Ok</span>(F31),
+<a href=#1303 id=1303 data-nosnippet>1303</a>            <span class="string">"F32" </span>=&gt; <span class="prelude-val">Ok</span>(F32),
+<a href=#1304 id=1304 data-nosnippet>1304</a>            <span class="string">"F33" </span>=&gt; <span class="prelude-val">Ok</span>(F33),
+<a href=#1305 id=1305 data-nosnippet>1305</a>            <span class="string">"F34" </span>=&gt; <span class="prelude-val">Ok</span>(F34),
+<a href=#1306 id=1306 data-nosnippet>1306</a>            <span class="string">"F35" </span>=&gt; <span class="prelude-val">Ok</span>(F35),
+<a href=#1307 id=1307 data-nosnippet>1307</a>
+<a href=#1308 id=1308 data-nosnippet>1308</a>            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(UnrecognizedNamedKeyError),
+<a href=#1309 id=1309 data-nosnippet>1309</a>        }
+<a href=#1310 id=1310 data-nosnippet>1310</a>    }
+<a href=#1311 id=1311 data-nosnippet>1311</a>}
+<a href=#1312 id=1312 data-nosnippet>1312</a>
+<a href=#1313 id=1313 data-nosnippet>1313</a><span class="doccomment">/// Parse from string error, returned when string does not match to any [`NamedKey`] variant.
+<a href=#1314 id=1314 data-nosnippet>1314</a></span><span class="attr">#[derive(Clone, Debug)]
+<a href=#1315 id=1315 data-nosnippet>1315</a></span><span class="kw">pub struct </span>UnrecognizedNamedKeyError;
+<a href=#1316 id=1316 data-nosnippet>1316</a>
+<a href=#1317 id=1317 data-nosnippet>1317</a><span class="kw">impl </span>fmt::Display <span class="kw">for </span>UnrecognizedNamedKeyError {
+<a href=#1318 id=1318 data-nosnippet>1318</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
+<a href=#1319 id=1319 data-nosnippet>1319</a>        <span class="macro">write!</span>(f, <span class="string">"Unrecognized key"</span>)
+<a href=#1320 id=1320 data-nosnippet>1320</a>    }
+<a href=#1321 id=1321 data-nosnippet>1321</a>}
+<a href=#1322 id=1322 data-nosnippet>1322</a>
+<a href=#1323 id=1323 data-nosnippet>1323</a><span class="kw">impl </span>Error <span class="kw">for </span>UnrecognizedNamedKeyError {}
+</code></pre></div></section></main></body></html>

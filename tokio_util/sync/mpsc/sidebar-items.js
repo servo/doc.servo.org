@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["State"],"fn":["make_acquire_future"],"struct":["PollSendError","PollSender","PollSenderFuture"],"type":["InnerFuture"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ACCEPT_RANGES_BYTES","ACCEPT_RANGES_NONE"],"struct":["AcceptRanges"]};

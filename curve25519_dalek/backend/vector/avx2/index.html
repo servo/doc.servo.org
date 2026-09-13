@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="An AVX2 implementation of the vectorized point operation strategy."><title>curve25519_dalek::backend::vector::avx2 - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="curve25519_dalek" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module avx2</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../../../../curve25519_dalek/index.html"><img src="https://cdn.jsdelivr.net/gh/dalek-cryptography/curve25519-dalek/docs/assets/dalek-logo-clear.png" alt="logo"></a><h2><a href="../../../../curve25519_dalek/index.html">curve25519_<wbr>dalek</a><span class="version">5.0.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module avx2</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#field-element-representation" title="Field element representation">Field element representation</a></li><li><a href="#avoiding-overflow-in-doubling" title="Avoiding Overflow in Doubling">Avoiding Overflow in Doubling</a></li></ul><h3><a href="#modules">Module Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="../index.html">In curve25519_<wbr>dalek::<wbr>backend::<wbr>vector</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../../index.html">curve25519_dalek</a>::<wbr><a href="../../index.html">backend</a>::<wbr><a href="../index.html">vector</a></div><h1>Module <span>avx2</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../../src/curve25519_dalek/backend/vector/avx2.rs.html#12-20">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>An AVX2 implementation of the vectorized point operation strategy.</p>
+<h2 id="field-element-representation"><a class="doc-anchor" href="#field-element-representation">§</a>Field element representation</h2>
+<p>Our strategy is to implement 4-wide multiplication and squaring by
+wordslicing, using one 64-bit AVX2 lane for each field element.  Field
+elements are represented in the usual way as 10 <code>u32</code> limbs in radix
+\(25.5\) (i.e., alternating between \(2^{26}\) for even limbs and
+\(2^{25}\) for odd limbs).  This has the effect that passing between
+the parallel 32-bit AVX2 representation and the serial 64-bit
+representation (which uses radix \(2^{51}\)) amounts to regrouping
+digits.</p>
+<p>The field element representation is oriented around the AVX2
+<code>vpmuludq</code> instruction, which multiplies the low 32 bits of each
+64-bit lane of each operand to produce a 64-bit result.</p>
+<div class="example-wrap"><pre class="language-text"><code>(a1 ?? b1 ?? c1 ?? d1 ??)
+(a2 ?? b2 ?? c2 ?? d2 ??)
+
+(a1*a2 b1*b2 c1*c2 d1*d2)</code></pre></div>
+<p>To unpack 32-bit values into 64-bit lanes for use in multiplication
+it would be convenient to use the <code>vpunpck[lh]dq</code> instructions,
+which unpack and interleave the low and high 32-bit lanes of two
+source vectors.
+However, the AVX2 versions of these instructions are designed to
+operate only within 128-bit lanes of the 256-bit vectors, so that
+interleaving the low lanes of <code>(a0 b0 c0 d0 a1 b1 c1 d1)</code> with zero
+gives <code>(a0 00 b0 00 a1 00 b1 00)</code>.  Instead, we pre-shuffle the data
+layout as <code>(a0 b0 a1 b1 c0 d0 c1 d1)</code> so that we can unpack the
+“low” and “high” parts as</p>
+<div class="example-wrap"><pre class="language-text"><code>(a0 00 b0 00 c0 00 d0 00)
+(a1 00 b1 00 c1 00 d1 00)</code></pre></div>
+<p>The data layout for a vector of four field elements \( (a,b,c,d)
+\) with limbs \( a_0, a_1, \ldots, a_9 \) is as <code>[u32x8; 5]</code> in
+the form</p>
+<div class="example-wrap"><pre class="language-text"><code>(a0 b0 a1 b1 c0 d0 c1 d1)
+(a2 b2 a3 b3 c2 d2 c3 d3)
+(a4 b4 a5 b5 c4 d4 c5 d5)
+(a6 b6 a7 b7 c6 d6 c7 d7)
+(a8 b8 a9 b9 c8 d8 c9 d9)</code></pre></div>
+<p>Since this breaks cleanly into two 128-bit lanes, it may be possible
+to adapt it to 128-bit vector instructions such as NEON without too
+much difficulty.</p>
+<h2 id="avoiding-overflow-in-doubling"><a class="doc-anchor" href="#avoiding-overflow-in-doubling">§</a>Avoiding Overflow in Doubling</h2>
+<p>To analyze the size of the field element coefficients during the
+computations, we can parameterize the bounds on the limbs of each
+field element by \( b \in \mathbb R \) representing the excess bits
+above that limb’s radix, so that each limb is bounded by either
+\(2^{25+b} \) or \( 2^{26+b} \), as appropriate.</p>
+<p>The multiplication routine requires that its inputs are bounded with
+\( b &lt; 1.75 \), in order to fit a multiplication by \( 19 \)
+into 32 bits.  Since \( \lg 19 &lt; 4.25 \), \( 19x &lt; 2^{32} \)
+when \( x &lt; 2^{27.75} = 2^{26 + 1.75} \).  However, this is only
+required for one of the inputs; the other can grow up to \( b &lt; 2.5
+\).</p>
+<p>In addition, the multiplication and squaring routines do not
+canonically reduce their outputs, but can leave some small uncarried
+excesses, so that their reduced outputs are bounded with
+\( b &lt; 0.007 \).</p>
+<p>The non-parallel portion of the doubling formulas is
+$$
+\begin{aligned}
+(S_5 &amp;&amp;,&amp;&amp; S_6 &amp;&amp;,&amp;&amp; S_8 &amp;&amp;,&amp;&amp; S_9 )
+&amp;\gets
+(S_1 + S_2 &amp;&amp;,&amp;&amp; S_1 - S_2 &amp;&amp;,&amp;&amp; S_1 + 2S_3 - S_2 &amp;&amp;,&amp;&amp; S_1 + S_2 - S_4)
+\end{aligned}
+$$</p>
+<p>Computing \( (S_5, S_6, S_8, S_9 ) \) as
+$$
+\begin{matrix}
+&amp; S_1 &amp; S_1 &amp; S_1 &amp; S_1 \\
++&amp; S_2 &amp;      &amp;      &amp; S_2 \\
++&amp;      &amp;      &amp; S_3 &amp;      \\
++&amp;      &amp;      &amp; S_3 &amp;      \\
++&amp;      &amp; 2p   &amp; 2p   &amp; 2p   \\
+-&amp;      &amp; S_2 &amp; S_2 &amp;      \\
+-&amp;      &amp;      &amp;      &amp; S_4 \\
+=&amp; S_5 &amp; S_6 &amp; S_8 &amp; S_9
+\end{matrix}
+$$
+results in bit-excesses \( &lt; (1.01, 1.60, 2.33, 2.01)\) for
+\( (S_5, S_6, S_8, S_9 ) \).  The products we want to compute
+are then
+$$
+\begin{aligned}
+X_3 &amp;\gets S_8 S_9 \leftrightarrow (2.33, 2.01) \\
+Y_3 &amp;\gets S_5 S_6 \leftrightarrow (1.01, 1.60) \\
+Z_3 &amp;\gets S_8 S_6 \leftrightarrow (2.33, 1.60) \\
+T_3 &amp;\gets S_5 S_9 \leftrightarrow (1.01, 2.01)
+\end{aligned}
+$$
+which are too large: it’s not possible to arrange the multiplicands so
+that one vector has \(b &lt; 2.5\) and the other has \( b &lt; 1.75 \).
+However, if we flip the sign of \( S_4 = S_0^2 \) during
+squaring, so that we output \(S_4’ = -S_4 \pmod p\), then we can
+compute
+$$
+\begin{matrix}
+&amp; S_1 &amp; S_1 &amp; S_1 &amp; S_1 \\
++&amp; S_2 &amp;      &amp;      &amp; S_2 \\
++&amp;      &amp;      &amp; S_3 &amp;      \\
++&amp;      &amp;      &amp; S_3 &amp;      \\
++&amp;      &amp;      &amp;      &amp; S_4’ \\
++&amp;      &amp; 2p   &amp; 2p   &amp;      \\
+-&amp;      &amp; S_2 &amp; S_2 &amp;      \\
+=&amp; S_5 &amp; S_6 &amp; S_8 &amp; S_9
+\end{matrix}
+$$
+resulting in bit-excesses \( &lt; (1.01, 1.60, 2.33, 1.60)\) for
+\( (S_5, S_6, S_8, S_9 ) \).  The products we want to compute
+are then
+$$
+\begin{aligned}
+X_3 &amp;\gets S_8 S_9 \leftrightarrow (2.33, 1.60) \\
+Y_3 &amp;\gets S_5 S_6 \leftrightarrow (1.01, 1.60) \\
+Z_3 &amp;\gets S_8 S_6 \leftrightarrow (2.33, 1.60) \\
+T_3 &amp;\gets S_5 S_9 \leftrightarrow (1.01, 1.60)
+\end{aligned}
+$$
+whose right-hand sides are all bounded with \( b &lt; 1.75 \) and
+whose left-hand sides are all bounded with \( b &lt; 2.5 \),
+so that we can avoid any intermediate reductions.</p>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="constants/index.html" title="mod curve25519_dalek::backend::vector::avx2::constants">constants</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>This module contains constants used by the AVX2 backend.</dd><dt><a class="mod" href="edwards/index.html" title="mod curve25519_dalek::backend::vector::avx2::edwards">edwards</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Parallel Edwards Arithmetic for Curve25519.</dd><dt><a class="mod" href="field/index.html" title="mod curve25519_dalek::backend::vector::avx2::field">field</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>An implementation of 4-way vectorized 32bit field arithmetic using
+AVX2.</dd></dl></section></div></main></body></html>

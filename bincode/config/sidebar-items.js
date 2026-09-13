@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["endian","int","internal","legacy","limit","trailing"],"struct":["AllowTrailing","BigEndian","Bounded","Config","DefaultOptions","FixintEncoding","Infinite","LittleEndian","NativeEndian","RejectTrailing","VarintEncoding","WithOtherEndian","WithOtherIntEncoding","WithOtherLimit","WithOtherTrailing"],"trait":["Options"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["EXTColorBufferHalfFloatConstants","EXTColorBufferHalfFloat_Binding","GenericBindings"],"trait":["EXTColorBufferHalfFloatMethods"]};

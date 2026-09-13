@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["enqueue","get_host_defined_data","get_host_defined_global","job_queue_clear","job_queue_microtask_checkpoint","microtask_from_jsval","run_jobs","trace_non_gc_things_micro_task"],"static":["JOB_QUEUE_TRAPS"],"struct":["CustomElementReactionMicrotask","JobQueue","NotifyMutationObserversMicrotask","UserMicrotask"],"trait":["MicrotaskRunnable"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["State","Status"],"struct":["CharRef","CharRefTokenizer"]};

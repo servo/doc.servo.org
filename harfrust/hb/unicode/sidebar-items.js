@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["L_BASE","L_COUNT","N_COUNT","S_BASE","S_COUNT","T_BASE","T_COUNT","V_BASE","V_COUNT"],"fn":["compose","compose_hangul","decompose","decompose_hangul"],"mod":["combining_class","hb_gc","hb_unicode_funcs_t","modified_combining_class"],"static":["MODIFIED_COMBINING_CLASS"],"struct":["GeneralCategory"],"trait":["CharExt"],"type":["Codepoint"]};

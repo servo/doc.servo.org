@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["range_intersection","range_is_subset","ranges_overlap_or_adjacent"],"struct":["IntersectionIter","RangeSet"],"trait":["OrdAdjacency"]};

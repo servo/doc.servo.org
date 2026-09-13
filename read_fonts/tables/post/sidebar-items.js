@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NUM_CHECKPOINTS","UNSET_CHECKPOINT"],"enum":["GlyphNameIterKind"],"static":["DEFAULT_GLYPH_NAMES"],"struct":["GlyphNames","PString","Post"]};

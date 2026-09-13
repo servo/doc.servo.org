@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_int_div",1],["impl_int_rem",1]],"struct":["NInt","PInt","Z0"]};

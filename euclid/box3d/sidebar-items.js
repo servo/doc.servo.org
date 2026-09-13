@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["box3d"],"struct":["Box3D"]};

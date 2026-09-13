@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["USER_STATE_CLOSED","USER_STATE_EMPTY","USER_STATE_PENDING_PING","USER_STATE_PENDING_PONG","USER_STATE_RECEIVED_PONG"],"enum":["ReceivedPing"],"fn":["broken_pipe"],"struct":["PendingPing","PingPong","UserPings","UserPingsInner","UserPingsRx"]};

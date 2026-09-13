@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Clipboard"],"fn":["write_blobs_and_option_to_the_clipboard"],"struct":["Clipboard","RepresentationDataPromiseFulfillmentHandler","RepresentationDataPromiseRejectionHandler"]};

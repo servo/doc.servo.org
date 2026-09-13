@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["DOMMatrix_Binding"],"struct":["DOMMatrix2DInit","DOMMatrixInit"],"trait":["DOMMatrixMethods"]};

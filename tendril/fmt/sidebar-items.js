@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["wtf8_meaningful"],"mod":["imp"],"struct":["ASCII","Bytes","Latin1","UTF8","WTF8"],"trait":["CharFormat","Format","Slice","SliceFormat","SubsetOf"]};

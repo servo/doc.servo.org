@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["transpose_2x2_f64","transpose_3x3_f64","transpose_3x4_to_4x3_f64","transpose_3x6_to_6x3_f64","transpose_4x2_to_2x4_f64","transpose_4x4_f64","transpose_6x4_to_4x6_f64","transpose_6x6_f64","transpose_8x4_to_4x8_f64","transpose_9x3_to_3x9_f64"]};

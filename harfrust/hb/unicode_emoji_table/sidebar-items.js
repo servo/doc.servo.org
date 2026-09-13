@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_hb_emoji_b1","_hb_emoji_b4","_hb_emoji_is_Extended_Pictographic_u8","is_Extended_Pictographic"],"static":["_hb_emoji_u8"]};

@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["html5ever",[["impl&lt;Sink: <a class=\"trait\" href=\"html5ever/tree_builder/trait.TreeSink.html\" title=\"trait html5ever::tree_builder::TreeSink\">TreeSink</a>&gt; <a class=\"trait\" href=\"html5ever/tendril/trait.TendrilSink.html\" title=\"trait html5ever::tendril::TendrilSink\">TendrilSink</a>&lt;<a class=\"struct\" href=\"html5ever/tendril/fmt/struct.UTF8.html\" title=\"struct html5ever::tendril::fmt::UTF8\">UTF8</a>&gt; for <a class=\"struct\" href=\"html5ever/driver/struct.Parser.html\" title=\"struct html5ever::driver::Parser\">Parser</a>&lt;Sink&gt;",0]]],["script",[["impl <a class=\"trait\" href=\"tendril/stream/trait.TendrilSink.html\" title=\"trait tendril::stream::TendrilSink\">TendrilSink</a>&lt;<a class=\"struct\" href=\"tendril/fmt/struct.UTF8.html\" title=\"struct tendril::fmt::UTF8\">UTF8</a>&gt; for <a class=\"struct\" href=\"script/dom/servoparser/encoding/struct.NetworkSink.html\" title=\"struct script::dom::servoparser::encoding::NetworkSink\">NetworkSink</a>",0]]],["tendril",[]],["xml5ever",[["impl&lt;Sink: <a class=\"trait\" href=\"xml5ever/tree_builder/trait.TreeSink.html\" title=\"trait xml5ever::tree_builder::TreeSink\">TreeSink</a>&gt; <a class=\"trait\" href=\"xml5ever/tendril/trait.TendrilSink.html\" title=\"trait xml5ever::tendril::TendrilSink\">TendrilSink</a>&lt;<a class=\"struct\" href=\"xml5ever/tendril/fmt/struct.UTF8.html\" title=\"struct xml5ever::tendril::fmt::UTF8\">UTF8</a>&gt; for <a class=\"struct\" href=\"xml5ever/driver/struct.XmlParser.html\" title=\"struct xml5ever::driver::XmlParser\">XmlParser</a>&lt;Sink&gt;",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[572,431,15,573]}

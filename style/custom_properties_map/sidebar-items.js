@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ANCESTOR_COUNT_LIMIT"],"static":["EMPTY"],"struct":["CustomPropertiesMap","Inner","Iter"],"type":["OwnMap"]};

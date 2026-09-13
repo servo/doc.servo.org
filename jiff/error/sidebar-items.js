@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CrateFeatureError","ErrorKind"],"mod":["civil","duration","fmt","signed_duration","span","timestamp","tz","unit","util","zoned"],"struct":["AdhocError","Error","ErrorInner","FilePathError","IOError"],"trait":["ErrorContext","IntoError"]};

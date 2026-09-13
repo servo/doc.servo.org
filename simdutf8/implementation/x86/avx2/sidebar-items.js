@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PREFETCH"],"fn":["simd_prefetch","validate_utf8_basic","validate_utf8_compat","validate_utf8_compat_simd0"],"struct":["ChunkedUtf8ValidatorImp","SimdInput","Utf8ValidatorImp"],"type":["SimdU8Value"]};

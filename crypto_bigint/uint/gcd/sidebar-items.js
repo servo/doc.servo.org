@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_gcd",1],["impl_gcd_unsigned_lhs",1],["impl_gcd_unsigned_rhs",1]],"struct":["XgcdOutput"],"type":["NonZeroUintXgcdOutput","OddUintXgcdOutput","UintXgcdOutput"]};

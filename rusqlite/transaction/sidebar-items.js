@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DropBehavior","TransactionBehavior","TransactionState"],"struct":["Savepoint","Transaction"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decode_gif","decode_jpeg","decode_png","decode_raster","decode_webp","render_raster","rgb_to_pixmap","rgba_to_pixmap"]};

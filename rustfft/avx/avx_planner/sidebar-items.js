@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MixedRadixBase"],"fn":["wrap_fft"],"struct":["AvxPlannerInternal","FftPlannerAvx","MixedRadixPlan"],"trait":["AvxPlannerInternalAPI"]};

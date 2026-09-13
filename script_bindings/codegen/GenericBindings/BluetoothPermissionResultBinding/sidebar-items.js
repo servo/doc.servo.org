@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["BluetoothPermissionResult_Binding"],"struct":["BluetoothPermissionDescriptor"]};

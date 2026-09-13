@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Condition"],"fn":["is_secure_context"],"struct":["Guard"]};

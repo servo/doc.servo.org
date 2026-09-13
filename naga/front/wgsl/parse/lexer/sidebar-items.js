@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Token"],"fn":["consume_any","consume_token","discover_template_lists","is_blankspace","is_comment_end","is_word_part","is_word_start"],"struct":["Lexer","UnclosedCandidate"],"type":["TokenSpan"]};

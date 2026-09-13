@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MYANMAR_SHAPER","MYANMAR_ZAWGYI_SHAPER"],"fn":["collect_features","initial_reordering_consonant_syllable","reorder_myanmar","reorder_syllable_myanmar","setup_masks","setup_syllables"],"static":["MYANMAR_FEATURES"]};

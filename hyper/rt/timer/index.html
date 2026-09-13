@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Provides a timer trait with timer-like functions."><title>hyper::rt::timer - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="hyper" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module timer</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../hyper/index.html">hyper</a><span class="version">1.11.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module timer</a></h2><h3><a href="#modules">Module Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#traits" title="Traits">Traits</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="../index.html">In hyper::<wbr>rt</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../index.html">hyper</a>::<wbr><a href="../index.html">rt</a></div><h1>Module <span>timer</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../src/hyper/rt/timer.rs.html#1-143">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Provides a timer trait with timer-like functions.</p>
+<p>Example using tokio timer:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::{
+    future::Future,
+    pin::Pin,
+    task::{Context, Poll},
+    time::{Duration, Instant},
+};
+
+<span class="kw">use </span>pin_project_lite::pin_project;
+<span class="kw">use </span>hyper::rt::{Timer, Sleep};
+
+<span class="attr">#[derive(Clone, Debug)]
+</span><span class="kw">pub struct </span>TokioTimer;
+
+<span class="kw">impl </span>Timer <span class="kw">for </span>TokioTimer {
+    <span class="kw">fn </span>sleep(<span class="kw-2">&amp;</span><span class="self">self</span>, duration: Duration) -&gt; Pin&lt;Box&lt;<span class="kw">dyn </span>Sleep&gt;&gt; {
+        Box::pin(TokioSleep {
+            inner: tokio::time::sleep(duration),
+        })
+    }
+
+    <span class="kw">fn </span>sleep_until(<span class="kw-2">&amp;</span><span class="self">self</span>, deadline: Instant) -&gt; Pin&lt;Box&lt;<span class="kw">dyn </span>Sleep&gt;&gt; {
+        Box::pin(TokioSleep {
+            inner: tokio::time::sleep_until(deadline.into()),
+        })
+    }
+
+    <span class="kw">fn </span>reset(<span class="kw-2">&amp;</span><span class="self">self</span>, sleep: <span class="kw-2">&amp;mut </span>Pin&lt;Box&lt;<span class="kw">dyn </span>Sleep&gt;&gt;, new_deadline: Instant) {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(sleep) = sleep.as_mut().downcast_mut_pin::&lt;TokioSleep&gt;() {
+            sleep.reset(new_deadline.into())
+        }
+    }
+}
+
+<span class="macro">pin_project!</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>TokioSleep {
+        <span class="attr">#[pin]
+        </span><span class="kw">pub</span>(<span class="kw">crate</span>) inner: tokio::time::Sleep,
+    }
+}
+
+<span class="kw">impl </span>Future <span class="kw">for </span>TokioSleep {
+    <span class="kw">type </span>Output = ();
+
+    <span class="kw">fn </span>poll(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">'_</span>&gt;) -&gt; Poll&lt;<span class="self">Self</span>::Output&gt; {
+        <span class="self">self</span>.project().inner.poll(cx)
+    }
+}
+
+<span class="kw">impl </span>Sleep <span class="kw">for </span>TokioSleep {}
+
+<span class="kw">impl </span>TokioSleep {
+    <span class="kw">pub fn </span>reset(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, deadline: Instant) {
+        <span class="self">self</span>.project().inner.as_mut().reset(deadline.into());
+    }
+}</code></pre></div></div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="private/index.html" title="mod hyper::rt::timer::private">private</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.Sleep.html" title="trait hyper::rt::timer::Sleep">Sleep</a></dt><dd>A future returned by a <code>Timer</code>.</dd><dt><a class="trait" href="trait.Timer.html" title="trait hyper::rt::timer::Timer">Timer</a></dt><dd>A timer which provides timer-like functions.</dd></dl></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ParseError"],"macro":[["data_locale",1],["langid",1],["locale",1]],"mod":["data","extensions","helpers","langid","locale","macros","parser","preferences","shortvec","subtags","zerovec"],"struct":["DataLocale","LanguageIdentifier","Locale"]};

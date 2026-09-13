@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_MAX_BUF_SIZE"],"enum":["State"],"macro":[["uninterruptibly",1]],"struct":["Blocking","Buf"]};

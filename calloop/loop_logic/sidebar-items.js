@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EventIterator","EventLoop","LoopHandle","LoopInner","LoopSignal","RegistrationToken","Signals"],"type":["IdleCallback"]};

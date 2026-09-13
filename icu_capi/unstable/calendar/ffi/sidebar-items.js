@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CalendarKind"],"fn":["icu4x_CalendarKind_create_mv1","icu4x_Calendar_create_mv1","icu4x_Calendar_destroy_mv1","icu4x_Calendar_kind_mv1"],"struct":["Calendar"]};

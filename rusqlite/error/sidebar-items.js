@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UNKNOWN_COLUMN"],"enum":["Error"],"fn":["check","decode_result_raw","error_from_handle","error_from_sqlite_code","error_msg","error_with_offset","to_sqlite_error"],"macro":[["err",1]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SUBPIXEL_BITMAP","SUBPIXEL_BUCKETS","SUBPIXEL_COLR"],"fn":["f32_bits","join_bits","pack_color","quantize_subpixel","subpixel_offset"],"struct":["GlyphCacheKey"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Origin"],"struct":["OriginSet","OriginSetIterator","PerOrigin","PerOriginIter","PerOriginIterMut"]};

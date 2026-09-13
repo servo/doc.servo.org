@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["WP_SINGLE_PIXEL_BUFFER_MANAGER_V1_INTERFACE","types_null","wp_single_pixel_buffer_manager_v1_interface","wp_single_pixel_buffer_manager_v1_requests","wp_single_pixel_buffer_manager_v1_requests_create_u32_rgba_buffer_types"],"struct":["SyncWrapper"]};

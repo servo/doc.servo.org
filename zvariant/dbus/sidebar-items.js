@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["maybe_not_in_dbus","reject_maybe","reject_maybe_in_signature_str"],"mod":["de","ser"],"struct":["MapSerializer"]};

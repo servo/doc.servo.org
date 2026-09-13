@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BIG_ENDIAN","DPI_MULTIPLIER","DPI_NAME","LITTLE_ENDIAN"],"enum":["Endianness","ParserError","SettingData","SettingType"],"fn":["read_settings"],"struct":["Parser","Setting"],"type":["Result"]};

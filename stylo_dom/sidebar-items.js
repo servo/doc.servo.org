@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HEADING_LEVEL_OFFSET"],"struct":["DocumentState","ElementState"]};

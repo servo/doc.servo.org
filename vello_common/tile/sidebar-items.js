@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["B","BOT_SHIFT","INTERSECTION_MASK","INT_MASK_SHIFT","L","LEFT_SHIFT","MAX_LINES_PER_PATH","R","RIGHT_SHIFT","T","W","WINDING_SHIFT"],"struct":["CulledWindings","Tile","Tiles"]};

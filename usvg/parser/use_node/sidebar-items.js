@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clip_element","convert","convert_children","convert_svg","get_clip_rect","use_node_size","viewbox_transform"]};

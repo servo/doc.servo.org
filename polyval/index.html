@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="RustCrypto: POLYVAL"><title>polyval - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="polyval" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate polyval</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../polyval/index.html"><img src="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg" alt="logo"></a><h2><a href="../polyval/index.html">polyval</a><span class="version">0.7.3</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#rustcrypto-polyval" title="RustCrypto: POLYVAL">RustCrypto: POLYVAL</a><ul><li><a href="#security" title="Security">Security</a></li><li><a href="#supported-backends" title="Supported backends">Supported backends</a></li><li><a href="#relationship-to-ghash" title="Relationship to GHASH">Relationship to GHASH</a></li><li><a href="#license" title="License">License</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>polyval</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/polyval/lib.rs.html#1-146">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="rustcrypto-polyval"><a class="doc-anchor" href="#rustcrypto-polyval">§</a>RustCrypto: POLYVAL</h2>
+<p><a href="https://crates.io/crates/polyval"><img src="https://img.shields.io/crates/v/polyval?logo=rust" alt="crate" /></a>
+<a href="https://docs.rs/polyval/"><img src="https://docs.rs/polyval/badge.svg" alt="Docs" /></a>
+<a href="https://github.com/RustCrypto/universal-hashes/actions/workflows/polyval.yml?query=branch:master"><img src="https://github.com/RustCrypto/universal-hashes/actions/workflows/polyval.yml/badge.svg?branch=master" alt="Build Status" /></a>
+<img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" alt="Apache2/MIT licensed" />
+<img src="https://img.shields.io/badge/rustc-1.85+-blue.svg" alt="Rust Version" />
+<a href="https://rustcrypto.zulipchat.com/#narrow/channel/260051-universal-hashes"><img src="https://img.shields.io/badge/zulip-join_chat-blue.svg" alt="Project Chat" /></a>
+<a href="https://github.com/RustCrypto/meta/blob/master/HAZMAT.md"><img src="https://img.shields.io/badge/crypto-hazmat%E2%9A%A0-red.svg" alt="HAZMAT" /></a></p>
+<p><a href="https://en.wikipedia.org/wiki/AES-GCM-SIV#Operation">POLYVAL</a> (<a href="https://tools.ietf.org/html/rfc8452#section-3">RFC 8452</a>) is a <a href="https://en.wikipedia.org/wiki/Universal_hashing">universal hash function</a> which operates
+over GF(2^128) and can be used for constructing a
+<a href="https://en.wikipedia.org/wiki/Message_authentication_code">Message Authentication Code (MAC)</a>.</p>
+<p>Its primary intended use is for implementing <a href="https://en.wikipedia.org/wiki/AES-GCM-SIV">AES-GCM-SIV</a>, however it is
+closely related to <a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode#Mathematical_basis">GHASH</a> and therefore can also be used to implement
+<a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode">AES-GCM</a> at no cost to performance on little endian architectures.</p>
+<p>From <a href="https://tools.ietf.org/html/rfc8452#section-3">RFC 8452 § 3</a> which defines POLYVAL for use in AES-GCM-SIV:</p>
+<blockquote>
+<p>“POLYVAL, like GHASH (the authenticator in AES-GCM; …), operates in a
+binary field of size 2^128.  The field is defined by the irreducible
+polynomial x^128 + x^127 + x^126 + x^121 + 1.”</p>
+</blockquote>
+<p>By multiplying (in the finite field sense) a sequence of 128-bit blocks of
+input data data by a field element <code>H</code>, POLYVAL can be used to authenticate
+the message sequence as powers (in the finite field sense) of <code>H</code>.</p>
+<h3 id="security"><a class="doc-anchor" href="#security">§</a>Security</h3><h4 id="-warning-hazmat"><a class="doc-anchor" href="#-warning-hazmat">§</a>⚠️ Warning: <a href="https://github.com/RustCrypto/meta/blob/master/HAZMAT.md">Hazmat!</a></h4>
+<p>Universal hash functions have subtle security properties and are primarily intended as a
+building block for constructions like AEAD algorithms.</p>
+<p>USE AT YOUR OWN RISK!</p>
+<h4 id="notes"><a class="doc-anchor" href="#notes">§</a>Notes</h4>
+<p>This crate has received one <a href="https://research.nccgroup.com/2020/02/26/public-report-rustcrypto-aes-gcm-and-chacha20poly1305-implementation-review/">security audit by NCC Group</a>, with no significant
+findings. We would like to thank <a href="https://www.mobilecoin.com/">MobileCoin</a> for funding the audit.</p>
+<p>All implementations contained in the crate are designed to execute in constant
+time, either by relying on hardware intrinsics (i.e. AVX2 on x86/x86_64), or
+using a portable implementation which is only constant time on processors which
+implement constant-time multiplication.</p>
+<p>It is not suitable for use on processors with a variable-time multiplication
+operation (e.g. short circuit on multiply-by-zero / multiply-by-one, such as
+certain 32-bit PowerPC CPUs and some non-ARM microcontrollers).</p>
+<h3 id="supported-backends"><a class="doc-anchor" href="#supported-backends">§</a>Supported backends</h3>
+<p>This crate provides multiple backends including a portable pure Rust
+backend as well as ones based on CPU intrinsics.</p>
+<h4 id="soft-portable-backend"><a class="doc-anchor" href="#soft-portable-backend">§</a>“soft” portable backend</h4>
+<p>As a baseline implementation, this crate provides a constant-time pure Rust
+implementation based on BearSSL, which is a straightforward and
+compact implementation which uses a clever but simple technique to avoid
+carry-spilling.</p>
+<h4 id="armv8-intrinsics-pmull"><a class="doc-anchor" href="#armv8-intrinsics-pmull">§</a>ARMv8 intrinsics (<code>PMULL</code>)</h4>
+<p>On <code>aarch64</code> targets including <code>aarch64-apple-darwin</code> (Apple M1) and Linux
+targets such as <code>aarch64-unknown-linux-gnu</code> and <code>aarch64-unknown-linux-musl</code>,
+support for using the <code>PMULL</code> instructions in ARMv8’s Cryptography Extensions.</p>
+<p>On Linux and macOS, support for <code>PMULL</code> intrinsics is autodetected at runtime.
+On other platforms the <code>crypto</code> target feature must be enabled via RUSTFLAGS.</p>
+<h4 id="x86x86_64-intrinsics-cmlmul"><a class="doc-anchor" href="#x86x86_64-intrinsics-cmlmul">§</a><code>x86</code>/<code>x86_64</code> intrinsics (<code>CMLMUL</code>)</h4>
+<p>By default this crate uses runtime detection on <code>i686</code>/<code>x86_64</code> targets
+in order to determine if <code>CLMUL</code> is available, and if it is not, it will
+fallback to using a constant-time software implementation.</p>
+<h3 id="relationship-to-ghash"><a class="doc-anchor" href="#relationship-to-ghash">§</a>Relationship to GHASH</h3>
+<p>POLYVAL can be thought of as the little endian equivalent of GHASH, which
+affords it a small performance advantage over GHASH when used on little
+endian architectures.</p>
+<p>It has also been designed so it can also be used to compute GHASH and with
+it GMAC, the Message Authentication Code (MAC) used by AES-GCM.</p>
+<p>From <a href="https://tools.ietf.org/html/rfc8452#appendix-A">RFC 8452 Appendix A</a>:</p>
+<blockquote>
+<p>“GHASH and POLYVAL both operate in GF(2^128), although with different
+irreducible polynomials: POLYVAL works modulo x^128 + x^127 + x^126 +
+x^121 + 1 and GHASH works modulo x^128 + x^7 + x^2 + x + 1.  Note
+that these irreducible polynomials are the ‘reverse’ of each other.”</p>
+</blockquote>
+<h3 id="license"><a class="doc-anchor" href="#license">§</a>License</h3>
+<p>Licensed under either of:</p>
+<ul>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></li>
+<li><a href="http://opensource.org/licenses/MIT">MIT license</a></li>
+</ul>
+<p>at your option.</p>
+<h4 id="contribution"><a class="doc-anchor" href="#contribution">§</a>Contribution</h4>
+<p>Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.universal_hash"><code>pub use <a class="mod" href="../universal_hash/index.html" title="mod universal_hash">universal_hash</a>;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="backend/index.html" title="mod polyval::backend">backend</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="field_element/index.html" title="mod polyval::field_element">field_<wbr>element</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>POLYVAL field element implementation.</dd><dt><a class="mod" href="hazmat/index.html" title="mod polyval::hazmat">hazmat</a></dt><dd>Hazardous materials: functionality which can be misused and needs to be used with care.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.Polyval.html" title="struct polyval::Polyval">Polyval</a></dt><dd><strong>POLYVAL</strong>: GHASH-like universal hash over GF(2^128), but optimized for little-endian
+architectures.</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.BLOCK_SIZE.html" title="constant polyval::BLOCK_SIZE">BLOCK_<wbr>SIZE</a></dt><dd>Size of a POLYVAL block in bytes</dd><dt><a class="constant" href="constant.KEY_SIZE.html" title="constant polyval::KEY_SIZE">KEY_<wbr>SIZE</a></dt><dd>Size of a POLYVAL key in bytes</dd></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.Block.html" title="type polyval::Block">Block</a></dt><dd>POLYVAL blocks (16-bytes)</dd><dt><a class="type" href="type.Key.html" title="type polyval::Key">Key</a></dt><dd>POLYVAL keys (16-bytes)</dd><dt><a class="type" href="type.ParBlocks.html" title="type polyval::ParBlocks">ParBlocks</a></dt><dd>POLYVAL parallel blocks (4 x 16-bytes)</dd><dt><a class="type" href="type.Tag.html" title="type polyval::Tag">Tag</a></dt><dd>POLYVAL tags (16-bytes)</dd></dl></section></div></main></body></html>

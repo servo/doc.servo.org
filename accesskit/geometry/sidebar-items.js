@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Affine","Point","Rect","Size","Vec2"]};

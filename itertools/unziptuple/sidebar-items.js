@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["multiunzip"],"macro":[["impl_unzip_iter",1]],"trait":["MultiUnzip"]};

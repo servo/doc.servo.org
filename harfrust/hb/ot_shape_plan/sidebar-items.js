@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["features_equivalent"],"struct":["ShapePlanKey","hb_ot_shape_plan_t"],"trait":["AnyFont"]};

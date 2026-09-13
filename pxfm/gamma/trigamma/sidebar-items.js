@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["approx_trigamma","approx_trigamma_dd","f_trigamma"],"static":["P_1","P_2","P_3","Q_1","Q_2","Q_3"]};

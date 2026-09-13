@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="This is typical Divide &#38; Conquer method with not typical Sliding Window. Thus, instead of transient image here sliding window is used in a ring queue form."><title>filter_2d_separable_ring_queue in image::imageops::filter_1d - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="image" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">filter_2d_separable_ring_queue</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../image/index.html">image</a><span class="version">0.25.10</span></h2></div><div class="sidebar-elems"><div id="rustdoc-modnav"><h2><a href="index.html">In image::<wbr>imageops::<wbr>filter_<wbr>1d</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../index.html">image</a>::<wbr><a href="../index.html">imageops</a>::<wbr><a href="index.html">filter_1d</a></div><h1>Function <span class="fn">filter_<wbr>2d_<wbr>separable_<wbr>ring_<wbr>queue</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../src/image/imageops/filter_1d.rs.html#532-645">Source</a> </span></div><pre class="rust item-decl"><code>fn filter_2d_separable_ring_queue&lt;T, I, const N: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.usize.html">usize</a>&gt;(
+    image: &amp;<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.slice.html">[T]</a>,
+    destination: &amp;mut <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.slice.html">[T]</a>,
+    image_size: <a class="struct" href="struct.FilterImageSize.html" title="struct image::imageops::filter_1d::FilterImageSize">FilterImageSize</a>,
+    row_kernel: &amp;<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.slice.html">[I]</a>,
+    column_kernel: &amp;<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.slice.html">[I]</a>,
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.unit.html">()</a>, <a class="enum" href="../../error/enum.ImageError.html" title="enum image::error::ImageError">ImageError</a>&gt;<div class="where">where
+    T: <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/default/trait.Default.html" title="trait core::default::Default">Default</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + <a class="trait" href="../../../num_traits/cast/trait.AsPrimitive.html" title="trait num_traits::cast::AsPrimitive">AsPrimitive</a>&lt;I&gt;,
+    I: <a class="trait" href="trait.ToStorage.html" title="trait image::imageops::filter_1d::ToStorage">ToStorage</a>&lt;T&gt; + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/ops/arith/trait.Mul.html" title="trait core::ops::arith::Mul">Mul</a>&lt;I, Output = I&gt; + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/ops/arith/trait.Add.html" title="trait core::ops::arith::Add">Add</a>&lt;I, Output = I&gt; + <a class="trait" href="../../../num_traits/ops/mul_add/trait.MulAdd.html" title="trait num_traits::ops::mul_add::MulAdd">MulAdd</a>&lt;I, Output = I&gt; + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/cmp/trait.PartialEq.html" title="trait core::cmp::PartialEq">PartialEq</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/default/trait.Default.html" title="trait core::default::Default">Default</a> + 'static + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a>,
+    <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.i32.html">i32</a>: <a class="trait" href="../../../num_traits/cast/trait.AsPrimitive.html" title="trait num_traits::cast::AsPrimitive">AsPrimitive</a>&lt;I&gt;,
+    <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.f64.html">f64</a>: <a class="trait" href="../../../num_traits/cast/trait.AsPrimitive.html" title="trait num_traits::cast::AsPrimitive">AsPrimitive</a>&lt;T&gt;,</div></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This is typical <em>Divide &amp; Conquer</em> method with not typical <em>Sliding Window</em>.
+Thus, instead of transient image here sliding window is used in a ring queue form.</p>
+<p>Let’s define R(n) as row with number: R0,R1,R2,R3 and so forth.
+So to convolve an image the buffer that represents a ring is created with size:
+<code>image_width * channels_count * vertical_kernel_length</code> as our ring is representing
+columnar queue.</p>
+<p>So at the very first time it’s fully filled if we convolve image with vertical kernel size = 5,
+then it holds: R0,R1,R2,R3,R4, each is already blurred horizontally.
+Instead of removing/adding items from ring iterator position is hold
+and after iterator is adjusted the new row just replaces the old ones.
+Therefore, at the very moment of the first fulfilling we actually should blur now <em>R2</em>
+that is central item, but our iterator already at <em>R4</em>, thus our <em>ring queue</em> is always
+<em>ahead</em> of current row by <code>kernel_size/2</code>. So to send rows correctly to columnar pass,
+it’s required to reshuffle as <code>(current_iterator_position+1)%vertical_kernel_size</code>
+our ring first ,since the iterator is always at the tail, advanced by
+<code>kernel_size/2</code> from current row, and ahead from start by <code>kernel_size</code>.</p>
+<p>After columnar pass iterator is adjusted one position forward in a ring style:
+to fill the ring, the next row blurred, then it will replace leading row with a new one.
+The flow after the first fill looks like:</p>
+<ul>
+<li>R0,R1,R2,R3,R4(iterator here, denoted as <code>I</code>)</li>
+<li>R5(I),R1,R2,R3,R4</li>
+<li>R5,R6(I),R2,R3,R4</li>
+<li>R5,R6,R7(I),R3,R4</li>
+<li>R5,R6,R7,R8(I),R4</li>
+<li>R5,R6,R7,R8,R9(I)</li>
+<li>R10(I),R6,R7,R8,R9</li>
+</ul>
+<p>This approach is significantly more efficient for small kernels,
+and several times faster in multithreaded environments
+despite the presence of overlapping regions.</p>
+<p>The algorithm consists of 3 stages that should be different for multithreaded and single-threaded
+modes:</p>
+<p>Single threaded:</p>
+<ul>
+<li>Blurring horizontal R0 and copy it into a ring buffer
+up to <code>kernel_size/2 * channels_count * vertical_kernel_length</code> because we always clamp here
+and first row the same</li>
+<li>Blur next row and adjust iterator until ring the first full ring fill.</li>
+<li>Blur vertically ring buffer, store row into destination,
+adjust iterator, blur horizontally next row and repeat it until end</li>
+</ul>
+<p>Multithreaded:</p>
+<ul>
+<li>Fill the ring buffer from tile’s Y starting before the first full ring fill.</li>
+<li>Blur vertically ring buffer, store row into destination,
+adjust iterator, blur horizontally next row and repeat it until end.</li>
+</ul>
+</div></details></section></div></main></body></html>

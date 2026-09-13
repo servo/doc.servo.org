@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LAST_SMALL_PRIME","SMALL_PRIMES"],"fn":["create_reciprocals"],"static":["RECIPROCALS"],"type":["SmallPrime"]};

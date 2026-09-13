@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WakeLockType"],"mod":["GenericBindings","WakeLockSentinel_Binding","WakeLockTypeValues","WakeLock_Binding"],"trait":["WakeLockMethods","WakeLockSentinelMethods"]};

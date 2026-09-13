@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_j0","j0_asympt","j0_asympt_fast","j0_asympt_hard","j0_maclaurin_series","j0_maclaurin_series_fast","j0_maclaurin_series_hard","j0_small_argument_dd","j0_small_argument_fast","j0_small_argument_hard"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["checked_add",1],["checked_mul",1],["checked_sub",1]]};

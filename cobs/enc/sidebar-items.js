@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PushResult"],"fn":["encode","encode_with_sentinel","try_encode"],"struct":["CobsEncoder","DestBufTooSmallError","EncoderState"]};

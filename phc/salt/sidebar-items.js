@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INVARIANT_VIOLATED_MSG"],"struct":["Salt","SaltString"]};

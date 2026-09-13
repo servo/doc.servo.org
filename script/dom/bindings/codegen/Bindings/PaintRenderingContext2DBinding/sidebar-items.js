@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","PaintRenderingContext2D_Binding"],"trait":["PaintRenderingContext2DMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ATTRIBUTES_TO_COPY"],"fn":["enum_discriminants_inner"]};

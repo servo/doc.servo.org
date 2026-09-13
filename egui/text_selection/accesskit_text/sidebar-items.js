@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_CHARS_PER_TEXT_RUN"],"fn":["text_run_position","update_accesskit_for_text_widget"]};

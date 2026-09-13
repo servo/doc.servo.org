@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Kind"],"mod":["header"],"struct":["Error","HeaderName","HeaderValue"],"trait":["Header"]};

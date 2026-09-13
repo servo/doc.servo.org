@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ConnectError","ParseError"],"fn":["load_libxcb","reconstruct_full_sequence_impl"],"mod":["atomic_u64","pending_errors","raw_ffi"],"struct":["XCBConnection"],"type":["BufWithFds","Buffer","RawEventAndSeqNumber"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["bluetooth","bluetoothadvertisingevent","bluetoothcharacteristicproperties","bluetoothdevice","bluetoothpermissionresult","bluetoothremotegattcharacteristic","bluetoothremotegattdescriptor","bluetoothremotegattserver","bluetoothremotegattservice","bluetoothuuid","testrunner"]};

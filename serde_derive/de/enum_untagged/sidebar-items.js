@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["deserialize","deserialize_newtype_variant","deserialize_variant"]};

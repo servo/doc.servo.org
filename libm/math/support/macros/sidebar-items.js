@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["cfg_if",1],["hf32",1],["hf64",1],["select_implementation",1]]};

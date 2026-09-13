@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["edge_flags_for_tile_spacing","prepare_image_quads"],"struct":["AdjustedImageSource","Image","ImageCacheKey","ImageData","ImageScratch","StretchSize","StretchSizeKey","VisibleImageTile","YuvImage","YuvImageData"],"type":["ImageDataHandle","ImageKey","ImageTemplate","YuvImageDataHandle","YuvImageKey","YuvImageTemplate"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["trivial_to_resolved_value",1]],"mod":["animation","color","counters"],"struct":["Context"],"trait":["ToResolvedValue"]};

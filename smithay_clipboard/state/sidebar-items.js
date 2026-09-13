@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SelectionTarget"],"fn":["set_non_blocking"],"struct":["ClipboardSeatState","State"]};

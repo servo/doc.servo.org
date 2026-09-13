@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["local_name",1],["ns",1],["size_of_test",1],["trivial_to_computed_value",1],["try_match_ident_ignore_ascii_case",1]]};

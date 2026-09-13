@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["relative_adjustement"],"struct":["AbsoluteAxisSolver","AbsolutelyPositionedBox","HoistedAbsolutelyPositionedBox","LayoutRootLayoutInputs","PositioningContext","PositioningContextLength","RectAxis"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_GPUSupportedFeatures"],"fn":["gpu_to_wgt_feature"],"struct":["GPUSupportedFeatures"]};

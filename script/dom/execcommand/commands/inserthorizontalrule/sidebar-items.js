@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["execute_insert_horizontal_rule_command"]};

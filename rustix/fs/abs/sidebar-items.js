@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_readlink","access","chmod","chown","link","lstat","mkdir","open","readlink","rename","rmdir","stat","statfs","statvfs","symlink","unlink"]};

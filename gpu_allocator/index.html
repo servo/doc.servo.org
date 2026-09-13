@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="This crate provides a fully written in Rust memory allocator for Vulkan, DirectX 12 and Metal."><title>gpu_allocator - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="gpu_allocator" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate gpu_allocator</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../gpu_allocator/index.html">gpu_<wbr>allocator</a><span class="version">0.28.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#setting-up-the-vulkan-memory-allocator" title="Setting up the Vulkan memory allocator">Setting up the Vulkan memory allocator</a></li><li><a href="#simple-vulkan-allocation-example" title="Simple Vulkan allocation example">Simple Vulkan allocation example</a></li><li><a href="#setting-up-the-d3d12-memory-allocator" title="Setting up the D3D12 memory allocator">Setting up the D3D12 memory allocator</a></li><li><a href="#simple-d3d12-allocation-example" title="Simple d3d12 allocation example">Simple d3d12 allocation example</a></li><li><a href="#setting-up-the-metal-memory-allocator" title="Setting up the Metal memory allocator">Setting up the Metal memory allocator</a></li><li><a href="#simple-metal-allocation-example" title="Simple Metal allocation example">Simple Metal allocation example</a></li></ul><h3><a href="#modules">Crate Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>gpu_<wbr>allocator</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/gpu_allocator/lib.rs.html#1-449">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This crate provides a fully written in Rust memory allocator for Vulkan, DirectX 12 and Metal.</p>
+<h2 id="setting-up-the-vulkan-memory-allocator"><a class="doc-anchor" href="#setting-up-the-vulkan-memory-allocator">§</a>Setting up the Vulkan memory allocator</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>gpu_allocator::vulkan::<span class="kw-2">*</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>allocator = Allocator::new(<span class="kw-2">&amp;</span>AllocatorCreateDesc {
+    instance,
+    device,
+    physical_device,
+    debug_settings: Default::default(),
+    buffer_device_address: <span class="bool-val">true</span>,  <span class="comment">// Ideally, check the BufferDeviceAddressFeatures struct.
+    </span>allocation_sizes: Default::default(),
+});</code></pre></div><h2 id="simple-vulkan-allocation-example"><a class="doc-anchor" href="#simple-vulkan-allocation-example">§</a>Simple Vulkan allocation example</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>gpu_allocator::vulkan::<span class="kw-2">*</span>;
+<span class="kw">use </span>gpu_allocator::MemoryLocation;
+
+<span class="comment">// Setup vulkan info
+</span><span class="kw">let </span>vk_info = vk::BufferCreateInfo::default()
+    .size(<span class="number">512</span>)
+    .usage(vk::BufferUsageFlags::STORAGE_BUFFER);
+
+<span class="kw">let </span>buffer = <span class="kw">unsafe </span>{ device.create_buffer(<span class="kw-2">&amp;</span>vk_info, <span class="prelude-val">None</span>) }.unwrap();
+<span class="kw">let </span>requirements = <span class="kw">unsafe </span>{ device.get_buffer_memory_requirements(buffer) };
+
+<span class="kw">let </span>allocation = allocator
+    .allocate(<span class="kw-2">&amp;</span>AllocationCreateDesc {
+        name: <span class="string">"Example allocation"</span>,
+        requirements,
+        location: MemoryLocation::CpuToGpu,
+        linear: <span class="bool-val">true</span>, <span class="comment">// Buffers are always linear
+        </span>allocation_scheme: AllocationScheme::GpuAllocatorManaged,
+    }).unwrap();
+
+<span class="comment">// Bind memory to the buffer
+</span><span class="kw">unsafe </span>{ device.bind_buffer_memory(buffer, allocation.memory(), allocation.offset()).unwrap() };
+
+<span class="comment">// Cleanup
+</span>allocator.free(allocation).unwrap();
+<span class="kw">unsafe </span>{ device.destroy_buffer(buffer, <span class="prelude-val">None</span>) };</code></pre></div><h2 id="setting-up-the-d3d12-memory-allocator"><a class="doc-anchor" href="#setting-up-the-d3d12-memory-allocator">§</a>Setting up the D3D12 memory allocator</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>gpu_allocator::d3d12::<span class="kw-2">*</span>;
+
+<span class="kw">let </span><span class="kw-2">mut </span>allocator = Allocator::new(<span class="kw-2">&amp;</span>AllocatorCreateDesc {
+    device: ID3D12DeviceVersion::Device(device),
+    debug_settings: Default::default(),
+    allocation_sizes: Default::default(),
+});</code></pre></div><h2 id="simple-d3d12-allocation-example"><a class="doc-anchor" href="#simple-d3d12-allocation-example">§</a>Simple d3d12 allocation example</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>gpu_allocator::d3d12::<span class="kw-2">*</span>;
+<span class="kw">use </span>gpu_allocator::MemoryLocation;
+
+
+<span class="kw">let </span>buffer_desc = Direct3D12::D3D12_RESOURCE_DESC {
+    Dimension: Direct3D12::D3D12_RESOURCE_DIMENSION_BUFFER,
+    Alignment: <span class="number">0</span>,
+    Width: <span class="number">512</span>,
+    Height: <span class="number">1</span>,
+    DepthOrArraySize: <span class="number">1</span>,
+    MipLevels: <span class="number">1</span>,
+    Format: Dxgi::Common::DXGI_FORMAT_UNKNOWN,
+    SampleDesc: Dxgi::Common::DXGI_SAMPLE_DESC {
+        Count: <span class="number">1</span>,
+        Quality: <span class="number">0</span>,
+    },
+    Layout: Direct3D12::D3D12_TEXTURE_LAYOUT_ROW_MAJOR,
+    Flags: Direct3D12::D3D12_RESOURCE_FLAG_NONE,
+};
+<span class="kw">let </span>allocation_desc = AllocationCreateDesc::from_d3d12_resource_desc(
+    <span class="kw-2">&amp;</span>allocator.device(),
+    <span class="kw-2">&amp;</span>buffer_desc,
+    <span class="string">"Example allocation"</span>,
+    MemoryLocation::GpuOnly,
+);
+<span class="kw">let </span>allocation = allocator.allocate(<span class="kw-2">&amp;</span>allocation_desc).unwrap();
+<span class="kw">let </span><span class="kw-2">mut </span>resource: <span class="prelude-ty">Option</span>&lt;Direct3D12::ID3D12Resource&gt; = <span class="prelude-val">None</span>;
+<span class="kw">let </span>hr = <span class="kw">unsafe </span>{
+    device.CreatePlacedResource(
+        allocation.heap(),
+        allocation.offset(),
+        <span class="kw-2">&amp;</span>buffer_desc,
+        Direct3D12::D3D12_RESOURCE_STATE_COMMON,
+        <span class="prelude-val">None</span>,
+        <span class="kw-2">&amp;mut </span>resource,
+    )
+}<span class="question-mark">?</span>;
+
+<span class="comment">// Cleanup
+</span>drop(resource);
+allocator.free(allocation).unwrap();</code></pre></div><h2 id="setting-up-the-metal-memory-allocator"><a class="doc-anchor" href="#setting-up-the-metal-memory-allocator">§</a>Setting up the Metal memory allocator</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>gpu_allocator::metal::<span class="kw-2">*</span>;
+<span class="kw">let </span><span class="kw-2">mut </span>allocator = Allocator::new(<span class="kw-2">&amp;</span>AllocatorCreateDesc {
+    device: device.clone(),
+    debug_settings: Default::default(),
+    allocation_sizes: Default::default(),
+    create_residency_set: <span class="bool-val">false</span>,
+});</code></pre></div><h2 id="simple-metal-allocation-example"><a class="doc-anchor" href="#simple-metal-allocation-example">§</a>Simple Metal allocation example</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>gpu_allocator::metal::<span class="kw-2">*</span>;
+<span class="kw">use </span>gpu_allocator::MemoryLocation;
+<span class="kw">let </span>allocation_desc = AllocationCreateDesc::buffer(
+    <span class="kw-2">&amp;</span>device,
+    <span class="string">"Example allocation"</span>,
+    <span class="number">512</span>, <span class="comment">// size in bytes
+    </span>MemoryLocation::GpuOnly,
+);
+<span class="kw">let </span>allocation = allocator.allocate(<span class="kw-2">&amp;</span>allocation_desc).unwrap();
+<span class="kw">let </span>heap = <span class="kw">unsafe </span>{ allocation.heap() };
+<span class="kw">let </span>resource = <span class="kw">unsafe </span>{
+    heap.newBufferWithLength_options_offset(
+        allocation.size() <span class="kw">as </span>usize,
+        heap.resourceOptions(),
+        allocation.offset() <span class="kw">as </span>usize,
+    )
+}
+.unwrap();
+
+<span class="comment">// Cleanup
+</span>drop(resource);
+allocator.free(<span class="kw-2">&amp;</span>allocation).unwrap();</code></pre></div></div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="allocator/index.html" title="mod gpu_allocator::allocator">allocator</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="result/index.html" title="mod gpu_allocator::result">result</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="vulkan/index.html" title="mod gpu_allocator::vulkan">vulkan</a></dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.AllocationReport.html" title="struct gpu_allocator::AllocationReport">Allocation<wbr>Report</a></dt><dd>Describes an allocation in the <a href="struct.AllocatorReport.html" title="struct gpu_allocator::AllocatorReport"><code>AllocatorReport</code></a>.</dd><dt><a class="struct" href="struct.AllocationSizes.html" title="struct gpu_allocator::AllocationSizes">Allocation<wbr>Sizes</a></dt><dd>The sizes of the memory blocks that the allocator will create.</dd><dt><a class="struct" href="struct.AllocatorDebugSettings.html" title="struct gpu_allocator::AllocatorDebugSettings">Allocator<wbr>Debug<wbr>Settings</a></dt><dt><a class="struct" href="struct.AllocatorReport.html" title="struct gpu_allocator::AllocatorReport">Allocator<wbr>Report</a></dt><dd>A report that can be generated for informational purposes using <code>Allocator::generate_report()</code>.</dd><dt><a class="struct" href="struct.MemoryBlockReport.html" title="struct gpu_allocator::MemoryBlockReport">Memory<wbr>Block<wbr>Report</a></dt><dd>Describes a memory block in the <a href="struct.AllocatorReport.html" title="struct gpu_allocator::AllocatorReport"><code>AllocatorReport</code></a>.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.AllocationError.html" title="enum gpu_allocator::AllocationError">Allocation<wbr>Error</a></dt><dt><a class="enum" href="enum.MemoryLocation.html" title="enum gpu_allocator::MemoryLocation">Memory<wbr>Location</a></dt></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.Result.html" title="type gpu_allocator::Result">Result</a></dt></dl></section></div></main></body></html>

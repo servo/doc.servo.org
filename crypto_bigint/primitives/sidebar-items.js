@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["borrowing_sub","carrying_add","carrying_mul_add","overflowing_add","u32_bits","u32_max","u32_min","u32_rem","u64_invert_odd","usize_lt","widening_mul"]};

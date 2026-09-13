@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["PageTransitionEvent_Binding"],"struct":["PageTransitionEventInit"],"trait":["PageTransitionEventMethods"]};

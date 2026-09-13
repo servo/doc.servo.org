@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MessageEventSource"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["MessageEvent_Binding"],"struct":["MessageEventInit"],"trait":["MessageEventMethods"]};

@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="RustCrypto: AES Key Wrap Algorithm"><title>aes_kw - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="aes_kw" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate aes_kw</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../aes_kw/index.html"><img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></a><h2><a href="../aes_kw/index.html">aes_kw</a><span class="version">0.3.1</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#rustcrypto-aes-key-wrap-algorithm" title="RustCrypto: AES Key Wrap Algorithm">RustCrypto: AES Key Wrap Algorithm</a><ul><li><a href="#about" title="About">About</a></li><li><a href="#examples" title="Examples">Examples</a></li><li><a href="#license" title="License">License</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#traits" title="Traits">Traits</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>aes_kw</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/aes_kw/lib.rs.html#1-53">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="rustcrypto-aes-key-wrap-algorithm"><a class="doc-anchor" href="#rustcrypto-aes-key-wrap-algorithm">§</a>RustCrypto: AES Key Wrap Algorithm</h2>
+<p><a href="https://crates.io/crates/aes-kw"><img src="https://img.shields.io/crates/v/aes-kw.svg" alt="crate" /></a>
+<a href="https://docs.rs/aes-kw/"><img src="https://docs.rs/aes-kw/badge.svg" alt="Docs" /></a>
+<img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" alt="Apache2/MIT licensed" />
+<img src="https://img.shields.io/badge/rustc-1.85+-blue.svg" alt="Rust Version" />
+<a href="https://github.com/RustCrypto/key-wraps/actions/workflows/aes-kw.yml"><img src="https://github.com/RustCrypto/key-wraps/actions/workflows/aes-kw.yml/badge.svg" alt="Build Status" /></a></p>
+<p>Pure Rust implementation of the <a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-38F.pdf">NIST AES-KW Key Wrap</a> and
+<a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-38F.pdf">NIST AES-KWP Key Wrap with Padding</a> modes also described in <a href="https://www.rfc-editor.org/rfc/rfc3394.txt">RFC 3394</a>
+and <a href="https://www.rfc-editor.org/rfc/rfc5649.txt">RFC 5649</a>.</p>
+<h3 id="about"><a class="doc-anchor" href="#about">§</a>About</h3>
+<p>RFC 3394 § 2 describes AES-KW as follows:</p>
+<blockquote>
+<p>The AES key wrap algorithm is designed to wrap or encrypt key data.
+The key wrap operates on blocks of 64 bits.  Before being wrapped,
+the key data is parsed into n blocks of 64 bits.</p>
+<p>The only restriction the key wrap algorithm places on n is that n be
+at least two.  (For key data with length less than or equal to 64
+bits, the constant field used in this specification and the key data
+form a single 128-bit codebook input making this key wrap
+unnecessary.)  The key wrap algorithm accommodates all supported AES
+key sizes.  However, other cryptographic values often need to be
+wrapped.  One such value is the seed of the random number generator
+for DSS.  This seed value requires n to be greater than four.
+Undoubtedly other values require this type of protection. Therefore,
+no upper bound is imposed on n.</p>
+<p>The AES key wrap can be configured to use any of the three key sizes
+supported by the AES codebook.  The choice of a key size affects the
+overall security provided by the key wrap, but it does not alter the
+description of the key wrap algorithm.  Therefore, in the description
+that follows, the key wrap is described generically; no key size is
+specified for the KEK.</p>
+</blockquote>
+<p>RFC5649 § 1 describes AES-KWP as follows:</p>
+<blockquote>
+<p>This document specifies an extension of the Advanced Encryption
+Standard (AES) Key Wrap algorithm [AES-KW1, AES-KW2].  Without this
+extension, the input to the AES Key Wrap algorithm, called the key
+data, must be a sequence of two or more 64-bit blocks.</p>
+<p>The AES Key Wrap with Padding algorithm can be used to wrap a key of
+any practical size with an AES key.  The AES key-encryption key (KEK)
+must be 128, 192, or 256 bits.  The input key data may be as short as
+one octet, which will result in an output of two 64-bit blocks (or 16
+octets).  Although the AES Key Wrap algorithm does not place a
+maximum bound on the size of the key data that can be wrapped, this
+extension does so.  The use of a 32-bit fixed field to carry the
+octet length of the key data bounds the size of the input at 2^32
+octets.  Most systems will have other factors that limit the
+practical size of key data to much less than 2^32 octets.</p>
+</blockquote>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>hex_literal::hex;
+<span class="kw">use </span>aes_kw::{KwAes128, KeyInit};
+
+<span class="comment">// Key which is used to perform wrapping
+</span><span class="kw">let </span>kw_key: [u8; <span class="number">16</span>] = <span class="macro">hex!</span>(<span class="string">"000102030405060708090A0B0C0D0E0F"</span>);
+<span class="comment">// Key which will be wrapped
+</span><span class="kw">let </span>key: [u8; <span class="number">16</span>] = <span class="macro">hex!</span>(<span class="string">"00112233445566778899AABBCCDDEEFF"</span>);
+<span class="comment">// Wrapped key
+</span><span class="kw">let </span>wkey: [u8; <span class="number">24</span>] = <span class="macro">hex!</span>(<span class="string">"1FA68B0A8112B447AEF34BD8FB5A7B829D3E862371D2CFE5"</span>);
+
+
+<span class="kw">let </span>kw = KwAes128::new(<span class="kw-2">&amp;</span>kw_key.into());
+
+<span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0u8</span>; <span class="number">24</span>];
+kw.wrap_key(<span class="kw-2">&amp;</span>key, <span class="kw-2">&amp;mut </span>buf).unwrap();
+<span class="macro">assert_eq!</span>(buf, wkey);
+
+<span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0u8</span>; <span class="number">16</span>];
+kw.unwrap_key(<span class="kw-2">&amp;</span>wkey, <span class="kw-2">&amp;mut </span>buf).unwrap();
+<span class="macro">assert_eq!</span>(buf, key);
+
+<span class="comment">// If key size is known at compile time, you can use the fixed methods:
+</span><span class="kw">use </span>aes_kw::cipher::consts::U16;
+
+<span class="kw">let </span>wrapped_key = kw.wrap_fixed_key::&lt;U16&gt;(<span class="kw-2">&amp;</span>key.into());
+<span class="macro">assert_eq!</span>(wrapped_key, wkey);
+<span class="kw">let </span>unwrapped_key = kw.unwrap_fixed_key::&lt;U16&gt;(<span class="kw-2">&amp;</span>wrapped_key).unwrap();
+<span class="macro">assert_eq!</span>(unwrapped_key, key);</code></pre></div><h3 id="license"><a class="doc-anchor" href="#license">§</a>License</h3>
+<p>Licensed under either of:</p>
+<ul>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></li>
+<li><a href="http://opensource.org/licenses/MIT">MIT license</a></li>
+</ul>
+<p>at your option.</p>
+<h4 id="contribution"><a class="doc-anchor" href="#contribution">§</a>Contribution</h4>
+<p>Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.aes"><code>pub use <a class="mod" href="../aes/index.html" title="mod aes">aes</a>;</code></dt><dt id="reexport.cipher"><code>pub use aes::<a class="mod" href="../cipher/index.html" title="mod cipher">cipher</a>;</code></dt><dt id="reexport.zeroize"><code>pub use <a class="mod" href="../zeroize/index.html" title="mod zeroize">zeroize</a>;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="ctx/index.html" title="mod aes_kw::ctx">ctx</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="error/index.html" title="mod aes_kw::error">error</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="kw/index.html" title="mod aes_kw::kw">kw</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="kwp/index.html" title="mod aes_kw::kwp">kwp</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="oid/index.html" title="mod aes_kw::oid">oid</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>OIDs from RFC 3394 and RFC 5649</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.AesKw.html" title="struct aes_kw::AesKw">AesKw</a></dt><dd>AES Key Wrapper (KW), as defined in <a href="https://www.rfc-editor.org/rfc/rfc3394.txt">RFC 3394</a>.</dd><dt><a class="struct" href="struct.AesKwp.html" title="struct aes_kw::AesKwp">AesKwp</a></dt><dd>AES Key Wrapper with Padding (KWP), as defined in <a href="https://www.rfc-editor.org/rfc/rfc5649.txt">RFC 5649</a>.</dd><dt><a class="struct" href="struct.IntegrityCheckFailed.html" title="struct aes_kw::IntegrityCheckFailed">Integrity<wbr>Check<wbr>Failed</a></dt><dd>Error that indicates integrity check failure.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.Error.html" title="enum aes_kw::Error">Error</a></dt><dd>Errors emitted from the wrap and unwrap operations.</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.IV_LEN.html" title="constant aes_kw::IV_LEN">IV_LEN</a></dt><dd>Size of an AES-KW and AES-KWP initialization vector in bytes.</dd></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.InnerInit.html" title="trait aes_kw::InnerInit">Inner<wbr>Init</a></dt><dd>Types which can be initialized from another type (usually block ciphers).</dd><dt><a class="trait" href="trait.KeyInit.html" title="trait aes_kw::KeyInit">KeyInit</a></dt><dd>Types which can be initialized from a key.</dd></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.IvLen.html" title="type aes_kw::IvLen">IvLen</a></dt><dd>Size of an AES-KW and AES-KWP initialization vector in bytes represented as a <code>typenum</code> type.</dd><dt><a class="type" href="type.KwAes128.html" title="type aes_kw::KwAes128">KwAes128</a></dt><dd>AES-128 key wrapping</dd><dt><a class="type" href="type.KwAes192.html" title="type aes_kw::KwAes192">KwAes192</a></dt><dd>AES-192 key wrapping</dd><dt><a class="type" href="type.KwAes256.html" title="type aes_kw::KwAes256">KwAes256</a></dt><dd>AES-256 key wrapping</dd><dt><a class="type" href="type.KwpAes128.html" title="type aes_kw::KwpAes128">KwpAes128</a></dt><dd>AES-128 key wrapping</dd><dt><a class="type" href="type.KwpAes192.html" title="type aes_kw::KwpAes192">KwpAes192</a></dt><dd>AES-192 key wrapping</dd><dt><a class="type" href="type.KwpAes256.html" title="type aes_kw::KwpAes256">KwpAes256</a></dt><dd>AES-256 key wrapping</dd></dl></section></div></main></body></html>

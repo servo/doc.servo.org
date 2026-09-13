@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ScrollBehavior"],"fn":["Wrap"],"mod":["GenericBindings","ScrollBehaviorValues","Window_Binding"],"trait":["WindowMethods"],"type":["DeferredRequestInit","ScrollOptions","ScrollToOptions","WindowPostMessageOptions"]};

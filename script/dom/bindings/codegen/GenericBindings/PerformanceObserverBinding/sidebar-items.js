@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["PerformanceObserver_Binding"],"struct":["PerformanceObserverCallback","PerformanceObserverInit"],"trait":["PerformanceObserverMethods"]};

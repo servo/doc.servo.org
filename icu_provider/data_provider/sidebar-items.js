@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DataProviderWithMarker"],"trait":["BoundDataProvider","DataProvider","DryDataProvider","DynamicDataProvider","DynamicDryDataProvider","IterableDataProvider","IterableDynamicDataProvider"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["fmt_component_match",1]],"mod":["sealed"],"trait":["Formattable"]};

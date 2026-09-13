@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INVALID_ENCODING_MSG","INVALID_LENGTH_MSG"],"enum":["Error"],"struct":["InvalidEncodingError","InvalidLengthError"]};

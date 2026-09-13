@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_BaseAudioContext"],"enum":["BaseAudioContextOptions"],"struct":["BaseAudioContext","DecodeResolver"],"type":["BoxedSliceOfPromises"]};

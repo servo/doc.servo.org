@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_i1e","i1e_asympt","i1e_asympt_hard"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["float_scalars","float_scalars_unimplemented_abstract","list","pairs","rule","scalar_or_vecn","triples"]};

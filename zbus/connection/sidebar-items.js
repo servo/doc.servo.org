@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_MAX_QUEUED"],"enum":["AuthMechanism","NameStatus"],"fn":["acquire_serial_num_semaphore"],"mod":["builder","handshake","pending_method_calls","socket","socket_reader"],"static":["SERIAL_NUM_SEMAPHORE"],"struct":["Builder","Connection","ConnectionInner","WeakConnection"],"type":["MsgBroadcaster","Subscriptions"]};

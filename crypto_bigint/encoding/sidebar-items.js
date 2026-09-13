@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ByteOrder","DecodeError"],"fn":["truncate_be","truncate_le"],"trait":["ArrayDecoding","ArrayEncoding","EncodedSize","Encoding"],"type":["ByteArray"]};

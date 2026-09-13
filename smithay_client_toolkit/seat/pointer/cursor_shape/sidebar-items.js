@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cursor_icon_to_shape"],"struct":["CursorShapeManager"]};

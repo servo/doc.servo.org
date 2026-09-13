@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XRHandedness","XRTargetRayMode"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["XRHandednessValues","XRInputSource_Binding","XRTargetRayModeValues"],"trait":["XRInputSourceMethods"]};

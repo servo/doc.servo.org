@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["expand_derive","gen_reply_for_variant"],"static":["ALLOWED_ATTRS","ALLOWED_LISTS"],"struct":["StructAttributes","VariantAttributes"]};

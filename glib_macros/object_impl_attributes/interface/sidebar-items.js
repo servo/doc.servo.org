@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["impl_object_interface","register_object_interface_as_dynamic","register_object_interface_as_static"]};

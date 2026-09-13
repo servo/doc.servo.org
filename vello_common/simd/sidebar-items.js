@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["element_wise_splat"],"trait":["Splat4thExt"]};

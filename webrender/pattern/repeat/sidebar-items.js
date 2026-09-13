@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["repeated_pattern"],"struct":["RepeatedPattern"]};

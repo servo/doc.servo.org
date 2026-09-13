@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_compound_m1","mul_fixed_power_hard"]};

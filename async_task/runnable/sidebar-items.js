@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["spawn","spawn_local","spawn_unchecked"],"mod":["sealed"],"struct":["Builder","Runnable","ScheduleInfo","WithInfo"],"trait":["Schedule"]};

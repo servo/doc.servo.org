@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create_lut4","create_lut4_norm_samples","make_lut_4x3","stage_lut_4x3"],"macro":[["define_lut4_dispatch",1]],"struct":["KatanaLut4x3","Lut4x3"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EMPTY_GLYPH_MAP","EMPTY_VAR_MAP","GLYPH_PADDING","HASH_SEED"],"fn":["push_clear_rect_for_slot"],"struct":["AtlasConfig","GlyphAtlas","GlyphCacheConfig","GlyphCacheEntry","GlyphCacheStats","ImageCache","PendingBitmapUpload","PendingClearRect","VarLookupKey"],"type":["FixedHashMap","VarKey"]};

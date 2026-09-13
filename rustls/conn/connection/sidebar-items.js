@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UNEXPECTED_EOF_MESSAGE"],"enum":["Connection"],"struct":["Reader","Writer"],"trait":["PlaintextSink"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"fn":["print_diagnostics_information_on_context_creation_failure"],"struct":["Framebuffer","OffscreenRenderingContext","SoftwareRenderingContext","SurfmanRenderingContext","WindowRenderingContext"],"trait":["RenderingContext"],"type":["RenderToParentCallback"]};

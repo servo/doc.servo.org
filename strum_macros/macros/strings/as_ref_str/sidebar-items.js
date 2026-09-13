@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenerateTraitVariant"],"fn":["as_ref_str_inner","as_static_str_inner","get_arms"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["Performance_Binding"],"struct":["PerformanceMarkOptions","PerformanceMeasureOptions"],"trait":["PerformanceMethods"],"type":["DOMHighResTimeStamp","PerformanceEntryList"]};

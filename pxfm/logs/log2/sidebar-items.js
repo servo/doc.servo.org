@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LOG_COEFFS"],"fn":["f_log2","log2_hard","log2_hard_slow"],"static":["LOG2_DD","LOG_CD","LOG_RANGE_REDUCTION"]};

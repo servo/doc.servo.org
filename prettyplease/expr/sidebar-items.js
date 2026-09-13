@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_blocklike","is_short_ident","needs_newline_if_wrap","parseable_as_stmt","simple_array","simple_block"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CFFError"],"fn":["calc_subroutine_bias","conv_subroutine_index","conv_subroutine_index_impl","f32_abs"],"mod":["argstack","cff1","cff2","charset","charstring","dict","encoding","index","std_names"],"struct":["Builder","StringId"],"trait":["IsEven"]};
