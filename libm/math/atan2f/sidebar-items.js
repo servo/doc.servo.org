@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PI","PI_LO"],"fn":["atan2f"]};

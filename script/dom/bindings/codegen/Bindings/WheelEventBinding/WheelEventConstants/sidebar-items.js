@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DOM_DELTA_LINE","DOM_DELTA_PAGE","DOM_DELTA_PIXEL"]};

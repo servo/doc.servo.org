@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["State"],"fn":["consume_cstr","consume_input"],"struct":["Flags","Header","Parser"]};

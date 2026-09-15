@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["service_fn"],"mod":["http","service","util"],"trait":["HttpService","Service"]};

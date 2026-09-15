@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_clock_gettime_via_syscall","clock_gettime","clock_gettime_dynamic","clock_gettime_via_syscall","init","init_clock_gettime","minimal_init"],"static":["CLOCK_GETTIME"],"struct":["Function"],"type":["ClockGettimeType"]};

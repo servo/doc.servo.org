@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["js_irregexp_add_range_to_zone_list","mozilla_properties_glue_add_property_ranges"]};

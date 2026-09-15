@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["area","encoding_detection","size_of","srcset","text_input","timeranges","unminify"],"struct":["ByteString","DOMString","TrustedPromise"]};

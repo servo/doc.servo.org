@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_ct_neg_for_unsigned_nonzero",1],["impl_signed_ct_neg",1],["impl_unsigned_ct_neg",1]],"trait":["CtNeg"]};

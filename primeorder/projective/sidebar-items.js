@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["batch_normalize_generic","lincomb"],"struct":["ProjectivePoint"],"type":["DefaultWnafWindowSize","WnafBase","WnafScalar"]};

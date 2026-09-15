@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["KHMER_FEATURES","KHMER_SHAPER"],"fn":["collect_features","compose","decompose","override_features","reorder_consonant_syllable","reorder_khmer","reorder_syllable_khmer","setup_masks","setup_syllables"],"mod":["khmer_feature"],"struct":["KhmerShapePlan"]};

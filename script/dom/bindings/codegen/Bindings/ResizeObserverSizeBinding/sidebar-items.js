@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","ResizeObserverSize_Binding"],"trait":["ResizeObserverSizeMethods"]};

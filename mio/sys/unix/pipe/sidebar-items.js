@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["new","new_raw","set_nonblocking"],"struct":["Receiver","Sender"]};

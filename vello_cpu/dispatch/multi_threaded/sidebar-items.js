@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RecordedCommand","RenderTaskType"],"mod":["cost","worker"],"struct":["AllocationGroup","AllocationManager","Allocations","MaybePresent","MultiThreadedDispatcher","OwnedClip","RecordedCommandTask","RenderTask"],"type":["RecordedCommandReceiver","RecordedCommandSender","RenderTaskSender"]};

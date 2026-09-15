@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","TestBindingPairIterableIterator_Binding","TestBindingPairIterable_Binding"],"trait":["TestBindingPairIterableIteratorMethods","TestBindingPairIterableMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Void"],"fn":["unreachable"],"mod":["coreprovider"],"trait":["ResultVoidErrExt","ResultVoidExt"]};

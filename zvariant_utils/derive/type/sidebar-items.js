@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["expand_type_derive","impl_empty_struct","impl_enum","impl_struct","impl_unit_struct","signature_for_struct","signature_for_variant"]};

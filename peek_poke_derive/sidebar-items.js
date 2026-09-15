@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["PeekPoke"],"fn":["derive_max_size","derive_peek_from_for_enum","derive_peek_from_for_struct","derive_poke_into","get_discriminant_size_type","is_struct","peek_poke_derive"]};

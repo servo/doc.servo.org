@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CookieSameSite"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["CookieSameSiteValues","CookieStore_Binding"],"struct":["CookieInit","CookieListItem","CookieStoreDeleteOptions","CookieStoreGetOptions"],"trait":["CookieStoreMethods"],"type":["CookieList"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TokenType","TokenizePolicy"],"fn":["is_valid_name_codepoint","tokenize"],"struct":["Token","Tokenizer"]};

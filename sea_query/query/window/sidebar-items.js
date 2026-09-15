@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Frame","FrameType"],"struct":["FrameClause","WindowStatement"],"trait":["OverStatement"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EAGER_PSEUDO_COUNT","PSEUDO_COUNT"],"enum":["NonTSPseudoClass","PseudoElement"],"fn":["extended_filtering"],"struct":["CustomState","ExtraMatchingData","SelectorImpl","ServoElementSnapshot","SnapshotMap"],"type":["Lang"]};

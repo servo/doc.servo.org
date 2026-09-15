@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["argument_reduction","argument_reduction_pi","cosf","cosm1f","cospif","cscf","secf","sincf","sincosf","sincosf_eval","sincospif","sincpif","sinf","sinmxf","sinpif"]};

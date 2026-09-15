@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A limit on how much stack space we’re willing to use for time zone abbreviations."><title>TIME_ZONE_ABBREVIATION_MAX in jiff_core::tz - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="jiff_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc constant"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">TIME_ZONE_ABBREVIATION_MAX</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../jiff_core/index.html">jiff_<wbr>core</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><div id="rustdoc-modnav"><h2><a href="index.html">In jiff_<wbr>core::<wbr>tz</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">jiff_core</a>::<wbr><a href="index.html">tz</a></div><h1>Constant <span class="constant">TIME_<wbr>ZONE_<wbr>ABBREVIATION_<wbr>MAX</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/jiff_core/tz/mod.rs.html#64-75">Source</a> </span></div><pre class="rust item-decl"><code>const TIME_ZONE_ABBREVIATION_MAX: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.usize.html">usize</a> = { { 6 } }; // 6usize</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A limit on how much stack space we’re willing to use for time zone
+abbreviations.</p>
+<p>POSIX says this:</p>
+<blockquote>
+<p>Indicate no less than three, nor more than {TZNAME_MAX}, bytes that are
+the designation for the standard (std) or the alternative (dst -such as
+Daylight Savings Time) timezone.</p>
+</blockquote>
+<p>But it doesn’t seem worth the trouble to query <code>TZNAME_MAX</code>. Interestingly,
+IANA says:</p>
+<blockquote>
+<p>are 3 or more characters specifying the standard and daylight saving time
+(DST) zone abbreviations</p>
+</blockquote>
+<p>Which implies that IANA thinks there is no limit. But that seems unwise.
+Moreover, in practice, it seems like the <code>date</code> utility supports fairly
+long abbreviations. On my mac (so, BSD <code>date</code> as I understand it):</p>
+<div class="example-wrap"><pre class="language-text"><code>$ TZ=ZZZ5YYYYYYYYYYYYYYYYYYYYY date
+Sun Mar 17 20:05:58 YYYYYYYYYYYYYYYYYYYYY 2024</code></pre></div>
+<p>And on my Linux machine (so, GNU <code>date</code>):</p>
+<div class="example-wrap"><pre class="language-text"><code>$ TZ=ZZZ5YYYYYYYYYYYYYYYYYYYYY date
+Sun Mar 17 08:05:36 PM YYYYYYYYYYYYYYYYYYYYY 2024</code></pre></div>
+<p>I don’t know exactly what limit these programs use, but 30 seems good
+enough?</p>
+<p>Previously, I had been using 255 and stuffing the string in a <code>Box&lt;str&gt;</code>.
+But as part of work on <a href="https://github.com/BurntSushi/jiff/issues/168">#168</a>, I was looking to remove allocation from as
+many places as possible. And this was one candidate. But making room on the
+stack for 255 byte abbreviations seemed gratuitous. So I picked something
+smaller. If we come across an abbreviation bigger than this max, then we’ll
+error.</p>
+<p>In environments with dynamic memory allocation, this maximum is just the
+maximum number of bytes we’re willing to spend on array-backed storage of
+a time zone abbreviation. If we hit anything bigger, we’ll use the heap.</p>
+<p>In core-only environments, we use a bigger limit as mentioned above.
+Anything bigger than this will result in a parse error.</p>
+</div></details></section></div></main></body></html>

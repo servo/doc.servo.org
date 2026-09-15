@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["CollectJSONAttributes","ConstructorEnabled","DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap"],"static":["Class"],"trait":["DOMRectReadOnlyMethods"]};

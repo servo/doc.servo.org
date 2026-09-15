@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_CAP"],"fn":["assert_size","is_auto","pack_capacity_and_auto","unpack_capacity"],"type":["SizeType"]};

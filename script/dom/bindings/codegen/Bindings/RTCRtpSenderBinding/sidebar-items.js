@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","RTCRtpSender_Binding"],"trait":["RTCRtpSenderMethods"],"type":["RTCRtcpParameters","RTCRtpCodecParameters","RTCRtpHeaderExtensionParameters","RTCRtpParameters","RTCRtpSendParameters"]};

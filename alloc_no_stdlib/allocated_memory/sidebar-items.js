@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["index_macro"],"struct":["Range"],"trait":["AllocatedSlice","Index","IndexMut","SliceWrapper","SliceWrapperMut"]};

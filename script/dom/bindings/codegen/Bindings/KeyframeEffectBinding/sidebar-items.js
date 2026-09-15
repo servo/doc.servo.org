@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CompositeOperation","CompositeOperationOrAuto"],"fn":["Wrap"],"mod":["CompositeOperationOrAutoValues","CompositeOperationValues","GenericBindings","KeyframeEffect_Binding"],"trait":["KeyframeEffectMethods"],"type":["BaseComputedKeyframe","BaseKeyframe","BasePropertyIndexedKeyframe","KeyframeEffectOptions"]};

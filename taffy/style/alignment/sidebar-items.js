@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AlignContentKeyword","AlignItemsKeyword","AlignmentSafety"],"struct":["AlignContent","AlignItems"],"type":["AlignSelf","JustifyContent","JustifyItems","JustifySelf"]};

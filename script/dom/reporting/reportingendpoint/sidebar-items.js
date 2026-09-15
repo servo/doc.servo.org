@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CSPReportEndpointFetchListener","CSPReportingEndpointBody","ReportingEndpoint","SerializedReport"],"trait":["SendReportsToEndpoints"]};

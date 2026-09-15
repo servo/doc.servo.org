@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["copy_cv","length_encode","xor_block"]};

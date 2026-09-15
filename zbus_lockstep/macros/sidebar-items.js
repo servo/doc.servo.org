@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["resolve_xml_path"]};

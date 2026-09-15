@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["Default","FromPrimitive","IntoPrimitive","TryFromPrimitive","UnsafeFromPrimitive"],"mod":["enum_attributes","parsing","utils","variant_attributes"]};

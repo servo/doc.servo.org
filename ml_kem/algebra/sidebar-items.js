@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["GAMMA","ZETA_POW_BITREV"],"fn":["base_case_multiply","matrix_sample_ntt","ntt_inverse_layer","ntt_layer","sample_ntt","sample_poly_cbd","sample_poly_vec_cbd"],"struct":["BaseField"],"trait":["Ntt","NttInverse"],"type":["Elem","Int","NttMatrix","NttPolynomial","NttVector","Polynomial","Vector"]};

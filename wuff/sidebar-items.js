@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["GLYF","HEAD","HHEA","HMTX","LOCA"],"enum":["WuffErr"],"fn":["compute_checksum","decompress_woff1_with_custom_z","decompress_woff2","decompress_woff2_with_custom_brotli","write_table_directory_header"],"macro":[["Round4",1]],"mod":["brotli","decompress_woff1","decompress_woff2","error","table_tags","variable_length","woff"],"struct":["Point"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["zig_zag_i128","zig_zag_i16","zig_zag_i32","zig_zag_i64"],"struct":["Serializer"]};

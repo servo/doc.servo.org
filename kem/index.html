@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="RustCrypto: Key Encapsulation Mechanisms (KEMs)"><title>kem - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="kem" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate kem</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../kem/index.html"><img src="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg" alt="logo"></a><h2><a href="../kem/index.html">kem</a><span class="version">0.3.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#rustcrypto-key-encapsulation-mechanisms-kems" title="RustCrypto: Key Encapsulation Mechanisms (KEMs)">RustCrypto: Key Encapsulation Mechanisms (KEMs)</a><ul><li><a href="#about" title="About">About</a></li><li><a href="#license" title="License">License</a></li></ul></li><li><a href="#usage" title="Usage">Usage</a><ul><li><a href="#serialization" title="Serialization">Serialization</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#traits" title="Traits">Traits</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>kem</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/kem/lib.rs.html#1-251">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="rustcrypto-key-encapsulation-mechanisms-kems"><a class="doc-anchor" href="#rustcrypto-key-encapsulation-mechanisms-kems">§</a><a href="https://github.com/RustCrypto">RustCrypto</a>: Key Encapsulation Mechanisms (KEMs)</h2>
+<p><a href="https://crates.io/crates/kem"><img src="https://img.shields.io/crates/v/kem.svg" alt="crate" /></a>
+<a href="https://docs.rs/kem/"><img src="https://docs.rs/kem/badge.svg" alt="Docs" /></a>
+<a href="https://github.com/RustCrypto/traits/actions/workflows/kem.yml?query=branch:master"><img src="https://github.com/RustCrypto/traits/actions/workflows/kem.yml/badge.svg?branch=master" alt="Build Status" /></a>
+<img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" alt="Apache2/MIT licensed" />
+<img src="https://img.shields.io/badge/rustc-1.85+-blue.svg" alt="Rust Version" />
+<a href="https://rustcrypto.zulipchat.com/#narrow/stream/260048-signatures"><img src="https://img.shields.io/badge/zulip-join_chat-blue.svg" alt="Project Chat" /></a></p>
+<h3 id="about"><a class="doc-anchor" href="#about">§</a>About</h3>
+<p>This crate provides a common set of traits for <a href="https://en.wikipedia.org/wiki/Key_encapsulation">key encapsulation mechanisms</a>—algorithms for
+non-interactively establishing secrets between peers.</p>
+<p>This is intended to be implemented by libraries which produce or contain implementations of key
+encapsulation mechanisms, and used by libraries which want to produce or consume encapsulated
+secrets while generically supporting any compatible backend.</p>
+<h3 id="license"><a class="doc-anchor" href="#license">§</a>License</h3>
+<p>Licensed under either of</p>
+<ul>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></li>
+<li><a href="http://opensource.org/licenses/MIT">MIT license</a></li>
+</ul>
+<p>at your option.</p>
+<h4 id="contribution"><a class="doc-anchor" href="#contribution">§</a>Contribution</h4>
+<p>Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.</p>
+<h2 id="usage"><a class="doc-anchor" href="#usage">§</a>Usage</h2>
+<p>There are two roles in a KEM:</p>
+<ul>
+<li>Encapsulator: the holder of the public key (a.k.a. encapsulation key), which provides an
+operation that simultaneously generates both the plaintext and ciphertext of a random
+“shared key” whose ciphertext (a.k.a. encapsulation) can be sent to the party with the
+decapsulator key.</li>
+<li>Decapsulator: holder secret/private key (a.k.a. decapsulation key), which can be used to
+decrypt the encrypted (a.k.a. encapsulated) “shared key” which was randomly generated by
+the encapsulator.</li>
+</ul>
+<p>The following example illustrates the workflow of using this crate’s traits with a hypothetical
+KEM named <code>K</code> :</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// NOTE: requires the `getrandom` feature is enabled
+
+</span><span class="kw">use </span>kem::{Decapsulate, Encapsulate, Kem};
+
+<span class="comment">// Generate a decapsulation/encapsulation keypair. The first one is the secret one.
+</span><span class="kw">let </span>(dk, ek) = K::generate_keypair();
+
+<span class="comment">// Encapsulator:
+//
+// Randomly generates and encapsulates/encrypts a shared key which can be decrypted by the
+// holder of the decapsulation key, obtaining the ciphertext and plaintext of the shared key.
+</span><span class="kw">let </span>(ct, k_send) = ek.encapsulate();
+
+<span class="comment">// Decapsulator:
+//
+// Decapsulates the encrypted/encapsulated shared key, obtaining its plaintext.
+</span><span class="kw">let </span>k_recv = dk.decapsulate(<span class="kw-2">&amp;</span>ct);
+
+<span class="comment">// We've now established a shared key.
+</span><span class="macro">assert_eq!</span>(k_send, k_recv);</code></pre></div><h3 id="serialization"><a class="doc-anchor" href="#serialization">§</a>Serialization</h3>
+<p>The <a href="trait.KeyInit.html" title="trait kem::KeyInit"><code>KeyInit</code></a> and <a href="trait.KeyExport.html" title="trait kem::KeyExport"><code>KeyExport</code></a> traits can be used to load and store encoded decapsulation
+and encapsulation keys from their byte serialization.</p>
+<p>Decapsulation keys are often initialized from a compact representation known as a <a href="type.Seed.html" title="type kem::Seed"><code>Seed</code></a>.
+The <a href="trait.FromSeed.html" title="trait kem::FromSeed"><code>FromSeed</code></a> trait provides an extension to the <a href="trait.Kem.html" title="trait kem::Kem"><code>Kem</code></a> trait for initializing keypairs
+from a seed value. We recommend the <a href="trait.KeyInit.html" title="trait kem::KeyInit"><code>KeyInit</code></a> and <a href="trait.KeyExport.html" title="trait kem::KeyExport"><code>KeyExport</code></a> trait impls on
+decapsulation keys operate on seed values when there is a choice of multiple key formats
+(e.g. expanded decapsulation keys).</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.common"><code>pub use <a class="mod" href="../crypto_common/index.html" title="mod crypto_common">common</a>;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="consts/index.html" title="mod kem::consts">consts</a></dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.InvalidKey.html" title="struct kem::InvalidKey">Invalid<wbr>Key</a></dt><dd>Error type for <a href="trait.TryKeyInit.html" title="trait kem::TryKeyInit"><code>TryKeyInit</code></a> for cases where the provided bytes do not correspond to a
+valid key.</dd></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.Decapsulate.html" title="trait kem::Decapsulate">Decapsulate</a></dt><dd>Decapsulator for encapsulated keys, with an associated <code>Encapsulator</code> bounded by the
+<a href="trait.Encapsulate.html" title="trait kem::Encapsulate"><code>Encapsulate</code></a> trait.</dd><dt><a class="trait" href="trait.Decapsulator.html" title="trait kem::Decapsulator">Decapsulator</a></dt><dd>Decapsulator with an associated encapsulation key which can be used for encrypting shared keys
+that this decapsulator can decrypt.</dd><dt><a class="trait" href="trait.Encapsulate.html" title="trait kem::Encapsulate">Encapsulate</a></dt><dd>Encapsulator for shared secrets.</dd><dt><a class="trait" href="trait.FromSeed.html" title="trait kem::FromSeed">From<wbr>Seed</a></dt><dd>Initialize a KEM from a <a href="type.Seed.html" title="type kem::Seed"><code>Seed</code></a>.</dd><dt><a class="trait" href="trait.Generate.html" title="trait kem::Generate">Generate</a></dt><dd>Secure random generation.</dd><dt><a class="trait" href="trait.Kem.html" title="trait kem::Kem">Kem</a></dt><dd>Key encapsulation mechanism.</dd><dt><a class="trait" href="trait.KeyExport.html" title="trait kem::KeyExport">KeyExport</a></dt><dd>Serialize a key to a byte array.</dd><dt><a class="trait" href="trait.KeyInit.html" title="trait kem::KeyInit">KeyInit</a></dt><dd>Types which can be initialized from a key.</dd><dt><a class="trait" href="trait.KeySizeUser.html" title="trait kem::KeySizeUser">KeySize<wbr>User</a></dt><dd>Types which use key for initialization.</dd><dt><a class="trait" href="trait.TryDecapsulate.html" title="trait kem::TryDecapsulate">TryDecapsulate</a></dt><dd>Decapsulator for encapsulated keys with failure handling, with an associated <code>Encapsulator</code>
+bounded by the <a href="trait.Encapsulate.html" title="trait kem::Encapsulate"><code>Encapsulate</code></a> trait.</dd><dt><a class="trait" href="trait.TryKeyInit.html" title="trait kem::TryKeyInit">TryKey<wbr>Init</a></dt><dd>Types which can be fallibly initialized from a key.</dd></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.Ciphertext.html" title="type kem::Ciphertext">Ciphertext</a></dt><dd>Ciphertext message (a.k.a. “encapsulated key”) produced by <a href="trait.Encapsulate.html#method.encapsulate" title="method kem::Encapsulate::encapsulate"><code>Encapsulate::encapsulate</code></a> which is
+an encrypted <a href="type.SharedKey.html" title="type kem::SharedKey"><code>SharedKey</code></a> that can be decrypted using <a href="trait.Decapsulate.html#tymethod.decapsulate" title="method kem::Decapsulate::decapsulate"><code>Decapsulate::decapsulate</code></a>.</dd><dt><a class="type" href="type.DecapsulationKey.html" title="type kem::DecapsulationKey">Decapsulation<wbr>Key</a></dt><dd>KEM decryption key (i.e. private key) which can decrypt encrypted shared secret ciphertexts
+which were encrypted by <a href="type.EncapsulationKey.html" title="type kem::EncapsulationKey"><code>EncapsulationKey&lt;K&gt;</code></a>.</dd><dt><a class="type" href="type.EncapsulationKey.html" title="type kem::EncapsulationKey">Encapsulation<wbr>Key</a></dt><dd>KEM encryption key (i.e. public key) which encrypts shared secrets into ciphertexts which
+can be decrypted by <a href="type.DecapsulationKey.html" title="type kem::DecapsulationKey"><code>DecapsulationKey&lt;K&gt;</code></a>.</dd><dt><a class="type" href="type.Key.html" title="type kem::Key">Key</a></dt><dd>Key used by <a href="trait.KeySizeUser.html" title="trait kem::KeySizeUser"><code>KeySizeUser</code></a> implementors.</dd><dt><a class="type" href="type.Seed.html" title="type kem::Seed">Seed</a></dt><dd>Seed value which can be used to deterministically initialize a KEM keypair.</dd><dt><a class="type" href="type.SharedKey.html" title="type kem::SharedKey">Shared<wbr>Key</a></dt><dd>Shared key: plaintext produced after decapsulation by <a href="trait.Decapsulate.html#tymethod.decapsulate" title="method kem::Decapsulate::decapsulate"><code>Decapsulate::decapsulate</code></a> which is
+also returned by <a href="trait.Encapsulate.html#method.encapsulate" title="method kem::Encapsulate::encapsulate"><code>Encapsulate::encapsulate</code></a>, which is the shared secret resulting from the
+key encapsulation algorithm.</dd></dl></section></div></main></body></html>

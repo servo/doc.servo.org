@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PIXEL_SIZE"],"enum":["BadIcon"],"mod":["constructors"],"struct":["Icon","NoIcon","Pixel","RgbaIcon"]};

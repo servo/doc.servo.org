@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PxScale","PxScaleFactor","PxScaleFont"],"trait":["ScaleFont"]};

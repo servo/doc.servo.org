@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EXT4_IOC_RESIZE_FS"],"mod":["dir","inotify","makedev","syscalls","types"]};

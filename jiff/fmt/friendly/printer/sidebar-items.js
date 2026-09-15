@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SIGNED_DURATION_LEN","MAX_SPAN_LEN","MAX_UNSIGNED_DURATION_LEN","MINS_PER_HOUR","NANOS_PER_HOUR","NANOS_PER_MICRO","NANOS_PER_MILLI","NANOS_PER_MIN","SECS_PER_HOUR","SECS_PER_MIN"],"enum":["Designator","Direction","DirectionSign","FractionalUnit","Spacing"],"struct":["DesignatorWriter","Designators","FractionalPrinter","SpanPrinter"]};

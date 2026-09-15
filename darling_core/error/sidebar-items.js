@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IntoIterEnum"],"mod":["kind"],"struct":["Accumulator","Error","IntoIter"],"type":["Result"]};

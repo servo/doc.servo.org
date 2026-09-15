@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["blocks_for_bits","mask_for_bits","reverse_bits"],"macro":[["bit_block_impl",1]],"static":["FALSE","TRUE"],"struct":["BitVec","Blocks","IntoIter","Iter","IterMut","MutBorrowedBit"],"trait":["BitBlock"],"type":["MutBlocks"]};

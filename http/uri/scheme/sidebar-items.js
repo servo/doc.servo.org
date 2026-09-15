@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SCHEME_LEN","SCHEME_CHARS"],"enum":["Protocol","Scheme2"],"struct":["Scheme"]};

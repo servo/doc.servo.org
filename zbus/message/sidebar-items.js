@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NATIVE_ENDIAN_SIG"],"enum":["EndianSig","Flags","Type"],"mod":["body","builder","field_code","fields","header"],"struct":["Body","Builder","Header","Inner","Message","PrimaryHeader","Sequence"]};

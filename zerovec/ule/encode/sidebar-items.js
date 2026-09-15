@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["encode_varule_to_box"],"trait":["EncodeAsVarULE"]};

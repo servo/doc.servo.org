@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["allow_deprecated","contains_deprecated","should_allow_deprecated"]};

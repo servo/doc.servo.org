@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["video_aggregator_aggregate_frames","video_aggregator_create_output_buffer","video_aggregator_find_best_format","video_aggregator_update_caps"],"struct":["AggregateFramesToken"],"trait":["VideoAggregatorImpl","VideoAggregatorImplExt"]};

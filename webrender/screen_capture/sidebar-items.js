@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AsyncScreenshotGrabberMode"],"struct":["AsyncScreenshot","AsyncScreenshotGrabber","AsyncScreenshotHandle","RecordedFrameHandle"]};

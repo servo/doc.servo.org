@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_meta_items","crate_ident_new","gen_enum_from_glib","parse_nested_meta_items","parse_nested_meta_items_from_fn","parse_nested_meta_items_from_stream","parse_optional_nested_meta_items"],"struct":["NestedMetaItem"],"trait":["ParseNestedMetaItem"]};

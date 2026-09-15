@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetConstructorObject","Wrap"],"mod":["DocumentFragment_Binding","GenericBindings"],"trait":["DocumentFragmentMethods"]};

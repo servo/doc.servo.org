@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["const_max","const_min"],"struct":["OffsetU32","PaddingU16","RectU16","RectU32","SizeU16","SizeU32"]};

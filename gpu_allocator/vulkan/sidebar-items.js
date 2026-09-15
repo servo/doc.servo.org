@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllocationScheme"],"struct":["Allocation","AllocationCreateDesc","Allocator","AllocatorCreateDesc","MappedAllocationSlab","MemoryBlock","MemoryType","SendSyncPtr"]};

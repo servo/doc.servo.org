@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Case","Item"],"fn":["write_offset"],"struct":["Formatter","ItemFraction","ItemInteger","ItemOffset","ItemString"]};

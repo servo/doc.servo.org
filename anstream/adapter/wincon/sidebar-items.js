@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColorTarget","CsiState"],"fn":["next_bytes","to_ansi_color"],"struct":["WinconBytes","WinconBytesIter","WinconCapture"]};

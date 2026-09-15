@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["bus","interfaces","object_address","object_id"]};

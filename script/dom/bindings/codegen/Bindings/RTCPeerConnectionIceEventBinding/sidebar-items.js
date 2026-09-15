@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","RTCPeerConnectionIceEvent_Binding"],"trait":["RTCPeerConnectionIceEventMethods"],"type":["RTCPeerConnectionIceEventInit"]};

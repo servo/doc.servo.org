@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AttrName","AttrRef","AttrValueRef","AttributeEntry"],"static":["EMPTY_NAMESPACE"],"struct":["AttributeStorage","AttributesBorrow","ContentAttributeData"]};

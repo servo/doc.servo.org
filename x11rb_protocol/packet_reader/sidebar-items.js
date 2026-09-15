@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MINIMAL_PACKET_LENGTH"],"fn":["extra_length"],"struct":["PacketReader"]};

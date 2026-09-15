@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["VarZeroVecInner"],"struct":["VarZeroVec"]};

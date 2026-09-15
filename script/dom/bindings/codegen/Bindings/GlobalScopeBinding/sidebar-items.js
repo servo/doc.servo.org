@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","GlobalScope_Binding"],"trait":["GlobalScopeMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PrimarySelectionCheckError"],"fn":["is_primary_selection_supported","is_primary_selection_supported_internal","is_text"],"struct":["PrimarySelectionState"]};

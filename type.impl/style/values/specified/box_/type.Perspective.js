@@ -1,0 +1,9 @@
+(function() {
+    var type_impls = Object.fromEntries([["style",[["<details class=\"toggle implementors-toggle\" open><summary><section id=\"impl-GenericPerspective%3CNonNegative%3CLength%3E%3E\" class=\"impl\"><a class=\"src rightside\" href=\"src/style/values/specified/box.rs.html#1693-1708\">Source</a><a href=\"#impl-GenericPerspective%3CNonNegative%3CLength%3E%3E\" class=\"anchor\">§</a><h3 class=\"code-header\">impl <a class=\"type\" href=\"style/values/specified/box_/type.Perspective.html\" title=\"type style::values::specified::box_::Perspective\">Perspective</a></h3></section></summary><div class=\"impl-items\"><details class=\"toggle method-toggle\" open><summary><section id=\"method.parse_legacy\" class=\"method\"><a class=\"src rightside\" href=\"src/style/values/specified/box.rs.html#1695-1707\">Source</a><h4 class=\"code-header\">pub(crate) fn <a href=\"#method.parse_legacy\" class=\"fn\">parse_legacy</a>(\n    context: &amp;<a class=\"struct\" href=\"style/parser/struct.ParserContext.html\" title=\"struct style::parser::ParserContext\">ParserContext</a>&lt;'_&gt;,\n    input: &amp;mut <a class=\"struct\" href=\"style/values/struct.Parser.html\" title=\"struct style::values::Parser\">Parser</a>&lt;'_&gt;,\n) -&gt; <a class=\"enum\" href=\"https://doc.rust-lang.org/1.97.1/core/result/enum.Result.html\" title=\"enum core::result::Result\">Result</a>&lt;Self, <a class=\"type\" href=\"style_traits/type.ParseError.html\" title=\"type style_traits::ParseError\">ParseError</a>&gt;</h4></section></summary><div class=\"docblock\"><p>Parses a <code>-webkit-perspective</code> value.</p>\n</div></details></div></details>",0,"style::properties::generated::shorthands::_webkit_perspective::Value"]]]]);
+    if (window.register_type_impls) {
+        window.register_type_impls(type_impls);
+    } else {
+        window.pending_type_impls = type_impls;
+    }
+})()
+//{"start":55,"fragment_lengths":[1672]}

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_BLOCK_COUNT","MAX_FFT_SIZE"],"fn":["clamp_255"],"struct":["AnalyserNode","AnalysisEngine"]};

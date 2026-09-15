@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_GPUSupportedLimits"],"fn":["set_limit"],"struct":["GPUSupportedLimits"]};

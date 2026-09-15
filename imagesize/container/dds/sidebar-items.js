@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DdsCompression"],"fn":["detect_compression","matches","size"]};

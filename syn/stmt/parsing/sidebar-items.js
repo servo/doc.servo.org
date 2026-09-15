@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_stmt","stmt_expr","stmt_local","stmt_mac"],"struct":["AllowNoSemi"]};

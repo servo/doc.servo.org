@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["create_pointer",1]],"struct":["ConstPointer","DetachablePointer","ManagedPointer"],"trait":["IntoPointer","Pointer"],"type":["DetachableLcPtr","LcPtr"]};

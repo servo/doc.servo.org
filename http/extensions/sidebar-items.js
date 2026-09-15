@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Extensions","IdHasher"],"trait":["AnyClone"],"type":["AnyMap"]};

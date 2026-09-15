@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["THREAD","THREAD_GUARD"],"fn":["get","get_slow","try_get"],"static":["THREAD_ID_MANAGER"],"struct":["Thread","ThreadGuard","ThreadIdManager"]};

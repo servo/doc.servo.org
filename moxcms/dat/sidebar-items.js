@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["days_in_month","is_leap"],"struct":["ColorDateTime"]};

@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Parses an expression with operator precedence."><title>precedence in nom_language::precedence - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="nom_language" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">precedence</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../nom_language/index.html">nom_<wbr>language</a><span class="version">0.1.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">precedence</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#arguments" title="Arguments">Arguments</a></li><li><a href="#example" title="Example">Example</a></li><li><a href="#evaluation-order" title="Evaluation order">Evaluation order</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In nom_<wbr>language::<wbr>precedence</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">nom_language</a>::<wbr><a href="index.html">precedence</a></div><h1>Function <span class="fn">precedence</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/nom_language/precedence/mod.rs.html#203-369">Source</a> </span></div><pre class="rust item-decl"><code>pub fn precedence&lt;I, O, E, E2, F, G, H1, H3, H2, P1, P2, P3, Q&gt;(
+    prefix: H1,
+    postfix: H2,
+    binary: H3,
+    operand: F,
+    fold: G,
+) -&gt; impl <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(I) -&gt; <a class="type" href="../../nom/internal/type.IResult.html" title="type nom::internal::IResult">IResult</a>&lt;I, O, E&gt;<div class="where">where
+    I: <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/cmp/trait.PartialEq.html" title="trait core::cmp::PartialEq">PartialEq</a>,
+    E: <a class="trait" href="../../nom/error/trait.ParseError.html" title="trait nom::error::ParseError">ParseError</a>&lt;I&gt; + <a class="trait" href="../../nom/error/trait.FromExternalError.html" title="trait nom::error::FromExternalError">FromExternalError</a>&lt;I, E2&gt;,
+    F: <a class="trait" href="../../nom/internal/trait.Parser.html" title="trait nom::internal::Parser">Parser</a>&lt;I, Output = O, Error = E&gt;,
+    G: <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="enum" href="enum.Operation.html" title="enum nom_language::precedence::Operation">Operation</a>&lt;P1, P2, P3, O&gt;) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.97.1/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;O, E2&gt;,
+    H1: <a class="trait" href="../../nom/internal/trait.Parser.html" title="trait nom::internal::Parser">Parser</a>&lt;I, Output = <a class="struct" href="struct.Unary.html" title="struct nom_language::precedence::Unary">Unary</a>&lt;P1, Q&gt;, Error = E&gt;,
+    H2: <a class="trait" href="../../nom/internal/trait.Parser.html" title="trait nom::internal::Parser">Parser</a>&lt;I, Output = <a class="struct" href="struct.Unary.html" title="struct nom_language::precedence::Unary">Unary</a>&lt;P2, Q&gt;, Error = E&gt;,
+    H3: <a class="trait" href="../../nom/internal/trait.Parser.html" title="trait nom::internal::Parser">Parser</a>&lt;I, Output = <a class="struct" href="struct.Binary.html" title="struct nom_language::precedence::Binary">Binary</a>&lt;P3, Q&gt;, Error = E&gt;,
+    Q: <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/cmp/trait.Ord.html" title="trait core::cmp::Ord">Ord</a> + <a class="trait" href="https://doc.rust-lang.org/1.97.1/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a>,</div></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Parses an expression with operator precedence.</p>
+<p>Supports prefix, postfix and binary operators. Operators are applied in ascending precedence.</p>
+<p>The parser will track its current position inside the expression and call the respective
+operand/operator parsers. The prefix and postfix parsers are called repeatedly until they fail before
+execution moves on to the operand or binary parser.</p>
+<p>Expressions are folded as soon as possible. The result will be reused as another operand. After the
+expression has been read completely any remaining operations are folded and the resulting, single
+operand is returned as the result.</p>
+<p>It will return <code>Err(Err:Error((_, ErrorKind::Precedence)))</code> if:</p>
+<ul>
+<li>the <code>fold</code> function returns an <code>Err</code>.</li>
+<li>more than one or no operands remain after the expression has been evaluated completely.</li>
+<li>the input does not match the pattern: <code>prefix* operand postfix* (binary prefix* operand postfix*)*</code></li>
+</ul>
+<h2 id="arguments"><a class="doc-anchor" href="#arguments">§</a>Arguments</h2>
+<ul>
+<li><code>prefix</code> Parser for prefix unary operators.</li>
+<li><code>postfix</code> Parser for postfix unary operators.</li>
+<li><code>binary</code> Parser for binary operators.</li>
+<li><code>operand</code> Parser for operands.</li>
+<li><code>fold</code> Function that evaluates a single operation and returns the result.</li>
+</ul>
+<h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>nom_language::precedence::{precedence, unary_op, binary_op, Assoc, Operation};
+<span class="kw">use </span>nom::character::complete::digit1;
+<span class="kw">use </span>nom::combinator::{map_res, fail};
+<span class="kw">use </span>nom::sequence::delimited;
+<span class="kw">use </span>nom::bytes::complete::tag;
+<span class="kw">use </span>nom::branch::alt;
+
+<span class="kw">fn </span>parser(i: <span class="kw-2">&amp;</span>str) -&gt; IResult&lt;<span class="kw-2">&amp;</span>str, i64&gt; {
+  precedence(
+    unary_op(<span class="number">1</span>, tag(<span class="string">"-"</span>)),
+    fail(),
+    alt((
+      binary_op(<span class="number">2</span>, Assoc::Left, tag(<span class="string">"*"</span>)),
+      binary_op(<span class="number">2</span>, Assoc::Left, tag(<span class="string">"/"</span>)),
+      binary_op(<span class="number">3</span>, Assoc::Left, tag(<span class="string">"+"</span>)),
+      binary_op(<span class="number">3</span>, Assoc::Left, tag(<span class="string">"-"</span>)),
+    )),
+    alt((
+      map_res(digit1, |s: <span class="kw-2">&amp;</span>str| s.parse::&lt;i64&gt;()),
+      delimited(tag(<span class="string">"("</span>), parser, tag(<span class="string">")"</span>)),
+    )),
+    |op: Operation&lt;<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span>str, i64&gt;| {
+      <span class="kw">use </span>nom_language::precedence::Operation::<span class="kw-2">*</span>;
+      <span class="kw">match </span>op {
+        Prefix(<span class="string">"-"</span>, o) =&gt; <span class="prelude-val">Ok</span>(-o),
+        Binary(lhs, <span class="string">"*"</span>, rhs) =&gt; <span class="prelude-val">Ok</span>(lhs * rhs),
+        Binary(lhs, <span class="string">"/"</span>, rhs) =&gt; <span class="prelude-val">Ok</span>(lhs / rhs),
+        Binary(lhs, <span class="string">"+"</span>, rhs) =&gt; <span class="prelude-val">Ok</span>(lhs + rhs),
+        Binary(lhs, <span class="string">"-"</span>, rhs) =&gt; <span class="prelude-val">Ok</span>(lhs - rhs),
+        <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(<span class="string">"Invalid combination"</span>),
+      }
+    }
+  )(i)
+}
+
+<span class="macro">assert_eq!</span>(parser(<span class="string">"8-2*2"</span>), <span class="prelude-val">Ok</span>((<span class="string">""</span>, <span class="number">4</span>)));
+<span class="macro">assert_eq!</span>(parser(<span class="string">"4-(2+2)"</span>), <span class="prelude-val">Ok</span>((<span class="string">""</span>, <span class="number">0</span>)));
+<span class="macro">assert_eq!</span>(parser(<span class="string">"3-(2*3)+7+2*2-(2*(2+4))"</span>), <span class="prelude-val">Ok</span>((<span class="string">""</span>, -<span class="number">4</span>)));</code></pre></div><h2 id="evaluation-order"><a class="doc-anchor" href="#evaluation-order">§</a>Evaluation order</h2>
+<p>This parser reads expressions from left to right and folds operations as soon as possible. This
+behaviour is only important when using an operator grammar that allows for ambigious expressions.</p>
+<p>For example, the expression <code>-a++**b</code> is ambigious with the following precedence.</p>
+<div><table><thead><tr><th>Operator</th><th>Position</th><th>Precedence</th><th>Associativity</th></tr></thead><tbody>
+<tr><td>**</td><td>Binary</td><td>1</td><td>Right</td></tr>
+<tr><td>-</td><td>Prefix</td><td>2</td><td>N/A</td></tr>
+<tr><td>++</td><td>Postfix</td><td>3</td><td>N/A</td></tr>
+</tbody></table>
+</div>
+<p>The expression can be parsed in two ways: <code>-((a++)**b)</code> or <code>((-a)++)**b</code>. This parser will always
+parse it as the latter because of how it evaluates expressions:</p>
+<ul>
+<li>It reads, left-to-right, the first two operators <code>-a++</code>.</li>
+<li>Because the minus takes precedence over the increment it is evaluated immediately <code>(-a)++</code>.</li>
+<li>It then reads the remaining input and evaluates the increment next in order to preserve its
+position in the expression <br />
+<code>((-a)++)**b</code>.</li>
+</ul>
+</div></details></section></div></main></body></html>

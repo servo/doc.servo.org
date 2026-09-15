@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","PasswordCredential_Binding"],"trait":["PasswordCredentialMethods"],"type":["PasswordCredentialData","PasswordCredentialInit"]};

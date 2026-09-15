@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ATTEMPTS_BEFORE_SQRT","MAX_ATTEMPTS"],"enum":["LucasCheck"],"fn":["decompose","lucas_test"],"struct":["AStarBase","BruteForceBase","SelfridgeBase"],"trait":["LucasBase"]};

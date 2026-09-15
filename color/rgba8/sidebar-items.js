@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PremulRgba8","Rgba8"]};

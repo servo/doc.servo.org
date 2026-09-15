@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WuffErr"],"fn":["u32_will_overflow","usize_will_overflow"],"mod":["regular"]};

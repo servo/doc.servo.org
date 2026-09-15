@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["__cust_access","__cust_imove","__detail"]};

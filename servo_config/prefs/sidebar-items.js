@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["UserAgentPlatform"],"fn":["add_observer","get","set"],"static":["OBSERVERS","PREFERENCES"],"struct":["Preferences"],"trait":["PreferencesObserver"]};

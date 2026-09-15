@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["double_and_add","variable_base","window"]};

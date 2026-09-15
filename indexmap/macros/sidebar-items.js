@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["double_ended_iterator_methods",1],["iterator_methods",1]]};

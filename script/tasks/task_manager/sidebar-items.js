@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TaskCancellers"],"macro":[["task_source_functions",1]],"struct":["TaskManager"]};

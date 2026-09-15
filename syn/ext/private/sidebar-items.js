@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IdentAny","PeekFn"],"trait":["Sealed"]};

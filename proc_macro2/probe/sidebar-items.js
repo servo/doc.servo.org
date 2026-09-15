@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["proc_macro_span_file","proc_macro_span_location"]};

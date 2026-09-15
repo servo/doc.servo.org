@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Mode","OutputData","OutputInfo","OutputInner","OutputState","ScaleWatcherHandle"],"trait":["OutputHandler"],"type":["ScaleWatcherFn"]};

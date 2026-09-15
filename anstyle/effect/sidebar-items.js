@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["METADATA"],"struct":["EffectIndexIter","EffectIter","Effects","EffectsDisplay","Metadata"]};

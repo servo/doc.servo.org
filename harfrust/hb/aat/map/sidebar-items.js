@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AatMap","AatMapBuilder","FeatureEvent","FeatureInfo","FeatureRange","RangeFlags"]};

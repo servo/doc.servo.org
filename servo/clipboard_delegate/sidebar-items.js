@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["clipboard","fallback_clipboard"],"struct":["DefaultClipboardDelegate","StringRequest"],"trait":["ClipboardDelegate"]};

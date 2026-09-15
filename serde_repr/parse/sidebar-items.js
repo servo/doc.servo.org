@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_attrs","parse_serde_attr"],"struct":["Input","Variant","VariantAttrs"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["broadcastchannel","globalscope","messagechannel","messageport","origin","script_execution"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_crate_path","rename_identifier"],"static":["ALLOWED_ATTRS","ALLOWED_LISTS"],"struct":["EnumAttributes","FieldAttributes","StructAttributes","VariantAttributes"]};

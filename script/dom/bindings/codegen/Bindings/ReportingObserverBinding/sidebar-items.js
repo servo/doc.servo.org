@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","ReportingObserver_Binding"],"trait":["ReportingObserverMethods"],"type":["Report","ReportBody","ReportList","ReportingObserverCallback","ReportingObserverOptions"]};

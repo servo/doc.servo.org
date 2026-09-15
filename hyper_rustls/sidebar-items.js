@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MaybeHttpsStream"],"mod":["builderstates","config","connector","log","stream"],"struct":["DefaultServerNameResolver","FixedServerNameResolver","HttpsConnector","HttpsConnectorBuilder"],"trait":["ConfigBuilderExt","ResolveServerName"]};

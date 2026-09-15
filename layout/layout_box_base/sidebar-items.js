@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LayoutResultAndInputs"],"struct":["IndependentFormattingContextLayoutResult","IndependentFormattingContextLayoutResultAndInputs","LayoutBoxBase","SameFormattingContextBlockLayoutResult","SameFormattingContextBlockLayoutResultAndInputs"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_traceable_fnptr",1],["impl_traceable_simple",1],["impl_traceable_tuple",1]],"trait":["Traceable"]};

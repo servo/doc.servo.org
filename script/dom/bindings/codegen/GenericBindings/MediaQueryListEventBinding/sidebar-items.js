@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["MediaQueryListEvent_Binding"],"struct":["MediaQueryListEventInit"],"trait":["MediaQueryListEventMethods"]};

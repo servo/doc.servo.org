@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_GRADIENT_COLOR_SPACE"],"enum":["GradientKind","InterpolationAlphaSpace"],"struct":["ColorStop","ColorStops","Gradient","LinearGradientPosition","RadialGradientPosition","SweepGradientPosition"],"trait":["ColorStopsSource"]};

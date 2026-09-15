@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bytes_with_null"],"struct":["FilePath"]};

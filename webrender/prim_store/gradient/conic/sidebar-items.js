@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ConicGradient","ConicGradientKey","ConicGradientParams","ConicGradientTemplate"],"type":["ConicGradientDataHandle"]};

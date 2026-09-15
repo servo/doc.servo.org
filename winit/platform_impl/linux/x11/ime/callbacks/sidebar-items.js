@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReplaceImError"],"fn":["replace_im","set_destroy_callback","set_instantiate_callback","unset_instantiate_callback","xim_destroy_callback","xim_instantiate_callback","xim_set_callback"]};

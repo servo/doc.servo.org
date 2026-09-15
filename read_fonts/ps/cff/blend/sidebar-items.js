@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_PRECOMPUTED_SCALARS"],"struct":["BlendState"]};

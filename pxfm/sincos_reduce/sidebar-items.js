@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create_dd","frac2pi_d128","frac_2pi","rem2pi_any","rem2pi_f128","rem2pif_any","rem2pif_small"],"static":["INVPI_2_64"],"struct":["AngleReduced","LargeArgumentReduction"]};

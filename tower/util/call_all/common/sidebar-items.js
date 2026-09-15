@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CallAll"],"trait":["Drive"]};

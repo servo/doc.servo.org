@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCALE_DENOMINATOR"],"struct":["FractionalScaling","FractionalScalingManager"]};

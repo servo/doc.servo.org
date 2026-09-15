@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_log","log","log_accurate","log_accurate_slow","log_accurate_slow_td","log_dyadic"]};

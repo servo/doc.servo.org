@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["IDBObjectStore_Binding"],"struct":["IDBIndexParameters"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["NavigationPreloadManager_Binding"],"struct":["NavigationPreloadState"],"trait":["NavigationPreloadManagerMethods"]};

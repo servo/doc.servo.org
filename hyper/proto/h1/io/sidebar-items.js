@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_MAX_BUFFER_SIZE","INIT_BUFFER_SIZE","MAX_BUF_LIST_BUFFERS","MINIMUM_MAX_BUFFER_SIZE"],"enum":["ReadStrategy","WriteStrategy"],"fn":["incr_power_of_two","prev_power_of_two"],"struct":["Buffered","Cursor","WriteBuf"],"trait":["MemRead"]};

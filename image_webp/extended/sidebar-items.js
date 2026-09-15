@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FilteringMethod"],"fn":["composite_frame","get_alpha_predictor","read_3_bytes","read_alpha_chunk","read_extended_header"],"struct":["AlphaChunk","WebPExtendedInfo"]};
