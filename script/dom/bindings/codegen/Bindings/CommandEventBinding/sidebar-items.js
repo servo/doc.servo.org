@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["CommandEvent_Binding","GenericBindings"],"trait":["CommandEventMethods"],"type":["CommandEventInit"]};

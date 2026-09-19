@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_jincpi","j1_small_argument_dd","jinc_asympt_fast","jinc_small_argument_fast","jincpi_near_zero"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_DOMMatrixReadOnly"],"fn":["dommatrix2dinit_to_matrix","dommatrixinit_to_matrix","entries_to_matrix","normalize_point","transform_to_matrix","validate_and_fixup","validate_and_fixup_2d"],"struct":["DOMMatrixReadOnly"]};

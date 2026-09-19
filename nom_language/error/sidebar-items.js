@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["VerboseErrorKind"],"fn":["convert_error"],"struct":["VerboseError"]};

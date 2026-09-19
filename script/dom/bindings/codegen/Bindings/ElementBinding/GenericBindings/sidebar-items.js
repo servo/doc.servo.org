@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ScrollIntoViewContainer","ScrollLogicalPosition"],"fn":["DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap"],"mod":["Element_Binding","ScrollIntoViewContainerValues","ScrollLogicalPositionValues"],"struct":["GetHTMLOptions","ScrollIntoViewOptions","ShadowRootInit"],"trait":["ElementMethods"]};

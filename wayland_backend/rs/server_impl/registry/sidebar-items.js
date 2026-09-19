@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["send_global_remove_to","send_global_to"],"struct":["Global","Registry"]};

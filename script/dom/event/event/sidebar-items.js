@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Event"],"enum":["EventBubbles","EventCancelable","EventComposed","EventPhase"],"fn":["inner_invoke","invoke"],"struct":["Event","EventFlags","EventPathSegment","EventTask","SimpleEventTask"]};

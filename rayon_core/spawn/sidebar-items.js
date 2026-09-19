@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["spawn","spawn_fifo","spawn_fifo_in","spawn_in","spawn_job"]};

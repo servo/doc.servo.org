@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","TextDecoder_Binding"],"trait":["TextDecoderMethods"],"type":["TextDecodeOptions","TextDecoderOptions"]};

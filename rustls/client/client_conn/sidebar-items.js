@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EarlyDataError","EarlyDataState","Tls12Resumption"],"mod":["connection","danger"],"struct":["ClientConfig","ClientConnectionData","EarlyData","MayEncryptEarlyData","Resumption","TicketRequest","UnbufferedClientConnection"],"trait":["ClientSessionStore","ResolvesClientCert"]};

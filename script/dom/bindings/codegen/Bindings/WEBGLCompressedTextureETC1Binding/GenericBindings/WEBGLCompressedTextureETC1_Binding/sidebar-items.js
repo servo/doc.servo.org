@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetProtoObject","Wrap"],"mod":["WEBGLCompressedTextureETC1Constants"],"static":["Class"],"trait":["WEBGLCompressedTextureETC1Methods"]};

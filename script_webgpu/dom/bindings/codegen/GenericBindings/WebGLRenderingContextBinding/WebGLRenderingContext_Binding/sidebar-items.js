@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","DefineDOMInterface","GetProtoObject","Wrap"],"mod":["WebGLRenderingContextConstants"],"static":["Class"],"trait":["WebGLRenderingContextMethods"]};

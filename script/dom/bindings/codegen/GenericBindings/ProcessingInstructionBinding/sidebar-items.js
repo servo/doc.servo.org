@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ProcessingInstruction_Binding"],"trait":["ProcessingInstructionMethods"]};

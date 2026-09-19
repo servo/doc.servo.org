@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CreateIndirectValidationPipelineError"],"mod":["dispatch","draw","utils"],"struct":["BindGroups","IndirectValidation"]};

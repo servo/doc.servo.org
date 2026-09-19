@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["adjust_anchor_for_user_select","adjust_focus_for_user_select"],"struct":["DocumentSelectionDragHandler"]};

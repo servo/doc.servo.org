@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["SMALL_KANA_MAPPINGS"]};

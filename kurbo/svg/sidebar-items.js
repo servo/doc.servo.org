@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SvgParseError"],"struct":["SvgArc","SvgLexer"]};

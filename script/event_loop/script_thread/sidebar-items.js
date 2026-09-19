@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCRIPT_THREAD_ROOT"],"fn":["interrupt_callback","obtain_a_browsing_context","window_for_replacement","with_optional_script_thread","with_script_thread"],"struct":["BHMExitSignal","IncompleteParserContexts","ScriptMemoryFailsafe","ScriptThread","ScriptThreadUserContents","ScriptUserInteractingGuard","SharedRwLocks"],"type":["NodeIdSet"]};

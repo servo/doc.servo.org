@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["identify_bracket_pairs","is_NI","resolve_levels","resolve_neutral","resolve_weak"],"struct":["BracketPair"],"type":["BracketPairVec"]};

@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The goal of this function is to transform the state words from:"><title>rows_to_cols in chacha20::backends::avx2 - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="chacha20" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">rows_to_cols</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../../../chacha20/index.html"><img src="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg" alt="logo"></a><h2><a href="../../../chacha20/index.html">chacha20</a><span class="version">0.10.2</span></h2></div><div class="sidebar-elems"><div id="rustdoc-modnav"><h2><a href="index.html">In chacha20::<wbr>backends::<wbr>avx2</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../index.html">chacha20</a>::<wbr><a href="../index.html">backends</a>::<wbr><a href="index.html">avx2</a></div><h1>Function <span class="fn">rows_<wbr>to_<wbr>cols</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../src/chacha20/backends/avx2.rs.html#274-281">Source</a> </span></div><pre class="rust item-decl"><code>unsafe fn rows_to_cols(vs: &amp;mut [[<a class="struct" href="https://doc.rust-lang.org/1.97.1/core/core_arch/x86/struct.__m256i.html" title="struct core::core_arch::x86::__m256i">__m256i</a>; <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.array.html">4</a>]; <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.array.html">2</a>])</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The goal of this function is to transform the state words from:</p>
+<div class="example-wrap"><pre class="language-text"><code>[a0, a1, a2, a3]    [ 0,  1,  2,  3]
+[b0, b1, b2, b3] == [ 4,  5,  6,  7]
+[c0, c1, c2, c3]    [ 8,  9, 10, 11]
+[d0, d1, d2, d3]    [12, 13, 14, 15]</code></pre></div>
+<p>to:</p>
+<div class="example-wrap"><pre class="language-text"><code>[a0, a1, a2, a3]    [ 0,  1,  2,  3]
+[b1, b2, b3, b0] == [ 5,  6,  7,  4]
+[c2, c3, c0, c1]    [10, 11,  8,  9]
+[d3, d0, d1, d2]    [15, 12, 13, 14]</code></pre></div>
+<p>so that we can apply <a href="fn.add_xor_rot.html" title="fn chacha20::backends::avx2::add_xor_rot"><code>add_xor_rot</code></a> to the resulting columns, and have it compute the
+“diagonal rounds” (as defined in RFC 7539) in parallel. In practice, this shuffle is
+non-optimal: the last state word to be altered in <code>add_xor_rot</code> is <code>b</code>, so the shuffle
+blocks on the result of <code>b</code> being calculated.</p>
+<p>We can optimize this by observing that the four quarter rounds in <code>add_xor_rot</code> are
+data-independent: they only access a single column of the state, and thus the order of
+the columns does not matter. We therefore instead shuffle the other three state words,
+to obtain the following equivalent layout:</p>
+<div class="example-wrap"><pre class="language-text"><code>[a3, a0, a1, a2]    [ 3,  0,  1,  2]
+[b0, b1, b2, b3] == [ 4,  5,  6,  7]
+[c1, c2, c3, c0]    [ 9, 10, 11,  8]
+[d2, d3, d0, d1]    [14, 15, 12, 13]</code></pre></div>
+<p>See https://github.com/sneves/blake2-avx2/pull/4 for additional details. The earliest
+known occurrence of this optimization is in floodyberry’s SSE4 ChaCha code from 2014:</p>
+<ul>
+<li>https://github.com/floodyberry/chacha-opt/blob/0ab65cb99f5016633b652edebaf3691ceb4ff753/chacha_blocks_ssse3-64.S#L639-L643</li>
+</ul>
+</div></details></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LEVEL_MULT"],"fn":["level_range","occupied_bit","slot_for","slot_range"],"struct":["Expiration","Level"]};

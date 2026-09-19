@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GradientType"],"fn":["create","from_poly2","map_to_unit_x","ts_from_poly_to_poly"],"struct":["FocalData","RadialGradient"]};

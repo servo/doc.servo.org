@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CoordBox","OffsetRotateDirection"],"fn":["direction_specified_and_angle_is_zero"],"struct":["OffsetRotate"],"type":["OffsetPath","OffsetPathFunction","OffsetPosition","RayFunction"]};

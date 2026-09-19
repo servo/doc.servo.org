@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bit_set","coeff_from_half_byte","coeff_from_three_bytes","coeffs_from_byte","expand_a","expand_mask","expand_s","rej_bounded_poly","rej_ntt_poly","sample_in_ball"]};

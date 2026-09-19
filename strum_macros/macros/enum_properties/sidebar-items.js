@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PROPERTY_TYPES"],"enum":["PropertyType"],"fn":["enum_properties_inner"]};

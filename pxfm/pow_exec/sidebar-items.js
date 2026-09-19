@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["exp_dd_fast","exp_dyadic","exp_dyadic_poly","exp_poly_1","expm1_poly_dd_tiny","expm1_poly_fast","log_poly_1","pow_exp_1","pow_exp_dd","pow_expm1_1","pow_log_1"]};

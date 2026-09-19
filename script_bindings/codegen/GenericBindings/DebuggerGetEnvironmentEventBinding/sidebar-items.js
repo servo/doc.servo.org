@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["DebuggerGetEnvironmentEvent_Binding"],"struct":["EnvironmentInfo"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Axis","BinaryOperator","CoreFunction","Expression","KindTest","Literal","NodeTest"],"struct":["FilterExpression","LocationStepExpression","PathExpression","PredicateListExpression","QName"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Infix"],"fn":["expression","expression_impl"],"struct":["Expression","Postfix","Prefix"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Constant"],"macro":[["define_constant",1]]};

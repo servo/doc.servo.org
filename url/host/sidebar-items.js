@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Host","HostInternal"],"fn":["ends_in_a_number","longest_zero_sequence","parse_ipv4addr","parse_ipv4number","parse_ipv6addr","write_ipv6"]};

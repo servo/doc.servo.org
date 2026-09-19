@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HEADER_SIZE"],"enum":["Format"],"struct":["AnchorPoints","Coverage","EntryData","Subtable","Subtable0","Subtable1","Subtable2","Subtable4","Subtable6","Subtables","SubtablesIter","Table"]};

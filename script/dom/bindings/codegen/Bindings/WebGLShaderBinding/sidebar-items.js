@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","WebGLShader_Binding"],"trait":["WebGLShaderMethods"]};

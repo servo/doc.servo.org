@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetConstructorObject","Wrap"],"mod":["FileSystemEntry_Binding","GenericBindings"],"trait":["FileSystemEntryMethods"],"type":["ErrorCallback","FileSystemEntryCallback"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["on_informational"],"mod":["h1_reason_phrase","informational"],"struct":["HeaderCaseMap","Protocol","ReasonPhrase"]};

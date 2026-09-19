@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["from_items_to_struct","from_items_to_struct_mut"],"macro":[["as_pixels_impl",1],["reorder_impl_from",1],["rgb_impl_from",1]],"mod":["array","tuple"],"trait":["AsPixels","FromSlice"]};

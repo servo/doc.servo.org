@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["PaintRenderingContext2D_Binding"],"trait":["PaintRenderingContext2DMethods"]};

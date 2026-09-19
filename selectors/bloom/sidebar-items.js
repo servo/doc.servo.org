@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ARRAY_SIZE","BLOOM_HASH_MASK","KEY_MASK","KEY_SIZE"],"fn":["hash1","hash2"],"struct":["BloomStorageBool","BloomStorageU8","CountingBloomFilter"],"trait":["BloomStorage"],"type":["BloomFilter"]};

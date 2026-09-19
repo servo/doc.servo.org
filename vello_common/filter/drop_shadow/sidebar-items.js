@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["transform_shadow_params"],"struct":["DropShadow"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["acosh_refine","as_acosh_one","f_acosh","lpoly_xd_generic"],"static":["ACOSH_ASINH_B","ACOSH_ASINH_L1","ACOSH_ASINH_L2","ACOSH_ASINH_LL","ACOSH_ASINH_R1","ACOSH_ASINH_R2","ACOSH_ASINH_REFINE_T2","ACOSH_ASINH_REFINE_T4","ACOSH_SINH_REFINE_T1","ACOSH_SINH_REFINE_T3"]};

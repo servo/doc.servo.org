@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_OscillatorNode"],"fn":["convert_oscillator_options"],"struct":["OscillatorNode"]};

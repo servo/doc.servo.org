@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SelectionDeleteDirection","SelectionDeletionBlockMerging","SelectionDeletionStripWrappers"],"trait":["EquivalentPoint"]};

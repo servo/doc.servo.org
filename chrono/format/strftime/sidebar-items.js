@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HAVE_ALTERNATES"],"static":["D_FMT","D_T_FMT","T_FMT","T_FMT_AMPM"],"struct":["StrftimeItems"]};

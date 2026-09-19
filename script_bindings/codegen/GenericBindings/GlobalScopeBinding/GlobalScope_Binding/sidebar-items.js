@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["init_sAttributes_prefs","init_sAttributes_specs","init_statics"],"static":["sAttributes","sAttributes_specs"],"trait":["GlobalScopeMethods"]};

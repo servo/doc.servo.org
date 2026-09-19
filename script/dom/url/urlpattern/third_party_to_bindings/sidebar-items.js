@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["map_component_result","map_urlpattern_result","map_urlpatterninit"]};

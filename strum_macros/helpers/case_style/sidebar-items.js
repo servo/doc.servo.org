@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["VALID_CASE_STYLES"],"enum":["CaseStyle"],"fn":["snakify"],"trait":["CaseStyleHelpers"]};

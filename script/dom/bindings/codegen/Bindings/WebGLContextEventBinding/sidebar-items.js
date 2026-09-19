@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","WebGLContextEvent_Binding"],"trait":["WebGLContextEventMethods"],"type":["WebGLContextEventInit"]};

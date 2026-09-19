@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","NavigationPreloadManager_Binding"],"trait":["NavigationPreloadManagerMethods"],"type":["NavigationPreloadState"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Either"],"fn":["one"],"macro":[["Product",1],["generics",1],["product",1],["product_pat",1]],"struct":["Product"],"trait":["Combine","Func","HList","Tuple"],"type":["CombinedTuples","One"]};

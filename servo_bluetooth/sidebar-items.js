@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CONNECTION_TIMEOUT_MS","DISCOVERY_TIMEOUT_MS","MAXIMUM_TRANSACTION_TIME"],"fn":["async_sleep","data_filter_matches","is_mock_adapter","matches_filter","matches_filters"],"mod":["adapter","bluetooth","test"],"struct":["BluetoothManager","Flags"],"trait":["BluetoothThreadFactory"]};

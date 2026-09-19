@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["edge_detect_3x3","emboss_3x3","gaussian_3x3","sharpen_3x3"]};

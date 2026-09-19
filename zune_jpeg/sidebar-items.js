@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Marker","SampleRatios"],"mod":["bitstream","color_convert","components","decoder","errors","headers","huffman","idct","marker","mcu","mcu_prog","misc","unsafe_utils","unsafe_utils_avx2","upsampler","worker"],"struct":["ImageInfo","JpegDecoder"]};

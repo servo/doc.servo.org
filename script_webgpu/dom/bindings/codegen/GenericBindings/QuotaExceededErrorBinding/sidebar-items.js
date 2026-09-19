@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["QuotaExceededError_Binding"],"struct":["QuotaExceededErrorOptions"],"trait":["QuotaExceededErrorMethods"]};

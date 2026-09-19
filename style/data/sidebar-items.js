@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["EMPTY_PSEUDO_ARRAY"],"enum":["RestyleKind","ViewportUnitUsage"],"fn":["needs_to_match_self","needs_to_recascade_self"],"struct":["EagerPseudoArray","EagerPseudoStyles","ElementData","ElementDataFlags","ElementDataMut","ElementDataRef","ElementDataWrapper","ElementStyles"],"type":["EagerPseudoArrayInner"]};

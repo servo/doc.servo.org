@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PortIndex","Void"],"struct":["AudioGraph","Connection","Edge","InputPort","Node","NodeId","OutputPort","PortId"],"trait":["PortKind"]};

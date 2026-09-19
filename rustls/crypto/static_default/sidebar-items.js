@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_default","install_default"],"static":["PROCESS_DEFAULT_PROVIDER"]};

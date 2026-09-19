@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["GCD_BATCH_SIZE"],"fn":["conditional_negate_in_place_wide","gcd_odd","invert_odd_mod","invert_odd_mod_precomp","iterations","jump","jump_step","jump_step_vartime","shr_in_place_wide","update_de","update_fg"],"mod":["boxed"],"struct":["SafeGcdInverter","SignedInt"],"type":["Matrix"]};

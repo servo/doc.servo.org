@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["sasl_auth_id"],"mod":["auth_mechanism","client","command","common"],"struct":["Authenticated"],"trait":["Handshake"]};

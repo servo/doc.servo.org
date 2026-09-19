@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["glyf_decoder","headers","hmtx_decoder"]};

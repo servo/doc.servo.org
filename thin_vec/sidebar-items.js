@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["alloc_align","alloc_size","capacity_overflow","drop_non_singleton","header_with_capacity","layout","padding"],"macro":[["array_impls",1],["thin_vec",1]],"mod":["impl_details"],"static":["EMPTY_HEADER"],"struct":["Drain","ExtractIf","Header","IntoIter","Splice","ThinVec"],"trait":["UnwrapCapOverflow"]};

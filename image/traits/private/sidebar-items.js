@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LayoutWithColor"],"fn":["dispatch_transform_from_sealed","double_dispatch_transform_from_sealed"],"struct":["PrivateToken"],"trait":["HelpDispatchTransform","SealedPixelWithColorType"]};

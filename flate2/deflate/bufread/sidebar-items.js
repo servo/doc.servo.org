@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["reset_decoder_data","reset_encoder_data"],"struct":["DeflateDecoder","DeflateEncoder"]};

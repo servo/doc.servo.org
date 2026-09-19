@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BodyLength","Dispatched"],"mod":["h1","h2"],"struct":["MessageHead","RequestLine"],"type":["RequestHead","ResponseHead"]};

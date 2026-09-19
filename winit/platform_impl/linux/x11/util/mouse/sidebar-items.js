@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["consume",1]],"struct":["Delta"]};

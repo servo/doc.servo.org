@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["capture_connection"],"struct":["CaptureConnection","CaptureConnectionExtension"]};

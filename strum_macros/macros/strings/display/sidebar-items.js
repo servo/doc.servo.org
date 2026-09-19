@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["capture_format_string_idents","capture_format_strings","display_inner"]};

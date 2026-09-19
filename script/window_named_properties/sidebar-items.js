@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["class_name","create","define_property","delete","get_own_property_descriptor","get_prototype_if_ordinary","is_extensible","own_property_keys","prevent_extensions"],"static":["CLASS","HANDLER"],"struct":["SyncWrapper"]};

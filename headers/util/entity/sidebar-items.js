@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EntityTagRange"],"fn":["check_slice_validity"],"struct":["EntityTag"]};

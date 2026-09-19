@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AutomationRate"],"fn":["Wrap"],"mod":["AudioParam_Binding","AutomationRateValues","GenericBindings"],"trait":["AudioParamMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["CustomElementRegistry_Binding","GenericBindings"],"trait":["CustomElementRegistryMethods"],"type":["CustomElementConstructor","ElementDefinitionOptions"]};

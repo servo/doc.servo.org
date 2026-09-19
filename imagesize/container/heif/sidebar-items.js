@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Compression"],"fn":["inner_matches","matches","size","skip_to_tag"]};

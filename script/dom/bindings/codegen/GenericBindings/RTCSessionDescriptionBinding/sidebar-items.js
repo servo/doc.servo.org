@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RTCSdpType"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["RTCSdpTypeValues","RTCSessionDescription_Binding"],"struct":["RTCSessionDescriptionInit"],"trait":["RTCSessionDescriptionMethods"]};

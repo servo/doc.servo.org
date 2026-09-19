@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_rsqrt","recip_hard_dyadic"]};

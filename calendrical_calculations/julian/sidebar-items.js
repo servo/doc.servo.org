@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DAYS_IN_4_YEAR_CYCLE","DAYS_IN_YEAR","JULIAN_EPOCH"],"fn":["day_before_year","days_before_month","easter","fixed_from_julian","fixed_from_julian_book_version","is_leap_year","julian_from_fixed","year_day","year_from_fixed"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["remove_drop_lifetime","remove_future_lifetime"],"mod":["if_alloc"],"struct":["FutureObj","LocalFutureObj"],"trait":["UnsafeFutureObj"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericReceiverSetVariants","GenericSelectionResult","SelectorInner"],"struct":["GenericReceiverSet","Selector"]};

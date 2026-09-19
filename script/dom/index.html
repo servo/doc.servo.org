@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The implementation of the DOM."><title>script::dom - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="script" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module dom</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../script/index.html">script</a><span class="version">0.6.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module dom</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#a-dom-object-and-its-reflector" title="A DOM object and its reflector">A DOM object and its reflector</a></li><li><a href="#memory-management" title="Memory management">Memory management</a></li><li><a href="#inheritance" title="Inheritance">Inheritance</a></li><li><a href="#construction" title="Construction">Construction</a></li><li><a href="#destruction" title="Destruction">Destruction</a></li><li><a href="#mutability-and-aliasing" title="Mutability and aliasing">Mutability and aliasing</a></li><li><a href="#reflector-and-domobject" title="`Reflector` and `DomObject`"><code>Reflector</code> and <code>DomObject</code></a></li><li><a href="#implementing-methods-for-a-dom-object" title="Implementing methods for a DOM object">Implementing methods for a DOM object</a></li><li><a href="#accessing-fields-of-a-dom-object" title="Accessing fields of a DOM object">Accessing fields of a DOM object</a></li><li><a href="#inheritance-and-casting" title="Inheritance and casting">Inheritance and casting</a></li><li><a href="#adding-a-new-dom-interface" title="Adding a new DOM interface">Adding a new DOM interface</a></li><li><a href="#accessing-dom-objects-from-layout" title="Accessing DOM objects from layout">Accessing DOM objects from layout</a></li></ul><h3><a href="#modules">Module Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate script</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">script</a></div><h1>Module <span>dom</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/script/dom/mod.rs.html#5-371">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The implementation of the DOM.</p>
+<p>The DOM is comprised of interfaces (defined by specifications using
+<a href="https://heycam.github.io/webidl/">WebIDL</a>) that are implemented as Rust
+structs in submodules of this module. Its implementation is documented
+below.</p>
+<h2 id="a-dom-object-and-its-reflector"><a class="doc-anchor" href="#a-dom-object-and-its-reflector">§</a>A DOM object and its reflector</h2>
+<p>The implementation of an interface <code>Foo</code> in Servo’s DOM involves two
+related but distinct objects:</p>
+<ul>
+<li>the <strong>DOM object</strong>: an instance of the Rust struct <code>dom::foo::Foo</code>
+(marked with the <code>#[dom_struct]</code> attribute) on the Rust heap;</li>
+<li>the <strong>reflector</strong>: a <code>JSObject</code> allocated by SpiderMonkey, that owns the
+DOM object.</li>
+</ul>
+<h2 id="memory-management"><a class="doc-anchor" href="#memory-management">§</a>Memory management</h2>
+<p>Reflectors of DOM objects, and thus the DOM objects themselves, are managed
+by the SpiderMonkey Garbage Collector. Thus, keeping alive a DOM object
+is done through its reflector.</p>
+<p>For more information, see:</p>
+<ul>
+<li>rooting pointers on the stack:
+the <a href="bindings/root/struct.Root.html"><code>Root</code></a> smart pointer;</li>
+<li>tracing pointers in member fields: the <a href="bindings/root/struct.Dom.html"><code>Dom</code></a>,
+<a href="bindings/root/struct.MutNullableDom.html"><code>MutNullableDom</code></a> and
+<a href="bindings/root/struct.MutDom.html"><code>MutDom</code></a> smart pointers and
+<a href="bindings/trace/index.html">the tracing implementation</a>;</li>
+<li>rooting pointers from across thread boundaries or in channels: the
+<a href="bindings/refcounted/struct.Trusted.html"><code>Trusted</code></a> smart pointer;</li>
+</ul>
+<h2 id="inheritance"><a class="doc-anchor" href="#inheritance">§</a>Inheritance</h2>
+<p>Rust does not support struct inheritance, as would be used for the
+object-oriented DOM APIs. To work around this issue, Servo stores an
+instance of the superclass in the first field of its subclasses. (Note that
+it is stored by value, rather than in a smart pointer such as <code>Dom&lt;T&gt;</code>.)</p>
+<p>This implies that a pointer to an object can safely be cast to a pointer
+to all its classes.</p>
+<p>This invariant is enforced by the lint in
+<code>plugins::lints::inheritance_integrity</code>.</p>
+<p>Interfaces which either derive from or are derived by other interfaces
+implement the <code>Castable</code> trait, which provides three methods <code>is::&lt;T&gt;()</code>,
+<code>downcast::&lt;T&gt;()</code> and <code>upcast::&lt;T&gt;()</code> to cast across the type hierarchy
+and check whether a given instance is of a given type.</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>dom::bindings::inheritance::Castable;
+<span class="kw">use </span>dom::element::Element;
+<span class="kw">use </span>dom::htmlelement::HTMLElement;
+<span class="kw">use </span>dom::htmlinputelement::HTMLInputElement;
+
+<span class="kw">if let </span><span class="prelude-val">Some</span>(elem) = node.downcast::&lt;Element&gt; {
+    <span class="kw">if </span>elem.is::&lt;HTMLInputElement&gt;() {
+        <span class="kw">return </span>elem.upcast::&lt;HTMLElement&gt;();
+    }
+}</code></pre></div>
+<p>Furthermore, when discriminating a given instance against multiple
+interface types, code generation provides a convenient TypeId enum
+which can be used to write <code>match</code> expressions instead of multiple
+calls to <code>Castable::is::&lt;T&gt;</code>. The <code>type_id()</code> method of an instance is
+provided by the farthest interface it derives from, e.g. <code>EventTarget</code>
+for <code>HTMLMediaElement</code>. For convenience, that method is also provided
+on the <code>Node</code> interface to avoid unnecessary upcasts to <code>EventTarget</code>.</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>dom::bindings::inheritance::{EventTargetTypeId, NodeTypeId};
+
+<span class="kw">match </span><span class="kw-2">*</span>node.type_id() {
+    EventTargetTypeId::Node(NodeTypeId::CharacterData(<span class="kw">_</span>)) =&gt; ...,
+    EventTargetTypeId::Node(NodeTypeId::Element(<span class="kw">_</span>)) =&gt; ...,
+    ...,
+}</code></pre></div><h2 id="construction"><a class="doc-anchor" href="#construction">§</a>Construction</h2>
+<p>DOM objects of type <code>T</code> in Servo have two constructors:</p>
+<ul>
+<li>a <code>T::new_inherited</code> static method that returns a plain <code>T</code>, and</li>
+<li>a <code>T::new</code> static method that returns <code>DomRoot&lt;T&gt;</code>.</li>
+</ul>
+<p>(The result of either method can be wrapped in <code>Result</code>, if that is
+appropriate for the type in question.)</p>
+<p>The latter calls the former, boxes the result, and creates a reflector
+corresponding to it by calling <code>dom::bindings::utils::reflect_dom_object</code>
+(which yields ownership of the object to the SpiderMonkey Garbage Collector).
+This is the API to use when creating a DOM object.</p>
+<p>The former should only be called by the latter, and by subclasses’
+<code>new_inherited</code> methods.</p>
+<p>DOM object constructors in JavaScript correspond to a <code>T::Constructor</code>
+static method. This method is always fallible.</p>
+<h2 id="destruction"><a class="doc-anchor" href="#destruction">§</a>Destruction</h2>
+<p>When the SpiderMonkey Garbage Collector discovers that the reflector of a
+DOM object is garbage, it calls the reflector’s finalization hook. This
+function deletes the reflector’s DOM object, calling its destructor in the
+process.</p>
+<h2 id="mutability-and-aliasing"><a class="doc-anchor" href="#mutability-and-aliasing">§</a>Mutability and aliasing</h2>
+<p>Reflectors are JavaScript objects, and as such can be freely aliased. As
+Rust does not allow mutable aliasing, mutable borrows of DOM objects are
+not allowed. In particular, any mutable fields use <code>Cell</code> or <code>DomRefCell</code>
+to manage their mutability.</p>
+<h2 id="reflector-and-domobject"><a class="doc-anchor" href="#reflector-and-domobject">§</a><code>Reflector</code> and <code>DomObject</code></h2>
+<p>Every DOM object has a <code>Reflector</code> as its first (transitive) member field.
+This contains a <code>*mut JSObject</code> that points to its reflector.</p>
+<p>The <code>FooBinding::Wrap</code> function creates the reflector, stores a pointer to
+the DOM object in the reflector, and initializes the pointer to the reflector
+in the <code>Reflector</code> field.</p>
+<p>The <code>DomObject</code> trait provides a <code>reflector()</code> method that returns the
+DOM object’s <code>Reflector</code>. It is implemented automatically for DOM structs
+through the <code>#[dom_struct]</code> attribute.</p>
+<h2 id="implementing-methods-for-a-dom-object"><a class="doc-anchor" href="#implementing-methods-for-a-dom-object">§</a>Implementing methods for a DOM object</h2>
+<ul>
+<li><code>dom::bindings::codegen::Bindings::FooBinding::FooMethods</code> for methods
+defined through IDL;</li>
+<li><code>&amp;self</code> public methods for public helpers;</li>
+<li><code>&amp;self</code> methods for private helpers.</li>
+</ul>
+<h2 id="accessing-fields-of-a-dom-object"><a class="doc-anchor" href="#accessing-fields-of-a-dom-object">§</a>Accessing fields of a DOM object</h2>
+<p>All fields of DOM objects are private; accessing them from outside their
+module is done through explicit getter or setter methods.</p>
+<h2 id="inheritance-and-casting"><a class="doc-anchor" href="#inheritance-and-casting">§</a>Inheritance and casting</h2>
+<p>All DOM interfaces part of an inheritance chain (i.e. interfaces
+that derive others or are derived from) implement the trait <code>Castable</code>
+which provides both downcast and upcasts.</p>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">fn </span>f(element: <span class="kw-2">&amp;</span>Element) {
+    <span class="kw">let </span>base = element.upcast::&lt;Node&gt;();
+    <span class="kw">let </span>derived = element.downcast::&lt;HTMLElement&gt;().unwrap();
+}</code></pre></div><h2 id="adding-a-new-dom-interface"><a class="doc-anchor" href="#adding-a-new-dom-interface">§</a>Adding a new DOM interface</h2>
+<p>Adding a new interface <code>Foo</code> requires at least the following:</p>
+<ul>
+<li>adding the new IDL file at <code>components/script/dom/webidls/Foo.webidl</code>;</li>
+<li>creating <code>components/script/dom/foo.rs</code>;</li>
+<li>listing <code>foo.rs</code> in <code>components/script/dom/mod.rs</code>;</li>
+<li>defining the DOM struct <code>Foo</code> with a <code>#[dom_struct]</code> attribute, a
+superclass or <code>Reflector</code> member, and other members as appropriate;</li>
+<li>implementing the
+<code>dom::bindings::codegen::Bindings::FooBinding::FooMethods</code> trait for
+<code>Foo</code>;</li>
+<li>adding/updating the match arm in create_element in
+<code>components/script/dom/element/create.rs</code> (only applicable to new types inheriting
+from <code>HTMLElement</code>)</li>
+</ul>
+<p>More information is available in the <a href="bindings/index.html">bindings module</a>.</p>
+<h2 id="accessing-dom-objects-from-layout"><a class="doc-anchor" href="#accessing-dom-objects-from-layout">§</a>Accessing DOM objects from layout</h2>
+<p>Layout code can access the DOM through the
+<a href="bindings/root/struct.LayoutDom.html"><code>LayoutDom</code></a> smart pointer. This does not
+keep the DOM object alive; we ensure that no DOM code (Garbage Collection
+in particular) runs while layout is accessing the DOM.</p>
+<p>Methods accessible to layout are implemented on <code>LayoutDom&lt;Foo&gt;</code> using
+<code>LayoutFooHelpers</code> traits.</p>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="abort/index.html" title="mod script::dom::abort">abort</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="activation/index.html" title="mod script::dom::activation">activation</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="animations/index.html" title="mod script::dom::animations">animations</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="attributes/index.html" title="mod script::dom::attributes">attributes</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="audio/index.html" title="mod script::dom::audio">audio</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="bindings/index.html" title="mod script::dom::bindings">bindings</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>The code to expose the DOM to JavaScript through IDL bindings.</dd><dt><a class="mod" href="bluetooth/index.html" title="mod script::dom::bluetooth">bluetooth</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="canvas/index.html" title="mod script::dom::canvas">canvas</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="characterdata/index.html" title="mod script::dom::characterdata">characterdata</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="clipboard/index.html" title="mod script::dom::clipboard">clipboard</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="console/index.html" title="mod script::dom::console">console</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="cookiestore/index.html" title="mod script::dom::cookiestore">cookiestore</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="credentialmanagement/index.html" title="mod script::dom::credentialmanagement">credentialmanagement</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="css/index.html" title="mod script::dom::css">css</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="datatransfer/index.html" title="mod script::dom::datatransfer">datatransfer</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="debugger/index.html" title="mod script::dom::debugger">debugger</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="document/index.html" title="mod script::dom::document">document</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="domexception/index.html" title="mod script::dom::domexception">domexception</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="element/index.html" title="mod script::dom::element">element</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="encoding/index.html" title="mod script::dom::encoding">encoding</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="event/index.html" title="mod script::dom::event">event</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="eventsource/index.html" title="mod script::dom::eventsource">eventsource</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="execcommand/index.html" title="mod script::dom::execcommand">execcommand</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="fetch/index.html" title="mod script::dom::fetch">fetch</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="file/index.html" title="mod script::dom::file">file</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="filesystem/index.html" title="mod script::dom::filesystem">filesystem</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="form/index.html" title="mod script::dom::form">form</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="fullscreen/index.html" title="mod script::dom::fullscreen">fullscreen</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="gamepad/index.html" title="mod script::dom::gamepad">gamepad</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="geolocation/index.html" title="mod script::dom::geolocation">geolocation</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="geometry/index.html" title="mod script::dom::geometry">geometry</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="globalscope/index.html" title="mod script::dom::globalscope">globalscope</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="html/index.html" title="mod script::dom::html">html</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="indexeddb/index.html" title="mod script::dom::indexeddb">indexeddb</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="intersectionobserver/index.html" title="mod script::dom::intersectionobserver">intersectionobserver</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="macros/index.html" title="mod script::dom::macros">macros</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="media/index.html" title="mod script::dom::media">media</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="mimetype/index.html" title="mod script::dom::mimetype">mimetype</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="mutationobserver/index.html" title="mod script::dom::mutationobserver">mutationobserver</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="navigator/index.html" title="mod script::dom::navigator">navigator</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="node/index.html" title="mod script::dom::node">node</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="performance/index.html" title="mod script::dom::performance">performance</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="permission/index.html" title="mod script::dom::permission">permission</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="promise/index.html" title="mod script::dom::promise">promise</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="quotaexceedederror/index.html" title="mod script::dom::quotaexceedederror">quotaexceedederror</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="range/index.html" title="mod script::dom::range">range</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="raredata/index.html" title="mod script::dom::raredata">raredata</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="reporting/index.html" title="mod script::dom::reporting">reporting</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="resizeobserver/index.html" title="mod script::dom::resizeobserver">resizeobserver</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="security/index.html" title="mod script::dom::security">security</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="selection/index.html" title="mod script::dom::selection">selection</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="selection_range/index.html" title="mod script::dom::selection_range">selection_<wbr>range</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="serviceworker/index.html" title="mod script::dom::serviceworker">serviceworker</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="servointernals/index.html" title="mod script::dom::servointernals">servointernals</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="servoparser/index.html" title="mod script::dom::servoparser">servoparser</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="shadowroot/index.html" title="mod script::dom::shadowroot">shadowroot</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="srcset/index.html" title="mod script::dom::srcset">srcset</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="storage/index.html" title="mod script::dom::storage">storage</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="stream/index.html" title="mod script::dom::stream">stream</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="svg/index.html" title="mod script::dom::svg">svg</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="testing/index.html" title="mod script::dom::testing">testing</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="timeranges/index.html" title="mod script::dom::timeranges">timeranges</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="touch/index.html" title="mod script::dom::touch">touch</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="trustedtypes/index.html" title="mod script::dom::trustedtypes">trustedtypes</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="types/index.html" title="mod script::dom::types">types</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="url/index.html" title="mod script::dom::url">url</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="userscripts/index.html" title="mod script::dom::userscripts">userscripts</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="values/index.html" title="mod script::dom::values">values</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="visualviewport/index.html" title="mod script::dom::visualviewport">visualviewport</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="wakelock/index.html" title="mod script::dom::wakelock">wakelock</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="webcrypto/index.html" title="mod script::dom::webcrypto">webcrypto</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="webgl/index.html" title="mod script::dom::webgl">webgl</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="webgpu/index.html" title="mod script::dom::webgpu">webgpu</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="webrtc/index.html" title="mod script::dom::webrtc">webrtc</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="webvtt/index.html" title="mod script::dom::webvtt">webvtt</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="webxr/index.html" title="mod script::dom::webxr">webxr</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="window/index.html" title="mod script::dom::window">window</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="workers/index.html" title="mod script::dom::workers">workers</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="worklet/index.html" title="mod script::dom::worklet">worklet</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="xml/index.html" title="mod script::dom::xml">xml</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="xmlhttprequest/index.html" title="mod script::dom::xmlhttprequest">xmlhttprequest</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="xpath/index.html" title="mod script::dom::xpath">xpath</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl></section></div></main></body></html>

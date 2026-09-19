@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","LiteralToken","OperatorToken","Token"],"fn":["match_operator_name","tokenize"],"struct":["CNameToken","Tokenizer"]};

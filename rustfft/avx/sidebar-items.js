@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["avx_fft_helper_immut","avx_fft_helper_inplace","avx_fft_helper_outofplace"],"macro":[["boilerplate_avx_fft",1],["boilerplate_avx_fft_commondata",1]],"mod":["avx32_butterflies","avx32_utils","avx64_butterflies","avx64_utils","avx_bluesteins","avx_mixed_radix","avx_planner","avx_raders","avx_vector"],"struct":["CommonSimdData"],"trait":["AvxNum"]};

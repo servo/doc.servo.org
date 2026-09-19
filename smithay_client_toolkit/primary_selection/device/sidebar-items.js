@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PrimarySelectionDevice","PrimarySelectionDeviceData","PrimarySelectionDeviceDataInner"],"trait":["PrimarySelectionDeviceHandler"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ExceptionHandling"],"fn":["call_setup","wrap_call_this_value"],"struct":["CallbackFunction","CallbackInterface","CallbackObject","RootedCallback","TracedCallback"],"trait":["CallbackContainer","OwnerWindow","ThisReflector"]};

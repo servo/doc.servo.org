@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["assign_update_pass"],"struct":["PictureGraph","PictureInfo"]};

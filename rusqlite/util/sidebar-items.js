@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Named"],"mod":["param_cache","small_cstr","sqlite_string"],"trait":["Name"]};

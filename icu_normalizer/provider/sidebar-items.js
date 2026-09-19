@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Baked","CanonicalCompositions","CanonicalCompositionsNew","DecompositionData","DecompositionTables","NonRecursiveDecompositionSupplement","NormalizerNfcV1","NormalizerNfcV2","NormalizerNfdDataV1","NormalizerNfdSupplementV1","NormalizerNfdTablesV1","NormalizerNfkdDataV1","NormalizerNfkdTablesV1","NormalizerUts46DataV1"]};

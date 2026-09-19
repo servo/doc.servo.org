@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["COST_THRESHOLD"],"fn":["estimate_path_cost","estimate_render_task_cost"],"struct":["PathCostData"]};

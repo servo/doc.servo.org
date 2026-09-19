@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TRANSFORM_EXT_CHAR","TRANSFORM_EXT_STR"],"macro":[["key",1]],"mod":["fields","key","value"],"struct":["Fields","Key","Transform","Value"]};

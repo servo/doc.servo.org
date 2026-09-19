@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MemoryTypeMismatchError","Readable","Writable"],"struct":["Dump","MappedMemory","Memory","MemoryMap","MemoryRef","MemoryTypeValueTypeChecker"],"trait":["MemoryType"]};

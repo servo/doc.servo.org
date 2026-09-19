@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EndingType"],"mod":["Blob_Binding","EndingTypeValues"],"struct":["BlobPropertyBag"]};

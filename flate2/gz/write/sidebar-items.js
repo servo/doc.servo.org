@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CRC_BYTES_LEN"],"fn":["gz_encoder"],"struct":["GzDecoder","GzEncoder","MultiGzDecoder"]};

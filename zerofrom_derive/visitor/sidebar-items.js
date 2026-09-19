@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_type_for_parameters"],"struct":["TypeVisitor"]};

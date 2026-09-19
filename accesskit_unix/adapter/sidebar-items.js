@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AdapterState","Message"],"struct":["Adapter","Callback"]};

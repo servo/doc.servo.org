@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Properties","PropertiesChanged","PropertiesChangedArgs","PropertiesChangedStream","PropertiesProxy"],"trait":["PropertiesSignals"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FloatConstructorError","Padding"],"macro":[["cast_signed",1],["duration_mul_div_int",1],["try_from_secs",1]],"struct":["SignedDuration"],"type":["Nanoseconds"]};

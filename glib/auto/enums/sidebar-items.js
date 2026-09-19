@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ChecksumType","ConvertError","DateMonth","DateWeekday","FileError","KeyFileError","LogWriterOutput","MarkupError","NormalizeMode","OptionArg","SeekType","TimeType","UnicodeBreakType","UnicodeScript","UnicodeType","VariantClass"]};

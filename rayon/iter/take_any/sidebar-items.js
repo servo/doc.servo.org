@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["checked_decrement"],"struct":["TakeAny","TakeAnyConsumer","TakeAnyFolder"]};

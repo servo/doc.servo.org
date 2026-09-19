@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["atspi_scroll_type_to_scroll_hint","text_position_from_offset","text_range_bounds_from_offsets","text_range_from_offset","text_range_from_offsets"],"struct":["WindowBounds"]};

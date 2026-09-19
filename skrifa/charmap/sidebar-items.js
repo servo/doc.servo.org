@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MapVariant","MappingKind","MappingsInner","SupportedSubtable"],"fn":["get_subtable"],"struct":["Charmap","CodepointSubtable","MappingIndex","MappingSelection","Mappings","VariantMappings"]};

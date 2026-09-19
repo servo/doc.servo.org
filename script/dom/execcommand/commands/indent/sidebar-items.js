@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["execute_indent_command","indent","normalize_sublists"]};

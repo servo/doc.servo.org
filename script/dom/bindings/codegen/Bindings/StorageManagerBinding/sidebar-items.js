@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","StorageManager_Binding"],"trait":["StorageManagerMethods"],"type":["StorageEstimate"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["expand_signature_macro","signature_to_tokens_with_crate"],"struct":["SignatureInput"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["read","sealed"],"struct":["BlockBuffer","Eager","Error","Lazy","ReadBuffer","ResetGuard"],"trait":["BlockSizes","BufferKind"],"type":["EagerBuffer","LazyBuffer","SerializedBuffer","SerializedBufferSize"]};

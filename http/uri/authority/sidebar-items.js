@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AuthorityError"],"fn":["create_authority","host","validate_authority_bytes"],"struct":["Authority"]};

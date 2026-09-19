@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CSS"],"fn":["blank_html_line","blank_markdown_line","change_style","change_to_markdown_style","new_markdown_line"],"struct":["Styles"]};

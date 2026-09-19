@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FromSqlError"],"macro":[["from_sql_integral",1]],"trait":["FromSql"],"type":["FromSqlResult"]};

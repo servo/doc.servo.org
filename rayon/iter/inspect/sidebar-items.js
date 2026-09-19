@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Inspect","InspectConsumer","InspectFolder","InspectProducer"]};

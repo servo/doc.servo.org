@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Algorithm"],"fn":["apply_algorithm_to_response","get_strongest_metadata","is_eligible_for_integrity_validation","is_response_integrity_valid","parse_token","parsed_metadata","split_html_space_chars"],"static":["BASE64_GRAMMAR","HTML_SPACE_CHARACTERS"],"struct":["SriEntry"],"type":["StaticCharVec"]};

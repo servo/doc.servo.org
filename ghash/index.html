@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="RustCrypto: GHASH"><title>ghash - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="ghash" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate ghash</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../ghash/index.html"><img src="https://raw.githubusercontent.com/RustCrypto/media/8f1a9894/logo.svg" alt="logo"></a><h2><a href="../ghash/index.html">ghash</a><span class="version">0.6.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#rustcrypto-ghash" title="RustCrypto: GHASH">RustCrypto: GHASH</a><ul><li><a href="#security" title="Security">Security</a></li><li><a href="#implementation-notes" title="Implementation Notes">Implementation Notes</a></li><li><a href="#license" title="License">License</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>ghash</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/ghash/lib.rs.html#1-123">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="rustcrypto-ghash"><a class="doc-anchor" href="#rustcrypto-ghash">§</a>RustCrypto: GHASH</h2>
+<p><a href="https://crates.io/crates/ghash"><img src="https://img.shields.io/crates/v/ghash.svg?logo=rust" alt="crate" /></a>
+<a href="https://docs.rs/ghash/"><img src="https://docs.rs/ghash/badge.svg" alt="Docs" /></a>
+<a href="https://github.com/RustCrypto/universal-hashes/actions/workflows/ghash.yml?query=branch:master"><img src="https://github.com/RustCrypto/universal-hashes/actions/workflows/ghash.yml/badge.svg?branch=master" alt="Build Status" /></a>
+<img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" alt="Apache2/MIT licensed" />
+<img src="https://img.shields.io/badge/rustc-1.85+-blue.svg" alt="Rust Version" />
+<a href="https://rustcrypto.zulipchat.com/#narrow/channel/260051-universal-hashes"><img src="https://img.shields.io/badge/zulip-join_chat-blue.svg" alt="Project Chat" /></a>
+<a href="https://github.com/RustCrypto/meta/blob/master/HAZMAT.md"><img src="https://img.shields.io/badge/crypto-hazmat%E2%9A%A0-red.svg" alt="HAZMAT" /></a></p>
+<p><a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode#Mathematical_basis">GHASH</a> is a <a href="https://en.wikipedia.org/wiki/Universal_hashing">universal hash function</a> which operates over GF(2^128) and
+can be used for constructing a <a href="https://en.wikipedia.org/wiki/Message_authentication_code">Message Authentication Code (MAC)</a>.</p>
+<p>Its primary intended use is for implementing <a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode">AES-GCM</a>.</p>
+<h3 id="security"><a class="doc-anchor" href="#security">§</a>Security</h3><h4 id="-warning-hazmat"><a class="doc-anchor" href="#-warning-hazmat">§</a>⚠️ Warning: <a href="https://github.com/RustCrypto/meta/blob/master/HAZMAT.md">Hazmat!</a></h4>
+<p>Universal hash functions have subtle security properties and are primarily intended as a
+building block for constructions like AEAD algorithms.</p>
+<p>USE AT YOUR OWN RISK!</p>
+<h4 id="security-notes"><a class="doc-anchor" href="#security-notes">§</a>Security Notes</h4>
+<p>This crate has received one <a href="https://research.nccgroup.com/2020/02/26/public-report-rustcrypto-aes-gcm-and-chacha20poly1305-implementation-review/">security audit by NCC Group</a>, with no significant
+findings. We would like to thank <a href="https://www.mobilecoin.com/">MobileCoin</a> for funding the audit.</p>
+<p>All implementations contained in the crate are designed to execute in constant
+time, either by relying on hardware intrinsics (i.e. AVX2 on x86/x86_64), or
+using a portable implementation which is only constant time on processors which
+implement constant-time multiplication.</p>
+<p>It is not suitable for use on processors with a variable-time multiplication
+operation (e.g. short circuit on multiply-by-zero / multiply-by-one, such as
+certain 32-bit PowerPC CPUs and some non-ARM microcontrollers).</p>
+<h3 id="implementation-notes"><a class="doc-anchor" href="#implementation-notes">§</a>Implementation Notes</h3>
+<p>The implementation of GHASH found in this crate internally uses the
+<a href="https://docs.rs/polyval/"><code>polyval</code></a> crate, which provides a similar universal hash function used by
+AES-GCM-SIV (RFC 8452).</p>
+<p>By implementing GHASH in terms of POLYVAL, the two universal hash functions
+can share a common core, meaning any optimization work (e.g. CPU-specific
+SIMD implementations) which happens upstream in the <code>polyval</code> crate
+benefits GHASH as well.</p>
+<p>From <a href="https://tools.ietf.org/html/rfc8452#appendix-A">RFC 8452 Appendix A</a>:</p>
+<blockquote>
+<p>GHASH and POLYVAL both operate in GF(2^128), although with different
+irreducible polynomials: POLYVAL works modulo x^128 + x^127 + x^126 +
+x^121 + 1 and GHASH works modulo x^128 + x^7 + x^2 + x + 1.  Note
+that these irreducible polynomials are the “reverse” of each other.</p>
+</blockquote>
+<h3 id="license"><a class="doc-anchor" href="#license">§</a>License</h3>
+<p>Licensed under either of:</p>
+<ul>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></li>
+<li><a href="http://opensource.org/licenses/MIT">MIT license</a></li>
+</ul>
+<p>at your option.</p>
+<h4 id="contribution"><a class="doc-anchor" href="#contribution">§</a>Contribution</h4>
+<p>Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.universal_hash"><code>pub use polyval::<a class="mod" href="../universal_hash/index.html" title="mod universal_hash">universal_hash</a>;</code></dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.GHash.html" title="struct ghash::GHash">GHash</a></dt><dd><strong>GHASH</strong>: universal hash over GF(2^128) used by AES-GCM.</dd><dt><a class="struct" href="struct.GHashBackend.html" title="struct ghash::GHashBackend">GHash<wbr>Backend</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.Block.html" title="type ghash::Block">Block</a></dt><dd>GHASH blocks (16-bytes)</dd><dt><a class="type" href="type.Key.html" title="type ghash::Key">Key</a></dt><dd>GHASH keys (16-bytes)</dd><dt><a class="type" href="type.Tag.html" title="type ghash::Tag">Tag</a></dt><dd>GHASH tags (16-bytes)</dd></dl></section></div></main></body></html>

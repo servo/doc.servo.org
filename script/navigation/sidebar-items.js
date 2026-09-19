@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["determine_creation_sandboxing_flags","determine_iframe_element_referrer_policy","determine_the_origin","navigate","navigate_to_fragment","snapshot_target_snapshot_params"],"struct":["InProgressLoad","NavigationListener"]};

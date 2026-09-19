@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":["Equivalence","EventTargetTrait","HtmlCanvasElementTrait","HtmlImageElementTrait","ImageBitmapTrait","ImageDataTrait","OffscreenCanvasTrait","OriginIsCleanTrait","WebGPUGlobalTrait","WebGPUHTMLVideoTrait","WebGPUPromise","WebGPUPromiseCallbackTrait","WebGPURootedPromiseTrait","WebGPUTracedPromiseTrait"]};

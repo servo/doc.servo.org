@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LN10H","LN10L"],"fn":["exp1","exp10m1_accurate","exp10m1_accurate_tiny","exp10m1_fast","exp10m1_fast_tiny","exp_2","f_exp10m1","q_1","q_2"],"struct":["Exp10m1"]};

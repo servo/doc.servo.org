@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_SUMMARY","_IMPL_DOMOBJECT_FOR_HTMLDetailsElement"],"enum":["ExclusivityConflictResolution"],"struct":["DetailsNameGroups","HTMLDetailsElement","ShadowTree"]};

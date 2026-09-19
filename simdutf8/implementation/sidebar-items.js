@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["validate_utf8_basic","validate_utf8_basic_fallback","validate_utf8_compat","validate_utf8_compat_fallback"],"mod":["algorithm","helpers","x86"],"type":["Utf8ErrorBasic","Utf8ErrorCompat","ValidateUtf8CompatFn","ValidateUtf8Fn"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["attr_extractor","attrs_field","default_expr","error","field","from_attributes_impl","from_derive_impl","from_field","from_meta_impl","from_type_param","from_variant_impl","outer_from_impl","postfix_transform","trait_impl","variant","variant_data"]};

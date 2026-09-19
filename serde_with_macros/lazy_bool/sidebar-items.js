@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LazyBool"],"macro":[["impl_op",1]]};

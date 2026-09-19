@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WritableTarget"],"fn":["adapt"],"struct":["Buffer","BufferWriter"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SQRT_TOL","TOL","TOL_2"],"fn":["expand_stroke","fill","fill_impl","stroke"],"struct":["FlattenCtx","FlattenerCallback","Line","Point"]};

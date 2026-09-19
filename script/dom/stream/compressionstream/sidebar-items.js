@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BROTLI_BUFFER_SIZE","BROTLI_QUALITIY_LEVEL","BROTLI_WINDOW_SIZE","_IMPL_DOMOBJECT_FOR_CompressionStream"],"enum":["Encoder"],"fn":["compress_and_enqueue_a_chunk","compress_flush_and_enqueue","convert_chunk_to_vec"],"struct":["CompressionContext","CompressionStream"]};

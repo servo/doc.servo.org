@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Chunks","ChunksExact","ChunksExactMut","ChunksExactMutProducer","ChunksExactProducer","ChunksMut","ChunksMutProducer","ChunksProducer"]};

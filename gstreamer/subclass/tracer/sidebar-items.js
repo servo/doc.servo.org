@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TracerHook"],"fn":["emit_property_warning","format_available_properties"],"macro":[["define_tracer_hooks",1]],"trait":["TracerImpl","TracerImplExt"]};
