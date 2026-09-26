@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LANGUAGE_ID_TO_BCP47","MAX_INLINE_LANGUAGE_LEN"],"enum":["Language"],"fn":["language_id_to_bcp47"],"struct":["Chars","LocalizedString","LocalizedStrings","StringId"]};

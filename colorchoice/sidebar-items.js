@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColorChoice"],"static":["USER"],"struct":["AtomicChoice"]};

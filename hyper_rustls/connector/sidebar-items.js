@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["builder"],"struct":["DefaultServerNameResolver","FixedServerNameResolver","HttpsConnector"],"trait":["ResolveServerName"],"type":["BoxError"]};

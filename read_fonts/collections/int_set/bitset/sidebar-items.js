@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PAGE_BITS_LOG_2"],"fn":["default_last_page_map_index"],"struct":["PageInfo","U32Set","U32SetBuilder","U32SetRangeIter"]};

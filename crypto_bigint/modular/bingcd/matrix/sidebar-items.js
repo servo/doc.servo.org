@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DividedMatrix","DividedPatternMatrix","IntMatrix","PatternMatrix"],"trait":["Unit"],"type":["DividedIntMatrix","ExtraLimbInt","Vector"]};

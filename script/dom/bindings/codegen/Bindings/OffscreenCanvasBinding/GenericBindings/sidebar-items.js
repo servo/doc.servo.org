@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OffscreenRenderingContext","OffscreenRenderingContextId"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["OffscreenCanvas_Binding","OffscreenRenderingContextIdValues"],"struct":["ImageEncodeOptions"],"trait":["OffscreenCanvasMethods"]};

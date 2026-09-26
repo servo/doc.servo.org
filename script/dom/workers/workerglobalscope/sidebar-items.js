@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_WorkerGlobalScope"],"fn":["interrupt_callback","prepare_workerscope_init"],"struct":["ScriptFetchContext","WorkerCspProcessor","WorkerGlobalScope"]};

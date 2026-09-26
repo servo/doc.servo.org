@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TransitionOrAnimationEventType"],"fn":["root_node"],"struct":["AnimationManager","TransitionOrAnimationEvent"]};

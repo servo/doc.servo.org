@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["keysym_location","keysym_to_key","mod_index_for_name","physicalkey_to_scancode","raw_keycode_to_physicalkey","scancode_to_physicalkey"],"struct":["ModsIndices","XkbKeymap"]};

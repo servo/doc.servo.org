@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_numeric_float",1],["impl_numeric_integer",1],["impl_numeric_non_zero_unsigned",1]],"trait":["Numeric"]};

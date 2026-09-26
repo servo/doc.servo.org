@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BinaryType"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["BinaryTypeValues","WebSocket_Binding"],"trait":["WebSocketMethods"]};

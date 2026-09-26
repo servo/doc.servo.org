@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":["DateLikeValue","DateLikeValueNullable","DateTimeLikeValue","DateTimeLikeValueNullable","NumericValue","NumericValueNullable","TimeLikeValue","TimeLikeValueNullable"]};

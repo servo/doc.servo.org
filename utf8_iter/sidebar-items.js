@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["in_inclusive_range8"],"mod":["indices","report"],"static":["UTF8_DATA"],"struct":["ErrorReportingUtf8Chars","Utf8CharIndices","Utf8Chars","Utf8CharsError","Utf8Data"],"trait":["Utf8CharsEx"]};

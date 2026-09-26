@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"fn":["create_binary_expression","parse"],"struct":["Parser"]};

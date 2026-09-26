@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BM","B_LEN","B_SIZE","B_SIZE_32","PERLIN_N","RAND_A","RAND_M","RAND_Q","RAND_R"],"fn":["apply","init","lerp","noise2","random","s_curve","turbulence"],"struct":["StitchInfo"]};

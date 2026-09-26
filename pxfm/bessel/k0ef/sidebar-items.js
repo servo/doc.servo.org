@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_k0ef","k0ef_asympt","k0ef_small"]};

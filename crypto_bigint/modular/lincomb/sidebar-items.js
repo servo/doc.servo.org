@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["lincomb_boxed_monty_form","lincomb_const_monty_form","lincomb_monty_form"],"macro":[["impl_longa_monty_lincomb",1]]};

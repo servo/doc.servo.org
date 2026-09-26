@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["B_AVX_COEF","G_COEF_AVX_COEF","R_AVX_COEF"],"fn":["shuffle","ycbcr_to_rgb_avx2","ycbcr_to_rgb_avx2_1","ycbcr_to_rgb_baseline_no_clamp","ycbcr_to_rgba_avx2","ycbcr_to_rgba_unsafe"],"union":["YmmRegister"]};

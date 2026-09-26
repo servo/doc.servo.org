@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FieldKind","FieldName","FormatMode","Level","LitStrOrIdent"],"mod":["kw"],"struct":["EventArgs","ExprArg","Field","Fields","InstrumentArgs","Skips","StrArg"]};

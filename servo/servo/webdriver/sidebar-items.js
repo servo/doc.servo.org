@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CustomHandlersAutomationMode","NewWindowTypeHint","WebDriverCommandMsg","WebDriverFrameId","WebDriverLoadStatus","WebDriverScriptCommand","WebDriverUserPrompt","WebDriverUserPromptAction"],"struct":["WebDriverSenders"],"type":["WebDriverJSResult"]};

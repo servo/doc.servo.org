@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["can_be_block_comment","has_inner","has_outer","trim_interior_trailing_spaces","trim_trailing_spaces","value_of_attribute"]};

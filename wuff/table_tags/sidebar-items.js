@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["KNOWN_TABLE_TAGS"],"struct":["Tag"]};

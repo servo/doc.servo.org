@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SockAddr","SockAddrStorage"],"type":["sa_family_t","socklen_t"]};

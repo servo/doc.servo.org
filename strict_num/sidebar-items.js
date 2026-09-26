@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clamp_f32","clamp_f64"],"macro":[["impl_approx_32",1],["impl_approx_64",1],["impl_display",1]],"struct":["FiniteF32","FiniteF64","NonZeroPositiveF32","NonZeroPositiveF64","NormalizedF32","NormalizedF64","PositiveF32","PositiveF64"],"trait":["ApproxEq","ApproxEqUlps","Ulps"]};

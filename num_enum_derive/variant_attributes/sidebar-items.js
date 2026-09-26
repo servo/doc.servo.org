@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["NumEnumVariantAttributeItem"],"mod":["kw"],"struct":["NumEnumVariantAttributes","VariantAlternativesAttribute","VariantCatchAllAttribute","VariantDefaultAttribute"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["auto_close_worker","broadcastchannel","globalscope","listeners","messagechannel","messageport","origin","script_execution"]};

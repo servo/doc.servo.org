@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["NavigationMessage"],"macro":[["message_builder_generic_impl",1]],"struct":["MessageBuilder","NavigationEventMessage","NavigationEventMessageBuilder"]};

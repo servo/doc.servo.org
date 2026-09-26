@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create","create_named","create_unix","create_unlinked","keep","persist","reopen"]};

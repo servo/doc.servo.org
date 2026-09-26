@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Converts a POSIX locale string to a BCP 47 locale string."><title>posix_to_bcp47 in sys_locale::unix - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sys_locale" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">posix_to_bcp47</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../sys_locale/index.html">sys_<wbr>locale</a><span class="version">0.3.2</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">posix_<wbr>to_<wbr>bcp47</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#examples" title="Examples">Examples</a></li><li><a href="#todo" title="TODO">TODO</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In sys_<wbr>locale::<wbr>unix</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">sys_locale</a>::<wbr><a href="index.html">unix</a></div><h1>Function <span class="fn">posix_<wbr>to_<wbr>bcp47</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/sys_locale/unix.rs.html#129-135">Source</a> </span></div><pre class="rust item-decl"><code>fn posix_to_bcp47(locale: &amp;<a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.str.html">str</a>) -&gt; <a class="struct" href="https://doc.rust-lang.org/1.97.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Converts a POSIX locale string to a BCP 47 locale string.</p>
+<p>This function processes the input <code>code</code> by removing any character encoding
+(the part after the <code>.</code> character) and any modifiers (the part after the <code>@</code> character).
+It replaces underscores (<code>_</code>) with hyphens (<code>-</code>) to conform to BCP 47 formatting.</p>
+<p>If the locale is already in the BCP 47 format, no changes are made.</p>
+<p>Useful links:</p>
+<ul>
+<li><a href="https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap07.html">The Open Group Base Specifications Issue 8 - 7. Locale</a></li>
+<li><a href="https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html">The Open Group Base Specifications Issue 8 - 8. Environment Variables</a></li>
+<li><a href="https://www.ietf.org/rfc/bcp/bcp47.html">BCP 47 specification</a></li>
+</ul>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">let </span>bcp47 = posix_to_bcp47(<span class="string">"en-US"</span>); <span class="comment">// already BCP 47
+</span><span class="macro">assert_eq!</span>(bcp47, <span class="string">"en-US"</span>); <span class="comment">// no changes
+
+</span><span class="kw">let </span>bcp47 = posix_to_bcp47(<span class="string">"en_US"</span>);
+<span class="macro">assert_eq!</span>(bcp47, <span class="string">"en-US"</span>);
+
+<span class="kw">let </span>bcp47 = posix_to_bcp47(<span class="string">"ru_RU.UTF-8"</span>);
+<span class="macro">assert_eq!</span>(bcp47, <span class="string">"ru-RU"</span>);
+
+<span class="kw">let </span>bcp47 = posix_to_bcp47(<span class="string">"fr_FR@dict"</span>);
+<span class="macro">assert_eq!</span>(bcp47, <span class="string">"fr-FR"</span>);
+
+<span class="kw">let </span>bcp47 = posix_to_bcp47(<span class="string">"de_DE.UTF-8@euro"</span>);
+<span class="macro">assert_eq!</span>(bcp47, <span class="string">"de-DE"</span>);</code></pre></div><h2 id="todo"><a class="doc-anchor" href="#todo">§</a>TODO</h2>
+<ol>
+<li>Implement POSIX to BCP 47 modifier conversion (see https://github.com/1Password/sys-locale/issues/32).</li>
+<li>Optimize to avoid creating a new buffer (see https://github.com/1Password/sys-locale/pull/33).</li>
+</ol>
+</div></details></section></div></main></body></html>

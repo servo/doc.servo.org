@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["navigation_send_event"],"trait":["NavigationImpl","NavigationImplExt"]};

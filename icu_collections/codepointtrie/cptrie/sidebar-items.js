@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TrieType","Typed"],"fn":["maybe_filter_value"],"macro":[["impl_primitive_trie_value",1],["w",1]],"struct":["CodePointMapRange","CodePointMapRangeIterator","CodePointTrie","CodePointTrieHeader","FastCodePointTrie","SmallCodePointTrie","TypedCodePointTrieError"],"trait":["AbstractCodePointTrie","Seal","TrieValue","TypedCodePointTrie"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["ClipboardEvent_Binding","GenericBindings"],"trait":["ClipboardEventMethods"],"type":["ClipboardEventInit"]};

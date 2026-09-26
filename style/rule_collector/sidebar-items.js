@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["containing_shadow_ignoring_svg_use"],"struct":["RuleCollector"]};

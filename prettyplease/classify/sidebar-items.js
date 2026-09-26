@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["expr_leading_label","expr_trailing_brace","requires_comma_to_be_match_arm","requires_semi_to_be_stmt","trailing_unparameterized_path"]};

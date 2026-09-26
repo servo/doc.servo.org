@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FormDataEntryValue"],"fn":["FormDataDefineDOMInterface","FormDataGetProtoObject","FormDataIteratorGetProtoObject","FormDataIteratorWrap","FormDataWrap"],"mod":["FormDataIterator_Binding","FormData_Binding"],"trait":["FormDataIteratorMethods","FormDataMethods"]};

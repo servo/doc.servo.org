@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ApplicationChangedEvent","CharWidthChangedEvent","ColumnCountChangedEvent","LineChangedEvent","LineCountChangedEvent"]};

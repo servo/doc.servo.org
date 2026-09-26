@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WindowEvent"],"mod":["platform_impl"],"struct":["Adapter","Event","WinitActionHandler","WinitActivationHandler","WinitDeactivationHandler"]};

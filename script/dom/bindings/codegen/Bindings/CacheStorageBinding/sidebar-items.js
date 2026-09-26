@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["CacheStorage_Binding","GenericBindings"],"trait":["CacheStorageMethods"]};

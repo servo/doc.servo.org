@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SliceOrString"],"fn":["to_string_or_borrow"],"struct":["PartiallyValidatedUtf8"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DAY_OFFSET","YEAR_OFFSET"],"struct":["Indian","IndianDateInner"]};

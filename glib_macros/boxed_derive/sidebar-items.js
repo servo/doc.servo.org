@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["gen_impl_from_value","gen_impl_from_value_optional","gen_impl_to_value_optional","gen_option_to_ptr","impl_boxed"]};

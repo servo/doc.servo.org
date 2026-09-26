@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALT_OR_CONTROL","CMD_OR_CONTROL"],"enum":["EditingContext","TextControlElementEditingContext"],"fn":["editing_action_from_keyboard_event"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","SVGPatternElement_Binding"],"trait":["SVGPatternElementMethods"]};

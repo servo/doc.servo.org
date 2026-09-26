@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CursorFormat"],"fn":["expand_home_dir","parse_theme","theme_inherits","theme_search_paths"],"mod":["parser"],"struct":["CursorTheme","CursorThemeIml","SearchPathsEnvironment"]};

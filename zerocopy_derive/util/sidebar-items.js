@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CratePath","FieldBounds","PaddingCheck","SelfBounds","Trait","TraitBound"],"fn":["const_block","enum_size_from_repr","generate_tag_enum","map_fields","normalize_bounds","to_ident_str","validate_crate_path"],"struct":["Ctx","ImplBlockBuilder"],"trait":["BoolExt","DataExt"]};

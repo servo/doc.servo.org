@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HeadersInit"],"fn":["HeadersDefineDOMInterface","HeadersGetProtoObject","HeadersIteratorGetProtoObject","HeadersIteratorWrap","HeadersWrap"],"mod":["HeadersIterator_Binding","Headers_Binding"],"trait":["HeadersIteratorMethods","HeadersMethods"]};

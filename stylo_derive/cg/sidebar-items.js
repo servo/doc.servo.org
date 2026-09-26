@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["add_predicate","fmap2_match","fmap_match","fmap_trait_output","map_type_params","map_type_params_in_path","parse_field_attrs","parse_input_attrs","parse_variant_attrs","parse_variant_attrs_from_ast","path_to_ident","propagate_clauses_to_output_type","ref_pattern","split_camel_segment","to_css_identifier","to_scream_case","value"]};

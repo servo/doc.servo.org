@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["KeyboardInteractivity","Layer","SurfaceKind"],"mod":["dispatch"],"struct":["Anchor","LayerShell","LayerSurface","LayerSurfaceConfigure","LayerSurfaceData","LayerSurfaceInner","UnknownLayer"],"trait":["LayerShellHandler"]};

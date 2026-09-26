@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FuseState"],"fn":["convert","empty"],"struct":["Convert","Empty","Filter","Fuse","Map","MapErr","MapRef","Skip","SkipWhile","Take","TakeWhile"],"trait":["DoubleEndedFallibleStreamingIterator","FallibleStreamingIterator"]};

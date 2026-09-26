@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["DOMQuad_Binding"],"struct":["DOMQuadInit"],"trait":["DOMQuadMethods"]};

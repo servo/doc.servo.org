@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bessel_rsqrt_hard","eval_small_hard_3p6_to_7p5","f_i0","i0_0_to_3p6_dd","i0_0_to_3p6_exec","i0_0_to_3p6_hard","i0_3p6_to_7p5_dd","i0_7p5_to_9p5","i0_7p5_to_9p5_hard","i0_asympt","i0_asympt_hard","i3p6_to_7p5"]};

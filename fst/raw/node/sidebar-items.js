@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TRANS_INDEX_THRESHOLD"],"enum":["State"],"fn":["common_idx","common_input","pack_delta","pack_delta_in","pack_delta_size","unpack_delta"],"struct":["Node","PackSizes","StateAnyTrans","StateOneTrans","StateOneTransNext","Transitions"]};

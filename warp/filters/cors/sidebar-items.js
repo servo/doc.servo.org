@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Forbidden","Validated"],"fn":["cors"],"mod":["internal"],"struct":["Builder","Configured","Cors","CorsForbidden"]};

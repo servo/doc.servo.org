@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["allow_incompatible_msrv","cfg","try_attr","try_cfg"]};

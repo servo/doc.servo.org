@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ASCII_CONTINUE","ASCII_START","CHUNK","UNICODE_VERSION","ZERO_CONTINUE","ZERO_START"],"static":["LEAF","TRIE_CONTINUE","TRIE_START"],"struct":["Align64","Align8"]};

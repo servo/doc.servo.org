@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FILE_CHUNK_SIZE"],"enum":["NetworkError","ResponseBody"],"struct":["FetchContext","HttpStatus","ProtocolHandlerRegistration","ProtocolRegistry","RelativePos","Request","ResourceFetchTiming","Response"],"trait":["ProtocolHandler"],"type":["DoneChannel"]};

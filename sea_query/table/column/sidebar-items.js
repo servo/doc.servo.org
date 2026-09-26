@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColumnType","PgDateTruncUnit","PgInterval","StringLen"],"struct":["ColumnDef","ColumnSpec","Generated"],"trait":["IntoColumnDef"]};

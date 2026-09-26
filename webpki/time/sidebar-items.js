@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DAYS_BEFORE_UNIX_EPOCH_AD","UNIX_EPOCH_YEAR"],"fn":["days_before_year_ad","days_before_year_since_unix_epoch","days_in_feb","days_in_month","time_from_ymdhms_utc"]};

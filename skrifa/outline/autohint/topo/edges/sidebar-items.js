@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_blue_edges","compute_edge_properties","compute_edges","link_segments_to_edges"]};

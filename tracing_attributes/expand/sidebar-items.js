@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AsyncKind","RecordType"],"fn":["erase_impl_trait","gen_block","gen_function","param_names","path_to_string"],"struct":["AsyncInfo","IdentAndTypesRenamer","ImplTraitEraser"]};

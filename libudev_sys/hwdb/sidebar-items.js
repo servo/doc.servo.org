@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["udev_hwdb_get_properties_list_entry","udev_hwdb_new","udev_hwdb_ref","udev_hwdb_unref"],"struct":["udev_hwdb"]};

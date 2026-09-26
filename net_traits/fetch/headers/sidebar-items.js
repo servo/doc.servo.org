@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HTTP_TAB_OR_SPACE"],"fn":["collect_http_quoted_string","collect_sequence","determine_nosniff","extract_mime_type","extract_mime_type_as_dataurl_mime","extract_mime_type_as_mime","get_decode_and_split_header_name","get_decode_and_split_header_value","get_value_from_header_list","is_forbidden_method"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_GlobalScope"],"fn":["global_scope_from_global","global_scope_from_global_static"],"struct":["GlobalScope"]};

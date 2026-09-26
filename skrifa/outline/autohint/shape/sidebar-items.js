@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_NESTING_DEPTH","SHAPED_CLUSTER_INLINE_SIZE"],"enum":["ClusterShaperKind","ProcessLookupError","ShaperCoverageKind","ShaperMode"],"struct":["ClusterShaper","GsubHandler","ShapedGlyph","Shaper","VisitedLookupSet"],"type":["ShapedCluster"]};

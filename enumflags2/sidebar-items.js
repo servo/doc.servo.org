@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["for_each_uint",1],["make_bitflags",1]],"mod":["const_api","fallible","formatting","impl_serde","iter"],"struct":["BitFlags","ConstToken","FromBitsError","Iter"],"trait":["BitFlag"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["write_color_function","write_legacy_function","write_modern_function","write_scaled_component"]};

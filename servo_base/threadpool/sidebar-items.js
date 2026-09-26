@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["GLOBAL_THREAD_POOL"],"struct":["ThreadPool","ThreadPoolState"]};

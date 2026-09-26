@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["M","PI","PI2","PI2L"],"fn":["atan2f_fma_impl","atan2f_gen_impl","atan2f_refine","atan2f_tiny","f_atan2f"],"static":["ATAN2F_TABLE","OFF","OFFL","SGN"]};

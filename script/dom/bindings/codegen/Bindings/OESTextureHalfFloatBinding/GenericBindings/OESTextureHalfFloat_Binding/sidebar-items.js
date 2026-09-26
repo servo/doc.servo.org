@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetProtoObject","Wrap"],"mod":["OESTextureHalfFloatConstants"],"static":["Class"],"trait":["OESTextureHalfFloatMethods"]};

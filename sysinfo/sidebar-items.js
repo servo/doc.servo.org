@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["IS_SUPPORTED_SYSTEM"],"enum":["DiskKind"],"fn":["set_open_files_limit"],"mod":["common","debug","macros","unix","utils"],"struct":["Disk","DiskRefreshKind","DiskUsage","Disks"]};

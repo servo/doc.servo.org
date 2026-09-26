@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["URLPattern_Binding"],"struct":["URLPatternComponentResult","URLPatternInit","URLPatternOptions","URLPatternResult"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TrustedType"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["TrustedTypePolicyFactory_Binding"],"struct":["CreateHTMLCallback","CreateScriptCallback","CreateScriptURLCallback","TrustedTypePolicyOptions"],"trait":["TrustedTypePolicyFactoryMethods"]};

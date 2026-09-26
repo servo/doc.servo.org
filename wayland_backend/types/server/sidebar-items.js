@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DisconnectReason","InitError"],"struct":["Credentials","GlobalInfo","InvalidId"]};

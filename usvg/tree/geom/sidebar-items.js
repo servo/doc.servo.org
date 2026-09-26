@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["aligned_pos"],"struct":["BBox","NonZeroRect","Rect","Size","Transform","ViewBox"],"trait":["ApproxZeroUlps","IsValidLength"]};

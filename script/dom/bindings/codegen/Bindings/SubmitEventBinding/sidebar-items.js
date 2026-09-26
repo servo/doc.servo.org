@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","SubmitEvent_Binding"],"trait":["SubmitEventMethods"],"type":["SubmitEventInit"]};

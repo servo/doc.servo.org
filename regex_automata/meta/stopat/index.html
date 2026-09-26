@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="This module defines two bespoke forward DFA search routines. One for the lazy DFA and one for the fully compiled DFA. These routines differ from the normal ones by reporting the position at which the search terminates when a match isn’t found."><title>regex_automata::meta::stopat - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="regex_automata" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module stopat</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../regex_automata/index.html">regex_<wbr>automata</a><span class="version">0.4.18</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module stopat</a></h2><h3><a href="#functions">Module Items</a></h3><ul class="block"><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="../index.html">In regex_<wbr>automata::<wbr>meta</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../index.html">regex_automata</a>::<wbr><a href="../index.html">meta</a></div><h1>Module <span>stopat</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../../src/regex_automata/meta/stopat.rs.html#1-212">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This module defines two bespoke forward DFA search routines. One for the lazy
+DFA and one for the fully compiled DFA. These routines differ from the normal
+ones by reporting the position at which the search terminates when a match
+<em>isn’t</em> found.</p>
+<p>This position at which a search terminates is useful in contexts where the meta
+regex engine runs optimizations that could go quadratic if we aren’t careful.
+Namely, a regex search <em>could</em> scan to the end of the haystack only to report a
+non-match. If the caller doesn’t know that the search scanned to the end of the
+haystack, it might restart the search at the next literal candidate it finds
+and repeat the process.</p>
+<p>Providing the caller with the position at which the search stopped provides a
+way for the caller to determine the point at which subsequent scans should not
+pass. This is principally used in the “reverse inner” optimization, which works
+like this:</p>
+<ol>
+<li>Look for a match of an inner literal. Say, ‘Z’ in ‘\w+Z\d+’.</li>
+<li>At the spot where ‘Z’ matches, do a reverse anchored search from there for
+‘\w+’.</li>
+<li>If the reverse search matches, it corresponds to the start position of a
+(possible) match. At this point, do a forward anchored search to find the end
+position. If an end position is found, then we have a match and we know its
+bounds.</li>
+</ol>
+<p>If the forward anchored search in (3) searches the entire rest of the haystack
+but reports a non-match, then a naive implementation of the above will continue
+back at step 1 looking for more candidates. There might still be a match to be
+found! It’s possible. But we already scanned the whole haystack. So if we keep
+repeating the process, then we might wind up taking quadratic time in the size
+of the haystack, which is not great.</p>
+<p>So if the forward anchored search in (3) reports the position at which it
+stops, then we can detect whether quadratic behavior might be occurring in
+steps (1) and (2). For (1), it occurs if the literal candidate found occurs
+<em>before</em> the end of the previous search in (3), since that means we’re now
+going to look for another match in a place where the forward search has already
+scanned. It is <em>correct</em> to do so, but our technique has become inefficient.
+For (2), quadratic behavior occurs similarly when its reverse search extends
+past the point where the previous forward search in (3) terminated. Indeed, to
+implement (2), we use the sibling ‘limited’ module for ensuring our reverse
+scan doesn’t go further than we want.</p>
+<p>See the ‘opt/reverse-inner’ benchmarks in rebar for a real demonstration of
+how quadratic behavior is mitigated.</p>
+</div></details><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.hybrid_eoi_fwd.html" title="fn regex_automata::meta::stopat::hybrid_eoi_fwd">hybrid_<wbr>eoi_<wbr>fwd</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.hybrid_try_search_half_fwd.html" title="fn regex_automata::meta::stopat::hybrid_try_search_half_fwd">hybrid_<wbr>try_<wbr>search_<wbr>half_<wbr>fwd</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl></section></div></main></body></html>

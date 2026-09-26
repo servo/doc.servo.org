@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["equal","equivalent","erase_index","get_hash","insert_bulk_no_grow","update_index"],"mod":["entry","extract"],"struct":["Core"],"type":["Entries","Indices"]};

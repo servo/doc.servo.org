@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ASCII_CAPITAL_A","ASCII_CAPITAL_Z","ASCII_CR","ASCII_END","ASCII_FORMFEED","ASCII_LOWERCASE_A","ASCII_LOWERCASE_Z","ASCII_NEWLINE","ASCII_SPACE","ASCII_TAB"],"enum":["DOMStringErrorType","DOMStringType","EncodedBytes"],"fn":["get_latin1_string_bytes","parse_floating_point_number"],"struct":["BytesView","DOMString","StringView"]};

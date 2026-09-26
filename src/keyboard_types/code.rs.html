@@ -1,0 +1,955 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/keyboard-types-0.8.3/src/code.rs`."><title>code.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="keyboard_types" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../../static.files/src-script-813739b1.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">keyboard_types/</div>code.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a>
+<a href=#2 id=2 data-nosnippet>2</a><span class="comment">// AUTO GENERATED CODE - DO NOT EDIT
+<a href=#3 id=3 data-nosnippet>3</a></span><span class="attr">#![cfg_attr(rustfmt, rustfmt_skip)]
+<a href=#4 id=4 data-nosnippet>4</a>#![allow(clippy::doc_markdown)]
+<a href=#5 id=5 data-nosnippet>5</a>#![allow(deprecated)]
+<a href=#6 id=6 data-nosnippet>6</a>
+<a href=#7 id=7 data-nosnippet>7</a></span><span class="kw">use </span>core::fmt::{<span class="self">self</span>, Display};
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>core::str::FromStr;
+<a href=#9 id=9 data-nosnippet>9</a><span class="attr">#[cfg(not(feature = <span class="string">"std"</span>))]
+<a href=#10 id=10 data-nosnippet>10</a></span><span class="kw">use </span>core::error::Error;
+<a href=#11 id=11 data-nosnippet>11</a><span class="attr">#[cfg(feature = <span class="string">"std"</span>)]
+<a href=#12 id=12 data-nosnippet>12</a></span><span class="kw">use </span>std::error::Error;
+<a href=#13 id=13 data-nosnippet>13</a>
+<a href=#14 id=14 data-nosnippet>14</a><span class="doccomment">/// Code is the physical position of a key.
+<a href=#15 id=15 data-nosnippet>15</a>///
+<a href=#16 id=16 data-nosnippet>16</a>/// The names are based on the US keyboard. If the key
+<a href=#17 id=17 data-nosnippet>17</a>/// is not present on US keyboards, a name from another
+<a href=#18 id=18 data-nosnippet>18</a>/// layout is used.
+<a href=#19 id=19 data-nosnippet>19</a>///
+<a href=#20 id=20 data-nosnippet>20</a>/// Specification:
+<a href=#21 id=21 data-nosnippet>21</a>/// &lt;https://w3c.github.io/uievents-code/&gt;
+<a href=#22 id=22 data-nosnippet>22</a></span><span class="attr">#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+<a href=#23 id=23 data-nosnippet>23</a>#[cfg_attr(feature = <span class="string">"serde"</span>, derive(serde::Serialize, serde::Deserialize))]
+<a href=#24 id=24 data-nosnippet>24</a>#[non_exhaustive]
+<a href=#25 id=25 data-nosnippet>25</a></span><span class="kw">pub enum </span>Code {
+<a href=#26 id=26 data-nosnippet>26</a>    <span class="doccomment">/// &lt;kbd&gt;`~&lt;/kbd&gt; on a US keyboard. This is the &lt;kbd&gt;半角/全角/漢字&lt;/kbd&gt; (&lt;span class="unicode"&gt;hankaku/zenkaku/kanji&lt;/span&gt;) key on Japanese keyboards
+<a href=#27 id=27 data-nosnippet>27</a>    /// This is also called a backtick or grave.
+<a href=#28 id=28 data-nosnippet>28</a>    </span><span class="attr">#[doc(alias = <span class="string">"Backtick"</span>)]
+<a href=#29 id=29 data-nosnippet>29</a>    #[doc(alias = <span class="string">"Grave"</span>)]
+<a href=#30 id=30 data-nosnippet>30</a>    </span>Backquote,
+<a href=#31 id=31 data-nosnippet>31</a>    <span class="doccomment">/// Used for both the US &lt;kbd&gt;\|&lt;/kbd&gt; (on the 101-key layout) and also for the key
+<a href=#32 id=32 data-nosnippet>32</a>    /// located between the &lt;kbd&gt;"&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt; keys on row C of the 102-,
+<a href=#33 id=33 data-nosnippet>33</a>    /// 104- and 106-key layouts.
+<a href=#34 id=34 data-nosnippet>34</a>    /// Labelled &lt;kbd&gt;#~&lt;/kbd&gt; on a UK (102) keyboard.
+<a href=#35 id=35 data-nosnippet>35</a>    </span>Backslash,
+<a href=#36 id=36 data-nosnippet>36</a>    <span class="doccomment">/// &lt;kbd&gt;[{&lt;/kbd&gt; on a US keyboard.
+<a href=#37 id=37 data-nosnippet>37</a>    </span>BracketLeft,
+<a href=#38 id=38 data-nosnippet>38</a>    <span class="doccomment">/// &lt;kbd&gt;]}&lt;/kbd&gt; on a US keyboard.
+<a href=#39 id=39 data-nosnippet>39</a>    </span>BracketRight,
+<a href=#40 id=40 data-nosnippet>40</a>    <span class="doccomment">/// &lt;kbd&gt;,&amp;lt;&lt;/kbd&gt; on a US keyboard.
+<a href=#41 id=41 data-nosnippet>41</a>    </span>Comma,
+<a href=#42 id=42 data-nosnippet>42</a>    <span class="doccomment">/// &lt;kbd&gt;0)&lt;/kbd&gt; on a US keyboard.
+<a href=#43 id=43 data-nosnippet>43</a>    </span>Digit0,
+<a href=#44 id=44 data-nosnippet>44</a>    <span class="doccomment">/// &lt;kbd&gt;1!&lt;/kbd&gt; on a US keyboard.
+<a href=#45 id=45 data-nosnippet>45</a>    </span>Digit1,
+<a href=#46 id=46 data-nosnippet>46</a>    <span class="doccomment">/// &lt;kbd&gt;2@&lt;/kbd&gt; on a US keyboard.
+<a href=#47 id=47 data-nosnippet>47</a>    </span>Digit2,
+<a href=#48 id=48 data-nosnippet>48</a>    <span class="doccomment">/// &lt;kbd&gt;3#&lt;/kbd&gt; on a US keyboard.
+<a href=#49 id=49 data-nosnippet>49</a>    </span>Digit3,
+<a href=#50 id=50 data-nosnippet>50</a>    <span class="doccomment">/// &lt;kbd&gt;4$&lt;/kbd&gt; on a US keyboard.
+<a href=#51 id=51 data-nosnippet>51</a>    </span>Digit4,
+<a href=#52 id=52 data-nosnippet>52</a>    <span class="doccomment">/// &lt;kbd&gt;5%&lt;/kbd&gt; on a US keyboard.
+<a href=#53 id=53 data-nosnippet>53</a>    </span>Digit5,
+<a href=#54 id=54 data-nosnippet>54</a>    <span class="doccomment">/// &lt;kbd&gt;6^&lt;/kbd&gt; on a US keyboard.
+<a href=#55 id=55 data-nosnippet>55</a>    </span>Digit6,
+<a href=#56 id=56 data-nosnippet>56</a>    <span class="doccomment">/// &lt;kbd&gt;7&amp;amp;&lt;/kbd&gt; on a US keyboard.
+<a href=#57 id=57 data-nosnippet>57</a>    </span>Digit7,
+<a href=#58 id=58 data-nosnippet>58</a>    <span class="doccomment">/// &lt;kbd&gt;8*&lt;/kbd&gt; on a US keyboard.
+<a href=#59 id=59 data-nosnippet>59</a>    </span>Digit8,
+<a href=#60 id=60 data-nosnippet>60</a>    <span class="doccomment">/// &lt;kbd&gt;9(&lt;/kbd&gt; on a US keyboard.
+<a href=#61 id=61 data-nosnippet>61</a>    </span>Digit9,
+<a href=#62 id=62 data-nosnippet>62</a>    <span class="doccomment">/// &lt;kbd&gt;=+&lt;/kbd&gt; on a US keyboard.
+<a href=#63 id=63 data-nosnippet>63</a>    </span>Equal,
+<a href=#64 id=64 data-nosnippet>64</a>    <span class="doccomment">/// Located between the left &lt;kbd&gt;Shift&lt;/kbd&gt; and &lt;kbd&gt;Z&lt;/kbd&gt; keys.
+<a href=#65 id=65 data-nosnippet>65</a>    /// Labelled &lt;kbd&gt;\|&lt;/kbd&gt; on a UK keyboard.
+<a href=#66 id=66 data-nosnippet>66</a>    </span>IntlBackslash,
+<a href=#67 id=67 data-nosnippet>67</a>    <span class="doccomment">/// Located between the &lt;kbd&gt;/&lt;/kbd&gt; and right &lt;kbd&gt;Shift&lt;/kbd&gt; keys.
+<a href=#68 id=68 data-nosnippet>68</a>    /// Labelled &lt;kbd&gt;\ろ&lt;/kbd&gt; (&lt;span class="unicode"&gt;ro&lt;/span&gt;) on a Japanese keyboard.
+<a href=#69 id=69 data-nosnippet>69</a>    </span>IntlRo,
+<a href=#70 id=70 data-nosnippet>70</a>    <span class="doccomment">/// Located between the &lt;kbd&gt;=&lt;/kbd&gt; and &lt;kbd&gt;Backspace&lt;/kbd&gt; keys.
+<a href=#71 id=71 data-nosnippet>71</a>    /// Labelled &lt;kbd&gt;¥&lt;/kbd&gt; (&lt;span class="unicode"&gt;yen&lt;/span&gt;) on a Japanese keyboard. &lt;kbd&gt;\/&lt;/kbd&gt; on a
+<a href=#72 id=72 data-nosnippet>72</a>    /// Russian keyboard.
+<a href=#73 id=73 data-nosnippet>73</a>    </span>IntlYen,
+<a href=#74 id=74 data-nosnippet>74</a>    <span class="doccomment">/// &lt;kbd&gt;a&lt;/kbd&gt; on a US keyboard.
+<a href=#75 id=75 data-nosnippet>75</a>    /// Labelled &lt;kbd&gt;q&lt;/kbd&gt; on an AZERTY (e.g., French) keyboard.
+<a href=#76 id=76 data-nosnippet>76</a>    </span>KeyA,
+<a href=#77 id=77 data-nosnippet>77</a>    <span class="doccomment">/// &lt;kbd&gt;b&lt;/kbd&gt; on a US keyboard.
+<a href=#78 id=78 data-nosnippet>78</a>    </span>KeyB,
+<a href=#79 id=79 data-nosnippet>79</a>    <span class="doccomment">/// &lt;kbd&gt;c&lt;/kbd&gt; on a US keyboard.
+<a href=#80 id=80 data-nosnippet>80</a>    </span>KeyC,
+<a href=#81 id=81 data-nosnippet>81</a>    <span class="doccomment">/// &lt;kbd&gt;d&lt;/kbd&gt; on a US keyboard.
+<a href=#82 id=82 data-nosnippet>82</a>    </span>KeyD,
+<a href=#83 id=83 data-nosnippet>83</a>    <span class="doccomment">/// &lt;kbd&gt;e&lt;/kbd&gt; on a US keyboard.
+<a href=#84 id=84 data-nosnippet>84</a>    </span>KeyE,
+<a href=#85 id=85 data-nosnippet>85</a>    <span class="doccomment">/// &lt;kbd&gt;f&lt;/kbd&gt; on a US keyboard.
+<a href=#86 id=86 data-nosnippet>86</a>    </span>KeyF,
+<a href=#87 id=87 data-nosnippet>87</a>    <span class="doccomment">/// &lt;kbd&gt;g&lt;/kbd&gt; on a US keyboard.
+<a href=#88 id=88 data-nosnippet>88</a>    </span>KeyG,
+<a href=#89 id=89 data-nosnippet>89</a>    <span class="doccomment">/// &lt;kbd&gt;h&lt;/kbd&gt; on a US keyboard.
+<a href=#90 id=90 data-nosnippet>90</a>    </span>KeyH,
+<a href=#91 id=91 data-nosnippet>91</a>    <span class="doccomment">/// &lt;kbd&gt;i&lt;/kbd&gt; on a US keyboard.
+<a href=#92 id=92 data-nosnippet>92</a>    </span>KeyI,
+<a href=#93 id=93 data-nosnippet>93</a>    <span class="doccomment">/// &lt;kbd&gt;j&lt;/kbd&gt; on a US keyboard.
+<a href=#94 id=94 data-nosnippet>94</a>    </span>KeyJ,
+<a href=#95 id=95 data-nosnippet>95</a>    <span class="doccomment">/// &lt;kbd&gt;k&lt;/kbd&gt; on a US keyboard.
+<a href=#96 id=96 data-nosnippet>96</a>    </span>KeyK,
+<a href=#97 id=97 data-nosnippet>97</a>    <span class="doccomment">/// &lt;kbd&gt;l&lt;/kbd&gt; on a US keyboard.
+<a href=#98 id=98 data-nosnippet>98</a>    </span>KeyL,
+<a href=#99 id=99 data-nosnippet>99</a>    <span class="doccomment">/// &lt;kbd&gt;m&lt;/kbd&gt; on a US keyboard.
+<a href=#100 id=100 data-nosnippet>100</a>    </span>KeyM,
+<a href=#101 id=101 data-nosnippet>101</a>    <span class="doccomment">/// &lt;kbd&gt;n&lt;/kbd&gt; on a US keyboard.
+<a href=#102 id=102 data-nosnippet>102</a>    </span>KeyN,
+<a href=#103 id=103 data-nosnippet>103</a>    <span class="doccomment">/// &lt;kbd&gt;o&lt;/kbd&gt; on a US keyboard.
+<a href=#104 id=104 data-nosnippet>104</a>    </span>KeyO,
+<a href=#105 id=105 data-nosnippet>105</a>    <span class="doccomment">/// &lt;kbd&gt;p&lt;/kbd&gt; on a US keyboard.
+<a href=#106 id=106 data-nosnippet>106</a>    </span>KeyP,
+<a href=#107 id=107 data-nosnippet>107</a>    <span class="doccomment">/// &lt;kbd&gt;q&lt;/kbd&gt; on a US keyboard.
+<a href=#108 id=108 data-nosnippet>108</a>    /// Labelled &lt;kbd&gt;a&lt;/kbd&gt; on an AZERTY (e.g., French) keyboard.
+<a href=#109 id=109 data-nosnippet>109</a>    </span>KeyQ,
+<a href=#110 id=110 data-nosnippet>110</a>    <span class="doccomment">/// &lt;kbd&gt;r&lt;/kbd&gt; on a US keyboard.
+<a href=#111 id=111 data-nosnippet>111</a>    </span>KeyR,
+<a href=#112 id=112 data-nosnippet>112</a>    <span class="doccomment">/// &lt;kbd&gt;s&lt;/kbd&gt; on a US keyboard.
+<a href=#113 id=113 data-nosnippet>113</a>    </span>KeyS,
+<a href=#114 id=114 data-nosnippet>114</a>    <span class="doccomment">/// &lt;kbd&gt;t&lt;/kbd&gt; on a US keyboard.
+<a href=#115 id=115 data-nosnippet>115</a>    </span>KeyT,
+<a href=#116 id=116 data-nosnippet>116</a>    <span class="doccomment">/// &lt;kbd&gt;u&lt;/kbd&gt; on a US keyboard.
+<a href=#117 id=117 data-nosnippet>117</a>    </span>KeyU,
+<a href=#118 id=118 data-nosnippet>118</a>    <span class="doccomment">/// &lt;kbd&gt;v&lt;/kbd&gt; on a US keyboard.
+<a href=#119 id=119 data-nosnippet>119</a>    </span>KeyV,
+<a href=#120 id=120 data-nosnippet>120</a>    <span class="doccomment">/// &lt;kbd&gt;w&lt;/kbd&gt; on a US keyboard.
+<a href=#121 id=121 data-nosnippet>121</a>    /// Labelled &lt;kbd&gt;z&lt;/kbd&gt; on an AZERTY (e.g., French) keyboard.
+<a href=#122 id=122 data-nosnippet>122</a>    </span>KeyW,
+<a href=#123 id=123 data-nosnippet>123</a>    <span class="doccomment">/// &lt;kbd&gt;x&lt;/kbd&gt; on a US keyboard.
+<a href=#124 id=124 data-nosnippet>124</a>    </span>KeyX,
+<a href=#125 id=125 data-nosnippet>125</a>    <span class="doccomment">/// &lt;kbd&gt;y&lt;/kbd&gt; on a US keyboard.
+<a href=#126 id=126 data-nosnippet>126</a>    /// Labelled &lt;kbd&gt;z&lt;/kbd&gt; on a QWERTZ (e.g., German) keyboard.
+<a href=#127 id=127 data-nosnippet>127</a>    </span>KeyY,
+<a href=#128 id=128 data-nosnippet>128</a>    <span class="doccomment">/// &lt;kbd&gt;z&lt;/kbd&gt; on a US keyboard.
+<a href=#129 id=129 data-nosnippet>129</a>    /// Labelled &lt;kbd&gt;w&lt;/kbd&gt; on an AZERTY (e.g., French) keyboard, and &lt;kbd&gt;y&lt;/kbd&gt; on a
+<a href=#130 id=130 data-nosnippet>130</a>    /// QWERTZ (e.g., German) keyboard.
+<a href=#131 id=131 data-nosnippet>131</a>    </span>KeyZ,
+<a href=#132 id=132 data-nosnippet>132</a>    <span class="doccomment">/// &lt;kbd&gt;-_&lt;/kbd&gt; on a US keyboard.
+<a href=#133 id=133 data-nosnippet>133</a>    </span>Minus,
+<a href=#134 id=134 data-nosnippet>134</a>    <span class="doccomment">/// &lt;kbd&gt;.&amp;gt;&lt;/kbd&gt; on a US keyboard.
+<a href=#135 id=135 data-nosnippet>135</a>    </span>Period,
+<a href=#136 id=136 data-nosnippet>136</a>    <span class="doccomment">/// &lt;kbd&gt;'"&lt;/kbd&gt; on a US keyboard.
+<a href=#137 id=137 data-nosnippet>137</a>    /// This is also called an apostrophe.
+<a href=#138 id=138 data-nosnippet>138</a>    </span><span class="attr">#[doc(alias = <span class="string">"Apostrophe"</span>)]
+<a href=#139 id=139 data-nosnippet>139</a>    </span>Quote,
+<a href=#140 id=140 data-nosnippet>140</a>    <span class="doccomment">/// &lt;kbd&gt;;:&lt;/kbd&gt; on a US keyboard.
+<a href=#141 id=141 data-nosnippet>141</a>    </span>Semicolon,
+<a href=#142 id=142 data-nosnippet>142</a>    <span class="doccomment">/// &lt;kbd&gt;/?&lt;/kbd&gt; on a US keyboard.
+<a href=#143 id=143 data-nosnippet>143</a>    </span>Slash,
+<a href=#144 id=144 data-nosnippet>144</a>    <span class="doccomment">/// &lt;kbd&gt;Alt&lt;/kbd&gt;, &lt;kbd&gt;Option&lt;/kbd&gt; or &lt;kbd&gt;⌥&lt;/kbd&gt;.
+<a href=#145 id=145 data-nosnippet>145</a>    </span>AltLeft,
+<a href=#146 id=146 data-nosnippet>146</a>    <span class="doccomment">/// &lt;kbd&gt;Alt&lt;/kbd&gt;, &lt;kbd&gt;Option&lt;/kbd&gt; or &lt;kbd&gt;⌥&lt;/kbd&gt;.
+<a href=#147 id=147 data-nosnippet>147</a>    /// This is labelled &lt;kbd&gt;AltGr&lt;/kbd&gt; key on many keyboard layouts.
+<a href=#148 id=148 data-nosnippet>148</a>    </span>AltRight,
+<a href=#149 id=149 data-nosnippet>149</a>    <span class="doccomment">/// &lt;kbd&gt;Backspace&lt;/kbd&gt; or &lt;kbd&gt;⌫&lt;/kbd&gt;.
+<a href=#150 id=150 data-nosnippet>150</a>    /// Labelled &lt;kbd&gt;Delete&lt;/kbd&gt; on Apple keyboards.
+<a href=#151 id=151 data-nosnippet>151</a>    </span>Backspace,
+<a href=#152 id=152 data-nosnippet>152</a>    <span class="doccomment">/// &lt;kbd&gt;CapsLock&lt;/kbd&gt; or &lt;kbd&gt;⇪&lt;/kbd&gt;
+<a href=#153 id=153 data-nosnippet>153</a>    </span>CapsLock,
+<a href=#154 id=154 data-nosnippet>154</a>    <span class="doccomment">/// The application context menu key, which is typically found between the right &lt;kbd&gt;Meta&lt;/kbd&gt; key and the right &lt;kbd&gt;Control&lt;/kbd&gt; key.
+<a href=#155 id=155 data-nosnippet>155</a>    </span>ContextMenu,
+<a href=#156 id=156 data-nosnippet>156</a>    <span class="doccomment">/// &lt;kbd&gt;Control&lt;/kbd&gt; or &lt;kbd&gt;⌃&lt;/kbd&gt;
+<a href=#157 id=157 data-nosnippet>157</a>    </span>ControlLeft,
+<a href=#158 id=158 data-nosnippet>158</a>    <span class="doccomment">/// &lt;kbd&gt;Control&lt;/kbd&gt; or &lt;kbd&gt;⌃&lt;/kbd&gt;
+<a href=#159 id=159 data-nosnippet>159</a>    </span>ControlRight,
+<a href=#160 id=160 data-nosnippet>160</a>    <span class="doccomment">/// &lt;kbd&gt;Enter&lt;/kbd&gt; or &lt;kbd&gt;↵&lt;/kbd&gt;. Labelled &lt;kbd&gt;Return&lt;/kbd&gt; on Apple keyboards.
+<a href=#161 id=161 data-nosnippet>161</a>    </span><span class="attr">#[doc(alias = <span class="string">"Return"</span>)]
+<a href=#162 id=162 data-nosnippet>162</a>    </span>Enter,
+<a href=#163 id=163 data-nosnippet>163</a>    <span class="doccomment">/// The Windows, &lt;kbd&gt;⌘&lt;/kbd&gt;, &lt;kbd&gt;Command&lt;/kbd&gt; or other OS symbol key.
+<a href=#164 id=164 data-nosnippet>164</a>    /// In Linux (XKB) terminology, this is often referred to as the left "Super".
+<a href=#165 id=165 data-nosnippet>165</a>    </span><span class="attr">#[doc(alias = <span class="string">"SuperLeft"</span>)]
+<a href=#166 id=166 data-nosnippet>166</a>    #[doc(alias = <span class="string">"OSLeft"</span>)]
+<a href=#167 id=167 data-nosnippet>167</a>    </span>MetaLeft,
+<a href=#168 id=168 data-nosnippet>168</a>    <span class="doccomment">/// The Windows, &lt;kbd&gt;⌘&lt;/kbd&gt;, &lt;kbd&gt;Command&lt;/kbd&gt; or other OS symbol key.
+<a href=#169 id=169 data-nosnippet>169</a>    /// In Linux (XKB) terminology, this is often referred to as the right "Super".
+<a href=#170 id=170 data-nosnippet>170</a>    </span><span class="attr">#[doc(alias = <span class="string">"SuperRight"</span>)]
+<a href=#171 id=171 data-nosnippet>171</a>    #[doc(alias = <span class="string">"OSRight"</span>)]
+<a href=#172 id=172 data-nosnippet>172</a>    </span>MetaRight,
+<a href=#173 id=173 data-nosnippet>173</a>    <span class="doccomment">/// &lt;kbd&gt;Shift&lt;/kbd&gt; or &lt;kbd&gt;⇧&lt;/kbd&gt;
+<a href=#174 id=174 data-nosnippet>174</a>    </span>ShiftLeft,
+<a href=#175 id=175 data-nosnippet>175</a>    <span class="doccomment">/// &lt;kbd&gt;Shift&lt;/kbd&gt; or &lt;kbd&gt;⇧&lt;/kbd&gt;
+<a href=#176 id=176 data-nosnippet>176</a>    </span>ShiftRight,
+<a href=#177 id=177 data-nosnippet>177</a>    <span class="doccomment">/// &lt;kbd&gt; &lt;/kbd&gt; (space)
+<a href=#178 id=178 data-nosnippet>178</a>    </span>Space,
+<a href=#179 id=179 data-nosnippet>179</a>    <span class="doccomment">/// &lt;kbd&gt;Tab&lt;/kbd&gt; or &lt;kbd&gt;⇥&lt;/kbd&gt;
+<a href=#180 id=180 data-nosnippet>180</a>    </span>Tab,
+<a href=#181 id=181 data-nosnippet>181</a>    <span class="doccomment">/// Japanese: &lt;kbd&gt;変換&lt;/kbd&gt; (&lt;span class="unicode"&gt;henkan&lt;/span&gt;)
+<a href=#182 id=182 data-nosnippet>182</a>    </span>Convert,
+<a href=#183 id=183 data-nosnippet>183</a>    <span class="doccomment">/// Japanese: &lt;kbd&gt;カタカナ/ひらがな/ローマ字&lt;/kbd&gt; (&lt;span class="unicode"&gt;katakana/hiragana/romaji&lt;/span&gt;)
+<a href=#184 id=184 data-nosnippet>184</a>    </span>KanaMode,
+<a href=#185 id=185 data-nosnippet>185</a>    <span class="doccomment">/// Korean: HangulMode &lt;kbd&gt;한/영&lt;/kbd&gt; (&lt;span class="unicode"&gt;han/yeong&lt;/span&gt;)&lt;br/&gt;Japanese (Mac keyboard): &lt;kbd&gt;かな&lt;/kbd&gt; (&lt;span class="unicode"&gt;kana&lt;/span&gt;)
+<a href=#186 id=186 data-nosnippet>186</a>    </span>Lang1,
+<a href=#187 id=187 data-nosnippet>187</a>    <span class="doccomment">/// Korean: Hanja &lt;kbd&gt;한자&lt;/kbd&gt; (&lt;span class="unicode"&gt;hanja&lt;/span&gt;)&lt;br/&gt;Japanese (Mac keyboard): &lt;kbd&gt;英数&lt;/kbd&gt; (&lt;span class="unicode"&gt;eisu&lt;/span&gt;)
+<a href=#188 id=188 data-nosnippet>188</a>    </span>Lang2,
+<a href=#189 id=189 data-nosnippet>189</a>    <span class="doccomment">/// Japanese (word-processing keyboard): Katakana
+<a href=#190 id=190 data-nosnippet>190</a>    </span>Lang3,
+<a href=#191 id=191 data-nosnippet>191</a>    <span class="doccomment">/// Japanese (word-processing keyboard): Hiragana
+<a href=#192 id=192 data-nosnippet>192</a>    </span>Lang4,
+<a href=#193 id=193 data-nosnippet>193</a>    <span class="doccomment">/// Japanese (word-processing keyboard): Zenkaku/Hankaku
+<a href=#194 id=194 data-nosnippet>194</a>    </span>Lang5,
+<a href=#195 id=195 data-nosnippet>195</a>    <span class="doccomment">/// Japanese: &lt;kbd&gt;無変換&lt;/kbd&gt; (&lt;span class="unicode"&gt;muhenkan&lt;/span&gt;)
+<a href=#196 id=196 data-nosnippet>196</a>    </span>NonConvert,
+<a href=#197 id=197 data-nosnippet>197</a>    <span class="doccomment">/// &lt;kbd&gt;⌦&lt;/kbd&gt;. The forward delete key.
+<a href=#198 id=198 data-nosnippet>198</a>    /// Note that on Apple keyboards, the key labelled &lt;kbd&gt;Delete&lt;/kbd&gt; on the main part of
+<a href=#199 id=199 data-nosnippet>199</a>    /// the keyboard should be encoded as [`Backspace`][Code::Backspace].
+<a href=#200 id=200 data-nosnippet>200</a>    </span>Delete,
+<a href=#201 id=201 data-nosnippet>201</a>    <span class="doccomment">/// &lt;kbd&gt;End&lt;/kbd&gt; or &lt;kbd&gt;↘&lt;/kbd&gt;
+<a href=#202 id=202 data-nosnippet>202</a>    </span>End,
+<a href=#203 id=203 data-nosnippet>203</a>    <span class="doccomment">/// &lt;kbd&gt;Help&lt;/kbd&gt;. Not present on standard PC keyboards.
+<a href=#204 id=204 data-nosnippet>204</a>    </span>Help,
+<a href=#205 id=205 data-nosnippet>205</a>    <span class="doccomment">/// &lt;kbd&gt;Home&lt;/kbd&gt; or &lt;kbd&gt;↖&lt;/kbd&gt;
+<a href=#206 id=206 data-nosnippet>206</a>    </span>Home,
+<a href=#207 id=207 data-nosnippet>207</a>    <span class="doccomment">/// &lt;kbd&gt;Insert&lt;/kbd&gt; or &lt;kbd&gt;Ins&lt;/kbd&gt;. Not present on Apple keyboards.
+<a href=#208 id=208 data-nosnippet>208</a>    </span>Insert,
+<a href=#209 id=209 data-nosnippet>209</a>    <span class="doccomment">/// &lt;kbd&gt;Page Down&lt;/kbd&gt;, &lt;kbd&gt;PgDn&lt;/kbd&gt; or &lt;kbd&gt;⇟&lt;/kbd&gt;
+<a href=#210 id=210 data-nosnippet>210</a>    </span>PageDown,
+<a href=#211 id=211 data-nosnippet>211</a>    <span class="doccomment">/// &lt;kbd&gt;Page Up&lt;/kbd&gt;, &lt;kbd&gt;PgUp&lt;/kbd&gt; or &lt;kbd&gt;⇞&lt;/kbd&gt;
+<a href=#212 id=212 data-nosnippet>212</a>    </span>PageUp,
+<a href=#213 id=213 data-nosnippet>213</a>    <span class="doccomment">/// &lt;kbd&gt;↓&lt;/kbd&gt;
+<a href=#214 id=214 data-nosnippet>214</a>    </span>ArrowDown,
+<a href=#215 id=215 data-nosnippet>215</a>    <span class="doccomment">/// &lt;kbd&gt;←&lt;/kbd&gt;
+<a href=#216 id=216 data-nosnippet>216</a>    </span>ArrowLeft,
+<a href=#217 id=217 data-nosnippet>217</a>    <span class="doccomment">/// &lt;kbd&gt;→&lt;/kbd&gt;
+<a href=#218 id=218 data-nosnippet>218</a>    </span>ArrowRight,
+<a href=#219 id=219 data-nosnippet>219</a>    <span class="doccomment">/// &lt;kbd&gt;↑&lt;/kbd&gt;
+<a href=#220 id=220 data-nosnippet>220</a>    </span>ArrowUp,
+<a href=#221 id=221 data-nosnippet>221</a>    <span class="doccomment">/// On the Mac, the [`NumLock`][Code::NumLock] code should be used for the numpad &lt;kbd&gt;Clear&lt;/kbd&gt; key.
+<a href=#222 id=222 data-nosnippet>222</a>    </span>NumLock,
+<a href=#223 id=223 data-nosnippet>223</a>    <span class="doccomment">/// &lt;kbd&gt;0 Ins&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;0&lt;/kbd&gt; on a phone or remote control
+<a href=#224 id=224 data-nosnippet>224</a>    </span>Numpad0,
+<a href=#225 id=225 data-nosnippet>225</a>    <span class="doccomment">/// &lt;kbd&gt;1 End&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;1&lt;/kbd&gt; or &lt;kbd&gt;1 QZ&lt;/kbd&gt; on a phone or
+<a href=#226 id=226 data-nosnippet>226</a>    /// remote control
+<a href=#227 id=227 data-nosnippet>227</a>    </span>Numpad1,
+<a href=#228 id=228 data-nosnippet>228</a>    <span class="doccomment">/// &lt;kbd&gt;2 ↓&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;2 ABC&lt;/kbd&gt; on a phone or remote control
+<a href=#229 id=229 data-nosnippet>229</a>    </span>Numpad2,
+<a href=#230 id=230 data-nosnippet>230</a>    <span class="doccomment">/// &lt;kbd&gt;3 PgDn&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;3 DEF&lt;/kbd&gt; on a phone or remote control
+<a href=#231 id=231 data-nosnippet>231</a>    </span>Numpad3,
+<a href=#232 id=232 data-nosnippet>232</a>    <span class="doccomment">/// &lt;kbd&gt;4 ←&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;4 GHI&lt;/kbd&gt; on a phone or remote control
+<a href=#233 id=233 data-nosnippet>233</a>    </span>Numpad4,
+<a href=#234 id=234 data-nosnippet>234</a>    <span class="doccomment">/// &lt;kbd&gt;5&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;5 JKL&lt;/kbd&gt; on a phone or remote control
+<a href=#235 id=235 data-nosnippet>235</a>    </span>Numpad5,
+<a href=#236 id=236 data-nosnippet>236</a>    <span class="doccomment">/// &lt;kbd&gt;6 →&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;6 MNO&lt;/kbd&gt; on a phone or remote control
+<a href=#237 id=237 data-nosnippet>237</a>    </span>Numpad6,
+<a href=#238 id=238 data-nosnippet>238</a>    <span class="doccomment">/// &lt;kbd&gt;7 Home&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;7 PQRS&lt;/kbd&gt; or &lt;kbd&gt;7 PRS&lt;/kbd&gt; on a phone
+<a href=#239 id=239 data-nosnippet>239</a>    /// or remote control
+<a href=#240 id=240 data-nosnippet>240</a>    </span>Numpad7,
+<a href=#241 id=241 data-nosnippet>241</a>    <span class="doccomment">/// &lt;kbd&gt;8 ↑&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;8 TUV&lt;/kbd&gt; on a phone or remote control
+<a href=#242 id=242 data-nosnippet>242</a>    </span>Numpad8,
+<a href=#243 id=243 data-nosnippet>243</a>    <span class="doccomment">/// &lt;kbd&gt;9 PgUp&lt;/kbd&gt; on a keyboard&lt;br/&gt;&lt;kbd&gt;9 WXYZ&lt;/kbd&gt; or &lt;kbd&gt;9 WXY&lt;/kbd&gt; on a phone
+<a href=#244 id=244 data-nosnippet>244</a>    /// or remote control
+<a href=#245 id=245 data-nosnippet>245</a>    </span>Numpad9,
+<a href=#246 id=246 data-nosnippet>246</a>    <span class="doccomment">/// &lt;kbd&gt;+&lt;/kbd&gt;
+<a href=#247 id=247 data-nosnippet>247</a>    </span>NumpadAdd,
+<a href=#248 id=248 data-nosnippet>248</a>    <span class="doccomment">/// Found on the Microsoft Natural Keyboard.
+<a href=#249 id=249 data-nosnippet>249</a>    </span>NumpadBackspace,
+<a href=#250 id=250 data-nosnippet>250</a>    <span class="doccomment">/// &lt;kbd&gt;C&lt;/kbd&gt; or &lt;kbd&gt;AC&lt;/kbd&gt; (All Clear). Also for use with numpads that have a &lt;kbd&gt;Clear&lt;/kbd&gt; key that is separate from the &lt;kbd&gt;NumLock&lt;/kbd&gt; key. On the Mac, the numpad &lt;kbd&gt;Clear&lt;/kbd&gt; key should always
+<a href=#251 id=251 data-nosnippet>251</a>    /// be encoded as [`NumLock`][Code::NumLock].
+<a href=#252 id=252 data-nosnippet>252</a>    </span>NumpadClear,
+<a href=#253 id=253 data-nosnippet>253</a>    <span class="doccomment">/// &lt;kbd&gt;CE&lt;/kbd&gt; (Clear Entry)
+<a href=#254 id=254 data-nosnippet>254</a>    </span>NumpadClearEntry,
+<a href=#255 id=255 data-nosnippet>255</a>    <span class="doccomment">/// &lt;kbd&gt;,&lt;/kbd&gt; (thousands separator). For locales where the thousands separator
+<a href=#256 id=256 data-nosnippet>256</a>    /// is a "." (e.g., Brazil), this key may generate a &lt;kbd&gt;.&lt;/kbd&gt;.
+<a href=#257 id=257 data-nosnippet>257</a>    </span>NumpadComma,
+<a href=#258 id=258 data-nosnippet>258</a>    <span class="doccomment">/// &lt;kbd&gt;. Del&lt;/kbd&gt;. For locales where the decimal separator is "," (e.g.,
+<a href=#259 id=259 data-nosnippet>259</a>    /// Brazil), this key may generate a &lt;kbd&gt;,&lt;/kbd&gt;.
+<a href=#260 id=260 data-nosnippet>260</a>    </span>NumpadDecimal,
+<a href=#261 id=261 data-nosnippet>261</a>    <span class="doccomment">/// &lt;kbd&gt;/&lt;/kbd&gt;
+<a href=#262 id=262 data-nosnippet>262</a>    </span>NumpadDivide,
+<a href=#263 id=263 data-nosnippet>263</a>    NumpadEnter,
+<a href=#264 id=264 data-nosnippet>264</a>    <span class="doccomment">/// &lt;kbd&gt;=&lt;/kbd&gt;
+<a href=#265 id=265 data-nosnippet>265</a>    </span>NumpadEqual,
+<a href=#266 id=266 data-nosnippet>266</a>    <span class="doccomment">/// &lt;kbd&gt;#&lt;/kbd&gt; on a phone or remote control device. This key is typically found
+<a href=#267 id=267 data-nosnippet>267</a>    /// below the &lt;kbd&gt;9&lt;/kbd&gt; key and to the right of the &lt;kbd&gt;0&lt;/kbd&gt; key.
+<a href=#268 id=268 data-nosnippet>268</a>    </span>NumpadHash,
+<a href=#269 id=269 data-nosnippet>269</a>    <span class="doccomment">/// &lt;kbd&gt;M+&lt;/kbd&gt; Add current entry to the value stored in memory.
+<a href=#270 id=270 data-nosnippet>270</a>    </span>NumpadMemoryAdd,
+<a href=#271 id=271 data-nosnippet>271</a>    <span class="doccomment">/// &lt;kbd&gt;MC&lt;/kbd&gt; Clear the value stored in memory.
+<a href=#272 id=272 data-nosnippet>272</a>    </span>NumpadMemoryClear,
+<a href=#273 id=273 data-nosnippet>273</a>    <span class="doccomment">/// &lt;kbd&gt;MR&lt;/kbd&gt; Replace the current entry with the value stored in memory.
+<a href=#274 id=274 data-nosnippet>274</a>    </span>NumpadMemoryRecall,
+<a href=#275 id=275 data-nosnippet>275</a>    <span class="doccomment">/// &lt;kbd&gt;MS&lt;/kbd&gt; Replace the value stored in memory with the current entry.
+<a href=#276 id=276 data-nosnippet>276</a>    </span>NumpadMemoryStore,
+<a href=#277 id=277 data-nosnippet>277</a>    <span class="doccomment">/// &lt;kbd&gt;M-&lt;/kbd&gt; Subtract current entry from the value stored in memory.
+<a href=#278 id=278 data-nosnippet>278</a>    </span>NumpadMemorySubtract,
+<a href=#279 id=279 data-nosnippet>279</a>    <span class="doccomment">/// &lt;kbd&gt;*&lt;/kbd&gt; on a keyboard. For use with numpads that provide mathematical
+<a href=#280 id=280 data-nosnippet>280</a>    /// operations (&lt;kbd&gt;+&lt;/kbd&gt;, &lt;kbd&gt;-&lt;/kbd&gt;, &lt;kbd&gt;*&lt;/kbd&gt; and &lt;kbd&gt;/&lt;/kbd&gt;).&lt;br/&gt;Use [`NumpadStar`][Code::NumpadStar] for the &lt;kbd&gt;*&lt;/kbd&gt; key on phones and remote controls.
+<a href=#281 id=281 data-nosnippet>281</a>    </span>NumpadMultiply,
+<a href=#282 id=282 data-nosnippet>282</a>    <span class="doccomment">/// &lt;kbd&gt;(&lt;/kbd&gt; Found on the Microsoft Natural Keyboard.
+<a href=#283 id=283 data-nosnippet>283</a>    </span>NumpadParenLeft,
+<a href=#284 id=284 data-nosnippet>284</a>    <span class="doccomment">/// &lt;kbd&gt;)&lt;/kbd&gt; Found on the Microsoft Natural Keyboard.
+<a href=#285 id=285 data-nosnippet>285</a>    </span>NumpadParenRight,
+<a href=#286 id=286 data-nosnippet>286</a>    <span class="doccomment">/// &lt;kbd&gt;*&lt;/kbd&gt; on a phone or remote control device.
+<a href=#287 id=287 data-nosnippet>287</a>    /// This key is typically found below the &lt;kbd&gt;7&lt;/kbd&gt; key and to the left of
+<a href=#288 id=288 data-nosnippet>288</a>    /// the &lt;kbd&gt;0&lt;/kbd&gt; key.&lt;br/&gt;Use [`NumpadMultiply`][Code::NumpadMultiply] for the &lt;kbd&gt;*&lt;/kbd&gt; key on
+<a href=#289 id=289 data-nosnippet>289</a>    /// numeric keypads.
+<a href=#290 id=290 data-nosnippet>290</a>    </span>NumpadStar,
+<a href=#291 id=291 data-nosnippet>291</a>    <span class="doccomment">/// &lt;kbd&gt;-&lt;/kbd&gt;
+<a href=#292 id=292 data-nosnippet>292</a>    </span>NumpadSubtract,
+<a href=#293 id=293 data-nosnippet>293</a>    <span class="doccomment">/// &lt;kbd&gt;Esc&lt;/kbd&gt; or &lt;kbd&gt;⎋&lt;/kbd&gt;
+<a href=#294 id=294 data-nosnippet>294</a>    </span>Escape,
+<a href=#295 id=295 data-nosnippet>295</a>    <span class="doccomment">/// &lt;kbd&gt;Fn&lt;/kbd&gt; This is typically a hardware key that does not generate a separate
+<a href=#296 id=296 data-nosnippet>296</a>    /// code. Most keyboards do not place this key in the function section, but it is
+<a href=#297 id=297 data-nosnippet>297</a>    /// included here to keep it with related keys.
+<a href=#298 id=298 data-nosnippet>298</a>    </span>Fn,
+<a href=#299 id=299 data-nosnippet>299</a>    <span class="doccomment">/// &lt;kbd&gt;FLock&lt;/kbd&gt; or &lt;kbd&gt;FnLock&lt;/kbd&gt;. Function Lock key. Found on the Microsoft
+<a href=#300 id=300 data-nosnippet>300</a>    /// Natural Keyboard.
+<a href=#301 id=301 data-nosnippet>301</a>    </span>FnLock,
+<a href=#302 id=302 data-nosnippet>302</a>    <span class="doccomment">/// &lt;kbd&gt;PrtScr SysRq&lt;/kbd&gt; or &lt;kbd&gt;Print Screen&lt;/kbd&gt;
+<a href=#303 id=303 data-nosnippet>303</a>    </span>PrintScreen,
+<a href=#304 id=304 data-nosnippet>304</a>    <span class="doccomment">/// &lt;kbd&gt;Scroll Lock&lt;/kbd&gt;
+<a href=#305 id=305 data-nosnippet>305</a>    </span>ScrollLock,
+<a href=#306 id=306 data-nosnippet>306</a>    <span class="doccomment">/// &lt;kbd&gt;Pause Break&lt;/kbd&gt;
+<a href=#307 id=307 data-nosnippet>307</a>    </span>Pause,
+<a href=#308 id=308 data-nosnippet>308</a>    <span class="doccomment">/// Some laptops place this key to the left of the &lt;kbd&gt;↑&lt;/kbd&gt; key.
+<a href=#309 id=309 data-nosnippet>309</a>    </span>BrowserBack,
+<a href=#310 id=310 data-nosnippet>310</a>    BrowserFavorites,
+<a href=#311 id=311 data-nosnippet>311</a>    <span class="doccomment">/// Some laptops place this key to the right of the &lt;kbd&gt;↑&lt;/kbd&gt; key.
+<a href=#312 id=312 data-nosnippet>312</a>    </span>BrowserForward,
+<a href=#313 id=313 data-nosnippet>313</a>    BrowserHome,
+<a href=#314 id=314 data-nosnippet>314</a>    BrowserRefresh,
+<a href=#315 id=315 data-nosnippet>315</a>    BrowserSearch,
+<a href=#316 id=316 data-nosnippet>316</a>    BrowserStop,
+<a href=#317 id=317 data-nosnippet>317</a>    <span class="doccomment">/// &lt;kbd&gt;Eject&lt;/kbd&gt; or &lt;kbd&gt;⏏&lt;/kbd&gt;. This key is placed in the function
+<a href=#318 id=318 data-nosnippet>318</a>    /// section on some Apple keyboards.
+<a href=#319 id=319 data-nosnippet>319</a>    </span>Eject,
+<a href=#320 id=320 data-nosnippet>320</a>    <span class="doccomment">/// Sometimes labelled &lt;kbd&gt;My Computer&lt;/kbd&gt; on the keyboard
+<a href=#321 id=321 data-nosnippet>321</a>    </span>LaunchApp1,
+<a href=#322 id=322 data-nosnippet>322</a>    <span class="doccomment">/// Sometimes labelled &lt;kbd&gt;Calculator&lt;/kbd&gt; on the keyboard
+<a href=#323 id=323 data-nosnippet>323</a>    </span>LaunchApp2,
+<a href=#324 id=324 data-nosnippet>324</a>    LaunchMail,
+<a href=#325 id=325 data-nosnippet>325</a>    MediaPlayPause,
+<a href=#326 id=326 data-nosnippet>326</a>    <span class="attr">#[doc(alias = <span class="string">"LaunchMediaPlayer"</span>)]
+<a href=#327 id=327 data-nosnippet>327</a>    </span>MediaSelect,
+<a href=#328 id=328 data-nosnippet>328</a>    MediaStop,
+<a href=#329 id=329 data-nosnippet>329</a>    MediaTrackNext,
+<a href=#330 id=330 data-nosnippet>330</a>    MediaTrackPrevious,
+<a href=#331 id=331 data-nosnippet>331</a>    <span class="doccomment">/// This key is placed in the function section on some Apple keyboards,
+<a href=#332 id=332 data-nosnippet>332</a>    /// replacing the &lt;kbd&gt;Eject&lt;/kbd&gt; key.
+<a href=#333 id=333 data-nosnippet>333</a>    </span>Power,
+<a href=#334 id=334 data-nosnippet>334</a>    Sleep,
+<a href=#335 id=335 data-nosnippet>335</a>    <span class="attr">#[doc(alias = <span class="string">"VolumeDown"</span>)]
+<a href=#336 id=336 data-nosnippet>336</a>    </span>AudioVolumeDown,
+<a href=#337 id=337 data-nosnippet>337</a>    <span class="attr">#[doc(alias = <span class="string">"VolumeMute"</span>)]
+<a href=#338 id=338 data-nosnippet>338</a>    </span>AudioVolumeMute,
+<a href=#339 id=339 data-nosnippet>339</a>    <span class="attr">#[doc(alias = <span class="string">"VolumeUp"</span>)]
+<a href=#340 id=340 data-nosnippet>340</a>    </span>AudioVolumeUp,
+<a href=#341 id=341 data-nosnippet>341</a>    WakeUp,
+<a href=#342 id=342 data-nosnippet>342</a>    <span class="attr">#[deprecated = <span class="string">"marked as legacy in the spec, use Meta instead"</span>]
+<a href=#343 id=343 data-nosnippet>343</a>    </span>Hyper,
+<a href=#344 id=344 data-nosnippet>344</a>    <span class="attr">#[deprecated = <span class="string">"marked as legacy in the spec, use Meta instead"</span>]
+<a href=#345 id=345 data-nosnippet>345</a>    </span>Super,
+<a href=#346 id=346 data-nosnippet>346</a>    <span class="attr">#[deprecated = <span class="string">"marked as legacy in the spec, use Meta instead"</span>]
+<a href=#347 id=347 data-nosnippet>347</a>    </span>Turbo,
+<a href=#348 id=348 data-nosnippet>348</a>    Abort,
+<a href=#349 id=349 data-nosnippet>349</a>    Resume,
+<a href=#350 id=350 data-nosnippet>350</a>    Suspend,
+<a href=#351 id=351 data-nosnippet>351</a>    <span class="doccomment">/// Found on Sun’s USB keyboard.
+<a href=#352 id=352 data-nosnippet>352</a>    </span>Again,
+<a href=#353 id=353 data-nosnippet>353</a>    <span class="doccomment">/// Found on Sun’s USB keyboard.
+<a href=#354 id=354 data-nosnippet>354</a>    </span>Copy,
+<a href=#355 id=355 data-nosnippet>355</a>    <span class="doccomment">/// Found on Sun’s USB keyboard.
+<a href=#356 id=356 data-nosnippet>356</a>    </span>Cut,
+<a href=#357 id=357 data-nosnippet>357</a>    <span class="doccomment">/// Found on Sun’s USB keyboard.
+<a href=#358 id=358 data-nosnippet>358</a>    </span>Find,
+<a href=#359 id=359 data-nosnippet>359</a>    <span class="doccomment">/// Found on Sun’s USB keyboard.
+<a href=#360 id=360 data-nosnippet>360</a>    </span>Open,
+<a href=#361 id=361 data-nosnippet>361</a>    <span class="doccomment">/// Found on Sun’s USB keyboard.
+<a href=#362 id=362 data-nosnippet>362</a>    </span>Paste,
+<a href=#363 id=363 data-nosnippet>363</a>    <span class="doccomment">/// Found on Sun’s USB keyboard.
+<a href=#364 id=364 data-nosnippet>364</a>    </span>Props,
+<a href=#365 id=365 data-nosnippet>365</a>    <span class="doccomment">/// Found on Sun’s USB keyboard.
+<a href=#366 id=366 data-nosnippet>366</a>    </span>Select,
+<a href=#367 id=367 data-nosnippet>367</a>    <span class="doccomment">/// Found on Sun’s USB keyboard.
+<a href=#368 id=368 data-nosnippet>368</a>    </span>Undo,
+<a href=#369 id=369 data-nosnippet>369</a>    <span class="doccomment">/// Use for dedicated &lt;kbd&gt;ひらがな&lt;/kbd&gt; key found on some Japanese word processing keyboards.
+<a href=#370 id=370 data-nosnippet>370</a>    </span>Hiragana,
+<a href=#371 id=371 data-nosnippet>371</a>    <span class="doccomment">/// Use for dedicated &lt;kbd&gt;カタカナ&lt;/kbd&gt; key found on some Japanese word processing keyboards.
+<a href=#372 id=372 data-nosnippet>372</a>    </span>Katakana,
+<a href=#373 id=373 data-nosnippet>373</a>    <span class="doccomment">/// This value code should be used when no other
+<a href=#374 id=374 data-nosnippet>374</a>    /// value given in this specification is appropriate.
+<a href=#375 id=375 data-nosnippet>375</a>    </span>Unidentified,
+<a href=#376 id=376 data-nosnippet>376</a>    <span class="doccomment">/// &lt;kbd&gt;F1&lt;/kbd&gt;
+<a href=#377 id=377 data-nosnippet>377</a>    </span>F1,
+<a href=#378 id=378 data-nosnippet>378</a>    <span class="doccomment">/// &lt;kbd&gt;F2&lt;/kbd&gt;
+<a href=#379 id=379 data-nosnippet>379</a>    </span>F2,
+<a href=#380 id=380 data-nosnippet>380</a>    <span class="doccomment">/// &lt;kbd&gt;F3&lt;/kbd&gt;
+<a href=#381 id=381 data-nosnippet>381</a>    </span>F3,
+<a href=#382 id=382 data-nosnippet>382</a>    <span class="doccomment">/// &lt;kbd&gt;F4&lt;/kbd&gt;
+<a href=#383 id=383 data-nosnippet>383</a>    </span>F4,
+<a href=#384 id=384 data-nosnippet>384</a>    <span class="doccomment">/// &lt;kbd&gt;F5&lt;/kbd&gt;
+<a href=#385 id=385 data-nosnippet>385</a>    </span>F5,
+<a href=#386 id=386 data-nosnippet>386</a>    <span class="doccomment">/// &lt;kbd&gt;F6&lt;/kbd&gt;
+<a href=#387 id=387 data-nosnippet>387</a>    </span>F6,
+<a href=#388 id=388 data-nosnippet>388</a>    <span class="doccomment">/// &lt;kbd&gt;F7&lt;/kbd&gt;
+<a href=#389 id=389 data-nosnippet>389</a>    </span>F7,
+<a href=#390 id=390 data-nosnippet>390</a>    <span class="doccomment">/// &lt;kbd&gt;F8&lt;/kbd&gt;
+<a href=#391 id=391 data-nosnippet>391</a>    </span>F8,
+<a href=#392 id=392 data-nosnippet>392</a>    <span class="doccomment">/// &lt;kbd&gt;F9&lt;/kbd&gt;
+<a href=#393 id=393 data-nosnippet>393</a>    </span>F9,
+<a href=#394 id=394 data-nosnippet>394</a>    <span class="doccomment">/// &lt;kbd&gt;F10&lt;/kbd&gt;
+<a href=#395 id=395 data-nosnippet>395</a>    </span>F10,
+<a href=#396 id=396 data-nosnippet>396</a>    <span class="doccomment">/// &lt;kbd&gt;F11&lt;/kbd&gt;
+<a href=#397 id=397 data-nosnippet>397</a>    </span>F11,
+<a href=#398 id=398 data-nosnippet>398</a>    <span class="doccomment">/// &lt;kbd&gt;F12&lt;/kbd&gt;
+<a href=#399 id=399 data-nosnippet>399</a>    </span>F12,
+<a href=#400 id=400 data-nosnippet>400</a>    <span class="doccomment">/// &lt;kbd&gt;F13&lt;/kbd&gt;
+<a href=#401 id=401 data-nosnippet>401</a>    </span>F13,
+<a href=#402 id=402 data-nosnippet>402</a>    <span class="doccomment">/// &lt;kbd&gt;F14&lt;/kbd&gt;
+<a href=#403 id=403 data-nosnippet>403</a>    </span>F14,
+<a href=#404 id=404 data-nosnippet>404</a>    <span class="doccomment">/// &lt;kbd&gt;F15&lt;/kbd&gt;
+<a href=#405 id=405 data-nosnippet>405</a>    </span>F15,
+<a href=#406 id=406 data-nosnippet>406</a>    <span class="doccomment">/// &lt;kbd&gt;F16&lt;/kbd&gt;
+<a href=#407 id=407 data-nosnippet>407</a>    </span>F16,
+<a href=#408 id=408 data-nosnippet>408</a>    <span class="doccomment">/// &lt;kbd&gt;F17&lt;/kbd&gt;
+<a href=#409 id=409 data-nosnippet>409</a>    </span>F17,
+<a href=#410 id=410 data-nosnippet>410</a>    <span class="doccomment">/// &lt;kbd&gt;F18&lt;/kbd&gt;
+<a href=#411 id=411 data-nosnippet>411</a>    </span>F18,
+<a href=#412 id=412 data-nosnippet>412</a>    <span class="doccomment">/// &lt;kbd&gt;F19&lt;/kbd&gt;
+<a href=#413 id=413 data-nosnippet>413</a>    </span>F19,
+<a href=#414 id=414 data-nosnippet>414</a>    <span class="doccomment">/// &lt;kbd&gt;F20&lt;/kbd&gt;
+<a href=#415 id=415 data-nosnippet>415</a>    </span>F20,
+<a href=#416 id=416 data-nosnippet>416</a>    <span class="doccomment">/// &lt;kbd&gt;F21&lt;/kbd&gt;
+<a href=#417 id=417 data-nosnippet>417</a>    </span>F21,
+<a href=#418 id=418 data-nosnippet>418</a>    <span class="doccomment">/// &lt;kbd&gt;F22&lt;/kbd&gt;
+<a href=#419 id=419 data-nosnippet>419</a>    </span>F22,
+<a href=#420 id=420 data-nosnippet>420</a>    <span class="doccomment">/// &lt;kbd&gt;F23&lt;/kbd&gt;
+<a href=#421 id=421 data-nosnippet>421</a>    </span>F23,
+<a href=#422 id=422 data-nosnippet>422</a>    <span class="doccomment">/// &lt;kbd&gt;F24&lt;/kbd&gt;
+<a href=#423 id=423 data-nosnippet>423</a>    </span>F24,
+<a href=#424 id=424 data-nosnippet>424</a>    <span class="doccomment">/// &lt;kbd&gt;F25&lt;/kbd&gt;
+<a href=#425 id=425 data-nosnippet>425</a>    </span>F25,
+<a href=#426 id=426 data-nosnippet>426</a>    <span class="doccomment">/// &lt;kbd&gt;F26&lt;/kbd&gt;
+<a href=#427 id=427 data-nosnippet>427</a>    </span>F26,
+<a href=#428 id=428 data-nosnippet>428</a>    <span class="doccomment">/// &lt;kbd&gt;F27&lt;/kbd&gt;
+<a href=#429 id=429 data-nosnippet>429</a>    </span>F27,
+<a href=#430 id=430 data-nosnippet>430</a>    <span class="doccomment">/// &lt;kbd&gt;F28&lt;/kbd&gt;
+<a href=#431 id=431 data-nosnippet>431</a>    </span>F28,
+<a href=#432 id=432 data-nosnippet>432</a>    <span class="doccomment">/// &lt;kbd&gt;F29&lt;/kbd&gt;
+<a href=#433 id=433 data-nosnippet>433</a>    </span>F29,
+<a href=#434 id=434 data-nosnippet>434</a>    <span class="doccomment">/// &lt;kbd&gt;F30&lt;/kbd&gt;
+<a href=#435 id=435 data-nosnippet>435</a>    </span>F30,
+<a href=#436 id=436 data-nosnippet>436</a>    <span class="doccomment">/// &lt;kbd&gt;F31&lt;/kbd&gt;
+<a href=#437 id=437 data-nosnippet>437</a>    </span>F31,
+<a href=#438 id=438 data-nosnippet>438</a>    <span class="doccomment">/// &lt;kbd&gt;F32&lt;/kbd&gt;
+<a href=#439 id=439 data-nosnippet>439</a>    </span>F32,
+<a href=#440 id=440 data-nosnippet>440</a>    <span class="doccomment">/// &lt;kbd&gt;F33&lt;/kbd&gt;
+<a href=#441 id=441 data-nosnippet>441</a>    </span>F33,
+<a href=#442 id=442 data-nosnippet>442</a>    <span class="doccomment">/// &lt;kbd&gt;F34&lt;/kbd&gt;
+<a href=#443 id=443 data-nosnippet>443</a>    </span>F34,
+<a href=#444 id=444 data-nosnippet>444</a>    <span class="doccomment">/// &lt;kbd&gt;F35&lt;/kbd&gt;
+<a href=#445 id=445 data-nosnippet>445</a>    </span>F35,
+<a href=#446 id=446 data-nosnippet>446</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#447 id=447 data-nosnippet>447</a>    </span>BrightnessDown,
+<a href=#448 id=448 data-nosnippet>448</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#449 id=449 data-nosnippet>449</a>    </span>BrightnessUp,
+<a href=#450 id=450 data-nosnippet>450</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#451 id=451 data-nosnippet>451</a>    </span>DisplayToggleIntExt,
+<a href=#452 id=452 data-nosnippet>452</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#453 id=453 data-nosnippet>453</a>    </span>KeyboardLayoutSelect,
+<a href=#454 id=454 data-nosnippet>454</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#455 id=455 data-nosnippet>455</a>    </span>LaunchAssistant,
+<a href=#456 id=456 data-nosnippet>456</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#457 id=457 data-nosnippet>457</a>    </span>LaunchControlPanel,
+<a href=#458 id=458 data-nosnippet>458</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#459 id=459 data-nosnippet>459</a>    </span>LaunchScreenSaver,
+<a href=#460 id=460 data-nosnippet>460</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#461 id=461 data-nosnippet>461</a>    </span>MailForward,
+<a href=#462 id=462 data-nosnippet>462</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#463 id=463 data-nosnippet>463</a>    </span>MailReply,
+<a href=#464 id=464 data-nosnippet>464</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#465 id=465 data-nosnippet>465</a>    </span>MailSend,
+<a href=#466 id=466 data-nosnippet>466</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#467 id=467 data-nosnippet>467</a>    </span>MediaFastForward,
+<a href=#468 id=468 data-nosnippet>468</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#469 id=469 data-nosnippet>469</a>    </span>MediaPause,
+<a href=#470 id=470 data-nosnippet>470</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#471 id=471 data-nosnippet>471</a>    </span>MediaPlay,
+<a href=#472 id=472 data-nosnippet>472</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#473 id=473 data-nosnippet>473</a>    </span>MediaRecord,
+<a href=#474 id=474 data-nosnippet>474</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#475 id=475 data-nosnippet>475</a>    </span>MediaRewind,
+<a href=#476 id=476 data-nosnippet>476</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#477 id=477 data-nosnippet>477</a>    </span>MicrophoneMuteToggle,
+<a href=#478 id=478 data-nosnippet>478</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#479 id=479 data-nosnippet>479</a>    </span>PrivacyScreenToggle,
+<a href=#480 id=480 data-nosnippet>480</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#481 id=481 data-nosnippet>481</a>    </span>KeyboardBacklightToggle,
+<a href=#482 id=482 data-nosnippet>482</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#483 id=483 data-nosnippet>483</a>    </span>SelectTask,
+<a href=#484 id=484 data-nosnippet>484</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#485 id=485 data-nosnippet>485</a>    </span>ShowAllWindows,
+<a href=#486 id=486 data-nosnippet>486</a>    <span class="doccomment">/// Non-standard code value supported by Chromium.
+<a href=#487 id=487 data-nosnippet>487</a>    </span>ZoomToggle,
+<a href=#488 id=488 data-nosnippet>488</a>}
+<a href=#489 id=489 data-nosnippet>489</a>
+<a href=#490 id=490 data-nosnippet>490</a>
+<a href=#491 id=491 data-nosnippet>491</a><span class="kw">impl </span>Display <span class="kw">for </span>Code {
+<a href=#492 id=492 data-nosnippet>492</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
+<a href=#493 id=493 data-nosnippet>493</a>        <span class="kw">use </span><span class="self">self</span>::Code::<span class="kw-2">*</span>;
+<a href=#494 id=494 data-nosnippet>494</a>        <span class="kw">match </span><span class="kw-2">*</span><span class="self">self </span>{
+<a href=#495 id=495 data-nosnippet>495</a>            Backquote =&gt; f.write_str(<span class="string">"Backquote"</span>),
+<a href=#496 id=496 data-nosnippet>496</a>            Backslash =&gt; f.write_str(<span class="string">"Backslash"</span>),
+<a href=#497 id=497 data-nosnippet>497</a>            BracketLeft =&gt; f.write_str(<span class="string">"BracketLeft"</span>),
+<a href=#498 id=498 data-nosnippet>498</a>            BracketRight =&gt; f.write_str(<span class="string">"BracketRight"</span>),
+<a href=#499 id=499 data-nosnippet>499</a>            Comma =&gt; f.write_str(<span class="string">"Comma"</span>),
+<a href=#500 id=500 data-nosnippet>500</a>            Digit0 =&gt; f.write_str(<span class="string">"Digit0"</span>),
+<a href=#501 id=501 data-nosnippet>501</a>            Digit1 =&gt; f.write_str(<span class="string">"Digit1"</span>),
+<a href=#502 id=502 data-nosnippet>502</a>            Digit2 =&gt; f.write_str(<span class="string">"Digit2"</span>),
+<a href=#503 id=503 data-nosnippet>503</a>            Digit3 =&gt; f.write_str(<span class="string">"Digit3"</span>),
+<a href=#504 id=504 data-nosnippet>504</a>            Digit4 =&gt; f.write_str(<span class="string">"Digit4"</span>),
+<a href=#505 id=505 data-nosnippet>505</a>            Digit5 =&gt; f.write_str(<span class="string">"Digit5"</span>),
+<a href=#506 id=506 data-nosnippet>506</a>            Digit6 =&gt; f.write_str(<span class="string">"Digit6"</span>),
+<a href=#507 id=507 data-nosnippet>507</a>            Digit7 =&gt; f.write_str(<span class="string">"Digit7"</span>),
+<a href=#508 id=508 data-nosnippet>508</a>            Digit8 =&gt; f.write_str(<span class="string">"Digit8"</span>),
+<a href=#509 id=509 data-nosnippet>509</a>            Digit9 =&gt; f.write_str(<span class="string">"Digit9"</span>),
+<a href=#510 id=510 data-nosnippet>510</a>            Equal =&gt; f.write_str(<span class="string">"Equal"</span>),
+<a href=#511 id=511 data-nosnippet>511</a>            IntlBackslash =&gt; f.write_str(<span class="string">"IntlBackslash"</span>),
+<a href=#512 id=512 data-nosnippet>512</a>            IntlRo =&gt; f.write_str(<span class="string">"IntlRo"</span>),
+<a href=#513 id=513 data-nosnippet>513</a>            IntlYen =&gt; f.write_str(<span class="string">"IntlYen"</span>),
+<a href=#514 id=514 data-nosnippet>514</a>            KeyA =&gt; f.write_str(<span class="string">"KeyA"</span>),
+<a href=#515 id=515 data-nosnippet>515</a>            KeyB =&gt; f.write_str(<span class="string">"KeyB"</span>),
+<a href=#516 id=516 data-nosnippet>516</a>            KeyC =&gt; f.write_str(<span class="string">"KeyC"</span>),
+<a href=#517 id=517 data-nosnippet>517</a>            KeyD =&gt; f.write_str(<span class="string">"KeyD"</span>),
+<a href=#518 id=518 data-nosnippet>518</a>            KeyE =&gt; f.write_str(<span class="string">"KeyE"</span>),
+<a href=#519 id=519 data-nosnippet>519</a>            KeyF =&gt; f.write_str(<span class="string">"KeyF"</span>),
+<a href=#520 id=520 data-nosnippet>520</a>            KeyG =&gt; f.write_str(<span class="string">"KeyG"</span>),
+<a href=#521 id=521 data-nosnippet>521</a>            KeyH =&gt; f.write_str(<span class="string">"KeyH"</span>),
+<a href=#522 id=522 data-nosnippet>522</a>            KeyI =&gt; f.write_str(<span class="string">"KeyI"</span>),
+<a href=#523 id=523 data-nosnippet>523</a>            KeyJ =&gt; f.write_str(<span class="string">"KeyJ"</span>),
+<a href=#524 id=524 data-nosnippet>524</a>            KeyK =&gt; f.write_str(<span class="string">"KeyK"</span>),
+<a href=#525 id=525 data-nosnippet>525</a>            KeyL =&gt; f.write_str(<span class="string">"KeyL"</span>),
+<a href=#526 id=526 data-nosnippet>526</a>            KeyM =&gt; f.write_str(<span class="string">"KeyM"</span>),
+<a href=#527 id=527 data-nosnippet>527</a>            KeyN =&gt; f.write_str(<span class="string">"KeyN"</span>),
+<a href=#528 id=528 data-nosnippet>528</a>            KeyO =&gt; f.write_str(<span class="string">"KeyO"</span>),
+<a href=#529 id=529 data-nosnippet>529</a>            KeyP =&gt; f.write_str(<span class="string">"KeyP"</span>),
+<a href=#530 id=530 data-nosnippet>530</a>            KeyQ =&gt; f.write_str(<span class="string">"KeyQ"</span>),
+<a href=#531 id=531 data-nosnippet>531</a>            KeyR =&gt; f.write_str(<span class="string">"KeyR"</span>),
+<a href=#532 id=532 data-nosnippet>532</a>            KeyS =&gt; f.write_str(<span class="string">"KeyS"</span>),
+<a href=#533 id=533 data-nosnippet>533</a>            KeyT =&gt; f.write_str(<span class="string">"KeyT"</span>),
+<a href=#534 id=534 data-nosnippet>534</a>            KeyU =&gt; f.write_str(<span class="string">"KeyU"</span>),
+<a href=#535 id=535 data-nosnippet>535</a>            KeyV =&gt; f.write_str(<span class="string">"KeyV"</span>),
+<a href=#536 id=536 data-nosnippet>536</a>            KeyW =&gt; f.write_str(<span class="string">"KeyW"</span>),
+<a href=#537 id=537 data-nosnippet>537</a>            KeyX =&gt; f.write_str(<span class="string">"KeyX"</span>),
+<a href=#538 id=538 data-nosnippet>538</a>            KeyY =&gt; f.write_str(<span class="string">"KeyY"</span>),
+<a href=#539 id=539 data-nosnippet>539</a>            KeyZ =&gt; f.write_str(<span class="string">"KeyZ"</span>),
+<a href=#540 id=540 data-nosnippet>540</a>            Minus =&gt; f.write_str(<span class="string">"Minus"</span>),
+<a href=#541 id=541 data-nosnippet>541</a>            Period =&gt; f.write_str(<span class="string">"Period"</span>),
+<a href=#542 id=542 data-nosnippet>542</a>            Quote =&gt; f.write_str(<span class="string">"Quote"</span>),
+<a href=#543 id=543 data-nosnippet>543</a>            Semicolon =&gt; f.write_str(<span class="string">"Semicolon"</span>),
+<a href=#544 id=544 data-nosnippet>544</a>            Slash =&gt; f.write_str(<span class="string">"Slash"</span>),
+<a href=#545 id=545 data-nosnippet>545</a>            AltLeft =&gt; f.write_str(<span class="string">"AltLeft"</span>),
+<a href=#546 id=546 data-nosnippet>546</a>            AltRight =&gt; f.write_str(<span class="string">"AltRight"</span>),
+<a href=#547 id=547 data-nosnippet>547</a>            Backspace =&gt; f.write_str(<span class="string">"Backspace"</span>),
+<a href=#548 id=548 data-nosnippet>548</a>            CapsLock =&gt; f.write_str(<span class="string">"CapsLock"</span>),
+<a href=#549 id=549 data-nosnippet>549</a>            ContextMenu =&gt; f.write_str(<span class="string">"ContextMenu"</span>),
+<a href=#550 id=550 data-nosnippet>550</a>            ControlLeft =&gt; f.write_str(<span class="string">"ControlLeft"</span>),
+<a href=#551 id=551 data-nosnippet>551</a>            ControlRight =&gt; f.write_str(<span class="string">"ControlRight"</span>),
+<a href=#552 id=552 data-nosnippet>552</a>            Enter =&gt; f.write_str(<span class="string">"Enter"</span>),
+<a href=#553 id=553 data-nosnippet>553</a>            MetaLeft =&gt; f.write_str(<span class="string">"MetaLeft"</span>),
+<a href=#554 id=554 data-nosnippet>554</a>            MetaRight =&gt; f.write_str(<span class="string">"MetaRight"</span>),
+<a href=#555 id=555 data-nosnippet>555</a>            ShiftLeft =&gt; f.write_str(<span class="string">"ShiftLeft"</span>),
+<a href=#556 id=556 data-nosnippet>556</a>            ShiftRight =&gt; f.write_str(<span class="string">"ShiftRight"</span>),
+<a href=#557 id=557 data-nosnippet>557</a>            Space =&gt; f.write_str(<span class="string">"Space"</span>),
+<a href=#558 id=558 data-nosnippet>558</a>            Tab =&gt; f.write_str(<span class="string">"Tab"</span>),
+<a href=#559 id=559 data-nosnippet>559</a>            Convert =&gt; f.write_str(<span class="string">"Convert"</span>),
+<a href=#560 id=560 data-nosnippet>560</a>            KanaMode =&gt; f.write_str(<span class="string">"KanaMode"</span>),
+<a href=#561 id=561 data-nosnippet>561</a>            Lang1 =&gt; f.write_str(<span class="string">"Lang1"</span>),
+<a href=#562 id=562 data-nosnippet>562</a>            Lang2 =&gt; f.write_str(<span class="string">"Lang2"</span>),
+<a href=#563 id=563 data-nosnippet>563</a>            Lang3 =&gt; f.write_str(<span class="string">"Lang3"</span>),
+<a href=#564 id=564 data-nosnippet>564</a>            Lang4 =&gt; f.write_str(<span class="string">"Lang4"</span>),
+<a href=#565 id=565 data-nosnippet>565</a>            Lang5 =&gt; f.write_str(<span class="string">"Lang5"</span>),
+<a href=#566 id=566 data-nosnippet>566</a>            NonConvert =&gt; f.write_str(<span class="string">"NonConvert"</span>),
+<a href=#567 id=567 data-nosnippet>567</a>            Delete =&gt; f.write_str(<span class="string">"Delete"</span>),
+<a href=#568 id=568 data-nosnippet>568</a>            End =&gt; f.write_str(<span class="string">"End"</span>),
+<a href=#569 id=569 data-nosnippet>569</a>            Help =&gt; f.write_str(<span class="string">"Help"</span>),
+<a href=#570 id=570 data-nosnippet>570</a>            Home =&gt; f.write_str(<span class="string">"Home"</span>),
+<a href=#571 id=571 data-nosnippet>571</a>            Insert =&gt; f.write_str(<span class="string">"Insert"</span>),
+<a href=#572 id=572 data-nosnippet>572</a>            PageDown =&gt; f.write_str(<span class="string">"PageDown"</span>),
+<a href=#573 id=573 data-nosnippet>573</a>            PageUp =&gt; f.write_str(<span class="string">"PageUp"</span>),
+<a href=#574 id=574 data-nosnippet>574</a>            ArrowDown =&gt; f.write_str(<span class="string">"ArrowDown"</span>),
+<a href=#575 id=575 data-nosnippet>575</a>            ArrowLeft =&gt; f.write_str(<span class="string">"ArrowLeft"</span>),
+<a href=#576 id=576 data-nosnippet>576</a>            ArrowRight =&gt; f.write_str(<span class="string">"ArrowRight"</span>),
+<a href=#577 id=577 data-nosnippet>577</a>            ArrowUp =&gt; f.write_str(<span class="string">"ArrowUp"</span>),
+<a href=#578 id=578 data-nosnippet>578</a>            NumLock =&gt; f.write_str(<span class="string">"NumLock"</span>),
+<a href=#579 id=579 data-nosnippet>579</a>            Numpad0 =&gt; f.write_str(<span class="string">"Numpad0"</span>),
+<a href=#580 id=580 data-nosnippet>580</a>            Numpad1 =&gt; f.write_str(<span class="string">"Numpad1"</span>),
+<a href=#581 id=581 data-nosnippet>581</a>            Numpad2 =&gt; f.write_str(<span class="string">"Numpad2"</span>),
+<a href=#582 id=582 data-nosnippet>582</a>            Numpad3 =&gt; f.write_str(<span class="string">"Numpad3"</span>),
+<a href=#583 id=583 data-nosnippet>583</a>            Numpad4 =&gt; f.write_str(<span class="string">"Numpad4"</span>),
+<a href=#584 id=584 data-nosnippet>584</a>            Numpad5 =&gt; f.write_str(<span class="string">"Numpad5"</span>),
+<a href=#585 id=585 data-nosnippet>585</a>            Numpad6 =&gt; f.write_str(<span class="string">"Numpad6"</span>),
+<a href=#586 id=586 data-nosnippet>586</a>            Numpad7 =&gt; f.write_str(<span class="string">"Numpad7"</span>),
+<a href=#587 id=587 data-nosnippet>587</a>            Numpad8 =&gt; f.write_str(<span class="string">"Numpad8"</span>),
+<a href=#588 id=588 data-nosnippet>588</a>            Numpad9 =&gt; f.write_str(<span class="string">"Numpad9"</span>),
+<a href=#589 id=589 data-nosnippet>589</a>            NumpadAdd =&gt; f.write_str(<span class="string">"NumpadAdd"</span>),
+<a href=#590 id=590 data-nosnippet>590</a>            NumpadBackspace =&gt; f.write_str(<span class="string">"NumpadBackspace"</span>),
+<a href=#591 id=591 data-nosnippet>591</a>            NumpadClear =&gt; f.write_str(<span class="string">"NumpadClear"</span>),
+<a href=#592 id=592 data-nosnippet>592</a>            NumpadClearEntry =&gt; f.write_str(<span class="string">"NumpadClearEntry"</span>),
+<a href=#593 id=593 data-nosnippet>593</a>            NumpadComma =&gt; f.write_str(<span class="string">"NumpadComma"</span>),
+<a href=#594 id=594 data-nosnippet>594</a>            NumpadDecimal =&gt; f.write_str(<span class="string">"NumpadDecimal"</span>),
+<a href=#595 id=595 data-nosnippet>595</a>            NumpadDivide =&gt; f.write_str(<span class="string">"NumpadDivide"</span>),
+<a href=#596 id=596 data-nosnippet>596</a>            NumpadEnter =&gt; f.write_str(<span class="string">"NumpadEnter"</span>),
+<a href=#597 id=597 data-nosnippet>597</a>            NumpadEqual =&gt; f.write_str(<span class="string">"NumpadEqual"</span>),
+<a href=#598 id=598 data-nosnippet>598</a>            NumpadHash =&gt; f.write_str(<span class="string">"NumpadHash"</span>),
+<a href=#599 id=599 data-nosnippet>599</a>            NumpadMemoryAdd =&gt; f.write_str(<span class="string">"NumpadMemoryAdd"</span>),
+<a href=#600 id=600 data-nosnippet>600</a>            NumpadMemoryClear =&gt; f.write_str(<span class="string">"NumpadMemoryClear"</span>),
+<a href=#601 id=601 data-nosnippet>601</a>            NumpadMemoryRecall =&gt; f.write_str(<span class="string">"NumpadMemoryRecall"</span>),
+<a href=#602 id=602 data-nosnippet>602</a>            NumpadMemoryStore =&gt; f.write_str(<span class="string">"NumpadMemoryStore"</span>),
+<a href=#603 id=603 data-nosnippet>603</a>            NumpadMemorySubtract =&gt; f.write_str(<span class="string">"NumpadMemorySubtract"</span>),
+<a href=#604 id=604 data-nosnippet>604</a>            NumpadMultiply =&gt; f.write_str(<span class="string">"NumpadMultiply"</span>),
+<a href=#605 id=605 data-nosnippet>605</a>            NumpadParenLeft =&gt; f.write_str(<span class="string">"NumpadParenLeft"</span>),
+<a href=#606 id=606 data-nosnippet>606</a>            NumpadParenRight =&gt; f.write_str(<span class="string">"NumpadParenRight"</span>),
+<a href=#607 id=607 data-nosnippet>607</a>            NumpadStar =&gt; f.write_str(<span class="string">"NumpadStar"</span>),
+<a href=#608 id=608 data-nosnippet>608</a>            NumpadSubtract =&gt; f.write_str(<span class="string">"NumpadSubtract"</span>),
+<a href=#609 id=609 data-nosnippet>609</a>            Escape =&gt; f.write_str(<span class="string">"Escape"</span>),
+<a href=#610 id=610 data-nosnippet>610</a>            Fn =&gt; f.write_str(<span class="string">"Fn"</span>),
+<a href=#611 id=611 data-nosnippet>611</a>            FnLock =&gt; f.write_str(<span class="string">"FnLock"</span>),
+<a href=#612 id=612 data-nosnippet>612</a>            PrintScreen =&gt; f.write_str(<span class="string">"PrintScreen"</span>),
+<a href=#613 id=613 data-nosnippet>613</a>            ScrollLock =&gt; f.write_str(<span class="string">"ScrollLock"</span>),
+<a href=#614 id=614 data-nosnippet>614</a>            Pause =&gt; f.write_str(<span class="string">"Pause"</span>),
+<a href=#615 id=615 data-nosnippet>615</a>            BrowserBack =&gt; f.write_str(<span class="string">"BrowserBack"</span>),
+<a href=#616 id=616 data-nosnippet>616</a>            BrowserFavorites =&gt; f.write_str(<span class="string">"BrowserFavorites"</span>),
+<a href=#617 id=617 data-nosnippet>617</a>            BrowserForward =&gt; f.write_str(<span class="string">"BrowserForward"</span>),
+<a href=#618 id=618 data-nosnippet>618</a>            BrowserHome =&gt; f.write_str(<span class="string">"BrowserHome"</span>),
+<a href=#619 id=619 data-nosnippet>619</a>            BrowserRefresh =&gt; f.write_str(<span class="string">"BrowserRefresh"</span>),
+<a href=#620 id=620 data-nosnippet>620</a>            BrowserSearch =&gt; f.write_str(<span class="string">"BrowserSearch"</span>),
+<a href=#621 id=621 data-nosnippet>621</a>            BrowserStop =&gt; f.write_str(<span class="string">"BrowserStop"</span>),
+<a href=#622 id=622 data-nosnippet>622</a>            Eject =&gt; f.write_str(<span class="string">"Eject"</span>),
+<a href=#623 id=623 data-nosnippet>623</a>            LaunchApp1 =&gt; f.write_str(<span class="string">"LaunchApp1"</span>),
+<a href=#624 id=624 data-nosnippet>624</a>            LaunchApp2 =&gt; f.write_str(<span class="string">"LaunchApp2"</span>),
+<a href=#625 id=625 data-nosnippet>625</a>            LaunchMail =&gt; f.write_str(<span class="string">"LaunchMail"</span>),
+<a href=#626 id=626 data-nosnippet>626</a>            MediaPlayPause =&gt; f.write_str(<span class="string">"MediaPlayPause"</span>),
+<a href=#627 id=627 data-nosnippet>627</a>            MediaSelect =&gt; f.write_str(<span class="string">"MediaSelect"</span>),
+<a href=#628 id=628 data-nosnippet>628</a>            MediaStop =&gt; f.write_str(<span class="string">"MediaStop"</span>),
+<a href=#629 id=629 data-nosnippet>629</a>            MediaTrackNext =&gt; f.write_str(<span class="string">"MediaTrackNext"</span>),
+<a href=#630 id=630 data-nosnippet>630</a>            MediaTrackPrevious =&gt; f.write_str(<span class="string">"MediaTrackPrevious"</span>),
+<a href=#631 id=631 data-nosnippet>631</a>            Power =&gt; f.write_str(<span class="string">"Power"</span>),
+<a href=#632 id=632 data-nosnippet>632</a>            Sleep =&gt; f.write_str(<span class="string">"Sleep"</span>),
+<a href=#633 id=633 data-nosnippet>633</a>            AudioVolumeDown =&gt; f.write_str(<span class="string">"AudioVolumeDown"</span>),
+<a href=#634 id=634 data-nosnippet>634</a>            AudioVolumeMute =&gt; f.write_str(<span class="string">"AudioVolumeMute"</span>),
+<a href=#635 id=635 data-nosnippet>635</a>            AudioVolumeUp =&gt; f.write_str(<span class="string">"AudioVolumeUp"</span>),
+<a href=#636 id=636 data-nosnippet>636</a>            WakeUp =&gt; f.write_str(<span class="string">"WakeUp"</span>),
+<a href=#637 id=637 data-nosnippet>637</a>            Hyper =&gt; f.write_str(<span class="string">"Hyper"</span>),
+<a href=#638 id=638 data-nosnippet>638</a>            Super =&gt; f.write_str(<span class="string">"Super"</span>),
+<a href=#639 id=639 data-nosnippet>639</a>            Turbo =&gt; f.write_str(<span class="string">"Turbo"</span>),
+<a href=#640 id=640 data-nosnippet>640</a>            Abort =&gt; f.write_str(<span class="string">"Abort"</span>),
+<a href=#641 id=641 data-nosnippet>641</a>            Resume =&gt; f.write_str(<span class="string">"Resume"</span>),
+<a href=#642 id=642 data-nosnippet>642</a>            Suspend =&gt; f.write_str(<span class="string">"Suspend"</span>),
+<a href=#643 id=643 data-nosnippet>643</a>            Again =&gt; f.write_str(<span class="string">"Again"</span>),
+<a href=#644 id=644 data-nosnippet>644</a>            Copy =&gt; f.write_str(<span class="string">"Copy"</span>),
+<a href=#645 id=645 data-nosnippet>645</a>            Cut =&gt; f.write_str(<span class="string">"Cut"</span>),
+<a href=#646 id=646 data-nosnippet>646</a>            Find =&gt; f.write_str(<span class="string">"Find"</span>),
+<a href=#647 id=647 data-nosnippet>647</a>            Open =&gt; f.write_str(<span class="string">"Open"</span>),
+<a href=#648 id=648 data-nosnippet>648</a>            Paste =&gt; f.write_str(<span class="string">"Paste"</span>),
+<a href=#649 id=649 data-nosnippet>649</a>            Props =&gt; f.write_str(<span class="string">"Props"</span>),
+<a href=#650 id=650 data-nosnippet>650</a>            Select =&gt; f.write_str(<span class="string">"Select"</span>),
+<a href=#651 id=651 data-nosnippet>651</a>            Undo =&gt; f.write_str(<span class="string">"Undo"</span>),
+<a href=#652 id=652 data-nosnippet>652</a>            Hiragana =&gt; f.write_str(<span class="string">"Hiragana"</span>),
+<a href=#653 id=653 data-nosnippet>653</a>            Katakana =&gt; f.write_str(<span class="string">"Katakana"</span>),
+<a href=#654 id=654 data-nosnippet>654</a>            Unidentified =&gt; f.write_str(<span class="string">"Unidentified"</span>),
+<a href=#655 id=655 data-nosnippet>655</a>            F1 =&gt; f.write_str(<span class="string">"F1"</span>),
+<a href=#656 id=656 data-nosnippet>656</a>            F2 =&gt; f.write_str(<span class="string">"F2"</span>),
+<a href=#657 id=657 data-nosnippet>657</a>            F3 =&gt; f.write_str(<span class="string">"F3"</span>),
+<a href=#658 id=658 data-nosnippet>658</a>            F4 =&gt; f.write_str(<span class="string">"F4"</span>),
+<a href=#659 id=659 data-nosnippet>659</a>            F5 =&gt; f.write_str(<span class="string">"F5"</span>),
+<a href=#660 id=660 data-nosnippet>660</a>            F6 =&gt; f.write_str(<span class="string">"F6"</span>),
+<a href=#661 id=661 data-nosnippet>661</a>            F7 =&gt; f.write_str(<span class="string">"F7"</span>),
+<a href=#662 id=662 data-nosnippet>662</a>            F8 =&gt; f.write_str(<span class="string">"F8"</span>),
+<a href=#663 id=663 data-nosnippet>663</a>            F9 =&gt; f.write_str(<span class="string">"F9"</span>),
+<a href=#664 id=664 data-nosnippet>664</a>            F10 =&gt; f.write_str(<span class="string">"F10"</span>),
+<a href=#665 id=665 data-nosnippet>665</a>            F11 =&gt; f.write_str(<span class="string">"F11"</span>),
+<a href=#666 id=666 data-nosnippet>666</a>            F12 =&gt; f.write_str(<span class="string">"F12"</span>),
+<a href=#667 id=667 data-nosnippet>667</a>            F13 =&gt; f.write_str(<span class="string">"F13"</span>),
+<a href=#668 id=668 data-nosnippet>668</a>            F14 =&gt; f.write_str(<span class="string">"F14"</span>),
+<a href=#669 id=669 data-nosnippet>669</a>            F15 =&gt; f.write_str(<span class="string">"F15"</span>),
+<a href=#670 id=670 data-nosnippet>670</a>            F16 =&gt; f.write_str(<span class="string">"F16"</span>),
+<a href=#671 id=671 data-nosnippet>671</a>            F17 =&gt; f.write_str(<span class="string">"F17"</span>),
+<a href=#672 id=672 data-nosnippet>672</a>            F18 =&gt; f.write_str(<span class="string">"F18"</span>),
+<a href=#673 id=673 data-nosnippet>673</a>            F19 =&gt; f.write_str(<span class="string">"F19"</span>),
+<a href=#674 id=674 data-nosnippet>674</a>            F20 =&gt; f.write_str(<span class="string">"F20"</span>),
+<a href=#675 id=675 data-nosnippet>675</a>            F21 =&gt; f.write_str(<span class="string">"F21"</span>),
+<a href=#676 id=676 data-nosnippet>676</a>            F22 =&gt; f.write_str(<span class="string">"F22"</span>),
+<a href=#677 id=677 data-nosnippet>677</a>            F23 =&gt; f.write_str(<span class="string">"F23"</span>),
+<a href=#678 id=678 data-nosnippet>678</a>            F24 =&gt; f.write_str(<span class="string">"F24"</span>),
+<a href=#679 id=679 data-nosnippet>679</a>            F25 =&gt; f.write_str(<span class="string">"F25"</span>),
+<a href=#680 id=680 data-nosnippet>680</a>            F26 =&gt; f.write_str(<span class="string">"F26"</span>),
+<a href=#681 id=681 data-nosnippet>681</a>            F27 =&gt; f.write_str(<span class="string">"F27"</span>),
+<a href=#682 id=682 data-nosnippet>682</a>            F28 =&gt; f.write_str(<span class="string">"F28"</span>),
+<a href=#683 id=683 data-nosnippet>683</a>            F29 =&gt; f.write_str(<span class="string">"F29"</span>),
+<a href=#684 id=684 data-nosnippet>684</a>            F30 =&gt; f.write_str(<span class="string">"F30"</span>),
+<a href=#685 id=685 data-nosnippet>685</a>            F31 =&gt; f.write_str(<span class="string">"F31"</span>),
+<a href=#686 id=686 data-nosnippet>686</a>            F32 =&gt; f.write_str(<span class="string">"F32"</span>),
+<a href=#687 id=687 data-nosnippet>687</a>            F33 =&gt; f.write_str(<span class="string">"F33"</span>),
+<a href=#688 id=688 data-nosnippet>688</a>            F34 =&gt; f.write_str(<span class="string">"F34"</span>),
+<a href=#689 id=689 data-nosnippet>689</a>            F35 =&gt; f.write_str(<span class="string">"F35"</span>),
+<a href=#690 id=690 data-nosnippet>690</a>            BrightnessDown =&gt; f.write_str(<span class="string">"BrightnessDown"</span>),
+<a href=#691 id=691 data-nosnippet>691</a>            BrightnessUp =&gt; f.write_str(<span class="string">"BrightnessUp"</span>),
+<a href=#692 id=692 data-nosnippet>692</a>            DisplayToggleIntExt =&gt; f.write_str(<span class="string">"DisplayToggleIntExt"</span>),
+<a href=#693 id=693 data-nosnippet>693</a>            KeyboardLayoutSelect =&gt; f.write_str(<span class="string">"KeyboardLayoutSelect"</span>),
+<a href=#694 id=694 data-nosnippet>694</a>            LaunchAssistant =&gt; f.write_str(<span class="string">"LaunchAssistant"</span>),
+<a href=#695 id=695 data-nosnippet>695</a>            LaunchControlPanel =&gt; f.write_str(<span class="string">"LaunchControlPanel"</span>),
+<a href=#696 id=696 data-nosnippet>696</a>            LaunchScreenSaver =&gt; f.write_str(<span class="string">"LaunchScreenSaver"</span>),
+<a href=#697 id=697 data-nosnippet>697</a>            MailForward =&gt; f.write_str(<span class="string">"MailForward"</span>),
+<a href=#698 id=698 data-nosnippet>698</a>            MailReply =&gt; f.write_str(<span class="string">"MailReply"</span>),
+<a href=#699 id=699 data-nosnippet>699</a>            MailSend =&gt; f.write_str(<span class="string">"MailSend"</span>),
+<a href=#700 id=700 data-nosnippet>700</a>            MediaFastForward =&gt; f.write_str(<span class="string">"MediaFastForward"</span>),
+<a href=#701 id=701 data-nosnippet>701</a>            MediaPause =&gt; f.write_str(<span class="string">"MediaPause"</span>),
+<a href=#702 id=702 data-nosnippet>702</a>            MediaPlay =&gt; f.write_str(<span class="string">"MediaPlay"</span>),
+<a href=#703 id=703 data-nosnippet>703</a>            MediaRecord =&gt; f.write_str(<span class="string">"MediaRecord"</span>),
+<a href=#704 id=704 data-nosnippet>704</a>            MediaRewind =&gt; f.write_str(<span class="string">"MediaRewind"</span>),
+<a href=#705 id=705 data-nosnippet>705</a>            MicrophoneMuteToggle =&gt; f.write_str(<span class="string">"MicrophoneMuteToggle"</span>),
+<a href=#706 id=706 data-nosnippet>706</a>            PrivacyScreenToggle =&gt; f.write_str(<span class="string">"PrivacyScreenToggle"</span>),
+<a href=#707 id=707 data-nosnippet>707</a>            KeyboardBacklightToggle =&gt; f.write_str(<span class="string">"KeyboardBacklightToggle"</span>),
+<a href=#708 id=708 data-nosnippet>708</a>            SelectTask =&gt; f.write_str(<span class="string">"SelectTask"</span>),
+<a href=#709 id=709 data-nosnippet>709</a>            ShowAllWindows =&gt; f.write_str(<span class="string">"ShowAllWindows"</span>),
+<a href=#710 id=710 data-nosnippet>710</a>            ZoomToggle =&gt; f.write_str(<span class="string">"ZoomToggle"</span>),
+<a href=#711 id=711 data-nosnippet>711</a>
+<a href=#712 id=712 data-nosnippet>712</a>        }
+<a href=#713 id=713 data-nosnippet>713</a>    }
+<a href=#714 id=714 data-nosnippet>714</a>}
+<a href=#715 id=715 data-nosnippet>715</a>
+<a href=#716 id=716 data-nosnippet>716</a><span class="kw">impl </span>FromStr <span class="kw">for </span>Code {
+<a href=#717 id=717 data-nosnippet>717</a>    <span class="kw">type </span><span class="prelude-val">Err </span>= UnrecognizedCodeError;
+<a href=#718 id=718 data-nosnippet>718</a>
+<a href=#719 id=719 data-nosnippet>719</a>    <span class="kw">fn </span>from_str(s: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Err&gt; {
+<a href=#720 id=720 data-nosnippet>720</a>        <span class="kw">use </span><span class="kw">crate</span>::Code::<span class="kw-2">*</span>;
+<a href=#721 id=721 data-nosnippet>721</a>        <span class="kw">match </span>s {
+<a href=#722 id=722 data-nosnippet>722</a>            <span class="string">"Backquote" </span>=&gt; <span class="prelude-val">Ok</span>(Backquote),
+<a href=#723 id=723 data-nosnippet>723</a>            <span class="string">"Backslash" </span>=&gt; <span class="prelude-val">Ok</span>(Backslash),
+<a href=#724 id=724 data-nosnippet>724</a>            <span class="string">"BracketLeft" </span>=&gt; <span class="prelude-val">Ok</span>(BracketLeft),
+<a href=#725 id=725 data-nosnippet>725</a>            <span class="string">"BracketRight" </span>=&gt; <span class="prelude-val">Ok</span>(BracketRight),
+<a href=#726 id=726 data-nosnippet>726</a>            <span class="string">"Comma" </span>=&gt; <span class="prelude-val">Ok</span>(Comma),
+<a href=#727 id=727 data-nosnippet>727</a>            <span class="string">"Digit0" </span>=&gt; <span class="prelude-val">Ok</span>(Digit0),
+<a href=#728 id=728 data-nosnippet>728</a>            <span class="string">"Digit1" </span>=&gt; <span class="prelude-val">Ok</span>(Digit1),
+<a href=#729 id=729 data-nosnippet>729</a>            <span class="string">"Digit2" </span>=&gt; <span class="prelude-val">Ok</span>(Digit2),
+<a href=#730 id=730 data-nosnippet>730</a>            <span class="string">"Digit3" </span>=&gt; <span class="prelude-val">Ok</span>(Digit3),
+<a href=#731 id=731 data-nosnippet>731</a>            <span class="string">"Digit4" </span>=&gt; <span class="prelude-val">Ok</span>(Digit4),
+<a href=#732 id=732 data-nosnippet>732</a>            <span class="string">"Digit5" </span>=&gt; <span class="prelude-val">Ok</span>(Digit5),
+<a href=#733 id=733 data-nosnippet>733</a>            <span class="string">"Digit6" </span>=&gt; <span class="prelude-val">Ok</span>(Digit6),
+<a href=#734 id=734 data-nosnippet>734</a>            <span class="string">"Digit7" </span>=&gt; <span class="prelude-val">Ok</span>(Digit7),
+<a href=#735 id=735 data-nosnippet>735</a>            <span class="string">"Digit8" </span>=&gt; <span class="prelude-val">Ok</span>(Digit8),
+<a href=#736 id=736 data-nosnippet>736</a>            <span class="string">"Digit9" </span>=&gt; <span class="prelude-val">Ok</span>(Digit9),
+<a href=#737 id=737 data-nosnippet>737</a>            <span class="string">"Equal" </span>=&gt; <span class="prelude-val">Ok</span>(Equal),
+<a href=#738 id=738 data-nosnippet>738</a>            <span class="string">"IntlBackslash" </span>=&gt; <span class="prelude-val">Ok</span>(IntlBackslash),
+<a href=#739 id=739 data-nosnippet>739</a>            <span class="string">"IntlRo" </span>=&gt; <span class="prelude-val">Ok</span>(IntlRo),
+<a href=#740 id=740 data-nosnippet>740</a>            <span class="string">"IntlYen" </span>=&gt; <span class="prelude-val">Ok</span>(IntlYen),
+<a href=#741 id=741 data-nosnippet>741</a>            <span class="string">"KeyA" </span>=&gt; <span class="prelude-val">Ok</span>(KeyA),
+<a href=#742 id=742 data-nosnippet>742</a>            <span class="string">"KeyB" </span>=&gt; <span class="prelude-val">Ok</span>(KeyB),
+<a href=#743 id=743 data-nosnippet>743</a>            <span class="string">"KeyC" </span>=&gt; <span class="prelude-val">Ok</span>(KeyC),
+<a href=#744 id=744 data-nosnippet>744</a>            <span class="string">"KeyD" </span>=&gt; <span class="prelude-val">Ok</span>(KeyD),
+<a href=#745 id=745 data-nosnippet>745</a>            <span class="string">"KeyE" </span>=&gt; <span class="prelude-val">Ok</span>(KeyE),
+<a href=#746 id=746 data-nosnippet>746</a>            <span class="string">"KeyF" </span>=&gt; <span class="prelude-val">Ok</span>(KeyF),
+<a href=#747 id=747 data-nosnippet>747</a>            <span class="string">"KeyG" </span>=&gt; <span class="prelude-val">Ok</span>(KeyG),
+<a href=#748 id=748 data-nosnippet>748</a>            <span class="string">"KeyH" </span>=&gt; <span class="prelude-val">Ok</span>(KeyH),
+<a href=#749 id=749 data-nosnippet>749</a>            <span class="string">"KeyI" </span>=&gt; <span class="prelude-val">Ok</span>(KeyI),
+<a href=#750 id=750 data-nosnippet>750</a>            <span class="string">"KeyJ" </span>=&gt; <span class="prelude-val">Ok</span>(KeyJ),
+<a href=#751 id=751 data-nosnippet>751</a>            <span class="string">"KeyK" </span>=&gt; <span class="prelude-val">Ok</span>(KeyK),
+<a href=#752 id=752 data-nosnippet>752</a>            <span class="string">"KeyL" </span>=&gt; <span class="prelude-val">Ok</span>(KeyL),
+<a href=#753 id=753 data-nosnippet>753</a>            <span class="string">"KeyM" </span>=&gt; <span class="prelude-val">Ok</span>(KeyM),
+<a href=#754 id=754 data-nosnippet>754</a>            <span class="string">"KeyN" </span>=&gt; <span class="prelude-val">Ok</span>(KeyN),
+<a href=#755 id=755 data-nosnippet>755</a>            <span class="string">"KeyO" </span>=&gt; <span class="prelude-val">Ok</span>(KeyO),
+<a href=#756 id=756 data-nosnippet>756</a>            <span class="string">"KeyP" </span>=&gt; <span class="prelude-val">Ok</span>(KeyP),
+<a href=#757 id=757 data-nosnippet>757</a>            <span class="string">"KeyQ" </span>=&gt; <span class="prelude-val">Ok</span>(KeyQ),
+<a href=#758 id=758 data-nosnippet>758</a>            <span class="string">"KeyR" </span>=&gt; <span class="prelude-val">Ok</span>(KeyR),
+<a href=#759 id=759 data-nosnippet>759</a>            <span class="string">"KeyS" </span>=&gt; <span class="prelude-val">Ok</span>(KeyS),
+<a href=#760 id=760 data-nosnippet>760</a>            <span class="string">"KeyT" </span>=&gt; <span class="prelude-val">Ok</span>(KeyT),
+<a href=#761 id=761 data-nosnippet>761</a>            <span class="string">"KeyU" </span>=&gt; <span class="prelude-val">Ok</span>(KeyU),
+<a href=#762 id=762 data-nosnippet>762</a>            <span class="string">"KeyV" </span>=&gt; <span class="prelude-val">Ok</span>(KeyV),
+<a href=#763 id=763 data-nosnippet>763</a>            <span class="string">"KeyW" </span>=&gt; <span class="prelude-val">Ok</span>(KeyW),
+<a href=#764 id=764 data-nosnippet>764</a>            <span class="string">"KeyX" </span>=&gt; <span class="prelude-val">Ok</span>(KeyX),
+<a href=#765 id=765 data-nosnippet>765</a>            <span class="string">"KeyY" </span>=&gt; <span class="prelude-val">Ok</span>(KeyY),
+<a href=#766 id=766 data-nosnippet>766</a>            <span class="string">"KeyZ" </span>=&gt; <span class="prelude-val">Ok</span>(KeyZ),
+<a href=#767 id=767 data-nosnippet>767</a>            <span class="string">"Minus" </span>=&gt; <span class="prelude-val">Ok</span>(Minus),
+<a href=#768 id=768 data-nosnippet>768</a>            <span class="string">"Period" </span>=&gt; <span class="prelude-val">Ok</span>(Period),
+<a href=#769 id=769 data-nosnippet>769</a>            <span class="string">"Quote" </span>=&gt; <span class="prelude-val">Ok</span>(Quote),
+<a href=#770 id=770 data-nosnippet>770</a>            <span class="string">"Semicolon" </span>=&gt; <span class="prelude-val">Ok</span>(Semicolon),
+<a href=#771 id=771 data-nosnippet>771</a>            <span class="string">"Slash" </span>=&gt; <span class="prelude-val">Ok</span>(Slash),
+<a href=#772 id=772 data-nosnippet>772</a>            <span class="string">"AltLeft" </span>=&gt; <span class="prelude-val">Ok</span>(AltLeft),
+<a href=#773 id=773 data-nosnippet>773</a>            <span class="string">"AltRight" </span>=&gt; <span class="prelude-val">Ok</span>(AltRight),
+<a href=#774 id=774 data-nosnippet>774</a>            <span class="string">"Backspace" </span>=&gt; <span class="prelude-val">Ok</span>(Backspace),
+<a href=#775 id=775 data-nosnippet>775</a>            <span class="string">"CapsLock" </span>=&gt; <span class="prelude-val">Ok</span>(CapsLock),
+<a href=#776 id=776 data-nosnippet>776</a>            <span class="string">"ContextMenu" </span>=&gt; <span class="prelude-val">Ok</span>(ContextMenu),
+<a href=#777 id=777 data-nosnippet>777</a>            <span class="string">"ControlLeft" </span>=&gt; <span class="prelude-val">Ok</span>(ControlLeft),
+<a href=#778 id=778 data-nosnippet>778</a>            <span class="string">"ControlRight" </span>=&gt; <span class="prelude-val">Ok</span>(ControlRight),
+<a href=#779 id=779 data-nosnippet>779</a>            <span class="string">"Enter" </span>=&gt; <span class="prelude-val">Ok</span>(Enter),
+<a href=#780 id=780 data-nosnippet>780</a>            <span class="string">"MetaLeft" </span>| <span class="string">"OSLeft" </span>=&gt; <span class="prelude-val">Ok</span>(MetaLeft),
+<a href=#781 id=781 data-nosnippet>781</a>            <span class="string">"MetaRight" </span>| <span class="string">"OSRight" </span>=&gt; <span class="prelude-val">Ok</span>(MetaRight),
+<a href=#782 id=782 data-nosnippet>782</a>            <span class="string">"ShiftLeft" </span>=&gt; <span class="prelude-val">Ok</span>(ShiftLeft),
+<a href=#783 id=783 data-nosnippet>783</a>            <span class="string">"ShiftRight" </span>=&gt; <span class="prelude-val">Ok</span>(ShiftRight),
+<a href=#784 id=784 data-nosnippet>784</a>            <span class="string">"Space" </span>=&gt; <span class="prelude-val">Ok</span>(Space),
+<a href=#785 id=785 data-nosnippet>785</a>            <span class="string">"Tab" </span>=&gt; <span class="prelude-val">Ok</span>(Tab),
+<a href=#786 id=786 data-nosnippet>786</a>            <span class="string">"Convert" </span>=&gt; <span class="prelude-val">Ok</span>(Convert),
+<a href=#787 id=787 data-nosnippet>787</a>            <span class="string">"KanaMode" </span>=&gt; <span class="prelude-val">Ok</span>(KanaMode),
+<a href=#788 id=788 data-nosnippet>788</a>            <span class="string">"Lang1" </span>=&gt; <span class="prelude-val">Ok</span>(Lang1),
+<a href=#789 id=789 data-nosnippet>789</a>            <span class="string">"Lang2" </span>=&gt; <span class="prelude-val">Ok</span>(Lang2),
+<a href=#790 id=790 data-nosnippet>790</a>            <span class="string">"Lang3" </span>=&gt; <span class="prelude-val">Ok</span>(Lang3),
+<a href=#791 id=791 data-nosnippet>791</a>            <span class="string">"Lang4" </span>=&gt; <span class="prelude-val">Ok</span>(Lang4),
+<a href=#792 id=792 data-nosnippet>792</a>            <span class="string">"Lang5" </span>=&gt; <span class="prelude-val">Ok</span>(Lang5),
+<a href=#793 id=793 data-nosnippet>793</a>            <span class="string">"NonConvert" </span>=&gt; <span class="prelude-val">Ok</span>(NonConvert),
+<a href=#794 id=794 data-nosnippet>794</a>            <span class="string">"Delete" </span>=&gt; <span class="prelude-val">Ok</span>(Delete),
+<a href=#795 id=795 data-nosnippet>795</a>            <span class="string">"End" </span>=&gt; <span class="prelude-val">Ok</span>(End),
+<a href=#796 id=796 data-nosnippet>796</a>            <span class="string">"Help" </span>=&gt; <span class="prelude-val">Ok</span>(Help),
+<a href=#797 id=797 data-nosnippet>797</a>            <span class="string">"Home" </span>=&gt; <span class="prelude-val">Ok</span>(Home),
+<a href=#798 id=798 data-nosnippet>798</a>            <span class="string">"Insert" </span>=&gt; <span class="prelude-val">Ok</span>(Insert),
+<a href=#799 id=799 data-nosnippet>799</a>            <span class="string">"PageDown" </span>=&gt; <span class="prelude-val">Ok</span>(PageDown),
+<a href=#800 id=800 data-nosnippet>800</a>            <span class="string">"PageUp" </span>=&gt; <span class="prelude-val">Ok</span>(PageUp),
+<a href=#801 id=801 data-nosnippet>801</a>            <span class="string">"ArrowDown" </span>=&gt; <span class="prelude-val">Ok</span>(ArrowDown),
+<a href=#802 id=802 data-nosnippet>802</a>            <span class="string">"ArrowLeft" </span>=&gt; <span class="prelude-val">Ok</span>(ArrowLeft),
+<a href=#803 id=803 data-nosnippet>803</a>            <span class="string">"ArrowRight" </span>=&gt; <span class="prelude-val">Ok</span>(ArrowRight),
+<a href=#804 id=804 data-nosnippet>804</a>            <span class="string">"ArrowUp" </span>=&gt; <span class="prelude-val">Ok</span>(ArrowUp),
+<a href=#805 id=805 data-nosnippet>805</a>            <span class="string">"NumLock" </span>=&gt; <span class="prelude-val">Ok</span>(NumLock),
+<a href=#806 id=806 data-nosnippet>806</a>            <span class="string">"Numpad0" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad0),
+<a href=#807 id=807 data-nosnippet>807</a>            <span class="string">"Numpad1" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad1),
+<a href=#808 id=808 data-nosnippet>808</a>            <span class="string">"Numpad2" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad2),
+<a href=#809 id=809 data-nosnippet>809</a>            <span class="string">"Numpad3" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad3),
+<a href=#810 id=810 data-nosnippet>810</a>            <span class="string">"Numpad4" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad4),
+<a href=#811 id=811 data-nosnippet>811</a>            <span class="string">"Numpad5" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad5),
+<a href=#812 id=812 data-nosnippet>812</a>            <span class="string">"Numpad6" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad6),
+<a href=#813 id=813 data-nosnippet>813</a>            <span class="string">"Numpad7" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad7),
+<a href=#814 id=814 data-nosnippet>814</a>            <span class="string">"Numpad8" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad8),
+<a href=#815 id=815 data-nosnippet>815</a>            <span class="string">"Numpad9" </span>=&gt; <span class="prelude-val">Ok</span>(Numpad9),
+<a href=#816 id=816 data-nosnippet>816</a>            <span class="string">"NumpadAdd" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadAdd),
+<a href=#817 id=817 data-nosnippet>817</a>            <span class="string">"NumpadBackspace" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadBackspace),
+<a href=#818 id=818 data-nosnippet>818</a>            <span class="string">"NumpadClear" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadClear),
+<a href=#819 id=819 data-nosnippet>819</a>            <span class="string">"NumpadClearEntry" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadClearEntry),
+<a href=#820 id=820 data-nosnippet>820</a>            <span class="string">"NumpadComma" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadComma),
+<a href=#821 id=821 data-nosnippet>821</a>            <span class="string">"NumpadDecimal" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadDecimal),
+<a href=#822 id=822 data-nosnippet>822</a>            <span class="string">"NumpadDivide" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadDivide),
+<a href=#823 id=823 data-nosnippet>823</a>            <span class="string">"NumpadEnter" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadEnter),
+<a href=#824 id=824 data-nosnippet>824</a>            <span class="string">"NumpadEqual" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadEqual),
+<a href=#825 id=825 data-nosnippet>825</a>            <span class="string">"NumpadHash" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadHash),
+<a href=#826 id=826 data-nosnippet>826</a>            <span class="string">"NumpadMemoryAdd" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadMemoryAdd),
+<a href=#827 id=827 data-nosnippet>827</a>            <span class="string">"NumpadMemoryClear" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadMemoryClear),
+<a href=#828 id=828 data-nosnippet>828</a>            <span class="string">"NumpadMemoryRecall" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadMemoryRecall),
+<a href=#829 id=829 data-nosnippet>829</a>            <span class="string">"NumpadMemoryStore" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadMemoryStore),
+<a href=#830 id=830 data-nosnippet>830</a>            <span class="string">"NumpadMemorySubtract" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadMemorySubtract),
+<a href=#831 id=831 data-nosnippet>831</a>            <span class="string">"NumpadMultiply" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadMultiply),
+<a href=#832 id=832 data-nosnippet>832</a>            <span class="string">"NumpadParenLeft" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadParenLeft),
+<a href=#833 id=833 data-nosnippet>833</a>            <span class="string">"NumpadParenRight" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadParenRight),
+<a href=#834 id=834 data-nosnippet>834</a>            <span class="string">"NumpadStar" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadStar),
+<a href=#835 id=835 data-nosnippet>835</a>            <span class="string">"NumpadSubtract" </span>=&gt; <span class="prelude-val">Ok</span>(NumpadSubtract),
+<a href=#836 id=836 data-nosnippet>836</a>            <span class="string">"Escape" </span>=&gt; <span class="prelude-val">Ok</span>(Escape),
+<a href=#837 id=837 data-nosnippet>837</a>            <span class="string">"Fn" </span>=&gt; <span class="prelude-val">Ok</span>(Fn),
+<a href=#838 id=838 data-nosnippet>838</a>            <span class="string">"FnLock" </span>=&gt; <span class="prelude-val">Ok</span>(FnLock),
+<a href=#839 id=839 data-nosnippet>839</a>            <span class="string">"PrintScreen" </span>=&gt; <span class="prelude-val">Ok</span>(PrintScreen),
+<a href=#840 id=840 data-nosnippet>840</a>            <span class="string">"ScrollLock" </span>=&gt; <span class="prelude-val">Ok</span>(ScrollLock),
+<a href=#841 id=841 data-nosnippet>841</a>            <span class="string">"Pause" </span>=&gt; <span class="prelude-val">Ok</span>(Pause),
+<a href=#842 id=842 data-nosnippet>842</a>            <span class="string">"BrowserBack" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserBack),
+<a href=#843 id=843 data-nosnippet>843</a>            <span class="string">"BrowserFavorites" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserFavorites),
+<a href=#844 id=844 data-nosnippet>844</a>            <span class="string">"BrowserForward" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserForward),
+<a href=#845 id=845 data-nosnippet>845</a>            <span class="string">"BrowserHome" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserHome),
+<a href=#846 id=846 data-nosnippet>846</a>            <span class="string">"BrowserRefresh" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserRefresh),
+<a href=#847 id=847 data-nosnippet>847</a>            <span class="string">"BrowserSearch" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserSearch),
+<a href=#848 id=848 data-nosnippet>848</a>            <span class="string">"BrowserStop" </span>=&gt; <span class="prelude-val">Ok</span>(BrowserStop),
+<a href=#849 id=849 data-nosnippet>849</a>            <span class="string">"Eject" </span>=&gt; <span class="prelude-val">Ok</span>(Eject),
+<a href=#850 id=850 data-nosnippet>850</a>            <span class="string">"LaunchApp1" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchApp1),
+<a href=#851 id=851 data-nosnippet>851</a>            <span class="string">"LaunchApp2" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchApp2),
+<a href=#852 id=852 data-nosnippet>852</a>            <span class="string">"LaunchMail" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchMail),
+<a href=#853 id=853 data-nosnippet>853</a>            <span class="string">"MediaPlayPause" </span>=&gt; <span class="prelude-val">Ok</span>(MediaPlayPause),
+<a href=#854 id=854 data-nosnippet>854</a>            <span class="string">"MediaSelect" </span>| <span class="string">"LaunchMediaPlayer" </span>=&gt; <span class="prelude-val">Ok</span>(MediaSelect),
+<a href=#855 id=855 data-nosnippet>855</a>            <span class="string">"MediaStop" </span>=&gt; <span class="prelude-val">Ok</span>(MediaStop),
+<a href=#856 id=856 data-nosnippet>856</a>            <span class="string">"MediaTrackNext" </span>=&gt; <span class="prelude-val">Ok</span>(MediaTrackNext),
+<a href=#857 id=857 data-nosnippet>857</a>            <span class="string">"MediaTrackPrevious" </span>=&gt; <span class="prelude-val">Ok</span>(MediaTrackPrevious),
+<a href=#858 id=858 data-nosnippet>858</a>            <span class="string">"Power" </span>=&gt; <span class="prelude-val">Ok</span>(Power),
+<a href=#859 id=859 data-nosnippet>859</a>            <span class="string">"Sleep" </span>=&gt; <span class="prelude-val">Ok</span>(Sleep),
+<a href=#860 id=860 data-nosnippet>860</a>            <span class="string">"AudioVolumeDown" </span>| <span class="string">"VolumeDown" </span>=&gt; <span class="prelude-val">Ok</span>(AudioVolumeDown),
+<a href=#861 id=861 data-nosnippet>861</a>            <span class="string">"AudioVolumeMute" </span>| <span class="string">"VolumeMute" </span>=&gt; <span class="prelude-val">Ok</span>(AudioVolumeMute),
+<a href=#862 id=862 data-nosnippet>862</a>            <span class="string">"AudioVolumeUp" </span>| <span class="string">"VolumeUp" </span>=&gt; <span class="prelude-val">Ok</span>(AudioVolumeUp),
+<a href=#863 id=863 data-nosnippet>863</a>            <span class="string">"WakeUp" </span>=&gt; <span class="prelude-val">Ok</span>(WakeUp),
+<a href=#864 id=864 data-nosnippet>864</a>            <span class="string">"Hyper" </span>=&gt; <span class="prelude-val">Ok</span>(Hyper),
+<a href=#865 id=865 data-nosnippet>865</a>            <span class="string">"Super" </span>=&gt; <span class="prelude-val">Ok</span>(Super),
+<a href=#866 id=866 data-nosnippet>866</a>            <span class="string">"Turbo" </span>=&gt; <span class="prelude-val">Ok</span>(Turbo),
+<a href=#867 id=867 data-nosnippet>867</a>            <span class="string">"Abort" </span>=&gt; <span class="prelude-val">Ok</span>(Abort),
+<a href=#868 id=868 data-nosnippet>868</a>            <span class="string">"Resume" </span>=&gt; <span class="prelude-val">Ok</span>(Resume),
+<a href=#869 id=869 data-nosnippet>869</a>            <span class="string">"Suspend" </span>=&gt; <span class="prelude-val">Ok</span>(Suspend),
+<a href=#870 id=870 data-nosnippet>870</a>            <span class="string">"Again" </span>=&gt; <span class="prelude-val">Ok</span>(Again),
+<a href=#871 id=871 data-nosnippet>871</a>            <span class="string">"Copy" </span>=&gt; <span class="prelude-val">Ok</span>(Copy),
+<a href=#872 id=872 data-nosnippet>872</a>            <span class="string">"Cut" </span>=&gt; <span class="prelude-val">Ok</span>(Cut),
+<a href=#873 id=873 data-nosnippet>873</a>            <span class="string">"Find" </span>=&gt; <span class="prelude-val">Ok</span>(Find),
+<a href=#874 id=874 data-nosnippet>874</a>            <span class="string">"Open" </span>=&gt; <span class="prelude-val">Ok</span>(Open),
+<a href=#875 id=875 data-nosnippet>875</a>            <span class="string">"Paste" </span>=&gt; <span class="prelude-val">Ok</span>(Paste),
+<a href=#876 id=876 data-nosnippet>876</a>            <span class="string">"Props" </span>=&gt; <span class="prelude-val">Ok</span>(Props),
+<a href=#877 id=877 data-nosnippet>877</a>            <span class="string">"Select" </span>=&gt; <span class="prelude-val">Ok</span>(Select),
+<a href=#878 id=878 data-nosnippet>878</a>            <span class="string">"Undo" </span>=&gt; <span class="prelude-val">Ok</span>(Undo),
+<a href=#879 id=879 data-nosnippet>879</a>            <span class="string">"Hiragana" </span>=&gt; <span class="prelude-val">Ok</span>(Hiragana),
+<a href=#880 id=880 data-nosnippet>880</a>            <span class="string">"Katakana" </span>=&gt; <span class="prelude-val">Ok</span>(Katakana),
+<a href=#881 id=881 data-nosnippet>881</a>            <span class="string">"Unidentified" </span>=&gt; <span class="prelude-val">Ok</span>(Unidentified),
+<a href=#882 id=882 data-nosnippet>882</a>            <span class="string">"F1" </span>=&gt; <span class="prelude-val">Ok</span>(F1),
+<a href=#883 id=883 data-nosnippet>883</a>            <span class="string">"F2" </span>=&gt; <span class="prelude-val">Ok</span>(F2),
+<a href=#884 id=884 data-nosnippet>884</a>            <span class="string">"F3" </span>=&gt; <span class="prelude-val">Ok</span>(F3),
+<a href=#885 id=885 data-nosnippet>885</a>            <span class="string">"F4" </span>=&gt; <span class="prelude-val">Ok</span>(F4),
+<a href=#886 id=886 data-nosnippet>886</a>            <span class="string">"F5" </span>=&gt; <span class="prelude-val">Ok</span>(F5),
+<a href=#887 id=887 data-nosnippet>887</a>            <span class="string">"F6" </span>=&gt; <span class="prelude-val">Ok</span>(F6),
+<a href=#888 id=888 data-nosnippet>888</a>            <span class="string">"F7" </span>=&gt; <span class="prelude-val">Ok</span>(F7),
+<a href=#889 id=889 data-nosnippet>889</a>            <span class="string">"F8" </span>=&gt; <span class="prelude-val">Ok</span>(F8),
+<a href=#890 id=890 data-nosnippet>890</a>            <span class="string">"F9" </span>=&gt; <span class="prelude-val">Ok</span>(F9),
+<a href=#891 id=891 data-nosnippet>891</a>            <span class="string">"F10" </span>=&gt; <span class="prelude-val">Ok</span>(F10),
+<a href=#892 id=892 data-nosnippet>892</a>            <span class="string">"F11" </span>=&gt; <span class="prelude-val">Ok</span>(F11),
+<a href=#893 id=893 data-nosnippet>893</a>            <span class="string">"F12" </span>=&gt; <span class="prelude-val">Ok</span>(F12),
+<a href=#894 id=894 data-nosnippet>894</a>            <span class="string">"F13" </span>=&gt; <span class="prelude-val">Ok</span>(F13),
+<a href=#895 id=895 data-nosnippet>895</a>            <span class="string">"F14" </span>=&gt; <span class="prelude-val">Ok</span>(F14),
+<a href=#896 id=896 data-nosnippet>896</a>            <span class="string">"F15" </span>=&gt; <span class="prelude-val">Ok</span>(F15),
+<a href=#897 id=897 data-nosnippet>897</a>            <span class="string">"F16" </span>=&gt; <span class="prelude-val">Ok</span>(F16),
+<a href=#898 id=898 data-nosnippet>898</a>            <span class="string">"F17" </span>=&gt; <span class="prelude-val">Ok</span>(F17),
+<a href=#899 id=899 data-nosnippet>899</a>            <span class="string">"F18" </span>=&gt; <span class="prelude-val">Ok</span>(F18),
+<a href=#900 id=900 data-nosnippet>900</a>            <span class="string">"F19" </span>=&gt; <span class="prelude-val">Ok</span>(F19),
+<a href=#901 id=901 data-nosnippet>901</a>            <span class="string">"F20" </span>=&gt; <span class="prelude-val">Ok</span>(F20),
+<a href=#902 id=902 data-nosnippet>902</a>            <span class="string">"F21" </span>=&gt; <span class="prelude-val">Ok</span>(F21),
+<a href=#903 id=903 data-nosnippet>903</a>            <span class="string">"F22" </span>=&gt; <span class="prelude-val">Ok</span>(F22),
+<a href=#904 id=904 data-nosnippet>904</a>            <span class="string">"F23" </span>=&gt; <span class="prelude-val">Ok</span>(F23),
+<a href=#905 id=905 data-nosnippet>905</a>            <span class="string">"F24" </span>=&gt; <span class="prelude-val">Ok</span>(F24),
+<a href=#906 id=906 data-nosnippet>906</a>            <span class="string">"F25" </span>=&gt; <span class="prelude-val">Ok</span>(F25),
+<a href=#907 id=907 data-nosnippet>907</a>            <span class="string">"F26" </span>=&gt; <span class="prelude-val">Ok</span>(F26),
+<a href=#908 id=908 data-nosnippet>908</a>            <span class="string">"F27" </span>=&gt; <span class="prelude-val">Ok</span>(F27),
+<a href=#909 id=909 data-nosnippet>909</a>            <span class="string">"F28" </span>=&gt; <span class="prelude-val">Ok</span>(F28),
+<a href=#910 id=910 data-nosnippet>910</a>            <span class="string">"F29" </span>=&gt; <span class="prelude-val">Ok</span>(F29),
+<a href=#911 id=911 data-nosnippet>911</a>            <span class="string">"F30" </span>=&gt; <span class="prelude-val">Ok</span>(F30),
+<a href=#912 id=912 data-nosnippet>912</a>            <span class="string">"F31" </span>=&gt; <span class="prelude-val">Ok</span>(F31),
+<a href=#913 id=913 data-nosnippet>913</a>            <span class="string">"F32" </span>=&gt; <span class="prelude-val">Ok</span>(F32),
+<a href=#914 id=914 data-nosnippet>914</a>            <span class="string">"F33" </span>=&gt; <span class="prelude-val">Ok</span>(F33),
+<a href=#915 id=915 data-nosnippet>915</a>            <span class="string">"F34" </span>=&gt; <span class="prelude-val">Ok</span>(F34),
+<a href=#916 id=916 data-nosnippet>916</a>            <span class="string">"F35" </span>=&gt; <span class="prelude-val">Ok</span>(F35),
+<a href=#917 id=917 data-nosnippet>917</a>            <span class="string">"BrightnessDown" </span>=&gt; <span class="prelude-val">Ok</span>(BrightnessDown),
+<a href=#918 id=918 data-nosnippet>918</a>            <span class="string">"BrightnessUp" </span>=&gt; <span class="prelude-val">Ok</span>(BrightnessUp),
+<a href=#919 id=919 data-nosnippet>919</a>            <span class="string">"DisplayToggleIntExt" </span>=&gt; <span class="prelude-val">Ok</span>(DisplayToggleIntExt),
+<a href=#920 id=920 data-nosnippet>920</a>            <span class="string">"KeyboardLayoutSelect" </span>=&gt; <span class="prelude-val">Ok</span>(KeyboardLayoutSelect),
+<a href=#921 id=921 data-nosnippet>921</a>            <span class="string">"LaunchAssistant" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchAssistant),
+<a href=#922 id=922 data-nosnippet>922</a>            <span class="string">"LaunchControlPanel" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchControlPanel),
+<a href=#923 id=923 data-nosnippet>923</a>            <span class="string">"LaunchScreenSaver" </span>=&gt; <span class="prelude-val">Ok</span>(LaunchScreenSaver),
+<a href=#924 id=924 data-nosnippet>924</a>            <span class="string">"MailForward" </span>=&gt; <span class="prelude-val">Ok</span>(MailForward),
+<a href=#925 id=925 data-nosnippet>925</a>            <span class="string">"MailReply" </span>=&gt; <span class="prelude-val">Ok</span>(MailReply),
+<a href=#926 id=926 data-nosnippet>926</a>            <span class="string">"MailSend" </span>=&gt; <span class="prelude-val">Ok</span>(MailSend),
+<a href=#927 id=927 data-nosnippet>927</a>            <span class="string">"MediaFastForward" </span>=&gt; <span class="prelude-val">Ok</span>(MediaFastForward),
+<a href=#928 id=928 data-nosnippet>928</a>            <span class="string">"MediaPause" </span>=&gt; <span class="prelude-val">Ok</span>(MediaPause),
+<a href=#929 id=929 data-nosnippet>929</a>            <span class="string">"MediaPlay" </span>=&gt; <span class="prelude-val">Ok</span>(MediaPlay),
+<a href=#930 id=930 data-nosnippet>930</a>            <span class="string">"MediaRecord" </span>=&gt; <span class="prelude-val">Ok</span>(MediaRecord),
+<a href=#931 id=931 data-nosnippet>931</a>            <span class="string">"MediaRewind" </span>=&gt; <span class="prelude-val">Ok</span>(MediaRewind),
+<a href=#932 id=932 data-nosnippet>932</a>            <span class="string">"MicrophoneMuteToggle" </span>=&gt; <span class="prelude-val">Ok</span>(MicrophoneMuteToggle),
+<a href=#933 id=933 data-nosnippet>933</a>            <span class="string">"PrivacyScreenToggle" </span>=&gt; <span class="prelude-val">Ok</span>(PrivacyScreenToggle),
+<a href=#934 id=934 data-nosnippet>934</a>            <span class="string">"KeyboardBacklightToggle" </span>=&gt; <span class="prelude-val">Ok</span>(KeyboardBacklightToggle),
+<a href=#935 id=935 data-nosnippet>935</a>            <span class="string">"SelectTask" </span>=&gt; <span class="prelude-val">Ok</span>(SelectTask),
+<a href=#936 id=936 data-nosnippet>936</a>            <span class="string">"ShowAllWindows" </span>=&gt; <span class="prelude-val">Ok</span>(ShowAllWindows),
+<a href=#937 id=937 data-nosnippet>937</a>            <span class="string">"ZoomToggle" </span>=&gt; <span class="prelude-val">Ok</span>(ZoomToggle),
+<a href=#938 id=938 data-nosnippet>938</a>
+<a href=#939 id=939 data-nosnippet>939</a>            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(UnrecognizedCodeError),
+<a href=#940 id=940 data-nosnippet>940</a>        }
+<a href=#941 id=941 data-nosnippet>941</a>    }
+<a href=#942 id=942 data-nosnippet>942</a>}
+<a href=#943 id=943 data-nosnippet>943</a>
+<a href=#944 id=944 data-nosnippet>944</a><span class="doccomment">/// Parse from string error, returned when string does not match to any [`Code`] variant.
+<a href=#945 id=945 data-nosnippet>945</a></span><span class="attr">#[derive(Clone, Debug)]
+<a href=#946 id=946 data-nosnippet>946</a></span><span class="kw">pub struct </span>UnrecognizedCodeError;
+<a href=#947 id=947 data-nosnippet>947</a>
+<a href=#948 id=948 data-nosnippet>948</a><span class="kw">impl </span>fmt::Display <span class="kw">for </span>UnrecognizedCodeError {
+<a href=#949 id=949 data-nosnippet>949</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
+<a href=#950 id=950 data-nosnippet>950</a>        <span class="macro">write!</span>(f, <span class="string">"Unrecognized code"</span>)
+<a href=#951 id=951 data-nosnippet>951</a>    }
+<a href=#952 id=952 data-nosnippet>952</a>}
+<a href=#953 id=953 data-nosnippet>953</a>
+<a href=#954 id=954 data-nosnippet>954</a><span class="kw">impl </span>Error <span class="kw">for </span>UnrecognizedCodeError {}
+</code></pre></div></section></main></body></html>

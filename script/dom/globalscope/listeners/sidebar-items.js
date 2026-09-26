@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BlobResult","BlobTracker","BroadcastChannelState","FileListenerState","FileListenerTarget","MessagePortState"],"fn":["stream_handle_eof","stream_handle_incoming"],"struct":["BlobInfo","BroadcastListener","FileListener","ManagedMessagePort","MessageListener"],"type":["FileListenerCallback"]};

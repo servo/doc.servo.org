@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["DedicatedWorkerGlobalScope_Binding","GenericBindings"],"trait":["DedicatedWorkerGlobalScopeMethods"]};

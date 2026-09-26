@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Sign"],"fn":["any_digit","ascii_char","ascii_char_ignore_case","exactly_n_digits_padded","n_to_m_digits","n_to_m_digits_padded","one_or_more","one_or_two_digits","opt","sign","zero_or_more"],"mod":["rfc"],"struct":["ExactlyNDigits"]};

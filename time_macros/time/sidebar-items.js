@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Period"],"fn":["parse","parse_second_and_nanosecond"],"struct":["Time"]};

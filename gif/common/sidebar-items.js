@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Block","DisposalMethod","Extension"],"struct":["AnyExtension","Frame"]};

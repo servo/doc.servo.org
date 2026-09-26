@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["URLPatternInput"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["URLPattern_Binding"],"struct":["URLPatternComponentResult","URLPatternInit","URLPatternOptions","URLPatternResult"],"trait":["URLPatternMethods"]};

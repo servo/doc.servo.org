@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Constructs a const `Signature` with compile-time validation."><title>signature in zvariant_derive - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="zvariant_derive" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc macro"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">signature</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../zvariant_derive/index.html"><img src="https://raw.githubusercontent.com/z-galaxy/zbus/9f7a90d2b594ddc48b7a5f39fda5e00cd56a7dfb/logo.png" alt="logo"></a><h2><a href="../zvariant_derive/index.html">zvariant_<wbr>derive</a><span class="version">5.15.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">signature</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#examples" title="Examples">Examples</a><ul><li><a href="#basic-usage" title="Basic usage">Basic usage</a></li><li><a href="#container-types" title="Container types">Container types</a></li><li><a href="#const-signatures" title="Const signatures">Const signatures</a></li><li><a href="#using-the-dict-alias" title="Using the `dict` alias">Using the <code>dict</code> alias</a></li><li><a href="#compile-time-validation" title="Compile-time validation">Compile-time validation</a></li></ul></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate zvariant_<wbr>derive</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">zvariant_derive</a></div><h1>Macro <span class="macro">signature</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/zvariant_derive/lib.rs.html#669-675">Source</a> </span></div><pre class="rust item-decl"><code>signature!() { <span class="comment">/* proc-macro */</span> }</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Constructs a const <a href="https://docs.rs/zvariant/latest/zvariant/enum.Signature.html"><code>Signature</code></a> with compile-time validation.</p>
+<p>This macro creates a <code>Signature</code> from a string literal at compile time, validating
+that the signature string is valid D-Bus signature. Invalid signatures will cause
+a compilation error.</p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2><h3 id="basic-usage"><a class="doc-anchor" href="#basic-usage">§</a>Basic usage</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>zvariant::signature;
+
+<span class="comment">// Create signatures for basic types
+</span><span class="kw">let </span>sig = <span class="macro">signature!</span>(<span class="string">"s"</span>);  <span class="comment">// String signature
+</span><span class="macro">assert_eq!</span>(sig.to_string(), <span class="string">"s"</span>);
+
+<span class="kw">let </span>sig = <span class="macro">signature!</span>(<span class="string">"i"</span>);  <span class="comment">// 32-bit integer signature
+</span><span class="macro">assert_eq!</span>(sig.to_string(), <span class="string">"i"</span>);</code></pre></div><h3 id="container-types"><a class="doc-anchor" href="#container-types">§</a>Container types</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>zvariant::signature;
+
+<span class="comment">// Array of strings
+</span><span class="kw">let </span>sig = <span class="macro">signature!</span>(<span class="string">"as"</span>);
+<span class="macro">assert_eq!</span>(sig.to_string(), <span class="string">"as"</span>);
+
+<span class="comment">// Dictionary mapping strings to variants
+</span><span class="kw">let </span>sig = <span class="macro">signature!</span>(<span class="string">"a{sv}"</span>);
+<span class="macro">assert_eq!</span>(sig.to_string(), <span class="string">"a{sv}"</span>);
+
+<span class="comment">// Structures
+</span><span class="kw">let </span>sig = <span class="macro">signature!</span>(<span class="string">"(isx)"</span>);
+<span class="macro">assert_eq!</span>(sig.to_string(), <span class="string">"(isx)"</span>);</code></pre></div><h3 id="const-signatures"><a class="doc-anchor" href="#const-signatures">§</a>Const signatures</h3>
+<p>The macro can be used to create const signatures, which is especially useful
+for defining signatures at compile time:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>zvariant::{signature, Signature};
+
+<span class="kw">const </span>MY_SIGNATURE: Signature = <span class="macro">signature!</span>(<span class="string">"a{sv}"</span>);
+
+<span class="kw">fn </span>process_data(_data: <span class="kw-2">&amp;</span>str) {
+    <span class="macro">assert_eq!</span>(MY_SIGNATURE.to_string(), <span class="string">"a{sv}"</span>);
+}</code></pre></div><h3 id="using-the-dict-alias"><a class="doc-anchor" href="#using-the-dict-alias">§</a>Using the <code>dict</code> alias</h3>
+<p>For convenience, <code>dict</code> is an alias for <code>a{sv}</code> (string-to-variant dictionary):</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>zvariant::signature;
+
+<span class="kw">let </span>sig = <span class="macro">signature!</span>(<span class="string">"dict"</span>);
+<span class="macro">assert_eq!</span>(sig.to_string(), <span class="string">"a{sv}"</span>);</code></pre></div><h3 id="compile-time-validation"><a class="doc-anchor" href="#compile-time-validation">§</a>Compile-time validation</h3>
+<p>Invalid signatures will be caught at compile time:</p>
+
+<div class="example-wrap compile_fail"><a href="#" class="tooltip" title="This example deliberately fails to compile">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="kw">use </span>zvariant::signature;
+
+<span class="comment">// This will fail to compile because 'z' is not a valid D-Bus type
+</span><span class="kw">let </span>sig = <span class="macro">signature!</span>(<span class="string">"z"</span>);</code></pre></div></div></details></section></div></main></body></html>

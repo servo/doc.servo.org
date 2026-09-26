@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Format"],"fn":["get_format2_class"],"struct":["AATCoverage","KerningPair","OTCoverage","Subtable","Subtable0","Subtable2","Subtable3","Subtables","SubtablesIter","Table"]};

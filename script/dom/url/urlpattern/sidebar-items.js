@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_URLPattern"],"mod":["bindings_to_third_party","third_party_to_bindings"],"struct":["URLPattern"]};

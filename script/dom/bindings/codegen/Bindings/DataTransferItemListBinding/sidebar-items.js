@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["DataTransferItemList_Binding","GenericBindings"],"trait":["DataTransferItemListMethods"]};

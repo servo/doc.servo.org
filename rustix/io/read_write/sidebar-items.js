@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["pread","preadv","preadv2","pwrite","pwritev","pwritev2","read","readv","write","writev"],"struct":["IoSlice","IoSliceMut"]};

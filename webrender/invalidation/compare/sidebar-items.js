@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Binding","PrimitiveDependency"],"struct":["BindingInfo","ImageDependency","PrimitiveComparer","PrimitiveComparisonKey"],"type":["ColorBinding","ColorBindingInfo","OpacityBinding","OpacityBindingInfo"]};

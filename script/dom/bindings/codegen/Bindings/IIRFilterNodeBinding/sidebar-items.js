@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","IIRFilterNode_Binding"],"trait":["IIRFilterNodeMethods"],"type":["IIRFilterOptions"]};

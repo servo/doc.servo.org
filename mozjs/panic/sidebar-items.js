@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PANIC_PAYLOAD"],"fn":["maybe_resume_unwind","wrap_panic"]};

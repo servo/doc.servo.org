@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CookieOperationCallback","CookieOperationResponse"],"struct":["SiteData","SiteDataManager","StorageType"]};

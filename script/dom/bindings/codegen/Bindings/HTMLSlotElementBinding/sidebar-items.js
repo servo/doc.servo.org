@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetConstructorObject","Wrap"],"mod":["GenericBindings","HTMLSlotElement_Binding"],"trait":["HTMLSlotElementMethods"],"type":["AssignedNodesOptions"]};

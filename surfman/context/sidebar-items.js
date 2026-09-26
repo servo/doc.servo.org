@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["current_context_uses_compatibility_profile"],"struct":["ContextAttributeFlags","ContextAttributes","ContextID"]};

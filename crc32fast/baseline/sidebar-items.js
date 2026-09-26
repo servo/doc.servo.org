@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fold_16","update_fast_16","update_slow"],"struct":["State"]};
