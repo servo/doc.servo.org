@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["rect","utils"],"struct":["Rect"]};

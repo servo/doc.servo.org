@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["animate_with_discrete_fallback","discrete"]};

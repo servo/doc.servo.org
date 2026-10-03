@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["decompress","elligator"],"struct":["CompressedRistretto","RistrettoBasepointTable","RistrettoPoint","VartimeRistrettoPrecomputation"]};

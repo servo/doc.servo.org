@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DESERIALIZE_EXTENSION_POINT_ERR","SINGLE_BYTE_MAX","U128_BYTE","U16_BYTE","U32_BYTE","U64_BYTE"],"fn":["cast_i64_to_i16","cast_i64_to_i32","cast_u64_to_u16","cast_u64_to_u32","cast_u64_to_usize"],"struct":["FixintEncoding","VarintEncoding"],"trait":["IntEncoding"]};

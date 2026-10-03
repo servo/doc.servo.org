@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Assoc","Operation","Operator"],"fn":["binary_op","left_assoc","precedence","unary_op"],"struct":["Binary","LeftAssoc","Unary"]};

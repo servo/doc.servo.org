@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["lin"],"struct":["BaseDirs","ProjectDirs","UserDirs"]};

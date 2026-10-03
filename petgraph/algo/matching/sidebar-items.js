@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Label"],"fn":["augment_path","find_join","greedy_matching","greedy_matching_inner","maximum_matching","non_backtracking_dfs"],"struct":["MatchedEdges","MatchedNodes","Matching"],"trait":["WithDummy"]};

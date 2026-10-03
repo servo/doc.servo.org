@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["data_device","data_offer","data_source","read_pipe","write_pipe"],"struct":["DataDeviceManagerState","ReadPipe","WritePipe"]};

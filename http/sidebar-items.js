@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["byte_str","convert","error","extensions","header","method","request","response","status","uri","version"],"struct":["Error","Extensions"],"type":["Result"]};

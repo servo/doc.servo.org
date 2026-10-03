@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["QueuedTask","TaskQueue"],"trait":["QueuedTaskConversion"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","SVGRectElement_Binding"],"trait":["SVGRectElementMethods"]};

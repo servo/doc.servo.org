@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["allocating"],"struct":["AlgorithmIdentifier"],"type":["AlgorithmIdentifierOwned","AlgorithmIdentifierRef","AlgorithmIdentifierWithOid"]};

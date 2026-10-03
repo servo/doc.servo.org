@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["base64_len_wrapped","encapsulated_len","encapsulated_len_inner","encapsulated_len_wrapped","encode","encode_string","encoded_len"],"struct":["Encoder"]};

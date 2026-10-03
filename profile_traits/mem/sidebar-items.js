@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SEEN_POINTERS"],"enum":["ProfilerMsg","ReportKind"],"fn":["perform_memory_report"],"struct":["MemoryReport","MemoryReportResult","ProcessReports","ProfilerChan","ProfilerRegistration","Report","Reporter","ReporterRequest","ReportsChan"],"trait":["OpaqueSender"]};

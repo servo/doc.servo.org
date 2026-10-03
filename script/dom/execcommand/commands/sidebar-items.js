@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["backcolor","bold","createlink","defaultparagraphseparator","delete","fontname","fontsize","forecolor","forwarddelete","hilitecolor","indent","inserthorizontalrule","insertimage","insertlinebreak","insertparagraph","inserttext","italic","removeformat","strikethrough","stylewithcss","subscript","superscript","underline","unlink"]};

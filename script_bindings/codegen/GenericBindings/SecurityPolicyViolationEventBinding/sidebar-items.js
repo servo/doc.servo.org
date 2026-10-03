@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SecurityPolicyViolationEventDisposition"],"mod":["SecurityPolicyViolationEventDispositionValues","SecurityPolicyViolationEvent_Binding"],"struct":["SecurityPolicyViolationEventInit"]};

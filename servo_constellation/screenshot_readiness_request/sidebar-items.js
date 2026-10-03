@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ScreenshotRequestState"],"struct":["ScreenshotReadinessRequest"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["idbcursor","idbcursorwithvalue","idbdatabase","idbfactory","idbindex","idbkeyrange","idbobjectstore","idbopendbrequest","idbrequest","idbtransaction","idbversionchangeevent","key"]};

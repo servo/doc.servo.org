@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CompactDirection"],"fn":["ptr_eq"],"struct":["AllEdges","AllEdgesMut","Edges","EdgesDirected","GraphMap","Neighbors","NeighborsDirected","NodeIdentifiers","NodeReferences","Nodes","Ptr"],"trait":["NodeTrait"],"type":["DiGraphMap","UnGraphMap"]};

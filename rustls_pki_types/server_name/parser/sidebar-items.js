@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AddrKind"],"macro":[["impl_helper",1]],"struct":["Parser"],"trait":["ReadNumberHelper"]};

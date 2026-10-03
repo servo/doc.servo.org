@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["derive_into_bytes","derive_into_bytes_enum","derive_into_bytes_struct","derive_into_bytes_union","homogeneous_field_bounds"]};

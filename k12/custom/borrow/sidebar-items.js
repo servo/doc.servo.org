@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CustomRefKt"],"type":["CustomRefKt128","CustomRefKt256"]};

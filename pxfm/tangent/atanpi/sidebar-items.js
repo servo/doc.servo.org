@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ONE_OVER_3PI","ONE_OVER_PI_DD"],"fn":["as_atanpi_refine2","atanpi_asympt","atanpi_fma_impl","atanpi_gen_impl","atanpi_small","atanpi_small_fma","atanpi_tiny","f_atanpi"]};

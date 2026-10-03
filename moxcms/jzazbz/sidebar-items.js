@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["perceptual_quantizer","perceptual_quantizer_inverse"],"struct":["Jzazbz"]};

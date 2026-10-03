@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["core_log2f","f_log2p1f"],"static":["LOG2_D"]};

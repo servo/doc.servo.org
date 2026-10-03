@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["allocating","allowed_len_bit_string","unused_bits"],"struct":["BitStringIter","BitStringRef"]};

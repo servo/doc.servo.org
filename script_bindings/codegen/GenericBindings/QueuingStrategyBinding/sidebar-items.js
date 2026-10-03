@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ByteLengthQueuingStrategy_Binding","CountQueuingStrategy_Binding"],"struct":["QueuingStrategy","QueuingStrategyInit","QueuingStrategySize"]};

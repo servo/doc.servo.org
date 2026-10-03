@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["c_enum",1],["cfg_if",1],["deprecated_mach",1],["e",1],["extern_ty",1],["f",1],["offset_of",1],["prelude",1],["s",1],["s_no_extra_traits",1],["s_paren",1],["safe_f",1]]};

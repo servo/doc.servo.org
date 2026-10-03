@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CaseMapDataKind","CaseType","DotType","MappingKind"],"struct":["CaseMapData","CaseMapDataULE","NonExceptionData"]};

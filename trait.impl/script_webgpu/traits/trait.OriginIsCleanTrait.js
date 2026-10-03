@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["script",[["impl <a class=\"trait\" href=\"script_webgpu/traits/trait.OriginIsCleanTrait.html\" title=\"trait script_webgpu::traits::OriginIsCleanTrait\">OriginIsCleanTrait</a> for <a class=\"struct\" href=\"script/dom/canvas/imagebitmap/struct.ImageBitmap.html\" title=\"struct script::dom::canvas::imagebitmap::ImageBitmap\">ImageBitmap</a>",0],["impl <a class=\"trait\" href=\"script_webgpu/traits/trait.OriginIsCleanTrait.html\" title=\"trait script_webgpu::traits::OriginIsCleanTrait\">OriginIsCleanTrait</a> for <a class=\"struct\" href=\"script/dom/canvas/offscreencanvas/struct.OffscreenCanvas.html\" title=\"struct script::dom::canvas::offscreencanvas::OffscreenCanvas\">OffscreenCanvas</a>",0],["impl <a class=\"trait\" href=\"script_webgpu/traits/trait.OriginIsCleanTrait.html\" title=\"trait script_webgpu::traits::OriginIsCleanTrait\">OriginIsCleanTrait</a> for <a class=\"struct\" href=\"script/dom/html/embedded_content/htmlcanvaselement/struct.HTMLCanvasElement.html\" title=\"struct script::dom::html::embedded_content::htmlcanvaselement::HTMLCanvasElement\">HTMLCanvasElement</a>",0],["impl <a class=\"trait\" href=\"script_webgpu/traits/trait.OriginIsCleanTrait.html\" title=\"trait script_webgpu::traits::OriginIsCleanTrait\">OriginIsCleanTrait</a> for <a class=\"struct\" href=\"script/dom/html/embedded_content/htmlvideoelement/struct.HTMLVideoElement.html\" title=\"struct script::dom::html::embedded_content::htmlvideoelement::HTMLVideoElement\">HTMLVideoElement</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[1497]}

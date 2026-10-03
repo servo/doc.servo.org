@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Picture","PictureKey","PictureTemplate"],"type":["PictureDataHandle"]};

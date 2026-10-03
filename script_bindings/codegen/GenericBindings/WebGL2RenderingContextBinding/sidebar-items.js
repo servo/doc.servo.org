@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["WebGL2RenderingContext_Binding"],"type":["GLint64","GLuint64"]};

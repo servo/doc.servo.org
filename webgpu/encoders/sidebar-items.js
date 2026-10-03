@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["handle_command_encoder_command","handle_compute_pass_command","handle_render_bundle_command","handle_render_pass_command"]};

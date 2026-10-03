@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["FocusEvent_Binding"],"struct":["FocusEventInit"],"trait":["FocusEventMethods"]};

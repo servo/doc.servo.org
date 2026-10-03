@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Up-sampling routines"><title>zune_jpeg::upsampler - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="zune_jpeg" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module upsampler</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../zune_jpeg/index.html">zune_<wbr>jpeg</a><span class="version">0.5.15</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module upsampler</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#the-filter" title="The filter">The filter</a></li><li><a href="#horizontal-bi-linear-filter" title="Horizontal Bi-linear filter">Horizontal Bi-linear filter</a></li><li><a href="#vertical-bi-linear" title="Vertical bi-linear.">Vertical bi-linear.</a></li><li><a href="#horizontal-vertical-downsamplingchroma-quartering" title="Horizontal vertical downsampling/chroma quartering.">Horizontal vertical downsampling/chroma quartering.</a></li></ul><h3><a href="#modules">Module Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate zune_<wbr>jpeg</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">zune_jpeg</a></div><h1>Module <span>upsampler</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/zune_jpeg/upsampler.rs.html#9-343">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Up-sampling routines</p>
+<p>The main upsampling method is a bi-linear interpolation or a “triangle
+filter “ or libjpeg turbo <code>fancy_upsampling</code> which is a good compromise
+between speed and visual quality</p>
+<h2 id="the-filter"><a class="doc-anchor" href="#the-filter">§</a>The filter</h2>
+<p>Each output pixel is made from <code>(3*A+B)/4</code> where A is the original
+pixel closer to the output and B is the one further.</p>
+<div class="example-wrap"><pre class="language-text"><code>+---+---+
+| A | B |
++---+---+
++-+-+-+-+
+| |P| | |
++-+-+-+-+</code></pre></div><h2 id="horizontal-bi-linear-filter"><a class="doc-anchor" href="#horizontal-bi-linear-filter">§</a>Horizontal Bi-linear filter</h2><div class="example-wrap"><pre class="language-text"><code>|---+-----------+---+
+|   |           |   |
+| A | |p1 | p2| | B |
+|   |           |   |
+|---+-----------+---+
+</code></pre></div>
+<p>For a horizontal bi-linear it’s trivial to implement,</p>
+<p><code>A</code> becomes the input closest to the output.</p>
+<p><code>B</code> varies depending on output.</p>
+<ul>
+<li>For odd positions, input is the <code>next</code> pixel after A</li>
+<li>For even positions, input is the <code>previous</code> value before A.</li>
+</ul>
+<p>We iterate in a classic 1-D sliding window with a window of 3.
+For our sliding window approach, <code>A</code> is the 1st and <code>B</code> is either the 0th term or 2nd term
+depending on position we are writing.(see scalar code).</p>
+<p>For vector code see module sse for explanation.</p>
+<h2 id="vertical-bi-linear"><a class="doc-anchor" href="#vertical-bi-linear">§</a>Vertical bi-linear.</h2>
+<p>Vertical up-sampling is a bit trickier.</p>
+<div class="example-wrap"><pre class="language-text"><code>+----+----+
+| A1 | A2 |
++----+----+
++----+----+
+| p1 | p2 |
++----+-+--+
++----+-+--+
+| p3 | p4 |
++----+-+--+
++----+----+
+| B1 | B2 |
++----+----+</code></pre></div>
+<p>For <code>p1</code></p>
+<ul>
+<li><code>A1</code> is given a weight of <code>3</code> and <code>B1</code> is given a weight of 1.</li>
+</ul>
+<p>For <code>p3</code></p>
+<ul>
+<li><code>B1</code> is given a weight of <code>3</code> and <code>A1</code> is given a weight of 1</li>
+</ul>
+<h2 id="horizontal-vertical-downsamplingchroma-quartering"><a class="doc-anchor" href="#horizontal-vertical-downsamplingchroma-quartering">§</a>Horizontal vertical downsampling/chroma quartering.</h2>
+<p>Carry out a vertical filter in the first pass, then a horizontal filter in the second pass.</p>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="avx2/index.html" title="mod zune_jpeg::upsampler::avx2">avx2</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="scalar/index.html" title="mod zune_jpeg::upsampler::scalar">scalar</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.choose_horizontal_samp_function.html" title="fn zune_jpeg::upsampler::choose_horizontal_samp_function">choose_<wbr>horizontal_<wbr>samp_<wbr>function</a></dt><dt><a class="fn" href="fn.choose_hv_samp_function.html" title="fn zune_jpeg::upsampler::choose_hv_samp_function">choose_<wbr>hv_<wbr>samp_<wbr>function</a></dt><dt><a class="fn" href="fn.choose_v_samp_function.html" title="fn zune_jpeg::upsampler::choose_v_samp_function">choose_<wbr>v_<wbr>samp_<wbr>function</a></dt><dt><a class="fn" href="fn.generic_sampler.html" title="fn zune_jpeg::upsampler::generic_sampler">generic_<wbr>sampler</a></dt><dt><a class="fn" href="fn.upsample_no_op.html" title="fn zune_jpeg::upsampler::upsample_no_op">upsample_<wbr>no_<wbr>op</a></dt><dd>Upsample nothing</dd></dl></section></div></main></body></html>

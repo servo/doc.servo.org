@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FALLBACK_HINTING_STYLE"],"enum":["FontBackingStore"],"fn":["fallback_free_type_hinting_load_flags"],"struct":["FreeTypeFace"]};

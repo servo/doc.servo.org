@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EdgeAction","HintAction","PointAction"],"fn":["narrow"],"struct":["EdgeHint","HintsRecorder","PointHint"]};

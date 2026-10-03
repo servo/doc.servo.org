@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ACUTE"],"enum":["CaseMapLocale","FullMappingResult"],"struct":["ContextIterator","FoldOptions","FullCaseWriteable","StringAndWriteable"]};

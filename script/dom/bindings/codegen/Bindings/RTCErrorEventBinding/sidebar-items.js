@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","RTCErrorEvent_Binding"],"trait":["RTCErrorEventMethods"],"type":["RTCErrorEventInit"]};

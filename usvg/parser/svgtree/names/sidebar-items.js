@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AId","EId"],"fn":["displace","get_index","hash","split"],"static":["ATTRIBUTES","ELEMENTS"],"struct":["Map"]};

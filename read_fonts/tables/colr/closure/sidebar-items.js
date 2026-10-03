@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_inclusive_end"],"struct":["Colrv1ClosureContext"]};

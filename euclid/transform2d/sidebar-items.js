@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["scaleoffset_float","transform2d_float"],"struct":["ScaleOffset2D","Transform2D"]};

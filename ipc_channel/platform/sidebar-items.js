@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OsIpcChannel","OsIpcSelectionResult","OsTrySelectError"],"fn":["channel"],"mod":["os","unix"],"struct":["OsIpcOneShotServer","OsIpcReceiver","OsIpcReceiverSet","OsIpcSender","OsIpcSharedMemory","OsOpaqueIpcChannel"]};

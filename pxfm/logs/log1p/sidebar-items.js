@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_log1p","log1p_accurate_dd","log1p_f64_dyadic"],"static":["LOG_R1_DD","R1","RCM1"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["expm1f_fma_impl","expm1f_gen","f_expm1f"]};

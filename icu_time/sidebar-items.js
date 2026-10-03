@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ParseError"],"mod":["ixdtf","provider","scaffold","types","zone"],"struct":["DateTime","Hour","Minute","Nanosecond","Second","Time","ZonedDateTime"]};

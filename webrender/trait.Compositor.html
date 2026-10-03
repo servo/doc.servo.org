@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Defines an interface to a native (OS level) compositor. If supplied by the client application, then picture cache slices will be composited by the OS compositor, rather than drawn via WR batches."><title>Compositor in webrender - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="webrender" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Compositor</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../webrender/index.html">webrender</a><span class="version">0.70.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Compositor</a></h2><h3><a href="#required-methods">Required Methods</a></h3><ul class="block"><li><a href="#tymethod.add_surface" title="add_surface">add_surface</a></li><li><a href="#tymethod.attach_external_image" title="attach_external_image">attach_external_image</a></li><li><a href="#tymethod.begin_frame" title="begin_frame">begin_frame</a></li><li><a href="#tymethod.bind" title="bind">bind</a></li><li><a href="#tymethod.create_backdrop_surface" title="create_backdrop_surface">create_backdrop_surface</a></li><li><a href="#tymethod.create_external_surface" title="create_external_surface">create_external_surface</a></li><li><a href="#tymethod.create_surface" title="create_surface">create_surface</a></li><li><a href="#tymethod.create_tile" title="create_tile">create_tile</a></li><li><a href="#tymethod.deinit" title="deinit">deinit</a></li><li><a href="#tymethod.destroy_surface" title="destroy_surface">destroy_surface</a></li><li><a href="#tymethod.destroy_tile" title="destroy_tile">destroy_tile</a></li><li><a href="#tymethod.enable_native_compositor" title="enable_native_compositor">enable_native_compositor</a></li><li><a href="#tymethod.end_frame" title="end_frame">end_frame</a></li><li><a href="#tymethod.get_capabilities" title="get_capabilities">get_capabilities</a></li><li><a href="#tymethod.get_window_visibility" title="get_window_visibility">get_window_visibility</a></li><li><a href="#tymethod.unbind" title="unbind">unbind</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.invalidate_tile" title="invalidate_tile">invalidate_tile</a></li><li><a href="#method.start_compositing" title="start_compositing">start_compositing</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate webrender</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">webrender</a></div><h1>Trait <span class="trait">Compositor</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/webrender/composite.rs.html#1480-1638">Source</a> </span></div><pre class="rust item-decl"><code>pub trait Compositor {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 18 methods</span></summary>    // Required methods
+    fn <a href="#tymethod.create_surface" class="fn">create_surface</a>(
+        &amp;mut self,
+        device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+        id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+        virtual_offset: <a class="type" href="../webrender_api/units/type.DeviceIntPoint.html" title="type webrender_api::units::DeviceIntPoint">DeviceIntPoint</a>,
+        tile_size: <a class="type" href="../webrender_api/units/type.DeviceIntSize.html" title="type webrender_api::units::DeviceIntSize">DeviceIntSize</a>,
+        is_opaque: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>,
+    );
+<span class="item-spacer"></span>    fn <a href="#tymethod.create_external_surface" class="fn">create_external_surface</a>(
+        &amp;mut self,
+        device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+        id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+        is_opaque: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>,
+    );
+<span class="item-spacer"></span>    fn <a href="#tymethod.create_backdrop_surface" class="fn">create_backdrop_surface</a>(
+        &amp;mut self,
+        device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+        id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+        color: <a class="struct" href="../webrender_api/color/struct.ColorF.html" title="struct webrender_api::color::ColorF">ColorF</a>,
+    );
+<span class="item-spacer"></span>    fn <a href="#tymethod.destroy_surface" class="fn">destroy_surface</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>, id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.create_tile" class="fn">create_tile</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>, id: <a class="struct" href="struct.NativeTileId.html" title="struct webrender::NativeTileId">NativeTileId</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.destroy_tile" class="fn">destroy_tile</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>, id: <a class="struct" href="struct.NativeTileId.html" title="struct webrender::NativeTileId">NativeTileId</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.attach_external_image" class="fn">attach_external_image</a>(
+        &amp;mut self,
+        device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+        id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+        external_image: <a class="struct" href="../webrender_api/image/struct.ExternalImageId.html" title="struct webrender_api::image::ExternalImageId">ExternalImageId</a>,
+    );
+<span class="item-spacer"></span>    fn <a href="#tymethod.bind" class="fn">bind</a>(
+        &amp;mut self,
+        device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+        id: <a class="struct" href="struct.NativeTileId.html" title="struct webrender::NativeTileId">NativeTileId</a>,
+        dirty_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+        valid_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+    ) -&gt; <a class="struct" href="struct.NativeSurfaceInfo.html" title="struct webrender::NativeSurfaceInfo">NativeSurfaceInfo</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.unbind" class="fn">unbind</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.begin_frame" class="fn">begin_frame</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.add_surface" class="fn">add_surface</a>(
+        &amp;mut self,
+        device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+        id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+        transform: <a class="type" href="type.CompositorSurfaceTransform.html" title="type webrender::CompositorSurfaceTransform">CompositorSurfaceTransform</a>,
+        clip_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+        image_rendering: <a class="enum" href="../webrender_api/display_item/enum.ImageRendering.html" title="enum webrender_api::display_item::ImageRendering">ImageRendering</a>,
+        rounded_clip_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+        rounded_clip_radii: <a class="struct" href="composite/struct.ClipRadius.html" title="struct webrender::composite::ClipRadius">ClipRadius</a>,
+    );
+<span class="item-spacer"></span>    fn <a href="#tymethod.end_frame" class="fn">end_frame</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.enable_native_compositor" class="fn">enable_native_compositor</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>, enable: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.deinit" class="fn">deinit</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.get_capabilities" class="fn">get_capabilities</a>(&amp;self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>) -&gt; <a class="struct" href="struct.CompositorCapabilities.html" title="struct webrender::CompositorCapabilities">CompositorCapabilities</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.get_window_visibility" class="fn">get_window_visibility</a>(&amp;self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>) -&gt; <a class="struct" href="struct.WindowVisibility.html" title="struct webrender::WindowVisibility">WindowVisibility</a>;
+
+    // Provided methods
+    fn <a href="#method.invalidate_tile" class="fn">invalidate_tile</a>(
+        &amp;mut self,
+        _device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+        _id: <a class="struct" href="struct.NativeTileId.html" title="struct webrender::NativeTileId">NativeTileId</a>,
+        _valid_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.start_compositing" class="fn">start_compositing</a>(
+        &amp;mut self,
+        _device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+        _clear_color: <a class="struct" href="../webrender_api/color/struct.ColorF.html" title="struct webrender_api::color::ColorF">ColorF</a>,
+        _dirty_rects: &amp;[<a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>],
+        _opaque_rects: &amp;[<a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>],
+    ) { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Defines an interface to a native (OS level) compositor. If supplied
+by the client application, then picture cache slices will be
+composited by the OS compositor, rather than drawn via WR batches.</p>
+</div></details><h2 id="required-methods" class="section-header">Required Methods<a href="#required-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="tymethod.create_surface" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1482-1489">Source</a><h4 class="code-header">fn <a href="#tymethod.create_surface" class="fn">create_surface</a>(
+    &amp;mut self,
+    device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+    id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+    virtual_offset: <a class="type" href="../webrender_api/units/type.DeviceIntPoint.html" title="type webrender_api::units::DeviceIntPoint">DeviceIntPoint</a>,
+    tile_size: <a class="type" href="../webrender_api/units/type.DeviceIntSize.html" title="type webrender_api::units::DeviceIntSize">DeviceIntSize</a>,
+    is_opaque: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>,
+)</h4></section></summary><div class="docblock"><p>Create a new OS compositor surface with the given properties.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.create_external_surface" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1495-1500">Source</a><h4 class="code-header">fn <a href="#tymethod.create_external_surface" class="fn">create_external_surface</a>(
+    &amp;mut self,
+    device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+    id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+    is_opaque: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>,
+)</h4></section></summary><div class="docblock"><p>Create a new OS compositor surface that can be used with an
+existing ExternalImageId, instead of being drawn to by WebRender.
+Surfaces created by this can only be used with attach_external_image,
+and not create_tile/destroy_tile/bind/unbind.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.create_backdrop_surface" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1503-1508">Source</a><h4 class="code-header">fn <a href="#tymethod.create_backdrop_surface" class="fn">create_backdrop_surface</a>(
+    &amp;mut self,
+    device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+    id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+    color: <a class="struct" href="../webrender_api/color/struct.ColorF.html" title="struct webrender_api::color::ColorF">ColorF</a>,
+)</h4></section></summary><div class="docblock"><p>Create a new OS backdrop surface that will display a color.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.destroy_surface" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1516-1520">Source</a><h4 class="code-header">fn <a href="#tymethod.destroy_surface" class="fn">destroy_surface</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>, id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>)</h4></section></summary><div class="docblock"><p>Destroy the surface with the specified id. WR may call this
+at any time the surface is no longer required (including during
+renderer deinit). It’s the responsibility of the embedder
+to ensure that the surface is only freed once the GPU is
+no longer using the surface (if this isn’t already handled
+by the operating system).</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.create_tile" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1523-1527">Source</a><h4 class="code-header">fn <a href="#tymethod.create_tile" class="fn">create_tile</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>, id: <a class="struct" href="struct.NativeTileId.html" title="struct webrender::NativeTileId">NativeTileId</a>)</h4></section></summary><div class="docblock"><p>Create a new OS compositor tile with the given properties.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.destroy_tile" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1530-1534">Source</a><h4 class="code-header">fn <a href="#tymethod.destroy_tile" class="fn">destroy_tile</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>, id: <a class="struct" href="struct.NativeTileId.html" title="struct webrender::NativeTileId">NativeTileId</a>)</h4></section></summary><div class="docblock"><p>Destroy an existing compositor tile.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.attach_external_image" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1540-1545">Source</a><h4 class="code-header">fn <a href="#tymethod.attach_external_image" class="fn">attach_external_image</a>(
+    &amp;mut self,
+    device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+    id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+    external_image: <a class="struct" href="../webrender_api/image/struct.ExternalImageId.html" title="struct webrender_api::image::ExternalImageId">ExternalImageId</a>,
+)</h4></section></summary><div class="docblock"><p>Attaches an ExternalImageId to an OS compositor surface created
+by create_external_surface, and uses that as the contents of
+the surface. It is expected that a single surface will have
+many different images attached (like one for each video frame).</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.bind" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1569-1575">Source</a><h4 class="code-header">fn <a href="#tymethod.bind" class="fn">bind</a>(
+    &amp;mut self,
+    device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+    id: <a class="struct" href="struct.NativeTileId.html" title="struct webrender::NativeTileId">NativeTileId</a>,
+    dirty_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+    valid_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+) -&gt; <a class="struct" href="struct.NativeSurfaceInfo.html" title="struct webrender::NativeSurfaceInfo">NativeSurfaceInfo</a></h4></section></summary><div class="docblock"><p>Bind this surface such that WR can issue OpenGL commands
+that will target the surface. Returns an (x, y) offset
+where WR should draw into the surface. This can be set
+to (0, 0) if the OS doesn’t use texture atlases. The dirty
+rect is a local surface rect that specifies which part
+of the surface needs to be updated. If max_update_rects
+in CompositeConfig is 0, this will always be the size
+of the entire surface. The returned offset is only
+relevant to compositors that store surfaces in a texture
+atlas (that is, WR expects that the dirty rect doesn’t
+affect the coordinates of the returned origin).</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.unbind" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1579-1582">Source</a><h4 class="code-header">fn <a href="#tymethod.unbind" class="fn">unbind</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>)</h4></section></summary><div class="docblock"><p>Unbind the surface. This is called by WR when it has
+finished issuing OpenGL commands on the current surface.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.begin_frame" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1585">Source</a><h4 class="code-header">fn <a href="#tymethod.begin_frame" class="fn">begin_frame</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>)</h4></section></summary><div class="docblock"><p>Begin the frame</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.add_surface" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1596-1605">Source</a><h4 class="code-header">fn <a href="#tymethod.add_surface" class="fn">add_surface</a>(
+    &amp;mut self,
+    device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+    id: <a class="struct" href="struct.NativeSurfaceId.html" title="struct webrender::NativeSurfaceId">NativeSurfaceId</a>,
+    transform: <a class="type" href="type.CompositorSurfaceTransform.html" title="type webrender::CompositorSurfaceTransform">CompositorSurfaceTransform</a>,
+    clip_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+    image_rendering: <a class="enum" href="../webrender_api/display_item/enum.ImageRendering.html" title="enum webrender_api::display_item::ImageRendering">ImageRendering</a>,
+    rounded_clip_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+    rounded_clip_radii: <a class="struct" href="composite/struct.ClipRadius.html" title="struct webrender::composite::ClipRadius">ClipRadius</a>,
+)</h4></section></summary><div class="docblock"><p>Add a surface to the visual tree to be composited. Visuals must
+be added every frame, between the begin/end transaction call. The
+z-order of the surfaces is determined by the order they are added
+to the visual tree.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.end_frame" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1624">Source</a><h4 class="code-header">fn <a href="#tymethod.end_frame" class="fn">end_frame</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>)</h4></section></summary><div class="docblock"><p>Commit any changes in the compositor tree for this frame. WR calls
+this once when all surface and visual updates are complete, to signal
+that the OS composite transaction should be applied.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.enable_native_compositor" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1627">Source</a><h4 class="code-header">fn <a href="#tymethod.enable_native_compositor" class="fn">enable_native_compositor</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>, enable: <a class="primitive" href="https://doc.rust-lang.org/1.97.1/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Enable/disable native compositor usage</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.deinit" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1630">Source</a><h4 class="code-header">fn <a href="#tymethod.deinit" class="fn">deinit</a>(&amp;mut self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>)</h4></section></summary><div class="docblock"><p>Safely deinitialize any remaining resources owned by the compositor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.get_capabilities" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1635">Source</a><h4 class="code-header">fn <a href="#tymethod.get_capabilities" class="fn">get_capabilities</a>(&amp;self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>) -&gt; <a class="struct" href="struct.CompositorCapabilities.html" title="struct webrender::CompositorCapabilities">CompositorCapabilities</a></h4></section></summary><div class="docblock"><p>Get the capabilities struct for this compositor. This is used to
+specify what features a compositor supports, depending on the
+underlying platform</p>
+</div></details><section id="tymethod.get_window_visibility" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1637">Source</a><h4 class="code-header">fn <a href="#tymethod.get_window_visibility" class="fn">get_window_visibility</a>(&amp;self, device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>) -&gt; <a class="struct" href="struct.WindowVisibility.html" title="struct webrender::WindowVisibility">WindowVisibility</a></h4></section></div><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.invalidate_tile" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1551-1556">Source</a><h4 class="code-header">fn <a href="#method.invalidate_tile" class="fn">invalidate_tile</a>(
+    &amp;mut self,
+    _device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+    _id: <a class="struct" href="struct.NativeTileId.html" title="struct webrender::NativeTileId">NativeTileId</a>,
+    _valid_rect: <a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>,
+)</h4></section></summary><div class="docblock"><p>Mark a tile as invalid before any surfaces are queued for
+composition and before it is updated with bind. This is useful
+for early composition, allowing for dependency tracking of which
+surfaces can be composited early while others are still updating.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.start_compositing" class="method"><a class="src rightside" href="../src/webrender/composite.rs.html#1613-1619">Source</a><h4 class="code-header">fn <a href="#method.start_compositing" class="fn">start_compositing</a>(
+    &amp;mut self,
+    _device: &amp;mut <a class="struct" href="struct.Device.html" title="struct webrender::Device">Device</a>,
+    _clear_color: <a class="struct" href="../webrender_api/color/struct.ColorF.html" title="struct webrender_api::color::ColorF">ColorF</a>,
+    _dirty_rects: &amp;[<a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>],
+    _opaque_rects: &amp;[<a class="type" href="../webrender_api/units/type.DeviceIntRect.html" title="type webrender_api::units::DeviceIntRect">DeviceIntRect</a>],
+)</h4></section></summary><div class="docblock"><p>Notify the compositor that all tiles have been invalidated and all
+native surfaces have been added, thus it is safe to start compositing
+valid surfaces. The dirty rects array allows native compositors that
+support partial present to skip copying unchanged areas.
+Optionally provides a set of rectangles for the areas known to be
+opaque, this is currently only computed if the caller is SwCompositor.</p>
+</div></details></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"></div><script src="../trait.impl/webrender/composite/trait.Compositor.js" async></script></section></div></main></body></html>

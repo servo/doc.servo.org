@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SpanKnownBounds","is_allowed_element_type_conversion","is_span","is_span_oracle","is_std_array","is_std_array_oracle"],"type":["extent_type_index_type","span_iterator_difference_type","span_iterator_element_type_","span_iterator_iterator_category","span_iterator_pointer","span_iterator_reference","span_iterator_value_type"]};

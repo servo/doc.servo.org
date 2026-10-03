@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["cff","charmap","cs","encoding","error","hinting","num","string","transform","type1"]};

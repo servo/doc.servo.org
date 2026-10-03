@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","Selection_Binding"],"trait":["SelectionMethods"],"type":["GetComposedRangesOptions"]};

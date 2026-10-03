@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["assert_barycentric_lut_size_precondition"],"mod":["interpolator","interpolator_q0_15","lut4_to_3","lut4_to_3_q0_15","rgb_xyz","rgb_xyz_q2_13_opt","t_lut3_to_3","t_lut3_to_3_q0_15"],"struct":["SseAlignedU16"]};

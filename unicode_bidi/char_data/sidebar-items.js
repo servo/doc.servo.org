@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bidi_class","bidi_matched_opening_bracket","bsearch_range_value_table","is_rtl"],"mod":["tables"],"struct":["HardcodedBidiData"]};

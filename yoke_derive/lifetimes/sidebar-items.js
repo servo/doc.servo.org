@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["custom_lt","ignored_lifetime_ident","replace_lifetime","static_lt"]};

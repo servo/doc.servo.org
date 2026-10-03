@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SDL_PLATFORM_NAME"],"enum":["MappingError","ParseSdlMappingError"],"mod":["parser"],"struct":["Mapping","MappingData","MappingDb"]};

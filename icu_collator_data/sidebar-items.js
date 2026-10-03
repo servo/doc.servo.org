@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_collation_diacritics_v1",1],["impl_collation_jamo_v1",1],["impl_collation_metadata_v1",1],["impl_collation_reordering_v1",1],["impl_collation_root_v1",1],["impl_collation_special_primaries_v1",1],["impl_collation_tailoring_v1",1],["impl_data_provider",1],["make_provider",1]]};

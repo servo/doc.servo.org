@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["VariantDecoder","VariantEncoder","VariantEncoding"],"fn":["decode_to_utf16_raw_impl"]};

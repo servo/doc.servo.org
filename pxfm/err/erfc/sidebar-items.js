@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["erfc_accurate","erfc_asympt_accurate","erfc_asympt_fast","erfc_fast","exp_1","exp_accurate","f_erfc","q_1"],"static":["ASYMPTOTIC_POLY","ASYMPTOTIC_POLY_ACCURATE"],"struct":["Exp"]};

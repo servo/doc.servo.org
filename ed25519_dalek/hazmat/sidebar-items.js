@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["raw_sign","raw_sign_byupdate","raw_verify"],"struct":["ExpandedSecretKey"]};

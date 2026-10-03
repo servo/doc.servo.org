@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIME_PNG","MIME_URI"],"fn":["add_clipboard_exclusions","handle_clipboard_read","handle_copy_error","handle_paste_error"],"struct":["Clipboard"]};

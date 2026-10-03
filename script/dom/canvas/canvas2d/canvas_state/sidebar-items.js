@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HANGING_BASELINE_DEFAULT","IDEOGRAPHIC_BASELINE_DEFAULT"],"enum":["CanvasFillOrStrokeStyle"],"fn":["adjust_canvas_size","adjust_size_sign","is_rect_valid","parse_color","replace_ascii_whitespace","round_rect_error","round_rect_radii","serialize","serialize_font"],"struct":["CanvasContextState","CanvasState","UnshapedTextRun"]};

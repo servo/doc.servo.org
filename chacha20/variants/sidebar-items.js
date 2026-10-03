@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Ietf","Legacy"],"mod":["sealed"],"trait":["Variant"]};

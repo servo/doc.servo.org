@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FeatureName","FeatureNameRecord","FeatureNames","FeatureNamesIter","SettingName","Table"]};

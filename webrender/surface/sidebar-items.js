@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_BLUR_RADIUS"],"enum":["SubpixelMode","SurfaceDescriptorKind"],"fn":["calculate_screen_uv"],"struct":["CommandBufferTargets","SurfaceBuilder","SurfaceDescriptor","SurfaceIndex","SurfaceInfo","SurfaceTileDescriptor"]};

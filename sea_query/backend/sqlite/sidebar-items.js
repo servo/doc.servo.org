@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["QUOTE"],"mod":["foreign_key","index","query","table"],"struct":["SqliteQueryBuilder"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_COMPONENTS"],"fn":["outline_impl","parse_simple_outline","resolve_coords_len"],"struct":["Builder","CompositeGlyphFlags","CompositeGlyphInfo","CompositeGlyphIter","CoordsIter","EndpointsIter","FlagsIter","GlyphPoint","GlyphPointsIter","Point","SimpleGlyphFlags","Table"]};

@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["glifo",[["impl OutlinePen for <a class=\"struct\" href=\"glifo/glyph/struct.OutlinePath.html\" title=\"struct glifo::glyph::OutlinePath\">OutlinePath</a>",0]]],["harfrust",[]],["read_fonts",[]],["skrifa",[["impl&lt;P: <a class=\"trait\" href=\"skrifa/outline/trait.OutlinePen.html\" title=\"trait skrifa::outline::OutlinePen\">OutlinePen</a> + ?<a class=\"trait\" href=\"https://doc.rust-lang.org/1.97.1/core/marker/trait.Sized.html\" title=\"trait core::marker::Sized\">Sized</a>&gt; <a class=\"trait\" href=\"skrifa/outline/trait.OutlinePen.html\" title=\"trait skrifa::outline::OutlinePen\">OutlinePen</a> for <a class=\"struct\" href=\"skrifa/outline/varc/struct.TransformPen.html\" title=\"struct skrifa::outline::varc::TransformPen\">TransformPen</a>&lt;'_, P&gt;",0],["impl&lt;T: <a class=\"trait\" href=\"skrifa/outline/unscaled/trait.UnscaledOutlineSink.html\" title=\"trait skrifa::outline::unscaled::UnscaledOutlineSink\">UnscaledOutlineSink</a>&gt; <a class=\"trait\" href=\"skrifa/outline/trait.OutlinePen.html\" title=\"trait skrifa::outline::OutlinePen\">OutlinePen</a> for <a class=\"struct\" href=\"skrifa/outline/unscaled/struct.UnscaledPenAdapter.html\" title=\"struct skrifa::outline::unscaled::UnscaledPenAdapter\">UnscaledPenAdapter</a>&lt;'_, T&gt;",0]]],["usvg",[["impl OutlinePen for <a class=\"struct\" href=\"usvg/text/colr/struct.Builder.html\" title=\"struct usvg::text::colr::Builder\">Builder</a>&lt;'_&gt;",0],["impl OutlinePen for <a class=\"struct\" href=\"usvg/text/flatten/struct.PathBuilder.html\" title=\"struct usvg::text::flatten::PathBuilder\">PathBuilder</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[161,16,18,1084,329]}

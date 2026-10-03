@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","WheelEventConstants","WheelEvent_Binding"],"trait":["WheelEventMethods"],"type":["WheelEventInit"]};

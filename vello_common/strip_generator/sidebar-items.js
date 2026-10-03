@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenerationMode"],"fn":["render_with_clip"],"struct":["StripGenerator","StripStorage"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["execute","execute_into","partition","partition_map","unzip","unzip_indexed"],"struct":["Collector","Partition","PartitionMap","UnEither","Unzip","UnzipA","UnzipB","UnzipConsumer","UnzipFolder","UnzipReducer"],"trait":["UnzipOp"]};

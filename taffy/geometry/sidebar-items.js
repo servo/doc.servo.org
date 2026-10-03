@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AbsoluteAxis","AbstractAxis"],"struct":["InBothAbsAxis","Line","MinMax","Point","Rect","Size"]};

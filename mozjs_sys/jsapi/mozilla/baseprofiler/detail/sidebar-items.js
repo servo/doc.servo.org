@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BaseProfilerAutoLock","BaseProfilerAutoLockExclusive","BaseProfilerAutoLockShared","BaseProfilerMaybeAutoLock","BaseProfilerMaybeMutex","BaseProfilerMutex","BaseProfilerSharedMutex"],"type":["ProcessIdType","ThreadIdType"]};

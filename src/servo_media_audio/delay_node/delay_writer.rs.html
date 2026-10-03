@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `components/media/audio/delay_node/delay_writer.rs`."><title>delay_writer.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="servo_media_audio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">servo_media_audio/delay_node/</div>delay_writer.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-2"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use </span>log::error;
+<a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>num_traits::Zero;
+<a href=#7 id=7 data-nosnippet>7</a>
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span><span class="kw">crate</span>::audio_node::{AudioNodeEngine, AudioNodeType, BlockInfo, ChannelInfo};
+<a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span><span class="kw">crate</span>::block::{Chunk, FRAMES_PER_BLOCK_USIZE};
+<a href=#10 id=10 data-nosnippet>10</a><span class="kw">use </span><span class="kw">crate</span>::delay_node::{CachedUpmixedBlock, DelayBuffer};
+<a href=#11 id=11 data-nosnippet>11</a>
+<a href=#12 id=12 data-nosnippet>12</a><span class="doccomment">/// &lt;https://webaudio.github.io/web-audio-api/#delaywriter&gt;
+<a href=#13 id=13 data-nosnippet>13</a>/// &gt; ...an object that has the same interface as an AudioNode,
+<a href=#14 id=14 data-nosnippet>14</a>/// &gt; and that writes the input audio into the internal buffer of the DelayNode.
+<a href=#15 id=15 data-nosnippet>15</a>/// &gt; It has the same input connections as the DelayNode it was created from.
+<a href=#16 id=16 data-nosnippet>16</a></span><span class="attr">#[derive(AudioNodeCommon)]
+<a href=#17 id=17 data-nosnippet>17</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DelayWriter {
+<a href=#18 id=18 data-nosnippet>18</a>    channel_info: ChannelInfo,
+<a href=#19 id=19 data-nosnippet>19</a>    <span class="comment">// Ring buffer where we push to the front.
+<a href=#20 id=20 data-nosnippet>20</a>    // Easier mental model since entries in the back are the oldest.
+<a href=#21 id=21 data-nosnippet>21</a>    </span>delay_line: DelayBuffer,
+<a href=#22 id=22 data-nosnippet>22</a>    <span class="comment">// Block that has been upmixed based on the channel count of the output.
+<a href=#23 id=23 data-nosnippet>23</a>    </span>upmixed_block: CachedUpmixedBlock,
+<a href=#24 id=24 data-nosnippet>24</a>    <span class="comment">// Maximum delay time in seconds. Passed from the DelayNode
+<a href=#25 id=25 data-nosnippet>25</a>    </span>max_delay_time: f64,
+<a href=#26 id=26 data-nosnippet>26</a>}
+<a href=#27 id=27 data-nosnippet>27</a>
+<a href=#28 id=28 data-nosnippet>28</a><span class="kw">impl </span>DelayWriter {
+<a href=#29 id=29 data-nosnippet>29</a>    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new(
+<a href=#30 id=30 data-nosnippet>30</a>        buffer: DelayBuffer,
+<a href=#31 id=31 data-nosnippet>31</a>        upmixed_block: CachedUpmixedBlock,
+<a href=#32 id=32 data-nosnippet>32</a>        channel_info: ChannelInfo,
+<a href=#33 id=33 data-nosnippet>33</a>        max_delay_time: f64,
+<a href=#34 id=34 data-nosnippet>34</a>    ) -&gt; <span class="self">Self </span>{
+<a href=#35 id=35 data-nosnippet>35</a>        <span class="self">Self </span>{
+<a href=#36 id=36 data-nosnippet>36</a>            channel_info,
+<a href=#37 id=37 data-nosnippet>37</a>            delay_line: buffer,
+<a href=#38 id=38 data-nosnippet>38</a>            upmixed_block,
+<a href=#39 id=39 data-nosnippet>39</a>            max_delay_time,
+<a href=#40 id=40 data-nosnippet>40</a>        }
+<a href=#41 id=41 data-nosnippet>41</a>    }
+<a href=#42 id=42 data-nosnippet>42</a>
+<a href=#43 id=43 data-nosnippet>43</a>    <span class="doccomment">/// Updates the capacity of the delay line if it is currently zero.
+<a href=#44 id=44 data-nosnippet>44</a>    </span><span class="kw">fn </span>update_delay_line_capacity(<span class="kw-2">&amp;</span><span class="self">self</span>, capacity: usize) {
+<a href=#45 id=45 data-nosnippet>45</a>        <span class="kw">let </span><span class="kw-2">mut </span>delay_line = <span class="self">self</span>.delay_line.write();
+<a href=#46 id=46 data-nosnippet>46</a>        <span class="kw">if </span>delay_line.capacity().is_zero() {
+<a href=#47 id=47 data-nosnippet>47</a>            delay_line.reserve(capacity);
+<a href=#48 id=48 data-nosnippet>48</a>        }
+<a href=#49 id=49 data-nosnippet>49</a>    }
+<a href=#50 id=50 data-nosnippet>50</a>
+<a href=#51 id=51 data-nosnippet>51</a>    <span class="doccomment">/// Writes the input block to the delay line
+<a href=#52 id=52 data-nosnippet>52</a>    </span><span class="kw">fn </span>write(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut </span>input: Chunk) {
+<a href=#53 id=53 data-nosnippet>53</a>        {
+<a href=#54 id=54 data-nosnippet>54</a>            <span class="comment">// First remove the oldest values if we are at capacity (max_delay_time)
+<a href=#55 id=55 data-nosnippet>55</a>            </span><span class="kw">let </span><span class="prelude-val">Some</span>(block) = input.blocks.pop() <span class="kw">else </span>{
+<a href=#56 id=56 data-nosnippet>56</a>                <span class="macro">error!</span>(
+<a href=#57 id=57 data-nosnippet>57</a>                    <span class="string">"Attempted to write a chunk with no data to the delay node internal buffer. This should not have occurred due to size check prior to write"
+<a href=#58 id=58 data-nosnippet>58</a>                </span>);
+<a href=#59 id=59 data-nosnippet>59</a>                <span class="kw">return</span>;
+<a href=#60 id=60 data-nosnippet>60</a>            };
+<a href=#61 id=61 data-nosnippet>61</a>            <span class="kw">let </span><span class="kw-2">mut </span>delay_line = <span class="self">self</span>.delay_line.write();
+<a href=#62 id=62 data-nosnippet>62</a>            <span class="kw">let </span>last_index = delay_line.capacity() - <span class="number">1</span>;
+<a href=#63 id=63 data-nosnippet>63</a>            delay_line.truncate(last_index);
+<a href=#64 id=64 data-nosnippet>64</a>            <span class="comment">// Push the input block to the front of the delay line.
+<a href=#65 id=65 data-nosnippet>65</a>            </span>delay_line.push_front(block);
+<a href=#66 id=66 data-nosnippet>66</a>        }
+<a href=#67 id=67 data-nosnippet>67</a>        <span class="comment">// Shifts the index of the existing upmixed block
+<a href=#68 id=68 data-nosnippet>68</a>        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(upmixed_block) = <span class="self">self</span>.upmixed_block.write().as_mut() {
+<a href=#69 id=69 data-nosnippet>69</a>            upmixed_block.increment_index();
+<a href=#70 id=70 data-nosnippet>70</a>        }
+<a href=#71 id=71 data-nosnippet>71</a>    }
+<a href=#72 id=72 data-nosnippet>72</a>}
+<a href=#73 id=73 data-nosnippet>73</a>
+<a href=#74 id=74 data-nosnippet>74</a><span class="kw">impl </span>AudioNodeEngine <span class="kw">for </span>DelayWriter {
+<a href=#75 id=75 data-nosnippet>75</a>    <span class="kw">fn </span>node_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; AudioNodeType {
+<a href=#76 id=76 data-nosnippet>76</a>        AudioNodeType::DelayWriter
+<a href=#77 id=77 data-nosnippet>77</a>    }
+<a href=#78 id=78 data-nosnippet>78</a>
+<a href=#79 id=79 data-nosnippet>79</a>    <span class="kw">fn </span>process(<span class="kw-2">&amp;mut </span><span class="self">self</span>, inputs: Chunk, info: <span class="kw-2">&amp;</span>BlockInfo) -&gt; Chunk {
+<a href=#80 id=80 data-nosnippet>80</a>        <span class="macro">debug_assert!</span>(inputs.len() == <span class="number">1</span>);
+<a href=#81 id=81 data-nosnippet>81</a>
+<a href=#82 id=82 data-nosnippet>82</a>        <span class="kw">let </span>max_delay_frame = <span class="self">self</span>.max_delay_time * info.sample_rate <span class="kw">as </span>f64;
+<a href=#83 id=83 data-nosnippet>83</a>        <span class="kw">let </span>max_delay_block = (max_delay_frame / FRAMES_PER_BLOCK_USIZE <span class="kw">as </span>f64).ceil() <span class="kw">as </span>usize;
+<a href=#84 id=84 data-nosnippet>84</a>
+<a href=#85 id=85 data-nosnippet>85</a>        <span class="comment">// Update the delay line capacity if necessary, and write the input blocks to the internal buffer
+<a href=#86 id=86 data-nosnippet>86</a>        </span><span class="self">self</span>.update_delay_line_capacity(max_delay_block + <span class="number">1</span>);
+<a href=#87 id=87 data-nosnippet>87</a>
+<a href=#88 id=88 data-nosnippet>88</a>        <span class="comment">// Write to the internal buffer
+<a href=#89 id=89 data-nosnippet>89</a>        </span><span class="self">self</span>.write(inputs);
+<a href=#90 id=90 data-nosnippet>90</a>        Chunk::default()
+<a href=#91 id=91 data-nosnippet>91</a>    }
+<a href=#92 id=92 data-nosnippet>92</a>
+<a href=#93 id=93 data-nosnippet>93</a>    <span class="kw">fn </span>output_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+<a href=#94 id=94 data-nosnippet>94</a>        <span class="number">0
+<a href=#95 id=95 data-nosnippet>95</a>    </span>}
+<a href=#96 id=96 data-nosnippet>96</a>}
+</code></pre></div></section></main></body></html>

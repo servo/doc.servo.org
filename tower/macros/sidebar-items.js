@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["opaque_future",1]]};

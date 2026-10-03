@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHUNKED_EXTENSIONS_LIMIT","TRAILER_LIMIT"],"enum":["ChunkedState","Kind"],"fn":["decode_trailers"],"macro":[["byte",1],["or_overflow",1],["put_u8",1]],"struct":["Decoder","IncompleteBody","StepArgs"]};

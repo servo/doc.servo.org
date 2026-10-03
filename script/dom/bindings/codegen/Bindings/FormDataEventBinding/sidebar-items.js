@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["FormDataEvent_Binding","GenericBindings"],"trait":["FormDataEventMethods"],"type":["FormDataEventInit"]};

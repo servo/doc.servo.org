@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_atomic",1]],"trait":["Property","PropertyGet","PropertySet","PropertySetNested"]};

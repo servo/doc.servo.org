@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bind_fields","idents","parse","validate"]};

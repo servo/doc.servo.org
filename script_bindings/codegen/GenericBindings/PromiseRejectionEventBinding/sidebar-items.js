@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["PromiseRejectionEvent_Binding"],"struct":["PromiseRejectionEventInit"]};

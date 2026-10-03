@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["asin_eval","f_asin"],"static":["ASIN_COEFFS"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RecvAncillaryMessage","SendAncillaryMessage"],"fn":["align_for_cmsghdr","recvmsg","sendmmsg","sendmsg","sendmsg_addr"],"mod":["messages"],"struct":["AncillaryDrain","AncillaryIter","MMsgHdr","RecvAncillaryBuffer","RecvMsg","SendAncillaryBuffer"]};

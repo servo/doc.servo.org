@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Connector"],"fn":["client_tls","client_tls_with_config"],"mod":["encryption"],"type":["TlsHandshakeError"]};

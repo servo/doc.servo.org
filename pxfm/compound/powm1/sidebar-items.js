@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_powm1","powm1_expm1_1"]};

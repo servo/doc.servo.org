@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FormatEntry","InsertionMode","InsertionPoint","ProcessResult","SplitStatus","Token"]};

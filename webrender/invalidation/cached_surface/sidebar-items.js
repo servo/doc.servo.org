@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CachedSurface","CachedSurfaceDescriptor","PrimitiveDependencyIndex","PrimitiveDependencyInfo","PrimitiveDescriptor","TileUpdateDirtyContext","TileUpdateDirtyState"]};

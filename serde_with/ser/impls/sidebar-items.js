@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["map_as_tuple_seq",1],["map_as_tuple_seq_intern",1],["map_impl",1],["pinned_wrapper",1],["seq_impl",1],["tuple_impl",1],["tuple_seq_as_map_arr",1],["tuple_seq_as_map_impl",1],["tuple_seq_as_map_impl_intern",1],["use_signed_duration",1]],"mod":["macros"],"type":["BoxedSlice","Ref","RefMut","Slice"]};

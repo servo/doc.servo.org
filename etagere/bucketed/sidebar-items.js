@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BIN_BITS","BIN_MASK","GEN_BITS","GEN_MASK","ITEM_BITS","ITEM_MASK","MAX_BIN_COUNT","MAX_ITEMS_PER_BIN","MAX_SHELF_COUNT"],"fn":["adjust_size","convert_coordinates","shelf_height"],"struct":["Bucket","BucketIndex","BucketedAtlasAllocator","Shelf"]};

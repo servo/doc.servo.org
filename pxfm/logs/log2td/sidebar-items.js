@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["log2_poly","log2_td"]};

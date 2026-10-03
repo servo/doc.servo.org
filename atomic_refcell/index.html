@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Implements a container type providing RefCell-like semantics for objects shared across threads."><title>atomic_refcell - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="atomic_refcell" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate atomic_refcell</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../atomic_refcell/index.html">atomic_<wbr>refcell</a><span class="version">0.1.14</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#structs">Crate Items</a></h3><ul class="block"><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#constants" title="Constants">Constants</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>atomic_<wbr>refcell</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/atomic_refcell/lib.rs.html#1-563">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Implements a container type providing RefCell-like semantics for objects
+shared across threads.</p>
+<p>RwLock is traditionally considered to be the |Sync| analogue of RefCell.
+However, for consumers that can guarantee that they will never mutably
+borrow the contents concurrently with immutable borrows, an RwLock is
+overkill, and has key disadvantages:</p>
+<ul>
+<li>Performance: Even the fastest existing implementation of RwLock (that of
+parking_lot) performs at least two atomic operations during immutable
+borrows. This makes mutable borrows significantly cheaper than immutable
+borrows, leading to weird incentives when writing performance-critical
+code.</li>
+<li>Features: Implementing AtomicRefCell on top of RwLock makes it impossible
+to implement useful things like AtomicRef{,Mut}::map.</li>
+</ul>
+<p>As such, we re-implement RefCell semantics from scratch with a single atomic
+reference count. The primary complication of this scheme relates to keeping
+things in a consistent state when one thread performs an illegal borrow and
+panics. Since an AtomicRefCell can be accessed by multiple threads, and since
+panics are recoverable, we need to ensure that an illegal (panicking) access by
+one thread does not lead to undefined behavior on other, still-running threads.</p>
+<p>So we represent things as follows:</p>
+<ul>
+<li>Any value with the high bit set (so half the total refcount space) indicates
+a mutable borrow.</li>
+<li>Mutable borrows perform an atomic compare-and-swap, swapping in the high bit
+if the current value is zero. If the current value is non-zero, the thread
+panics and the value is left undisturbed.</li>
+<li>Immutable borrows perform an atomic increment. If the new value has the high
+bit set, the thread panics. The incremented refcount is left as-is, since it
+still represents a valid mutable borrow. When the mutable borrow is released,
+the refcount is set unconditionally to zero, clearing any stray increments by
+panicked threads.</li>
+</ul>
+<p>There are a few additional purely-academic complications to handle overflow,
+which are documented in the implementation.</p>
+<p>The rest of this module is mostly derived by copy-pasting the implementation of
+RefCell and fixing things up as appropriate. Certain non-threadsafe methods
+have been removed. We segment the concurrency logic from the rest of the code to
+keep the tricky parts small and easy to audit.</p>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.AtomicBorrowRef.html" title="struct atomic_refcell::AtomicBorrowRef">Atomic<wbr>Borrow<wbr>Ref</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="struct" href="struct.AtomicBorrowRefMut.html" title="struct atomic_refcell::AtomicBorrowRefMut">Atomic<wbr>Borrow<wbr>RefMut</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="struct" href="struct.AtomicRef.html" title="struct atomic_refcell::AtomicRef">Atomic<wbr>Ref</a></dt><dd>A wrapper type for an immutably borrowed value from an <code>AtomicRefCell&lt;T&gt;</code>.</dd><dt><a class="struct" href="struct.AtomicRefCell.html" title="struct atomic_refcell::AtomicRefCell">Atomic<wbr>RefCell</a></dt><dd>A threadsafe analogue to RefCell.</dd><dt><a class="struct" href="struct.AtomicRefMut.html" title="struct atomic_refcell::AtomicRefMut">Atomic<wbr>RefMut</a></dt><dd>A wrapper type for a mutably borrowed value from an <code>AtomicRefCell&lt;T&gt;</code>.</dd><dt><a class="struct" href="struct.BorrowError.html" title="struct atomic_refcell::BorrowError">Borrow<wbr>Error</a></dt><dd>An error returned by <a href="struct.AtomicRefCell.html#method.try_borrow"><code>AtomicRefCell::try_borrow</code></a>.</dd><dt><a class="struct" href="struct.BorrowMutError.html" title="struct atomic_refcell::BorrowMutError">Borrow<wbr>MutError</a></dt><dd>An error returned by <a href="struct.AtomicRefCell.html#method.try_borrow_mut"><code>AtomicRefCell::try_borrow_mut</code></a>.</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.HIGH_BIT.html" title="constant atomic_refcell::HIGH_BIT">HIGH_<wbr>BIT</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="constant" href="constant.MAX_FAILED_BORROWS.html" title="constant atomic_refcell::MAX_FAILED_BORROWS">MAX_<wbr>FAILED_<wbr>BORROWS</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl></section></div></main></body></html>

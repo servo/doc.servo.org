@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NUM_SHARDS","REGISTRATION"],"fn":["current_index","thread_indices"],"struct":["Registration","Shard","ShardedLock","ShardedLockReadGuard","ShardedLockWriteGuard","ThreadIndices"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["F32Margin","F64Margin"],"trait":["ApproxEq"]};

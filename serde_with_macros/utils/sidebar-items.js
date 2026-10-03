@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["has_derive_jsonschema","schemars_with_attr_if","split_with_de_lifetime"],"struct":["CfgAttr","DeImplGenerics","DeriveOptions","SchemaFieldCondition"],"trait":["IteratorExt"],"type":["SchemaFieldConfig"]};

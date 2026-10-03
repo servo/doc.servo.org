@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NULL_OBJECT_PATH","NULL_PATH_STR"],"enum":["ObjectRef"],"struct":["ObjectRefOwned"]};

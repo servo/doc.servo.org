@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLUE_STRING_MAX_LEN","MAX_BLUES","MAX_INLINE_POINTS"],"fn":["buffers","compute_cjk_blues","compute_default_blues","compute_unscaled_blues","cycle_backward","cycle_forward","satisfies_min_long_segment_len","things_all_blues_need"],"struct":["BlueZones","ScaledBlue","UnscaledBlue"],"type":["ScaledBlues","UnscaledBlues"]};

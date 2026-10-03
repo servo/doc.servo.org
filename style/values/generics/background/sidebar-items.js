@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericBackgroundSize"],"fn":["width_and_height_are_auto"]};

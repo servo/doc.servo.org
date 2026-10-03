@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["safe_add_impl",1],["safe_mul_impl",1],["safe_powi_impl",1]],"trait":["SafeAdd","SafeMul","SafePowi"]};

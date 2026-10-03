@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DATA","STARTING_YEAR"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["resource_protocol_dir_path","resource_root_dir_path"],"static":["CMD_RESOURCE_DIR"]};

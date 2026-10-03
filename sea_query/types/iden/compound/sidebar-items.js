@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColumnRef","TableRef"],"struct":["ColumnName","DatabaseName","SchemaName","TableName","TypeRef"],"trait":["IdenList","IntoColumnRef","IntoTableRef","IntoTypeRef"]};

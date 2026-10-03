@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply","gaussian_channel","gaussianiir2d","gen_coefficients"],"struct":["BlurData"]};

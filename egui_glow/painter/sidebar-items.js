@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FRAG_SRC","VERT_SRC"],"fn":["clear","set_clip_rect"],"struct":["CallbackFn","Context","Painter","PainterError"],"trait":["TextureFilterExt","TextureWrapModeExt"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["scale_for_hinting"],"mod":["hint"],"struct":["CharstringEvaluator","FontDict","HintedTransformingSink","Outlines","PenSink","PrivateDict","Subfont","TopDict"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ActivateSlotError","CreateBufferError"],"struct":["Buffer","BufferData","FreelistEntry","Slot","SlotInner","SlotPool"],"trait":["CanvasKey"]};

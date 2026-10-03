@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["reverse_cursive_minor_offset"]};

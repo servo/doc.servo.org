@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CicpColorPrimaries","MatrixCoefficients","TransferCharacteristics"],"fn":["create_rec709_parametric"],"struct":["ColorPrimaries"]};

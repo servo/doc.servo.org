@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ParseError"],"mod":["any_calendar","cal","calendar","calendar_arithmetic","date","duration","error","ixdtf","options","preferences","provider","types","week"],"struct":["Date","Ref"],"trait":["AsCalendar","Calendar","IntoAnyCalendar"]};

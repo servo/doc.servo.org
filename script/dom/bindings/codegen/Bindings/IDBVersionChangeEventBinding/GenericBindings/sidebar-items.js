@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["IDBVersionChangeEvent_Binding"],"struct":["IDBVersionChangeEventInit"],"trait":["IDBVersionChangeEventMethods"]};

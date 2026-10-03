@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FlushCompress","FlushDecompress","Status"],"fn":["_assert_send_sync"],"mod":["bufread","bufreader","crc","deflate","ffi","gz","mem","read","write","zio","zlib"],"struct":["Compress","CompressError","Compression","Crc","CrcReader","CrcWriter","Decompress","DecompressError","GzBuilder","GzHeader"]};

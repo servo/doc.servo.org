@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["CustomElementRegistry_Binding"],"struct":["CustomElementConstructor","ElementDefinitionOptions"],"trait":["CustomElementRegistryMethods"]};

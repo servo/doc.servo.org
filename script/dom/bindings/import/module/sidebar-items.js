@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["PrototypeList"],"struct":["DOMClass","Dom","IterableIterator","Reflector","Root"],"trait":["DomObjectIteratorWrap","DomObjectWrap","IDLInterface","WeakReferenceable","WeakReferenceableDomObjectWrap"]};

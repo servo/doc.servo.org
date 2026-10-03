@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","HeadersIterator_Binding","Headers_Binding"],"trait":["HeadersIteratorMethods","HeadersMethods"],"type":["HeadersInit"]};

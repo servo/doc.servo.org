@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["blackboxing","breakpoint","browsing_context","console","device","environment","frame","framerate","inspector","long_string","memory","network_event","object","pause","performance","preference","process","property_iterator","reflow","root","source","stylesheets","symbol_iterator","tab","thread","timeline","watcher","worker"]};

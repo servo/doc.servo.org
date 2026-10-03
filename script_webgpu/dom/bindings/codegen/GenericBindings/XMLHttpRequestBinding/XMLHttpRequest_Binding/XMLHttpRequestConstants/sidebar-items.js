@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DONE","HEADERS_RECEIVED","LOADING","OPENED","UNSENT"]};

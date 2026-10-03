@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compose_tag","decompose_tag","ensure_aligned","low_bits","strongest_failure_ordering"],"struct":["Array","Atomic","CompareExchangeError","Owned","Shared"],"trait":["CompareAndSetOrdering","Pointable","Pointer"],"type":["CompareAndSetError"]};

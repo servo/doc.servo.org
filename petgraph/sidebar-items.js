@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Directed","Direction","Undirected"],"mod":["acyclic","adj","algo","csr","data","dot","graph","graph6","graph_impl","graphmap","iter_format","iter_utils","macros","matrix_graph","operator","prelude","scored","stable_graph","traits_graph","unionfind","visit"],"trait":["EdgeType","IntoWeightedEdge"]};

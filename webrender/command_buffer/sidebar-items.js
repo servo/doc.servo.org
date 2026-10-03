@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CommandBufferBuilderKind","PrimitiveCommand"],"fn":["decode_blend_mode","encode_blend_mode"],"struct":["Command","CommandBuffer","CommandBufferBuilder","CommandBufferIndex","CommandBufferList","MaskFlags","QuadFlags"]};

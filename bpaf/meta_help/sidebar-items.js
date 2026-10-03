@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HelpItem","HiTy","ItemBlock"],"fn":["render_help","write_help_item","write_shortlong"],"struct":["Dedup","HelpItems","HelpItemsIter"]};

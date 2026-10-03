@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["AnalyserNode_Binding","GenericBindings"],"trait":["AnalyserNodeMethods"],"type":["AnalyserOptions"]};

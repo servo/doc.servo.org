@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["RTCRtpSender_Binding"],"struct":["RTCRtcpParameters","RTCRtpCodecParameters","RTCRtpHeaderExtensionParameters","RTCRtpParameters","RTCRtpSendParameters"],"trait":["RTCRtpSenderMethods"]};

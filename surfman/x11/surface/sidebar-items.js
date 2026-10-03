@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["NativeWidget","Surface","SurfaceDataGuard","SurfaceTexture"]};

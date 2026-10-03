@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["TestBindingSetlikeWithInterfaceSetlike_Binding","TestBindingSetlikeWithInterface_Binding"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_HEADERS"],"enum":["Headers","TunnelError"],"fn":["tunnel"],"struct":["Tunnel","Tunneling"],"type":["BoxTunneling"]};

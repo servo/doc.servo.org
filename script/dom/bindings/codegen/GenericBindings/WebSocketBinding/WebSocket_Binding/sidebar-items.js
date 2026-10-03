@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","DefineDOMInterface","GetProtoObject","Wrap"],"mod":["WebSocketConstants"],"static":["Class"],"trait":["WebSocketMethods"]};

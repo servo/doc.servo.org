@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AsciiMode","CapacityMode","CaseSensitivity","PhfMode"],"struct":["ZeroTrieBuilderOptions"],"trait":["ZeroTrieWithOptions"]};

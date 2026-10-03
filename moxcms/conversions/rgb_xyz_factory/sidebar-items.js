@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FIXED_POINT_SCALE"],"trait":["RgbXyzFactory","RgbXyzFactoryOpt"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["collect",1],["submit",1]],"trait":["Collect"],"type":["iter"]};

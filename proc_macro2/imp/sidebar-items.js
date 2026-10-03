@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Group","Ident","LexError","Literal","Span","TokenStream","TokenTreeIter"],"fn":["debug_span_field_if_nontrivial","into_compiler_token","mismatch"],"macro":[["suffixed_numbers",1],["unsuffixed_integers",1]],"struct":["DeferredTokenStream"]};

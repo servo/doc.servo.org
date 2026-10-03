@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_MESSAGE_SIZE","MIN_MESSAGE_SIZE","NATIVE_ENDIAN_SIG","PRIMARY_HEADER_SIZE"],"enum":["EndianSig","Flags","Type"],"static":["SERIAL_NUM"],"struct":["Header","PrimaryHeader"]};

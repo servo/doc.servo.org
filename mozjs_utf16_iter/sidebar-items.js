@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["in_inclusive_range16"],"mod":["cptrie","cptrie_indices","indices","report"],"struct":["ErrorReportingUtf16Chars","Utf16CharIndices","Utf16CharIndicesWithTrie","Utf16Chars","Utf16CharsError","Utf16CharsWithTrie"],"trait":["Utf16CharsEx","Utf16CharsWithTrieEx"]};

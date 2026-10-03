@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALGORITHM_ID","ALGORITHM_OID"],"enum":["Error","KeyError"],"mod":["spki"],"struct":["BitStringRef","Document","KeypairBytes","ObjectIdentifier","OctetStringRef","PublicKeyBytes","SecretDocument"],"trait":["DecodePrivateKey","DecodePublicKey","EncodePrivateKey","EncodePublicKey"],"type":["PrivateKeyInfoRef","Result"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["next_adapter_id","root_window"],"static":["NEXT_ADAPTER_ID"],"struct":["Adapter","AdapterChangeHandler"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Interface"],"trait":["DocumentHelpers","DomHelpers","GlobalScopeHelpers","HasOrigin","HeapTracedPromiseHelpers","PromiseHelpers","ServoInternalsHelpers","StackRootPromiseHelpers","TestBindingHelpers","WebGL2RenderingContextHelpers","WindowHelpers"]};

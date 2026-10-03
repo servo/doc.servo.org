@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["round_to_int"],"struct":["ColorF","ColorU","PremultipliedColorF"]};

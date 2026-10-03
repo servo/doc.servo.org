@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["SharedWorker_Binding"],"struct":["SharedWorkerOptions"]};

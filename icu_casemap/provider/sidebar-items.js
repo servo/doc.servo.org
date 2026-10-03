@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["data","exception_helpers","exceptions","unfold"],"struct":["Baked","CaseMap","CaseMapUnfold","CaseMapUnfoldV1","CaseMapV1"]};

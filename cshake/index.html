@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="RustCrypto: cSHAKE"><title>cshake - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="cshake" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate cshake</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../cshake/index.html"><img src="https://raw.githubusercontent.com/RustCrypto/media/6ee8e381/logo.svg" alt="logo"></a><h2><a href="../cshake/index.html">cshake</a><span class="version">0.2.1</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#rustcrypto-cshake" title="RustCrypto: cSHAKE">RustCrypto: cSHAKE</a><ul><li><a href="#examples" title="Examples">Examples</a></li><li><a href="#license" title="License">License</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>cshake</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/cshake/lib.rs.html#1-240">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="rustcrypto-cshake"><a class="doc-anchor" href="#rustcrypto-cshake">§</a>RustCrypto: cSHAKE</h2>
+<p><a href="https://crates.io/crates/cshake"><img src="https://img.shields.io/crates/v/cshake.svg" alt="crate" /></a>
+<a href="https://docs.rs/cshake"><img src="https://docs.rs/cshake/badge.svg" alt="Docs" /></a>
+<img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" alt="Apache2/MIT licensed" />
+<img src="https://img.shields.io/badge/rustc-1.85+-blue.svg" alt="Rust Version" />
+<a href="https://rustcrypto.zulipchat.com/#narrow/stream/260041-hashes"><img src="https://img.shields.io/badge/zulip-join_chat-blue.svg" alt="Project Chat" /></a>
+<a href="https://github.com/RustCrypto/XOFs/actions/workflows/cshake.yml?query=branch:master"><img src="https://github.com/RustCrypto/XOFs/actions/workflows/cshake.yml/badge.svg?branch=master" alt="Build Status" /></a></p>
+<p>Implementation of the cSHAKE family of extendable-output functions (XOFs)
+defined in the NIST <a href="https://csrc.nist.gov/pubs/sp/800/185/final">SHA-3 Derived Functions</a>.</p>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3>
+<p>cSHAKE functions have an extendable output, so finalization methods return
+XOF reader from which results of arbitrary length can be read.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>cshake::CShake128;
+<span class="kw">use </span>cshake::digest::{CustomizedInit, Update, ExtendableOutput, XofReader};
+<span class="kw">use </span>hex_literal::hex;
+
+<span class="kw">let </span><span class="kw-2">mut </span>hasher = CShake128::default();
+hasher.update(<span class="string">b"abc"</span>);
+<span class="kw">let </span><span class="kw-2">mut </span>reader = hasher.finalize_xof();
+<span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0u8</span>; <span class="number">10</span>];
+reader.read(<span class="kw-2">&amp;mut </span>buf);
+<span class="macro">assert_eq!</span>(buf, <span class="macro">hex!</span>(<span class="string">"5881092dd818bf5cf8a3"</span>));
+reader.read(<span class="kw-2">&amp;mut </span>buf);
+<span class="macro">assert_eq!</span>(buf, <span class="macro">hex!</span>(<span class="string">"ddb793fbcba74097d5c5"</span>));
+
+<span class="comment">// With customization string
+</span><span class="kw">let </span><span class="kw-2">mut </span>hasher = CShake128::new_customized(<span class="string">b"my customization string"</span>);
+hasher.update(<span class="string">b"abc"</span>);
+<span class="kw">let </span><span class="kw-2">mut </span>reader = hasher.finalize_xof();
+<span class="kw">let </span><span class="kw-2">mut </span>buf = [<span class="number">0u8</span>; <span class="number">10</span>];
+reader.read(<span class="kw-2">&amp;mut </span>buf);
+<span class="macro">assert_eq!</span>(buf, <span class="macro">hex!</span>(<span class="string">"a296533c8d5753bf3421"</span>));
+reader.read(<span class="kw-2">&amp;mut </span>buf);
+<span class="macro">assert_eq!</span>(buf, <span class="macro">hex!</span>(<span class="string">"124e8eb79262233170ce"</span>));</code></pre></div>
+<p>See the <a href="https://docs.rs/digest"><code>digest</code></a> crate docs for additional examples.</p>
+<h3 id="license"><a class="doc-anchor" href="#license">§</a>License</h3>
+<p>The crate is licensed under either of:</p>
+<ul>
+<li><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></li>
+<li><a href="http://opensource.org/licenses/MIT">MIT license</a></li>
+</ul>
+<p>at your option.</p>
+<h4 id="contribution"><a class="doc-anchor" href="#contribution">§</a>Contribution</h4>
+<p>Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.digest"><code>pub use <a class="mod" href="../digest/index.html" title="mod digest">digest</a>;</code></dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.CShake.html" title="struct cshake::CShake">CShake</a></dt><dd>cSHAKE hasher generic over rate.</dd><dt><a class="struct" href="struct.CShakeReader.html" title="struct cshake::CShakeReader">CShake<wbr>Reader</a></dt><dd>cSHAKE XOF reader generic over rate.</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.CSHAKE_PAD.html" title="constant cshake::CSHAKE_PAD">CSHAKE_<wbr>PAD</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="constant" href="constant.SHAKE_PAD.html" title="constant cshake::SHAKE_PAD">SHAKE_<wbr>PAD</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.CShake128.html" title="type cshake::CShake128">CShake128</a></dt><dd>cSHAKE128 hasher.</dd><dt><a class="type" href="type.CShake256.html" title="type cshake::CShake256">CShake256</a></dt><dd>cSHAKE256 hasher.</dd><dt><a class="type" href="type.CShake128Reader.html" title="type cshake::CShake128Reader">CShake128<wbr>Reader</a></dt><dd>cSHAKE128 XOF reader.</dd><dt><a class="type" href="type.CShake256Reader.html" title="type cshake::CShake256Reader">CShake256<wbr>Reader</a></dt><dd>cSHAKE256 XOF reader.</dd></dl></section></div></main></body></html>

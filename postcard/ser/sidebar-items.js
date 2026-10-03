@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["serialize_with_flavor","serialized_size","to_allocvec","to_allocvec_cobs","to_extend","to_io","to_slice","to_slice_cobs","to_stdvec","to_stdvec_cobs"],"mod":["flavors","serializer"]};

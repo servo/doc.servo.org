@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ShapingQueueEntry"],"struct":["BatchSlicer","ShapingQueue","ShapingQueueText"]};

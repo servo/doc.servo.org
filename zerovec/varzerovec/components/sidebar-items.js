@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_serializable_len","compute_serializable_len_without_length","get_serializable_bytes_non_empty","write_serializable_bytes","write_serializable_bytes_without_length"],"struct":["Index16","Index32","Index8","VarZeroSliceIter","VarZeroVecComponents"],"trait":["VarZeroVecFormat"]};

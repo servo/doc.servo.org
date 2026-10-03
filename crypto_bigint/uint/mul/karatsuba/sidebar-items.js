@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIN_STARTING_LIMBS"],"fn":["concat_wide","previous_power_of_2","resize_wide","widening_mul_fixed","widening_square_fixed","wrapping_mul","wrapping_mul_fixed","wrapping_square","wrapping_square_fixed"]};

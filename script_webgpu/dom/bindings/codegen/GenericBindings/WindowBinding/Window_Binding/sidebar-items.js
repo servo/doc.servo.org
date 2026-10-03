@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","DefineDOMInterface","GetProtoObject","Wrap"],"static":["CROSS_ORIGIN_PROPERTIES","Class"],"trait":["WindowMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImeCreationError","ImeEvent","ImeRequest"],"mod":["callbacks","context","inner","input_method"],"struct":["Ime"],"type":["ImeEventReceiver","ImeEventSender","ImeReceiver","ImeSender"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Align","Fill","PathOp","Stroke"],"fn":["black","blue","comment","green","indent","line_segment","path","polygon","rectangle","red","rgb","text","triangle","white"],"mod":["layout","svg"],"struct":["BeginSvg","Circle","Color","Comment","EndSvg","Indentation","LineSegment","Path","Polygon","Rectangle","Style","Text","VerticalLayout"]};

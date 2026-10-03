@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["PopStateEvent_Binding"],"struct":["PopStateEventInit"]};

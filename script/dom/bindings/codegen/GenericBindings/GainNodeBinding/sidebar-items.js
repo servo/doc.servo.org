@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["GainNode_Binding"],"struct":["GainOptions"],"trait":["GainNodeMethods"]};

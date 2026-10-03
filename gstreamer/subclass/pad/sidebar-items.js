@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["pad_linked","pad_unlinked"],"trait":["PadImpl","PadImplExt"]};

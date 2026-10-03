@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BranchFactor","NodeType"],"fn":["create_layer","to_sparse_bit_set_with_bf"],"struct":["CreateLayerState","DecodingError","NextNode","Node"]};
