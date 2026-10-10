@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_for_headers","decode","decode_label","decode_vec","detect_base64_line_width"],"struct":["Decoder","Encapsulation"]};

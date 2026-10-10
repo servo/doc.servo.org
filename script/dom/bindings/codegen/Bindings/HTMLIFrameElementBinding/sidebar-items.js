@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetConstructorObject","Wrap"],"mod":["GenericBindings","HTMLIFrameElement_Binding"],"trait":["HTMLIFrameElementMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TagPosition"],"mod":["consts"],"struct":["Error","Payload"],"trait":["Aead","AeadCore","AeadInOut","AeadInPlace","Buffer","Generate","KeyInit","KeySizeUser"],"type":["Key","Nonce","Result","Tag"]};

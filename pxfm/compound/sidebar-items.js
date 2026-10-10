@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["compound_d","compound_m1","compound_m1f","compoundf","powm1","powm1f"]};

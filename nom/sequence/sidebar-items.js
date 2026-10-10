@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["delimited","pair","preceded","separated_pair","terminated","tuple"],"macro":[["tuple_trait",1],["tuple_trait_impl",1],["tuple_trait_inner",1]],"struct":["Preceded","Terminated"],"trait":["Tuple"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["pmax","pmin"],"struct":["f32x2"]};

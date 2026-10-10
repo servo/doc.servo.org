@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_sinpif","fast_sinpif","sinpif_fma_impl","sinpif_gen_impl"]};

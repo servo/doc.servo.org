@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["BluetoothAdvertisingEvent_Binding"],"struct":["BluetoothAdvertisingEventInit"],"trait":["BluetoothAdvertisingEventMethods"]};

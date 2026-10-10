@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_rusqlite_binder",1]],"struct":["RusqliteValue","RusqliteValues"],"trait":["RusqliteBinder"]};

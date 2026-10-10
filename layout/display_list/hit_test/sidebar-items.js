@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cursor","rounded_rect_contains_point"],"struct":["ClosestFragment","ClosestFragmentSearch","DomPositionCandidate","HitTest"]};

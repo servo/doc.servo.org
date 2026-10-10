@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Colon","ParsedOffsetKind"],"struct":["Numeric","ParsedOffset","Parser"]};

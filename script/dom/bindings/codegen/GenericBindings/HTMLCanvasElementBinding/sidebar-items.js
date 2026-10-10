@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RenderingContext"],"fn":["DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap"],"mod":["HTMLCanvasElement_Binding"],"struct":["BlobCallback"],"trait":["HTMLCanvasElementMethods"]};

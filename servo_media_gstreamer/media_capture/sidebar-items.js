@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create_audioinput_stream","create_input_stream","create_videoinput_stream","into_caps","into_i32"],"struct":["GstMediaDevices","GstMediaTrack"],"trait":["AddToCaps"]};

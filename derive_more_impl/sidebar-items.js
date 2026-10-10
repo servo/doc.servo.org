@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["Add","AddAssign","BitAnd","BitAndAssign","BitOr","BitOrAssign","BitXor","BitXorAssign","Deref","DerefMut","From","Sub","SubAssign"],"macro":[["create_derive",1]],"mod":["deref","deref_mut","from","ops","utils"],"trait":["Output"]};

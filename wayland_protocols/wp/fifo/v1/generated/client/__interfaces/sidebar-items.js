@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["WP_FIFO_MANAGER_V1_INTERFACE","WP_FIFO_V1_INTERFACE","types_null","wp_fifo_manager_v1_interface","wp_fifo_manager_v1_requests","wp_fifo_manager_v1_requests_get_fifo_types","wp_fifo_v1_interface","wp_fifo_v1_requests"],"struct":["SyncWrapper"]};

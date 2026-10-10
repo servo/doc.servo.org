@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BluetoothCharacteristicUUID","BluetoothDescriptorUUID","BluetoothServiceUUID"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["BluetoothUUID_Binding"],"trait":["BluetoothUUIDMethods"],"type":["UUID"]};

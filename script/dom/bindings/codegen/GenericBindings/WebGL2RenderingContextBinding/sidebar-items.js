@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Uint32List"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["WebGL2RenderingContext_Binding"],"trait":["WebGL2RenderingContextMethods"],"type":["GLint64","GLuint64"]};

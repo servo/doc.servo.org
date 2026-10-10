@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HALF","INV_LN2","LN2_HI","LN2_LO","P1","P2"],"fn":["expf"]};

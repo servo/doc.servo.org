@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["delegate_indexed_iterator",1],["delegate_iterator",1]]};

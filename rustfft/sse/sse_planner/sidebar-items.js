@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_RADER_PRIME_FACTOR","MIN_RADIX4_BITS"],"enum":["Recipe"],"struct":["FftPlannerSse"]};

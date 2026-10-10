@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["no_uninit_array"],"trait":["NoUninit"]};

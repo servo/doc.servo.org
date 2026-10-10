@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ZeroTrieFlavor"],"fn":["string_to_box_u8"],"macro":[["impl_dispatch",1],["impl_zerotrie_subtype",1]],"struct":["ZeroAsciiIgnoreCaseTrie","ZeroTrie","ZeroTrieExtendedCapacity","ZeroTriePerfectHash","ZeroTrieSimpleAscii"]};

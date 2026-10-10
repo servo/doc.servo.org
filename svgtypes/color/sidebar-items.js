@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f64_bound","from_hex","hex_pair","hsl_to_rgb","hue_to_rgb","short_hex"],"struct":["Color"]};

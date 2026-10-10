@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REENTRANCY_GUARD"],"enum":["ActorError"],"fn":["base_name","new_actor_name"],"struct":["ActorRegistry","ActorRegistryInner","DowncastableActorArc","RegisteredActor","WriteGuard"],"trait":["Actor","ActorAsAny","ActorEncode"]};

@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="RustFFT is a high-performance FFT library written in pure Rust."><title>rustfft - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="rustfft" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate rustfft</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../rustfft/index.html">rustfft</a><span class="version">6.4.1</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#usage" title="Usage">Usage</a></li><li><a href="#feature-flags" title="Feature Flags">Feature Flags</a></li><li><a href="#normalization" title="Normalization">Normalization</a></li><li><a href="#output-order" title="Output Order">Output Order</a></li><li><a href="#avx-performance-tips" title="AVX Performance Tips">AVX Performance Tips</a></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#traits" title="Traits">Traits</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>rustfft</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/rustfft/lib.rs.html#1-599">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>RustFFT is a high-performance FFT library written in pure Rust.</p>
+<p>On X86_64, RustFFT supports the AVX instruction set for increased performance. No special code is needed to activate AVX:
+Simply plan a FFT using the FftPlanner on a machine that supports the <code>avx</code> and <code>fma</code> CPU features, and RustFFT
+will automatically switch to faster AVX-accelerated algorithms.</p>
+<p>For machines that do not have AVX, RustFFT also supports the SSE4.1 instruction set.
+As for AVX, this is enabled automatically when using the FftPlanner.</p>
+<p>Additionally, there is automatic support for the Neon instruction set on AArch64,
+and support for WASM SIMD when compiling for WASM targets.</p>
+<h4 id="usage"><a class="doc-anchor" href="#usage">§</a>Usage</h4>
+<p>The recommended way to use RustFFT is to create a <a href="struct.FftPlanner.html" title="struct rustfft::FftPlanner"><code>FftPlanner</code></a> instance and then call its
+<a href="struct.FftPlanner.html#method.plan_fft" title="method rustfft::FftPlanner::plan_fft"><code>plan_fft</code></a> method. This method will automatically choose which FFT algorithms are best
+for a given size and initialize the required buffers and precomputed data.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Perform a forward FFT of size 1234
+</span><span class="kw">use </span>rustfft::{FftPlanner, num_complex::Complex};
+
+<span class="kw">let </span><span class="kw-2">mut </span>planner = FftPlanner::new();
+<span class="kw">let </span>fft = planner.plan_fft_forward(<span class="number">1234</span>);
+
+<span class="kw">let </span><span class="kw-2">mut </span>buffer = <span class="macro">vec!</span>[Complex{ re: <span class="number">0.0f32</span>, im: <span class="number">0.0f32 </span>}; <span class="number">1234</span>];
+fft.process(<span class="kw-2">&amp;mut </span>buffer);</code></pre></div>
+<p>The planner returns trait objects of the <a href="trait.Fft.html" title="trait rustfft::Fft"><code>Fft</code></a> trait, allowing for FFT sizes that aren’t known
+until runtime.</p>
+<p>RustFFT also exposes individual FFT algorithms. For example, if you know beforehand that you need a power-of-two FFT, you can
+avoid the overhead of the planner and trait object by directly creating instances of the <a href="algorithm/struct.Radix4.html" title="struct rustfft::algorithm::Radix4"><code>Radix4</code></a> algorithm:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Computes a forward FFT of size 4096
+</span><span class="kw">use </span>rustfft::{Fft, FftDirection, num_complex::Complex, algorithm::Radix4};
+
+<span class="kw">let </span>fft = Radix4::new(<span class="number">4096</span>, FftDirection::Forward);
+
+<span class="kw">let </span><span class="kw-2">mut </span>buffer = <span class="macro">vec!</span>[Complex{ re: <span class="number">0.0f32</span>, im: <span class="number">0.0f32 </span>}; <span class="number">4096</span>];
+fft.process(<span class="kw-2">&amp;mut </span>buffer);</code></pre></div>
+<p>For the vast majority of situations, simply using the <a href="struct.FftPlanner.html" title="struct rustfft::FftPlanner"><code>FftPlanner</code></a> will be enough, but
+advanced users may have better insight than the planner into which algorithms are best for a specific size. See the
+<a href="algorithm/index.html" title="mod rustfft::algorithm"><code>algorithm</code></a> module for a complete list of scalar algorithms implemented by RustFFT.</p>
+<p>Users should beware, however, that bypassing the planner will disable all AVX, SSE, Neon, and WASM SIMD optimizations.</p>
+<h4 id="feature-flags"><a class="doc-anchor" href="#feature-flags">§</a>Feature Flags</h4>
+<ul>
+<li>
+<p><code>avx</code> (Enabled by default)</p>
+<p>On x86_64, the <code>avx</code> feature enables compilation of AVX-accelerated code. Enabling it greatly improves performance if the
+client CPU supports AVX and FMA, while disabling it reduces compile time and binary size.</p>
+<p>On every platform besides x86_64, this feature does nothing, and RustFFT will behave like it’s not set.</p>
+</li>
+<li>
+<p><code>sse</code> (Enabled by default)</p>
+<p>On x86_64, the <code>sse</code> feature enables compilation of SSE4.1-accelerated code. Enabling it improves performance
+if the client CPU supports SSE4.1, while disabling it reduces compile time and binary size. If AVX is also
+supported and its feature flag is enabled, RustFFT will use AVX instead of SSE4.1.</p>
+<p>On every platform besides x86_64, this feature does nothing, and RustFFT will behave like it’s not set.</p>
+</li>
+<li>
+<p><code>neon</code> (Enabled by default)</p>
+<p>On AArch64 (64-bit ARM) the <code>neon</code> feature enables compilation of Neon-accelerated code. Enabling it improves
+performance, while disabling it reduces compile time and binary size.</p>
+<p>On every platform besides AArch64, this feature does nothing, and RustFFT will behave like it’s not set.</p>
+</li>
+<li>
+<p><code>wasm_simd</code> (Disabled by default)</p>
+<p>On the WASM platform, this feature enables compilation of WASM SIMD accelerated code.</p>
+<p>To execute binaries compiled with <code>wasm_simd</code>, you need a <a href="https://webassembly.org/roadmap/">target browser or runtime which supports <code>fixed-width SIMD</code></a>.
+If you run your SIMD accelerated code on an unsupported platform, WebAssembly will specify a <a href="https://webassembly.github.io/spec/core/intro/overview.html#trap">trap</a> leading to immediate execution cancelation.</p>
+<p>On every platform besides WASM, this feature does nothing and RustFFT will behave like it is not set.</p>
+</li>
+</ul>
+<h4 id="normalization"><a class="doc-anchor" href="#normalization">§</a>Normalization</h4>
+<p>RustFFT does not normalize outputs. Callers must manually normalize the results by scaling each element by
+<code>1/len().sqrt()</code>. Multiple normalization steps can be merged into one via pairwise multiplication, so when
+doing a forward FFT followed by an inverse callers can normalize once by scaling each element by <code>1/len()</code></p>
+<h4 id="output-order"><a class="doc-anchor" href="#output-order">§</a>Output Order</h4>
+<p>Elements in the output are ordered by ascending frequency, with the first element corresponding to frequency 0.</p>
+<h4 id="avx-performance-tips"><a class="doc-anchor" href="#avx-performance-tips">§</a>AVX Performance Tips</h4>
+<p>In any FFT computation, the time required to compute a FFT of size N relies heavily on the <a href="https://en.wikipedia.org/wiki/Integer_factorization">prime factorization</a> of N.
+If N’s prime factors are all very small, computing a FFT of size N will be fast, and it’ll be slow if N has large prime
+factors, or if N is a prime number.</p>
+<p>In most FFT libraries (Including RustFFT when using non-AVX code), power-of-two FFT sizes are the fastest, and users see a steep
+falloff in performance when using non-power-of-two sizes. Thankfully, RustFFT using AVX acceleration is not quite as restrictive:</p>
+<ul>
+<li>Any FFT whose size is of the form <code>2^n * 3^m</code> can be considered the “fastest” in RustFFT.</li>
+<li>Any FFT whose prime factors are all 11 or smaller will also be very fast, but the fewer the factors of 2 and 3 the slower it will be.
+For example, computing a FFT of size 13552 <code>(2^4*7*11*11)</code> is takes 12% longer to compute than 13824 <code>(2^9 * 3^3)</code>,
+and computing a FFT of size 2541 <code>(3*7*11*11)</code> takes 65% longer to compute than 2592 <code>(2^5 * 3^4)</code></li>
+<li>Any other FFT size will be noticeably slower. A considerable amount of effort has been put into making these FFT sizes as fast as
+they can be, but some FFT sizes just take more work than others. For example, computing a FFT of size 5183 <code>(71 * 73)</code> takes about
+5x longer than computing a FFT of size 5184 <code>(2^6 * 3^4)</code>.</li>
+</ul>
+<p>In most cases, even prime-sized FFTs will be fast enough for your application. In the example of 5183 above, even that “slow” FFT
+only takes a few tens of microseconds to compute.</p>
+<p>Some applications of the FFT allow for choosing an arbitrary FFT size (In many applications the size is pre-determined by whatever you’re computing).
+If your application supports choosing your own size, our advice is still to start by trying the size that’s most convenient to your application.
+If that’s too slow, see if you can find a nearby size whose prime factors are all 11 or smaller, and you can expect a 2x-5x speedup.
+If that’s still too slow, find a nearby size whose prime factors are all 2 or 3, and you can expect a 1.1x-1.5x speedup.</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.num_complex"><code>pub use <a class="mod" href="../num_complex/index.html" title="mod num_complex">num_complex</a>;</code></dt><dt id="reexport.num_traits"><code>pub use <a class="mod" href="../num_traits/index.html" title="mod num_traits">num_traits</a>;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="algorithm/index.html" title="mod rustfft::algorithm">algorithm</a></dt><dd>Individual FFT algorithms</dd><dt><a class="mod" href="array_utils/index.html" title="mod rustfft::array_utils">array_<wbr>utils</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="avx/index.html" title="mod rustfft::avx">avx</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="common/index.html" title="mod rustfft::common">common</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="fft_cache/index.html" title="mod rustfft::fft_cache">fft_<wbr>cache</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="fft_helper/index.html" title="mod rustfft::fft_helper">fft_<wbr>helper</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="math_utils/index.html" title="mod rustfft::math_utils">math_<wbr>utils</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="neon/index.html" title="mod rustfft::neon">neon</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="plan/index.html" title="mod rustfft::plan">plan</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="sse/index.html" title="mod rustfft::sse">sse</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="twiddles/index.html" title="mod rustfft::twiddles">twiddles</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="wasm_simd/index.html" title="mod rustfft::wasm_simd">wasm_<wbr>simd</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.FftPlanner.html" title="struct rustfft::FftPlanner">FftPlanner</a></dt><dd>The FFT planner creates new FFT algorithm instances.</dd><dt><a class="struct" href="struct.FftPlannerAvx.html" title="struct rustfft::FftPlannerAvx">FftPlanner<wbr>Avx</a></dt><dd>The AVX FFT planner creates new FFT algorithm instances which take advantage of the AVX instruction set.</dd><dt><a class="struct" href="struct.FftPlannerNeon.html" title="struct rustfft::FftPlannerNeon">FftPlanner<wbr>Neon</a></dt><dd>The Neon FFT planner creates new FFT algorithm instances using a mix of scalar and Neon accelerated algorithms.
+It is supported when using the 64-bit AArch64 instruction set.</dd><dt><a class="struct" href="struct.FftPlannerScalar.html" title="struct rustfft::FftPlannerScalar">FftPlanner<wbr>Scalar</a></dt><dd>The Scalar FFT planner creates new FFT algorithm instances using non-SIMD algorithms.</dd><dt><a class="struct" href="struct.FftPlannerSse.html" title="struct rustfft::FftPlannerSse">FftPlanner<wbr>Sse</a></dt><dd>The SSE FFT planner creates new FFT algorithm instances using a mix of scalar and SSE accelerated algorithms.
+It requires at least SSE4.1, which is available on all reasonably recent x86_64 cpus.</dd><dt><a class="struct" href="struct.FftPlannerWasmSimd.html" title="struct rustfft::FftPlannerWasmSimd">FftPlanner<wbr>Wasm<wbr>Simd</a></dt><dd>The WASM FFT planner creates new FFT algorithm instances using a mix of scalar and WASM SIMD accelerated algorithms.
+It is supported when using fairly recent browser versions as outlined in <a href="https://webassembly.org/roadmap/">the WebAssembly roadmap</a>.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.FftDirection.html" title="enum rustfft::FftDirection">FftDirection</a></dt><dd>Represents a FFT direction, IE a forward FFT or an inverse FFT</dd></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.Direction.html" title="trait rustfft::Direction">Direction</a></dt><dd>A trait that allows FFT algorithms to report whether they compute forward FFTs or inverse FFTs</dd><dt><a class="trait" href="trait.Fft.html" title="trait rustfft::Fft">Fft</a></dt><dd>Trait for algorithms that compute FFTs.</dd><dt><a class="trait" href="trait.FftNum.html" title="trait rustfft::FftNum">FftNum</a></dt><dd>Generic floating point number, implemented for f32 and f64</dd><dt><a class="trait" href="trait.Length.html" title="trait rustfft::Length">Length</a></dt><dd>A trait that allows FFT algorithms to report their expected input/output size</dd></dl></section></div></main></body></html>

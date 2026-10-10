@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FULL_WILDCARD_REGEXP_VALUE"],"enum":["PartModifier","PartType","RegexSyntax"],"fn":["parse_pattern_string"],"struct":["Options","Part","PatternParser"]};

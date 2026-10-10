@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ChannelCountMode","ChannelInterpretation"],"fn":["DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap"],"mod":["AudioNode_Binding","ChannelCountModeValues","ChannelInterpretationValues"],"struct":["AudioNodeOptions"],"trait":["AudioNodeMethods"]};

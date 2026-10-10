@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["if_alloc","private_try_future"],"trait":["FusedFuture","TryFuture"],"type":["BoxFuture","LocalBoxFuture"]};

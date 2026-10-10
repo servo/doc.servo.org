@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InsertValueSource"],"struct":["InsertStatement"]};

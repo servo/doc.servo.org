@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_FakeXRDevice"],"fn":["get_origin","get_point","get_views","get_world","view"],"struct":["FakeXRDevice"]};

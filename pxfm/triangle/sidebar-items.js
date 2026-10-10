@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["cathetus","cathetusf","hypot","hypot3f","hypotf"]};

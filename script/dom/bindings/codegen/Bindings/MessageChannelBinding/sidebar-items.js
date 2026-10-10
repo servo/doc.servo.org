@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","MessageChannel_Binding"],"trait":["MessageChannelMethods"]};

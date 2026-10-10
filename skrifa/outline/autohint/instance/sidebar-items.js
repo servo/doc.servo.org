@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SHAPER_MODE"],"struct":["GlyphStyles","Instance"]};

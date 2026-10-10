@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["choose_generics_over_qpath","choose_generics_over_qpath_after_keyword"]};

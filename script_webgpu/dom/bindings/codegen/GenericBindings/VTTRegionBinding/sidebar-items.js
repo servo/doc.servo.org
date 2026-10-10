@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ScrollSetting"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ScrollSettingValues","VTTRegion_Binding"],"trait":["VTTRegionMethods"]};

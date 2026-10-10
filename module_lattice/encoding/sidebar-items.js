@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["byte_decode","byte_encode"],"trait":["ArraySize","Encode","EncodingSize","VectorEncodingSize"],"type":["DecodedValue","EncodedPolynomial","EncodedPolynomialSize","EncodedVector","EncodedVectorSize","EncodingUnit"]};

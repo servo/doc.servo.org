@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DiagnosticsLoggingOption","OutputOptions"],"fn":["get","initialize_options"],"static":["OPTIONS"],"struct":["DiagnosticsLogging","DiagnosticsLoggingOptionIter","Opts"]};

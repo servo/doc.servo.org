@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create_hello_method_call","receive_hello_response"],"struct":["Client"]};

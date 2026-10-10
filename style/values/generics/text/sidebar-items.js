@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericTextDecorationInset","GenericTextDecorationLength","NumberOrAuto"],"struct":["GenericHyphenateLimitChars","GenericInitialLetter","GenericTextIndent"]};

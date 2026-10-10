@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["PointerEvent_Binding"],"struct":["PointerEventInit"]};

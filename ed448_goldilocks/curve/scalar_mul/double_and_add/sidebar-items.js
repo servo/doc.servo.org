@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["double_and_add"]};

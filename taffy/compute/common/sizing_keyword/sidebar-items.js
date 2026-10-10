@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SizingKeywordResolution"],"fn":["resolve_absolute_sizing_keywords","resolve_sizing_keyword"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clamp_pos_to_monitors","find_active_monitor"],"struct":["WindowSettings"]};

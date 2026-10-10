@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["FileSystemDirectoryEntry_Binding","GenericBindings"],"trait":["FileSystemDirectoryEntryMethods"],"type":["FileSystemFlags"]};

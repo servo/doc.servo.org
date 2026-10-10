@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_TextEncoderStream"],"enum":["CodePointType"],"fn":["code_point_type","encode_and_enqueue_a_chunk","encode_and_flush"],"struct":["Encoder","TextEncoderStream"]};

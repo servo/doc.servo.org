@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["COMPRESSED_RGB_ETC1_WEBGL"]};

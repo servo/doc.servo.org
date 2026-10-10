@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["without_provenance"],"trait":["StrictProvenancePolyfill"]};

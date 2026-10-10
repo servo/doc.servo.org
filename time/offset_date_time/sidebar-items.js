@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UNIX_EPOCH_JULIAN_DAY"],"fn":["raw_to_bits"],"struct":["OffsetDateTime"]};

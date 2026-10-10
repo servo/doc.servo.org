@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BRADFORD_D","BRADFORD_F"],"fn":["adapt_to_d50","adapt_to_d50_d","adapt_to_illuminant","adapt_to_illuminant_d","adapt_to_illuminant_xyz","adapt_to_illuminant_xyz_d","adaption_matrix","adaption_matrix_d","compute_chromatic_adaption","compute_chromatic_adaption_d"]};

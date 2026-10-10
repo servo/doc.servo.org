@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WANT_PENDING","WANT_READY"],"enum":["Kind"],"struct":["Incoming","Sender"],"type":["BodySender","TrailersSender"]};

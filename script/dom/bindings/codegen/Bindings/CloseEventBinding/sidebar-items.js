@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["CloseEvent_Binding","GenericBindings"],"trait":["CloseEventMethods"],"type":["CloseEventInit"]};

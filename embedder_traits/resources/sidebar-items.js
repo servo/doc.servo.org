@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Resource"],"fn":["read_bytes","read_string","sandbox_access_files","sandbox_access_files_dirs"],"static":["RESOURCE_READER"],"trait":["ResourceReaderMethods"],"type":["ResourceReader"]};

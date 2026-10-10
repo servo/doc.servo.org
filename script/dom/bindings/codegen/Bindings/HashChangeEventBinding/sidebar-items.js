@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","HashChangeEvent_Binding"],"trait":["HashChangeEventMethods"],"type":["HashChangeEventInit"]};

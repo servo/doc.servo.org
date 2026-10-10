@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TWO_OVER_SQRT_PI"],"fn":["cr_erf_accurate_tiny","erf_accurate","erf_fast","f_erf"],"struct":["Erf"]};

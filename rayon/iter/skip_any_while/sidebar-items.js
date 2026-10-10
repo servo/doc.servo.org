@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["skip"],"struct":["SkipAnyWhile","SkipAnyWhileConsumer","SkipAnyWhileFolder"]};

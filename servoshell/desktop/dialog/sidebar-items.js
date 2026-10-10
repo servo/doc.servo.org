@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MINIMUM_UI_ELEMENT_WIDTH"],"enum":["Dialog"],"fn":["make_dialog_label"]};

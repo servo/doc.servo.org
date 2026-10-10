@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STACK"],"fn":["entry_global","incumbent_global","is_execution_stack_empty","maybe_entry_global","trace"]};

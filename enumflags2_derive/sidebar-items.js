@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["bitflags_internal"],"enum":["FlagValue"],"fn":["check_flag","collect_flags","extract_repr","fold_expr","gen_enumflags","infer_values","inferred_value","type_bits"],"struct":["Flag","Parameters"]};

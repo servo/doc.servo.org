@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply","clip_group","draw_children"]};

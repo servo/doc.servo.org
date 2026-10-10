@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Kind","Mode"],"fn":["normalize_mime"],"struct":["Bitmap","DragDataStore"]};

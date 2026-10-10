@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["unicode_to_macroman"],"static":["UNICODE_TO_MACROMAN"],"struct":["Charmap"],"type":["cache_t"]};

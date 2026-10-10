@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LinkDir"],"fn":["adjust_link","align_edges_to_blues","align_linked_edge","align_remaining_edges","align_serif_edge","align_stem_edges","find_bounding_completed_edges","hint_edges","hint_lowercase_m","hint_normal_stem_cjk","latin_remaining_bounds","snap_width","stem_width"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["div_by_2","div_by_2_boxed","div_by_2_boxed_assign"]};

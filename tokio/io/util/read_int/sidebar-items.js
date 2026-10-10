@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["reader",1],["reader8",1]]};

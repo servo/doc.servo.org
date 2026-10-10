@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FlagBit"],"macro":[["padded_width_of",1]],"struct":["FormatterOptions","Metadata"],"trait":["SmartDisplay"]};

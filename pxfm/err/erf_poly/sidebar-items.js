@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["ERF_POLY","ERF_POLY_C2"]};

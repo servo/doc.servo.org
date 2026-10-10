@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["A_r","C_rk","D_rk","S","basis_function","choose","min_dist_param"]};

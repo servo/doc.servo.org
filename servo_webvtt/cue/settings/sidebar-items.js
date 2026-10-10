@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WebVttLineAlignment","WebVttLineAndPositionSetting","WebVttPositionAlignment","WebVttSnapToLines","WebVttTextAlignment","WebVttWritingDirection"],"struct":["WebVttCue","WebVttCueSize"]};

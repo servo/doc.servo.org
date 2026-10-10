@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["new_zune_decoder","to_supported_color_space"],"struct":["JpegDecoder"],"type":["ZuneColorSpace"]};

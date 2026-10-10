@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["ZeroFrom"],"mod":["macro_impls","zero_from"],"trait":["ZeroFrom"]};

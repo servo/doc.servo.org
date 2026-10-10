@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INDENT","MARGIN","MIN_SPACE"],"fn":["unparse"],"mod":["algorithm","attr","classify","convenience","data","expr","file","fixup","generics","item","iter","lifetime","lit","mac","pat","path","precedence","ring","stmt","token","ty"]};

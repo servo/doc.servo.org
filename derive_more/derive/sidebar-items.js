@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["Add","AddAssign","BitAnd","BitAndAssign","BitOr","BitOrAssign","BitXor","BitXorAssign","Deref","DerefMut","From","Sub","SubAssign"]};

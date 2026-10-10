@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WindowHandle"],"mod":["native"],"trait":["Surface","SurfaceTextureMetadata","Swapchain","SwapchainSubmissionSemaphoreGuard"]};

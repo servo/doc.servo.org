@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["looks_like_a_custom_property","parse_at_rule","parse_important","parse_one_declaration","parse_one_rule","parse_qualified_rule"],"struct":["RuleBodyParser","StyleSheetParser"],"trait":["AtRuleParser","DeclarationParser","QualifiedRuleParser","RuleBodyItemParser"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ft_alloc","ft_free","ft_realloc"],"static":["FREETYPE_LIBRARY_HANDLE","FREETYPE_MEMORY_USAGE"],"struct":["FreeTypeLibraryHandle"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PredefinedEncoding"],"static":["EXPERT_ENCODING","ISO_LATIN1_ENCODING","STANDARD_ENCODING"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["trig",1]],"trait":["Trig"]};

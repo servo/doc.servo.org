@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DistanceModelType","PanningModelType"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["DistanceModelTypeValues","PannerNode_Binding","PanningModelTypeValues"],"struct":["PannerOptions"],"trait":["PannerNodeMethods"]};

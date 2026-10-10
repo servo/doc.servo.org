@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LINE_HEIGHT","LINE_WIDTH","MIN_WINDOW_INNER_SIZE"],"enum":["TopLevelWebViewCreationRequest"],"static":["SERVOSHELL_WINDOW_ID"],"struct":["ServoShellWindow","ServoShellWindowId"],"trait":["PlatformWindow"]};

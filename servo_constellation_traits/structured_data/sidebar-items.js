@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["serializable","transferable"],"struct":["StructuredSerializedData"]};

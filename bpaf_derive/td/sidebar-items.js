@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TOP_NEED_COMMAND","TOP_NEED_OPTIONS","TOP_NEED_PARSER"],"enum":["EAttr","HelpMsg","Mode","VariantMode"],"fn":["with_command","with_options","with_parser"],"struct":["CommandCfg","Ed","OptionsCfg","ParserCfg","TopInfo"]};

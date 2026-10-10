@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["abort","abort_immediate","exit","id"],"struct":["Child","ChildStderr","ChildStdin","ChildStdout","Command","CommandArgs","CommandEnvs","CommandResolvedEnvs","ExitCode","ExitStatus","ExitStatusError","Output","Stdio"],"trait":["Termination"]};

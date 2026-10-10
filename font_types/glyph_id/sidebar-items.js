@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GlyphId","GlyphId16","GlyphId24","TryFromGlyphIdError"]};

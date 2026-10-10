@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_calendar_japanese_extended_v1",1],["impl_calendar_japanese_modern_v1",1],["impl_calendar_week_v1",1],["impl_data_provider",1],["make_provider",1]]};

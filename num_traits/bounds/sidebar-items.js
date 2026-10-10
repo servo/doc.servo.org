@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["bounded_impl",1],["bounded_tuple",1],["for_each_tuple",1],["for_each_tuple_",1]],"trait":["Bounded","LowerBounded","UpperBounded"]};

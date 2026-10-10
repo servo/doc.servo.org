@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["compact","div_mod_2k","extension","gcd","matrix","xgcd"]};

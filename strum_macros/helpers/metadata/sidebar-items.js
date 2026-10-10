@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EnumDiscriminantsMeta","EnumMeta","InnerVariantMeta","VariantMeta"],"fn":["get_metadata_inner"],"mod":["kw"],"struct":["Prop"],"trait":["DeriveInputExt","InnerVariantExt","VariantExt"]};

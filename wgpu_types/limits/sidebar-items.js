@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ShaderModel"],"macro":[["with_limits",1]],"struct":["DownlevelCapabilities","DownlevelFlags","DownlevelLimits","Limits"]};

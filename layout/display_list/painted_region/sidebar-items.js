@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["subtract_all","subtract_one"],"struct":["PaintedRegion"]};

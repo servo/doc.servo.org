@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["cursor","kwin_blur","wp_fractional_scaling","wp_viewporter","xdg_activation"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AutomationRate"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["AudioParam_Binding","AutomationRateValues"],"trait":["AudioParamMethods"]};

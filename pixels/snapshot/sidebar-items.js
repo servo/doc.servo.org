@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Alpha","SnapshotAlphaMode","SnapshotData","SnapshotPixelFormat"],"struct":["SharedSnapshot","Snapshot"]};

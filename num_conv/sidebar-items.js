@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_truncate",1],["impl_widen",1]],"mod":["prelude","sealed"],"trait":["Extend","ExtendTarget","Truncate","TruncateTarget","Widen","WidenTarget"]};

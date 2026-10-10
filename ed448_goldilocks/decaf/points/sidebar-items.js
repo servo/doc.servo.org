@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CompressedDecaf","DecafPoint"],"type":["DecafPointBytes","DecafPointRepr"]};

@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="zcheapstr"><title>zcheapstr - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="zcheapstr" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate zcheapstr</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../zcheapstr/index.html"><img src="https://raw.githubusercontent.com/z-galaxy/zbus/9f7a90d2b594ddc48b7a5f39fda5e00cd56a7dfb/logo.png" alt="logo"></a><h2><a href="../zcheapstr/index.html">zcheapstr</a><span class="version">1.1.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#zcheapstr" title="zcheapstr">zcheapstr</a><ul><li><a href="#example-code" title="Example code">Example code</a></li><li><a href="#features" title="Features">Features</a></li></ul></li></ul><h3><a href="#modules">Crate Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>zcheapstr</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/zcheapstr/lib.rs.html#1-12">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="zcheapstr"><a class="doc-anchor" href="#zcheapstr">§</a>zcheapstr</h2>
+<p><a href="https://docs.rs/zcheapstr/"><img src="https://docs.rs/zcheapstr/badge.svg" alt="" /></a> <a href="https://crates.io/crates/zcheapstr"><img src="https://img.shields.io/crates/v/zcheapstr" alt="" /></a></p>
+<p>This crate provides a single type, <code>CheapStr</code>: a string wrapper that is similar to the
+<a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html"><code>Cow&lt;'_, str&gt;</code></a> type, but it:</p>
+<ul>
+<li>is specialized for strings.</li>
+<li>treats <code>&amp;'static str</code> as a separate type. This allows you to avoid allocations and copying when
+turning a <code>CheapStr</code> instance created from a <code>&amp;'static str</code> into an owned version in generic code
+that doesn’t/can’t assume the inner lifetime of the source <code>CheapStr</code> instance.</li>
+<li>stores owned strings in an <a href="https://doc.rust-lang.org/std/sync/struct.Arc.html"><code>Arc</code></a>, so <code>Clone</code> never copies or allocates: it either copies a
+reference or increments a reference count.</li>
+<li>is immutable. Consequently, unlike <a href="https://doc.rust-lang.org/std/borrow/enum.Cow.html"><code>Cow</code></a>, it is <em>not</em> a copy-on-write type: there is no way to
+get a mutable reference to the underlying string.</li>
+</ul>
+<p>API is provided to convert from, and to a <a href="https://doc.rust-lang.org/std/str/index.html"><code>&amp;str</code></a> and <a href="https://doc.rust-lang.org/std/string/struct.String.html"><code>String</code></a>.</p>
+<p>The crate is <code>no_std</code>: it only requires <a href="https://doc.rust-lang.org/alloc/"><code>alloc</code></a>, not <code>std</code> (this includes the <code>serde</code>
+feature).</p>
+<p><strong>Status:</strong> Stable. This code was extracted from (and is battle-tested in) the <a href="https://crates.io/crates/zvariant">zvariant</a> crate,
+where the type was originally named <code>Str</code>.</p>
+<h3 id="example-code"><a class="doc-anchor" href="#example-code">§</a>Example code</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>zcheapstr::CheapStr;
+
+<span class="comment">// Borrowed data: no allocation, and `Clone` is cheap.
+</span><span class="kw">let </span>borrowed = CheapStr::from(<span class="string">"hello"</span>);
+<span class="macro">assert_eq!</span>(borrowed.as_str(), <span class="string">"hello"</span>);
+<span class="macro">assert_eq!</span>(borrowed, <span class="string">"hello"</span>);
+
+<span class="comment">// `&amp;'static str` is kept as-is, even in a `const` context.
+</span><span class="kw">const </span>GREETING: CheapStr&lt;<span class="lifetime">'static</span>&gt; = CheapStr::from_static(<span class="string">"hi"</span>);
+<span class="macro">assert_eq!</span>(GREETING.as_str(), <span class="string">"hi"</span>);
+<span class="comment">// Turning it into an owned instance is free.
+</span><span class="macro">assert_eq!</span>(GREETING.to_owned(), <span class="string">"hi"</span>);
+
+<span class="comment">// Borrowed data is only copied when an owned instance is actually needed.
+</span><span class="kw">let </span>owned: CheapStr&lt;<span class="lifetime">'static</span>&gt; = borrowed.to_owned();
+<span class="macro">assert_eq!</span>(owned, <span class="string">"hello"</span>);
+
+<span class="comment">// Owned data is reference-counted, so neither `into_owned` nor `Clone` copies it.
+</span><span class="kw">let </span>from_string = CheapStr::from(String::from(<span class="string">"world"</span>));
+<span class="kw">let </span>owned: CheapStr&lt;<span class="lifetime">'static</span>&gt; = from_string.into_owned();
+<span class="kw">let </span>cheap_clone = owned.clone(); <span class="comment">// Just increments a reference count.
+</span><span class="macro">assert_eq!</span>(String::from(owned), <span class="string">"world"</span>);
+<span class="macro">assert_eq!</span>(cheap_clone, <span class="string">"world"</span>);</code></pre></div><h3 id="features"><a class="doc-anchor" href="#features">§</a>Features</h3>
+<p>All features are disabled by default.</p>
+<div><table><thead><tr><th>Feature</th><th>Description</th></tr></thead><tbody>
+<tr><td>serde</td><td>Implement <a href="https://crates.io/crates/serde">serde</a>’s <code>Serialize</code> and <code>Deserialize</code> for <code>CheapStr</code></td></tr>
+</tbody></table>
+</div>
+<p>With the <code>serde</code> feature enabled, <code>CheapStr</code> is serialized as a plain string. Deserialization always
+borrows from the input data: <code>CheapStr&lt;'de&gt;</code> implements <code>Deserialize&lt;'de&gt;</code> but <em>not</em>
+<code>DeserializeOwned</code>, so deserialization fails when the deserializer cannot provide a borrowed
+<code>&amp;str</code> (for example, JSON strings containing escape sequences, or reader-based deserialization).
+If you need owned deserialization, deserialize into a <code>String</code> (or <code>Cow&lt;'_, str&gt;</code>) and convert it
+via <code>CheapStr::from</code>.</p>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="str/index.html" title="mod zcheapstr::str">str</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.CheapStr.html" title="struct zcheapstr::CheapStr">Cheap<wbr>Str</a></dt><dd>A string wrapper.</dd></dl></section></div></main></body></html>

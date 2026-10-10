@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CARDINAL_SIZE","PROPERTY_BUFFER_SIZE"],"enum":["GetPropertyError"],"struct":["PropIterator"],"type":["Cardinal"]};

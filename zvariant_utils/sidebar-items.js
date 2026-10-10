@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["def_attrs",1]],"mod":["case","derive","macros","serialized","signature"]};

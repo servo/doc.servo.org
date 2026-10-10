@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BorrowError","BorrowMutError"],"mod":["imp"],"struct":["BoxedAnyObject"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XRLayerLayout","XRTextureType"],"fn":["Wrap"],"mod":["GenericBindings","XRLayerLayoutValues","XRTextureTypeValues","XRWebGLBinding_Binding"],"trait":["XRWebGLBindingMethods"],"type":["XRCubeLayerInit","XRCylinderLayerInit","XREquirectLayerInit","XRLayerInit","XRProjectionLayerInit","XRQuadLayerInit"]};

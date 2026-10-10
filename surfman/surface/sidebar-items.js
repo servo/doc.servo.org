@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Framebuffer","SurfaceAccess","SurfaceType"],"struct":["SurfaceID","SurfaceInfo","SystemSurfaceInfo"]};

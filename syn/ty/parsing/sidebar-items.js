@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ambig_ty","parse_fn_ptr_arg","parse_fn_ptr_variadic"]};

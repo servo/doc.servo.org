@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INV_LOG10_DD"],"fn":["f_log10p1","log10p1_accurate","log10p1_accurate_small","log10p1_accurate_tiny","log10p1_fast"]};

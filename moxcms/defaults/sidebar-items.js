@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HLG_LUT_TABLE","PQ_LUT_TABLE","WHITE_POINT_D50","WHITE_POINT_D60","WHITE_POINT_D65","WHITE_POINT_DCI_P3"],"fn":["build_trc_table_hlg","build_trc_table_pq","hlg_curve","pq_curve","white_point_from_temperature"]};

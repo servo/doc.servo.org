@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_all_utf8_data","get_all_utf8_data_from_file","to_cpath"]};

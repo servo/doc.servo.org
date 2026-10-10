@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["prepare_devtools_request","send_early_httprequest_to_devtools","send_request_to_devtools","send_response_to_devtools","send_response_values_to_devtools","send_security_info_to_devtools"]};

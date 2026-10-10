@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["free_arrays"],"mod":["client","client_impl"],"static":["RUST_MANAGED"]};

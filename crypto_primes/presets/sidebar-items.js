@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Flavor"],"fn":["is_prime","is_safe_prime","random_prime"]};

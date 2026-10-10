@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["expanded_name",1],["local_name",1],["namespace_prefix",1],["namespace_url",1],["ns",1],["small_char_set",1]],"mod":["buffer_queue","data","interface","serialize","smallcharset","util"],"struct":["LocalNameStaticSet","NamespaceStaticSet","PrefixStaticSet","SmallCharSet"],"type":["LocalName","Namespace","Prefix"]};

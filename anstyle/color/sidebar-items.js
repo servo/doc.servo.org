@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DISPLAY_BUFFER_CAPACITY"],"enum":["AnsiColor","Color"],"struct":["Ansi256Color","DisplayBuffer","NullFormatter","RgbColor"]};

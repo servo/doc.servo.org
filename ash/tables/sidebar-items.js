@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DeviceFnV1_0","DeviceFnV1_1","DeviceFnV1_2","DeviceFnV1_3","EntryFnV1_0","EntryFnV1_1","EntryFnV1_2","EntryFnV1_3","InstanceFnV1_0","InstanceFnV1_1","InstanceFnV1_2","InstanceFnV1_3","StaticFn"]};

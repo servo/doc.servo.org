@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_CODESIZE","MAX_ENTRIES","STREAM_BUF_SIZE"],"enum":["BitOrder","LzwError","LzwStatus","StreamBuf"],"fn":["assert_decode_size","assert_encode_size"],"mod":["decode","encode","error"],"struct":["BufferResult","StreamResult"],"type":["Code"]};

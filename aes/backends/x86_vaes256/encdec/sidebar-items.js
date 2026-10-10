@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["batch_decrypt","batch_encrypt","batch_load","batch_store","broadcast_keys"],"type":["BatchBlocks","RoundKeys2"]};

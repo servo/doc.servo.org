@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DASH_ACCURACY"],"enum":["Cap","DashState","Join","StrokeOptLevel"],"fn":["dash","dash_iter","extend_reversed","round_cap","round_join","round_join_rev","seg_to_el","square_cap","stroke","stroke_undashed","stroke_with"],"struct":["DashIterator","Stroke","StrokeCtx","StrokeOpts"],"type":["Dashes"]};

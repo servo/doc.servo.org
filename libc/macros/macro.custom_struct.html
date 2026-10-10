@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Emit a struct with the given derive attributes plus a generated `Default` impl. Ensure that the record has an additional private field added to replicate `#[non_exhaustive]`, unless it is annotated with `#[exhaustive]`."><title>custom_struct in libc::macros - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="libc" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc macro"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">custom_struct</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../libc/index.html">libc</a><span class="version">0.2.190</span></h2></div><div class="sidebar-elems"><div id="rustdoc-modnav"><h2><a href="index.html">In libc::<wbr>macros</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">libc</a>::<wbr><a href="index.html">macros</a></div><h1>Macro <span class="macro">custom_<wbr>struct</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/libc/macros.rs.html#547-773">Source</a> </span></div><pre class="rust item-decl"><code>macro_rules! custom_struct {
+    (
+        attrs: { $($attrs:tt)* }
+        $(#$attr:tt)*
+        $vis:vis struct $name:ident { $($body:tt)* }
+    ) =&gt; { ... };
+    (
+        @split_attrs,
+        cfg_attrs: { $($cfg_attrs:tt)* },
+        other_attrs: { $($other_attrs:tt)* },
+        remaining_attrs: {
+            #[cfg($($cfg:tt)*)]
+            $($tail:tt)*
+        },
+        found_exhaustive_attr: $found_exhaustive:tt,
+        vis: $vis:vis,
+        name: $name:ident,
+        body: { $($body:tt)* },
+    ) =&gt; { ... };
+    (
+        @split_attrs,
+        cfg_attrs: { $($cfg_attrs:tt)* },
+        other_attrs: { $($other_attrs:tt)* },
+        remaining_attrs: {
+            #[exhaustive]
+            $($tail:tt)*
+        },
+        found_exhaustive_attr: $_:tt,
+        vis: $vis:vis,
+        name: $name:ident,
+        body: { $($body:tt)* },
+    ) =&gt; { ... };
+    (
+        @split_attrs,
+        cfg_attrs: { $($cfg_attrs:tt)* },
+        other_attrs: { $($other_attrs:tt)* },
+        remaining_attrs: {
+            #$other:tt
+            $($tail:tt)*
+        },
+        found_exhaustive_attr: $found_exhaustive:tt,
+        vis: $vis:vis,
+        name: $name:ident,
+        body: { $($body:tt)* },
+    ) =&gt; { ... };
+    (
+        @split_attrs,
+        cfg_attrs: { $($cfg_attrs:tt)* },
+        other_attrs: { $($other_attrs:tt)* },
+        remaining_attrs: { },
+        found_exhaustive_attr: $found_exhaustive:tt,
+        vis: $vis:vis,
+        name: $name:ident,
+        body: { $($body:tt)* },
+    ) =&gt; { ... };
+    (
+        @struct,
+        cfg_attrs: { $($cfg_attrs:tt)* },
+        other_attrs: { $($other_attrs:tt)* },
+        found_exhaustive_attr: $found_exhaustive:tt,
+        vis: $vis:vis,
+        name: $name:ident,
+        processed_fields: { $($processed_fields:tt)* },
+        processed_field_defaults: { $($processed_field_defaults:tt)* },
+        remaining_fields: {
+            #[custom_default($default:expr)]
+            $(#[$fattr:meta])*
+            $fvis:vis $fname:ident: $fty:ty,
+            $($tail:tt)*
+        },
+    ) =&gt; { ... };
+    (
+        @struct,
+        cfg_attrs: { $($cfg_attrs:tt)* },
+        other_attrs: { $($other_attrs:tt)* },
+        found_exhaustive_attr: $found_exhaustive:tt,
+        vis: $vis:vis,
+        name: $name:ident,
+        processed_fields: { $($processed_fields:tt)* },
+        processed_field_defaults: { $($processed_field_defaults:tt)* },
+        remaining_fields: {
+            $(#[$fattr:meta])*
+            $fvis:vis $fname:ident: $fty:ty,
+            $($tail:tt)*
+        },
+    ) =&gt; { ... };
+    (
+        @struct,
+        cfg_attrs: { $($cfg_attrs:tt)* },
+        other_attrs: { $($other_attrs:tt)* },
+        found_exhaustive_attr: $found_exhaustive:tt,
+        vis: $vis:vis,
+        name: $name:ident,
+        processed_fields: { $($processed_fields:tt)* },
+        processed_field_defaults: { $($processed_field_defaults:tt)* },
+        remaining_fields: { },
+    ) =&gt; { ... };
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Emit a struct with the given derive attributes plus a generated <code>Default</code> impl. Ensure that the
+record has an additional private field added to replicate <code>#[non_exhaustive]</code>, unless it is
+annotated with <code>#[exhaustive]</code>.</p>
+<p>Fields default to <code>Default::default()</code>. A field whose default can’t be derived must carry
+<code>#[custom_default(EXPR)]</code> as its <em>first</em> attribute, and <code>EXPR</code> is used instead.</p>
+<p>This works by scanning each field for <code>#[custom_default]</code> attributes. If one exists, the
+attribute’s contents are added to <code>processed_field_defaults</code> and will be used in the expansion
+for <code>Default</code>. If it does not exist, <code>Default::default()</code> is used instead. In either case, the
+field is added to <code>processed_fields</code> with <code>#[custom_default]</code> stripped if necessary, and
+<code>custom_struct</code> is invoked again with the remaining fields.</p>
+<p>Attributes are split into <code>cfg_attrs</code> and <code>other_attrs</code> before the fields are scanned. Both go
+on the struct, but only the <code>cfg</code>s are repeated on the <code>Default</code> impl. A <code>cfg</code> decides whether
+the type exists at all, so without it a configured-out struct leaves an impl behind referring to
+a type that isn’t there.</p>
+<p>Out of <code>other_attrs</code>, we scan for <code>#[exhaustive]</code>. If found, we remove it but take into account
+that the record should be expanded <em>without</em> an additional private field. The scan for both
+<code>cfg</code> attributes and the (non-existent) <code>exhaustive</code> attribute is done in one linear pass.</p>
+</div></details></section></div></main></body></html>

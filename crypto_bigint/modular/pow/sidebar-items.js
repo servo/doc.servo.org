@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BITS_PER_WINDOW","WINDOW","WINDOW_COUNT","WINDOW_MASK"],"fn":["compute_powers","multi_exponentiate_montgomery_form_array","multi_exponentiate_montgomery_form_internal","multi_exponentiate_montgomery_form_slice","pow_init","pow_montgomery_form","pow_montgomery_form_amm"]};

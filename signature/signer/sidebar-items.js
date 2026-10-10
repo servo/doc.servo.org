@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":["AsyncDigestSigner","AsyncRandomizedSigner","AsyncSigner","DigestSigner","MultipartSigner","RandomizedDigestSigner","RandomizedMultipartSigner","RandomizedMultipartSignerMut","RandomizedSigner","RandomizedSignerMut","Signer","SignerMut"]};

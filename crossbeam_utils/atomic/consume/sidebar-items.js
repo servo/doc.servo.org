@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_atomic",1],["impl_consume",1]],"trait":["AtomicConsume"]};

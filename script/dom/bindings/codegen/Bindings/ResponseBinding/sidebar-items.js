@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ResponseType"],"fn":["Wrap"],"mod":["GenericBindings","ResponseTypeValues","Response_Binding"],"trait":["ResponseMethods"],"type":["ResponseInit"]};

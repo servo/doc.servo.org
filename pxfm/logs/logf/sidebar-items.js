@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_logf","fast_logf","logf","logf_fma_impl","logf_gen"],"static":["LOG_R","LOG_REDUCTION_F32"],"struct":["FmaLogfBackend","GenLogfBackend","LogReductionF32Aligned"],"trait":["LogfBackend"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["execute_forecolor_command","serialize_to_simple_color"]};

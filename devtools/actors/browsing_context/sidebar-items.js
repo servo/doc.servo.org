@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TargetType"],"struct":["BrowsingContextActor","BrowsingContextActorMsg","BrowsingContextTraits","FrameUpdateMsg","FrameUpdateReply","ListWorkersReply"]};

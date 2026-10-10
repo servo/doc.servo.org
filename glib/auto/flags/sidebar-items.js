@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FileTest","FormatSizeFlags","IOCondition","KeyFileFlags","LogLevelFlags","OptionFlags","RegexCompileFlags","RegexMatchFlags","SpawnFlags"]};

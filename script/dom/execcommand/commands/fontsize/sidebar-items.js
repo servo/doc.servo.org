@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ParsingMode"],"fn":["css_font_to_font_size","execute_fontsize_command","font_size_loosely_equivalent","font_size_to_css_font","legacy_font_size_for","maybe_normalize_pixels","value_for_fontsize_command"]};

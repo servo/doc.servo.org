@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["transpose","transpose_inplace"],"mod":["in_place","out_of_place"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIN_UNIT_DAYS"],"enum":["RelativeUnit","RelativeWeek"],"fn":["add_to_weekday"],"struct":["UnitInfo","WeekCalculator","WeekInformation","WeekOf","WeekPreferences","WeekdaySetIterator"]};

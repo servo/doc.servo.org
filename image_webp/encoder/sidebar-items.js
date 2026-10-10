@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColorType","EncodingError"],"fn":["build_huffman_tree","chunk_size","count_run","encode_frame","length_to_symbol","write_chunk","write_huffman_tree","write_run","write_single_entry_huffman_tree"],"struct":["BitWriter","EncoderParams","WebPEncoder"]};

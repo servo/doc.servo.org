@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BackgroundClip","BackgroundOrigin","BackgroundRepeatKeyword","ImageLayerAttachment"],"fn":["background_clip_border_area_enabled"],"struct":["BackgroundRepeat","ClipValidity"],"type":["BackgroundSize"]};

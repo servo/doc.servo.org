@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_mapping_list","parse_part_mapping"],"struct":["ShadowParts"],"type":["Mapping"]};

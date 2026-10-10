@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["differential_add_and_double"],"struct":["MontgomeryPoint","ProjectiveMontgomeryPoint"]};

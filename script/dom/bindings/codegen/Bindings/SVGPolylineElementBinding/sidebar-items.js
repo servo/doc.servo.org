@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","SVGPolylineElement_Binding"],"trait":["SVGPolylineElementMethods"]};

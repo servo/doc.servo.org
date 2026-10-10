@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Chunk"],"fn":["split"],"struct":["Splitter"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MacroFrag","MacroMatch"],"macro":[["accepted_tokens",1],["define_macro_fragments",1]],"struct":["ItemList","MacroDef","MacroIdent","MacroMatcher","MacroUse","Macros","ParsePartial"]};

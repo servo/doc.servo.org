@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SourceSizeOrLength"],"struct":["SourceSize","SourceSizeList"]};

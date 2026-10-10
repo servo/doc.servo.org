@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["FetchLaterResult_Binding","GenericBindings"],"trait":["FetchLaterResultMethods"]};

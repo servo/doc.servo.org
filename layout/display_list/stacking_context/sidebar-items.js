@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StackingContextBuildMode","StackingContextFragments","StackingContextType"],"fn":["au_rect_to_length_rect"],"struct":["ContainingBlock","FragmentTextDecoration","OverflowFrameData","ReferenceFrameData","ScrollFrameData","StackingContext","StackingContextReferenceFrameInfo","StackingContextTree"],"type":["ContainingBlockInfo"]};

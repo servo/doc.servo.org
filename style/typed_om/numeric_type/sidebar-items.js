@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALL_NUMERIC_BASE_TYPES","ALL_NUMERIC_BASE_TYPES_EXCEPT_PERCENT"],"enum":["NumericBaseType"],"fn":["all_numeric_base_types_are_in_order","all_numeric_base_types_except_percent_are_in_order"],"struct":["NumericType"]};

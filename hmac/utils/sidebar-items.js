@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["IPAD","OPAD"],"fn":["get_der_key"]};

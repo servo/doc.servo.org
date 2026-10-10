@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["CSSFontFaceDescriptors_Binding","GenericBindings"],"trait":["CSSFontFaceDescriptorsMethods"]};

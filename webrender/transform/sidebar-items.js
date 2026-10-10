@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["register_gpu_transform"],"struct":["GpuTransformId","GpuTransforms","RelativeTransformKey","TransformData","TransformMetadata","TransformPalette"]};

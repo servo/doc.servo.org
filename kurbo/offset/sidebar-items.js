@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["A_WEIGHTS","BLEND","B_WEIGHTS","CUSP_EPSILON","MAX_DEPTH","N_LSE"],"fn":["mk_a_weights","offset_cubic"],"struct":["CubicOffset","ErrEval","OffsetRec","SubdivisionPoint"]};

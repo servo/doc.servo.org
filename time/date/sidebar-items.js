@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_YEAR","MIN_YEAR"],"struct":["Date"],"type":["Year"]};

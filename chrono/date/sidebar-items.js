@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_DATE","MIN_DATE"],"fn":["map_local"],"struct":["Date"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FACT","GMHALF","N","PI","SDEN","SNUM"],"fn":["s","sinpi","tgamma"]};

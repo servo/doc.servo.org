@@ -1,0 +1,9 @@
+(function() {
+    var type_impls = Object.fromEntries([["rustls",[["<details class=\"toggle implementors-toggle\" open><summary><section id=\"impl-From%3C%26mut+ConnectionCommon%3CData%3E%3E-for-Context%3C'a,+Data%3E\" class=\"impl\"><a class=\"src rightside\" href=\"src/rustls/conn.rs.html#793-801\">Source</a><a href=\"#impl-From%3C%26mut+ConnectionCommon%3CData%3E%3E-for-Context%3C'a,+Data%3E\" class=\"anchor\">§</a><h3 class=\"code-header\">impl&lt;'a, Data&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/1.97.1/core/convert/trait.From.html\" title=\"trait core::convert::From\">From</a>&lt;&amp;'a mut <a class=\"struct\" href=\"rustls/struct.ConnectionCommon.html\" title=\"struct rustls::ConnectionCommon\">ConnectionCommon</a>&lt;Data&gt;&gt; for <a class=\"struct\" href=\"rustls/common_state/struct.Context.html\" title=\"struct rustls::common_state::Context\">Context</a>&lt;'a, Data&gt;</h3></section></summary><div class=\"impl-items\"><details class=\"toggle method-toggle\" open><summary><section id=\"method.from\" class=\"method trait-impl\"><a class=\"src rightside\" href=\"src/rustls/conn.rs.html#794-800\">Source</a><a href=\"#method.from\" class=\"anchor\">§</a><h4 class=\"code-header\">fn <a href=\"https://doc.rust-lang.org/1.97.1/core/convert/trait.From.html#tymethod.from\" class=\"fn\">from</a>(conn: &amp;'a mut <a class=\"struct\" href=\"rustls/struct.ConnectionCommon.html\" title=\"struct rustls::ConnectionCommon\">ConnectionCommon</a>&lt;Data&gt;) -&gt; Self</h4></section></summary><div class='docblock'>Converts to this type from the input type.</div></details></div></details>","From<&'a mut ConnectionCommon<Data>>","rustls::client::hs::ClientContext","rustls::server::hs::ServerContext"]]]]);
+    if (window.register_type_impls) {
+        window.register_type_impls(type_impls);
+    } else {
+        window.pending_type_impls = type_impls;
+    }
+})()
+//{"start":55,"fragment_lengths":[1687]}

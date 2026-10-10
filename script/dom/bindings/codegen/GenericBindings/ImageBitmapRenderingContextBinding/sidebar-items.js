@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ImageBitmapRenderingContext_Binding"],"struct":["ImageBitmapRenderingContextSettings"],"trait":["ImageBitmapRenderingContextMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","PopStateEvent_Binding"],"trait":["PopStateEventMethods"],"type":["PopStateEventInit"]};

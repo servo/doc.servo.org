@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UNICODE_EXT_CHAR","UNICODE_EXT_STR"],"macro":[["attribute",1],["key",1],["subdivision_suffix",1],["value",1]],"mod":["attribute","attributes","key","keywords","subdivision","value"],"struct":["Attribute","Attributes","Key","Keywords","SubdivisionId","SubdivisionSuffix","Unicode","Value"]};

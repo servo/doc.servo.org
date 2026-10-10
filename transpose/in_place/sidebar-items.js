@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["multiplicative_inverse","transpose_inplace"]};

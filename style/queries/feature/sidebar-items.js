@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllowsRanges","Evaluator"],"macro":[["feature",1],["keyword_evaluator",1]],"struct":["FeatureFlags","QueryFeatureDescription"],"type":["KeywordDiscriminant","KeywordParser","KeywordSerializer","QueryFeatureGetter"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["avx2","fallback","ops","simd_trait","simd_types","sse4_2"]};

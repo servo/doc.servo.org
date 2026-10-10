@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["TextDecoder_Binding"],"struct":["TextDecodeOptions","TextDecoderOptions"],"trait":["TextDecoderMethods"]};

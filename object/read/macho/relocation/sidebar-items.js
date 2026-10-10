@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MachORelocationIterator"],"type":["MachORelocationIterator32","MachORelocationIterator64"]};

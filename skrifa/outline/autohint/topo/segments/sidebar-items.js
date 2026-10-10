@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SCORE","MIN_SCORE"],"fn":["_detect_round_segments_cjk","adjust_segment_heights","assign_point_uvs","build_segments","compute_mid_delta","compute_mid_pos","compute_segments","link_segments","link_segments_cjk","link_segments_default"],"struct":["State"]};

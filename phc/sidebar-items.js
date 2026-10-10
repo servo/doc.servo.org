@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PASSWORD_HASH_SEPARATOR"],"enum":["Error"],"mod":["error","ident","output","params","salt","string_buf","value"],"struct":["Ident","Output","ParamsString","PasswordHash","PasswordHashString","Salt","SaltString","Value"],"type":["Decimal","Result"]};

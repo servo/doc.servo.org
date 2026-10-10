@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cotpi_core","cotpi_fma_impl","cotpi_gen_impl","cotpi_hard","f_cotpi"]};
