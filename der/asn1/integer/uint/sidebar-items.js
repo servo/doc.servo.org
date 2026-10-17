@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decode_to_array","decode_to_slice","encode_bytes","encoded_len","needs_leading_zero","strip_leading_zeroes"],"macro":[["impl_encoding_traits",1]],"mod":["allocating"],"struct":["UintRef"]};

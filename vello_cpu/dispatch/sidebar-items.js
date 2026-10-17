@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["multi_threaded","single_threaded"],"trait":["Dispatcher"]};

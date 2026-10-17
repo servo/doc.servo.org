@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FP_ILOGB0","FP_ILOGBNAN"],"fn":["ilogbf"]};

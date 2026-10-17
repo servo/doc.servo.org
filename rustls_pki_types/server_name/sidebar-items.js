@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DnsNameInner","IpAddr","ServerName"],"fn":["validate"],"mod":["parser"],"struct":["AddrParseError","DnsName","InvalidDnsNameError","Ipv4Addr","Ipv6Addr"]};

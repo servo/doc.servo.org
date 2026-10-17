@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NS_PER_S"],"fn":["now_awake","now_including_suspend","timespec_to_ns"]};

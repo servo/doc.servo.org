@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UNINIT"],"fn":["get","init","init_get"],"static":["STORAGE"],"struct":["InitToken"]};

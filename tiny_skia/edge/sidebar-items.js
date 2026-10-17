@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_COEFF_SHIFT"],"enum":["Edge"],"fn":["cheap_distance","compute_dy","cubic_delta_from_line","diff_to_shift","fdot6_to_fixed_div2","fdot6_up_shift"],"struct":["CubicEdge","LineEdge","QuadraticEdge"]};

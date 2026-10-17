@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["RAD_PER_DEG"],"struct":["Angle"]};

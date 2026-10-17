@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decode","decode_nibble","decode_vec"]};

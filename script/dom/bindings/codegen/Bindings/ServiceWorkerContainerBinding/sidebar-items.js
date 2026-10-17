@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","ServiceWorkerContainer_Binding"],"trait":["ServiceWorkerContainerMethods"],"type":["RegistrationOptions"]};

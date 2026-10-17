@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","PairKind"],"fn":["ends_with","error_to_string","index_predicate","os_to_str","starts_with_plus_eq","validate_shortflag"],"struct":["Arguments"]};

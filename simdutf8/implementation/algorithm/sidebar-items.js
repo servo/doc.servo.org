@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["algorithm_simd",1],["simd_input_128_bit",1],["simd_input_256_bit",1]]};

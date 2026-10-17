@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["convert","has_text_paths","has_xlink","write_base_grad","write_defs","write_element","write_elements","write_fill","write_filters","write_group_element","write_light_source","write_num","write_paint","write_path","write_span","write_stroke","write_text_path_paths"],"static":["POW_VEC"],"struct":["WriteOptions"],"trait":["IsDefault","XmlWriterExt"]};

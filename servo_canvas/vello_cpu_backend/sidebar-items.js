@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SHARED_FONT_CACHE"],"enum":["State"],"fn":["paint","snapshot_as_pixmap","worker_thread_count"],"struct":["VelloCPUDrawTarget"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["atomic_impl",1],["impl_basic_for_deref",1],["impl_basic_for_wrapper",1],["impl_type",1]],"trait":["Basic"]};

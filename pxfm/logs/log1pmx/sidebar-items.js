@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_log1pmx","log1pmx_accurate_dd","log1pmx_big","tiny_hard"]};

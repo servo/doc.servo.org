@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cancel_auto_extension","init_auto_extension","register_auto_extension","reset_auto_extension"],"type":["AutoExtension","RawAutoExtension"]};

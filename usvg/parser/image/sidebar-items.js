@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImageFormat"],"fn":["convert","convert_inner","fit_view_box","get_href_data","get_image_data_format","get_image_file_format","load_sub_svg"],"struct":["ImageHrefResolver"],"type":["ImageHrefDataResolverFn","ImageHrefStringResolverFn"]};

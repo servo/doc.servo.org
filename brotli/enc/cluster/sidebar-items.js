@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["BrotliClusterHistograms","BrotliCompareAndPushToQueue","BrotliHistogramBitCostDistance","BrotliHistogramCombine","BrotliHistogramReindex","BrotliHistogramRemap","ClusterCostDiff","HistogramPairIsLess"],"struct":["HistogramPair"]};

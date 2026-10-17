@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ForeignKeyAction"],"struct":["TableForeignKey"]};

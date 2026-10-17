@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["abs","ceil","f32_max","f32_min","floor","new_vec_with_capacity","round"],"macro":[["format",1]],"type":["ChildrenVec","DefaultCheapStr","GridTrackVec","Map","String","Vec"]};

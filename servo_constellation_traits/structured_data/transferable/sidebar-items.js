@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MessagePortState","Transferrable"],"struct":["MessagePortImpl","TransferableOffscreenCanvas","TransferrableIter","TransformStreamData"]};

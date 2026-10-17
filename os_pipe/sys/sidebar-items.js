@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["dup","pipe","pipe2_cloexec"]};

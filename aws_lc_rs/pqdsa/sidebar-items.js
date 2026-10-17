@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AlgorithmID"],"fn":["parse_pqdsa_public_key","validate_pqdsa_evp_key"],"mod":["key_pair","signature"]};

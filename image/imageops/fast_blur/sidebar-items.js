@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["box_blur_horizontal_pass_impl","box_blur_horizontal_pass_strategy","box_blur_vertical_pass_impl","box_blur_vertical_pass_strategy","boxes_for_gauss","ceil_to_odd","fast_blur","rounding_saturating_mul","test_radius_size"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["description_to_doc_attr","dotted_to_relname","is_camel_keyword","is_keyword","snake_to_camel","to_doc_attr"]};

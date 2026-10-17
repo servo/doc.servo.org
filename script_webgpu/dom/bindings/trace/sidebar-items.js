@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["trace_reflector"],"struct":["RootedTraceableBox"],"trait":["CustomTraceable"]};

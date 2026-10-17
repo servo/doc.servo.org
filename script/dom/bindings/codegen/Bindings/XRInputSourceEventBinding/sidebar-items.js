@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","XRInputSourceEvent_Binding"],"trait":["XRInputSourceEventMethods"],"type":["XRInputSourceEventInit"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_NAME_LENGTH"],"struct":["BluetoothScanfilter","BluetoothScanfilterSequence","RequestDeviceoptions","ServiceUUIDSequence"],"type":["ManufacturerData","ServiceData"]};

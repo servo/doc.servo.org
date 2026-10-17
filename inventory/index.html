@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="github crates-io docs-rs"><title>inventory - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="inventory" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate inventory</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../inventory/index.html">inventory</a><span class="version">0.3.24</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#examples" title="Examples">Examples</a><ul><li><a href="#instantiating-the-plugin-registry" title="Instantiating the plugin registry">Instantiating the plugin registry</a></li><li><a href="#registering-plugins" title="Registering plugins">Registering plugins</a></li><li><a href="#iterating-over-plugins" title="Iterating over plugins">Iterating over plugins</a></li><li><a href="#webassembly-and-constructors" title="WebAssembly and constructors">WebAssembly and constructors</a></li></ul></li></ul><h3><a href="#modules">Crate Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#macros" title="Macros">Macros</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#traits" title="Traits">Traits</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>inventory</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/inventory/lib.rs.html#1-582">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><a href="https://github.com/dtolnay/inventory"><img src="https://img.shields.io/badge/github-8da0cb?style=for-the-badge&amp;labelColor=555555&amp;logo=github" alt="github" /></a> <a href="https://crates.io/crates/inventory"><img src="https://img.shields.io/badge/crates.io-fc8d62?style=for-the-badge&amp;labelColor=555555&amp;logo=rust" alt="crates-io" /></a> <a href="https://docs.rs/inventory"><img src="https://img.shields.io/badge/docs.rs-66c2a5?style=for-the-badge&amp;labelColor=555555&amp;logo=docs.rs" alt="docs-rs" /></a></p>
+<br>
+<p><strong>Typed distributed plugin registration.</strong></p>
+<p>This crate provides a way to set up a plugin registry into which plugins
+can be registered from any source file linked into your application. There
+does not need to be a central list of all the plugins.</p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<p>Suppose we are writing a command line flags library and want to allow any
+source file in the application to register command line flags that are
+relevant to it.</p>
+<p>This is the flag registration style used by <a href="https://gflags.github.io/gflags/">gflags</a> and is better suited
+for large scale development than maintaining a single central list of flags,
+as the central list would become an endless source of merge conflicts in an
+application developed simultaneously by thousands of developers.</p>
+<h3 id="instantiating-the-plugin-registry"><a class="doc-anchor" href="#instantiating-the-plugin-registry">§</a>Instantiating the plugin registry</h3>
+<p>Let’s use a <code>struct Flag</code> as the plugin type, which will contain the short
+name of the flag like <code>-v</code>, the full name like <code>--verbose</code>, and maybe other
+information like argument type and help text. We instantiate a plugin
+registry with an invocation of <code>inventory::collect!</code>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">pub struct </span>Flag {
+    short: char,
+    name: <span class="kw-2">&amp;</span><span class="lifetime">'static </span>str,
+    <span class="comment">/* ... */
+</span>}
+
+<span class="kw">impl </span>Flag {
+    <span class="kw">pub const fn </span>new(short: char, name: <span class="kw-2">&amp;</span><span class="lifetime">'static </span>str) -&gt; <span class="self">Self </span>{
+        Flag { short, name }
+    }
+}
+
+<span class="macro">inventory::collect!</span>(Flag);</code></pre></div>
+<p>This <code>collect!</code> call must be in the same crate that defines the plugin type.
+This macro does not “run” anything so place it outside of any function body.</p>
+<h3 id="registering-plugins"><a class="doc-anchor" href="#registering-plugins">§</a>Registering plugins</h3>
+<p>Now any crate with access to the <code>Flag</code> type can register flags as a plugin.
+Plugins can be registered by the same crate that declares the plugin type,
+or by any downstream crate.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">inventory::submit!</span> {
+    Flag::new(<span class="string">'v'</span>, <span class="string">"verbose"</span>)
+}</code></pre></div>
+<p>The <code>submit!</code> macro does not “run” anything so place it outside of any
+function body. In particular, note that all <code>submit!</code> invocations across all
+source files linked into your application all take effect simultaneously. A
+<code>submit!</code> invocation is not a statement that needs to be called from <code>main</code>
+in order to execute.</p>
+<h3 id="iterating-over-plugins"><a class="doc-anchor" href="#iterating-over-plugins">§</a>Iterating over plugins</h3>
+<p>The value <code>inventory::iter::&lt;T&gt;</code> is an iterator with element type <code>&amp;'static T</code> that iterates over all plugins registered of type <code>T</code>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">for </span>flag <span class="kw">in </span>inventory::iter::&lt;Flag&gt; {
+    <span class="macro">println!</span>(<span class="string">"-{}, --{}"</span>, flag.short, flag.name);
+}</code></pre></div>
+<p>There is no guarantee about the order that plugins of the same type are
+visited by the iterator. They may be visited in any order.</p>
+<h3 id="webassembly-and-constructors"><a class="doc-anchor" href="#webassembly-and-constructors">§</a>WebAssembly and constructors</h3>
+<p><code>inventory</code> supports all WebAssembly targets, including
+<code>wasm*-unknown-unknown</code>. However, in unusual circumstances, ensuring that
+constructors run may require some extra effort. The Wasm linker will
+synthesize a function <code>extern "C" unsafe fn __wasm_call_ctors()</code> which calls
+all constructors when invoked; this function will <em>not</em> be exported from the
+module unless you do so explicitly. Depending on the result of a heuristic,
+the linker may or may not insert a call to this function from the beginning
+of every function that your module exports. Specifically, it regards a
+module as having “command-style linkage” if:</p>
+<ul>
+<li>it is not relocatable;</li>
+<li>it is not a position-independent executable;</li>
+<li>and it does not call <code>__wasm_call_ctors</code>, directly or indirectly, from any
+exported function.</li>
+</ul>
+<p>The linker expects that the embedder will call into a command-style module
+only once per instantiation. Violation of this expectation can result in
+<code>__wasm_call_ctors</code> being called multiple times. This is dangerous in
+general, but safe and mostly harmless in the case of constructors generated
+by <code>inventory</code>, which are idempotent.</p>
+<p>If you are building a module which relies on constructors and may be called
+into multiple times per instance, you should export <code>__wasm_call_ctors</code> (or
+a wrapper around it) and ensure that the embedder calls it immediately after
+instantiation. Even though <code>inventory</code> may work fine without this, it is
+still good practice, because it avoids unnecessary overhead from repeated
+constructor invocation. It also can prevent unsoundness if some of your
+constructors are generated by other crates or other programming languages.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[cfg(target_family = <span class="string">"wasm"</span>)]
+</span><span class="kw">unsafe extern </span><span class="string">"C" </span>{
+    <span class="kw">fn </span>__wasm_call_ctors();
+}
+
+<span class="kw">fn </span>main() {
+    <span class="attr">#[cfg(target_family = <span class="string">"wasm"</span>)]
+    </span><span class="kw">unsafe </span>{
+        __wasm_call_ctors();
+    }
+}</code></pre></div></div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="private/index.html" title="mod inventory::private">private</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="value_iter/index.html" title="mod inventory::value_iter">value_<wbr>iter</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="void_iter/index.html" title="mod inventory::void_iter">void_<wbr>iter</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="macros" class="section-header">Macros<a href="#macros" class="anchor">§</a></h2><dl class="item-table"><dt><a class="macro" href="macro.collect.html" title="macro inventory::collect">collect</a></dt><dd>Associate a plugin registry with the specified type.</dd><dt><a class="macro" href="macro.submit.html" title="macro inventory::submit">submit</a></dt><dd>Enter an element into the plugin registry corresponding to its type.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.iter.html" title="enum inventory::iter">iter</a></dt></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.Collect.html" title="trait inventory::Collect">Collect</a></dt><dd>Trait bound corresponding to types that can be iterated by inventory::iter.</dd></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.iter.html" title="type inventory::iter">iter</a></dt><dd>An iterator over plugins registered of a given type.</dd></dl></section></div></main></body></html>

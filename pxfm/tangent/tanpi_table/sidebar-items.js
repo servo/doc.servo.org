@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["TANPI_K_PI_OVER_64","TAN_K_PI_OVER_128"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TableLevelBox","TableSlot","TableTrackGroupType","WeakTableLevelBox"],"mod":["construct","layout"],"struct":["CollapsedBorder","SpecificTableGridInfo","Table","TableBuilder","TableCaption","TableLayoutStyle","TableSlotCell","TableTrack","TableTrackGroup"],"type":["CollapsedBorderLine","TableSize","TableSlotCoordinates","TableSlotOffset"]};

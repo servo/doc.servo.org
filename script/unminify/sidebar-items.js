@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BeautifyFileType"],"fn":["create_output_file","create_temp_files","execute_js_beautify","unminified_path","unminify_js"],"struct":["ScriptSource"]};

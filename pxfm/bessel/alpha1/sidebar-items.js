@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bessel_1_asympt_alpha","bessel_1_asympt_alpha_fast","bessel_1_asympt_alpha_hard"]};

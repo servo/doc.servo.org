@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GlyphInstanceAu","TextRun","TextRunKey","TextRunScratch","TextRunTemplate"],"type":["TextRunDataHandle"]};

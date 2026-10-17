@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TokenSerializationType"],"fn":["char_escape","hex_escape","serialize_identifier","serialize_name","serialize_string","serialize_unquoted_url","write_numeric"],"macro":[["impl_tocss_for_float",1],["impl_tocss_for_int",1],"match_byte"],"struct":["CssStringWriter"],"trait":["ToCss"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","DefineDOMInterface","DefineProxyHandler","GetConstructorObject","GetProtoObject","Wrap"],"static":["Class"],"trait":["NodeListMethods"]};

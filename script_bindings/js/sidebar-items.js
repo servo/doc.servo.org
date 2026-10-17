@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["JS_DefineProperty","JS_GetProperty","JS_GetPropertyById","JS_IdToValue","JS_IsExceptionPending","JS_NewObjectWithGivenProto","JS_SetPendingException"],"struct":["PropertyFlags"]};

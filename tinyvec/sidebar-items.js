@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TinyVec","TinyVecDrain","TinyVecIterator"],"macro":[["array_vec",1],["tiny_vec",1]],"mod":["array","arrayvec","arrayvec_drain","slicevec","tinyvec"],"struct":["ArrayVec","ArrayVecDrain","ArrayVecIterator","ArrayVecSplice","SliceVec","SliceVecDrain","TinyVecSplice","TryFromSliceError"],"trait":["Array"]};

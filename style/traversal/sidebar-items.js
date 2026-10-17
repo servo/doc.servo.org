@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clear_descendant_data","clear_state_after_traversing","compute_style","note_children","notify_paint_worklet","recalc_style_at","resolve_style"],"struct":["PreTraverseToken"],"trait":["DomTraversal"],"type":["UndisplayedStyleCache"]};

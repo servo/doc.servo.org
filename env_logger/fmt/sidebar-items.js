@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Target","TimestampPrecision","WriteStyle"],"mod":["humantime","writer"],"struct":["Builder","ConfigurableFormat","ConfigurableFormatWriter","Formatter","StyledValue","Timestamp"],"trait":["RecordFormat"],"type":["FormatFn","SubtleStyle"]};

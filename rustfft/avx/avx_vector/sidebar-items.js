@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply_butterfly8_twiddle1","apply_butterfly8_twiddle3","mul_complex_conjugated","pairwise_complex_mul_assign_conjugated","pairwise_complex_mul_conjugated"],"macro":[["column_butterfly16_loadfn",1],["column_butterfly32_loadfn",1]],"struct":["Rotation90"],"trait":["AvxArray","AvxArrayMut","AvxVector","AvxVector128","AvxVector256"]};

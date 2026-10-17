@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ATOMS_SMALL_VEC_SIZE"],"macro":[["all_the_atoms",1]],"struct":["Atoms"],"trait":["IntoAtoms"]};

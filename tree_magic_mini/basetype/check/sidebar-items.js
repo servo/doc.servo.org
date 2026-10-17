@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_text_plain_from_file","is_text_plain_from_u8"],"struct":["BaseType"]};

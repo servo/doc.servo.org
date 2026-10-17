@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MZ_FINISH","MZ_FULL_FLUSH","MZ_NO_FLUSH","MZ_PARTIAL_FLUSH","MZ_SYNC_FLUSH"],"enum":["DataFormat","MZError","MZFlush","MZStatus"],"fn":["format_from_bool"],"mod":["deflate","inflate"],"struct":["Deflate","ErrorMessage","Inflate","StreamResult"],"type":["MZResult"]};

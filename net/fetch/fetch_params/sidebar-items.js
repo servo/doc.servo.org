@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PreloadResponseCandidate"],"struct":["FetchParams"],"trait":["ConsumePreloadedResources"],"type":["SharedPreloadedResources"]};

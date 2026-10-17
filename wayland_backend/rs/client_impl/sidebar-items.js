@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["dispatch_events"],"struct":["ConnectionState","Data","InnerBackend","InnerObjectId","InnerReadEventsGuard","ProtocolState","ReadingState","WeakInnerBackend"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["WaylandError"],"fn":["logical_to_physical_rounded","make_wid"],"mod":["event_loop","output","seat","state","types","window"],"struct":["DeviceId"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_int_from_uint",1],["impl_nzint",1]]};

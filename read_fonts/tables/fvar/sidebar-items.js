@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_INLINE_AVAR2_AXES","MAX_INLINE_NORMALIZE_AXES","MAX_NORMALIZE_QUADRATIC_AXES"],"fn":["apply_avar2_delta","apply_avar_mappings","normalize_user_coords","round_f64_to_i32","to_normalized_coords"],"mod":["instance_record"],"struct":["AxisInstanceArrays","Fvar","InstanceRecord","VariationAxisRecord"]};

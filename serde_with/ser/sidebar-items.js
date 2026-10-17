@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["duplicates","impls","skip_error"],"struct":["SerializeAsWrap"],"trait":["SerializeAs"]};

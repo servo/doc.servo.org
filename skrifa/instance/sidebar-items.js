@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_INLINE_COORDS"],"struct":["Location","LocationRef","Size"],"type":["NormalizedCoord"]};

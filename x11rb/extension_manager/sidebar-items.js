@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CheckState"],"struct":["ExtensionManager"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["SVGLength","SVGOpacity","SVGPaint","SVGPaintKind","SVGStrokeDashArray","SVGWidth"]};

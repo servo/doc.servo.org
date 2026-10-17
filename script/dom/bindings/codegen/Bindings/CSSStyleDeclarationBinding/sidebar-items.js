@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetConstructorObject","Wrap"],"mod":["CSSStyleDeclaration_Binding","GenericBindings"],"trait":["CSSStyleDeclarationMethods"]};

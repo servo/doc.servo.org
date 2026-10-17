@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["malloc_size_of_including_raw_self"]};

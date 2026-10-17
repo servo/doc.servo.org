@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HIGHEST_DEFINED_CHARACTER_VARIANT_INDEX","HIGHEST_DEFINED_STYLESET_INDEX"],"fn":["compute_used_font_features","unicode_script_to_iso15924_tag"],"mod":["harfbuzz"],"struct":["ShapedGlyph"],"trait":["GlyphShapingResult"]};

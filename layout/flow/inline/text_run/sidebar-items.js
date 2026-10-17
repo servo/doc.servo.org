@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SegmentStartSoftWrapPolicy","TextRunItem"],"fn":["character_cannot_change_font","get_font_for_first_font_for_style","is_cursive_script","script_is_specific"],"struct":["CaretPlaceholder","FontAndScriptInfo","FontInfo","SharedTextRunData","TextRun","TextRunSegment","TwoCharsAtATimeIterator"]};

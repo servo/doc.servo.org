@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["buffer","friendly","offset","rfc2822","rfc9557","strtime","temporal","util"],"struct":["Parsed","StdFmtWrite","StdIoWrite"],"trait":["Write"]};

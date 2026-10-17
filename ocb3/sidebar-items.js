@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["initial_offset","inplace_xor","key_dependent_variables","nonce_dependent_variables","ntz","split_into_two_blocks"],"mod":["consts","sealed"],"struct":["Array","Error","Ocb3"],"trait":["AeadCore","AeadInOut","AsArrayRef","AssocArraySize","KeyInit","KeySizeUser"],"type":["Block","BlockSize","DoubleBlock","Nonce","Tag"]};

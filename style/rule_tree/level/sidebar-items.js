@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CascadeOrigin"],"struct":["CascadeLevel","ShadowCascadeOrder"]};

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`ipc-channel` is an inter-process implementation of Rust channels (which were inspired by CSP)."><title>ipc_channel - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="ipc_channel" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate ipc_channel</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../ipc_channel/index.html">ipc_<wbr>channel</a><span class="version">0.23.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#semantic-differences-from-rust-channels" title="Semantic differences from Rust channels">Semantic differences from Rust channels</a></li><li><a href="#bootstrapping-channels-between-processes" title="Bootstrapping channels between processes">Bootstrapping channels between processes</a></li><li><a href="#testing" title="Testing">Testing</a></li><li><a href="#implementation-overview" title="Implementation overview">Implementation overview</a></li><li><a href="#major-missing-features" title="Major missing features">Major missing features</a></li><li><a href="#related" title="Related">Related</a></li><li><a href="#features" title="Features">Features</a><ul><li><a href="#force-inprocess" title="`force-inprocess`"><code>force-inprocess</code></a></li></ul></li></ul><h3><a href="#modules">Crate Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>ipc_<wbr>channel</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/ipc_channel/lib.rs.html#10-45">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><code>ipc-channel</code> is an inter-process implementation of Rust channels (which were inspired by CSP<sup id="fnref1"><a href="#fn1">1</a></sup>).</p>
+<p>A Rust channel is a unidirectional, FIFO queue of messages which can be used to send messages between threads in a single operating system process.
+For an excellent introduction to Rust channels, see <a href="https://doc.rust-lang.org/stable/book/ch16-02-message-passing.html">Using Message Passing to Transfer Data Between Threads</a> in the Rust reference.</p>
+<p><code>ipc-channel</code> extends Rust channels to support inter-process communication (IPC) in a single operating system instance. The <code>serde</code> library is used to serialize and deserialize messages sent over <code>ipc-channel</code>.</p>
+<p>As much as possible, <code>ipc-channel</code> has been designed to be a drop-in replacement for Rust channels. The mapping from the Rust channel APIs to <code>ipc-channel</code> APIs is as follows:</p>
+<ul>
+<li><code>channel()</code> → <code>ipc::channel().unwrap()</code></li>
+<li><code>Sender&lt;T&gt;</code> → <code>ipc::IpcSender&lt;T&gt;</code> (requires <code>T: Serialize</code>)</li>
+<li><code>Receiver&lt;T&gt;</code> → <code>ipc::IpcReceiver&lt;T&gt;</code> (requires <code>T: Deserialize</code>)</li>
+</ul>
+<p>Note that both <code>IpcSender&lt;T&gt;</code> and <code>IpcReceiver&lt;T&gt;</code> implement <code>Serialize</code> and <code>Deserialize</code>, so you can send IPC channels over IPC channels freely, just as you can with Rust channels.</p>
+<p>The easiest way to make your types implement <code>Serialize</code> and <code>Deserialize</code> is to use the <code>serde_macros</code> crate from crates.io as a plugin and then annotate the types you want to send with <code>#[derive(Deserialize, Serialize])</code>. In many cases, that’s all you need to do — the compiler generates all the tedious boilerplate code needed to serialize and deserialize instances of your types.</p>
+<h3 id="semantic-differences-from-rust-channels"><a class="doc-anchor" href="#semantic-differences-from-rust-channels">§</a>Semantic differences from Rust channels</h3>
+<ul>
+<li>Rust channels can be either unbounded or bounded whereas ipc-channels are always unbounded and <code>send()</code> never blocks.</li>
+<li>Rust channels do not consume OS IPC resources whereas ipc-channels consume IPC resources such as sockets, file descriptors, shared memory segments, named pipes, and such like, depending on the OS.</li>
+<li>Rust channels transfer ownership of messages whereas ipc-channels serialize and deserialize messages.</li>
+<li>Rust channels are type safe whereas ipc-channels depend on client and server programs using identical message types (or at least message types with compatible serial forms).</li>
+</ul>
+<h3 id="bootstrapping-channels-between-processes"><a class="doc-anchor" href="#bootstrapping-channels-between-processes">§</a>Bootstrapping channels between processes</h3>
+<p><code>ipc-channel</code> provides a one-shot server to help establish a channel between two processes. When a one-shot server is created, a server name is generated and returned along with the server.</p>
+<p>The client process calls <code>connect()</code> passing the server name and this returns the sender end of an ipc-channel from
+the client to the server. Note that there is a restriction in <code>ipc-channel</code>: <code>connect()</code> may be called at most once per one-shot server.</p>
+<p>The server process calls <code>accept()</code> on the server to accept connect requests from clients. <code>accept()</code> blocks until a client has connected to the server and sent a message. It then returns a pair consisting of the receiver end of the ipc-channel from client to server and the first message received from the client.</p>
+<p>So, in order to bootstrap an IPC channel between processes, you create an instance of the <code>IpcOneShotServer</code> type, pass the resultant server name into the client process (perhaps via an environment variable or command line flag), and connect to the server in the client. See <code>spawn_one_shot_server_client()</code> in <code>integration_test.rs</code> for an example of how to do this using a command to spawn the client process and <code>cross_process_embedded_senders_fork()</code> in <code>test.rs</code> for an example of how to do this using Unix <code>fork()</code><sup id="fnref2"><a href="#fn2">2</a></sup> to create the client process.</p>
+<h3 id="testing"><a class="doc-anchor" href="#testing">§</a>Testing</h3>
+<p>To run the tests, issue:</p>
+<div class="example-wrap"><pre class="language-console"><code>cargo test</code></pre></div>
+<p>Some tests are platform dependent, so for completeness it would be necessary to run the tests on all platforms:</p>
+<ul>
+<li>iOS</li>
+<li>macOS†</li>
+<li>Unix variants:
+<ul>
+<li>Android</li>
+<li>FreeBSD</li>
+<li>Illumos</li>
+<li>Linux (Ubuntu†)</li>
+<li>OpenBSD</li>
+</ul>
+</li>
+<li>WASI</li>
+<li>Windows†</li>
+</ul>
+<p>The platforms marked † are covered by CI.</p>
+<p>To run the benchmarks, issue:</p>
+<div class="example-wrap"><pre class="language-console"><code>cargo bench</code></pre></div><h3 id="implementation-overview"><a class="doc-anchor" href="#implementation-overview">§</a>Implementation overview</h3>
+<p><code>ipc-channel</code> is implemented in terms of native IPC primitives: file descriptor passing over Unix sockets on Unix variants, Mach ports on macOS, and named pipes on Windows.</p>
+<p>One-shot server names are implemented as a file system path (for Unix variants, with the file system path bound to the socket) or other kinds of generated names on macOS and Windows.</p>
+<h3 id="major-missing-features"><a class="doc-anchor" href="#major-missing-features">§</a>Major missing features</h3>
+<ul>
+<li>Each one-shot server accepts only one client connect request. This is fine if you simply want to use this API to split your application up into a fixed number of mutually untrusting processes, but it’s not suitable for implementing a system service. An API for multiple clients may be added later if demand exists for it.</li>
+</ul>
+<h3 id="related"><a class="doc-anchor" href="#related">§</a>Related</h3>
+<ul>
+<li><a href="https://doc.rust-lang.org/std/sync/mpsc/index.html">Rust channel</a>: MPSC (multi-producer, single-consumer) channels in the Rust standard library. The implementation
+consists of a single consumer wrapper of a port of Crossbeam channel.</li>
+<li><a href="https://github.com/crossbeam-rs/crossbeam/tree/master/crossbeam-channel">Crossbeam channel</a>: extends Rust channels to be more like their Go counterparts. Crossbeam channels are MPMC (multi-producer, multi-consumer)</li>
+<li><a href="https://docs.rs/channels/latest/channels/">Channels</a>: provides Sender and Receiver types for communicating with a channel-like API across generic IO streams.</li>
+</ul>
+<h2 id="features"><a class="doc-anchor" href="#features">§</a>Features</h2><h3 id="force-inprocess"><a class="doc-anchor" href="#force-inprocess">§</a><code>force-inprocess</code></h3>
+<p>Force the <code>inprocess</code> backend to be used instead of the OS specific backend.
+The <code>inprocess</code> backend is a dummy back-end, that behaves like the real ones,
+but doesn’t actually work between processes.</p>
+<div class="footnotes"><hr><ol><li id="fn1"><p>Tony Hoare conceived Communicating Sequential Processes (CSP) as a concurrent programming language.
+Stephen Brookes and A.W. Roscoe developed a sound mathematical basis for CSP as a process algebra.
+CSP can now be used to reason about concurrency and to verify concurrency properties using model checkers such as FDR4.
+Go channels were also inspired by CSP.&nbsp;<a href="#fnref1">↩</a></p></li><li id="fn2"><p><code>fork()</code> has a number of semantic rough edges and is not recommended for general use. See “A fork() in the road” by Andrew Baumann <em>et al.</em>, Proceedings of the Workshop on Hot Topics in Operating Systems, ACM, 2019. (<a href="https://www.microsoft.com/en-us/research/uploads/prod/2019/04/fork-hotos19.pdf">PDF</a>)&nbsp;<a href="#fnref2">↩</a></p></li></ol></div></div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="error/index.html" title="mod ipc_channel::error">error</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="ipc/index.html" title="mod ipc_channel::ipc">ipc</a></dt><dt><a class="mod" href="platform/index.html" title="mod ipc_channel::platform">platform</a></dt><dt><a class="mod" href="router/index.html" title="mod ipc_channel::router">router</a></dt><dd>Routers allow converting IPC channels to crossbeam channels.
+The <a href="router/struct.RouterProxy.html" title="struct ipc_channel::router::RouterProxy">RouterProxy</a> provides various methods to register
+<code>IpcReceiver&lt;T&gt;</code>s. The router will then either call the appropriate callback or route the
+message to a crossbeam <code>Sender&lt;T&gt;</code> or <code>Receiver&lt;T&gt;</code>. You should use the global <code>ROUTER</code> to
+access the <code>RouterProxy</code> methods (via <code>ROUTER</code>’s <code>Deref</code> for <code>RouterProxy</code>.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.SerDeError.html" title="struct ipc_channel::SerDeError">SerDe<wbr>Error</a></dt><dd>An error that occurs for serialization or deserialization</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.IpcError.html" title="enum ipc_channel::IpcError">IpcError</a></dt><dt><a class="enum" href="enum.TryRecvError.html" title="enum ipc_channel::TryRecvError">TryRecv<wbr>Error</a></dt><dt><a class="enum" href="enum.TrySelectError.html" title="enum ipc_channel::TrySelectError">TrySelect<wbr>Error</a></dt><dd>TrySelectError is returned by non-blocking variants of IpcReceiverSet::select.</dd></dl></section></div></main></body></html>

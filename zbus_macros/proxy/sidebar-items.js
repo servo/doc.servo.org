@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["create_proxy","expand","gen_proxy_method_call","gen_proxy_property","gen_proxy_signal"],"static":["ALLOWED_ATTRS","ALLOWED_LISTS"],"struct":["AsyncOpts","MethodAttributes","PropertyAttributes","SetLifetimeS","TraitAttributes"]};

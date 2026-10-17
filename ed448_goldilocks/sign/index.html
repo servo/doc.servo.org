@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Ed448 digital signatures implementation"><title>ed448_goldilocks::sign - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="ed448_goldilocks" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="icon" href="https://raw.githubusercontent.com/RustCrypto/meta/master/logo.svg"></head><body class="rustdoc mod"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Module sign</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../../ed448_goldilocks/index.html"><img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo.svg" alt="logo"></a><h2><a href="../../ed448_goldilocks/index.html">ed448_<wbr>goldilocks</a><span class="version">0.14.0-pre.15</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Module sign</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#example" title="Example">Example</a></li><li><a href="#pkcs8-key-encoding" title="PKCS#8 Key Encoding">PKCS#8 Key Encoding</a></li><li><a href="#using-serde" title="Using Serde">Using Serde</a></li><li><a href="#using-signature" title="Using Signature">Using Signature</a></li><li><a href="#other-features" title="Other Features">Other Features</a></li><li><a href="#example-1" title="Example">Example</a></li></ul><h3><a href="#reexports">Module Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#constants" title="Constants">Constants</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="../index.html">In crate ed448_<wbr>goldilocks</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">ed448_goldilocks</a></div><h1>Module <span>sign</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/ed448_goldilocks/sign.rs.html#1-154">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Ed448 digital signatures implementation</p>
+<h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
+<p>Creating an ed448 signature.</p>
+<p>Generate a <a href="../struct.SigningKey.html" title="struct ed448_goldilocks::SigningKey"><code>SigningKey</code></a>, which includes both the public and secret halves, using
+a cryptographically secure pseudorandom number generator (CSPRNG). Next sign a message
+to produce a <a href="../struct.Signature.html" title="struct ed448_goldilocks::Signature"><code>Signature</code></a>. Then verify the signature using the corresponding
+<a href="../struct.VerifyingKey.html" title="struct ed448_goldilocks::VerifyingKey"><code>VerifyingKey</code></a>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>ed448_goldilocks::{SigningKey, elliptic_curve::Generate};
+
+<span class="kw">let </span>signing_key = SigningKey::generate();
+<span class="kw">let </span>signature = signing_key.sign_raw(<span class="string">b"Hello, world!"</span>);
+<span class="kw">let </span>verifying_key = signing_key.verifying_key();
+
+<span class="macro">assert!</span>(verifying_key.verify_raw(<span class="kw-2">&amp;</span>signature, <span class="string">b"Hello, world!"</span>).is_ok());</code></pre></div>
+<p>This crate also supports using context specific strings when creating and verifying signatures.
+In addition, it supports the PKCS#8 standard for encoding and decoding keys, or raw byte forms
+using <code>to_bytes</code> and <code>from_bytes</code> methods. These store the <a href="../type.SecretKey.html" title="type ed448_goldilocks::SecretKey"><code>SecretKey</code></a> which is the prehash
+seed of the <a href="../struct.SigningKey.html" title="struct ed448_goldilocks::SigningKey"><code>SigningKey</code></a>.</p>
+<h2 id="pkcs8-key-encoding"><a class="doc-anchor" href="#pkcs8-key-encoding">§</a>PKCS#8 Key Encoding</h2>
+<p>PKCS#8 is a private key format with support for multiple algorithms. It can be encoded as
+binary (DER) or text (PEM). Use the <code>pkcs8</code> feature to enable this option.</p>
+<h2 id="using-serde"><a class="doc-anchor" href="#using-serde">§</a>Using Serde</h2>
+<p>This crate supports serialization and deserialization using the <code>serde</code> if the preference
+is to encode the keys as other formats. Use the <code>serde</code> feature to enable this option.</p>
+<h2 id="using-signature"><a class="doc-anchor" href="#using-signature">§</a>Using Signature</h2>
+<p>This crate supports signing using the traits defined in the <code>signature</code> crate like</p>
+<ul>
+<li>[<code>Signer</code>]</li>
+<li>[<code>DigestSigner</code>]</li>
+<li>[<code>PrehashSigner</code>]</li>
+<li>[<code>Verifier</code>]</li>
+<li>[<code>DigestVerifier</code>]</li>
+</ul>
+<p>The crate is re-exported as <code>crypto-signature</code> for use in other crates.</p>
+<h2 id="other-features"><a class="doc-anchor" href="#other-features">§</a>Other Features</h2>
+<p>Signing and verifying also supports custom digest and prehash algorithms.
+Any algorithm that implements <a href="../trait.PreHash.html" title="trait ed448_goldilocks::PreHash"><code>PreHash</code></a> and [<code>Digest</code>] can be used.
+However, there are two implementations provided in this crate:</p>
+<ul>
+<li><a href="../struct.PreHasherXmd.html" title="struct ed448_goldilocks::PreHasherXmd"><code>PreHasherXmd</code></a> which supports any implementation of a fixed length digest like SHA3-512.</li>
+<li><a href="../struct.PreHasherXof.html" title="struct ed448_goldilocks::PreHasherXof"><code>PreHasherXof</code></a> which supports any implementation of expandable output functions like SHAKE-256.</li>
+</ul>
+<h2 id="example-1"><a class="doc-anchor" href="#example-1">§</a>Example</h2>
+<p>This is an example of using the SHAKE-256 algorithm to sign and verify a message
+which is the normal default anyway but performed explicitly.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>ed448_goldilocks::{SigningKey, PreHasherXof, elliptic_curve::Generate};
+<span class="kw">use </span>shake::{Shake256, digest::Update};
+
+<span class="kw">let </span>msg = <span class="string">b"Hello World"</span>;
+
+<span class="kw">let </span>signing_key = SigningKey::generate();
+<span class="kw">let </span>signature = signing_key.sign_prehashed::&lt;PreHasherXof&lt;Shake256&gt;&gt;(
+    <span class="prelude-val">None</span>,
+    Shake256::default().chain(msg).into(),
+).unwrap();
+
+<span class="kw">let </span>verifying_key = signing_key.verifying_key();
+<span class="macro">assert!</span>(verifying_key.verify_prehashed::&lt;PreHasherXof&lt;Shake256&gt;&gt;(
+   <span class="kw-2">&amp;</span>signature,
+   <span class="prelude-val">None</span>,
+   Shake256::default().chain(msg).into()
+).is_ok());</code></pre></div></div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.pkcs8"><code>pub use elliptic_curve::<a class="mod" href="../../pkcs8/index.html" title="mod pkcs8">pkcs8</a>;</code></dt><dt id="reexport.signature"><code>pub use <a class="mod" href="../../signature/index.html" title="mod signature">signature</a>;</code></dt><dt><code>pub use <a class="mod" href="context/index.html" title="mod ed448_goldilocks::sign::context">context</a>::*;</code></dt><dt><code>pub use <a class="mod" href="error/index.html" title="mod ed448_goldilocks::sign::error">error</a>::*;</code></dt><dt><code>pub use <a class="mod" href="signing_key/index.html" title="mod ed448_goldilocks::sign::signing_key">signing_key</a>::*;</code></dt><dt><code>pub use <a class="mod" href="verifying_key/index.html" title="mod ed448_goldilocks::sign::verifying_key">verifying_key</a>::*;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="context/index.html" title="mod ed448_goldilocks::sign::context">context</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="error/index.html" title="mod ed448_goldilocks::sign::error">error</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="expanded/index.html" title="mod ed448_goldilocks::sign::expanded">expanded</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="signing_key/index.html" title="mod ed448_goldilocks::sign::signing_key">signing_<wbr>key</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Much of this code is borrowed from Thomas Pornin’s <a href="https://github.com/pornin/crrl/blob/main/src/ed448.rs">CRRL Project</a>
+and adapted to mirror <code>ed25519-dalek</code>’s API.</dd><dt><a class="mod" href="verifying_key/index.html" title="mod ed448_goldilocks::sign::verifying_key">verifying_<wbr>key</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Much of this code is borrowed from Thomas Pornin’s <a href="https://github.com/pornin/crrl/blob/main/src/ed448.rs">CRRL Project</a>
+and adapted to mirror <code>ed25519-dalek</code>’s API.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.InnerSignature.html" title="struct ed448_goldilocks::sign::InnerSignature">Inner<wbr>Signature</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="struct" href="struct.Signature.html" title="struct ed448_goldilocks::sign::Signature">Signature</a></dt><dd>Ed448 signature.</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.ALGORITHM_ID.html" title="constant ed448_goldilocks::sign::ALGORITHM_ID">ALGORITHM_<wbr>ID</a></dt><dd>The <code>AlgorithmIdentifier</code> for Ed448 as defined in [RFC8410 §2]</dd><dt><a class="constant" href="constant.ALGORITHM_OID.html" title="constant ed448_goldilocks::sign::ALGORITHM_OID">ALGORITHM_<wbr>OID</a></dt><dd>The OID for Ed448 as defined in [RFC8410 §2]</dd><dt><a class="constant" href="constant.HASH_HEAD.html" title="constant ed448_goldilocks::sign::HASH_HEAD">HASH_<wbr>HEAD</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Constant string “SigEd448”.</dd><dt><a class="constant" href="constant.PUBLIC_KEY_LENGTH.html" title="constant ed448_goldilocks::sign::PUBLIC_KEY_LENGTH">PUBLIC_<wbr>KEY_<wbr>LENGTH</a></dt><dd>Length of a public key in bytes</dd><dt><a class="constant" href="constant.SECRET_KEY_LENGTH.html" title="constant ed448_goldilocks::sign::SECRET_KEY_LENGTH">SECRET_<wbr>KEY_<wbr>LENGTH</a></dt><dd>Length of a secret key in bytes</dd><dt><a class="constant" href="constant.SIGNATURE_LENGTH.html" title="constant ed448_goldilocks::sign::SIGNATURE_LENGTH">SIGNATURE_<wbr>LENGTH</a></dt><dd>Length of a signature in bytes</dd></dl></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply","apply_simple_kerning","apply_state_machine_kerning","collect_initial_glyphs","collect_start_end_safe_to_break"],"struct":["Driver1","Driver4","KerxSubtableCache"],"trait":["KerxStateEntryExt","SimpleKerning","StateTableDriver"]};

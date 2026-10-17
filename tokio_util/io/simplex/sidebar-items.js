@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CLOSED_ERROR_MSG"],"fn":["new"],"struct":["Inner","Receiver","Sender"],"type":["IoResult"]};

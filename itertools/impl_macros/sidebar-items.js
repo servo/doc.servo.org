@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["clone_fields",1],["count_ident",1],["debug_fmt_fields",1],["ignore_ident",1]]};

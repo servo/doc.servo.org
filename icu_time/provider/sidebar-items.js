@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SECONDS_TO_EIGHTS_OF_HOURS"],"enum":["MetazoneMembershipKind","TimeZoneVariant"],"mod":["iana","legacy","windows"],"struct":["Baked","MetazoneInfo","TimeZoneVariantULE","Timestamp24","TimezonePeriods","TimezonePeriodsV1","VariantOffsets","VariantOffsetsWithMetazoneMembershipKind"],"type":["MetazoneId"]};

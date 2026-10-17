@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["aspect_ratio","box_generation_mode","box_sizing","content_alignment","dimension","direction","fit_content_function","gap","grid_auto_flow","grid_line","inset","is_block","item_alignment","length_percentage","margin","max_size","max_track","min_size","min_track","overflow","position","track_repeat","track_size"]};

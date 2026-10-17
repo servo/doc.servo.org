@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["callback_promise"],"struct":["RoutedPromiseContext"],"trait":["RoutedPromiseListener"]};

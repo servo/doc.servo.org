@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Position"],"fn":["build_argument","build_flag_parser","build_positional","parse_pos_word"],"struct":["NamedArg","ParseAny","ParseArgument","ParseCommand","ParseFlag","ParsePositional"]};

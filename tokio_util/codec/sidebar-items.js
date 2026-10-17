@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AnyDelimiterCodecError","LinesCodecError"],"mod":["any_delimiter_codec","bytes_codec","decoder","encoder","framed","framed_impl","framed_read","framed_write","length_delimited","lines_codec"],"struct":["AnyDelimiterCodec","BytesCodec","Framed","FramedParts","FramedRead","FramedWrite","LinesCodec"],"trait":["Decoder","Encoder"]};

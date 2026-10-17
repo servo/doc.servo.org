@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["baseprofiler","detail","external","literals","profiler","span_details"]};

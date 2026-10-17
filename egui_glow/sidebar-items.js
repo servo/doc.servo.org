@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ShaderVersion"],"macro":[["check_for_gl_error",1],["check_for_gl_error_even_in_release",1]],"mod":["misc_util","painter","shader_version","vao","winit"]};

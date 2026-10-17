@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ROUNDS_UNTIL_SLEEPING","ROUNDS_UNTIL_SLEEPY"],"mod":["counters"],"struct":["IdleState","Sleep","WorkerSleepState"]};

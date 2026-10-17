@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALIGNED_CAPACITY","CAPACITY","INLINE_PAD_SIZE","LEN_SIZE","MAX_CAPACITY","PAYLOAD_PAD_SIZE","PAYLOAD_SIZE","TAG_SIZE","TARGET_SIZE"],"struct":["InlineVariant","OwnedVariant","Padding","SingletonVariant","Tag","TagVariant"],"type":["Payload","Target"],"union":["KStringInner"]};

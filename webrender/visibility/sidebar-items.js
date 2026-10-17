@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DrawState","KindScratchHandle"],"fn":["compute_conservative_visible_rect","update_prim_visibility"],"struct":["FrameVisibilityContext","FrameVisibilityState","PrimitiveDrawHeader","PrimitiveVisibilityFlags"]};

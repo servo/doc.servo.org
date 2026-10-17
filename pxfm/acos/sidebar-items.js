@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["acos_hard","acos_less_0p5_hard","f_acos"]};

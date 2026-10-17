@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["deref_async_read",1]],"trait":["AsyncRead"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BackgroundMode","SpecificLayoutInfo"],"struct":["BlockLevelLayoutInfo","BoxFragment","BoxFragmentRareData","BoxFragmentWithStyle","ExtraBackground"]};

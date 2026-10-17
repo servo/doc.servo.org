@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["create_format",1],["impl_format",1]],"struct":["ColonSeparator","CommaSeparator","DosLineSeparator","Flexible","Lowercase","Padded","PreferMany","PreferOne","SemicolonSeparator","SpaceSeparator","Strict","UnixLineSeparator","Unpadded","Uppercase"],"trait":["Format","Separator","Strictness"]};

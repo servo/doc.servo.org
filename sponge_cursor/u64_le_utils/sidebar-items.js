@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["absorb_full","absorb_partial","squeeze_read_full","squeeze_read_partial","squeeze_xor_full","squeeze_xor_partial"]};

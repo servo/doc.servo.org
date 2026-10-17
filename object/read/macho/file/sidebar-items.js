@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MachOComdat","MachOComdatIterator","MachOComdatSectionIterator","MachOFile"],"trait":["MachHeader"],"type":["MachOComdat32","MachOComdat64","MachOComdatIterator32","MachOComdatIterator64","MachOComdatSectionIterator32","MachOComdatSectionIterator64","MachOFile32","MachOFile64"]};

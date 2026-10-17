@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_curve_ascending","is_curve_linear16"]};

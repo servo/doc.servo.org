@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BangType","ParseState","ReadRefResult","ReadTextResult"],"macro":[["read_event_impl",1],["read_to_end",1],["read_until_close",1]],"mod":["buffered_reader","ns_reader","slice_reader","state"],"struct":["BinaryStream","Config","NsReader","Reader"],"trait":["XmlSource"],"type":["Span"]};

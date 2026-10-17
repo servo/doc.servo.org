@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_extension_lookup"],"struct":["Lookup","LookupFlags","LookupSubtables","LookupSubtablesIter"],"trait":["LookupSubtable"],"type":["LookupList"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Filter","RowFilter"],"fn":["adaptive_filter","entropy","filter","filter_internal","ilog2i","sum_buffer","unfilter"],"mod":["paeth"]};

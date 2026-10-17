@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["eof","read_exact"],"struct":["ReadExact"]};

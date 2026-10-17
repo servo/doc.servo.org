@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["async_runtime_initialized","init_async_runtime","spawn_blocking_task","spawn_task"],"static":["ASYNC_RUNTIME_HANDLE"],"struct":["AsyncRuntimeHolder"]};

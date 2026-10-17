@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["RECOMMENDED_SALT_LEN"],"enum":["Error"],"fn":["generate_salt","try_generate_salt"],"mod":["error"],"trait":["CustomizedPasswordHasher","PasswordHasher","PasswordVerifier"],"type":["PasswordHash","PasswordHashString","Result","Version"]};

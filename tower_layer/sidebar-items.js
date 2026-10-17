@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["layer_fn"],"mod":["identity","layer_fn","stack","tuple"],"struct":["Identity","LayerFn","Stack"],"trait":["Layer"]};

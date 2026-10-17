@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["FileSystemFileEntry_Binding","GenericBindings"],"trait":["FileSystemFileEntryMethods"],"type":["FileCallback"]};

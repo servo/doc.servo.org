@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ParsingError","SerializeError","SocksError"],"fn":["read_message"],"mod":["v4","v5"],"struct":["Handshaking"],"type":["BoxHandshaking"]};

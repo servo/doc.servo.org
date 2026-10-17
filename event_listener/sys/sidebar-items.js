@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["update_notified"],"struct":["Inner","Link","List","Listener"]};

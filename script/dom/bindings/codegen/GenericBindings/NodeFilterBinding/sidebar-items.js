@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetConstructorObject"],"mod":["NodeFilter_Binding"],"struct":["NodeFilter"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_BYTES_OUT","MAX_FDS_OUT"],"fn":["round_max_buffer_size"],"struct":["Buffer","BufferedSocket","Socket"]};

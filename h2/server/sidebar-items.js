@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PREFACE"],"enum":["Handshaking"],"fn":["handshake"],"struct":["Builder","Connection","Flush","Handshake","Peer","ReadPreface","SendPushedResponse","SendResponse"]};

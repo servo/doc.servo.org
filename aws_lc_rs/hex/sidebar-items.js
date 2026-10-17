@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decode","decode_dirty","encode","encode_upper"]};

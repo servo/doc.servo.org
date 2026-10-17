@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["field","scalar","tables"],"type":["AffinePoint","ProjectivePoint"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["position","propagate_attachment_offsets"],"mod":["GPOS","attach_type"]};

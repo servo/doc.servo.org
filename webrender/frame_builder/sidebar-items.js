@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["build_render_pass"],"struct":["Frame","FrameBuilder","FrameBuilderConfig","FrameBuildingContext","FrameBuildingState","FrameGlobalResources","FrameScratchBuffer","PictureContext","PictureState"]};

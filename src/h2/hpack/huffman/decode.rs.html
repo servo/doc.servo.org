@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/h2-0.4.20/src/hpack/huffman/decode.rs`."><title>decode.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="h2" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">h2/hpack/huffman/</div>decode.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! Huffman decoding for HPACK (RFC 7541 §5.2).
+<a href=#2 id=2 data-nosnippet>2</a>//!
+<a href=#3 id=3 data-nosnippet>3</a>//! The decoder has a fast path which decodes 12 bits a time. The decoder
+<a href=#4 id=4 data-nosnippet>4</a>//! looks the next 12 bits up in `FAST_TABLE`, which maps directly to either
+<a href=#5 id=5 data-nosnippet>5</a>//! one or two symbols to decode. Since ASCII letters and digits have 5-7 bit
+<a href=#6 id=6 data-nosnippet>6</a>//! codes, one lookup usually decodes two symbols at once.
+<a href=#7 id=7 data-nosnippet>7</a>//!
+<a href=#8 id=8 data-nosnippet>8</a>//! Two situations fall off this fast path:
+<a href=#9 id=9 data-nosnippet>9</a>//!
+<a href=#10 id=10 data-nosnippet>10</a>//! - Codes longer than 12 bits: control characters and bytes &gt;= 0x80
+<a href=#11 id=11 data-nosnippet>11</a>//! - The end of the input, when fewer than 12 bits remain.
+<a href=#12 id=12 data-nosnippet>12</a>//!
+<a href=#13 id=13 data-nosnippet>13</a>//! These are decoded by walking the generated `DECODE_TABLE` one input byte at a time.
+<a href=#14 id=14 data-nosnippet>14</a>
+<a href=#15 id=15 data-nosnippet>15</a></span><span class="kw">use </span><span class="kw">crate</span>::hpack::huffman::table::{DECODE_TABLE, ENCODE_CODES, ENCODE_CODE_LENGTHS};
+<a href=#16 id=16 data-nosnippet>16</a><span class="kw">use </span><span class="kw">crate</span>::hpack::DecoderError;
+<a href=#17 id=17 data-nosnippet>17</a>
+<a href=#18 id=18 data-nosnippet>18</a><span class="kw">use </span>bytes::BytesMut;
+<a href=#19 id=19 data-nosnippet>19</a>
+<a href=#20 id=20 data-nosnippet>20</a><span class="comment">// DECODE_TABLE (in the generated `table.rs`) is a series of 256-entry
+<a href=#21 id=21 data-nosnippet>21</a>// tables, walked one input byte at a time. A leaf entry (BRANCH bit clear)
+<a href=#22 id=22 data-nosnippet>22</a>// holds a decoded symbol and the number of bits its code used. A branch
+<a href=#23 id=23 data-nosnippet>23</a>// entry (BRANCH bit set) holds the index of the table for the next byte.
+<a href=#24 id=24 data-nosnippet>24</a>// No valid code leads back to table 0, so a branch to 0 means the input is
+<a href=#25 id=25 data-nosnippet>25</a>// not a valid code.
+<a href=#26 id=26 data-nosnippet>26</a></span><span class="kw">const </span>BRANCH: u16 = <span class="number">0x8000</span>;
+<a href=#27 id=27 data-nosnippet>27</a><span class="kw">const </span>TABLE_INDEX_MASK: u16 = <span class="number">0x7f00</span>;
+<a href=#28 id=28 data-nosnippet>28</a><span class="kw">const </span>TABLE_WIDTH: usize = <span class="number">256</span>;
+<a href=#29 id=29 data-nosnippet>29</a>
+<a href=#30 id=30 data-nosnippet>30</a><span class="comment">// Maps each possible 12-bit chunk of input to the symbol(s) it starts
+<a href=#31 id=31 data-nosnippet>31</a>// with. Entry layout (u32):
+<a href=#32 id=32 data-nosnippet>32</a>//
+<a href=#33 id=33 data-nosnippet>33</a>//   bits  0..8   first decoded byte
+<a href=#34 id=34 data-nosnippet>34</a>//   bits  8..16  second decoded byte (if any)
+<a href=#35 id=35 data-nosnippet>35</a>//   bits 16..24  number of symbols decoded: 1, 2, or 0, where 0 means the
+<a href=#36 id=36 data-nosnippet>36</a>//                code is longer than 12 bits and the slow path must run
+<a href=#37 id=37 data-nosnippet>37</a>//   bits 24..32  how many of the 12 bits the decoded symbols used
+<a href=#38 id=38 data-nosnippet>38</a></span><span class="kw">const </span>FAST_BITS: usize = <span class="number">12</span>;
+<a href=#39 id=39 data-nosnippet>39</a><span class="kw">const </span>FAST_DECODE_TABLE: [u32; <span class="number">1 </span>&lt;&lt; FAST_BITS] = build_fast_table();
+<a href=#40 id=40 data-nosnippet>40</a>
+<a href=#41 id=41 data-nosnippet>41</a><span class="kw">const fn </span>build_fast_table() -&gt; [u32; <span class="number">1 </span>&lt;&lt; FAST_BITS] {
+<a href=#42 id=42 data-nosnippet>42</a>    <span class="kw">let </span><span class="kw-2">mut </span>table = [<span class="number">0</span>; <span class="number">1 </span>&lt;&lt; FAST_BITS];
+<a href=#43 id=43 data-nosnippet>43</a>
+<a href=#44 id=44 data-nosnippet>44</a>    <span class="comment">// First fill in every index that starts with one whole code
+<a href=#45 id=45 data-nosnippet>45</a>    </span><span class="kw">let </span><span class="kw-2">mut </span>a = <span class="number">0</span>;
+<a href=#46 id=46 data-nosnippet>46</a>    <span class="kw">while </span>a &lt; <span class="number">256 </span>{
+<a href=#47 id=47 data-nosnippet>47</a>        <span class="kw">let </span>len1 = ENCODE_CODE_LENGTHS[a] <span class="kw">as </span>usize;
+<a href=#48 id=48 data-nosnippet>48</a>        <span class="kw">let </span>code1 = ENCODE_CODES[a] <span class="kw">as </span>u64;
+<a href=#49 id=49 data-nosnippet>49</a>        <span class="kw">if </span>len1 &lt;= FAST_BITS {
+<a href=#50 id=50 data-nosnippet>50</a>            <span class="kw">let </span>rem = FAST_BITS - len1;
+<a href=#51 id=51 data-nosnippet>51</a>            <span class="kw">let </span>base = (code1 <span class="kw">as </span>usize) &lt;&lt; rem;
+<a href=#52 id=52 data-nosnippet>52</a>            <span class="kw">let </span>single = (<span class="number">1 </span>&lt;&lt; <span class="number">16</span>) | ((len1 <span class="kw">as </span>u32) &lt;&lt; <span class="number">24</span>) | a <span class="kw">as </span>u32;
+<a href=#53 id=53 data-nosnippet>53</a>            <span class="kw">let </span><span class="kw-2">mut </span>i = <span class="number">0</span>;
+<a href=#54 id=54 data-nosnippet>54</a>            <span class="kw">while </span>i &lt; (<span class="number">1 </span>&lt;&lt; rem) {
+<a href=#55 id=55 data-nosnippet>55</a>                table[base + i] = single;
+<a href=#56 id=56 data-nosnippet>56</a>                i += <span class="number">1</span>;
+<a href=#57 id=57 data-nosnippet>57</a>            }
+<a href=#58 id=58 data-nosnippet>58</a>        }
+<a href=#59 id=59 data-nosnippet>59</a>        a += <span class="number">1</span>;
+<a href=#60 id=60 data-nosnippet>60</a>    }
+<a href=#61 id=61 data-nosnippet>61</a>
+<a href=#62 id=62 data-nosnippet>62</a>    <span class="comment">// Overwrite the indices where a second whole code fit right after the first
+<a href=#63 id=63 data-nosnippet>63</a>    </span><span class="kw">let </span><span class="kw-2">mut </span>a = <span class="number">0</span>;
+<a href=#64 id=64 data-nosnippet>64</a>    <span class="kw">while </span>a &lt; <span class="number">256 </span>{
+<a href=#65 id=65 data-nosnippet>65</a>        <span class="kw">let </span>len1 = ENCODE_CODE_LENGTHS[a] <span class="kw">as </span>usize;
+<a href=#66 id=66 data-nosnippet>66</a>        <span class="kw">let </span>code1 = ENCODE_CODES[a] <span class="kw">as </span>u64;
+<a href=#67 id=67 data-nosnippet>67</a>        <span class="comment">// A second code needs at least 5 more bits (the shortest code)
+<a href=#68 id=68 data-nosnippet>68</a>        </span><span class="kw">if </span>len1 + <span class="number">5 </span>&lt;= FAST_BITS {
+<a href=#69 id=69 data-nosnippet>69</a>            <span class="kw">let </span>rem = FAST_BITS - len1;
+<a href=#70 id=70 data-nosnippet>70</a>            <span class="kw">let </span><span class="kw-2">mut </span>b = <span class="number">0</span>;
+<a href=#71 id=71 data-nosnippet>71</a>            <span class="kw">while </span>b &lt; <span class="number">256 </span>{
+<a href=#72 id=72 data-nosnippet>72</a>                <span class="kw">let </span>len2 = ENCODE_CODE_LENGTHS[b] <span class="kw">as </span>usize;
+<a href=#73 id=73 data-nosnippet>73</a>                <span class="kw">let </span>code2 = ENCODE_CODES[b] <span class="kw">as </span>u64;
+<a href=#74 id=74 data-nosnippet>74</a>                <span class="kw">if </span>len2 &lt;= rem {
+<a href=#75 id=75 data-nosnippet>75</a>                    <span class="kw">let </span>rem2 = rem - len2;
+<a href=#76 id=76 data-nosnippet>76</a>                    <span class="kw">let </span>base = ((code1 <span class="kw">as </span>usize) &lt;&lt; rem) | ((code2 <span class="kw">as </span>usize) &lt;&lt; rem2);
+<a href=#77 id=77 data-nosnippet>77</a>                    <span class="kw">let </span>pair =
+<a href=#78 id=78 data-nosnippet>78</a>                        (<span class="number">2 </span>&lt;&lt; <span class="number">16</span>) | (((len1 + len2) <span class="kw">as </span>u32) &lt;&lt; <span class="number">24</span>) | ((b <span class="kw">as </span>u32) &lt;&lt; <span class="number">8</span>) | a <span class="kw">as </span>u32;
+<a href=#79 id=79 data-nosnippet>79</a>                    <span class="kw">let </span><span class="kw-2">mut </span>i = <span class="number">0</span>;
+<a href=#80 id=80 data-nosnippet>80</a>                    <span class="kw">while </span>i &lt; (<span class="number">1 </span>&lt;&lt; rem2) {
+<a href=#81 id=81 data-nosnippet>81</a>                        table[base + i] = pair;
+<a href=#82 id=82 data-nosnippet>82</a>                        i += <span class="number">1</span>;
+<a href=#83 id=83 data-nosnippet>83</a>                    }
+<a href=#84 id=84 data-nosnippet>84</a>                }
+<a href=#85 id=85 data-nosnippet>85</a>                b += <span class="number">1</span>;
+<a href=#86 id=86 data-nosnippet>86</a>            }
+<a href=#87 id=87 data-nosnippet>87</a>        }
+<a href=#88 id=88 data-nosnippet>88</a>        a += <span class="number">1</span>;
+<a href=#89 id=89 data-nosnippet>89</a>    }
+<a href=#90 id=90 data-nosnippet>90</a>
+<a href=#91 id=91 data-nosnippet>91</a>    table
+<a href=#92 id=92 data-nosnippet>92</a>}
+<a href=#93 id=93 data-nosnippet>93</a>
+<a href=#94 id=94 data-nosnippet>94</a><span class="comment">// Decodes one code of any length by walking DECODE_TABLE one input byte at
+<a href=#95 id=95 data-nosnippet>95</a>// a time, and writes the symbol to `dst[*o]`. Used for codes longer than
+<a href=#96 id=96 data-nosnippet>96</a>// FAST_BITS bits and for the tail of the input.
+<a href=#97 id=97 data-nosnippet>97</a>//
+<a href=#98 id=98 data-nosnippet>98</a>// Inlining avoids a 35% performance regression on ASCII benchmarks.
+<a href=#99 id=99 data-nosnippet>99</a></span><span class="attr">#[inline(always)]
+<a href=#100 id=100 data-nosnippet>100</a></span><span class="kw">fn </span>decode_code_slow(
+<a href=#101 id=101 data-nosnippet>101</a>    acc: <span class="kw-2">&amp;mut </span>u64,
+<a href=#102 id=102 data-nosnippet>102</a>    bits: <span class="kw-2">&amp;mut </span>usize,
+<a href=#103 id=103 data-nosnippet>103</a>    dst: <span class="kw-2">&amp;mut </span>[u8],
+<a href=#104 id=104 data-nosnippet>104</a>    o: <span class="kw-2">&amp;mut </span>usize,
+<a href=#105 id=105 data-nosnippet>105</a>) -&gt; <span class="prelude-ty">Result</span>&lt;(), DecoderError&gt; {
+<a href=#106 id=106 data-nosnippet>106</a>    <span class="kw">let </span><span class="kw-2">mut </span>table = <span class="number">0</span>;
+<a href=#107 id=107 data-nosnippet>107</a>    <span class="kw">loop </span>{
+<a href=#108 id=108 data-nosnippet>108</a>        <span class="kw">let </span>e = DECODE_TABLE[table * TABLE_WIDTH + (<span class="kw-2">*</span>acc &gt;&gt; <span class="number">56</span>) <span class="kw">as </span>usize];
+<a href=#109 id=109 data-nosnippet>109</a>        <span class="kw">if </span>e &amp; BRANCH == <span class="number">0 </span>{
+<a href=#110 id=110 data-nosnippet>110</a>            <span class="kw">let </span>used = (e &gt;&gt; <span class="number">8</span>) <span class="kw">as </span>usize;
+<a href=#111 id=111 data-nosnippet>111</a>            <span class="kw">if </span>used &gt; <span class="kw-2">*</span>bits {
+<a href=#112 id=112 data-nosnippet>112</a>                <span class="kw">return </span><span class="prelude-val">Err</span>(DecoderError::InvalidHuffmanCode);
+<a href=#113 id=113 data-nosnippet>113</a>            }
+<a href=#114 id=114 data-nosnippet>114</a>            dst[<span class="kw-2">*</span>o] = e <span class="kw">as </span>u8;
+<a href=#115 id=115 data-nosnippet>115</a>            <span class="kw-2">*</span>o += <span class="number">1</span>;
+<a href=#116 id=116 data-nosnippet>116</a>            <span class="kw-2">*</span>acc &lt;&lt;= used;
+<a href=#117 id=117 data-nosnippet>117</a>            <span class="kw-2">*</span>bits -= used;
+<a href=#118 id=118 data-nosnippet>118</a>            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+<a href=#119 id=119 data-nosnippet>119</a>        }
+<a href=#120 id=120 data-nosnippet>120</a>        <span class="kw">if </span><span class="kw-2">*</span>bits &lt; <span class="number">8 </span>{
+<a href=#121 id=121 data-nosnippet>121</a>            <span class="kw">return </span><span class="prelude-val">Err</span>(DecoderError::InvalidHuffmanCode);
+<a href=#122 id=122 data-nosnippet>122</a>        }
+<a href=#123 id=123 data-nosnippet>123</a>        table = ((e &amp; TABLE_INDEX_MASK) &gt;&gt; <span class="number">8</span>) <span class="kw">as </span>usize;
+<a href=#124 id=124 data-nosnippet>124</a>        <span class="kw">if </span>table == <span class="number">0 </span>{
+<a href=#125 id=125 data-nosnippet>125</a>            <span class="kw">return </span><span class="prelude-val">Err</span>(DecoderError::InvalidHuffmanCode);
+<a href=#126 id=126 data-nosnippet>126</a>        }
+<a href=#127 id=127 data-nosnippet>127</a>        <span class="kw-2">*</span>acc &lt;&lt;= <span class="number">8</span>;
+<a href=#128 id=128 data-nosnippet>128</a>        <span class="kw-2">*</span>bits -= <span class="number">8</span>;
+<a href=#129 id=129 data-nosnippet>129</a>    }
+<a href=#130 id=130 data-nosnippet>130</a>}
+<a href=#131 id=131 data-nosnippet>131</a>
+<a href=#132 id=132 data-nosnippet>132</a><span class="comment">// Decodes a Huffman encoded string into the provided buffer.
+<a href=#133 id=133 data-nosnippet>133</a></span><span class="kw">pub fn </span>decode(src: <span class="kw-2">&amp;</span>[u8], buf: <span class="kw-2">&amp;mut </span>BytesMut) -&gt; <span class="prelude-ty">Result</span>&lt;BytesMut, DecoderError&gt; {
+<a href=#134 id=134 data-nosnippet>134</a>    <span class="kw">let </span>len = src.len();
+<a href=#135 id=135 data-nosnippet>135</a>    <span class="kw">let </span>base_len = buf.len();
+<a href=#136 id=136 data-nosnippet>136</a>
+<a href=#137 id=137 data-nosnippet>137</a>    <span class="comment">// Reserve the worst case output size. Every code is at least 5 bits,
+<a href=#138 id=138 data-nosnippet>138</a>    // so `len` input bytes can't decode to more than `len * 8 / 5` output
+<a href=#139 id=139 data-nosnippet>139</a>    // bytes. One more byte covers the fast path always writing two bytes
+<a href=#140 id=140 data-nosnippet>140</a>    // even when it decoded only one symbol.
+<a href=#141 id=141 data-nosnippet>141</a>    </span>buf.resize(base_len + len * <span class="number">8 </span>/ <span class="number">5 </span>+ <span class="number">1</span>, <span class="number">0</span>);
+<a href=#142 id=142 data-nosnippet>142</a>    <span class="kw">let </span>dst = <span class="kw-2">&amp;mut </span>buf[base_len..];
+<a href=#143 id=143 data-nosnippet>143</a>    <span class="kw">let </span><span class="kw-2">mut </span>o = <span class="number">0</span>;
+<a href=#144 id=144 data-nosnippet>144</a>
+<a href=#145 id=145 data-nosnippet>145</a>    <span class="kw">let </span><span class="kw-2">mut </span>acc: u64 = <span class="number">0</span>;
+<a href=#146 id=146 data-nosnippet>146</a>    <span class="kw">let </span><span class="kw-2">mut </span>bits: usize = <span class="number">0</span>;
+<a href=#147 id=147 data-nosnippet>147</a>    <span class="kw">let </span><span class="kw-2">mut </span>pos: usize = <span class="number">0</span>;
+<a href=#148 id=148 data-nosnippet>148</a>
+<a href=#149 id=149 data-nosnippet>149</a>    <span class="lifetime">'outer</span>: <span class="kw">loop </span>{
+<a href=#150 id=150 data-nosnippet>150</a>        <span class="comment">// Fill the bit buffer. While 8 or more input bytes remain, load
+<a href=#151 id=151 data-nosnippet>151</a>        // the next 8 in one go and count as many whole bytes as fit under
+<a href=#152 id=152 data-nosnippet>152</a>        // the bits already in the buffer (bringing it to 56-63 bits). The
+<a href=#153 id=153 data-nosnippet>153</a>        // bytes that didn't fit still land in the low end of `acc`; the
+<a href=#154 id=154 data-nosnippet>154</a>        // next refill just ORs the same values over them, so no harm done.
+<a href=#155 id=155 data-nosnippet>155</a>        </span><span class="kw">if </span>pos + <span class="number">8 </span>&lt;= len {
+<a href=#156 id=156 data-nosnippet>156</a>            <span class="kw">let </span>word = u64::from_be_bytes(src[pos..pos + <span class="number">8</span>].try_into().unwrap());
+<a href=#157 id=157 data-nosnippet>157</a>            acc |= word &gt;&gt; bits;
+<a href=#158 id=158 data-nosnippet>158</a>            pos += (<span class="number">63 </span>- bits) &gt;&gt; <span class="number">3</span>; <span class="comment">// bytes now accounted for in `bits`
+<a href=#159 id=159 data-nosnippet>159</a>            </span>bits |= <span class="number">56</span>; <span class="comment">// equals bits + 8 * (bytes added)
+<a href=#160 id=160 data-nosnippet>160</a>        </span>} <span class="kw">else </span>{
+<a href=#161 id=161 data-nosnippet>161</a>            <span class="kw">while </span>bits &lt;= <span class="number">56 </span>&amp;&amp; pos &lt; len {
+<a href=#162 id=162 data-nosnippet>162</a>                acc |= (src[pos] <span class="kw">as </span>u64) &lt;&lt; (<span class="number">56 </span>- bits);
+<a href=#163 id=163 data-nosnippet>163</a>                pos += <span class="number">1</span>;
+<a href=#164 id=164 data-nosnippet>164</a>                bits += <span class="number">8</span>;
+<a href=#165 id=165 data-nosnippet>165</a>            }
+<a href=#166 id=166 data-nosnippet>166</a>        }
+<a href=#167 id=167 data-nosnippet>167</a>
+<a href=#168 id=168 data-nosnippet>168</a>        <span class="kw">while </span>bits &gt;= FAST_BITS {
+<a href=#169 id=169 data-nosnippet>169</a>            <span class="kw">let </span>entry = FAST_DECODE_TABLE[(acc &gt;&gt; (<span class="number">64 </span>- FAST_BITS)) <span class="kw">as </span>usize];
+<a href=#170 id=170 data-nosnippet>170</a>            <span class="kw">let </span>count = (entry &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xff</span>;
+<a href=#171 id=171 data-nosnippet>171</a>            <span class="kw">if </span>count == <span class="number">0 </span>{
+<a href=#172 id=172 data-nosnippet>172</a>                <span class="comment">// The next code is longer than 12 bits. Refill first if it
+<a href=#173 id=173 data-nosnippet>173</a>                // might not be in the buffer yet (the longest code is 30
+<a href=#174 id=174 data-nosnippet>174</a>                // bits), then decode it by walking DECODE_TABLE.
+<a href=#175 id=175 data-nosnippet>175</a>                </span><span class="kw">if </span>bits &lt; <span class="number">30 </span>&amp;&amp; pos &lt; len {
+<a href=#176 id=176 data-nosnippet>176</a>                    <span class="kw">continue </span><span class="lifetime">'outer</span>;
+<a href=#177 id=177 data-nosnippet>177</a>                }
+<a href=#178 id=178 data-nosnippet>178</a>                decode_code_slow(<span class="kw-2">&amp;mut </span>acc, <span class="kw-2">&amp;mut </span>bits, dst, <span class="kw-2">&amp;mut </span>o)<span class="question-mark">?</span>;
+<a href=#179 id=179 data-nosnippet>179</a>                <span class="kw">continue</span>;
+<a href=#180 id=180 data-nosnippet>180</a>            }
+<a href=#181 id=181 data-nosnippet>181</a>            <span class="kw">let </span>consumed = (entry &gt;&gt; <span class="number">24</span>) <span class="kw">as </span>usize;
+<a href=#182 id=182 data-nosnippet>182</a>            dst[o] = entry <span class="kw">as </span>u8;
+<a href=#183 id=183 data-nosnippet>183</a>            dst[o + <span class="number">1</span>] = (entry &gt;&gt; <span class="number">8</span>) <span class="kw">as </span>u8;
+<a href=#184 id=184 data-nosnippet>184</a>            o += count <span class="kw">as </span>usize;
+<a href=#185 id=185 data-nosnippet>185</a>            acc &lt;&lt;= consumed;
+<a href=#186 id=186 data-nosnippet>186</a>            bits -= consumed;
+<a href=#187 id=187 data-nosnippet>187</a>        }
+<a href=#188 id=188 data-nosnippet>188</a>
+<a href=#189 id=189 data-nosnippet>189</a>        <span class="kw">if </span>pos &gt;= len {
+<a href=#190 id=190 data-nosnippet>190</a>            <span class="kw">break</span>;
+<a href=#191 id=191 data-nosnippet>191</a>        }
+<a href=#192 id=192 data-nosnippet>192</a>    }
+<a href=#193 id=193 data-nosnippet>193</a>
+<a href=#194 id=194 data-nosnippet>194</a>    <span class="comment">// Tail: the input is exhausted and fewer than 12 bits remain.
+<a href=#195 id=195 data-nosnippet>195</a>    </span><span class="kw">while </span>bits &gt; <span class="number">0 </span>{
+<a href=#196 id=196 data-nosnippet>196</a>        <span class="comment">// The encoder pads the last byte with up to 7 one-bits, which are
+<a href=#197 id=197 data-nosnippet>197</a>        // valid only between symbols. Anything else must decode.
+<a href=#198 id=198 data-nosnippet>198</a>        </span><span class="kw">if </span>bits &lt; <span class="number">8 </span>&amp;&amp; (acc &gt;&gt; (<span class="number">64 </span>- bits)) == (<span class="number">1 </span>&lt;&lt; bits) - <span class="number">1 </span>{
+<a href=#199 id=199 data-nosnippet>199</a>            <span class="kw">break</span>;
+<a href=#200 id=200 data-nosnippet>200</a>        }
+<a href=#201 id=201 data-nosnippet>201</a>        decode_code_slow(<span class="kw-2">&amp;mut </span>acc, <span class="kw-2">&amp;mut </span>bits, dst, <span class="kw-2">&amp;mut </span>o)<span class="question-mark">?</span>;
+<a href=#202 id=202 data-nosnippet>202</a>    }
+<a href=#203 id=203 data-nosnippet>203</a>
+<a href=#204 id=204 data-nosnippet>204</a>    buf.truncate(base_len + o);
+<a href=#205 id=205 data-nosnippet>205</a>    <span class="prelude-val">Ok</span>(buf.split())
+<a href=#206 id=206 data-nosnippet>206</a>}
+<a href=#207 id=207 data-nosnippet>207</a>
+<a href=#208 id=208 data-nosnippet>208</a><span class="attr">#[cfg(test)]
+<a href=#209 id=209 data-nosnippet>209</a></span><span class="kw">mod </span>test {
+<a href=#210 id=210 data-nosnippet>210</a>    <span class="kw">use super</span>::<span class="kw-2">*</span>;
+<a href=#211 id=211 data-nosnippet>211</a>
+<a href=#212 id=212 data-nosnippet>212</a>    <span class="kw">use </span>bytes::BufMut;
+<a href=#213 id=213 data-nosnippet>213</a>    <span class="kw">use </span>rand::rngs::StdRng;
+<a href=#214 id=214 data-nosnippet>214</a>    <span class="kw">use </span>rand::{Rng, SeedableRng};
+<a href=#215 id=215 data-nosnippet>215</a>
+<a href=#216 id=216 data-nosnippet>216</a>    <span class="kw">fn </span>decode(src: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;BytesMut, DecoderError&gt; {
+<a href=#217 id=217 data-nosnippet>217</a>        <span class="kw">let </span><span class="kw-2">mut </span>buf = BytesMut::new();
+<a href=#218 id=218 data-nosnippet>218</a>        <span class="kw">super</span>::decode(src, <span class="kw-2">&amp;mut </span>buf)
+<a href=#219 id=219 data-nosnippet>219</a>    }
+<a href=#220 id=220 data-nosnippet>220</a>
+<a href=#221 id=221 data-nosnippet>221</a>    <span class="comment">// The simplest decoder we can write, used to double-check the real
+<a href=#222 id=222 data-nosnippet>222</a>    // one: turn the input into a literal string of '0'/'1' characters and
+<a href=#223 id=223 data-nosnippet>223</a>    // repeatedly strip off the first code that matches. No code is a
+<a href=#224 id=224 data-nosnippet>224</a>    // prefix of another, so at most one can match. EOS (index 256) is left
+<a href=#225 id=225 data-nosnippet>225</a>    // out on purpose: encoded EOS is an error per RFC 7541 §5.2.
+<a href=#226 id=226 data-nosnippet>226</a>    </span><span class="kw">fn </span>reference_decode(src: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;BytesMut, DecoderError&gt; {
+<a href=#227 id=227 data-nosnippet>227</a>        <span class="comment">// Each symbol's code as a string of '0' and '1', e.g. "11111000".
+<a href=#228 id=228 data-nosnippet>228</a>        </span><span class="kw">let </span>codes: Vec&lt;String&gt; = ENCODE_CODES
+<a href=#229 id=229 data-nosnippet>229</a>            .iter()
+<a href=#230 id=230 data-nosnippet>230</a>            .zip(ENCODE_CODE_LENGTHS.iter())
+<a href=#231 id=231 data-nosnippet>231</a>            .map(|(<span class="kw-2">&amp;</span>code, <span class="kw-2">&amp;</span>len)| <span class="macro">format!</span>(<span class="string">"{code:0len$b}"</span>, len = len <span class="kw">as </span>usize))
+<a href=#232 id=232 data-nosnippet>232</a>            .collect();
+<a href=#233 id=233 data-nosnippet>233</a>        <span class="kw">let </span>bits: String = src.iter().map(|byte| <span class="macro">format!</span>(<span class="string">"{byte:08b}"</span>)).collect();
+<a href=#234 id=234 data-nosnippet>234</a>
+<a href=#235 id=235 data-nosnippet>235</a>        <span class="kw">let </span><span class="kw-2">mut </span>decoded = BytesMut::new();
+<a href=#236 id=236 data-nosnippet>236</a>        <span class="kw">let </span><span class="kw-2">mut </span>remaining_bits: <span class="kw-2">&amp;</span>str = <span class="kw-2">&amp;</span>bits;
+<a href=#237 id=237 data-nosnippet>237</a>        <span class="kw">while let </span><span class="prelude-val">Some</span>(sym) = (<span class="number">0</span>..<span class="number">256</span>).find(|<span class="kw-2">&amp;</span>sym| remaining_bits.starts_with(<span class="kw-2">&amp;</span>codes[sym])) {
+<a href=#238 id=238 data-nosnippet>238</a>            decoded.put_u8(sym <span class="kw">as </span>u8);
+<a href=#239 id=239 data-nosnippet>239</a>            remaining_bits = <span class="kw-2">&amp;</span>remaining_bits[codes[sym].len()..];
+<a href=#240 id=240 data-nosnippet>240</a>        }
+<a href=#241 id=241 data-nosnippet>241</a>        <span class="comment">// We expect anything that cannot be matched to be padding. Padding is
+<a href=#242 id=242 data-nosnippet>242</a>        // fewer than 8 bits, and all ones.
+<a href=#243 id=243 data-nosnippet>243</a>        </span><span class="kw">if </span>remaining_bits.len() &gt;= <span class="number">8 </span>|| remaining_bits.chars().any(|bit| bit == <span class="string">'0'</span>) {
+<a href=#244 id=244 data-nosnippet>244</a>            <span class="kw">return </span><span class="prelude-val">Err</span>(DecoderError::InvalidHuffmanCode);
+<a href=#245 id=245 data-nosnippet>245</a>        }
+<a href=#246 id=246 data-nosnippet>246</a>        <span class="prelude-val">Ok</span>(decoded)
+<a href=#247 id=247 data-nosnippet>247</a>    }
+<a href=#248 id=248 data-nosnippet>248</a>
+<a href=#249 id=249 data-nosnippet>249</a>    <span class="attr">#[test]
+<a href=#250 id=250 data-nosnippet>250</a>    </span><span class="kw">fn </span>decode_single_byte() {
+<a href=#251 id=251 data-nosnippet>251</a>        <span class="macro">assert_eq!</span>(<span class="string">"o"</span>, decode(<span class="kw-2">&amp;</span>[<span class="number">0b00111111</span>]).unwrap());
+<a href=#252 id=252 data-nosnippet>252</a>        <span class="macro">assert_eq!</span>(<span class="string">"0"</span>, decode(<span class="kw-2">&amp;</span>[<span class="number">7</span>]).unwrap());
+<a href=#253 id=253 data-nosnippet>253</a>        <span class="macro">assert_eq!</span>(<span class="string">"A"</span>, decode(<span class="kw-2">&amp;</span>[(<span class="number">0x21 </span>&lt;&lt; <span class="number">2</span>) + <span class="number">3</span>]).unwrap());
+<a href=#254 id=254 data-nosnippet>254</a>    }
+<a href=#255 id=255 data-nosnippet>255</a>
+<a href=#256 id=256 data-nosnippet>256</a>    <span class="attr">#[test]
+<a href=#257 id=257 data-nosnippet>257</a>    </span><span class="kw">fn </span>single_char_multi_byte() {
+<a href=#258 id=258 data-nosnippet>258</a>        <span class="macro">assert_eq!</span>(<span class="string">"#"</span>, decode(<span class="kw-2">&amp;</span>[<span class="number">255</span>, <span class="number">160 </span>+ <span class="number">15</span>]).unwrap());
+<a href=#259 id=259 data-nosnippet>259</a>        <span class="macro">assert_eq!</span>(<span class="string">"$"</span>, decode(<span class="kw-2">&amp;</span>[<span class="number">255</span>, <span class="number">200 </span>+ <span class="number">7</span>]).unwrap());
+<a href=#260 id=260 data-nosnippet>260</a>        <span class="macro">assert_eq!</span>(<span class="string">"\x0a"</span>, decode(<span class="kw-2">&amp;</span>[<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">240 </span>+ <span class="number">3</span>]).unwrap());
+<a href=#261 id=261 data-nosnippet>261</a>    }
+<a href=#262 id=262 data-nosnippet>262</a>
+<a href=#263 id=263 data-nosnippet>263</a>    <span class="attr">#[test]
+<a href=#264 id=264 data-nosnippet>264</a>    </span><span class="kw">fn </span>multi_char() {
+<a href=#265 id=265 data-nosnippet>265</a>        <span class="macro">assert_eq!</span>(<span class="string">"!0"</span>, decode(<span class="kw-2">&amp;</span>[<span class="number">254</span>, <span class="number">1</span>]).unwrap());
+<a href=#266 id=266 data-nosnippet>266</a>        <span class="macro">assert_eq!</span>(<span class="string">" !"</span>, decode(<span class="kw-2">&amp;</span>[<span class="number">0b01010011</span>, <span class="number">0b11111000</span>]).unwrap());
+<a href=#267 id=267 data-nosnippet>267</a>    }
+<a href=#268 id=268 data-nosnippet>268</a>
+<a href=#269 id=269 data-nosnippet>269</a>    <span class="comment">// Random (mostly invalid) byte strings must produce identical results to reference impl
+<a href=#270 id=270 data-nosnippet>270</a>    </span><span class="attr">#[test]
+<a href=#271 id=271 data-nosnippet>271</a>    </span><span class="kw">fn </span>matches_reference_on_arbitrary_bytes() {
+<a href=#272 id=272 data-nosnippet>272</a>        <span class="kw">let </span><span class="kw-2">mut </span>rng = StdRng::seed_from_u64(<span class="number">0xdeadbeefcafe</span>);
+<a href=#273 id=273 data-nosnippet>273</a>
+<a href=#274 id=274 data-nosnippet>274</a>        <span class="kw">for _ in </span><span class="number">0</span>..<span class="number">10_000 </span>{
+<a href=#275 id=275 data-nosnippet>275</a>            <span class="kw">let </span>len = rng.gen_range(<span class="number">0</span>..<span class="number">40</span>);
+<a href=#276 id=276 data-nosnippet>276</a>            <span class="kw">let </span>src: Vec&lt;u8&gt; = (<span class="number">0</span>..len).map(|<span class="kw">_</span>| rng.<span class="kw">gen</span>()).collect();
+<a href=#277 id=277 data-nosnippet>277</a>            <span class="macro">assert_eq!</span>(reference_decode(<span class="kw-2">&amp;</span>src), decode(<span class="kw-2">&amp;</span>src), <span class="string">"src={:?}"</span>, src);
+<a href=#278 id=278 data-nosnippet>278</a>        }
+<a href=#279 id=279 data-nosnippet>279</a>
+<a href=#280 id=280 data-nosnippet>280</a>        <span class="comment">// Bias toward high bytes to exercise long codes and EOS prefixes.
+<a href=#281 id=281 data-nosnippet>281</a>        </span><span class="kw">for _ in </span><span class="number">0</span>..<span class="number">10_000 </span>{
+<a href=#282 id=282 data-nosnippet>282</a>            <span class="kw">let </span>len = rng.gen_range(<span class="number">0</span>..<span class="number">40</span>);
+<a href=#283 id=283 data-nosnippet>283</a>            <span class="kw">let </span>src: Vec&lt;u8&gt; = (<span class="number">0</span>..len).map(|<span class="kw">_</span>| rng.<span class="kw">gen</span>::&lt;u8&gt;() | <span class="number">0xe0</span>).collect();
+<a href=#284 id=284 data-nosnippet>284</a>            <span class="macro">assert_eq!</span>(reference_decode(<span class="kw-2">&amp;</span>src), decode(<span class="kw-2">&amp;</span>src), <span class="string">"src={:?}"</span>, src);
+<a href=#285 id=285 data-nosnippet>285</a>        }
+<a href=#286 id=286 data-nosnippet>286</a>    }
+<a href=#287 id=287 data-nosnippet>287</a>
+<a href=#288 id=288 data-nosnippet>288</a>    <span class="attr">#[test]
+<a href=#289 id=289 data-nosnippet>289</a>    </span><span class="kw">fn </span>rejects_eos_and_invalid_padding() {
+<a href=#290 id=290 data-nosnippet>290</a>        <span class="macro">assert_eq!</span>(decode(<span class="kw-2">&amp;</span>[<span class="number">0xff</span>]), <span class="prelude-val">Err</span>(DecoderError::InvalidHuffmanCode));
+<a href=#291 id=291 data-nosnippet>291</a>        <span class="macro">assert_eq!</span>(
+<a href=#292 id=292 data-nosnippet>292</a>            decode(<span class="kw-2">&amp;</span>[<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>]),
+<a href=#293 id=293 data-nosnippet>293</a>            <span class="prelude-val">Err</span>(DecoderError::InvalidHuffmanCode)
+<a href=#294 id=294 data-nosnippet>294</a>        );
+<a href=#295 id=295 data-nosnippet>295</a>        <span class="macro">assert_eq!</span>(decode(<span class="kw-2">&amp;</span>[<span class="number">0</span>]), <span class="prelude-val">Err</span>(DecoderError::InvalidHuffmanCode));
+<a href=#296 id=296 data-nosnippet>296</a>    }
+<a href=#297 id=297 data-nosnippet>297</a>}
+<a href=#298 id=298 data-nosnippet>298</a>
+<a href=#299 id=299 data-nosnippet>299</a><span class="comment">/*
+<a href=#300 id=300 data-nosnippet>300</a>// uncomment to run benchmarks
+<a href=#301 id=301 data-nosnippet>301</a>#[cfg(test)]
+<a href=#302 id=302 data-nosnippet>302</a>mod bench {
+<a href=#303 id=303 data-nosnippet>303</a>    extern crate test;
+<a href=#304 id=304 data-nosnippet>304</a>
+<a href=#305 id=305 data-nosnippet>305</a>    use self::test::{black_box, Bencher};
+<a href=#306 id=306 data-nosnippet>306</a>    use super::*;
+<a href=#307 id=307 data-nosnippet>307</a>
+<a href=#308 id=308 data-nosnippet>308</a>    use crate::hpack::huffman::encode;
+<a href=#309 id=309 data-nosnippet>309</a>
+<a href=#310 id=310 data-nosnippet>310</a>    fn decode_input(b: &amp;mut Bencher, input: &amp;[u8]) {
+<a href=#311 id=311 data-nosnippet>311</a>        let mut encoded = BytesMut::new();
+<a href=#312 id=312 data-nosnippet>312</a>        encode(input, &amp;mut encoded);
+<a href=#313 id=313 data-nosnippet>313</a>
+<a href=#314 id=314 data-nosnippet>314</a>        let mut scratch = BytesMut::with_capacity(input.len() * 2);
+<a href=#315 id=315 data-nosnippet>315</a>        b.bytes = encoded.len() as u64;
+<a href=#316 id=316 data-nosnippet>316</a>        b.iter(|| {
+<a href=#317 id=317 data-nosnippet>317</a>            let decoded = decode(black_box(encoded.as_ref()), &amp;mut scratch).unwrap();
+<a href=#318 id=318 data-nosnippet>318</a>            black_box(decoded);
+<a href=#319 id=319 data-nosnippet>319</a>        });
+<a href=#320 id=320 data-nosnippet>320</a>    }
+<a href=#321 id=321 data-nosnippet>321</a>
+<a href=#322 id=322 data-nosnippet>322</a>    #[bench]
+<a href=#323 id=323 data-nosnippet>323</a>    fn decode_short_ascii(b: &amp;mut Bencher) {
+<a href=#324 id=324 data-nosnippet>324</a>        decode_input(b, b"www.example.com");
+<a href=#325 id=325 data-nosnippet>325</a>    }
+<a href=#326 id=326 data-nosnippet>326</a>
+<a href=#327 id=327 data-nosnippet>327</a>    #[bench]
+<a href=#328 id=328 data-nosnippet>328</a>    fn decode_header_value(b: &amp;mut Bencher) {
+<a href=#329 id=329 data-nosnippet>329</a>        decode_input(
+<a href=#330 id=330 data-nosnippet>330</a>            b,
+<a href=#331 id=331 data-nosnippet>331</a>            b"text/html,application/xhtml+xml,application/xml;q=0.9;q=0.8",
+<a href=#332 id=332 data-nosnippet>332</a>        );
+<a href=#333 id=333 data-nosnippet>333</a>    }
+<a href=#334 id=334 data-nosnippet>334</a>
+<a href=#335 id=335 data-nosnippet>335</a>    #[bench]
+<a href=#336 id=336 data-nosnippet>336</a>    fn decode_long_ascii(b: &amp;mut Bencher) {
+<a href=#337 id=337 data-nosnippet>337</a>        decode_input(
+<a href=#338 id=338 data-nosnippet>338</a>            b,
+<a href=#339 id=339 data-nosnippet>339</a>            b"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:16.0) Gecko/20100101 Firefox/16.0",
+<a href=#340 id=340 data-nosnippet>340</a>        );
+<a href=#341 id=341 data-nosnippet>341</a>    }
+<a href=#342 id=342 data-nosnippet>342</a>
+<a href=#343 id=343 data-nosnippet>343</a>    #[bench]
+<a href=#344 id=344 data-nosnippet>344</a>    fn decode_all_octets(b: &amp;mut Bencher) {
+<a href=#345 id=345 data-nosnippet>345</a>        let input: Vec&lt;_&gt; = (0..=u8::MAX).collect();
+<a href=#346 id=346 data-nosnippet>346</a>        decode_input(b, &amp;input);
+<a href=#347 id=347 data-nosnippet>347</a>    }
+<a href=#348 id=348 data-nosnippet>348</a>}
+<a href=#349 id=349 data-nosnippet>349</a>*/
+</span></code></pre></div></section></main></body></html>

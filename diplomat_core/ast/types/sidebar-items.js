@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CustomType","LifetimeOrigin","ModSymbol","Mutability","PrimitiveType","StdlibOrDiplomat","StringEncoding","TypeName"],"fn":["get_lifetime_from_syn_path","get_ty_from_syn_path","is_runtime_type"],"struct":["LifetimeGenericsListDisplay","LifetimeGenericsListPartialDisplay","PathType","ReferenceDisplay"]};

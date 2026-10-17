@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":["Add","AddAssign","BatchInvert","Double","Invert","LinearCombination","Mul","MulAssign","MulByGeneratorVartime","MulVartime","Neg","Reduce","ReduceNonZero","Retrieve","Shr","ShrAssign","Sub","SubAssign"]};

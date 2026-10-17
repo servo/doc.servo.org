@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SEQ_HARD_LIMIT","SEQ_SOFT_LIMIT"],"enum":["DirectionState","PreEncryptAction"],"struct":["Decrypted","RecordLayer"]};

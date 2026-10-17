@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TextDirection"],"fn":["locale_text_direction_of"]};

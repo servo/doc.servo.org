@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["digamma_coeefs"],"static":["DIGAMMA_P","DIGAMMA_Q"]};

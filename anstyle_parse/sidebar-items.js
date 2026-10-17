@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_INTERMEDIATES","MAX_OSC_PARAMS"],"mod":["params","state"],"struct":["AsciiParser","Params","ParamsIter","Parser","Utf8Parser","VtUtf8Receiver"],"trait":["CharAccumulator","Perform"],"type":["DefaultCharAccumulator"]};
