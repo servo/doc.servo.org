@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["h2_to_io_error","io_error","pair"],"struct":["H2Upgraded","UpgradedSendStreamBridge","UpgradedSendStreamTask"]};

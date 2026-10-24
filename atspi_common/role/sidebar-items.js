@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ROLE_NAMES"],"enum":["Role"]};

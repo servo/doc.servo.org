@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Macros for all your token pasting needs"><title>pastey - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="pastey" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate pastey</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../pastey/index.html">pastey</a><span class="version">0.2.3</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#macros-for-all-your-token-pasting-needs" title="Macros for all your token pasting needs">Macros for all your token pasting needs</a><ul><li><a href="#quick-start" title="Quick Start">Quick Start</a></li><li><a href="#pasting-identifiers" title="Pasting identifiers">Pasting identifiers</a></li><li><a href="#more-elaborate-example" title="More elaborate example">More elaborate example</a></li><li><a href="#case-conversion" title="Case conversion">Case conversion</a></li><li><a href="#replace-modifier" title="Replace modifier">Replace modifier</a></li><li><a href="#raw-identifier-generation" title="Raw Identifier Generation">Raw Identifier Generation</a></li><li><a href="#pasting-documentation-strings" title="Pasting documentation strings">Pasting documentation strings</a></li></ul></li></ul><h3><a href="#modules">Crate Items</a></h3><ul class="block"><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#macros" title="Macros">Macros</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#functions" title="Functions">Functions</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>pastey</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/pastey/lib.rs.html#1-917">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="macros-for-all-your-token-pasting-needs"><a class="doc-anchor" href="#macros-for-all-your-token-pasting-needs">§</a>Macros for all your token pasting needs</h2>
+<p><a href="https://github.com/as1100k/pastey"><img alt="github" src="https://img.shields.io/badge/github-as1100k/pastey-8da0cb?style=for-the-badge&labelColor=555555&logo=github" height="20"></a>
+<a href="https://crates.io/crates/pastey"><img alt="crates.io" src="https://img.shields.io/crates/v/pastey.svg?style=for-the-badge&color=fc8d62&logo=rust" height="20"></a>
+<a href="https://docs.rs/pastey"><img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-pastey-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20"></a>
+<a href="https://github.com/as1100k/pastey/actions?query=branch%master"><img alt="build status" src="https://img.shields.io/github/actions/workflow/status/as1100k/pastey/ci.yml?branch=master&style=for-the-badge" height="20"></a></p>
+<p><strong><em><code>pastey</code> is the fork of <code>paste</code> and is aimed to be a drop-in replacement with additional features for
+<code>paste</code> crate</em></strong></p>
+<details>
+<summary>Migrating from <code>paste</code> crate</summary>
+<p>Migrating from <code>paste</code> crate to <code>pastey</code> is super simple, just change the following
+in your <code>Cargo.toml</code></p>
+<div class="example-wrap"><pre class="language-diff"><code>[dependencies]
+- paste = &quot;1&quot;
++ pastey = &quot;*&quot; # Or any specific version of pastey</code></pre></div>
+<p>Or even better way:</p>
+<div class="example-wrap"><pre class="language-diff"><code>[dependencies]
+- paste = &quot;1&quot;
++ paste = { package = &quot;pastey&quot;, version = &quot;*&quot; }</code></pre></div></details>
+<h3 id="quick-start"><a class="doc-anchor" href="#quick-start">§</a>Quick Start</h3>
+<p>Add <code>pastey</code> as your dependency in <code>Cargo.toml</code></p>
+<div class="example-wrap"><pre class="language-toml"><code>[dependencies]
+# TODO: Replace with latest version available on crates.io
+pastey = &quot;*&quot;</code></pre></div>
+<p>This approach works with any Rust compiler 1.54+.</p>
+<h3 id="pasting-identifiers"><a class="doc-anchor" href="#pasting-identifiers">§</a>Pasting identifiers</h3>
+<p>Within the <code>paste!</code> macro, identifiers inside <code>[&lt;</code>…<code>&gt;]</code> are pasted together to
+form a single identifier.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>pastey::paste;
+
+<span class="macro">paste!</span> {
+    <span class="comment">// Defines a const called `QRST`.
+    </span><span class="kw">const </span>[&lt;Q R S T&gt;]: <span class="kw-2">&amp;</span>str = <span class="string">"success!"</span>;
+}
+
+<span class="kw">fn </span>main() {
+    <span class="macro">assert_eq!</span>(
+        <span class="macro">paste!</span> { [&lt;Q R S T&gt;].len() },
+        <span class="number">8</span>,
+    );
+}</code></pre></div><h3 id="more-elaborate-example"><a class="doc-anchor" href="#more-elaborate-example">§</a>More elaborate example</h3>
+<p>The next example shows a macro that generates accessor methods for some struct
+fields. It demonstrates how you might find it useful to bundle a paste
+invocation inside of a macro_rules macro.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>pastey::paste;
+
+<span class="macro">macro_rules!</span> make_a_struct_and_getters {
+    (<span class="macro-nonterminal">$name</span>:ident { $(<span class="macro-nonterminal">$field</span>:ident),* }) =&gt; {
+        <span class="comment">// Define a struct. This expands to:
+        //
+        //     pub struct S {
+        //         a: String,
+        //         b: String,
+        //         c: String,
+        //     }
+        </span><span class="kw">pub struct </span><span class="macro-nonterminal">$name </span>{
+            $(
+                <span class="macro-nonterminal">$field</span>: String,
+            )*
+        }
+
+        <span class="comment">// Build an impl block with getters. This expands to:
+        //
+        //     impl S {
+        //         pub fn get_a(&amp;self) -&gt; &amp;str { &amp;self.a }
+        //         pub fn get_b(&amp;self) -&gt; &amp;str { &amp;self.b }
+        //         pub fn get_c(&amp;self) -&gt; &amp;str { &amp;self.c }
+        //     }
+        </span><span class="macro">paste!</span> {
+            <span class="kw">impl </span><span class="macro-nonterminal">$name </span>{
+                $(
+                    <span class="kw">pub fn </span>[&lt;get_ <span class="macro-nonterminal">$field</span>&gt;](<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
+                        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="macro-nonterminal">$field
+                    </span>}
+                )*
+            }
+        }
+    }
+}
+
+<span class="macro">make_a_struct_and_getters!</span>(S { a, b, c });
+
+<span class="kw">fn </span>call_some_getters(s: <span class="kw-2">&amp;</span>S) -&gt; bool {
+    s.get_a() == s.get_b() &amp;&amp; s.get_c().is_empty()
+}
+<span class="kw">let </span>s = S {
+    a: String::from(<span class="string">"x"</span>),
+    b: String::from(<span class="string">"x"</span>),
+    c: String::new(),
+ };
+ <span class="macro">assert!</span>(call_some_getters(<span class="kw-2">&amp;</span>s));
+ <span class="kw">let </span>s2 = S {
+     a: String::from(<span class="string">"x"</span>),
+     b: String::from(<span class="string">"y"</span>),
+     c: String::new(),
+ };
+ <span class="macro">assert!</span>(!call_some_getters(<span class="kw-2">&amp;</span>s2));</code></pre></div><h3 id="case-conversion"><a class="doc-anchor" href="#case-conversion">§</a>Case conversion</h3>
+<p>The <code>pastey</code> crate supports the following case modfiers:</p>
+<div><table><thead><tr><th>Modifier</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>$var:lower</code></td><td>Lower Case</td></tr>
+<tr><td><code>$var:upper</code></td><td>Upper Case</td></tr>
+<tr><td><code>$var:snake</code></td><td>Snake Case</td></tr>
+<tr><td><code>$var:camel</code> or <code>$var:upper_camel</code></td><td>Upper Camel Case</td></tr>
+<tr><td><code>$var:lower_camel</code></td><td>Lower Camel Case <a href="https://github.com/AS1100K/pastey/issues/4">#4</a></td></tr>
+<tr><td><code>$var:camel_edge</code></td><td>Covers Edge cases of Camel Case. <a href="https://github.com/AS1100K/pastey/issues/3">#3</a></td></tr>
+</tbody></table>
+</div>
+<p><em><strong>NOTE: The pastey crate is going to be a drop in replacement to paste crate,
+and will not change the behaviour of existing modifier like <code>lower</code>, <code>upper</code>,
+<code>snake</code> and <code>camel</code>. For modifying the behaviour new modifiers will be created,
+like <code>camel_edge</code></strong></em></p>
+<p>You can also use multiple of these modifers like <code>$var:snake:upper</code> would give you
+<code>SCREAMING_SNAKE_CASE</code>.</p>
+<p>Example</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>pastey::paste;
+
+<span class="macro">paste!</span> {
+    <span class="kw">const </span>[&lt;LIB <span class="macro">env!</span>(<span class="string">"CARGO_PKG_NAME"</span>):snake:upper&gt;]: <span class="kw-2">&amp;</span>str = <span class="string">"libpastey"</span>;
+
+    <span class="kw">let _ </span>= LIBPASTEY;
+}</code></pre></div>
+<p>The precise Unicode conversions are as defined by <a href="https://doc.rust-lang.org/std/primitive.str.html#method.to_lowercase"><code>str::to_lowercase</code></a> and
+<a href="https://doc.rust-lang.org/std/primitive.str.html#method.to_uppercase"><code>str::to_uppercase</code></a>.</p>
+<h3 id="replace-modifier"><a class="doc-anchor" href="#replace-modifier">§</a>Replace modifier</h3>
+<p>The <code>replace</code> modifier allows you to perform string replacement on identifiers,
+using the same semantics as <a href="https://doc.rust-lang.org/std/primitive.str.html#method.replace"><code>str::replace</code></a>. This is useful for transforming
+identifiers by removing or substituting substrings.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>pastey::paste;
+
+<span class="macro">macro_rules!</span> m {
+    ($((<span class="macro-nonterminal">$command</span>:ident, <span class="macro-nonterminal">$from</span>:ident)),+) =&gt; {
+        <span class="macro">paste!</span> {
+            $(<span class="kw">pub struct </span><span class="macro-nonterminal">$command </span>{})*
+
+            <span class="kw">pub enum </span>Command {
+                $(
+                    [&lt; <span class="macro-nonterminal">$command</span>:replace(<span class="macro-nonterminal">$from</span>, <span class="string">""</span>) &gt;] ( <span class="macro-nonterminal">$command </span>)
+                ),*
+            }
+        }
+    }
+}
+
+<span class="macro">m!</span> {
+    (CommandFoo, Command),
+    (CommandBar, Command),
+    (HelloWorld, Hello)
+}
+
+<span class="kw">let </span>command_bar = Command::Bar(CommandBar {});
+<span class="kw">let </span>command_foo = Command::Foo(CommandFoo {});
+<span class="kw">let </span>command_hello = Command::World(HelloWorld {});</code></pre></div><h3 id="raw-identifier-generation"><a class="doc-anchor" href="#raw-identifier-generation">§</a>Raw Identifier Generation</h3>
+<p><code>pastey</code> now supports raw identifiers using a special raw mode. By prefixing a
+token with <code>#</code> inside the paste syntax, it treats that token as a raw identifier.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>pastey::paste;
+
+<span class="macro">macro_rules!</span> define_struct_and_impl {
+    (<span class="macro-nonterminal">$name</span>:ident $(- <span class="macro-nonterminal">$name_tail</span>:ident)<span class="kw-2">*</span>) =&gt; {
+        <span class="macro">paste!</span>{
+            <span class="kw">struct </span>[&lt; # <span class="macro-nonterminal">$name</span>:camel $( <span class="macro-nonterminal">$name_tail</span>)* &gt;]; <span class="comment">// '#' signals a raw identifier
+
+            </span><span class="kw">impl </span>[&lt; # <span class="macro-nonterminal">$name</span>:camel $( <span class="macro-nonterminal">$name_tail</span>)* &gt;] {
+                <span class="kw">fn </span>[&lt; # <span class="macro-nonterminal">$name</span>:snake $( <span class="kw">_ </span><span class="macro-nonterminal">$name_tail</span>:snake)* &gt;]() {}
+            }
+
+        }
+    }
+}
+
+<span class="macro">define_struct_and_impl!</span>(<span class="kw">loop</span>);
+<span class="macro">define_struct_and_impl!</span>(<span class="kw">loop </span>- xyz);
+
+<span class="kw">fn </span>test_fn() {
+    <span class="kw">let _ </span>= Loop::r#loop();
+    <span class="kw">let _ </span>= Loopxyz::loop_xyz();
+}
+test_fn();</code></pre></div><h3 id="pasting-documentation-strings"><a class="doc-anchor" href="#pasting-documentation-strings">§</a>Pasting documentation strings</h3>
+<p>Within the <code>paste!</code> macro, arguments to a #[doc …] attribute are implicitly
+concatenated together to form a coherent documentation string.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>pastey::paste;
+
+<span class="macro">macro_rules!</span> method_new {
+    (<span class="macro-nonterminal">$ret</span>:ident) =&gt; {
+        <span class="macro">paste!</span> {
+            <span class="attr">#[doc = <span class="string">"Create a new `" </span><span class="macro-nonterminal">$ret </span><span class="string">"` object."</span>]
+            </span><span class="kw">pub fn </span>new() -&gt; <span class="macro-nonterminal">$ret </span>{ <span class="macro-nonterminal">$ret </span>{} }
+        }
+    };
+}
+
+<span class="kw">pub struct </span>Pastey {}
+
+<span class="macro">method_new!</span>(Pastey);  <span class="comment">// expands to #[doc = "Create a new `Paste` object"]
+</span><span class="kw">let _ </span>= new();</code></pre></div><h5 id="credits"><a class="doc-anchor" href="#credits">§</a>Credits</h5><sup>
+This crate is the fork of <a href="https://github.com/dtolnay/paste"><code>paste</code></a>
+and I appreciate the efforts of <a href="https://github.com/dtolnay">@dtolnay</a>
+and other contributors.
+</sup>
+<h5 id="license"><a class="doc-anchor" href="#license">§</a>License</h5><sup>
+Licensed under either of <a href="LICENSE-APACHE">Apache License, Version
+2.0</a> or <a href="LICENSE-MIT">MIT license</a> at your option.
+</sup>
+<br>
+<sub>
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in this crate by you, as defined in the Apache-2.0 license, shall
+be dual licensed as above, without any additional terms or conditions.
+</sub></div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="attr/index.html" title="mod pastey::attr">attr</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="error/index.html" title="mod pastey::error">error</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="segment/index.html" title="mod pastey::segment">segment</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="macros" class="section-header">Macros<a href="#macros" class="anchor">§</a></h2><dl class="item-table"><dt><a class="macro" href="macro.paste.html" title="macro pastey::paste">paste</a></dt></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.Lookbehind.html" title="enum pastey::Lookbehind">Lookbehind</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.check_close_angle_token.html" title="fn pastey::check_close_angle_token">check_<wbr>close_<wbr>angle_<wbr>token</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.expand.html" title="fn pastey::expand">expand</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.is_paste_operation.html" title="fn pastey::is_paste_operation">is_<wbr>paste_<wbr>operation</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.is_single_interpolation_group.html" title="fn pastey::is_single_interpolation_group">is_<wbr>single_<wbr>interpolation_<wbr>group</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.parse_bracket_as_segments.html" title="fn pastey::parse_bracket_as_segments">parse_<wbr>bracket_<wbr>as_<wbr>segments</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.pasted_to_tokens.html" title="fn pastey::pasted_to_tokens">pasted_<wbr>to_<wbr>tokens</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.try_convert_unicode_escape.html" title="fn pastey::try_convert_unicode_escape">try_<wbr>convert_<wbr>unicode_<wbr>escape</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Readable","Writable"],"fn":["plane_buffer_info"],"struct":["VideoFrame","VideoFrameRef"],"trait":["IsVideoFrame","VideoBufferExt","VideoFrameExt"]};

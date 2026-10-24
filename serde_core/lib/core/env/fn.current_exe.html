@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Returns the full filesystem path of the current running executable."><title>current_exe in serde_core::lib::core::env - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serde_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">current_exe</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../../serde_core/index.html">serde_<wbr>core</a><span class="version">1.0.229</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">current_<wbr>exe</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#platform-specific-behavior" title="Platform-specific behavior">Platform-specific behavior</a></li><li><a href="#errors" title="Errors">Errors</a></li><li><a href="#security" title="Security">Security</a></li><li><a href="#examples" title="Examples">Examples</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In serde_<wbr>core::<wbr>lib::<wbr>core::<wbr>env</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../../index.html">serde_core</a>::<wbr><a href="../../index.html">lib</a>::<wbr><a href="../index.html">core</a>::<wbr><a href="index.html">env</a></div><h1>Function <span class="fn">current_<wbr>exe</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><span class="since" title="Stable since Rust version 1.0.0">1.0.0</span> · <a class="src" href="https://doc.rust-lang.org/1.97.1/src/std/env.rs.html#755">Source</a> </span></div><pre class="rust item-decl"><code>pub fn current_exe() -&gt; <a class="enum" href="../../result/enum.Result.html" title="enum serde_core::lib::result::Result">Result</a>&lt;<a class="struct" href="../../struct.PathBuf.html" title="struct serde_core::lib::PathBuf">PathBuf</a>, <a class="struct" href="../io/struct.Error.html" title="struct serde_core::lib::core::io::Error">Error</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Returns the full filesystem path of the current running executable.</p>
+<h2 id="platform-specific-behavior"><a class="doc-anchor" href="#platform-specific-behavior">§</a>Platform-specific behavior</h2>
+<p>If the executable was invoked through a symbolic link, some platforms will
+return the path of the symbolic link and other platforms will return the
+path of the symbolic link’s target.</p>
+<p>If the executable is renamed while it is running, platforms may return the
+path at the time it was loaded instead of the new path.</p>
+<h2 id="errors"><a class="doc-anchor" href="#errors">§</a>Errors</h2>
+<p>Acquiring the path of the current executable is a platform-specific operation
+that can fail for a good number of reasons. Some errors can include, but not
+be limited to, filesystem operations failing or general syscall failures.</p>
+<h2 id="security"><a class="doc-anchor" href="#security">§</a>Security</h2>
+<p>The output of this function must be treated with care to avoid security
+vulnerabilities, particularly in processes that run with privileges higher
+than the user, such as setuid or setgid programs.</p>
+<p>For example, on some Unix platforms, the result is calculated by
+searching <code>$PATH</code> for an executable matching <code>argv[0]</code>, but both the
+environment and arguments can be be set arbitrarily by the user who
+invokes the program.</p>
+<p>On Linux, if <code>fs.secure_hardlinks</code> is not set, an attacker who can
+create hardlinks to the executable may be able to cause this function
+to return an attacker-controlled path, which they later replace with
+a different program.</p>
+<p>This list of illustrative example attacks is not exhaustive.</p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::env;
+
+<span class="kw">match </span>env::current_exe() {
+    <span class="prelude-val">Ok</span>(exe_path) =&gt; <span class="macro">println!</span>(<span class="string">"Path of this executable is: {}"</span>,
+                             exe_path.display()),
+    <span class="prelude-val">Err</span>(e) =&gt; <span class="macro">println!</span>(<span class="string">"failed to get current exe path: {e}"</span>),
+};</code></pre></div></div></details></section></div></main></body></html>

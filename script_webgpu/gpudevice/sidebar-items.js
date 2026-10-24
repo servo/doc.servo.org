@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_GPUDevice"],"macro":[["define_event_handler",1],["event_handler",1]],"struct":["DroppableGPUDevice","GPUDevice"]};

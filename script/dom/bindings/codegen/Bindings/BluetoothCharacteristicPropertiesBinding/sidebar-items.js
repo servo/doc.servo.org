@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["BluetoothCharacteristicProperties_Binding","GenericBindings"],"trait":["BluetoothCharacteristicPropertiesMethods"]};

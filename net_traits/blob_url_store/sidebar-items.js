@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BlobURLStoreError"],"fn":["parse_blob_url"],"struct":["BlobBuf","BlobResolver","BlobToken","BlobTokenCommunicator","TokenSerializationGuard","UrlWithBlobClaim"]};

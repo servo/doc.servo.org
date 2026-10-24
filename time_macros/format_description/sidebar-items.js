@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_with_version","unused"],"mod":["ast","format_item","lexer","public"],"struct":["Error","Location","Span","Spanned","Unused"],"trait":["OptionExt","SpannedValue"]};

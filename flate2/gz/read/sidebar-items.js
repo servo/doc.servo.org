@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["gz_encoder"],"struct":["GzDecoder","GzEncoder","MultiGzDecoder"]};

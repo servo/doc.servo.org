@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ensure_correct_property_name"],"struct":["OwnedPropertyName","PropertyName"]};

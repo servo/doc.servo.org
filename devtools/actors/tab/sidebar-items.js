@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GetFaviconReply","GetTargetReply","GetWatcherReply","TabDescriptorActor","TabDescriptorActorMsg"]};

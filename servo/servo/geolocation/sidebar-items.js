@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GeolocationErrorKind"],"struct":["GeolocationError","GeolocationPositionData","GeolocationRequestOptions","GeolocationWatchId"],"type":["GeolocationResult"]};

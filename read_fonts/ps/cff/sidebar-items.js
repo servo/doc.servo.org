@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["blend","charset","dict","encoding","fd_select","font","index","stack","v1","v2"],"struct":["CffFontRef","Encoding","Metadata","Subfont"]};

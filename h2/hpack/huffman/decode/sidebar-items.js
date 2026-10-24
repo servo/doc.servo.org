@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BRANCH","FAST_BITS","FAST_DECODE_TABLE","TABLE_INDEX_MASK","TABLE_WIDTH"],"fn":["build_fast_table","decode","decode_code_slow"]};

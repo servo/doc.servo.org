@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CodePointMapData","CodePointMapDataBorrowed"],"trait":["EnumeratedProperty"]};

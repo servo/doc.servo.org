@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SAMPLE_RATE","MIN_SAMPLE_RATE","_IMPL_DOMOBJECT_FOR_AudioBuffer"],"struct":["AudioBuffer"]};

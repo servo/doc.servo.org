@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Vello CPU is a 2D graphics rendering engine written in Rust, for devices with no or underpowered GPUs."><title>vello_cpu - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="vello_cpu" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate vello_cpu</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../vello_cpu/index.html">vello_<wbr>cpu</a><span class="version">0.2.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#usage" title="Usage">Usage</a></li><li><a href="#features" title="Features">Features</a></li><li><a href="#current-state" title="Current state">Current state</a></li><li><a href="#performance" title="Performance">Performance</a></li><li><a href="#implementation" title="Implementation">Implementation</a></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>vello_<wbr>cpu</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/vello_cpu/lib.rs.html#7-194">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Vello CPU is a 2D graphics rendering engine written in Rust, for devices with no or underpowered GPUs.</p>
+<p>We also develop <a href="https://crates.io/crates/vello">Vello</a>, which makes use of the GPU for 2D rendering and has higher performance than Vello CPU.
+Vello CPU is being developed as part of work to address shortcomings in Vello.</p>
+<h2 id="usage"><a class="doc-anchor" href="#usage">§</a>Usage</h2>
+<p>To use Vello CPU, you need to:</p>
+<ul>
+<li>Create a <a href="struct.RenderContext.html" title="struct vello_cpu::RenderContext"><code>RenderContext</code></a>, a 2D drawing context for a fixed-size scene area.</li>
+<li>For each object in your scene:
+<ul>
+<li>Set how the object will be painted, using <a href="struct.RenderContext.html#method.set_paint" title="method vello_cpu::RenderContext::set_paint"><code>set_paint</code></a>.</li>
+<li>Set the shape to be drawn for that object, using methods like <a href="struct.RenderContext.html#method.fill_path" title="method vello_cpu::RenderContext::fill_path"><code>fill_path</code></a>,
+<a href="struct.RenderContext.html#method.stroke_path" title="method vello_cpu::RenderContext::stroke_path"><code>stroke_path</code></a>, or <a href="struct.RenderContext.html#method.glyph_run" title="method vello_cpu::RenderContext::glyph_run"><code>glyph_run</code></a>.</li>
+</ul>
+</li>
+<li>Render it to an image using <a href="struct.RenderContext.html#method.render" title="method vello_cpu::RenderContext::render"><code>RenderContext::render</code></a>.</li>
+</ul>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>vello_cpu::{RenderContext, Resources, Pixmap};
+<span class="kw">use </span>vello_cpu::{color::{palette::css, PremulRgba8}, kurbo::Rect};
+<span class="kw">let </span>width = <span class="number">10</span>;
+<span class="kw">let </span>height = <span class="number">5</span>;
+<span class="kw">let </span><span class="kw-2">mut </span>context = RenderContext::new(width, height);
+<span class="kw">let </span><span class="kw-2">mut </span>resources = Resources::new();
+context.set_paint(css::MAGENTA);
+context.fill_rect(<span class="kw-2">&amp;</span>Rect::from_points((<span class="number">3.</span>, <span class="number">1.</span>), (<span class="number">7.</span>, <span class="number">4.</span>)));
+
+<span class="kw">let </span><span class="kw-2">mut </span>target = Pixmap::new(width, height);
+<span class="comment">// While calling `flush` is only strictly necessary if you are rendering using
+// multiple threads, it is recommended to always do this.
+</span>context.flush();
+context.render(<span class="kw-2">&amp;mut </span>target, <span class="kw-2">&amp;mut </span>resources);
+
+<span class="kw">let </span>expected_render = <span class="string">b"\
+    0000000000\
+    0001111000\
+    0001111000\
+    0001111000\
+    0000000000"</span>;
+<span class="kw">let </span>magenta = css::MAGENTA.premultiply().to_rgba8();
+<span class="kw">let </span>transparent = PremulRgba8 {r: <span class="number">0</span>, g: <span class="number">0</span>, b: <span class="number">0</span>, a: <span class="number">0</span>};
+<span class="kw">let </span><span class="kw-2">mut </span>result = Vec::new();
+<span class="kw">for </span>pixel <span class="kw">in </span>target.data() {
+    <span class="kw">if </span><span class="kw-2">*</span>pixel == magenta {
+        result.push(<span class="string">b'1'</span>);
+    } <span class="kw">else if </span><span class="kw-2">*</span>pixel == transparent {
+        result.push(<span class="string">b'0'</span>);
+    } <span class="kw">else </span>{
+         <span class="macro">panic!</span>(<span class="string">"Got unexpected pixel value {pixel:?}"</span>);
+    }
+}
+<span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span>result, expected_render);</code></pre></div>
+<p>See the
+<a href="https://github.com/linebender/vello/tree/main/sparse_strips/vello_cpu/examples">examples</a>
+for more complete demonstrations of Vello CPU’s API.</p>
+<h2 id="features"><a class="doc-anchor" href="#features">§</a>Features</h2>
+<ul>
+<li><code>std</code> (enabled by default): Get floating point functions from the standard library
+(likely using your target’s libc).</li>
+<li><code>libm</code>: Use floating point implementations from <a href="https://crates.io/crates/libm">libm</a>.</li>
+<li><code>png</code>(enabled by default): Allow loading <a href="struct.Pixmap.html" title="struct vello_cpu::Pixmap"><code>Pixmap</code></a>s from PNG images.
+Also required for rendering glyphs with an embedded PNG. Implies <code>std</code>.</li>
+<li><code>multithreading</code>: Enable multi-threaded rendering. Implies <code>std</code>.</li>
+<li><code>text</code> (enabled by default): Enables glyph rendering (<a href="struct.RenderContext.html#method.glyph_run" title="method vello_cpu::RenderContext::glyph_run"><code>glyph_run</code></a>).</li>
+<li><code>u8_pipeline</code> (enabled by default): Enable the u8 pipeline, for speed focused rendering using u8 math.
+The <code>u8</code> pipeline will be used for <a href="enum.RenderMode.html#variant.OptimizeSpeed" title="variant vello_cpu::RenderMode::OptimizeSpeed"><code>OptimizeSpeed</code></a>, if both pipelines are enabled.
+If you’re using Vello CPU for application rendering, you should prefer this pipeline.</li>
+<li><code>f32_pipeline</code>: Enable the <code>f32</code> pipeline, which is slower but has more accurate
+results. This is espectially useful for rendering test snapshots.
+The <code>f32</code> pipeline will be used for <a href="enum.RenderMode.html#variant.OptimizeQuality" title="variant vello_cpu::RenderMode::OptimizeQuality"><code>OptimizeQuality</code></a>, if both pipelines are enabled.</li>
+</ul>
+<p>At least one of <code>std</code> and <code>libm</code> is required; <code>std</code> overrides <code>libm</code>.
+At least one of <code>u8_pipeline</code> and <code>f32_pipeline</code> must be enabled.
+You might choose to disable one of these pipelines if your application
+won’t use it, so as to reduce binary size.</p>
+<h2 id="current-state"><a class="doc-anchor" href="#current-state">§</a>Current state</h2>
+<p>Vello CPU is a solid CPU-only 2D renderer with broad, reliable feature
+support. It provides excellent performance across a wide range of workloads,
+with optimized SIMD implementations for all major architectures. The
+renderer is still under active development, however, and a few limitations
+remain:</p>
+<ul>
+<li>Complex filter graphs are currently not supported at all and will panic.
+In multi-threaded mode, even simple filters are currently unsupported.</li>
+<li>Parts of the API and its documentation are still suboptimal, for example
+the <a href="struct.Resources.html" title="struct vello_cpu::Resources"><code>Resources</code></a> lifecycle.</li>
+<li>Some exposed features remain experimental and are not recommended for use,
+including glyph caching. Experimental APIs are identified in their method
+documentation.</li>
+<li>There is still more room for performance improvements, in particular on
+x86 systems and also for multi-threaded rendering.</li>
+</ul>
+<p>With that said, we are continuously improving Vello CPU and will address
+these and other limitations in future releases.</p>
+<h2 id="performance"><a class="doc-anchor" href="#performance">§</a>Performance</h2>
+<p>Performance benchmarks can be found <a href="https://laurenzv.github.io/vello_chart/">here</a>,
+As can be seen, Vello CPU achieves compelling performance on both,
+aarch64 and x86 platforms. We also have SIMD optimizations for WASM SIMD,
+meaning that you can expect good performance there as well.</p>
+<h2 id="implementation"><a class="doc-anchor" href="#implementation">§</a>Implementation</h2>
+<p>If you want to gain a better understanding of Vello CPU and the
+sparse strips paradigm, you can take a look at the <a href="https://ethz.ch/content/dam/ethz/special-interest/infk/inst-pls/plf-dam/documents/StudentProjects/MasterTheses/2025-Laurenz-Thesis.pdf">accompanying
+master’s thesis</a>
+that was written on the topic. Note that parts of the descriptions might
+become outdated as the implementation changes, but it should give a good
+overview nevertheless.</p>
+<!-- We can't directly link to the libm crate built locally, because our feature is only a pass-through  -->
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.color"><code>pub use vello_common::<a class="mod" href="../color/index.html" title="mod color">color</a>;</code></dt><dt id="reexport.kurbo"><code>pub use vello_common::<a class="mod" href="../kurbo/index.html" title="mod kurbo">kurbo</a>;</code></dt><dt id="reexport.peniko"><code>pub use vello_common::<a class="mod" href="../peniko/index.html" title="mod peniko">peniko</a>;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="coarse/index.html" title="mod vello_cpu::coarse">coarse</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="dispatch/index.html" title="mod vello_cpu::dispatch">dispatch</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="filter/index.html" title="mod vello_cpu::filter">filter</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Filter effects implementation for <code>vello_cpu</code>.</dd><dt><a class="mod" href="record/index.html" title="mod vello_cpu::record">record</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="render/index.html" title="mod vello_cpu::render">render</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Basic render operations.</dd><dt><a class="mod" href="text/index.html" title="mod vello_cpu::text">text</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Vello CPU glyph rendering backend.</dd><dt><a class="mod" href="text_debug/index.html" title="mod vello_cpu::text_debug">text_<wbr>debug</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Debug helpers for glyph atlas and CPU text resources.</dd><dt><a class="mod" href="util/index.html" title="mod vello_cpu::util">util</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.Glyph.html" title="struct vello_cpu::Glyph">Glyph</a></dt><dd>Positioned glyph.</dd><dt><a class="struct" href="struct.Mask.html" title="struct vello_cpu::Mask">Mask</a></dt><dd>A mask.</dd><dt><a class="struct" href="struct.Pixmap.html" title="struct vello_cpu::Pixmap">Pixmap</a></dt><dd>A pixmap of premultiplied RGBA8 values backed by <a href="https://doc.rust-lang.org/1.97.1/core/legacy_int_modules/u8/index.html" title="mod core::legacy_int_modules::u8"><code>u8</code></a>.</dd><dt><a class="struct" href="struct.PixmapMut.html" title="struct vello_cpu::PixmapMut">Pixmap<wbr>Mut</a></dt><dd>A mutable view into premultiplied RGBA8 pixmap data.</dd><dt><a class="struct" href="struct.RasterizerSettings.html" title="struct vello_cpu::RasterizerSettings">Rasterizer<wbr>Settings</a></dt><dd>Settings used when rasterizing a scene into a pixmap.</dd><dt><a class="struct" href="struct.RenderContext.html" title="struct vello_cpu::RenderContext">Render<wbr>Context</a></dt><dd>A render context for CPU-based 2D graphics rendering.</dd><dt><a class="struct" href="struct.RenderSettings.html" title="struct vello_cpu::RenderSettings">Render<wbr>Settings</a></dt><dd>Settings to apply to the render context.</dd><dt><a class="struct" href="struct.Resources.html" title="struct vello_cpu::Resources">Resources</a></dt><dd>Persistent resources required by Vello CPU for rendering.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.CompositeMode.html" title="enum vello_cpu::CompositeMode">Composite<wbr>Mode</a></dt><dd>The composition mode that should be used when rendering into a pixmap.</dd><dt><a class="enum" href="enum.ImageSource.html" title="enum vello_cpu::ImageSource">Image<wbr>Source</a></dt><dd>Bitmap source used by <code>Image</code>.</dd><dt><a class="enum" href="enum.Level.html" title="enum vello_cpu::Level">Level</a></dt><dd>The level enum with the specific SIMD capabilities available.</dd><dt><a class="enum" href="enum.Paint.html" title="enum vello_cpu::Paint">Paint</a></dt><dd>A paint used internally by a rendering frontend to store how a draw should be painted.
+There are only two types of paint:</dd><dt><a class="enum" href="enum.PixelFormat.html" title="enum vello_cpu::PixelFormat">Pixel<wbr>Format</a></dt><dd>The pixel format to assume for the destination pixmap.</dd><dt><a class="enum" href="enum.RenderMode.html" title="enum vello_cpu::RenderMode">Render<wbr>Mode</a></dt><dd>The selected rendering mode.
+For using <a href="enum.RenderMode.html#variant.OptimizeQuality" title="variant vello_cpu::RenderMode::OptimizeQuality"><code>RenderMode::OptimizeQuality</code></a> you also need to enable <code>f32_pipeline</code> feature.</dd></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.GlyphRunBuilder.html" title="type vello_cpu::GlyphRunBuilder">Glyph<wbr>RunBuilder</a></dt><dd>A glyph run builder.</dd><dt><a class="type" href="type.Image.html" title="type vello_cpu::Image">Image</a></dt><dd>An image.</dd><dt><a class="type" href="type.PaintType.html" title="type vello_cpu::PaintType">Paint<wbr>Type</a></dt><dd>A kind of paint that can be used for filling and stroking shapes.</dd></dl></section></div></main></body></html>

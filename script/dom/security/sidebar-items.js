@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["csp","csppolicyviolationreport","cspviolationreporttask","sanitizer","securitypolicyviolationevent","xframeoptions"]};

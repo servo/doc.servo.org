@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `components/media/audio/delay_node/delay_reader.rs`."><title>delay_reader.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="servo_media_audio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">servo_media_audio/delay_node/</div>delay_reader.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
+<a href=#2 id=2 data-nosnippet>2</a> * License, v. 2.0. If a copy of the MPL was not distributed with this
+<a href=#3 id=3 data-nosnippet>3</a> * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use </span>num_traits::Zero;
+<a href=#6 id=6 data-nosnippet>6</a>
+<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span><span class="kw">crate</span>::audio_node::{AudioNodeEngine, AudioNodeType, BlockInfo, ChannelInfo};
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span><span class="kw">crate</span>::block::{Block, Chunk, FRAMES_PER_BLOCK_USIZE, Tick};
+<a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span><span class="kw">crate</span>::delay_node::{CachedUpmixedBlock, DelayBuffer, UpmixedBlock};
+<a href=#10 id=10 data-nosnippet>10</a><span class="kw">use </span><span class="kw">crate</span>::param::{Param, ParamType};
+<a href=#11 id=11 data-nosnippet>11</a>
+<a href=#12 id=12 data-nosnippet>12</a><span class="doccomment">/// &lt;https://webaudio.github.io/web-audio-api/#delayreader&gt;
+<a href=#13 id=13 data-nosnippet>13</a>/// &gt; ...an object that has the same interface as an AudioNode,
+<a href=#14 id=14 data-nosnippet>14</a>/// &gt; and that can read the audio data from the internal buffer of the DelayNode.
+<a href=#15 id=15 data-nosnippet>15</a>/// &gt; It is connected to the same AudioNodes as the DelayNode it was created from.
+<a href=#16 id=16 data-nosnippet>16</a></span><span class="attr">#[derive(AudioNodeCommon)]
+<a href=#17 id=17 data-nosnippet>17</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DelayReader {
+<a href=#18 id=18 data-nosnippet>18</a>    channel_info: ChannelInfo,
+<a href=#19 id=19 data-nosnippet>19</a>    <span class="comment">// Tracks the delay time in terms of number of frames, relative to each frame in the input block.
+<a href=#20 id=20 data-nosnippet>20</a>    // When reading from the buffer, we look for the stored block with the relevant frames
+<a href=#21 id=21 data-nosnippet>21</a>    </span>delay_frames: [f32; FRAMES_PER_BLOCK_USIZE],
+<a href=#22 id=22 data-nosnippet>22</a>    <span class="comment">// Ring buffer where we push to the front.
+<a href=#23 id=23 data-nosnippet>23</a>    // Easier mental model since entries in the back are the oldest.
+<a href=#24 id=24 data-nosnippet>24</a>    </span>delay_line: DelayBuffer,
+<a href=#25 id=25 data-nosnippet>25</a>    <span class="comment">// Block that has been upmixed based on the channel count of the output.
+<a href=#26 id=26 data-nosnippet>26</a>    </span>upmixed_block: CachedUpmixedBlock,
+<a href=#27 id=27 data-nosnippet>27</a>    <span class="comment">// delay_time param passed on from the delay node. Delay time in seconds.
+<a href=#28 id=28 data-nosnippet>28</a>    </span>delay_time: Param,
+<a href=#29 id=29 data-nosnippet>29</a>}
+<a href=#30 id=30 data-nosnippet>30</a>
+<a href=#31 id=31 data-nosnippet>31</a><span class="kw">fn </span>find_block_with_index(delay_frame_index: usize) -&gt; usize {
+<a href=#32 id=32 data-nosnippet>32</a>    delay_frame_index / FRAMES_PER_BLOCK_USIZE
+<a href=#33 id=33 data-nosnippet>33</a>}
+<a href=#34 id=34 data-nosnippet>34</a>
+<a href=#35 id=35 data-nosnippet>35</a><span class="kw">impl </span>DelayReader {
+<a href=#36 id=36 data-nosnippet>36</a>    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new(
+<a href=#37 id=37 data-nosnippet>37</a>        buffer: DelayBuffer,
+<a href=#38 id=38 data-nosnippet>38</a>        upmixed_block: CachedUpmixedBlock,
+<a href=#39 id=39 data-nosnippet>39</a>        delay_time: Param,
+<a href=#40 id=40 data-nosnippet>40</a>        channel_info: ChannelInfo,
+<a href=#41 id=41 data-nosnippet>41</a>    ) -&gt; <span class="self">Self </span>{
+<a href=#42 id=42 data-nosnippet>42</a>        DelayReader {
+<a href=#43 id=43 data-nosnippet>43</a>            channel_info,
+<a href=#44 id=44 data-nosnippet>44</a>            delay_frames: [<span class="number">0.</span>; FRAMES_PER_BLOCK_USIZE],
+<a href=#45 id=45 data-nosnippet>45</a>            delay_line: buffer,
+<a href=#46 id=46 data-nosnippet>46</a>            upmixed_block,
+<a href=#47 id=47 data-nosnippet>47</a>            delay_time,
+<a href=#48 id=48 data-nosnippet>48</a>        }
+<a href=#49 id=49 data-nosnippet>49</a>    }
+<a href=#50 id=50 data-nosnippet>50</a>
+<a href=#51 id=51 data-nosnippet>51</a>    <span class="doccomment">/// &lt;https://webaudio.github.io/web-audio-api/#dom-delaynode-delaytime&gt;
+<a href=#52 id=52 data-nosnippet>52</a>    </span><span class="kw">fn </span>update_parameters(<span class="kw-2">&amp;mut </span><span class="self">self</span>, info: <span class="kw-2">&amp;</span>BlockInfo, tick: Tick) -&gt; bool {
+<a href=#53 id=53 data-nosnippet>53</a>        <span class="kw">let </span>updated = <span class="self">self</span>.delay_time.update(info, tick);
+<a href=#54 id=54 data-nosnippet>54</a>        <span class="self">self</span>.update_delay_frames(tick.<span class="number">0 </span><span class="kw">as </span>usize, <span class="self">self</span>.delay_time.value() * info.sample_rate);
+<a href=#55 id=55 data-nosnippet>55</a>        updated
+<a href=#56 id=56 data-nosnippet>56</a>    }
+<a href=#57 id=57 data-nosnippet>57</a>
+<a href=#58 id=58 data-nosnippet>58</a>    <span class="doccomment">/// 1.18.4
+<a href=#59 id=59 data-nosnippet>59</a>    /// &gt; When producing an output buffer, a DelayReader MUST yield exactly the audio that was written to the
+<a href=#60 id=60 data-nosnippet>60</a>    /// &gt; corresponding DelayWriter delayTime seconds ago.
+<a href=#61 id=61 data-nosnippet>61</a>    ///
+<a href=#62 id=62 data-nosnippet>62</a>    /// We are processing tick t, where t ranges from 0 to (FRAMES_PER_BLOCK - 1).
+<a href=#63 id=63 data-nosnippet>63</a>    /// The DelayWriter is writing a frame into the delay line every tick.
+<a href=#64 id=64 data-nosnippet>64</a>    /// Let delay_frame = delay_time * sample_rate, at tick t.
+<a href=#65 id=65 data-nosnippet>65</a>    /// Now let's process tick t + 1. delay_frame must increase by 1 to account for the new tick.
+<a href=#66 id=66 data-nosnippet>66</a>    /// There are FRAMES_PER_BLOCK - 1 - t ticks to process after tick t.
+<a href=#67 id=67 data-nosnippet>67</a>    /// So after processing all ticks (FRAMES_PER_BLOCK - 1),
+<a href=#68 id=68 data-nosnippet>68</a>    /// delay_frames[t] = delay_time * sample_rate + FRAMES_PER_BLOCK - 1 - t
+<a href=#69 id=69 data-nosnippet>69</a>    </span><span class="kw">fn </span>update_delay_frames(<span class="kw-2">&amp;mut </span><span class="self">self</span>, tick: usize, value: f32) {
+<a href=#70 id=70 data-nosnippet>70</a>        <span class="self">self</span>.delay_frames[tick] = value + FRAMES_PER_BLOCK_USIZE <span class="kw">as </span>f32 - <span class="number">1. </span>- tick <span class="kw">as </span>f32;
+<a href=#71 id=71 data-nosnippet>71</a>    }
+<a href=#72 id=72 data-nosnippet>72</a>
+<a href=#73 id=73 data-nosnippet>73</a>    <span class="doccomment">/// Calculates the output channel count
+<a href=#74 id=74 data-nosnippet>74</a>    /// &lt;https://webaudio.github.io/web-audio-api/#tail-time&gt;
+<a href=#75 id=75 data-nosnippet>75</a>    /// 4.3
+<a href=#76 id=76 data-nosnippet>76</a>    /// &gt; When an AudioNode has a non-zero tail-time,
+<a href=#77 id=77 data-nosnippet>77</a>    /// &gt; and an output channel count that depends on the input channels count,
+<a href=#78 id=78 data-nosnippet>78</a>    /// &gt; the AudioNode’s tail-time must be taken into account when the input channel count changes.
+<a href=#79 id=79 data-nosnippet>79</a>    /// &gt;
+<a href=#80 id=80 data-nosnippet>80</a>    /// &gt; When there is a decrease in input channel count,
+<a href=#81 id=81 data-nosnippet>81</a>    /// &gt; the change in output channel count MUST happen when the input that was received
+<a href=#82 id=82 data-nosnippet>82</a>    /// &gt; with greater channel count no longer affects the output.
+<a href=#83 id=83 data-nosnippet>83</a>    /// &gt;
+<a href=#84 id=84 data-nosnippet>84</a>    /// &gt; When there is an increase in input channel count, the behavior depends on the AudioNode type:
+<a href=#85 id=85 data-nosnippet>85</a>    /// &gt; * For a DelayNode or a DynamicsCompressorNode, the number of output channels MUST increase
+<a href=#86 id=86 data-nosnippet>86</a>    /// &gt;   when the input that was received with greater channel count begins to affect the output.
+<a href=#87 id=87 data-nosnippet>87</a>    ///
+<a href=#88 id=88 data-nosnippet>88</a>    /// Therefore, we know that output channel count will be the highest channel count of the
+<a href=#89 id=89 data-nosnippet>89</a>    /// blocks read.
+<a href=#90 id=90 data-nosnippet>90</a>    </span><span class="kw">fn </span>calc_output_channel_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u8 {
+<a href=#91 id=91 data-nosnippet>91</a>        <span class="comment">// If the delay line is empty, there's obviously nothing that was delayed, so there will be no output.
+<a href=#92 id=92 data-nosnippet>92</a>        </span><span class="kw">if </span><span class="self">self</span>.delay_line.read().is_empty() {
+<a href=#93 id=93 data-nosnippet>93</a>            <span class="kw">return </span><span class="number">0</span>;
+<a href=#94 id=94 data-nosnippet>94</a>        }
+<a href=#95 id=95 data-nosnippet>95</a>        <span class="kw">let </span>(min_delay_frame, max_delay_frame) = <span class="self">self
+<a href=#96 id=96 data-nosnippet>96</a>            </span>.delay_frames
+<a href=#97 id=97 data-nosnippet>97</a>            .iter()
+<a href=#98 id=98 data-nosnippet>98</a>            .fold((f32::MAX, f32::MIN), |frames, delay_frame| {
+<a href=#99 id=99 data-nosnippet>99</a>                (frames.<span class="number">0</span>.min(<span class="kw-2">*</span>delay_frame), frames.<span class="number">1</span>.max(<span class="kw-2">*</span>delay_frame))
+<a href=#100 id=100 data-nosnippet>100</a>            });
+<a href=#101 id=101 data-nosnippet>101</a>        <span class="comment">// With the range of delay frames we can check which blocks we will be reading from.
+<a href=#102 id=102 data-nosnippet>102</a>        </span><span class="kw">let </span>earlier_block = find_block_with_index(max_delay_frame.ceil() <span class="kw">as </span>usize);
+<a href=#103 id=103 data-nosnippet>103</a>        <span class="kw">let </span>later_block = find_block_with_index(min_delay_frame.floor() <span class="kw">as </span>usize);
+<a href=#104 id=104 data-nosnippet>104</a>        <span class="comment">// Now search through the potential blocks for their channel counts
+<a href=#105 id=105 data-nosnippet>105</a>        // By construction earlier blocks are in higher indices of the delay line
+<a href=#106 id=106 data-nosnippet>106</a>        </span><span class="kw">let </span><span class="kw-2">mut </span>channel_count = <span class="number">0</span>;
+<a href=#107 id=107 data-nosnippet>107</a>        <span class="kw">let </span>delay_line = <span class="self">self</span>.delay_line.read();
+<a href=#108 id=108 data-nosnippet>108</a>        <span class="kw">for </span>block <span class="kw">in </span>later_block..=(later_block.max(earlier_block.min(delay_line.len() - <span class="number">1</span>))) {
+<a href=#109 id=109 data-nosnippet>109</a>            channel_count = channel_count.max(
+<a href=#110 id=110 data-nosnippet>110</a>                delay_line
+<a href=#111 id=111 data-nosnippet>111</a>                    .get(block)
+<a href=#112 id=112 data-nosnippet>112</a>                    .map(|block| {
+<a href=#113 id=113 data-nosnippet>113</a>                        <span class="comment">// Silent blocks don't affect the output.
+<a href=#114 id=114 data-nosnippet>114</a>                        </span><span class="kw">if </span>!block.is_silence() {
+<a href=#115 id=115 data-nosnippet>115</a>                            block.chan_count()
+<a href=#116 id=116 data-nosnippet>116</a>                        } <span class="kw">else </span>{
+<a href=#117 id=117 data-nosnippet>117</a>                            <span class="number">0
+<a href=#118 id=118 data-nosnippet>118</a>                        </span>}
+<a href=#119 id=119 data-nosnippet>119</a>                    })
+<a href=#120 id=120 data-nosnippet>120</a>                    .unwrap_or_default(),
+<a href=#121 id=121 data-nosnippet>121</a>            );
+<a href=#122 id=122 data-nosnippet>122</a>        }
+<a href=#123 id=123 data-nosnippet>123</a>        channel_count
+<a href=#124 id=124 data-nosnippet>124</a>    }
+<a href=#125 id=125 data-nosnippet>125</a>
+<a href=#126 id=126 data-nosnippet>126</a>    <span class="kw">fn </span>upmix_block(<span class="kw-2">&amp;</span><span class="self">self</span>, index: usize, channel_count: u8, block: <span class="kw-2">&amp;</span>Block) -&gt; UpmixedBlock {
+<a href=#127 id=127 data-nosnippet>127</a>        UpmixedBlock::new(
+<a href=#128 id=128 data-nosnippet>128</a>            index,
+<a href=#129 id=129 data-nosnippet>129</a>            channel_count,
+<a href=#130 id=130 data-nosnippet>130</a>            <span class="self">self</span>.channel_info.interpretation,
+<a href=#131 id=131 data-nosnippet>131</a>            block,
+<a href=#132 id=132 data-nosnippet>132</a>        )
+<a href=#133 id=133 data-nosnippet>133</a>    }
+<a href=#134 id=134 data-nosnippet>134</a>
+<a href=#135 id=135 data-nosnippet>135</a>    <span class="doccomment">/// Read frames from the delay line at the values indexed around the specified delays.
+<a href=#136 id=136 data-nosnippet>136</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>read(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Chunk {
+<a href=#137 id=137 data-nosnippet>137</a>        <span class="kw">let </span>channel_count = <span class="self">self</span>.calc_output_channel_count();
+<a href=#138 id=138 data-nosnippet>138</a>        <span class="comment">// If channel count is 0, then no data is outputted.
+<a href=#139 id=139 data-nosnippet>139</a>        // In this case we just return an output block with a single channel of 0s.
+<a href=#140 id=140 data-nosnippet>140</a>        </span><span class="kw">if </span>channel_count.is_zero() {
+<a href=#141 id=141 data-nosnippet>141</a>            <span class="kw">return </span>Chunk::explicit_silence();
+<a href=#142 id=142 data-nosnippet>142</a>        }
+<a href=#143 id=143 data-nosnippet>143</a>        <span class="kw">let </span><span class="kw-2">mut </span>has_active_value = <span class="bool-val">false</span>;
+<a href=#144 id=144 data-nosnippet>144</a>        <span class="comment">// Initialize the output block
+<a href=#145 id=145 data-nosnippet>145</a>        </span><span class="kw">let </span><span class="kw-2">mut </span>output_block = Block::for_channels_explicit(channel_count);
+<a href=#146 id=146 data-nosnippet>146</a>        {
+<a href=#147 id=147 data-nosnippet>147</a>            <span class="kw">let </span>delay_line = <span class="self">self</span>.delay_line.read();
+<a href=#148 id=148 data-nosnippet>148</a>            <span class="kw">for </span>(tick, delay_frame) <span class="kw">in </span><span class="self">self</span>.delay_frames.into_iter().enumerate() {
+<a href=#149 id=149 data-nosnippet>149</a>                <span class="kw">let </span>lower_frame_index = delay_frame.floor() <span class="kw">as </span>usize;
+<a href=#150 id=150 data-nosnippet>150</a>                <span class="kw">let </span>higher_frame_index = delay_frame.ceil() <span class="kw">as </span>usize;
+<a href=#151 id=151 data-nosnippet>151</a>                <span class="kw">let </span>lower_block_index = find_block_with_index(lower_frame_index);
+<a href=#152 id=152 data-nosnippet>152</a>                <span class="kw">let </span>higher_block_index = find_block_with_index(higher_frame_index);
+<a href=#153 id=153 data-nosnippet>153</a>                <span class="kw">let </span><span class="kw-2">mut </span>linear_interpolation_factor = delay_frame.fract();
+<a href=#154 id=154 data-nosnippet>154</a>                <span class="kw">for </span>(frame_index, block_index) <span class="kw">in </span>[
+<a href=#155 id=155 data-nosnippet>155</a>                    (lower_frame_index, lower_block_index),
+<a href=#156 id=156 data-nosnippet>156</a>                    (higher_frame_index, higher_block_index),
+<a href=#157 id=157 data-nosnippet>157</a>                ]
+<a href=#158 id=158 data-nosnippet>158</a>                .into_iter()
+<a href=#159 id=159 data-nosnippet>159</a>                {
+<a href=#160 id=160 data-nosnippet>160</a>                    <span class="kw">if </span>!linear_interpolation_factor.is_zero() {
+<a href=#161 id=161 data-nosnippet>161</a>                        <span class="kw">let </span><span class="prelude-val">Some</span>(block) = delay_line.get(block_index) <span class="kw">else </span>{
+<a href=#162 id=162 data-nosnippet>162</a>                            <span class="kw">continue</span>;
+<a href=#163 id=163 data-nosnippet>163</a>                        };
+<a href=#164 id=164 data-nosnippet>164</a>                        <span class="comment">// Update the upmixed block if necessary.
+<a href=#165 id=165 data-nosnippet>165</a>                        </span>{
+<a href=#166 id=166 data-nosnippet>166</a>                            <span class="kw">let </span><span class="kw-2">mut </span>maybe_upmixed_block = <span class="self">self</span>.upmixed_block.write();
+<a href=#167 id=167 data-nosnippet>167</a>                            <span class="kw">if let </span><span class="prelude-val">Some</span>(upmixed_block) = maybe_upmixed_block.as_ref() {
+<a href=#168 id=168 data-nosnippet>168</a>                                <span class="kw">if </span>upmixed_block.index() != block_index {
+<a href=#169 id=169 data-nosnippet>169</a>                                    <span class="kw-2">*</span>maybe_upmixed_block =
+<a href=#170 id=170 data-nosnippet>170</a>                                        <span class="prelude-val">Some</span>(<span class="self">self</span>.upmix_block(block_index, channel_count, block));
+<a href=#171 id=171 data-nosnippet>171</a>                                }
+<a href=#172 id=172 data-nosnippet>172</a>                            } <span class="kw">else </span>{
+<a href=#173 id=173 data-nosnippet>173</a>                                <span class="kw-2">*</span>maybe_upmixed_block =
+<a href=#174 id=174 data-nosnippet>174</a>                                    <span class="prelude-val">Some</span>(<span class="self">self</span>.upmix_block(block_index, channel_count, block));
+<a href=#175 id=175 data-nosnippet>175</a>                            }
+<a href=#176 id=176 data-nosnippet>176</a>                        }
+<a href=#177 id=177 data-nosnippet>177</a>                        <span class="kw">for </span>channel <span class="kw">in </span><span class="number">0</span>..channel_count <span class="kw">as </span>usize {
+<a href=#178 id=178 data-nosnippet>178</a>                            <span class="comment">// Get the position of the target frame within the block
+<a href=#179 id=179 data-nosnippet>179</a>                            </span><span class="kw">let </span>position_for_block = frame_index % FRAMES_PER_BLOCK_USIZE;
+<a href=#180 id=180 data-nosnippet>180</a>                            <span class="comment">// Remember that block buffer data goes from oldest to newest
+<a href=#181 id=181 data-nosnippet>181</a>                            </span><span class="kw">let </span>upmixed_value = <span class="self">self
+<a href=#182 id=182 data-nosnippet>182</a>                                </span>.upmixed_block
+<a href=#183 id=183 data-nosnippet>183</a>                                .read()
+<a href=#184 id=184 data-nosnippet>184</a>                                .as_ref()
+<a href=#185 id=185 data-nosnippet>185</a>                                .map(|upmixed_block| {
+<a href=#186 id=186 data-nosnippet>186</a>                                    upmixed_block.block().data_chan_frame(
+<a href=#187 id=187 data-nosnippet>187</a>                                        FRAMES_PER_BLOCK_USIZE - <span class="number">1 </span>- position_for_block,
+<a href=#188 id=188 data-nosnippet>188</a>                                        channel <span class="kw">as </span>u8,
+<a href=#189 id=189 data-nosnippet>189</a>                                    )
+<a href=#190 id=190 data-nosnippet>190</a>                                })
+<a href=#191 id=191 data-nosnippet>191</a>                                .unwrap_or_default();
+<a href=#192 id=192 data-nosnippet>192</a>                            <span class="comment">// Flag if we are actively processing
+<a href=#193 id=193 data-nosnippet>193</a>                            </span><span class="kw">if </span>upmixed_value.abs() &gt;= f32::MIN &amp;&amp; !has_active_value {
+<a href=#194 id=194 data-nosnippet>194</a>                                has_active_value = <span class="bool-val">true</span>;
+<a href=#195 id=195 data-nosnippet>195</a>                            }
+<a href=#196 id=196 data-nosnippet>196</a>                            <span class="kw">let </span>output_channel = output_block.data_chan_mut(channel <span class="kw">as </span>u8);
+<a href=#197 id=197 data-nosnippet>197</a>                            output_channel[tick] += linear_interpolation_factor * upmixed_value;
+<a href=#198 id=198 data-nosnippet>198</a>                        }
+<a href=#199 id=199 data-nosnippet>199</a>                    }
+<a href=#200 id=200 data-nosnippet>200</a>                    linear_interpolation_factor = <span class="number">1. </span>- linear_interpolation_factor;
+<a href=#201 id=201 data-nosnippet>201</a>                }
+<a href=#202 id=202 data-nosnippet>202</a>            }
+<a href=#203 id=203 data-nosnippet>203</a>        }
+<a href=#204 id=204 data-nosnippet>204</a>        <span class="comment">// 1.5.3
+<a href=#205 id=205 data-nosnippet>205</a>        // &gt; AudioNodes that are not actively processing output a single channel of silence.
+<a href=#206 id=206 data-nosnippet>206</a>        </span>Chunk::new(output_block)
+<a href=#207 id=207 data-nosnippet>207</a>    }
+<a href=#208 id=208 data-nosnippet>208</a>}
+<a href=#209 id=209 data-nosnippet>209</a>
+<a href=#210 id=210 data-nosnippet>210</a><span class="kw">impl </span>AudioNodeEngine <span class="kw">for </span>DelayReader {
+<a href=#211 id=211 data-nosnippet>211</a>    <span class="kw">fn </span>node_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; AudioNodeType {
+<a href=#212 id=212 data-nosnippet>212</a>        AudioNodeType::DelayReader
+<a href=#213 id=213 data-nosnippet>213</a>    }
+<a href=#214 id=214 data-nosnippet>214</a>
+<a href=#215 id=215 data-nosnippet>215</a>    <span class="kw">fn </span>process(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _inputs: Chunk, info: <span class="kw-2">&amp;</span>BlockInfo) -&gt; Chunk {
+<a href=#216 id=216 data-nosnippet>216</a>        <span class="comment">// Reset the delay frames array
+<a href=#217 id=217 data-nosnippet>217</a>        </span><span class="self">self</span>.delay_frames = [<span class="number">0.</span>; FRAMES_PER_BLOCK_USIZE];
+<a href=#218 id=218 data-nosnippet>218</a>
+<a href=#219 id=219 data-nosnippet>219</a>        <span class="comment">// Update delay_frames
+<a href=#220 id=220 data-nosnippet>220</a>        </span><span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..FRAMES_PER_BLOCK_USIZE {
+<a href=#221 id=221 data-nosnippet>221</a>            <span class="self">self</span>.update_parameters(info, Tick(i <span class="kw">as </span>u64));
+<a href=#222 id=222 data-nosnippet>222</a>        }
+<a href=#223 id=223 data-nosnippet>223</a>
+<a href=#224 id=224 data-nosnippet>224</a>        <span class="comment">// Read from the internal buffer
+<a href=#225 id=225 data-nosnippet>225</a>        </span><span class="self">self</span>.read()
+<a href=#226 id=226 data-nosnippet>226</a>    }
+<a href=#227 id=227 data-nosnippet>227</a>
+<a href=#228 id=228 data-nosnippet>228</a>    <span class="kw">fn </span>get_param(<span class="kw-2">&amp;mut </span><span class="self">self</span>, id: ParamType) -&gt; <span class="kw-2">&amp;mut </span>Param {
+<a href=#229 id=229 data-nosnippet>229</a>        <span class="kw">match </span>id {
+<a href=#230 id=230 data-nosnippet>230</a>            ParamType::DelayTime =&gt; <span class="kw-2">&amp;mut </span><span class="self">self</span>.delay_time,
+<a href=#231 id=231 data-nosnippet>231</a>            <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">"Unknown param {:?} for DelayNode"</span>, id),
+<a href=#232 id=232 data-nosnippet>232</a>        }
+<a href=#233 id=233 data-nosnippet>233</a>    }
+<a href=#234 id=234 data-nosnippet>234</a>}
+</code></pre></div></section></main></body></html>

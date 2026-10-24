@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["environ_getenv","file_get_contents","is_canonical_pspec_name","mkdtemp","mkdtemp_full","mkstemp","mkstemp_full","prgname","program_name","set_prgname","set_program_name","uri_escape_string","uri_parse_scheme","uri_unescape_segment","uri_unescape_string"]};

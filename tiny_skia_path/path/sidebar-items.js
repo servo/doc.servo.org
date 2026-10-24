@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PathSegment","PathVerb"],"fn":["compute_cubic_extremas","compute_quad_extremas"],"struct":["Path","PathSegmentsIter"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MASK","SCALE","SHIFT","SUPERSAMPLE_SHIFT"],"fn":["coverage_to_partial_alpha","fill_path","fill_path_impl","overflows_short_shift","rect_overflows_short_shift"],"struct":["BaseSuperBlitter","SuperBlitter"]};

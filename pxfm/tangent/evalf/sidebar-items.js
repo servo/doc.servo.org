@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["tanf_eval","tanf_eval_fma","tanpif_eval","tanpif_eval_fma"],"static":["TAN_K_PI_OVER32"],"struct":["TanfEval"]};

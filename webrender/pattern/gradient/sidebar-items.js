@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GradientKind"],"fn":["conic_gradient_pattern","gpu_gradient_stops_blocks","linear_gradient_pattern","radial_gradient_pattern","write_gpu_gradient_stops_header_and_colors","write_gpu_gradient_stops_tree"]};

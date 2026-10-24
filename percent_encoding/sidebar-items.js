@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CONTROLS","NON_ALPHANUMERIC"],"fn":["after_percent_sign","decode_utf8_lossy","percent_decode","percent_decode_str","percent_encode","percent_encode_byte","utf8_percent_encode"],"mod":["ascii_set"],"struct":["AsciiSet","PercentDecode","PercentEncode"]};

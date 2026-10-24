@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HALF_FLOAT_OES"]};

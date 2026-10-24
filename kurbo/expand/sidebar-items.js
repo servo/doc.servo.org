@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["expand_path","expand_path_signed","try_one_point","two_point_linear"],"struct":["CubicCtx","Diagonal2","ExpandCtx","TwoPointSample"]};

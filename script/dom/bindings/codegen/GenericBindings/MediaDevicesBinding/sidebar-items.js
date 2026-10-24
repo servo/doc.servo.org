@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ConstrainDouble","ConstrainULong"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["MediaDevices_Binding"],"struct":["ConstrainDoubleRange","ConstrainULongRange","DoubleRange","MediaStreamConstraints","MediaTrackConstraintSet","MediaTrackConstraints","ULongRange"],"trait":["MediaDevicesMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ViewBoxError"],"struct":["ViewBox"]};

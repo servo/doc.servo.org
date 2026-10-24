@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["erf","erf_poly","erfc","erfcx","erfcxf","erff","erffc","inverf","inverfc","inverfcf","inverff","rerf","rerf_poly","rerff"]};

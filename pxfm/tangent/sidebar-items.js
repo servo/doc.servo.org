@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["atan","atan2","atan2f","atan2pi","atan2pif","atanf","atanpi","atanpif","cot","cotf","cotpi","cotpif","evalf","tan","tanf","tanpi","tanpi_table","tanpif"]};

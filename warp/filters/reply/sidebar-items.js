@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["assert_name_and_value","default_header","header","headers"],"mod":["sealed"],"struct":["WithDefaultHeader","WithHeader","WithHeaders"]};

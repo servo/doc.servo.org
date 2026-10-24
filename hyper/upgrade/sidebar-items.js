@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["on","pending"],"mod":["sealed"],"struct":["OnUpgrade","Parts","Pending","UpgradeExpected","Upgraded"],"trait":["Io"]};

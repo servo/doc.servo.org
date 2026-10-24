@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALLOWED_CONSECUTIVE_EMPTY_FRAGMENTS_MAX"],"mod":["connection","kernel","unbuffered"],"struct":["ConnectionCommon","ConnectionCore","ConnectionRandoms","InboundUnborrowedMessage","UnbufferedConnectionCommon"],"trait":["SideData"]};

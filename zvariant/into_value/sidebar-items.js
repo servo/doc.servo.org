@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["into_value",1],["into_value_from_both",1],["into_value_from_ref",1],["try_into_value_from_ref",1]]};

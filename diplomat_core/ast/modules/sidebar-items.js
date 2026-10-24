@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DiplomatStructAttribute","DiplomatTypeAttribute"],"fn":["extract_imports"],"struct":["File","Module","ModuleBuilder"]};

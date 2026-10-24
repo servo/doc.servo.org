@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StructuredData"],"struct":["StructuredDataReader","StructuredDataWriter"],"trait":["MarkedAsSerializableInIdl","MarkedAsTransferableInIdl"]};

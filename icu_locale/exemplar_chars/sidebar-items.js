@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["make_exemplar_chars_unicode_set_property",1]],"struct":["ExemplarCharacters","ExemplarCharactersBorrowed"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MemoryIntoInnerError"],"fn":["alloc","class_init","free","instance_init","mem_is_span","mem_map","mem_share","mem_unmap","rust_allocator","rust_allocator_internal","try_into_from_memory_ptr"],"struct":["WrappedMemory"]};

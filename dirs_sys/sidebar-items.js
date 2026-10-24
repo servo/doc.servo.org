@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["home_dir","is_absolute_path","user_dir","user_dirs"],"mod":["target_unix_not_mac","target_unix_not_redox","xdg_user_dirs"]};

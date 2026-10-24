@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply","is_dummy","transfer"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImeContextCreationError"],"fn":["calc_byte_position","create_xim_callback","preedit_caret_callback","preedit_done_callback","preedit_draw_callback","preedit_start_callback"],"struct":["ImeContext","ImeContextClientData","PreeditCallbacks"],"type":["XIMProcNonnull"]};

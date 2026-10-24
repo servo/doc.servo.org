@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_keyword","requires_semi"]};

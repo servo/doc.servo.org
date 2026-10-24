@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["blurred_rounded_rect","clip","encode","filter","filter_effects","flatten","flatten_simd","geometry","image_cache","mask","math","multi_atlas","paint","pixmap","record","rect","render_state","simd","strip","strip_generator","tile","transforms","util","viewport"],"struct":["TextureId"]};

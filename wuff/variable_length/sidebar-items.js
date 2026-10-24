@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Base128Size","Read255UShort","ReadBase128","Size255UShort","Store255UShort","StoreBase128","Write255UShort"],"struct":["UShort255"],"trait":["BufVariableExt"]};

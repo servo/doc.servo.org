@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIN_LINE_WIDTH"],"enum":["Error","LineEnding"],"mod":["alphabet","decoder","encoder","encoding","errors","line_ending"],"struct":["Base64","Base64Bcrypt","Base64Crypt","Base64Pbkdf2","Base64ShaCrypt","Base64Unpadded","Base64Url","Base64UrlUnpadded","Decoder","Encoder","InvalidEncodingError","InvalidLengthError"],"trait":["Encoding"]};

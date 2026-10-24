@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALPHABET_LEN","BCRYPT","BIN_HEX","CRYPT","IMAP_MUTF7","PADDING_SYMBOL","STANDARD","URL_SAFE"],"enum":["ParseAlphabetError"],"fn":["is_valid_b64_symbol"],"struct":["Alphabet","Symbol"]};

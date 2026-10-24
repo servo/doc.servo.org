@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ServiceWorkerState"],"fn":["Wrap"],"mod":["GenericBindings","ServiceWorkerStateValues","ServiceWorker_Binding"],"trait":["ServiceWorkerMethods"]};

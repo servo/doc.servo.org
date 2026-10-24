@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_index",1]],"struct":["UninitSlice"]};

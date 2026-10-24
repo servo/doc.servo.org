@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crypto-primes-0.7.2/src/hazmat/primecount.rs`."><title>primecount.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="crypto_primes" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">crypto_primes/hazmat/</div>primecount.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="kw">use </span><span class="kw">crate</span>::hazmat::float::ln;
+<a href=#2 id=2 data-nosnippet>2</a><span class="kw">use </span>core::f64;
+<a href=#3 id=3 data-nosnippet>3</a><span class="kw">use </span>crypto_bigint::{Concat, NonZero, Uint, cpubits};
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a><span class="kw">use </span><span class="kw">super</span>::libm::round;
+<a href=#6 id=6 data-nosnippet>6</a>
+<a href=#7 id=7 data-nosnippet>7</a><span class="doccomment">/// Estimate the number of primes smaller than x using the asymptotic expansion of `Li(x)` with 4 terms, i.e.:
+<a href=#8 id=8 data-nosnippet>8</a>///
+<a href=#9 id=9 data-nosnippet>9</a>///   $$\pi(x) \approx \frac{x}{\ln x} \left(1 + \frac{1!}{\ln x} + \frac{2!}{\ln^2 x} + \frac{3!}{\ln^3 x}\right)$$
+<a href=#10 id=10 data-nosnippet>10</a>///
+<a href=#11 id=11 data-nosnippet>11</a>/// For values of x up to ~$10^{29}$, consider using precalculated values for $\pi(x)$ from
+<a href=#12 id=12 data-nosnippet>12</a>/// e.g. &lt;https://sweet.ua.pt/tos/primes.html&gt;.
+<a href=#13 id=13 data-nosnippet>13</a>///
+<a href=#14 id=14 data-nosnippet>14</a>/// # Error considerations
+<a href=#15 id=15 data-nosnippet>15</a>///
+<a href=#16 id=16 data-nosnippet>16</a>/// In addition to the usual floating point math limitations, there are two components to the error:
+<a href=#17 id=17 data-nosnippet>17</a>///
+<a href=#18 id=18 data-nosnippet>18</a>/// 1. The truncation error from using a limited number of terms (4) of the asymptotic expansion of Li(x): $|Li(x) -
+<a href=#19 id=19 data-nosnippet>19</a>///    Li_{approx}(x)|$
+<a href=#20 id=20 data-nosnippet>20</a>/// 2. The theoretical error, given by the absolute difference between $\pi(x)$ and Li(x): $|\pi(x) - Li(x)|$
+<a href=#21 id=21 data-nosnippet>21</a>///
+<a href=#22 id=22 data-nosnippet>22</a>/// ## Truncation Error
+<a href=#23 id=23 data-nosnippet>23</a>///
+<a href=#24 id=24 data-nosnippet>24</a>/// The size of the truncation error for the 4-term approximation $Li_{approx}(x)$ is roughly the size of the first
+<a href=#25 id=25 data-nosnippet>25</a>/// omitted term, which is $\frac{24x}{\ln^5 x}$.
+<a href=#26 id=26 data-nosnippet>26</a>///
+<a href=#27 id=27 data-nosnippet>27</a>/// | Bits | Truncation error (abs)     | Truncation error (rel) |
+<a href=#28 id=28 data-nosnippet>28</a>/// | :--- | :------------------------- | :----------------------|
+<a href=#29 id=29 data-nosnippet>29</a>/// | 1024 | $\approx 2^{981}$          | $\approx 2^{-33}$      |
+<a href=#30 id=30 data-nosnippet>30</a>/// | 2048 | $\approx 2^{2000}$         | $\approx 2^{-37}$      |
+<a href=#31 id=31 data-nosnippet>31</a>/// | 4096 | $\approx 2^{4043}$         | $\approx 2^{-41}$      |
+<a href=#32 id=32 data-nosnippet>32</a>///
+<a href=#33 id=33 data-nosnippet>33</a>/// *(Relative error is calculated as the first omitted term divided by $Li_{approx}(x)$)*
+<a href=#34 id=34 data-nosnippet>34</a>///
+<a href=#35 id=35 data-nosnippet>35</a>/// ## Theoretical Error
+<a href=#36 id=36 data-nosnippet>36</a>///
+<a href=#37 id=37 data-nosnippet>37</a>/// Assuming RH, we can use Schoenfeld’s bound $|\pi(x) - \text{Li}(x)| &lt; \frac{\sqrt{x} \ln x}{8\pi}$.
+<a href=#38 id=38 data-nosnippet>38</a>/// This gives a very small theoretical error bound compared to the best known unconditional bounds[^Trudgian2014].
+<a href=#39 id=39 data-nosnippet>39</a>///
+<a href=#40 id=40 data-nosnippet>40</a>/// | Bits | Error Bound (abs) | Error Bound (rel) |
+<a href=#41 id=41 data-nosnippet>41</a>/// | :--- | :---------------- | :-----------------|
+<a href=#42 id=42 data-nosnippet>42</a>/// | 1024 | &lt; $2^{517}$       | &lt; $2^{-497}$      |
+<a href=#43 id=43 data-nosnippet>43</a>/// | 2048 | &lt; $2^{1030}$      | &lt; $2^{-1007}$     |
+<a href=#44 id=44 data-nosnippet>44</a>/// | 4096 | &lt; $2^{2055}$      | &lt; $2^{-2029}$     |
+<a href=#45 id=45 data-nosnippet>45</a>///
+<a href=#46 id=46 data-nosnippet>46</a>/// *(Relative error bound is calculated as Schoenfeld’s Bound (abs) divided by $Li_{approx}(x)$)*
+<a href=#47 id=47 data-nosnippet>47</a>///
+<a href=#48 id=48 data-nosnippet>48</a>/// ## Discussion
+<a href=#49 id=49 data-nosnippet>49</a>///
+<a href=#50 id=50 data-nosnippet>50</a>/// Assuming RH, the dominant error term in estimating $\pi(x)$ with $Li_{approx}(x)$
+<a href=#51 id=51 data-nosnippet>51</a>/// comes from truncating the asymptotic expansion of Li(x).
+<a href=#52 id=52 data-nosnippet>52</a>/// While this truncation error is extremely small in relative terms, it is large in absolute terms.
+<a href=#53 id=53 data-nosnippet>53</a>/// Improving the Li(x) approximation to be the same order of magnitude as the Schoenfeld bound would require using
+<a href=#54 id=54 data-nosnippet>54</a>/// hundreds of terms from the asymptotic series (or employing more complex methods like continued fractions for the
+<a href=#55 id=55 data-nosnippet>55</a>/// remainder, which is beyond the scope of this simple approximation). In relative terms the error bound is
+<a href=#56 id=56 data-nosnippet>56</a>/// approximately $2^{-33}$ (for 1024 bits) down to $\sim 2^{-41}$ (for 4096 bits).
+<a href=#57 id=57 data-nosnippet>57</a>/// This corresponds to an extremely small percentage error (significantly less than $10^{-8}$ %).
+<a href=#58 id=58 data-nosnippet>58</a>///
+<a href=#59 id=59 data-nosnippet>59</a>/// It should be noted that while Li(x) is generally smaller than $\pi(x)$ for 'small' x, it is known that the sign of
+<a href=#60 id=60 data-nosnippet>60</a>/// $\pi(x) - Li(x)$ changes infinitely often. It has been proven that there must be a crossing below $\sim 10^{316}$
+<a href=#61 id=61 data-nosnippet>61</a>/// ($\sim 2^{1051}$), which is well within the ranges used in this library. Thus, users should be aware that the
+<a href=#62 id=62 data-nosnippet>62</a>/// estimate provided here can be both greater than and smaller than the actual value of $\pi(x)$.
+<a href=#63 id=63 data-nosnippet>63</a>///
+<a href=#64 id=64 data-nosnippet>64</a>/// [^Dusart2010]: P. Dusart, "Estimates of Some Functions Over Primes without R.H.",
+<a href=#65 id=65 data-nosnippet>65</a>///   [arXiv:1002.0442](https://arxiv.org/pdf/1002.0442) (2010)
+<a href=#66 id=66 data-nosnippet>66</a>///
+<a href=#67 id=67 data-nosnippet>67</a>/// [^Dusart2018]: P. Dusart, "Explicit estimates of some functions over primes",
+<a href=#68 id=68 data-nosnippet>68</a>///   The Ramanujan Journal 45(1) 227-251 (2018),
+<a href=#69 id=69 data-nosnippet>69</a>///   DOI: [10.1007/s11139-016-9839-4](https://link.springer.com/article/10.1007/s11139-016-9839-4)
+<a href=#70 id=70 data-nosnippet>70</a>///
+<a href=#71 id=71 data-nosnippet>71</a>/// [^Wikipedia-pcf]: &lt;https://en.wikipedia.org/wiki/Prime-counting_function&gt;
+<a href=#72 id=72 data-nosnippet>72</a>///
+<a href=#73 id=73 data-nosnippet>73</a>/// [^Schoenfeld1976]: L. Schoenfeld, "Sharper Bounds for the Chebyshev Functions θ(x) and ψ(x). II",
+<a href=#74 id=74 data-nosnippet>74</a>///   Math. Comp. 30(134) 337-360 (1976),
+<a href=#75 id=75 data-nosnippet>75</a>///   DOI: [10.2307/2005976](https://www.jstor.org/stable/2005976)
+<a href=#76 id=76 data-nosnippet>76</a>///
+<a href=#77 id=77 data-nosnippet>77</a>/// [^Trudgian2014]: T. Trudgian, "Updating the error term in the prime number theorem",
+<a href=#78 id=78 data-nosnippet>78</a>///   [arXiv:1401.2689](https://arxiv.org/abs/1401.2689) (2014)
+<a href=#79 id=79 data-nosnippet>79</a></span><span class="attr">#[must_use]
+<a href=#80 id=80 data-nosnippet>80</a></span><span class="kw">pub fn </span>estimate_primecount&lt;<span class="kw">const </span>LIMBS: usize, <span class="kw">const </span>RHS_LIMBS: usize&gt;(x: <span class="kw-2">&amp;</span>Uint&lt;LIMBS&gt;) -&gt; Uint&lt;LIMBS&gt;
+<a href=#81 id=81 data-nosnippet>81</a><span class="kw">where
+<a href=#82 id=82 data-nosnippet>82</a>    </span>Uint&lt;LIMBS&gt;: Concat&lt;LIMBS, Output = Uint&lt;RHS_LIMBS&gt;&gt;,
+<a href=#83 id=83 data-nosnippet>83</a>{
+<a href=#84 id=84 data-nosnippet>84</a>    <span class="comment">// Number of bits to scale by (fractional bits during division)
+<a href=#85 id=85 data-nosnippet>85</a>    // On 64 bit CPUs and x is a U64, we use 32 bits (1 limb * 32). Else 64.
+<a href=#86 id=86 data-nosnippet>86</a>    // On 32 bit CPUs and x is a U64, we use 32 bits (2 limb * 16). Else 64.
+<a href=#87 id=87 data-nosnippet>87</a>    </span><span class="kw">let </span>limbs = u32::try_from(LIMBS).expect(<span class="string">"the number of limbs fits into `u32`"</span>);
+<a href=#88 id=88 data-nosnippet>88</a>    <span class="kw">let </span>scale_bits = {
+<a href=#89 id=89 data-nosnippet>89</a>        <span class="macro">cpubits!</span> {
+<a href=#90 id=90 data-nosnippet>90</a>            <span class="number">32 </span>=&gt; { limbs.min(<span class="number">4</span>).checked_mul(<span class="number">16</span>) }
+<a href=#91 id=91 data-nosnippet>91</a>            <span class="number">64 </span>=&gt; { limbs.min(<span class="number">2</span>).checked_mul(<span class="number">32</span>) }
+<a href=#92 id=92 data-nosnippet>92</a>        }
+<a href=#93 id=93 data-nosnippet>93</a>    }
+<a href=#94 id=94 data-nosnippet>94</a>    .expect(<span class="string">"scale bits fit into `u32`"</span>);
+<a href=#95 id=95 data-nosnippet>95</a>
+<a href=#96 id=96 data-nosnippet>96</a>    <span class="kw">let </span>total_scale_bits = scale_bits.checked_mul(<span class="number">2</span>).expect(<span class="string">"scale bits times 2 fit into `u32`"</span>);
+<a href=#97 id=97 data-nosnippet>97</a>
+<a href=#98 id=98 data-nosnippet>98</a>    <span class="comment">// Scaling factor for the denominators of the expansion terms, 2^64.
+<a href=#99 id=99 data-nosnippet>99</a>    //
+<a href=#100 id=100 data-nosnippet>100</a>    // The number of limbs needed for precision loss is very large,
+<a href=#101 id=101 data-nosnippet>101</a>    // and in any case some precision loss is acceptable here.
+<a href=#102 id=102 data-nosnippet>102</a>    </span><span class="attr">#[expect(clippy::as_conversions, clippy::cast_precision_loss)]
+<a href=#103 id=103 data-nosnippet>103</a>    </span><span class="kw">let </span>denom_scale_factor = (<span class="number">1u128 </span>&lt;&lt; scale_bits) <span class="kw">as </span>f64;
+<a href=#104 id=104 data-nosnippet>104</a>
+<a href=#105 id=105 data-nosnippet>105</a>    <span class="kw">let </span>ln_x = ln(x);
+<a href=#106 id=106 data-nosnippet>106</a>
+<a href=#107 id=107 data-nosnippet>107</a>    <span class="kw">if </span>!ln_x.is_finite() || ln_x &lt;= <span class="number">1.0 </span>{
+<a href=#108 id=108 data-nosnippet>108</a>        <span class="kw">return </span>Uint::ZERO;
+<a href=#109 id=109 data-nosnippet>109</a>    }
+<a href=#110 id=110 data-nosnippet>110</a>
+<a href=#111 id=111 data-nosnippet>111</a>    <span class="comment">// Calculate f64 denominators L, L^2, L^3, L^4
+<a href=#112 id=112 data-nosnippet>112</a>    </span><span class="kw">let </span>ln_x_2 = ln_x * ln_x;
+<a href=#113 id=113 data-nosnippet>113</a>    <span class="kw">let </span>ln_x_3 = ln_x_2 * ln_x;
+<a href=#114 id=114 data-nosnippet>114</a>    <span class="kw">let </span>ln_x_4 = ln_x_3 * ln_x;
+<a href=#115 id=115 data-nosnippet>115</a>
+<a href=#116 id=116 data-nosnippet>116</a>    <span class="comment">// Scale up a float by 2^64, round, cast to u128 and then to a wide `Uint`.
+<a href=#117 id=117 data-nosnippet>117</a>    </span><span class="kw">let </span>f64_to_scaled_uint = |value: f64| -&gt; NonZero&lt;Uint&lt;RHS_LIMBS&gt;&gt; {
+<a href=#118 id=118 data-nosnippet>118</a>        <span class="kw">let </span>scaled = value * denom_scale_factor;
+<a href=#119 id=119 data-nosnippet>119</a>
+<a href=#120 id=120 data-nosnippet>120</a>        <span class="attr">#[expect(
+<a href=#121 id=121 data-nosnippet>121</a>            clippy::as_conversions,
+<a href=#122 id=122 data-nosnippet>122</a>            <span class="comment">// We checked above that ln_x &gt; 1, and `value` will be `ln_x` to a small power.
+<a href=#123 id=123 data-nosnippet>123</a>            </span>clippy::cast_sign_loss,
+<a href=#124 id=124 data-nosnippet>124</a>            <span class="comment">// `value` won't be big enough for truncation
+<a href=#125 id=125 data-nosnippet>125</a>            </span>clippy::cast_possible_truncation,
+<a href=#126 id=126 data-nosnippet>126</a>        )]
+<a href=#127 id=127 data-nosnippet>127</a>        </span><span class="kw">let </span>scaled = round(scaled).max(<span class="number">1.0</span>) <span class="kw">as </span>u128;
+<a href=#128 id=128 data-nosnippet>128</a>
+<a href=#129 id=129 data-nosnippet>129</a>        <span class="kw">let </span>denom = Uint::&lt;RHS_LIMBS&gt;::from_u128(scaled);
+<a href=#130 id=130 data-nosnippet>130</a>        NonZero::new(denom).expect(<span class="string">"max(1.0) ensures value is at least 1"</span>)
+<a href=#131 id=131 data-nosnippet>131</a>    };
+<a href=#132 id=132 data-nosnippet>132</a>
+<a href=#133 id=133 data-nosnippet>133</a>    <span class="kw">let </span>d1 = f64_to_scaled_uint(ln_x);
+<a href=#134 id=134 data-nosnippet>134</a>    <span class="kw">let </span>d2 = f64_to_scaled_uint(ln_x_2);
+<a href=#135 id=135 data-nosnippet>135</a>    <span class="kw">let </span>d3 = f64_to_scaled_uint(ln_x_3);
+<a href=#136 id=136 data-nosnippet>136</a>    <span class="kw">let </span>d4 = f64_to_scaled_uint(ln_x_4);
+<a href=#137 id=137 data-nosnippet>137</a>
+<a href=#138 id=138 data-nosnippet>138</a>    <span class="kw">let </span>x_wide: Uint&lt;RHS_LIMBS&gt; = x.concat(<span class="kw-2">&amp;</span>Uint::ZERO);
+<a href=#139 id=139 data-nosnippet>139</a>    <span class="kw">let </span>x_wide_scaled = x_wide.wrapping_shl_vartime(total_scale_bits);
+<a href=#140 id=140 data-nosnippet>140</a>
+<a href=#141 id=141 data-nosnippet>141</a>    <span class="kw">let </span>term1_scaled = x_wide_scaled.wrapping_div(<span class="kw-2">&amp;</span>d1);
+<a href=#142 id=142 data-nosnippet>142</a>    <span class="kw">let </span>term2_scaled = x_wide_scaled.wrapping_div(<span class="kw-2">&amp;</span>d2);
+<a href=#143 id=143 data-nosnippet>143</a>
+<a href=#144 id=144 data-nosnippet>144</a>    <span class="comment">// Term 3: (2x &lt;&lt; total_scale_bits) / d3  (Factorial 2!)
+<a href=#145 id=145 data-nosnippet>145</a>    </span><span class="kw">let </span>term3_scaled = x_wide_scaled.wrapping_shl_vartime(<span class="number">1</span>).wrapping_div(<span class="kw-2">&amp;</span>d3);
+<a href=#146 id=146 data-nosnippet>146</a>
+<a href=#147 id=147 data-nosnippet>147</a>    <span class="comment">// Term 4: (6x &lt;&lt; total_scale_bits) / d4  (Factorial 3!)
+<a href=#148 id=148 data-nosnippet>148</a>    </span><span class="kw">let </span>six = Uint::&lt;LIMBS&gt;::from(<span class="number">6u64</span>);
+<a href=#149 id=149 data-nosnippet>149</a>    <span class="kw">let </span>x_times_6 = x_wide_scaled.saturating_mul(<span class="kw-2">&amp;</span>six);
+<a href=#150 id=150 data-nosnippet>150</a>    <span class="kw">let </span>term4_scaled = x_times_6.wrapping_div(<span class="kw-2">&amp;</span>d4);
+<a href=#151 id=151 data-nosnippet>151</a>
+<a href=#152 id=152 data-nosnippet>152</a>    <span class="kw">let </span>sum_scaled = term1_scaled
+<a href=#153 id=153 data-nosnippet>153</a>        .wrapping_add(<span class="kw-2">&amp;</span>term2_scaled)
+<a href=#154 id=154 data-nosnippet>154</a>        .wrapping_add(<span class="kw-2">&amp;</span>term3_scaled)
+<a href=#155 id=155 data-nosnippet>155</a>        .wrapping_add(<span class="kw-2">&amp;</span>term4_scaled);
+<a href=#156 id=156 data-nosnippet>156</a>
+<a href=#157 id=157 data-nosnippet>157</a>    <span class="comment">// Descale by right-shifting
+<a href=#158 id=158 data-nosnippet>158</a>    </span><span class="kw">let </span>li_x = sum_scaled
+<a href=#159 id=159 data-nosnippet>159</a>        .overflowing_shr_vartime(scale_bits)
+<a href=#160 id=160 data-nosnippet>160</a>        .expect(<span class="string">"the scaling factor is small enough to not overflow"</span>);
+<a href=#161 id=161 data-nosnippet>161</a>    li_x.resize_checked()
+<a href=#162 id=162 data-nosnippet>162</a>        .expect(<span class="string">"de-scaling should leave the high half zero"</span>)
+<a href=#163 id=163 data-nosnippet>163</a>}
+<a href=#164 id=164 data-nosnippet>164</a>
+<a href=#165 id=165 data-nosnippet>165</a><span class="attr">#[cfg(test)]
+<a href=#166 id=166 data-nosnippet>166</a></span><span class="kw">mod </span>tests {
+<a href=#167 id=167 data-nosnippet>167</a>    <span class="kw">use super</span>::<span class="kw-2">*</span>;
+<a href=#168 id=168 data-nosnippet>168</a>    <span class="kw">use </span>alloc::vec;
+<a href=#169 id=169 data-nosnippet>169</a>    <span class="kw">use </span>alloc::vec::Vec;
+<a href=#170 id=170 data-nosnippet>170</a>    <span class="kw">use </span>crypto_bigint::{U64, U128, U256, U1024};
+<a href=#171 id=171 data-nosnippet>171</a>
+<a href=#172 id=172 data-nosnippet>172</a>    <span class="attr">#[test]
+<a href=#173 id=173 data-nosnippet>173</a>    </span><span class="kw">fn </span>pi_x_2_500() {
+<a href=#174 id=174 data-nosnippet>174</a>        <span class="kw">let </span>x = Uint::ONE &lt;&lt; <span class="number">500</span>;
+<a href=#175 id=175 data-nosnippet>175</a>        <span class="kw">let </span>sage_est = U1024::from_be_hex(<span class="macro">concat!</span>[
+<a href=#176 id=176 data-nosnippet>176</a>            <span class="string">"0000000000000000000000000000000000000000000000000000000000000000"</span>,
+<a href=#177 id=177 data-nosnippet>177</a>            <span class="string">"0000000000000000000000000000000000000000000000000000000000000000"</span>,
+<a href=#178 id=178 data-nosnippet>178</a>            <span class="string">"00000bda54dd744907290defac4f74bec507fdafd96e123c49bea56826f73702"</span>,
+<a href=#179 id=179 data-nosnippet>179</a>            <span class="string">"a469b67453a13a6abc40e81b760a0a5fd95870dbb8bbe99973c246c49561e101"
+<a href=#180 id=180 data-nosnippet>180</a>        </span>]);
+<a href=#181 id=181 data-nosnippet>181</a>        <span class="kw">let </span>estimate = estimate_primecount(<span class="kw-2">&amp;</span>x);
+<a href=#182 id=182 data-nosnippet>182</a>        assert_bit_difference(estimate, sage_est, <span class="number">29</span>);
+<a href=#183 id=183 data-nosnippet>183</a>    }
+<a href=#184 id=184 data-nosnippet>184</a>
+<a href=#185 id=185 data-nosnippet>185</a>    <span class="attr">#[test]
+<a href=#186 id=186 data-nosnippet>186</a>    </span><span class="kw">fn </span>pi_x_max() {
+<a href=#187 id=187 data-nosnippet>187</a>        <span class="kw">let </span>x = U1024::MAX;
+<a href=#188 id=188 data-nosnippet>188</a>        <span class="kw">let </span>estimate = estimate_primecount(<span class="kw-2">&amp;</span>x);
+<a href=#189 id=189 data-nosnippet>189</a>        <span class="kw">let </span>sage_est = Uint::from_be_hex(<span class="macro">concat!</span>[
+<a href=#190 id=190 data-nosnippet>190</a>            <span class="string">"005c7682fe13533e630c22e716b35439b3dc61f1d4898d78a36dd9c9afc0745a"</span>,
+<a href=#191 id=191 data-nosnippet>191</a>            <span class="string">"06d3a0deb93b77423f6d11c107283fcfdb8ae17de22b5197972f37cb480a2737"</span>,
+<a href=#192 id=192 data-nosnippet>192</a>            <span class="string">"fe8d0f15202bb43bc1863b05f6d3849f865b95242eaec9789dcf3b40e92504d9"</span>,
+<a href=#193 id=193 data-nosnippet>193</a>            <span class="string">"8258f80b394ebec1c63d1186f9552689076f709c2fd8497b5f78d82cea2c2137"
+<a href=#194 id=194 data-nosnippet>194</a>        </span>]);
+<a href=#195 id=195 data-nosnippet>195</a>        assert_bit_difference(estimate, sage_est, <span class="number">33</span>);
+<a href=#196 id=196 data-nosnippet>196</a>    }
+<a href=#197 id=197 data-nosnippet>197</a>    <span class="attr">#[test]
+<a href=#198 id=198 data-nosnippet>198</a>    </span><span class="kw">fn </span>pi_x_random() {
+<a href=#199 id=199 data-nosnippet>199</a>        <span class="comment">// This is a ChaCha8Rng with seed b"01234567890123456789012345678901"
+<a href=#200 id=200 data-nosnippet>200</a>        </span><span class="kw">let </span>x = Uint::from_be_hex(<span class="macro">concat!</span>[
+<a href=#201 id=201 data-nosnippet>201</a>            <span class="string">"62A211E0907141403FD3EB60A82EAB701524710BDB024EB68DFF309389258B63"</span>,
+<a href=#202 id=202 data-nosnippet>202</a>            <span class="string">"2EB9975D29F028F5137AC9DE870EB622D2D45A0D3A9C5801E8A3109BED220F82"</span>,
+<a href=#203 id=203 data-nosnippet>203</a>            <span class="string">"890E108F1778E5523E3E89CCD5DEDB667E6C17E940E9D4C3F58575C86CB76403"</span>,
+<a href=#204 id=204 data-nosnippet>204</a>            <span class="string">"017AD59D33AC084D2E58D81F8BB87A61B44677037A7DBDE04814256570DCBD7A"
+<a href=#205 id=205 data-nosnippet>205</a>        </span>]);
+<a href=#206 id=206 data-nosnippet>206</a>        <span class="kw">let </span>sage_est = U1024::from_be_hex(<span class="macro">concat!</span>[
+<a href=#207 id=207 data-nosnippet>207</a>            <span class="string">"0023ac3184a0c4c8e9025e0ae9b44d7980cee1baacf69032bb898677841fac0e"</span>,
+<a href=#208 id=208 data-nosnippet>208</a>            <span class="string">"516fa6bc8c1d1d3bb282622aa62c49f2d8e622d2f9aa80af3140c8c225136301"</span>,
+<a href=#209 id=209 data-nosnippet>209</a>            <span class="string">"7c99621943c90ab55a6dd69a678110233254a1a3c50ceb1cdb516e7220a7514a"</span>,
+<a href=#210 id=210 data-nosnippet>210</a>            <span class="string">"17b20114c7bef6f316e94cf7c9181187d70e751bda2e18695fa71e8015b8cf1c"
+<a href=#211 id=211 data-nosnippet>211</a>        </span>]);
+<a href=#212 id=212 data-nosnippet>212</a>        <span class="kw">let </span>estimate = estimate_primecount(<span class="kw-2">&amp;</span>x);
+<a href=#213 id=213 data-nosnippet>213</a>        assert_bit_difference(estimate, sage_est, <span class="number">34</span>);
+<a href=#214 id=214 data-nosnippet>214</a>    }
+<a href=#215 id=215 data-nosnippet>215</a>
+<a href=#216 id=216 data-nosnippet>216</a>    <span class="attr">#[test]
+<a href=#217 id=217 data-nosnippet>217</a>    </span><span class="kw">fn </span>pi_x_u128() {
+<a href=#218 id=218 data-nosnippet>218</a>        <span class="kw">let </span>x = U128::from_u128(<span class="number">1000000000000000000000000</span>);
+<a href=#219 id=219 data-nosnippet>219</a>        <span class="kw">let </span>sage_est = U128::from_be_hex(<span class="string">"00000000000003e76557786d0933dca8"</span>);
+<a href=#220 id=220 data-nosnippet>220</a>        <span class="kw">let </span>estimate = estimate_primecount(<span class="kw-2">&amp;</span>x);
+<a href=#221 id=221 data-nosnippet>221</a>        assert_bit_difference(estimate, sage_est, <span class="number">18</span>);
+<a href=#222 id=222 data-nosnippet>222</a>    }
+<a href=#223 id=223 data-nosnippet>223</a>
+<a href=#224 id=224 data-nosnippet>224</a>    <span class="attr">#[test]
+<a href=#225 id=225 data-nosnippet>225</a>    </span><span class="kw">fn </span>pi_x_u64() {
+<a href=#226 id=226 data-nosnippet>226</a>        <span class="kw">let </span>x = U64::from_u64(<span class="number">10000000</span>);
+<a href=#227 id=227 data-nosnippet>227</a>        <span class="kw">let </span>sage_est = U64::from_be_hex(<span class="string">"00000000000A2556"</span>);
+<a href=#228 id=228 data-nosnippet>228</a>        <span class="kw">let </span>estimate = estimate_primecount(<span class="kw-2">&amp;</span>x);
+<a href=#229 id=229 data-nosnippet>229</a>        assert_bit_difference(estimate, sage_est, <span class="number">9</span>);
+<a href=#230 id=230 data-nosnippet>230</a>    }
+<a href=#231 id=231 data-nosnippet>231</a>
+<a href=#232 id=232 data-nosnippet>232</a>    <span class="kw">fn </span>assert_bit_difference&lt;<span class="kw">const </span>LIMBS: usize&gt;(candidate: Uint&lt;LIMBS&gt;, reference: Uint&lt;LIMBS&gt;, min_bit_diff: u32) {
+<a href=#233 id=233 data-nosnippet>233</a>        <span class="kw">let </span>delta = <span class="kw">if </span>reference &gt; candidate {
+<a href=#234 id=234 data-nosnippet>234</a>            reference - candidate
+<a href=#235 id=235 data-nosnippet>235</a>        } <span class="kw">else </span>{
+<a href=#236 id=236 data-nosnippet>236</a>            candidate - reference
+<a href=#237 id=237 data-nosnippet>237</a>        };
+<a href=#238 id=238 data-nosnippet>238</a>        <span class="macro">assert!</span>(
+<a href=#239 id=239 data-nosnippet>239</a>            reference.bits_vartime().abs_diff(delta.bits_vartime()) &gt;= min_bit_diff,
+<a href=#240 id=240 data-nosnippet>240</a>            <span class="macro">concat!</span>(
+<a href=#241 id=241 data-nosnippet>241</a>                <span class="string">"Estimate not close enough: delta has {} bits, reference has {} bits. "</span>,
+<a href=#242 id=242 data-nosnippet>242</a>                <span class="string">"Difference should be &gt;= {}\nEstimate: {},\nReference: {}"
+<a href=#243 id=243 data-nosnippet>243</a>            </span>),
+<a href=#244 id=244 data-nosnippet>244</a>            delta.bits_vartime(),
+<a href=#245 id=245 data-nosnippet>245</a>            reference.bits_vartime(),
+<a href=#246 id=246 data-nosnippet>246</a>            min_bit_diff,
+<a href=#247 id=247 data-nosnippet>247</a>            candidate,
+<a href=#248 id=248 data-nosnippet>248</a>            reference,
+<a href=#249 id=249 data-nosnippet>249</a>        );
+<a href=#250 id=250 data-nosnippet>250</a>    }
+<a href=#251 id=251 data-nosnippet>251</a>
+<a href=#252 id=252 data-nosnippet>252</a>    <span class="attr">#[test]
+<a href=#253 id=253 data-nosnippet>253</a>    </span><span class="kw">fn </span>pi_x_estimates_for_known_values() {
+<a href=#254 id=254 data-nosnippet>254</a>        <span class="comment">// List of known values for π(x), expressed as a tuple of `(π(x), exponent)`,
+<a href=#255 id=255 data-nosnippet>255</a>        // where the `exponent` is used with base 10.
+<a href=#256 id=256 data-nosnippet>256</a>        </span><span class="kw">let </span>pi_xs: Vec&lt;(u128, u32)&gt; = <span class="macro">vec!</span>[
+<a href=#257 id=257 data-nosnippet>257</a>            <span class="comment">// The error is large for small x, so we skip them.
+<a href=#258 id=258 data-nosnippet>258</a>            // (4, 1),
+<a href=#259 id=259 data-nosnippet>259</a>            // (25, 2),
+<a href=#260 id=260 data-nosnippet>260</a>            // (168, 3),
+<a href=#261 id=261 data-nosnippet>261</a>            </span>(<span class="number">1229</span>, <span class="number">4</span>),
+<a href=#262 id=262 data-nosnippet>262</a>            (<span class="number">9592</span>, <span class="number">5</span>),
+<a href=#263 id=263 data-nosnippet>263</a>            (<span class="number">78498</span>, <span class="number">6</span>),
+<a href=#264 id=264 data-nosnippet>264</a>            (<span class="number">664579</span>, <span class="number">7</span>),
+<a href=#265 id=265 data-nosnippet>265</a>            (<span class="number">5761455</span>, <span class="number">8</span>),
+<a href=#266 id=266 data-nosnippet>266</a>            (<span class="number">50847534</span>, <span class="number">9</span>),
+<a href=#267 id=267 data-nosnippet>267</a>            (<span class="number">455052511</span>, <span class="number">10</span>),
+<a href=#268 id=268 data-nosnippet>268</a>            (<span class="number">4118054813</span>, <span class="number">11</span>),
+<a href=#269 id=269 data-nosnippet>269</a>            (<span class="number">37607912018</span>, <span class="number">12</span>),
+<a href=#270 id=270 data-nosnippet>270</a>            (<span class="number">346065536839</span>, <span class="number">13</span>),
+<a href=#271 id=271 data-nosnippet>271</a>            (<span class="number">3204941750802</span>, <span class="number">14</span>),
+<a href=#272 id=272 data-nosnippet>272</a>            (<span class="number">29844570422669</span>, <span class="number">15</span>),
+<a href=#273 id=273 data-nosnippet>273</a>            (<span class="number">279238341033925</span>, <span class="number">16</span>),
+<a href=#274 id=274 data-nosnippet>274</a>            (<span class="number">2623557157654233</span>, <span class="number">17</span>),
+<a href=#275 id=275 data-nosnippet>275</a>            (<span class="number">24739954287740860</span>, <span class="number">18</span>),
+<a href=#276 id=276 data-nosnippet>276</a>            (<span class="number">234057667276344607</span>, <span class="number">19</span>),
+<a href=#277 id=277 data-nosnippet>277</a>            (<span class="number">2220819602560918840</span>, <span class="number">20</span>),
+<a href=#278 id=278 data-nosnippet>278</a>            (<span class="number">21127269486018731928</span>, <span class="number">21</span>),
+<a href=#279 id=279 data-nosnippet>279</a>            (<span class="number">201467286689315906290</span>, <span class="number">22</span>),
+<a href=#280 id=280 data-nosnippet>280</a>            (<span class="number">1925320391606803968923</span>, <span class="number">23</span>),
+<a href=#281 id=281 data-nosnippet>281</a>            (<span class="number">18435599767349200867866</span>, <span class="number">24</span>),
+<a href=#282 id=282 data-nosnippet>282</a>            (<span class="number">176846309399143769411680</span>, <span class="number">25</span>),
+<a href=#283 id=283 data-nosnippet>283</a>            (<span class="number">1699246750872437141327603</span>, <span class="number">26</span>),
+<a href=#284 id=284 data-nosnippet>284</a>            (<span class="number">16352460426841680446427399</span>, <span class="number">27</span>),
+<a href=#285 id=285 data-nosnippet>285</a>            (<span class="number">157589269275973410412739598</span>, <span class="number">28</span>),
+<a href=#286 id=286 data-nosnippet>286</a>            (<span class="number">1520698109714272166094258063</span>, <span class="number">29</span>),
+<a href=#287 id=287 data-nosnippet>287</a>        ];
+<a href=#288 id=288 data-nosnippet>288</a>        <span class="kw">for </span>(pi_x, exponent) <span class="kw">in </span><span class="kw-2">&amp;</span>pi_xs {
+<a href=#289 id=289 data-nosnippet>289</a>            <span class="kw">let </span>pi_x_wide = U256::from_u128(<span class="kw-2">*</span>pi_x);
+<a href=#290 id=290 data-nosnippet>290</a>            <span class="kw">let </span>n = U256::from_u128(<span class="number">10u128</span>.pow(<span class="kw-2">*</span>exponent));
+<a href=#291 id=291 data-nosnippet>291</a>            <span class="kw">let </span>estimate = estimate_primecount(<span class="kw-2">&amp;</span>n);
+<a href=#292 id=292 data-nosnippet>292</a>            <span class="kw">let </span>delta = <span class="kw">if </span>pi_x_wide &gt; estimate {
+<a href=#293 id=293 data-nosnippet>293</a>                pi_x_wide - estimate
+<a href=#294 id=294 data-nosnippet>294</a>            } <span class="kw">else </span>{
+<a href=#295 id=295 data-nosnippet>295</a>                estimate - pi_x_wide
+<a href=#296 id=296 data-nosnippet>296</a>            };
+<a href=#297 id=297 data-nosnippet>297</a>            <span class="kw">let </span>delta = uint_to_u128(<span class="kw-2">&amp;</span>delta);
+<a href=#298 id=298 data-nosnippet>298</a>            <span class="kw">let </span>estimate_128 = uint_to_u128(<span class="kw-2">&amp;</span>estimate);
+<a href=#299 id=299 data-nosnippet>299</a>
+<a href=#300 id=300 data-nosnippet>300</a>            <span class="comment">// Some precision loss is acceptable here
+<a href=#301 id=301 data-nosnippet>301</a>            </span><span class="attr">#[expect(clippy::as_conversions, clippy::cast_precision_loss)]
+<a href=#302 id=302 data-nosnippet>302</a>            </span><span class="kw">let </span>error = (delta <span class="kw">as </span>f64 / <span class="kw-2">*</span>pi_x <span class="kw">as </span>f64) * <span class="number">100.0</span>;
+<a href=#303 id=303 data-nosnippet>303</a>
+<a href=#304 id=304 data-nosnippet>304</a>            <span class="macro">assert!</span>(
+<a href=#305 id=305 data-nosnippet>305</a>                error &lt; <span class="number">2.2</span>,
+<a href=#306 id=306 data-nosnippet>306</a>                <span class="string">"10^{exponent}:\t{pi_x} - {estimate_128} = {delta}, err: {error:.2}"
+<a href=#307 id=307 data-nosnippet>307</a>            </span>);
+<a href=#308 id=308 data-nosnippet>308</a>        }
+<a href=#309 id=309 data-nosnippet>309</a>    }
+<a href=#310 id=310 data-nosnippet>310</a>
+<a href=#311 id=311 data-nosnippet>311</a>    <span class="kw">fn </span>uint_to_u128&lt;<span class="kw">const </span>LIMBS: usize&gt;(x: <span class="kw-2">&amp;</span>Uint&lt;LIMBS&gt;) -&gt; u128 {
+<a href=#312 id=312 data-nosnippet>312</a>        <span class="kw">let </span>limbs = x.as_limbs();
+<a href=#313 id=313 data-nosnippet>313</a>
+<a href=#314 id=314 data-nosnippet>314</a>        <span class="macro">cpubits!</span> {
+<a href=#315 id=315 data-nosnippet>315</a>            <span class="number">32 </span>=&gt; {
+<a href=#316 id=316 data-nosnippet>316</a>                u128::from(limbs[<span class="number">3</span>].<span class="number">0</span>) &lt;&lt; <span class="number">96
+<a href=#317 id=317 data-nosnippet>317</a>                </span>| u128::from(limbs[<span class="number">2</span>].<span class="number">0</span>) &lt;&lt; <span class="number">64
+<a href=#318 id=318 data-nosnippet>318</a>                </span>| u128::from(limbs[<span class="number">1</span>].<span class="number">0</span>) &lt;&lt; <span class="number">32
+<a href=#319 id=319 data-nosnippet>319</a>                </span>| u128::from(limbs[<span class="number">0</span>].<span class="number">0</span>)
+<a href=#320 id=320 data-nosnippet>320</a>            }
+<a href=#321 id=321 data-nosnippet>321</a>            <span class="number">64 </span>=&gt; {
+<a href=#322 id=322 data-nosnippet>322</a>                (u128::from(limbs[<span class="number">1</span>].<span class="number">0</span>) &lt;&lt; <span class="number">64</span>) | u128::from(limbs[<span class="number">0</span>].<span class="number">0</span>)
+<a href=#323 id=323 data-nosnippet>323</a>            }
+<a href=#324 id=324 data-nosnippet>324</a>        }
+<a href=#325 id=325 data-nosnippet>325</a>    }
+<a href=#326 id=326 data-nosnippet>326</a>}
+</code></pre></div></section></main></body></html>

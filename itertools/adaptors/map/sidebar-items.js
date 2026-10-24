@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["map_into","map_ok"],"struct":["MapSpecialCase","MapSpecialCaseFnInto","MapSpecialCaseFnOk"],"trait":["MapSpecialCaseFn"],"type":["MapInto","MapOk"]};

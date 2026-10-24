@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ARGON2D_IDENT","ARGON2ID_IDENT","ARGON2I_IDENT"],"enum":["Algorithm"]};

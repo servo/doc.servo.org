@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["ChannelSplitterNode_Binding","GenericBindings"],"trait":["ChannelSplitterNodeMethods"],"type":["ChannelSplitterOptions"]};

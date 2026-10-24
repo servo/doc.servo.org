@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Consumer","HelpPlacement","Name","Post","PostDecor","PostParse","StrictName"],"fn":["parse_bpaf_doc_attrs","type_fish"],"struct":["CustomHelp","EnumPrefix","FieldAttrs","TurboFish"]};

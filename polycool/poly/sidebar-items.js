@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_deriv_and_deflate",1],["impl_roots_between_recursive",1]],"struct":["Poly"],"type":["Cubic","Quadratic","Quartic","Quintic"]};

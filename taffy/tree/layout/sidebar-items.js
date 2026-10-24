@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AxisStaticEdge","DetailedLayoutInfo","RequestedAxis","RunMode","SizingMode"],"struct":["AxisStaticAlign","AxisStaticPosition","Baselines","CollapsibleMarginSet","Layout","LayoutInput","LayoutOutput","OofCandidate","OofCandidates","OofPositioningArea"]};

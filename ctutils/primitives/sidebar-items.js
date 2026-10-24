@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["borrowing_sub_u32","borrowing_sub_u64","le_u32","le_u64","leading_zeros_u32","leading_zeros_u64","lt_u32","lt_u64","nz_u32","nz_u64","overflowing_add_u128","overflowing_add_u64","trailing_zeros_u32","trailing_zeros_u64"],"macro":[["bitborrow",1],["bitle",1],["bitlt",1],["bitnz",1],["borrowing_sub_primitives",1],["comparison_primitives",1]]};

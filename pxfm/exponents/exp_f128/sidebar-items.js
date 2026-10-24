@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["poly_exp_f128","rational128_exp"],"static":["TD_EXP2_MID1","TD_EXP2_MID2"]};

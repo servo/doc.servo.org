@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Auth","Ip"],"fn":["encode_basic_auth","get_first_env","parse_env_uri"],"mod":["builder"],"struct":["Builder","DomainMatcher","Intercept","IpMatcher","Matcher","NoProxy"]};

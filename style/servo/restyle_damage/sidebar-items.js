@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["augmented_restyle_damage_rebuild_box","augmented_restyle_damage_rebuild_stacking_context","compute_damage"],"struct":["ServoRestyleDamage"]};

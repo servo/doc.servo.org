@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ServiceWorkerContainer_Binding"],"struct":["RegistrationOptions"],"trait":["ServiceWorkerContainerMethods"]};

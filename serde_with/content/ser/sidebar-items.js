@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Content"],"struct":["ContentSerializer","MapSerialize","SeqSerialize","StructSerialize","StructVariantSerialize","TupleSerialize","TupleStructSerialize","TupleVariantSerialize"]};

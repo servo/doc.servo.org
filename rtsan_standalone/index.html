@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="rtsan-standalone-rs"><title>rtsan_standalone - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="rtsan_standalone" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate rtsan_standalone</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../rtsan_standalone/index.html">rtsan_<wbr>standalone</a><span class="version">0.3.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#rtsan-standalone-rs" title="rtsan-standalone-rs">rtsan-standalone-rs</a><ul><li><a href="#usage" title="Usage">Usage</a></li><li><a href="#setup" title="Setup">Setup</a></li><li><a href="#features" title="Features">Features</a></li><li><a href="#examples" title="Examples">Examples</a></li><li><a href="#rtsan-options" title="RTSan Options">RTSan Options</a></li><li><a href="#contact" title="Contact">Contact</a></li></ul></li></ul><h3><a href="#macros">Crate Items</a></h3><ul class="block"><li><a href="#macros" title="Macros">Macros</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#functions" title="Functions">Functions</a></li><li><a href="#attributes" title="Attribute Macros">Attribute Macros</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>rtsan_<wbr>standalone</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/rtsan_standalone/lib.rs.html#1-287">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="rtsan-standalone-rs"><a class="doc-anchor" href="#rtsan-standalone-rs">§</a>rtsan-standalone-rs</h2>
+<p>This is a wrapper for the standalone version of RealtimeSanitizer (RTSan) to detect real-time violations in Rust applications.
+You can find more information in the <a href="https://clang.llvm.org/docs/RealtimeSanitizer.html">Official Clang Docs</a>
+and the <a href="https://github.com/realtime-sanitizer/rtsan">RTSan Repository</a>.</p>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Currently, this sanitizer only works on Linux, macOS and iOS.</p>
+</blockquote>
+<h3 id="usage"><a class="doc-anchor" href="#usage">§</a>Usage</h3>
+<p>Mark a real-time function with the <code>#[nonblocking]</code> macro:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>rtsan_standalone::nonblocking;
+
+<span class="attr">#[nonblocking]
+</span><span class="kw">fn </span>process(data: <span class="kw-2">&amp;mut </span>[f32]) {
+    <span class="kw">let _ </span>= <span class="macro">vec!</span>[<span class="number">0.0</span>; <span class="number">16</span>]; <span class="comment">// oops!
+</span>}</code></pre></div>
+<p>At runtime, real-time violations are presented with a stack trace:</p>
+<div class="example-wrap"><pre class="language-bash"><code>==283082==ERROR: RealtimeSanitizer: unsafe-library-call
+Intercepted call to real-time unsafe function `calloc` in real-time context!
+    #0 0x55c0c3be8cf2 in calloc /tmp/.tmp6Qb4u2/llvm-project/compiler-rt/lib/rtsan/rtsan_interceptors_posix.cpp:470:34
+    #1 0x55c0c3be4e69 in alloc::alloc::alloc_zeroed::hf760e6484fdf32c8 /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/alloc/src/alloc.rs:170:14
+    #2 0x55c0c3be4e69 in alloc::alloc::Global::alloc_impl::hc0e9b7c86f5cad5c /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/alloc/src/alloc.rs:181:43
+    #3 0x55c0c3be56fb in _$LT$alloc..alloc..Global$u20$as$u20$core..alloc..Allocator$GT$::allocate_zeroed::h8f75ff921b519af6 /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/alloc/src/alloc.rs:246:9
+    ...
+    #27 0x55c0c3be2ab4 in _start (target/debug/examples/vector+0x2ab4) (BuildId: adb992a7e560cd00ef533c9333d3c033fb4a7c42)
+SUMMARY: RealtimeSanitizer: unsafe-library-call /rustc/f6e511eec7342f59a25f7c0534f1dbea00d01b14/library/alloc/src/alloc.rs:170:14 in alloc::alloc::alloc_zeroed::hf760e6484fdf32c8</code></pre></div><h3 id="setup"><a class="doc-anchor" href="#setup">§</a>Setup</h3>
+<p>RTSan currently supports Linux, macOS and iOS.</p>
+<p>To use RTSan, add it as a dependency in your <code>Cargo.toml</code> file:</p>
+<div class="example-wrap"><pre class="language-toml"><code>[dependencies]
+rtsan-standalone = &quot;0.3.0&quot;</code></pre></div>
+<p>To run your project with sanitizing enabled, execute:</p>
+<div class="example-wrap"><pre class="language-sh"><code>RTSAN_ENABLE=1 cargo run</code></pre></div><h4 id="pre-built-libraries"><a class="doc-anchor" href="#pre-built-libraries">§</a>Pre-built Libraries</h4>
+<p>By default this crate downloads pre-built libraries from the repo <a href="https://github.com/realtime-sanitizer/rtsan-libs">rtsan-libs</a>.
+This requires <code>curl</code> to be installed.</p>
+<p>If you do not wish to use the pre-built libraries you can disable the default features and either let the build script build the library automatically
+or provide a custom build of rtsan.</p>
+<h4 id="building-locally"><a class="doc-anchor" href="#building-locally">§</a>Building locally</h4>
+<p>Ensure you have the following tools installed: <code>git</code>, <code>make</code>, and <code>cmake</code> (version 3.20.0 or higher).
+Disable default features when adding <code>rtsan-standalone</code> to your project.
+The initial build of <code>rtsan-standalone-sys</code> may take a few minutes to compile the LLVM
+libraries. After building the crate for the first time, the library is located at:</p>
+<div class="example-wrap"><pre class="language-sh"><code>target/debug/build/rtsan-standalone-sys-*/out/</code></pre></div><h4 id="using-custom-built-rtsan-libraries"><a class="doc-anchor" href="#using-custom-built-rtsan-libraries">§</a>Using Custom-Built RTSan Libraries</h4>
+<p>To use a custom-built library, you need to set the <code>RTSAN_LIBRARY_PATH</code> environment variable.
+When a library gets provided like this it will always be prioritized.</p>
+<div class="example-wrap"><pre class="language-sh"><code># Linux
+RTSAN_LIBRARY_PATH=/path/to/libclang_rt.rtsan-x86_64.a RTSAN_ENABLE=1 cargo run</code></pre></div><h3 id="features"><a class="doc-anchor" href="#features">§</a>Features</h3>
+<p>The <code>prebuilt-libs</code> feature enables automatic downloading of libraries from <a href="https://github.com/realtime-sanitizer/rtsan-libs">rtsan-libs</a> and is activated by default, eliminating the need for local compilation.
+This requires <code>curl</code> to be installed.</p>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3>
+<p>Explore the various possibilities with RTSan through the provided examples. For
+instance, to run the <a href="examples/vector.rs"><code>vector</code></a> example, execute:</p>
+<div class="example-wrap"><pre class="language-sh"><code>RTSAN_ENABLE=1 cargo run --example vector</code></pre></div><h3 id="rtsan-options"><a class="doc-anchor" href="#rtsan-options">§</a>RTSan Options</h3>
+<p>You can set different options in RTSan like this:</p>
+<div class="example-wrap"><pre class="language-sh"><code>RTSAN_OPTIONS=halt_on_error=false RTSAN_ENABLE=1 cargo run --example mutex</code></pre></div>
+<p>For a full list of options see here: <a href="https://clang.llvm.org/docs/RealtimeSanitizer.html#run-time-flags">https://clang.llvm.org/docs/RealtimeSanitizer.html#run-time-flags</a>.</p>
+<h3 id="contact"><a class="doc-anchor" href="#contact">§</a>Contact</h3>
+<p>RTSan was invented by David Trevelyan and Ali Barker. The C++ upstream
+implementation was authored by David Trevelyan and Chris Apple, while the Rust
+wrapper was developed by Stephan Eckes. Feedback and contributions are welcome!</p>
+<ul>
+<li><strong>Discord</strong>: <a href="https://discord.com/invite/DZqjbmSZzZ">RealtimeSanitizer (RTSan)</a> Discord Channel</li>
+<li><strong>Email</strong>: <a href="mailto:realtime.sanitizer@gmail.com">realtime.sanitizer@gmail.com</a></li>
+<li><strong>GitHub Issues</strong>: Submit your queries or suggestions directly to this
+repository.</li>
+</ul>
+</div></details><h2 id="macros" class="section-header">Macros<a href="#macros" class="anchor">§</a></h2><dl class="item-table"><dt><a class="macro" href="macro.scoped_disabler.html" title="macro rtsan_standalone::scoped_disabler">scoped_<wbr>disabler</a></dt><dd>Disable all RTSan error reporting in an otherwise real-time context.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.ScopedDisabler.html" title="struct rtsan_standalone::ScopedDisabler">Scoped<wbr>Disabler</a></dt><dd>Disable all RTSan error reporting in an otherwise real-time context,
+for the lifetime of the object.
+Corresponds to a <a href="macro.scoped_disabler.html" title="macro rtsan_standalone::scoped_disabler"><code>scoped_disabler</code></a> or <a href="attr.no_sanitize_realtime.html" title="attr rtsan_standalone::no_sanitize_realtime"><code>no_sanitize_realtime</code></a> macro.</dd><dt><a class="struct" href="struct.ScopedSanitizeRealtime.html" title="struct rtsan_standalone::ScopedSanitizeRealtime">Scoped<wbr>Sanitize<wbr>Realtime</a></dt><dd>Enter real-time context for the lifetime of the object.
+When in a real-time context, RTSan interceptors will error if realtime
+violations are detected.
+Corresponds to a <a href="attr.nonblocking.html" title="attr rtsan_standalone::nonblocking"><code>nonblocking</code></a> macro.</dd></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.disable.html" title="fn rtsan_standalone::disable">disable</a></dt><dd>Disable all RTSan error reporting in an otherwise real-time context.
+Must be paired with a call to <a href="fn.enable.html" title="fn rtsan_standalone::enable"><code>enable</code></a>.
+Corresponds to a <a href="macro.scoped_disabler.html" title="macro rtsan_standalone::scoped_disabler"><code>scoped_disabler</code></a> or <a href="attr.no_sanitize_realtime.html" title="attr rtsan_standalone::no_sanitize_realtime"><code>no_sanitize_realtime</code></a> macro.</dd><dt><a class="fn" href="fn.enable.html" title="fn rtsan_standalone::enable">enable</a></dt><dd>Re-enable all RTSan error reporting.
+Must follow a call to <a href="fn.disable.html" title="fn rtsan_standalone::disable"><code>disable</code></a>.
+Corresponds to a <a href="macro.scoped_disabler.html" title="macro rtsan_standalone::scoped_disabler"><code>scoped_disabler</code></a> or <a href="attr.no_sanitize_realtime.html" title="attr rtsan_standalone::no_sanitize_realtime"><code>no_sanitize_realtime</code></a> macro.</dd><dt><a class="fn" href="fn.ensure_initialized.html" title="fn rtsan_standalone::ensure_initialized">ensure_<wbr>initialized</a></dt><dd>Initializes rtsan if it has not been initialized yet.
+Used by the RTSan runtime to ensure that rtsan is initialized before any
+other rtsan functions are called.</dd><dt><a class="fn" href="fn.notify_blocking_call.html" title="fn rtsan_standalone::notify_blocking_call">notify_<wbr>blocking_<wbr>call</a></dt><dd>Allows the user to specify a function as not-real-time-safe
+Including this in the first line of a function definition is
+analogous to marking a function  with the <a href="attr.blocking.html" title="attr rtsan_standalone::blocking"><code>blocking</code></a> macro.</dd><dt><a class="fn" href="fn.realtime_enter.html" title="fn rtsan_standalone::realtime_enter">realtime_<wbr>enter</a></dt><dd>Enter real-time context.
+When in a real-time context, RTSan interceptors will error if realtime
+violations are detected. Calls to this method are injected at the code
+generation stage when RTSan is enabled.
+Corresponds to a <a href="attr.nonblocking.html" title="attr rtsan_standalone::nonblocking"><code>nonblocking</code></a> macro.</dd><dt><a class="fn" href="fn.realtime_exit.html" title="fn rtsan_standalone::realtime_exit">realtime_<wbr>exit</a></dt><dd>Exit the real-time context.
+When not in a real-time context, RTSan interceptors will simply forward
+intercepted method calls to the real methods.
+Corresponds to a <a href="attr.nonblocking.html" title="attr rtsan_standalone::nonblocking"><code>nonblocking</code></a> macro.</dd></dl><h2 id="attributes" class="section-header">Attribute Macros<a href="#attributes" class="anchor">§</a></h2><dl class="item-table"><dt><a class="attr" href="attr.blocking.html" title="attr rtsan_standalone::blocking">blocking</a></dt><dd>Allows the user to specify a function as not-real-time-safe.</dd><dt><a class="attr" href="attr.no_sanitize_realtime.html" title="attr rtsan_standalone::no_sanitize_realtime">no_<wbr>sanitize_<wbr>realtime</a></dt><dd>Disable all RTSan error reporting in an otherwise real-time context.</dd><dt><a class="attr" href="attr.nonblocking.html" title="attr rtsan_standalone::nonblocking">nonblocking</a></dt><dd>Enter real-time context in your function.
+When in a real-time context, RTSan interceptors will error if realtime
+violations are detected. Calls to this method are injected at the code
+generation stage when RTSan is enabled.</dd></dl></section></div></main></body></html>

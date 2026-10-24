@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","MediaMetadata_Binding"],"trait":["MediaMetadataMethods"],"type":["MediaImage","MediaMetadataInit"]};

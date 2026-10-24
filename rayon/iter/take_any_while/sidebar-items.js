@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["take"],"struct":["TakeAnyWhile","TakeAnyWhileConsumer","TakeAnyWhileFolder"]};

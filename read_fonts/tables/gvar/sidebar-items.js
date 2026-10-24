@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["find_glyph_and_point_count"],"mod":["deltas"],"struct":["DeltaBuffers","GlyphDelta","GlyphVariationDataHeader","Gvar","GvarFlags","SharedTuples","U16Or32"],"type":["GlyphVariationData"]};

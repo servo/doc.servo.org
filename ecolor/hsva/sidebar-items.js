@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["hsv_from_rgb","rgb_from_hsv"],"struct":["Hsva"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InlineCheckType"],"fn":["compute_scripted_caller_source_position","csp_violation_report_tasks","obtain_blocked_uri_for_violation_resource_with_sample","parse_and_potentially_append_to_csp_list","parse_csp_list_from_metadata"],"struct":["SourcePosition","Violation"],"trait":["CspReporting","GlobalCspReporting"]};

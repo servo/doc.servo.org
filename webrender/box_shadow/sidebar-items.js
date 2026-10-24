@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLUR_SAMPLE_SCALE","MAX_BLUR_RADIUS"],"struct":["BoxShadow","BoxShadowCacheKey","BoxShadowData"],"type":["BoxShadowDataHandle","BoxShadowKey","BoxShadowTemplate"]};

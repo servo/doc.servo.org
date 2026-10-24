@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fmaximum_num","fmaximum_numf","fminimum_num","fminimum_numf"]};

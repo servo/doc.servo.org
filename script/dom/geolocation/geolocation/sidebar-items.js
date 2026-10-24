@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Geolocation"],"enum":["Completion","PositionError"],"fn":["now_as_epoch_timestamp"],"struct":["Geolocation","GeolocationTimeoutCallback","PositionRequest","RequestOptions"],"type":["RequestId"]};

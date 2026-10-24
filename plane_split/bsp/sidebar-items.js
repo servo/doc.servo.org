@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["add_node","add_polygon"],"struct":["BspNode","BspSplitter","NodeIdx","PolygonIdx"]};

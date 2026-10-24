@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Macro for declaring a character property."><title>char_property in unic_char_property - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="unic_char_property" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc macro"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">char_property</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../unic_char_property/index.html">unic_<wbr>char_<wbr>property</a><span class="version">0.9.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">char_<wbr>property</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#syntax-enumerated-property" title="Syntax (Enumerated Property)">Syntax (Enumerated Property)</a></li><li><a href="#syntax-binary-property" title="Syntax (Binary Property)">Syntax (Binary Property)</a></li><li><a href="#effect" title="Effect">Effect</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate unic_<wbr>char_<wbr>property</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">unic_char_property</a></div><h1>Macro <span class="macro">char_<wbr>property</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/unic_char_property/macros.rs.html#88-293">Source</a> </span></div><pre class="rust item-decl"><code>macro_rules! char_property {
+    (
+        $(#[$prop_meta:meta])*
+        pub enum $prop_name:ident {
+            abbr =&gt; $prop_abbr:expr;
+            long =&gt; $prop_long:expr;
+            human =&gt; $prop_human:expr;
+
+            $(
+                $(#[$variant_meta:meta])*
+                $variant_name:ident {
+                    abbr =&gt; $variant_abbr:ident,
+                    long =&gt; $variant_long:ident,
+                    human =&gt; $variant_human:expr,
+                }
+            )*
+        }
+
+        $(#[$abbr_mod_meta:meta])*
+        pub mod $abbr_mod:ident for abbr;
+
+        $(#[$long_mod_meta:meta])*
+        pub mod $long_mod:ident for long;
+
+    ) =&gt; { ... };
+    (
+        $(#[$prop_meta:meta])*
+        pub struct $prop_name:ident(bool) {
+            abbr =&gt; $prop_abbr:expr;
+            long =&gt; $prop_long:expr;
+            human =&gt; $prop_human:expr;
+
+            data_table_path =&gt; $data_path:expr;
+        }
+
+        $(#[$is_fn_meta:meta])*
+        pub fn $is_fn:ident(char) -&gt; bool;
+
+    ) =&gt; { ... };
+    (
+        __impl CharProperty for $prop_name:ident;
+        $prop_abbr:expr;
+        $prop_long:expr;
+        $prop_human:expr;
+    ) =&gt; { ... };
+    (
+        __impl FromStr for $prop_name:ident;
+        $( $id:expr =&gt; $value:expr; )*
+    ) =&gt; { ... };
+    ( __impl Display for $prop_name:ident by $trait:ident ) =&gt; { ... };
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Macro for declaring a character property.</p>
+<h2 id="syntax-enumerated-property"><a class="doc-anchor" href="#syntax-enumerated-property">§</a>Syntax (Enumerated Property)</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[macro_use]
+</span><span class="kw">extern crate </span>unic_char_property;
+
+<span class="comment">// First we define the type itself.
+</span><span class="macro">char_property!</span> {
+    <span class="doccomment">/// This is the enum type created for the character property.
+    </span><span class="kw">pub enum </span>MyProp {
+        abbr =&gt; <span class="string">"AbbrPropName"</span>;
+        long =&gt; <span class="string">"Long_Property_Name"</span>;
+        human =&gt; <span class="string">"Human-Readable Property Name"</span>;
+
+        <span class="doccomment">/// Zero or more documentation or other attributes.
+        </span>RustName {
+            abbr =&gt; AbbrName,
+            long =&gt; Long_Name,
+            human =&gt; <span class="string">"&amp;'static str that is a nicer presentation of the name"</span>,
+        }
+    }
+
+    <span class="doccomment">/// Module aliasing property value abbreviated names.
+    </span><span class="kw">pub mod </span>abbr_names <span class="kw">for </span>abbr;
+
+    <span class="doccomment">/// Module aliasing property value long names.
+    </span><span class="kw">pub mod </span>long_names <span class="kw">for </span>long;
+}
+
+<span class="comment">// We also need to impl `PartialCharProperty` or `TotalCharProperty` manually.</span></code></pre></div><h2 id="syntax-binary-property"><a class="doc-anchor" href="#syntax-binary-property">§</a>Syntax (Binary Property)</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[macro_use] </span><span class="kw">extern crate </span>unic_char_property;
+
+<span class="macro">char_property!</span> {
+    <span class="doccomment">/// This is the newtype used for the character property.
+    </span><span class="kw">pub struct </span>MyProp(bool) {
+        abbr =&gt; <span class="string">"AbbrPropName"</span>;
+        long =&gt; <span class="string">"Long_Property_Name"</span>;
+        human =&gt; <span class="string">"Human-Readable Property Name"</span>;
+
+        <span class="comment">// Unlike an enumerated property, a binary property will handle the table for you.
+        </span>data_table_path =&gt; <span class="string">"../tests/tables/property_table.rsv"</span>;
+    }
+
+    <span class="doccomment">/// A function that returns whether the given character has the property or not.
+    </span><span class="kw">pub fn </span>is_prop(char) -&gt; bool;
+}
+
+<span class="comment">// You may also want to create a trait for easy access to the properties you define.</span></code></pre></div><h2 id="effect"><a class="doc-anchor" href="#effect">§</a>Effect</h2>
+<ul>
+<li>Implements the <code>CharProperty</code> trait and appropriate range trait</li>
+<li>Implements <code>FromStr</code> accepting either the abbr or long name, ascii case insensitive</li>
+<li>Implements <code>Display</code> using the <code>human</code> string</li>
+<li>Populates the module <code>abbr_names</code> with <code>pub use</code> bindings of variants to their abbr names
+(Enumerated properties only)</li>
+<li>Populates the module <code>long_names</code> with <code>pub use</code> bindings of variants to their long names
+(Enumerated properties only)</li>
+<li>Maintains all documentation comments and other <code>#[attributes]</code> as would be expected
+(with some limitations, listed below)</li>
+</ul>
+</div></details></section></div></main></body></html>

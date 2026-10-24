@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UUID_TICKS_BETWEEN_EPOCHS"],"fn":["decode_gregorian_timestamp","decode_sorted_gregorian_timestamp","decode_unix_timestamp_millis","encode_gregorian_timestamp","encode_sorted_gregorian_timestamp","encode_unix_timestamp_millis","now"],"mod":["context"],"struct":["Timestamp"],"trait":["ClockSequence"]};

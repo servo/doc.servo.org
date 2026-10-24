@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_SHAPER","DUMBER_SHAPER","HB_OT_SHAPE_ZERO_WIDTH_MARKS_BY_GDEF_EARLY","HB_OT_SHAPE_ZERO_WIDTH_MARKS_BY_GDEF_LATE","HB_OT_SHAPE_ZERO_WIDTH_MARKS_NONE","MAX_COMBINING_MARKS"],"fn":["hb_ot_shape_complex_categorize"],"struct":["hb_ot_shaper_t"],"type":["ComposeFn","DecomposeFn","hb_ot_shape_zero_width_marks_type_t"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["max_of_last_byte","varint_max","varint_u128","varint_u16","varint_u32","varint_u64","varint_usize"]};

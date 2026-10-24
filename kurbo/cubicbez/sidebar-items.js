@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SPLINE_SPLIT"],"enum":["CuspType"],"fn":["arclen_quadrature_core","arclen_rec","cubics_to_quadratic_splines"],"struct":["CubicBez","CubicBezIter","ToQuads"]};

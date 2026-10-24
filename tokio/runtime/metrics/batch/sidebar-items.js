@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["duration_as_u64","now"],"struct":["MetricsBatch"]};

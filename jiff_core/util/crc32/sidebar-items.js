@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["slice16","sum"],"mod":["table"]};

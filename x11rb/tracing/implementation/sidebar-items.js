@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["event",1],["span",1]],"struct":["EnteredSpan","Span"]};

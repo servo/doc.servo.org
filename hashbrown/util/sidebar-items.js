@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cold_path","invalid_mut","likely","unlikely"]};

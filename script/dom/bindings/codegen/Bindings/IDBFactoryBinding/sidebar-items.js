@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","IDBFactory_Binding"],"trait":["IDBFactoryMethods"],"type":["IDBDatabaseInfo"]};

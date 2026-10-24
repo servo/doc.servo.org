@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLOCK_SIZE","KEY_SIZE"],"mod":["backend"],"struct":["Poly1305"],"type":["Block","Key","Tag"]};

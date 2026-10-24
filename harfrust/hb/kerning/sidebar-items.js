@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply_simple_kerning","apply_state_machine_kerning","collect_initial_glyphs","collect_start_end_safe_to_break","get_class","hb_ot_layout_kern","machine_kern","state_machine_transition"],"struct":["KernSubtableCache","StateMachineDriver"],"trait":["CollectGlyphs","KernStateEntryExt"]};

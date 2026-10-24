@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["range_reduction_small_f128","range_reduction_small_f128_f128","sincos_eval_dyadic"],"static":["SIN_K_PI_OVER_128_F128"],"struct":["SinCosDyadic"]};

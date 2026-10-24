@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cos_dd_small","cos_dd_small_fast","cos_eval_dd","cos_f128_small","range_reduction_small_dd","sin_dd_small","sin_dd_small_fast","sin_eval_dd","sin_f128_small","sincos_eval_dd"]};

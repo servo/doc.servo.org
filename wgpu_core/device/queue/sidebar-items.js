@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["QueueSubmitError","QueueWriteError","TempResource"],"fn":["validate_command_buffer"],"struct":["EncoderInFlight","PendingSubmission","PendingWrites","Queue","SubmissionResult"],"type":["SubmittedWorkDoneClosure"]};

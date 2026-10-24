@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MINIMUM_WEBVIEW_SIZE"],"struct":["ServoRendererWebView","WebView","WebViewBuilder","WebViewInner"]};

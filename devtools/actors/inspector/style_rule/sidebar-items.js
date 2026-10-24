@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ELEMENT_STYLE_TYPE"],"struct":["AppliedDeclaration","AppliedRule","ComputedDeclaration","IsUsed","StyleRuleActor","StyleRuleActorMsg","StyleRuleActorTraits"]};

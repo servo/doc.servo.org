@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TEXTURE_REGION_DIMENSIONS"],"enum":["AutoCacheEntryMarker","BudgetType","EntryDetails","Eviction","ManualCacheEntryMarker","TargetShader","TextureCacheHandle"],"struct":["CacheAllocParams","CacheEntry","EvictionNotice","SharedTextures","TextureCache","TextureCacheConfig","TextureParameters"]};

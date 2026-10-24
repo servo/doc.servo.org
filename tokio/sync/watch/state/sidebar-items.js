@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CLOSED_BIT","STEP_SIZE"],"struct":["AtomicState","StateSnapshot","Version"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ELEM_BITS","ELEM_MASK","ELEM_SIZE","PAGE_BITS","PAGE_MASK","PAGE_SIZE"],"fn":["elem_index_bit_mask"],"struct":["BitPage","Iter","RangeIter"],"type":["Element"]};

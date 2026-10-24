@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DUMMY_NODE_ID"],"fn":["resolve_content_size","with_independent_formatting_context"],"struct":["ChildIter","TaffyContainerContext"]};

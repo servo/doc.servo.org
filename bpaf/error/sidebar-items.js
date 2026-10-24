@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Message","ParseFailure"],"fn":["check_conflicts","only_once","summarize_missing","textual_part"],"struct":["Error","MissingItem"]};

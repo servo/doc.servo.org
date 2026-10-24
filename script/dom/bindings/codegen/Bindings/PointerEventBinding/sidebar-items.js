@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","PointerEvent_Binding"],"trait":["PointerEventMethods"],"type":["PointerEventInit"]};

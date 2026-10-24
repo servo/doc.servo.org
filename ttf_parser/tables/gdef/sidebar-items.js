@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GlyphClass"],"fn":["is_mark_glyph_impl"],"struct":["Table"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PR_GET_AUXV"],"fn":["check_elf_base","init_auxv","init_auxv_impl","init_from_aux_iter","init_from_auxv_file","maybe_init_auxv","pr_get_auxv_dynamic","pr_get_auxv_static","sysinfo_ehdr"],"static":["CLOCK_TICKS_PER_SECOND","EXECFN","HWCAP","HWCAP2","MINSIGSTKSZ","PAGE_SIZE","SYSINFO_EHDR"],"struct":["AuxPointer"]};

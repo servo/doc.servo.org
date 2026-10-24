@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["KDE_EXCLUSION_HINT","KDE_EXCLUSION_MIME"],"enum":["Clipboard","LinuxClipboardKind","WaitConfig"],"fn":["encode_as_png","into_unknown","paths_from_uri_list","paths_to_uri_list"],"mod":["wayland","x11"],"struct":["Clear","Get","Set"],"trait":["ClearExtLinux","GetExtLinux","SetExtLinux"]};

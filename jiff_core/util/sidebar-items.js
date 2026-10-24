@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MaybeStaticSliceKind","SmallStrKind"],"fn":["os_str_bytes"],"mod":["crc32"],"struct":["ArrayStr","MaybeStaticSlice","SmallStr"]};

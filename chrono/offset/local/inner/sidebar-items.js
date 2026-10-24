@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TZDB_LOCATION","TZ_INFO"],"enum":["Source"],"fn":["current_zone","fallback_timezone","offset","offset_from_local_datetime","offset_from_utc_datetime"],"struct":["Cache"]};

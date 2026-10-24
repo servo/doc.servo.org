@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ErrorEvent_Binding"],"struct":["ErrorEventInit"]};

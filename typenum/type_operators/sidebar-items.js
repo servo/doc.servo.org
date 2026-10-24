@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_pow_f",1],["impl_pow_i",1]],"trait":["Abs","Cmp","FoldAdd","FoldMul","Gcd","IsEqual","IsGreater","IsGreaterOrEqual","IsLess","IsLessOrEqual","IsNotEqual","Len","Logarithm2","Max","Min","PartialDiv","Pow","Same","SquareRoot","ToInt"]};

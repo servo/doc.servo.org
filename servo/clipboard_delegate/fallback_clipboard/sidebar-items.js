@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["clear","get_text","set_text","with_shared_clipboard"],"static":["SHARED_FALLBACK_CLIPBOARD"]};

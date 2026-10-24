@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="RealFFT: Real-to-complex forward FFT and complex-to-real inverse FFT based on RustFFT"><title>realfft - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="realfft" data-themes="" data-resource-suffix="" data-rustdoc-version="1.97.1 (8bab26f4f 2026-07-14)" data-channel="1.97.1" data-search-js="search-fd9372ac.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-fcd733ba.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate realfft</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../realfft/index.html">realfft</a><span class="version">3.5.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#realfft-real-to-complex-forward-fft-and-complex-to-real-inverse-fft-based-on-rustfft" title="RealFFT: Real-to-complex forward FFT and complex-to-real inverse FFT based on RustFFT">RealFFT: Real-to-complex forward FFT and complex-to-real inverse FFT based on RustFFT</a><ul><li><a href="#why-use-real-to-complex-fft" title="Why use real-to-complex FFT?">Why use real-to-complex FFT?</a></li><li><a href="#scaling" title="Scaling">Scaling</a></li><li><a href="#documentation" title="Documentation">Documentation</a></li><li><a href="#benchmarks" title="Benchmarks">Benchmarks</a></li><li><a href="#example" title="Example">Example</a></li><li><a href="#cargo-features" title="Cargo features">Cargo features</a></li><li><a href="#versions" title="Versions">Versions</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#traits" title="Traits">Traits</a></li><li><a href="#functions" title="Functions">Functions</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>realfft</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/realfft/lib.rs.html#1-1067">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="realfft-real-to-complex-forward-fft-and-complex-to-real-inverse-fft-based-on-rustfft"><a class="doc-anchor" href="#realfft-real-to-complex-forward-fft-and-complex-to-real-inverse-fft-based-on-rustfft">§</a>RealFFT: Real-to-complex forward FFT and complex-to-real inverse FFT based on RustFFT</h2>
+<p>This library is a wrapper for <a href="https://crates.io/crates/rustfft">RustFFT</a>
+that enables fast and convenient FFT of real-valued data.
+The API is designed to be as similar as possible to RustFFT.
+Also, the <a href="#cargo-features">feature flags</a> are passed on to RustFFT, allowing
+selection of its features – they do not affect RealFFT itself.</p>
+<p>Using this library instead of RustFFT directly avoids the need of converting
+real-valued data to complex before performing a FFT.
+If the length is even, it also enables faster computations by using a complex FFT of half the length.
+It then packs a real-valued signal of length N into an N/2 long complex buffer,
+which is transformed using a standard complex-to-complex FFT.
+The FFT result is then post-processed to give only the first half of the complex spectrum,
+as an N/2+1 long complex vector.</p>
+<p>The inverse FFT goes through the same steps backwards,
+to transform a complex spectrum of length N/2+1 to a real-valued signal of length N.</p>
+<p>The speed increase compared to just converting the input to a length N complex vector
+and using a length N complex-to-complex FFT depends on the length of the input data.
+The largest improvements are for longer FFTs and for lengths over around 1000 elements
+there is an improvement of about a factor 2.
+The difference shrinks for shorter lengths,
+and around 30 elements there is no longer any difference.</p>
+<h3 id="why-use-real-to-complex-fft"><a class="doc-anchor" href="#why-use-real-to-complex-fft">§</a>Why use real-to-complex FFT?</h3><h4 id="using-a-complex-to-complex-fft"><a class="doc-anchor" href="#using-a-complex-to-complex-fft">§</a>Using a complex-to-complex FFT</h4>
+<p>A simple way to transform a real valued signal is to convert it to complex,
+and then use a complex-to-complex FFT.</p>
+<p>Let’s assume <code>x</code> is a 6 element long real vector:</p>
+<div class="example-wrap"><pre class="language-text"><code>x = [x0r, x1r, x2r, x3r, x4r, x5r]</code></pre></div>
+<p>We now convert <code>x</code> to complex by adding an imaginary part with value zero.
+Using the notation <code>(xNr, xNi)</code> for the complex value <code>xN</code>, this becomes:</p>
+<div class="example-wrap"><pre class="language-text"><code>x_c = [(x0r, 0), (x1r, 0), (x2r, 0), (x3r, 0), (x4r, 0), (x5r, 0)]</code></pre></div>
+<p>Performing a normal complex FFT, the result of <code>FFT(x_c)</code> is:</p>
+<div class="example-wrap"><pre class="language-text"><code>FFT(x_c) = [(X0r, X0i), (X1r, X1i), (X2r, X2i), (X3r, X3i), (X4r, X4i), (X5r, X5i)]</code></pre></div>
+<p>But because our <code>x_c</code> is real-valued (all imaginary parts are zero), some of this becomes redundant:</p>
+<div class="example-wrap"><pre class="language-text"><code>FFT(x_c) = [(X0r, 0), (X1r, X1i), (X2r, X2i), (X3r, 0), (X2r, -X2i), (X1r, -X1i)]</code></pre></div>
+<p>The last two values are the complex conjugates of <code>X1</code> and <code>X2</code>. Additionally, <code>X0i</code> and <code>X3i</code> are zero.
+As we can see, the output contains 6 independent values, and the rest is redundant.
+But it still takes time for the FFT to calculate the redundant values.
+Converting the input data to complex also takes a little bit of time.</p>
+<p>If the length of <code>x</code> instead had been 7, result would have been:</p>
+<div class="example-wrap"><pre class="language-text"><code>FFT(x_c) = [(X0r, 0), (X1r, X1i), (X2r, X2i), (X3r, X3i), (X3r, -X3i), (X2r, -X2i), (X1r, -X1i)]</code></pre></div>
+<p>The result is similar, but this time there is no zero at <code>X3i</code>.
+Also in this case we got the same number of independent values as we started with.</p>
+<h4 id="real-to-complex"><a class="doc-anchor" href="#real-to-complex">§</a>Real-to-complex</h4>
+<p>Using a real-to-complex FFT removes the need for converting the input data to complex.
+It also avoids calculating the redundant output values.</p>
+<p>The result for 6 elements is:</p>
+<div class="example-wrap"><pre class="language-text"><code>RealFFT(x) = [(X0r, 0), (X1r, X1i), (X2r, X2i), (X3r, 0)]</code></pre></div>
+<p>The result for 7 elements is:</p>
+<div class="example-wrap"><pre class="language-text"><code>RealFFT(x) = [(X0r, 0), (X1r, X1i), (X2r, X2i), (X3r, X3i)]</code></pre></div>
+<p>This is the data layout output by the real-to-complex FFT,
+and the one expected as input to the complex-to-real inverse FFT.</p>
+<h3 id="scaling"><a class="doc-anchor" href="#scaling">§</a>Scaling</h3>
+<p>RealFFT matches the behaviour of RustFFT and does not normalize the output of either forward or inverse FFT.
+To get normalized results, each element must be scaled by <code>1/sqrt(length)</code>,
+where <code>length</code> is the length of the real-valued signal.
+If the processing involves both an FFT and an iFFT step,
+it is advisable to merge the two normalization steps to a single, by scaling by <code>1/length</code>.</p>
+<h3 id="documentation"><a class="doc-anchor" href="#documentation">§</a>Documentation</h3>
+<p>The full documentation can be generated by rustdoc. To generate and view it run:</p>
+<div class="example-wrap"><pre class="language-sh"><code>cargo doc --open</code></pre></div><h3 id="benchmarks"><a class="doc-anchor" href="#benchmarks">§</a>Benchmarks</h3>
+<p>To run a set of benchmarks comparing real-to-complex FFT with standard complex-to-complex, type:</p>
+<div class="example-wrap"><pre class="language-sh"><code>cargo bench</code></pre></div>
+<p>The results are printed while running, and are compiled into an html report containing much more details.
+To view, open <code>target/criterion/report/index.html</code> in a browser.</p>
+<h3 id="example"><a class="doc-anchor" href="#example">§</a>Example</h3>
+<p>Transform a signal, and then inverse transform the result.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>realfft::RealFftPlanner;
+<span class="kw">use </span>rustfft::num_complex::Complex;
+<span class="kw">use </span>rustfft::num_traits::Zero;
+
+<span class="kw">let </span>length = <span class="number">256</span>;
+
+<span class="comment">// make a planner
+</span><span class="kw">let </span><span class="kw-2">mut </span>real_planner = RealFftPlanner::&lt;f64&gt;::new();
+
+<span class="comment">// create a FFT
+</span><span class="kw">let </span>r2c = real_planner.plan_fft_forward(length);
+<span class="comment">// make a dummy real-valued signal (filled with zeros)
+</span><span class="kw">let </span><span class="kw-2">mut </span>indata = r2c.make_input_vec();
+<span class="comment">// make a vector for storing the spectrum
+</span><span class="kw">let </span><span class="kw-2">mut </span>spectrum = r2c.make_output_vec();
+
+<span class="comment">// Are they the length we expect?
+</span><span class="macro">assert_eq!</span>(indata.len(), length);
+<span class="macro">assert_eq!</span>(spectrum.len(), length/<span class="number">2</span>+<span class="number">1</span>);
+
+<span class="comment">// forward transform the signal
+</span>r2c.process(<span class="kw-2">&amp;mut </span>indata, <span class="kw-2">&amp;mut </span>spectrum).unwrap();
+
+<span class="comment">// create an inverse FFT
+</span><span class="kw">let </span>c2r = real_planner.plan_fft_inverse(length);
+
+<span class="comment">// create a vector for storing the output
+</span><span class="kw">let </span><span class="kw-2">mut </span>outdata = c2r.make_output_vec();
+<span class="macro">assert_eq!</span>(outdata.len(), length);
+
+<span class="comment">// inverse transform the spectrum back to a real-valued signal
+</span>c2r.process(<span class="kw-2">&amp;mut </span>spectrum, <span class="kw-2">&amp;mut </span>outdata).unwrap();</code></pre></div><h3 id="cargo-features"><a class="doc-anchor" href="#cargo-features">§</a>Cargo features</h3>
+<p>RealFFT has the same set of cargo feature flags as RustFFT.
+These features  are used to control the features of RustFFT
+and they do not affect RealFFT itself.
+The default is to enable the default features of RustFFT.
+See the <a href="https://docs.rs/rustfft/latest/rustfft/#feature-flags">RustFFT documentation</a>
+for more details.</p>
+<h3 id="versions"><a class="doc-anchor" href="#versions">§</a>Versions</h3>
+<ul>
+<li>3.5.0
+<ul>
+<li>Add cargo features to set the corresponding RustFFT features.</li>
+</ul>
+</li>
+<li>3.4.0
+<ul>
+<li>Fix undefined behavior reported by Miri.</li>
+<li>Update to latest RustFFT.</li>
+</ul>
+</li>
+<li>3.3.0
+<ul>
+<li>Add method for getting the length of the complex input/output.</li>
+<li>Bugfix: clean up numerical noise in the zero imaginary components.</li>
+</ul>
+</li>
+<li>3.2.0
+<ul>
+<li>Allow scratch buffer to be larger than needed.</li>
+</ul>
+</li>
+<li>3.1.0
+<ul>
+<li>Update to RustFFT 6.1 with Neon support.</li>
+</ul>
+</li>
+<li>3.0.2
+<ul>
+<li>Fix confusing typos in errors about scratch length.</li>
+</ul>
+</li>
+<li>3.0.1
+<ul>
+<li>More helpful error messages, fix confusing typos.</li>
+</ul>
+</li>
+<li>3.0.0
+<ul>
+<li>Improved error reporting.</li>
+</ul>
+</li>
+<li>2.0.1
+<ul>
+<li>Minor bugfix.</li>
+</ul>
+</li>
+<li>2.0.0
+<ul>
+<li>Update RustFFT to 6.0.0 and num-complex to 0.4.0.</li>
+</ul>
+</li>
+<li>1.1.0
+<ul>
+<li>Add missing Sync+Send.</li>
+</ul>
+</li>
+<li>1.0.0
+<ul>
+<li>First version with new api.</li>
+</ul>
+</li>
+</ul>
+<h5 id="compatibility"><a class="doc-anchor" href="#compatibility">§</a>Compatibility</h5>
+<p>The <code>realfft</code> crate has the same rustc version requirements as RustFFT.
+The minimum rustc version is 1.61.</p>
+<p>License: MIT</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.num_complex"><code>pub use rustfft::<a class="mod" href="../num_complex/index.html" title="mod num_complex">num_complex</a>;</code></dt><dt id="reexport.num_traits"><code>pub use rustfft::<a class="mod" href="../num_traits/index.html" title="mod num_traits">num_traits</a>;</code></dt></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.ComplexToRealEven.html" title="struct realfft::ComplexToRealEven">Complex<wbr>ToReal<wbr>Even</a></dt><dt><a class="struct" href="struct.ComplexToRealOdd.html" title="struct realfft::ComplexToRealOdd">Complex<wbr>ToReal<wbr>Odd</a></dt><dt><a class="struct" href="struct.RealFftPlanner.html" title="struct realfft::RealFftPlanner">Real<wbr>FftPlanner</a></dt><dd>A planner is used to create FFTs.
+It caches results internally,
+so when making more than one FFT it is advisable to reuse the same planner.</dd><dt><a class="struct" href="struct.RealToComplexEven.html" title="struct realfft::RealToComplexEven">Real<wbr>ToComplex<wbr>Even</a></dt><dt><a class="struct" href="struct.RealToComplexOdd.html" title="struct realfft::RealToComplexOdd">Real<wbr>ToComplex<wbr>Odd</a></dt></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.FftError.html" title="enum realfft::FftError">FftError</a></dt><dd>Custom error returned by FFTs</dd></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.ComplexToReal.html" title="trait realfft::ComplexToReal">Complex<wbr>ToReal</a></dt><dd>An inverse FFT that takes a complex spectrum of length N/2+1
+and transforms it to a real-valued signal of length N.</dd><dt><a class="trait" href="trait.FftNum.html" title="trait realfft::FftNum">FftNum</a></dt><dd>Generic floating point number, implemented for f32 and f64</dd><dt><a class="trait" href="trait.RealToComplex.html" title="trait realfft::RealToComplex">Real<wbr>ToComplex</a></dt><dd>A forward FFT that takes a real-valued input signal of length N
+and transforms it to a complex spectrum of length N/2+1.</dd></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.compute_twiddle.html" title="fn realfft::compute_twiddle">compute_<wbr>twiddle</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="fn" href="fn.zip3.html" title="fn realfft::zip3">zip3</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.Res.html" title="type realfft::Res">Res</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt></dl></section></div></main></body></html>

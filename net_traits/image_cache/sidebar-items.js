@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Image","ImageCacheResponseMessage","ImageCacheResult","ImageOrMetadataAvailable","ImageResponse"],"struct":["ImageLoadListener","PendingImageId","PendingImageResponse","RasterizationCompleteResponse","VectorImage"],"trait":["FontResolver","ImageCache","ImageCacheFactory"],"type":["ImageCacheResponseCallback","VectorImageId"]};

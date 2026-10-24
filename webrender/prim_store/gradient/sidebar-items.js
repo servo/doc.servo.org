@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply_gradient_local_clip","stops_and_min_alpha"],"mod":["conic","linear","radial"],"struct":["GradientStopKey"]};

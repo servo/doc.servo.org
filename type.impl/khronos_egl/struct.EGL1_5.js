@@ -1,0 +1,9 @@
+(function() {
+    var type_impls = Object.fromEntries([["khronos_egl",[["<details class=\"toggle implementors-toggle\" open><summary><section id=\"impl-EGL1_5\" class=\"impl\"><a class=\"src rightside\" href=\"src/khronos_egl/lib.rs.html#2499-2652\">Source</a><a href=\"#impl-EGL1_5\" class=\"anchor\">§</a><h3 class=\"code-header\">impl <a class=\"struct\" href=\"khronos_egl/struct.EGL1_5.html\" title=\"struct khronos_egl::EGL1_5\">EGL1_5</a></h3></section></summary><div class=\"impl-items\"><section id=\"method.load_from\" class=\"method\"><a class=\"src rightside\" href=\"src/khronos_egl/lib.rs.html#2499-2652\">Source</a><h4 class=\"code-header\">pub(crate) unsafe fn <a href=\"#method.load_from\" class=\"fn\">load_from</a>&lt;L: <a class=\"trait\" href=\"https://doc.rust-lang.org/1.97.1/core/borrow/trait.Borrow.html\" title=\"trait core::borrow::Borrow\">Borrow</a>&lt;<a class=\"struct\" href=\"libloading/safe/struct.Library.html\" title=\"struct libloading::safe::Library\">Library</a>&gt;&gt;(\n    raw: &amp;mut <a class=\"struct\" href=\"khronos_egl/struct.RawDynamic.html\" title=\"struct khronos_egl::RawDynamic\">RawDynamic</a>&lt;L&gt;,\n) -&gt; <a class=\"enum\" href=\"https://doc.rust-lang.org/1.97.1/core/result/enum.Result.html\" title=\"enum core::result::Result\">Result</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/1.97.1/std/primitive.unit.html\">()</a>, <a class=\"enum\" href=\"libloading/error/enum.Error.html\" title=\"enum libloading::error::Error\">Error</a>&gt;</h4></section></div></details>",0,"khronos_egl::Latest"]]]]);
+    if (window.register_type_impls) {
+        window.register_type_impls(type_impls);
+    } else {
+        window.pending_type_impls = type_impls;
+    }
+})()
+//{"start":55,"fragment_lengths":[1523]}

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["china_data","korea_data","qing_data","simple"],"struct":["China","ChineseDateInner","EastAsianTraditional","EastAsianTraditionalYearData","Korea","PackedEastAsianTraditionalYearData"],"trait":["Rules"],"type":["ChineseTraditional","KoreanTraditional"]};

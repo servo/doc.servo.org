@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Suggestion","Variant"],"fn":["damerau_levenshtein","suggest"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["output_dotted_circle","output_with_dotted_circle","preprocess_text_vowel_constraints"]};

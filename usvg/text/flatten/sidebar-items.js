@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["effective_variations","flatten","push_outline_paths","resolve_rendering_mode"],"struct":["BitmapImage","PathBuilder"],"trait":["DatabaseExt"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ElfSegment","ElfSegmentIterator"],"trait":["ProgramHeader"],"type":["ElfSegment32","ElfSegment64","ElfSegmentIterator32","ElfSegmentIterator64"]};

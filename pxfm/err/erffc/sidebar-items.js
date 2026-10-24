@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_erfcf"],"static":["ERFC_COEFFS","ERR0"]};

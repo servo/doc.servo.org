@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RChunks","RChunksExact","RChunksExactMut","RChunksExactMutProducer","RChunksExactProducer","RChunksMut","RChunksMutProducer","RChunksProducer"]};

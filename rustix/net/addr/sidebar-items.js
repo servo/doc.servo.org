@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["call_with_sockaddr"],"struct":["SocketAddrOpaque","SocketAddrStorage"],"trait":["SocketAddrArg"],"type":["SocketAddrLen"]};

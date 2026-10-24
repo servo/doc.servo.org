@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["complex","grapheme","indices","iterator_helpers","iterators","line","options","private","provider","rule_segmenter","scaffold","sentence","word"],"struct":["GraphemeClusterSegmenter","GraphemeClusterSegmenterBorrowed","LineSegmenter","LineSegmenterBorrowed","SentenceSegmenter","SentenceSegmenterBorrowed","WordSegmenter","WordSegmenterBorrowed"]};

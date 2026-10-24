@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FilterResult"],"fn":["common_filter","common_filter_base","common_filter_with_root_exception","common_filter_without_parent_checks","is_first_sibling_in_parent_bbox"]};

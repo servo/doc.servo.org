@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FdList"],"fn":["serialized_size","to_bytes","to_bytes_for_signature","to_writer","to_writer_for_signature"],"struct":["NullWriteSeek","SerializerCommon"]};

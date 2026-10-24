@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["document_metadata","document_structure","embedded_content","form_controls","grouping_content","htmlcollection","htmlelement","htmlslotelement","htmlunknownelement","interactive","internals","links","scripting","tabular_data","textual"]};

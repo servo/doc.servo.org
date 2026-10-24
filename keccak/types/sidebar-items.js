@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["parallel"],"type":["Fn1600","Fn200","Fn400","Fn800","ParFn1600","ParState1600","State1600","State200","State400","State800"]};
