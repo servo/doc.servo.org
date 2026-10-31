@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["eviocgabs","eviocgbit","eviocgid","eviocgkey","eviocgname","eviocrmff","eviocsff"],"struct":["ff_condition_effect","ff_constant_effect","ff_effect","ff_envelope","ff_periodic_effect","ff_ramp_effect","ff_replay","ff_rumble_effect","ff_trigger","input_absinfo","input_event","input_id"],"type":["IoctlRequest"]};

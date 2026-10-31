@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PathContourStart","PendingState"],"fn":["contour_to_path","outline_to_path","walk_contour"],"struct":["ContourPoint"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["BluetoothRemoteGATTServer_Binding","GenericBindings"],"trait":["BluetoothRemoteGATTServerMethods"]};

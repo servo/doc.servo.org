@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ResponseCode"],"fn":["generate_response_path","open_file","parse_response","register_response_listener","save_file","uris_to_paths","wait_for_response"],"mod":["ffi","file_dialog","libdbus"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DrawMemory","DropoutControl","OutlineGlyph","OutlineSource","PathContourStart","PathElement"],"mod":["cff","glyf","type1","varc"],"struct":["ControlBoundsSink","DrawOptions","DrawnMetrics","NullSink","OutlineGlyphs","SvgSink","TransformSink"],"trait":["PathSink","UnscaledOutlineSink"]};

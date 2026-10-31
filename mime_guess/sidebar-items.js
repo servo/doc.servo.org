@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"externcrate":["mime"],"fn":["expect_mime","from_ext","from_path","get_extensions","get_mime_extensions","get_mime_extensions_str","get_mime_type","get_mime_type_opt","get_mime_type_str","guess_mime_type","guess_mime_type_opt","mime_str_for_path_ext","octet_stream"],"mod":["impl_"],"struct":["Iter","IterRaw","Mime","MimeGuess"]};

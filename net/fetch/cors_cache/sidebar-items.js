@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HeaderOrMethod"],"fn":["match_headers","network_partition_key_for_request"],"struct":["CorsCache","CorsCacheEntry"]};

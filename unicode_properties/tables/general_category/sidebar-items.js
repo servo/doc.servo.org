@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["GENERAL_CATEGORY"],"enum":["GeneralCategory","GeneralCategoryGroup"],"fn":["general_category_group","general_category_is_letter_cased","general_category_of_char"]};

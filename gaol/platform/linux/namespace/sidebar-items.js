@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_LINUX_CAPABILITY_U32S_3","_LINUX_CAPABILITY_VERSION_3"],"fn":["activate","capset","drop_capabilities","prepare_user_and_pid_namespaces","start"],"struct":["ChrootJail","__user_cap_data_struct","__user_cap_header_struct"],"type":["cap_user_header_t","const_cap_user_data_t"]};

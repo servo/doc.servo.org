@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CJ_DICT","KM_DICT","KM_LSTM","LO_DICT","LO_LSTM","MY_DICT","MY_LSTM","TH_DICT","TH_LSTM"],"enum":["DictOrLstm","DictOrLstmBorrowed"],"fn":["borrow_dictor","fromstatic_dictor","try_load","try_load_static"],"mod":["dictionary","language","lstm"],"struct":["ComplexPayloads","ComplexPayloadsBorrowed"]};

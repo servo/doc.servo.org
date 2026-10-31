@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["nonstatic_typeid","try_transmute"]};

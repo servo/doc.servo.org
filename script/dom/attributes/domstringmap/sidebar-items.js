@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_DOMStringMap"],"fn":["to_camel_case","to_snake_case"],"static":["DATA_HYPHEN_SEPARATOR","DATA_PREFIX"],"struct":["DOMStringMap"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_BLUE_VALUES","MAX_STEM_SNAPS"],"enum":["PredefinedEncoding"],"mod":["cff","charmap","charstring","encoding","hinting","num","string","transform","type1"],"struct":["Blues","HintingParams","ScaledFontMatrix","Sid","StemSnaps","Transform","UnicodeCharmap"],"type":["FontMatrix"]};

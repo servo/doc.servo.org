@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","RTCIceCandidate_Binding"],"trait":["RTCIceCandidateMethods"],"type":["RTCIceCandidateInit"]};

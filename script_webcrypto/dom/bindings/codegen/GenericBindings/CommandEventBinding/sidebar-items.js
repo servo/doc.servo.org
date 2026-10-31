@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["CommandEvent_Binding"],"struct":["CommandEventInit"],"trait":["CommandEventMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":["BitPack","RangeEncodingSize"],"type":["RangeEncodedPolynomial","RangeEncodedPolynomialSize","RangeEncodedVector","RangeEncodedVectorSize","RangeEncodingBits","RangeMax","RangeMin"]};

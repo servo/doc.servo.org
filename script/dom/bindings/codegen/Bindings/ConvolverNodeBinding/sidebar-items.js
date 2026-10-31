@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["ConvolverNode_Binding","GenericBindings"],"trait":["ConvolverNodeMethods"],"type":["ConvolverOptions"]};

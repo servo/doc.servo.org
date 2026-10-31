@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ControlFlow","DeviceEvents"],"fn":["dispatch_event_for_app"],"static":["EVENT_LOOP_CREATED"],"struct":["ActiveEventLoop","AsyncRequestSerial","EventLoop","EventLoopBuilder","EventLoopClosed","EventLoopProxy","OwnedDisplayHandle"]};

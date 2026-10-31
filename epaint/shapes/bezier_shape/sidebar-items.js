@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["approx_parabola_integral","approx_parabola_inv_integral","cubic_for_each_local_extremum","flatten_cubic_bezier_with_t","quadratic_for_each_local_extremum","single_curve_approximation"],"struct":["CubicBezierShape","FlatteningParameters","QuadraticBezierShape"]};

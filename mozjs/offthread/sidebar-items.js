@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STACK_SIZE"],"fn":["compile_to_stencil_offthread"],"struct":["CompilationResult","FrontendContext","InstantiationStorage","OffThreadToken"]};

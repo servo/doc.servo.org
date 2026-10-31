@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["wayland_button_to_winit"],"mod":["relative_pointer"],"struct":["PointerConstraintsState","WinitPointerData","WinitPointerDataInner"],"trait":["WinitPointerDataExt"]};

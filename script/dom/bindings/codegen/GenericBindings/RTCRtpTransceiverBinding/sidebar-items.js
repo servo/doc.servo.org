@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RTCRtpTransceiverDirection"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["RTCRtpTransceiverDirectionValues","RTCRtpTransceiver_Binding"],"trait":["RTCRtpTransceiverMethods"]};

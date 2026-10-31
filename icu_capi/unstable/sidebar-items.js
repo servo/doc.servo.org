@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["calendar","date","datetime","errors","locale_core","provider","segmenter_grapheme","segmenter_line","segmenter_sentence","segmenter_word","time","week"]};

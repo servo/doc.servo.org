@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ZXDG_EXPORTER_V2"],"fn":["wayland_export_handle"],"struct":["State","WaylandWindowIdentifier"]};

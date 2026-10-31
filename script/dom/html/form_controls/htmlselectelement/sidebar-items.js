@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHEVRON_CONTAINER_STYLE","DEFAULT_SELECT_SIZE","SELECT_BOX_STYLE","TEXT_CONTAINER_STYLE","_IMPL_DOMOBJECT_FOR_HTMLSelectElement"],"fn":["has_ancestor_optgroup_between_self_and_select","skip_descendants_for_list_of_options"],"struct":["HTMLSelectElement","OptionsFilter","SelectedOptionsSource","ShadowTree"]};

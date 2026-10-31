@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PathElement"],"struct":["ControlBoundsSink","NullSink","SvgSink","TransformSink"],"trait":["PathSink"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Ordering"],"fn":["fence"],"type":["AtomicBool","AtomicPtr","AtomicU64","AtomicU8"]};

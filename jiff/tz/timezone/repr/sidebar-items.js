@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["each",1]],"mod":["polyfill"],"struct":["Repr"]};

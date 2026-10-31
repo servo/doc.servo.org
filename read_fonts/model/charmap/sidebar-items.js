@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EncodingKind"],"fn":["iter_ps_unicodes","iter_subtable","iter_type1_unicodes","map_ps_batched"],"struct":["Charmap","Encoding","EncodingTable","EncodingTables","SfntUnicodeCharmap","UnicodeSubtables"]};

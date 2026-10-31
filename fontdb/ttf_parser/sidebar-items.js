@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FaceParsingError","Magic"],"fn":["fonts_in_collection"],"mod":["language","name","os2","parser"],"struct":["RawFace","TableRecord","Tag"]};

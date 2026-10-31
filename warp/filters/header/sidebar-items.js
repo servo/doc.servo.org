@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["exact","exact_ignore_case","header","header2","headers_cloned","optional","optional2","value"]};

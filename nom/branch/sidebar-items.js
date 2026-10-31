@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["alt","permutation"],"macro":[["alt_trait",1],["alt_trait_impl",1],["alt_trait_inner",1],["permutation_trait",1],["permutation_trait_impl",1],["permutation_trait_inner",1]],"struct":["Choice","Permutation"]};

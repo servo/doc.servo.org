@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cast_for_sized"],"mod":["def"]};

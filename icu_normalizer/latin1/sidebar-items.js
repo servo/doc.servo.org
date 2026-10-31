@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NFD_BITS","NFKC_BITS","NFKD_BITS"],"fn":["compatibility_decomposition","normalize_nfd_to","normalize_nfkc_to","normalize_nfkd_to","split_normalized_nfd","split_normalized_nfkc","split_normalized_nfkd"],"static":["COMPATIBILITY_DECOMPOSITIONS","TABLE"]};

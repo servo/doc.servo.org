@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_any_conversions",1],["impl_custom_class",1],["impl_custom_class_ref",1],["impl_string_type",1]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Decoration","GlyphExtents","GlyphMetrics","LineBox","LineExtents","Metrics","Scale26Dot6","ScaleF32","ScaledGlyphMetrics","ScaledMetrics","ScaledStyleMetrics","ScriptMetrics","StyleMetrics"],"trait":["Scale"]};

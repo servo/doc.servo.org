@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Blob","Error","Format","Kind","Source"],"mod":["attribute","charmap","glyph","metrics","name","variation"],"struct":["Font","InstanceBuilder","TableFunction","Tables","Variation"],"type":["NormalizedCoord"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllowUnitlessPerspective","OriginComponent","TransformBox"],"fn":["all_transform_boxes_are_enabled"],"struct":["ScaleFactor"],"type":["Rotate","Scale","Transform","TransformOperation","TransformOrigin","Translate"]};

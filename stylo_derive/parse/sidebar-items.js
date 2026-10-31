@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["derive","parse_bitflags","parse_non_keyword_variant"],"struct":["ParseFieldAttrs","ParseVariantAttrs"]};

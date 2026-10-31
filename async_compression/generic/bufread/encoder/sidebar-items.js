@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["State"],"macro":[["impl_encoder",1]],"struct":["Encoder"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SignalState"],"fn":["block_on"],"struct":["Signal"],"trait":["FutureExt"]};

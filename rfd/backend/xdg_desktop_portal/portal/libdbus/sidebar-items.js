@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["f",1]],"struct":["Connection","DbusError","Message","MessageIter"]};

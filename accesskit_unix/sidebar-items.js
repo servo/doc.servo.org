@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["adapter","atspi","context","executor","util"],"struct":["Adapter"]};

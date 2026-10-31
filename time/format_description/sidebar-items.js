@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BorrowedFormatItem","Component","OwnedFormatItem","Period"],"fn":["parse","parse_borrowed","parse_owned","parse_strftime_borrowed","parse_strftime_owned"],"mod":["borrowed_format_item","component","format_description_v3","modifier","owned_format_item","parse","well_known"],"struct":["FormatDescriptionV3"],"type":["StaticFormatDescription"]};

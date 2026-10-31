@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_RADER_PRIME_FACTOR","MAX_RADIXN_FACTOR"],"enum":["ChosenFftPlanner","Recipe"],"struct":["FftPlanner","FftPlannerScalar"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_FileReader"],"enum":["FileReaderFunction","FileReaderReadyState","FileReaderResult","FileReadingTask"],"struct":["FileReader","FileReaderSharedFunctionality","GenerationId","ReadMetaData"],"type":["TrustedFileReader"]};

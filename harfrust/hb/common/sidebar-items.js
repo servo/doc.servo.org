@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HB_FEATURE_GLOBAL_END","HB_FEATURE_GLOBAL_START"],"enum":["Direction"],"mod":["script"],"struct":["Feature","Language","Script","Variation"],"trait":["TagExt"],"type":["SmallVecLanguage"]};

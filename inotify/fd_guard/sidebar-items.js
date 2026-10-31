@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["kcmp_file","kcmp_file_descriptors"],"struct":["FdGuard"]};

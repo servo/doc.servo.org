@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SET","SLEEPING","SLEEPY","UNSET"],"enum":["CountLatchKind"],"struct":["CoreLatch","CountLatch","LatchRef","LockLatch","OnceLatch","SpinLatch"],"trait":["AsCoreLatch","Latch"]};

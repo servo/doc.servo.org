@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_for_fn",1]],"trait":["ZeroableInOption"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TYPE1_AXIS_NAMES"],"enum":["EncodedRepr","GlyphNameSource","Source"],"fn":["sfnt_name","standalone_cff_name","type1_name"],"mod":["glyph"],"struct":["Encoded","GlyphName","Localized","Name","NameId","Names"]};

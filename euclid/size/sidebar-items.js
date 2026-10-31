@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["size2","size3"],"struct":["Size2D","Size3D"]};

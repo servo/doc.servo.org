@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["activate_adapter","app_name","deactivate_adapter","get_or_init_app_context","get_or_init_messages","process_adapter_message","run_event_loop"],"static":["APP_CONTEXT","MESSAGES"],"struct":["AdapterEntry"]};

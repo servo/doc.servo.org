@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","Geolocation_Binding"],"trait":["GeolocationMethods"],"type":["PositionCallback","PositionErrorCallback","PositionOptions"]};

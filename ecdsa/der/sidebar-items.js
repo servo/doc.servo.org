@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["find_scalar_range"],"struct":["Signature","SignatureRef"],"type":["MaxOverhead","MaxSize","SignatureBytes"]};

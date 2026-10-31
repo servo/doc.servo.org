@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["XRRenderState_Binding"],"struct":["XRRenderStateInit"],"trait":["XRRenderStateMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["async_thread","path_to_cstring","str_to_cstring","to_window_identifier"],"mod":["portal","window_identifier"]};

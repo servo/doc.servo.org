@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SIZE_INCREMENT_MASK"],"struct":["WindowUpdate"]};

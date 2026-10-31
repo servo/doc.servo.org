@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["calculate_bound_u32"],"struct":["IncreasingUniform"]};

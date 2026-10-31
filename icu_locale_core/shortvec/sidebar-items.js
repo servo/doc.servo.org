@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ShortBoxSliceInner","ShortBoxSliceIntoIterInner"],"mod":["litemap"],"struct":["ShortBoxSlice","ShortBoxSliceIntoIter"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["access0",1]],"struct":["EdgeFiltered","EdgeFilteredEdges","EdgeFilteredNeighbors","EdgeFilteredNeighborsDirected","NodeFiltered","NodeFilteredEdgeReferences","NodeFilteredEdges","NodeFilteredNeighbors","NodeFilteredNodes"],"trait":["FilterEdge","FilterNode"]};

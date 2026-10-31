@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["active_tracers","calculate_linear_regression","check_version","segtrap_is_enabled","segtrap_set_enabled"]};

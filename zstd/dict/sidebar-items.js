@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["invalid_dictionary"],"struct":["CDict","DDict","DecoderDictionary","EncoderDictionary"]};

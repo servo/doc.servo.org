@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["alloc_impl","grow_impl"],"struct":["System"]};

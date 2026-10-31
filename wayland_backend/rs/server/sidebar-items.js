@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DisconnectReason","InitError"],"struct":["Backend","ClientId","Credentials","DumbObjectData","GlobalId","GlobalInfo","Handle","InvalidId","ObjectId","WeakHandle"],"trait":["ClientData","GlobalHandler","ObjectData"]};

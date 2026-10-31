@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Repeat"],"struct":["FrameInfo","GifDecoder","GifEncoder","GifFrameIterator","GifReader"]};

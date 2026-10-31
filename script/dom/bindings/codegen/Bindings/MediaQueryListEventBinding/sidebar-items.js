@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","MediaQueryListEvent_Binding"],"trait":["MediaQueryListEventMethods"],"type":["MediaQueryListEventInit"]};

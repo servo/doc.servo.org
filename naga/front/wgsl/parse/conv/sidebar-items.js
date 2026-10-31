@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PredeclaredType","TypeGenerator"],"fn":["map_access_mode","map_address_space","map_built_in","map_conservative_depth","map_cooperative_role","map_derivative","map_interpolation","map_predeclared_type","map_ray_flag","map_relational_fun","map_sampling","map_standard_fun","map_storage_format","map_subgroup_operation"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["add","sum"],"struct":["SumConsumer","SumFolder"]};

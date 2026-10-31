@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Payload"],"fn":["hex"],"struct":["MaybeEmpty","NonEmpty","PayloadU16","PayloadU24","PayloadU8"],"trait":["Cardinality"]};

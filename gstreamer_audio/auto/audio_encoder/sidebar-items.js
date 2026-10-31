@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AudioEncoder"],"trait":["AudioEncoderExt"]};

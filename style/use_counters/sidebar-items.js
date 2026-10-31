@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BITS_PER_ENTRY"],"enum":["CustomUseCounter"],"macro":[["use_counters_methods",1]],"struct":["CountedUnknownPropertyUseCounters","CustomUseCounters","NonCustomPropertyUseCounters","UseCounters"]};

@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["webrender",[["impl <a class=\"trait\" href=\"lazy_static/trait.LazyStatic.html\" title=\"trait lazy_static::LazyStatic\">LazyStatic</a> for <a class=\"struct\" href=\"webrender/shader_source/struct.OPTIMIZED_SHADERS.html\" title=\"struct webrender::shader_source::OPTIMIZED_SHADERS\">OPTIMIZED_SHADERS</a>",0],["impl <a class=\"trait\" href=\"lazy_static/trait.LazyStatic.html\" title=\"trait lazy_static::LazyStatic\">LazyStatic</a> for <a class=\"struct\" href=\"webrender/shader_source/struct.UNOPTIMIZED_SHADERS.html\" title=\"struct webrender::shader_source::UNOPTIMIZED_SHADERS\">UNOPTIMIZED_SHADERS</a>",0]]],["webrender_build",[["impl <a class=\"trait\" href=\"lazy_static/trait.LazyStatic.html\" title=\"trait lazy_static::LazyStatic\">LazyStatic</a> for <a class=\"struct\" href=\"webrender_build/shader/struct.MAX_VERTEX_TEXTURE_WIDTH_STRING.html\" title=\"struct webrender_build::shader::MAX_VERTEX_TEXTURE_WIDTH_STRING\">MAX_VERTEX_TEXTURE_WIDTH_STRING</a>",0]]],["wr_glyph_rasterizer",[["impl <a class=\"trait\" href=\"lazy_static/trait.LazyStatic.html\" title=\"trait lazy_static::LazyStatic\">LazyStatic</a> for <a class=\"struct\" href=\"wr_glyph_rasterizer/platform/unix/font/struct.FONT_CACHE.html\" title=\"struct wr_glyph_rasterizer::platform::unix::font::FONT_CACHE\">FONT_CACHE</a>",0],["impl <a class=\"trait\" href=\"lazy_static/trait.LazyStatic.html\" title=\"trait lazy_static::LazyStatic\">LazyStatic</a> for <a class=\"struct\" href=\"wr_glyph_rasterizer/platform/unix/font/struct.LCD_FILTER_UNUSED.html\" title=\"struct wr_glyph_rasterizer::platform::unix::font::LCD_FILTER_UNUSED\">LCD_FILTER_UNUSED</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[617,360,665]}

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NUM_PROFILE_FRAMES"],"enum":["GpuDebugMethod"],"struct":["GpuFrameProfile","GpuMarker","GpuProfiler","GpuSampleQuery","GpuSampler","GpuTimeQuery","GpuTimer","QuerySet"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_EXTENTS_SOURCES"],"enum":["ExtentsSource"],"fn":["control_box","empty","exact_extents","extents_from_bounds","extents_from_corners","glyf_v_origin_from_context","varied_control_box"],"struct":["ExtentsSources","GlyphExtents","GlyphMetrics"]};

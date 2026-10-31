@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["new_from_default","new_from_resource_manager","send_request"],"struct":["Database"]};

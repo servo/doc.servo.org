@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Counter32","Counter32Builder"]};

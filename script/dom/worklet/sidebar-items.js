@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["paintsize","paintworkletglobalscope","worklet","workletglobalscope"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_a_srcset_attribute"],"struct":["Descriptor","ImageSource"]};

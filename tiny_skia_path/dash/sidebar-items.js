@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_T_VALUE"],"enum":["SegmentType"],"fn":["adjust_dash_offset","cheap_dist_exceeds_limit","compute_pos_tan","cubic_too_curvy","dash_impl","find_first_interval","find_segment","interp","interp_safe","quad_too_curvy","segment_to","t_span_big_enough"],"struct":["ContourMeasure","ContourMeasureIter","Segment","StrokeDash"]};

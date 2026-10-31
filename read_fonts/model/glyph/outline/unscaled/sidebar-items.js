@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PendingElement"],"struct":["PointsFromPath"],"trait":["UnscaledOutlineSink"]};

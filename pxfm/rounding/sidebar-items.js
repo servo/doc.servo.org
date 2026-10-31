@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ceil","floor","rint","rintf","round","round_ties_even","trunc","truncf"]};

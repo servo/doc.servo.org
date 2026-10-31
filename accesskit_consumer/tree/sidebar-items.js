@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["InternalChanges","ShortNodeList","State","SubtreeState","Tree","TreeIndex","TreeIndexMap"],"trait":["ChangeHandler"]};

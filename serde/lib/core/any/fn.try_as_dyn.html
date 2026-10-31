@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Returns `Some(&#38;U)` if `T` can be coerced to the dyn trait type `U`. Otherwise, it returns `None`."><title>try_as_dyn in serde::lib::core::any - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="serde" data-themes="" data-resource-suffix="" data-rustdoc-version="1.99.1 (58cf8f9c3 2026-10-13)" data-channel="1.99.1" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc fn"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">try_as_dyn</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../../../serde/index.html">serde</a><span class="version">1.0.229</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">try_<wbr>as_<wbr>dyn</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#run-time-failures" title="Run-time failures">Run-time failures</a><ul><li><a href="#lifetime-independent-impls" title="Lifetime-independent impls">Lifetime-independent impls</a></li><li><a href="#builtin-impls" title="Builtin impls">Builtin impls</a></li></ul></li><li><a href="#compile-time-failures" title="Compile-time failures">Compile-time failures</a></li><li><a href="#examples" title="Examples">Examples</a></li></ul></section><div id="rustdoc-modnav"><h2><a href="index.html">In serde::<wbr>lib::<wbr>core::<wbr>any</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../../../index.html">serde</a>::<wbr><a href="../../index.html">lib</a>::<wbr><a href="../index.html">core</a>::<wbr><a href="index.html">any</a></div><h1>Function <span class="fn">try_<wbr>as_<wbr>dyn</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="https://doc.rust-lang.org/1.99.1/src/core/any.rs.html#1044-1046">Source</a> </span></div><pre class="rust item-decl"><code>pub const fn try_as_dyn&lt;'a, T, U&gt;(t: <a class="primitive" href="https://doc.rust-lang.org/1.99.1/std/primitive.reference.html">&amp;T</a>) -&gt; <a class="enum" href="../../option/enum.Option.html" title="enum serde::lib::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/1.99.1/std/primitive.reference.html">&amp;U</a>&gt;<div class="where">where
+    T: 'a + ?<a class="trait" href="../../marker/trait.Sized.html" title="trait serde::lib::marker::Sized">Sized</a>,
+    U: <a class="trait" href="trait.TryAsDynCompatible.html" title="trait serde::lib::core::any::TryAsDynCompatible">TryAsDynCompatible</a>&lt;'a&gt; + ?<a class="trait" href="../../marker/trait.Sized.html" title="trait serde::lib::marker::Sized">Sized</a>,</div></code></pre><span class="item-info"><div class="stab unstable"><span class="emoji">🔬</span><span>This is a nightly-only experimental API. (<code>try_as_dyn</code>)</span></div></span><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Returns <code>Some(&amp;U)</code> if <code>T</code> can be coerced to the dyn trait type <code>U</code>. Otherwise, it returns <code>None</code>.</p>
+<h2 id="run-time-failures"><a class="doc-anchor" href="#run-time-failures">§</a>Run-time failures</h2>
+<p>There are multiple ways to get a <code>None</code>, and you need to manually analyze which one it is, as the
+compiler does not provide any help here.</p>
+<ul>
+<li><code>T</code> does not implement <code>Trait</code> at all,</li>
+<li><code>T</code>’s impl for <code>Trait</code> is not fully generic,</li>
+<li><code>T</code>’s impl for <code>Trait</code> is a builtin impl (e.g. <code>dyn Debug</code> implements <code>Debug</code>)</li>
+</ul>
+<p>There is some detailed documentation about this feature at
+<a href="https://doc.rust-lang.org/unstable-book/language-features/try_as_dyn.html">https://doc.rust-lang.org/unstable-book/language-features/try_as_dyn.html</a>
+But the gist is summarized below:</p>
+<h3 id="lifetime-independent-impls"><a class="doc-anchor" href="#lifetime-independent-impls">§</a>Lifetime-independent impls</h3>
+<p><code>try_as_dyn</code> does not have access to lifetime information, thus it cannot differentiate between
+<code>'static</code>, other lifetimes, and can’t reason about outlives bounds on impls. Thus we can only accept
+impls that do not have <code>'static</code> lifetimes, or outlives bounds of any kind. You can have simple
+trait bounds, and the compiler will transitively only use impls of those simple trait bounds that satisfy
+the same rules as the main trait you’re converting to.</p>
+<p>An example of a legal impl is:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, <span class="lifetime">'b</span>, T: Debug, U: Display&gt; Trait&lt;<span class="lifetime">'a</span>, T&gt; <span class="kw">for </span>Type&lt;<span class="lifetime">'b</span>, U&gt; {}</code></pre></div>
+<p>Impls without generic parameters at all are also legal, as long as they contain no <code>'static</code> lifetimes.</p>
+<h3 id="builtin-impls"><a class="doc-anchor" href="#builtin-impls">§</a>Builtin impls</h3>
+<p>Builtin impls (like <code>impl Debug for dyn Debug</code>) have various obscure rules and often are not fully generic.
+To simplify reasoning about what is allowed and what not, all builtin impls are rejected and will neither
+directly nor indirectly contribute to a <code>Some</code> result.</p>
+<h2 id="compile-time-failures"><a class="doc-anchor" href="#compile-time-failures">§</a>Compile-time failures</h2>
+<p>Determining whether <code>T</code> can be coerced to the dyn trait type <code>U</code> requires compiler trait resolution.
+In some cases, that resolution can exceed the recursion limit,
+and compilation will fail instead of this function returning <code>None</code>.</p>
+<p>The input type <code>T</code> must outlive the lifetime <code>'a</code> on the <code>dyn Trait + 'a</code>.
+This is basically the same rule that forbids <code>let x: &amp;dyn Trait + 'static = &amp;&amp;some_local_variable;</code>
+So if you see borrow check errors around <code>try_as_dyn</code>, think about whether a normal unsizing
+coercion would be possible at all if you were using concrete types or had bounds on the input type.</p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#![feature(try_as_dyn)]
+
+</span><span class="kw">use </span>core::any::try_as_dyn;
+
+<span class="kw">trait </span>Animal {
+    <span class="kw">fn </span>speak(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">'static </span>str;
+}
+
+<span class="kw">struct </span>Dog;
+<span class="kw">impl </span>Animal <span class="kw">for </span>Dog {
+    <span class="kw">fn </span>speak(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">'static </span>str { <span class="string">"woof" </span>}
+}
+
+<span class="kw">struct </span>Rock; <span class="comment">// does not implement Animal
+
+</span><span class="kw">let </span>dog = Dog;
+<span class="kw">let </span>rock = Rock;
+
+<span class="kw">let </span>as_animal: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">dyn </span>Animal&gt; = try_as_dyn::&lt;Dog, <span class="kw">dyn </span>Animal&gt;(<span class="kw-2">&amp;</span>dog);
+<span class="macro">assert_eq!</span>(as_animal.unwrap().speak(), <span class="string">"woof"</span>);
+
+<span class="kw">let </span>not_an_animal: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">dyn </span>Animal&gt; = try_as_dyn::&lt;Rock, <span class="kw">dyn </span>Animal&gt;(<span class="kw-2">&amp;</span>rock);
+<span class="macro">assert!</span>(not_an_animal.is_none());</code></pre></div></div></details></section></div></main></body></html>

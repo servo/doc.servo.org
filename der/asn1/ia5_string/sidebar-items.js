@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_ia5_string",1]],"mod":["__impl_string","allocation"],"struct":["Ia5StringRef"]};

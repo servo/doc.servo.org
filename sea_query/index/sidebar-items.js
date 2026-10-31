@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IndexColumn","IndexOrder","IndexStatement","IndexType"],"mod":["common","create","drop"],"struct":["Index","IndexColumnExpr","IndexColumnTableColumn","IndexCreateStatement","IndexDropStatement","TableIndex"],"trait":["IntoIndexColumn"]};

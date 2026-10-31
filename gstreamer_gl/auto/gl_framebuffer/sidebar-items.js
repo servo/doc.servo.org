@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GLFramebuffer"],"trait":["GLFramebufferExt"]};

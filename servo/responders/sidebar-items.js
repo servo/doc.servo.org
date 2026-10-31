@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AutomaticResponder","OneshotSender","ServoErrorChannel","ServoErrorSender"],"trait":["AbstractSender"]};

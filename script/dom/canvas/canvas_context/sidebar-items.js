@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HTMLCanvasElementOrOffscreenCanvas","OffscreenRenderingContext","RenderingContext"],"trait":["CanvasContext","CanvasHelpers"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["READ_ENTRIES_BATCH_SIZE","_IMPL_DOMOBJECT_FOR_FileSystemDirectoryReader"],"enum":["ReadEntriesAction"],"struct":["FileSystemDirectoryReader","PendingEntriesCallback"]};

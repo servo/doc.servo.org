@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Advice","MapIfSafeErrorInner","UncheckedAdvice"],"mod":["advice","os"],"struct":["MapIfSafeError","Mmap","MmapMut","MmapOptions","MmapRaw","MmapRawDescriptor","RemapOptions"],"trait":["MmapAsRawDesc"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TableSource"],"static":["EMPTY_FONT_TABLES"],"struct":["BlobTableEntry","BlobTables","PerTableData","TableFunction","TableState","Tables"],"trait":["TableDataProvider"],"type":["TableFunctionEntry"]};

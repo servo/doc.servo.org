@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["horizontal_intersect","vertical_intersect"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DB_INIT_PRAGMAS","DB_IN_MEMORY_INIT_PRAGMAS","DB_IN_MEMORY_PRAGMAS","DB_PRAGMAS"],"fn":["is_sqlite_disk_full_error"]};

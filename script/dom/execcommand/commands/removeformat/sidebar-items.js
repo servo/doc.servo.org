@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["execute_removeformat_command","is_remove_format_candidate"]};

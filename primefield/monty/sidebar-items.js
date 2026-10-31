@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_t"],"macro":[["monty_field_op",1]],"struct":["MontyFieldElement"],"trait":["MontyFieldParams"],"type":["MontyFieldBytes"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["backend","stack","string","string_cow","string_ref"],"struct":["KStringBase","KStringCowBase","KStringRef","StackString"],"type":["KString","KStringCow"]};

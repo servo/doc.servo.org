@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_INCLUSION_DEPTH"],"enum":["Binding","Component"],"fn":["parse_data_with_base_directory","to_bool"],"mod":["matcher","parser","work_around_constant_limitations"],"struct":["Database","Entry"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["dispatch_result","interface_deref","interface_ref"],"struct":["ArcInterface"],"trait":["Interface"]};

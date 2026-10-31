@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TRANSPARENT_BLACK"],"fn":["apply_blur","convolve","convolve_x","convolve_y","decimate_weighted","downscale","downscale_x","downscale_y","extend","interpolate_25_75","interpolate_75_25","sample","sample_x","sample_y","upscale","upscale_x","upscale_y"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["AudioBuffer_Binding"],"struct":["AudioBufferOptions"],"trait":["AudioBufferMethods"]};

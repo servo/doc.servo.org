@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["map_or_ignoring_broken_pipe"],"struct":["Bus"]};

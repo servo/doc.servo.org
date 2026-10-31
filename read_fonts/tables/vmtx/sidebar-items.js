@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_vmtx_lookup",1]],"struct":["Vmtx","VmtxExtended"]};

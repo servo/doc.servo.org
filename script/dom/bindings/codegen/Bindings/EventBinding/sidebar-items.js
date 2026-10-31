@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetConstructorObject","Wrap"],"mod":["EventConstants","Event_Binding","GenericBindings"],"trait":["EventMethods"],"type":["EventInit"]};

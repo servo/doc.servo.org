@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FFTConvolverError"],"fn":["compute_tail_block_size"],"mod":["fft","two_stage","utilities"],"struct":["FFTConvolver","TwoStageFFTConvolver"]};

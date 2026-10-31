@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["CompositionEvent_Binding","GenericBindings"],"trait":["CompositionEventMethods"],"type":["CompositionEventInit"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_twiddle","fill_bluesteins_twiddles","rotate_90"]};
