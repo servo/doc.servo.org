@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InterestKind"],"struct":["Interest","NoSubscriber"],"trait":["Subscriber"]};

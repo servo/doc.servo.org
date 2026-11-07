@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ReceiverFlavor","SenderFlavor"],"fn":["after","at","bounded","never","read","tick","unbounded","write"],"struct":["IntoIter","Iter","Receiver","Sender","TryIter"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["VALID_DROP_EFFECTS","VALID_EFFECTS_ALLOWED","_IMPL_DOMOBJECT_FOR_DataTransfer"],"struct":["DataTransfer"]};

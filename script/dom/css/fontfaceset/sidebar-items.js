@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_FontFaceSet"],"fn":["any_character_in_any_unicode_range"],"struct":["FontFaceSet","FontQueryParameters","FontQuerySyntaxError"]};

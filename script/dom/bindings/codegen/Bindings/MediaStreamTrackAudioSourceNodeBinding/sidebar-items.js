@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","MediaStreamTrackAudioSourceNode_Binding"],"trait":["MediaStreamTrackAudioSourceNodeMethods"],"type":["MediaStreamTrackAudioSourceOptions"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["T"],"fn":["k_tanf"]};

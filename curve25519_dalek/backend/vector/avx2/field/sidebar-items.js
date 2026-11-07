@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["A_LANES","A_LANES64","B_LANES","B_LANES64","C_LANES","C_LANES64","D_LANES","D_LANES64"],"enum":["Lanes","Shuffle"],"fn":["repack_pair","unpack_pair"],"struct":["FieldElement2625x4"]};

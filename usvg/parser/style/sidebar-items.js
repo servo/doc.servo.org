@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["conv_dasharray","convert_paint","from_fallback","resolve_fill","resolve_stroke"]};

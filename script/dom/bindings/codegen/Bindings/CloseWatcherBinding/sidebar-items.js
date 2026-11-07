@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["CloseWatcher_Binding","GenericBindings"],"trait":["CloseWatcherMethods"],"type":["CloseWatcherOptions"]};

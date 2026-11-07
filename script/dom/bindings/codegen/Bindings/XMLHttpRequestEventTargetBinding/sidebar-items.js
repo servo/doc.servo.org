@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","XMLHttpRequestEventTarget_Binding"],"trait":["XMLHttpRequestEventTargetMethods"]};

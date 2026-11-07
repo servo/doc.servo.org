@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fvar","type1_axis_records"],"struct":["Axes","Axis","NamedInstance","NamedInstances","Variation"],"type":["NormalizedCoord"]};

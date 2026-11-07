@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HALF_ORDER","MODULUS_LIMBS","ORDER","ORDER_MINUS_ONE","WIDE_ORDER","WIDE_ORDER_MINUS_ONE"],"struct":["Scalar"],"trait":["CurveWithScalar"],"type":["ScalarBytes","WideScalarBytes"]};

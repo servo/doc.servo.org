@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["p256",[["impl <a class=\"trait\" href=\"primefield/traits/trait.FieldExt.html\" title=\"trait primefield::traits::FieldExt\">FieldExt</a> for <a class=\"struct\" href=\"p256/arithmetic/field/struct.FieldElement.html\" title=\"struct p256::arithmetic::field::FieldElement\">FieldElement</a>",0],["impl <a class=\"trait\" href=\"primefield/traits/trait.FieldExt.html\" title=\"trait primefield::traits::FieldExt\">FieldExt</a> for <a class=\"struct\" href=\"p256/struct.Scalar.html\" title=\"struct p256::Scalar\">Scalar</a>",0]]],["p384",[["impl <a class=\"trait\" href=\"primefield/traits/trait.FieldExt.html\" title=\"trait primefield::traits::FieldExt\">FieldExt</a> for <a class=\"struct\" href=\"p384/arithmetic/field/struct.FieldElement.html\" title=\"struct p384::arithmetic::field::FieldElement\">FieldElement</a>",0],["impl <a class=\"trait\" href=\"primefield/traits/trait.FieldExt.html\" title=\"trait primefield::traits::FieldExt\">FieldExt</a> for <a class=\"struct\" href=\"p384/struct.Scalar.html\" title=\"struct p384::Scalar\">Scalar</a>",0]]],["p521",[["impl <a class=\"trait\" href=\"primefield/traits/trait.FieldExt.html\" title=\"trait primefield::traits::FieldExt\">FieldExt</a> for <a class=\"struct\" href=\"p521/arithmetic/field/struct.FieldElement.html\" title=\"struct p521::arithmetic::field::FieldElement\">FieldElement</a>",0],["impl <a class=\"trait\" href=\"primefield/traits/trait.FieldExt.html\" title=\"trait primefield::traits::FieldExt\">FieldExt</a> for <a class=\"struct\" href=\"p521/struct.Scalar.html\" title=\"struct p521::Scalar\">Scalar</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[530,531,531]}

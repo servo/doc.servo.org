@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XRReferenceSpaceType"],"mod":["XRReferenceSpaceTypeValues","XRReferenceSpace_Binding"]};

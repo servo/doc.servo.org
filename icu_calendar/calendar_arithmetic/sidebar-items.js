@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_ITERS_FOR_DAYS_OF_MONTH","VALID_YEAR_RANGE"],"struct":["ArithmeticDate"],"trait":["DateFieldsResolver","ToExtendedYear"]};

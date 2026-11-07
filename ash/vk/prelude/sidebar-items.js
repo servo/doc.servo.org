@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["wrap_c_str_slice_until_nul","write_c_str_slice_with_nul"],"struct":["CStrTooLargeForStaticArray","Packed24_8"],"trait":["TaggedStructure"]};

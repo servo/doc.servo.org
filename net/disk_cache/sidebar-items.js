@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DiskCacheTable"],"fn":["storage_dir"],"struct":["DiskCache","DiskCacheInner","DiskCacheMetadata"]};

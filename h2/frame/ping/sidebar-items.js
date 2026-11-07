@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ACK_FLAG","SHUTDOWN_PAYLOAD","USER_PAYLOAD"],"struct":["Ping"],"type":["Payload"]};

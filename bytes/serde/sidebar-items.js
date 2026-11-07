@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["serde_impl",1]],"struct":["BytesMutVisitor","BytesVisitor"]};

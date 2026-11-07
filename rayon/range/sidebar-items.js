@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["convert_char",1],["indexed_range_impl",1],["unindexed_range_impl",1]],"mod":["private"],"struct":["Iter","IterProducer"],"trait":["UnindexedRangeLen"]};

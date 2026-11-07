@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["delete","get","head","method","method_is","options","patch","post","put"]};

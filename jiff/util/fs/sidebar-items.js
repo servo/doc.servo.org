@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["last_modified_from_file","last_modified_from_path"]};

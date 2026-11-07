@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DrmDisplayHandle","DrmWindowHandle","GbmDisplayHandle","GbmWindowHandle","WaylandDisplayHandle","WaylandWindowHandle","XcbDisplayHandle","XcbWindowHandle","XlibDisplayHandle","XlibWindowHandle"]};

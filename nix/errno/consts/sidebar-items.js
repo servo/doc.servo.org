@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Errno"],"fn":["from_i32"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["cache_storage","cache_trait","frame_cache","frame_publisher"],"struct":["CacheStorage","FrameCache","FramePublisher"],"trait":["CacheTrait","ComputerMut"]};

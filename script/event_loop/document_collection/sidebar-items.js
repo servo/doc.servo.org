@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DocumentCollection","DocumentTree","DocumentTreeNode","DocumentsIter"]};

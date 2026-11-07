@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["paint_resize_corner","paint_resize_corner_with_style"],"struct":["Prepared","Resize","State"]};

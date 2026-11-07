@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","SVGTextPositioningElement_Binding"],"trait":["SVGTextPositioningElementMethods"]};

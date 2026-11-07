@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["boilerplate_mixedradix",1],["mixedradix_column_butterflies",1],["mixedradix_gen_data",1],["mixedradix_transpose",1]],"struct":["MixedRadix11xnAvx","MixedRadix12xnAvx","MixedRadix16xnAvx","MixedRadix2xnAvx","MixedRadix3xnAvx","MixedRadix4xnAvx","MixedRadix5xnAvx","MixedRadix6xnAvx","MixedRadix7xnAvx","MixedRadix8xnAvx","MixedRadix9xnAvx"]};

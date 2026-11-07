@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["agm_elliptic_perimeter","kummer_elliptic_perimeter","kummer_elliptic_perimeter_range"],"struct":["Ellipse"]};

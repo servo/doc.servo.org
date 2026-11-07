@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["fdot16","fdot6","fdot8"],"type":["FDot16","FDot6","FDot8"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RecvOutcome"],"fn":["drop_stream_ref","maybe_cancel"],"struct":["Actions","DynStreams","Inner","OpaqueStreamRef","SendBuffer","StreamRef","Streams"]};

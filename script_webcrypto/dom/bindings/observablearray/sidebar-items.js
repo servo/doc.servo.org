@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["OBSERVABLE_ARRAY_BACKING_LIST_OBJECT_SLOT","OBSERVABLE_ARRAY_OWNER_SLOT"],"fn":["clear_owner_slot","create_proxy_handler","get_or_create_proxy_object","new_proxy_object","set_length"],"struct":["ObservableArrayProxyHandlerConfig"]};

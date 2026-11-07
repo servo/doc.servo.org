@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["unsafe_target_feature","unsafe_target_feature_specialize"],"enum":["SpecializeArg"],"fn":["is_path_eq","process_function","process_impl","process_item","process_mod"],"macro":[["unsupported",1],["unsupported_if_some",1]],"mod":["kw"],"struct":["Conditional","SpecializeArgs"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LIGATURE_MAX_MATCHES"],"fn":["apply","apply_subtable","collect_initial_glyphs","collect_start_end_safe_to_break","compile_flags","drive"],"struct":["ContextualCtx","InsertionCtx","LigatureCtx","MorxSubtableCache","RearrangementCtx"],"trait":["DriverContext"]};

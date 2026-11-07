@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["expand","normalize_trait_name","trait_name_to_attribute_name","trait_name_to_method_name"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SIMD_CHUNK_SIZE"],"fn":["get_compat_error","memcpy_unaligned_nonoverlapping_inline_opt_lt_64","validate_utf8_at_offset"],"struct":["SimdU8Value","TempSimdChunkA16","TempSimdChunkA32","Utf8CheckAlgorithm"],"type":["Utf8ErrorCompat"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["oz_line","split_area_edge_name","upsert_line_name_map"],"struct":["AreaLines","GridLineNames","GridLineNamesIter","NamedLineResolver","NamedLineResolverAxis","StrHasher"],"type":["GridAreasMap","LinePositions","NamedGridLinesMap"]};

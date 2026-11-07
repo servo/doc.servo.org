@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLEND_FIXED_POINT_PRECISION","LOG2_SCALE"],"fn":["compute_new_weight","compute_normalized_weight","fix_weights","normalize_weights"],"struct":["Weights"],"type":["Prob"]};

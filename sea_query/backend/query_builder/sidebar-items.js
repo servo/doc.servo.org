@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["QUOTE"],"fn":["common_inner_expr_well_known_greater_precedence","common_well_known_left_associative"],"macro":[["join_io",1]],"struct":["CommonSqlQueryBuilder"],"trait":["QueryBuilder"]};

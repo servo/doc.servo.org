@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["lookup_flags"]};

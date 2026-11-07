@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","MediaDevices_Binding"],"trait":["MediaDevicesMethods"],"type":["ConstrainDouble","ConstrainDoubleRange","ConstrainULong","ConstrainULongRange","DoubleRange","MediaStreamConstraints","MediaTrackConstraintSet","MediaTrackConstraints","ULongRange"]};

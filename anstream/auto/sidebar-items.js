@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["StreamInner"],"fn":["choice"],"struct":["AutoStream"]};

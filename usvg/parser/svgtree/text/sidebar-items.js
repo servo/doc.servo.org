@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["XLINK_NS"],"enum":["XmlSpace"],"fn":["collect_text_nodes","get_xmlspace","parse_svg_text_element","parse_svg_text_element_impl","resolve_tref_text","trim_text","trim_text_nodes"],"trait":["StrTrim"]};

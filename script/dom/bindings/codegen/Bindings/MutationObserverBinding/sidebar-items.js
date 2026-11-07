@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","MutationObserver_Binding"],"trait":["MutationObserverMethods"],"type":["MutationCallback","MutationObserverInit"]};

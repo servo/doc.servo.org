@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fmax","fmaxf","fmin","fminf"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["approx_digamma","f_digammaf"]};

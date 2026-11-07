@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["try_set_current","with_current"],"struct":["HandleCell","SetCurrentGuard"]};

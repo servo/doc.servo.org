@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["computed_length_percentage_or_auto",1]],"struct":["CSSPixelLength"],"type":["Length","LengthOrAuto","LengthOrNumber","LengthPercentageOrAuto","Margin","MaxSize","NonNegativeLength","NonNegativeLengthOrAuto","NonNegativeLengthOrNumber","NonNegativeLengthPercentageOrAuto","NonNegativeLengthPercentageOrNormal","Size"]};

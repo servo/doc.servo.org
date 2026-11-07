@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["allocating"],"trait":["OwnedToRef","RefToOwned"]};

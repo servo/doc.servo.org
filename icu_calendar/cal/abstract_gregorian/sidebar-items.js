@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REFERENCE_YEAR"],"macro":[["impl_with_abstract_gregorian",1]],"struct":["AbstractGregorian"],"trait":["GregorianYears"]};

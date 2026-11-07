@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DiplomatOwnedSlice","DiplomatOwnedUTF8StrSlice","DiplomatSlice","DiplomatSliceMut","DiplomatUtf8StrSlice"],"type":["DiplomatOwnedStr16Slice","DiplomatOwnedStrSlice","DiplomatStr16Slice","DiplomatStrSlice"]};

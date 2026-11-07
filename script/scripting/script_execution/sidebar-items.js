@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RethrowErrors"],"fn":["fill_compile_options","maybe_associate_with_script"],"struct":["ClassicScript","ScriptOptions"]};

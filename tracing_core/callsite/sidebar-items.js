@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["rebuild_callsite_interest","rebuild_interest_cache","register","register_dispatch"],"mod":["dispatchers","private"],"static":["CALLSITES","DISPATCHERS","LOCKED_CALLSITES"],"struct":["Callsites","DefaultCallsite","Identifier"],"trait":["Callsite"]};

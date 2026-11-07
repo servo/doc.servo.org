@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["TextEncoder_Binding"],"struct":["TextEncoderEncodeIntoResult"]};

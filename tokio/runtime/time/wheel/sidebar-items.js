@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BITS_PER_LEVEL","MAX_DURATION","NUM_LEVELS"],"fn":["level_for"],"mod":["level"],"struct":["Wheel"]};

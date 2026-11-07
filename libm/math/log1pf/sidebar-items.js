@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LG1","LG2","LG3","LG4","LN2_HI","LN2_LO"],"fn":["log1pf"]};

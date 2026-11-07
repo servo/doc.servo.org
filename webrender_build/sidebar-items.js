@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_VERTEX_TEXTURE_WIDTH"],"mod":["shader","shader_features"]};

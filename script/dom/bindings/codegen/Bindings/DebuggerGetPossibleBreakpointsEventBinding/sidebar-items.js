@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["DebuggerGetPossibleBreakpointsEvent_Binding","GenericBindings"],"trait":["DebuggerGetPossibleBreakpointsEventMethods"],"type":["RecommendedBreakpointLocation"]};

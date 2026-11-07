@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["data_enum","data_struct","data_union"]};

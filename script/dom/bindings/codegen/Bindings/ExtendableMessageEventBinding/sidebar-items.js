@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["ExtendableMessageEvent_Binding","GenericBindings"],"trait":["ExtendableMessageEventMethods"],"type":["ExtendableMessageEventInit"]};

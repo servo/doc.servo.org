@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["as_byte_slice"],"macro":[["define_endian",1],["impl_array_encoding",1],["impl_endian",1]],"struct":["BigEndian","LittleEndian"],"trait":["ArrayEncoding","Encoding","FromArray"]};

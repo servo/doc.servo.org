@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","IDBVersionChangeEvent_Binding"],"trait":["IDBVersionChangeEventMethods"],"type":["IDBVersionChangeEventInit"]};

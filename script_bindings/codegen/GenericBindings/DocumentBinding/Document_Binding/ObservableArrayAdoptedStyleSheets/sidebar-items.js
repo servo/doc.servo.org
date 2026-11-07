@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["init_proxy_handler","on_delete_item","set_indexed_value"],"static":["HANDLER"]};

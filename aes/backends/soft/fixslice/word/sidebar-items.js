@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bitslice_swaps","double_bits"],"trait":["Word"]};

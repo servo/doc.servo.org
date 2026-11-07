@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["NavigationPreloadManager_Binding"],"struct":["NavigationPreloadState"]};

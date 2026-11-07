@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["linux","xdg_desktop_portal"],"trait":["AsyncFilePickerDialogImpl","AsyncFileSaveDialogImpl","AsyncFolderPickerDialogImpl","AsyncMessageDialogImpl","FilePickerDialogImpl","FileSaveDialogImpl","FolderPickerDialogImpl","MessageDialogImpl"],"type":["DialogFutureType"]};

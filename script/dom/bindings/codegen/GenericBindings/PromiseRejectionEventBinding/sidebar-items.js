@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["PromiseRejectionEvent_Binding"],"struct":["PromiseRejectionEventInit"],"trait":["PromiseRejectionEventMethods"]};

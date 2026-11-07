@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","URLSearchParamsIterator_Binding","URLSearchParams_Binding"],"trait":["URLSearchParamsIteratorMethods","URLSearchParamsMethods"]};

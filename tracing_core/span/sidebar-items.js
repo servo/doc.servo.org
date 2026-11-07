@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CurrentInner"],"struct":["Attributes","Current","Id","Record"]};

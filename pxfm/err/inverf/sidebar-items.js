@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_erfinv","inverf_0p06_to_0p75","inverf_asympt_long","inverf_asympt_small"]};

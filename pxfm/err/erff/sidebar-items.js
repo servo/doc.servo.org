@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["erff_fma_impl","erff_gen","f_erff"],"static":["COEFFS"],"struct":["FmaErffBackend","GenErffBackend"],"trait":["ErffBackend"]};

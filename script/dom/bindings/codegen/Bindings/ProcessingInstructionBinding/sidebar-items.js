@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","ProcessingInstruction_Binding"],"trait":["ProcessingInstructionMethods"]};

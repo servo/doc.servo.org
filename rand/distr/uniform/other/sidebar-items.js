@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHAR_SURROGATE_LEN","CHAR_SURROGATE_START"],"enum":["UniformDurationMode"],"fn":["char_to_comp_u32"],"struct":["UniformChar","UniformDuration"]};

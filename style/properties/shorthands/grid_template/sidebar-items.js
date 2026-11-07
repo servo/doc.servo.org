@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["parse_grid_template","parse_value","serialize_grid_template"]};

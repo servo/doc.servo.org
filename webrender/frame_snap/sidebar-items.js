@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["snap_frame_rects"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CicpColorPrimaries","CicpMatrixCoefficients","CicpTransferCharacteristics","CicpVideoFullRangeFlag","DerivedLuminance"],"struct":["Cicp","CicpRgb","CicpTransform","ColorProfile","RgbTransforms"],"trait":["CicpPixelCast","ColorComponentForCicp"],"type":["CicpApplicable"]};

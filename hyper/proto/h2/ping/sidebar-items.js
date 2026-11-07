@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BDP_LIMIT"],"enum":["KeepAliveState","Ponged"],"fn":["channel","disabled","seconds"],"struct":["Bdp","Config","KeepAlive","KeepAliveTimedOut","Ponger","Recorder","Shared"],"type":["WindowSize"]};

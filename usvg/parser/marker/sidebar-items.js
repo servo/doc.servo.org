@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MarkerKind","MarkerOrientation","Segment"],"fn":["calc_angle","calc_curves_angle","calc_line_angle","calc_vertex_angle","convert","convert_orientation","convert_rect","draw_markers","get_prev_vertex","get_subpath_start","is_valid","quad_to_curve","resolve","stroke_scale"]};

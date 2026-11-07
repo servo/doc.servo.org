@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["units_per_em"],"struct":["CbdtTables","Cff2Font","CffFont","ColrTables","CpalTable","EbdtTables","GlyfLoca","GvarTable","HvarTable","MetricsTable","SbixTable","TableCache","VorgTable","VvarTable"]};

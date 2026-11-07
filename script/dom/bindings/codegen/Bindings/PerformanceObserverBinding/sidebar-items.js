@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","PerformanceObserver_Binding"],"trait":["PerformanceObserverMethods"],"type":["PerformanceObserverCallback","PerformanceObserverInit"]};

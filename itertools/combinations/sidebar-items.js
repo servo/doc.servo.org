@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["array_combinations","combinations","remaining_for"],"struct":["CombinationsGeneric"],"trait":["PoolIndex"],"type":["ArrayCombinations","Combinations"]};

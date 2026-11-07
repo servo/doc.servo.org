@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["foreach_map",1],["foreach_seq",1],["foreach_set",1]]};

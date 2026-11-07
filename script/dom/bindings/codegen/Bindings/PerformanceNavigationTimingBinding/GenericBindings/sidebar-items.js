@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["NavigationTimingType"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["NavigationTimingTypeValues","PerformanceNavigationTiming_Binding"],"trait":["PerformanceNavigationTimingMethods"]};

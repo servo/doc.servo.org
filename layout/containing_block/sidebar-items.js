@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["block_stretch_size","inline_stretch_size"],"struct":["ConstraintSpace","ContainingBlock","ContainingBlockSize","DefiniteContainingBlock","HasQuirkyBlockSize","IndefiniteContainingBlock","IndefiniteContainingBlockSize"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LCPCandidateType"],"struct":["ContainerRecord","ContainerTimingRootChain","PaintTimingHandler","PendingContainer","PendingImageRecord","TextRecord"],"type":["ContainerTimingRoots"]};

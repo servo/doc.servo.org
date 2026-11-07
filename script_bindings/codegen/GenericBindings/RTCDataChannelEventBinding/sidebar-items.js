@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["RTCDataChannelEvent_Binding"],"struct":["RTCDataChannelEventInit"]};

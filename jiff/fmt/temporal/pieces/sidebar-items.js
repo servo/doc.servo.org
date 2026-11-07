@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PiecesOffset","TimeZoneAnnotationKind"],"struct":["Pieces","PiecesNumericOffset","TimeZoneAnnotation","TimeZoneAnnotationName"]};

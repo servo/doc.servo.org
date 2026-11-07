@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["delegate_async_buf_read_to_stdio",1],["delegate_async_read_to_stdio",1],["delegate_async_write_to_stdio",1],["deref_async_buf_read",1],["deref_async_read",1],["deref_async_seek",1],["deref_async_write",1]],"trait":["AsyncBufRead","AsyncRead","AsyncSeek","AsyncWrite"]};

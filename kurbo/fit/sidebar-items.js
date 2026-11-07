@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["D_PENALTY_ELBOW","D_PENALTY_SLOPE","N_SAMPLE"],"enum":["FitResult"],"fn":["cubic_fit","fit_opt_err_delta","fit_opt_segment","fit_to_bezpath","fit_to_bezpath_opt","fit_to_bezpath_opt_inner","fit_to_bezpath_rec","fit_to_cubic","measure_one_seg","try_fit_line"],"struct":["CurveDist","CurveFitSample"],"trait":["ParamCurveFit"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["slice_from_ptr_range"],"struct":["Bytes"]};

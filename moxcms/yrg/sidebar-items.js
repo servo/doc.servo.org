@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LMS_TO_XYZ","XYZ_TO_LMS"],"fn":["cie_y_1931_to_cie_y_2006"],"struct":["Ych","Yrg"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["BluetoothAdvertisingEvent_Binding","GenericBindings"],"trait":["BluetoothAdvertisingEventMethods"],"type":["BluetoothAdvertisingEventInit"]};

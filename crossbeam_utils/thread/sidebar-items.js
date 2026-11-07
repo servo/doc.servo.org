@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["scope"],"mod":["unix"],"struct":["Scope","ScopedJoinHandle","ScopedThreadBuilder"],"type":["SharedOption","SharedVec"]};

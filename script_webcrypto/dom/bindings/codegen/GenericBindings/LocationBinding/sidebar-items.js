@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["Location_Binding"],"static":["CROSS_ORIGIN_PROPERTIES"],"trait":["LocationMethods"]};

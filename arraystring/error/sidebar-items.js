@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"struct":["OutOfBounds","Utf16","Utf8"]};

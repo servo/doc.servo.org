@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["bitcast",1],["bitflags_bits",1]]};

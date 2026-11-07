@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["farey_neighbours","next_fraction","previous_fraction","range_bounds_i32_start_end","xgcd"],"struct":["VideoCapsBuilder"]};

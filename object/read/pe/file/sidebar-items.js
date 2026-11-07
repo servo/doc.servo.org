@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["optional_header_magic"],"struct":["PeComdat","PeComdatIterator","PeComdatSectionIterator","PeFile"],"trait":["ImageNtHeaders","ImageOptionalHeader"],"type":["PeComdat32","PeComdat64","PeComdatIterator32","PeComdatIterator64","PeComdatSectionIterator32","PeComdatSectionIterator64","PeFile32","PeFile64"]};

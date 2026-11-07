@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["FocusEvent_Binding","GenericBindings"],"trait":["FocusEventMethods"],"type":["FocusEventInit"]};

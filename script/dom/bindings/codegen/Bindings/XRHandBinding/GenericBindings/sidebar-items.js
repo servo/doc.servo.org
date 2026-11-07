@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XRHandJoint"],"fn":["XRHandDefineDOMInterface","XRHandGetProtoObject","XRHandIteratorGetProtoObject","XRHandIteratorWrap","XRHandWrap"],"mod":["XRHandIterator_Binding","XRHandJointValues","XRHand_Binding"],"trait":["XRHandIteratorMethods","XRHandMethods"]};

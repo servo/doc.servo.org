@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["rsqrt","rsqrtf","sqrt1pm1","sqrt1pm1f","sqrtf"]};

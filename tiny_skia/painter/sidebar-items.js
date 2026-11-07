@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FillRule"],"fn":["is_too_big_for_math","treat_as_hairline"],"struct":["DrawTiler","Paint"]};

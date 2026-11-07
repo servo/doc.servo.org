@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["convert","convert_circle","convert_ellipse","convert_line","convert_path","convert_polygon","convert_polyline","convert_rect","ellipse_to_path","points_to_path","resolve_rx_ry"],"trait":["PathBuilderExt"]};

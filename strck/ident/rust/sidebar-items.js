@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"static":["KEYWORDS"],"struct":["RustIdent"],"type":["Ident","IdentBuf"]};

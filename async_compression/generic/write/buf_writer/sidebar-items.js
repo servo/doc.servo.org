@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_BUF_SIZE"],"macro":[["impl_buf_writer",1]],"struct":["BufWriter","Buffer"]};

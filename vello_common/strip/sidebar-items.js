@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["render","render_impl","visit_strip_fill_segments"],"struct":["Strip","StripAlphaFillSegment","StripFillSegment"]};

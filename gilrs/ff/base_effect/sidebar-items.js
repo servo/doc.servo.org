@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BaseEffectType"],"struct":["BaseEffect","Envelope","Replay"]};

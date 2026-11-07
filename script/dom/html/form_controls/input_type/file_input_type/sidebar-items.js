@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_FILE_INPUT_MULTIPLE_VALUE","DEFAULT_FILE_INPUT_VALUE","SELECTOR_BUTTON_MULTIPLE_TEXT","SELECTOR_BUTTON_TEXT"],"fn":["filter_from_accept"],"struct":["FileInputActivation","FileInputShadowTree","FileInputType"]};

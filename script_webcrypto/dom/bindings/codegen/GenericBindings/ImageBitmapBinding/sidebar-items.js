@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColorSpaceConversion","ImageBitmapSource","ImageOrientation","PremultiplyAlpha","ResizeQuality"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ColorSpaceConversionValues","ImageBitmap_Binding","ImageOrientationValues","PremultiplyAlphaValues","ResizeQualityValues"],"struct":["ImageBitmapOptions"],"trait":["ImageBitmapMethods"]};

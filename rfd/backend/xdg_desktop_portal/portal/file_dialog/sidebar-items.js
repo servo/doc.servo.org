@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["append_filters","append_path"],"struct":["FilePath","HandleToken","OpenFileOptions","SaveFileOptions"],"type":["FileFilter"]};

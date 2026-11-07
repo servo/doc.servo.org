@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["image_type"],"mod":["aesprite","astc","bmp","exr","farbfeld","gif","hdr","ico","ilbm","jpeg","jxl","ktx2","png","pnm","psd","qoi","tga","tiff","vtf","webp"]};

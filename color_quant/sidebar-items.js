@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALPHA_BIASSHIFT","BETA","BETAGAMMA","CHANNELS","GAMMA","INIT_ALPHA","PRIMES","RADIUS_DEC"],"mod":["math"],"struct":["NeuQuant","Quad"],"type":["Color","Neuron"]};

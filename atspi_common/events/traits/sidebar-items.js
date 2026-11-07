@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":["DBusInterface","DBusMatchRule","DBusMember","DBusProperties","EventProperties","EventTypeProperties","EventWrapperMessageConversion","MessageConversion","MessageConversionExt","RegistryEventString","TryFromMessage"]};

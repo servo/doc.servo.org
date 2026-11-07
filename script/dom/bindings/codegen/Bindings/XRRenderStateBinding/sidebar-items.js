@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","XRRenderState_Binding"],"trait":["XRRenderStateMethods"],"type":["XRRenderStateInit"]};

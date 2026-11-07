@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Delimiter","Spacing","TokenTree"],"macro":[["suffixed_int_literals",1],["unsuffixed_int_literals",1]],"mod":["detection","extra","imp","marker","parse","probe","rcvec","token_stream"],"struct":["Group","Ident","LexError","Literal","Punct","Span","TokenStream"]};

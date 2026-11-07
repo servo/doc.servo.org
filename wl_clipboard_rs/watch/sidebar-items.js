@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ClipboardEvent","ClipboardType"],"struct":["CancelHandle","Offer","OwnedOffer","SelectionEvent","SelectionOffer","State","Watcher"]};

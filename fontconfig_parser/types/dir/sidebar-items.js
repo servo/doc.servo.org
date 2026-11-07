@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DirPrefix","PrefixBehavior"],"fn":["config_get_file_name","config_home","expand_tilde"],"macro":[["define_calculate_path",1]],"struct":["CacheDir","Dir","Include","RemapDir"]};

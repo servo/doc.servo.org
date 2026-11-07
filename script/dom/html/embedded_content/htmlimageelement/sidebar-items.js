@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLImageElement"],"enum":["ChangeType","ImageElementMicrotask","ImageRequestPhase","State"],"struct":["HTMLImageElement","ImageContext","ImageRequest"]};

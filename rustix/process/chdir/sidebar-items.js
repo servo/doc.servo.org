@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_getcwd","chdir","fchdir","getcwd"]};

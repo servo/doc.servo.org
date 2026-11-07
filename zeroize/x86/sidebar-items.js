@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_zeroize_for_simd_register",1]]};

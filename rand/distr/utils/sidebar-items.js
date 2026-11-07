@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["scalar_float_impl",1],["wmul_impl",1],["wmul_impl_large",1],["wmul_impl_usize",1]],"trait":["BoolAsSIMD","FloatAsSIMD","FloatSIMDUtils","IntAsSIMD","WideningMultiply"]};

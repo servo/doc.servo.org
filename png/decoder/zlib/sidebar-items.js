@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LOOKBACK_SIZE"],"struct":["UnfilterBuf","UnfilterRegion","ZlibStream"]};

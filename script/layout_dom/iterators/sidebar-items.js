@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DOMDescendantIterator","ServoLayoutNodeChildrenIterator"],"struct":["ReverseChildrenIterator"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STACK_ROOTS"],"fn":["rooted_heap_handle","trace_roots"],"struct":["Dom","MaybeUnreflectedDom","Root","RootCollection"],"trait":["DomSlice","StableTraceObject"],"type":["DomRoot"]};

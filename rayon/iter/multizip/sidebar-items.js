@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["flatten",1],["multizip_impls",1],["nest",1],["reduce",1]],"struct":["MultiZip"]};

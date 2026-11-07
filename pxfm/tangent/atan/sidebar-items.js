@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["atan_fma_impl","atan_gen_impl","atan_refine","f_atan"],"static":["ATAN_CIRCLE","ATAN_REDUCE"]};

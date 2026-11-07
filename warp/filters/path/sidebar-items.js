@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_path_macro_compile_fail","end","filter_segment","full","param","path","path_and_query","peek","segment","tail","with_segment"],"mod":["internal"],"struct":["Exact","FullPath","Peek","Tail"]};

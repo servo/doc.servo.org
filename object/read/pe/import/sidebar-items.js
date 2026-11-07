@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Import"],"struct":["DelayLoadDescriptorIterator","DelayLoadImportTable","ImportDescriptorIterator","ImportTable","ImportThunkList"],"trait":["ImageThunkData"]};

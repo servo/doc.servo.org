@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["icu4x_WeekInformation_create_mv1","icu4x_WeekInformation_destroy_mv1","icu4x_WeekInformation_first_weekday_mv1","icu4x_WeekInformation_is_weekend_mv1","icu4x_WeekInformation_weekend_mv1","icu4x_WeekdaySetIterator_destroy_mv1","icu4x_WeekdaySetIterator_next_mv1"],"struct":["WeekInformation","WeekdaySetIterator"]};

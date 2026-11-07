@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","GetProtoObject","get_label","init_interface_object","init_statics","set_label"],"static":["INTERFACE_OBJECT_CLASS","PrototypeClass"],"struct":["BindingTables"],"trait":["WebGLObjectMethods"]};

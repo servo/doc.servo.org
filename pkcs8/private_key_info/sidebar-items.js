@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ATTRIBUTES_TAG","PUBLIC_KEY_TAG"],"mod":["allocating"],"struct":["PrivateKeyInfo"],"trait":["BitStringLike"],"type":["PrivateKeyInfoRef"]};

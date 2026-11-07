@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_assert_send"],"struct":["BoxedFilter","BoxingFilter"]};

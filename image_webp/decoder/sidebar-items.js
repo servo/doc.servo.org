@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DecodingError","ImageKind","LoopCount","UpsamplingMethod","WebPRiffChunk"],"fn":["range_reader","read_chunk_header","read_fourcc"],"struct":["AnimationState","WebPDecodeOptions","WebPDecoder"]};

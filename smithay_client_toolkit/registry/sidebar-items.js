@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GlobalProxy"],"fn":["bind_all","bind_one"],"struct":["RegistryState","SimpleGlobal"],"trait":["ProvidesRegistryState","RegistryHandler"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EventHandlerNonNull","OnBeforeUnloadEventHandlerNonNull","OnErrorEventHandlerNonNull"],"type":["EventHandler","OnBeforeUnloadEventHandler","OnErrorEventHandler"]};

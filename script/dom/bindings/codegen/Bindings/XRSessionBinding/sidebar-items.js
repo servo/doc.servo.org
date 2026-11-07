@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XREnvironmentBlendMode","XRInteractionMode","XRVisibilityState"],"fn":["Wrap"],"mod":["GenericBindings","XREnvironmentBlendModeValues","XRInteractionModeValues","XRSession_Binding","XRVisibilityStateValues"],"trait":["XRSessionMethods"],"type":["XRFrameRequestCallback"]};

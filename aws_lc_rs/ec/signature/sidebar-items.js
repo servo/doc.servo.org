@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AlgorithmID","EcdsaSignatureFormat"],"fn":["convert_fixed_signature","ecdsa_sig_from_fixed","public_key_from_evp_pkey","verify_asn1_digest_signature","verify_asn1_signature"],"struct":["EcdsaSigningAlgorithm","EcdsaVerificationAlgorithm","PublicKey"]};

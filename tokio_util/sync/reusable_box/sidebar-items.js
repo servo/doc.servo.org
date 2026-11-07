@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["reuse_pin_box"],"struct":["CallOnDrop","ReusableBoxFuture"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AutomationEvent","ParamDir","ParamRate","ParamType","RampKind","UserAutomationEvent"],"struct":["Param"]};

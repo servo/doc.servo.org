@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bump_selection_out_of_invalid_node","is_command_listed_in_miscellaneous_section","mapped_value_of_command"],"trait":["DocumentExecCommandSupport"]};

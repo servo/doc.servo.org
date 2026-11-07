@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["UniqueId"],"fn":["allow_devtools_client","console_table_items","debugger_value_to_json","handle_client","start_server","table_descriptor"],"mod":["actor","actors","id","network_handler","protocol","resource"],"struct":["ActorMsg","DevtoolsInstance","EmptyReplyMsg","StreamId"]};

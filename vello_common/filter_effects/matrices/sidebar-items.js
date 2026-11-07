@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALPHA_TO_BLACK","GRAYSCALE","IDENTITY","SEPIA"]};

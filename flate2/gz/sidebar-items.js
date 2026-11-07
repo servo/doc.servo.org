@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_HEADER_BUF"],"enum":["GzHeaderState"],"fn":["bad_header","corrupt","parse_le_u16","read_into","read_to_nul"],"mod":["bufread","read","write"],"static":["FCOMMENT","FEXTRA","FHCRC","FNAME","FRESERVED"],"struct":["GzBuilder","GzHeader","GzHeaderParser"]};

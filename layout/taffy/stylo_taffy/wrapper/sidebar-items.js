@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RepetitionWrapper","StyloLineNameIter","TaffyStyloStyle"],"type":["LineNameIter","LineNameSetIter","SliceMapIter","SliceMapRefIter"]};

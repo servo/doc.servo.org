@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["multiple_reply_cookie",1]],"struct":["Cookie","CookieWithFds","ListFontsWithInfoCookie","RawCookie","VoidCookie"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["ACCESSKIT_ROLE_TO_ARIA_ROLE","ARIA_ROLE_TO_ACCESSKIT_ROLE","SUPPORTED_ARIA_ROLES"],"struct":["AccessibilityDamage"]};

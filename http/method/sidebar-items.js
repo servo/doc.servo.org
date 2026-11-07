@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Inner"],"mod":["extension"],"struct":["InvalidMethod","Method"]};

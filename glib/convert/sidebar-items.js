@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CvtError","IConvError"],"fn":["casefold","convert","convert_with_fallback","filename_charsets","filename_from_utf8","filename_to_utf8","locale_from_utf8","locale_to_utf8","normalize","utf32_to_utf8","utf8_to_utf32"],"struct":["IConv"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Alpn"],"fn":["capture_connection"],"mod":["capture","dns","http","proxy","sealed"],"struct":["CaptureConnection","Connected","Extra","ExtraChain","ExtraEnvelope","HttpConnector","HttpInfo","PoisonPill"],"trait":["Connect","Connection","ExtraInner"]};

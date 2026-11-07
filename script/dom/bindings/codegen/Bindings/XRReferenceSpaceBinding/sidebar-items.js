@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XRReferenceSpaceType"],"fn":["GetConstructorObject","Wrap"],"mod":["GenericBindings","XRReferenceSpaceTypeValues","XRReferenceSpace_Binding"],"trait":["XRReferenceSpaceMethods"]};

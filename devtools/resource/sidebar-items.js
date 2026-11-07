@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ResourceArrayType"],"struct":["ResourceAvailableReply"],"trait":["ResourceAvailable"]};

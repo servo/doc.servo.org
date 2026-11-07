@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["BluetoothPermissionResult_Binding","GenericBindings"],"trait":["BluetoothPermissionResultMethods"],"type":["BluetoothPermissionDescriptor"]};

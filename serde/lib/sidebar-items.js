@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["Debug"],"enum":["Cow"],"mod":["clone","convert","core","default","f32","f64","fmt","marker","option","ptr","result","slice","str"],"struct":["Box","PhantomData","String","Vec"],"trait":["Debug","Display","FmtWrite","ToOwned","ToString"]};

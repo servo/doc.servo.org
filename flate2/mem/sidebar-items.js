@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DecompressErrorInner","FlushCompress","FlushDecompress","Status"],"fn":["compress_failed","decompress_failed","decompress_need_dict","write_to_spare_capacity_of_vec"],"struct":["Compress","CompressError","Decompress","DecompressError"]};

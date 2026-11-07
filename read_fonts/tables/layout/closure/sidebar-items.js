@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ContextFormat1","ContextFormat2","ContextFormat3","Format1Rule","Format1RuleSet","Format2Rule","Format2RuleSet","LayoutLookupList"],"fn":["intersects_class"],"struct":["CollectFeaturesContext","LookupClosureCtx","SeqCache"],"trait":["Intersect","LookupClosure"]};

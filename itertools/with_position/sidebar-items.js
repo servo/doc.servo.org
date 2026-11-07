@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["with_position"],"struct":["Position","WithPosition"]};

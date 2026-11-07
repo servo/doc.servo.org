@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetProtoObject","Wrap"],"static":["CROSS_ORIGIN_PROPERTIES","Class"],"trait":["DissimilarOriginWindowMethods"]};

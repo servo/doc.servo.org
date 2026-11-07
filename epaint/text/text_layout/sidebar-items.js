@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["add_row_backgrounds","add_row_hline","calculate_intrinsic_size","format_summary","galley_from_rows","halign_and_justify_row","layout","layout_section","line_break","replace_last_glyph_with_overflow_character","rows_from_paragraphs","tessellate_glyphs","tessellate_row"],"struct":["FormatSummary","Paragraph","PointScale","RowBreakCandidates"]};

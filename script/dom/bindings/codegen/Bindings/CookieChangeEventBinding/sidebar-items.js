@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["CookieChangeEvent_Binding","GenericBindings"],"trait":["CookieChangeEventMethods"],"type":["CookieChangeEventInit"]};

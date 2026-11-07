@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["comparison","docs","elements","options","preferences","provider"],"struct":["Collator","CollatorBorrowed","CollatorPreferences"],"trait":["CollationKeySink"]};

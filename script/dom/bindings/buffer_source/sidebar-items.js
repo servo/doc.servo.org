@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Constructor"],"fn":["byte_size","create_array_buffer_with_size","create_buffer_source","create_buffer_source_with_constructor","create_heap_buffer_source_with_length","get_buffer_source_copy","get_buffer_source_slice"],"struct":["HeapBufferSource"]};

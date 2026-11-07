@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_LIGATURE_CACHE_WORK"],"fn":["collect_seconds"],"trait":["ApplyLigatureSet"]};

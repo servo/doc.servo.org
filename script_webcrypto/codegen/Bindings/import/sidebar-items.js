@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["PrototypeList","ptr"],"struct":["DOMClass","Reflector"],"trait":["DomTypes","IDLInterface"]};

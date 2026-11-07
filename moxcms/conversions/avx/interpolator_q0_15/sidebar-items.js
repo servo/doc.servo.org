@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["define_interp_avx",1]],"struct":["AvxAlignedI16","AvxVectorQ0_15","AvxVectorQ0_15Sse","TetrahedralAvxFetchVector","TetrahedralAvxSseFetchVector","TrilinearAvxQ0_15","TrilinearAvxQ0_15Double"],"trait":["AvxMdInterpolationQ0_15","AvxMdInterpolationQ0_15Double","Fetcher"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BufferPoolAcquireParams","BufferPoolConfig","BufferPoolConfigRef","OptionsIter"],"trait":["BufferPoolExtManual"]};

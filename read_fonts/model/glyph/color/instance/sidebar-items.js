@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MaybeBrush","ResolvedPaint"],"fn":["make_sorted_resolved_stops","resolve_clip_box","resolve_clip_box_for_extents","resolve_paint"],"struct":["ColorStops","ColrInstance","ResolvedColorStop"],"type":["PaintId"]};
