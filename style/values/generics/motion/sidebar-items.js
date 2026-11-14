@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericOffsetPath","GenericOffsetPathFunction","GenericOffsetPosition","RaySize"],"fn":["deserialize_url"],"struct":["GenericRayFunction"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["hdmx_widths","hint_tables","prefer_interpreter"],"struct":["FontHinter","HintScratch","ScratchLengths","TrueTypeHinter"]};

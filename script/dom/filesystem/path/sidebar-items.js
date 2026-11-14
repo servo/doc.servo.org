@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["evaluate_path","is_valid_path","resolve_relative_path"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ValueType"],"fn":["expand_deserialize_dict_derive","expand_serialize_dict_derive","expand_signature_macro","expand_type_derive","expand_value_derive","signature_to_tokens_with_crate"],"mod":["attrs","dict","signature","type","value"],"struct":["Config"]};

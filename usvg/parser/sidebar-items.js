@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"fn":["decompress_svgz","f32_bound"],"mod":["clippath","converter","filter","image","marker","mask","options","paint_server","shapes","style","svgtree","switch","text","units","use_node"],"trait":["OptionLog"]};

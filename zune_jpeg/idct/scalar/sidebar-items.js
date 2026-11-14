@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SCALE_BITS"],"fn":["clamp","f2f","fsh","idct4x4","idct_int","idct_int_1x1","wa","wm","ws"]};

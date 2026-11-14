@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["saturating_abs_i32",1],["saturating_abs_i64",1]]};

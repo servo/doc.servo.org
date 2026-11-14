@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["as_cosh_zero","f_cosh"]};

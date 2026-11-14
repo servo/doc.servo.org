@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_MAX_DECLARATIONS_PER_ELEMENT","RESERVED_NAMESPACE_XML","RESERVED_NAMESPACE_XMLNS"],"enum":["NamespaceError","PrefixDeclaration","ResolveResult"],"struct":["LocalName","Namespace","NamespaceBinding","NamespaceBindingsIter","NamespaceBindingsOfLevelIter","NamespaceResolver","Prefix","QName"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["pippenger","precomputed_straus","straus","variable_base","vartime_double_base"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BaseField","NttMatrix"],"trait":["AlgebraExt","BarrettReduce","ConstantTimeDiv","Decompose"],"type":["Elem","Int","NttPolynomial","NttVector","Polynomial","Vector"]};

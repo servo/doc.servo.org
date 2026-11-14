@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["blake2_impl",1],["blake2_mac_impl",1]]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["error_on_duplicate","first_value_wins","last_value_wins"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SURROGATES_LEN","SURROGATES_START","__IMPL_VarULE_FOR_ExceptionULE_ULE_SIZE"],"struct":["CaseMapExceptions","DecodedException","Exception","ExceptionULE"]};

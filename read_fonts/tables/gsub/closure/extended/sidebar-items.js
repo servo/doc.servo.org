@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["visit_ligatures"],"macro":[["closure_array_sets",1],["intersects_coverage",1]]};

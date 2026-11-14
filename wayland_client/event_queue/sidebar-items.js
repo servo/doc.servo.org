@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["queue_callback"],"struct":["DispatchWaker","EventQueue","EventQueueInner","QueueEvent","QueueFreezeGuard","QueueHandle","QueueProxyData"],"trait":["Dispatch"],"type":["QueueCallback"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["ConstantSourceNode_Binding","GenericBindings"],"trait":["ConstantSourceNodeMethods"],"type":["ConstantSourceOptions"]};

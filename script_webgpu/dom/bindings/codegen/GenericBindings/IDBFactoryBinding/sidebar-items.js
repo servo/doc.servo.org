@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["IDBFactory_Binding"],"struct":["IDBDatabaseInfo"],"trait":["IDBFactoryMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["aliases","load_concat_strings","load_xdg_shared_magic","mime_path","rules","search_paths","subclasses"]};

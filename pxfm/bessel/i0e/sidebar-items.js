@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_i0e","i0e3p6_to_7p5","i0e_0_to_3p6_exec","i0e_7p5_to_9p5","i0e_7p5_to_9p5_hard","i0e_asympt","i0e_asympt_hard"]};

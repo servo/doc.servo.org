@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Feature","LanguageSystem","LayoutTable","RecordList","RecordListIter","Script","TagRecord"],"trait":["RecordListItem"],"type":["FeatureIndex","FeatureList","LanguageIndex","LanguageSystemList","LookupIndex","ScriptIndex","ScriptList","VariationIndex"]};

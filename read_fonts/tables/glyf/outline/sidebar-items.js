@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PathContourStart"],"fn":["contour_to_path","outline_to_path"],"mod":["borrowed","buffers","context","hinter","load","owned","path","plan","scale"],"struct":["BufferLengths","Buffers","GlyphZone","Outline","OutlinePlan","OutlineRef","OutlineTables","Scale26Dot6","ScaleF32","Unscaled"],"trait":["Hinter","OutlineContext","Scale"]};

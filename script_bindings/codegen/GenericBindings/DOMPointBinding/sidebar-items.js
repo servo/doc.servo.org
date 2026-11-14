@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["DOMPoint_Binding"],"struct":["DOMPointInit"]};

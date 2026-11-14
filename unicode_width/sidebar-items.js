@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["UNICODE_VERSION"],"fn":["char_iter_width","char_iter_width_cjk"],"mod":["lookup","private","props","tables","width_info"],"trait":["UnicodeWidthChar","UnicodeWidthStr"]};

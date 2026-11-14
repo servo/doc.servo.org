@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","URLPattern_Binding"],"trait":["URLPatternMethods"],"type":["URLPatternComponentResult","URLPatternInit","URLPatternInput","URLPatternOptions","URLPatternResult"]};

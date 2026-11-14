@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HB_BUFFER_SCRATCH_FLAG_AAT_HAS_DELETED","MIN_DIGESTED_SUBTABLES","START_OF_TEXT","WOULDBE_NONE"],"fn":["class_set_filter","get_class","pack_wouldbe","set_digest"],"struct":["AatApplyContext","SafeToBreak","SafeToBreakAccel","SafeToBreakSubtable"],"trait":["CollectGlyphs","TypedCollectGlyphs"],"type":["ClassCache"]};

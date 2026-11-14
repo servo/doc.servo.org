@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_identifier","is_identifier_continue","is_identifier_start"],"struct":["Sql"]};

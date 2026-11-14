@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_emoji_modifier_base","is_joining_group_lam","is_ligature_transparent","starts_emoji_presentation_seq","starts_non_ideographic_text_presentation_seq"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["CloseWatcher_Binding"],"struct":["CloseWatcherOptions"]};

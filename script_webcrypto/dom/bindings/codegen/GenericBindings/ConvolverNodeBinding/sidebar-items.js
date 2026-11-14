@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ConvolverNode_Binding"],"struct":["ConvolverOptions"],"trait":["ConvolverNodeMethods"]};

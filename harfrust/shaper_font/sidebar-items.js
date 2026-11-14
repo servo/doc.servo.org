@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["arabic_pua_map","layout_cache","legacy_symbol_font_page"],"struct":["Advances","AdvancesIter","GlyphExtents","LayoutCache","LayoutData","NominalGlyphs","NominalGlyphsIter","RawAdvances","RawNominalGlyphs","ShaperFont"],"trait":["FontFuncs"],"type":["CharmapCache"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","TransitionEvent_Binding"],"trait":["TransitionEventMethods"],"type":["TransitionEventInit"]};

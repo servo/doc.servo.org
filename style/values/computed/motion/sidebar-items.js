@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_auto_zero_angle"],"struct":["OffsetRotate"],"type":["OffsetPath","OffsetPathFunction","OffsetPosition","RayFunction"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_generic_specified_value_info",1]],"mod":["CssType"],"trait":["SpecifiedValueInfo"],"type":["KeywordsCollectFn"]};

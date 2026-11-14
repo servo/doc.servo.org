@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["ALL_VERSIONS","DEFAULT_VERSIONS","TLS12","TLS13"],"struct":["EnabledVersions","SupportedProtocolVersion"]};

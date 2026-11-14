@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["derive","derive_variant_arm"],"struct":["AnimationFieldAttrs","AnimationInputAttrs","AnimationVariantAttrs"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["State"],"fn":["now_or_never"],"struct":["OnceCell"]};

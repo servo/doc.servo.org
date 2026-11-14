@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RegistryEntry"],"struct":["Registry","RegistryCell"]};

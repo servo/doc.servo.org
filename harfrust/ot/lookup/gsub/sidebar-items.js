@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NARROW","WIDE"],"fn":["apply_alternate_set","apply_ligature","apply_ligature_set","collect_seconds","counted_glyphs","covered_at","ligature_would_apply","set_would_apply"],"struct":["AlternateSubst1","Ligature","LigatureSet","LigatureSubst1","MultipleSubst1","ReverseChainSubst1","SingleSubst1","SingleSubst2"]};

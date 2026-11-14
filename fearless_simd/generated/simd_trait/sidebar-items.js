@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["arch_types"],"trait":["Simd","SimdBase","SimdFloat","SimdInt","SimdMask"]};

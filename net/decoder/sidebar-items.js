@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DECODER_BUFFER_SIZE"],"enum":["DecoderType","Inner"],"fn":["map_decode_error"],"struct":["BodyStream","BodyStreamError","Decoder","Pending"]};

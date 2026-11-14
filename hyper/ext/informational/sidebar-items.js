@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["on_informational","on_informational_raw"],"struct":["OnInformational","OnInformationalClosure","Response"],"trait":["OnInformationalCallback"]};

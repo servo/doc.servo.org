@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["smithay_clipboard",[["impl <a class=\"trait\" href=\"smithay_client_toolkit/registry/trait.ProvidesRegistryState.html\" title=\"trait smithay_client_toolkit::registry::ProvidesRegistryState\">ProvidesRegistryState</a> for <a class=\"struct\" href=\"smithay_clipboard/state/struct.State.html\" title=\"struct smithay_clipboard::state::State\">State</a>",0]]],["winit",[["impl <a class=\"trait\" href=\"smithay_client_toolkit/registry/trait.ProvidesRegistryState.html\" title=\"trait smithay_client_toolkit::registry::ProvidesRegistryState\">ProvidesRegistryState</a> for <a class=\"struct\" href=\"winit/platform_impl/linux/wayland/state/struct.WinitState.html\" title=\"struct winit::platform_impl::linux::wayland::state::WinitState\">WinitState</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[359,398]}

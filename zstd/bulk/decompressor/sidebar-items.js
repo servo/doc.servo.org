@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["_assert_traits","bound_from_zstd","total_decompressed_size"],"struct":["Decompressor"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BROAD_MINIMUM_BUFFER_LEN","MAX_CAPACITY","MAX_INTEGER_LEN","MAX_PRECISION","RADIX_100_SPACE","RADIX_100_ZERO"],"fn":["digits"],"struct":["ArrayBuffer","BorrowedBuffer","BorrowedWriter"]};

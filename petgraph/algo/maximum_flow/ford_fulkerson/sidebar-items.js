@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["adjust_residual_flow","ford_fulkerson","has_augmented_path","other_endpoint","residual_capacity"]};

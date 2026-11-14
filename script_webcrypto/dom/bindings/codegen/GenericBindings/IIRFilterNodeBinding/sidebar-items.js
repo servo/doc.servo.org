@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["IIRFilterNode_Binding"],"struct":["IIRFilterOptions"],"trait":["IIRFilterNodeMethods"]};

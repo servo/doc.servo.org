@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","Expression","ParserError","Value"],"fn":["evaluate_parsed_xpath","is_valid_continuation","is_valid_start","parse"],"mod":["ast","context","eval","functions","parser","tokenizer","value"],"struct":["NodeSet"],"trait":["Attribute","Document","Dom","Element","NamespaceResolver","Node","ProcessingInstruction"]};

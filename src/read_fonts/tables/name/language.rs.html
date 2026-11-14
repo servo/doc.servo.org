@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/read-fonts-0.46.0/src/tables/name/language.rs`."><title>language.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="read_fonts" data-themes="" data-resource-suffix="" data-rustdoc-version="1.99.1 (58cf8f9c3 2026-10-13)" data-channel="1.99.1" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">read_fonts/tables/name/</div>language.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">/// Converts a Macintosh or Windows name-table language ID to a BCP 47 tag.
+<a href=#2 id=2 data-nosnippet>2</a>///
+<a href=#3 id=3 data-nosnippet>3</a>/// `platform_id` is 1 for Macintosh or 3 for Windows. Other platforms do not
+<a href=#4 id=4 data-nosnippet>4</a>/// use the language IDs in this table and return `None`, as do unknown IDs.
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">pub fn </span>language_id_to_bcp47(platform_id: u16, language_id: u16) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span>str&gt; {
+<a href=#6 id=6 data-nosnippet>6</a>    <span class="kw">match </span>platform_id {
+<a href=#7 id=7 data-nosnippet>7</a>        <span class="number">1 </span><span class="kw">if </span>language_id &lt;= <span class="number">151 </span>=&gt; {}
+<a href=#8 id=8 data-nosnippet>8</a>        <span class="number">3 </span><span class="kw">if </span>language_id &gt;= <span class="number">0x0401 </span>=&gt; {}
+<a href=#9 id=9 data-nosnippet>9</a>        <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
+<a href=#10 id=10 data-nosnippet>10</a>    }
+<a href=#11 id=11 data-nosnippet>11</a>    <span class="kw">match </span>LANGUAGE_ID_TO_BCP47.binary_search_by(|entry| entry.<span class="number">0</span>.cmp(<span class="kw-2">&amp;</span>language_id)) {
+<a href=#12 id=12 data-nosnippet>12</a>        <span class="prelude-val">Ok</span>(ix) =&gt; LANGUAGE_ID_TO_BCP47.get(ix).map(|entry| entry.<span class="number">1</span>),
+<a href=#13 id=13 data-nosnippet>13</a>        <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
+<a href=#14 id=14 data-nosnippet>14</a>    }
+<a href=#15 id=15 data-nosnippet>15</a>}
+<a href=#16 id=16 data-nosnippet>16</a>
+<a href=#17 id=17 data-nosnippet>17</a><span class="doccomment">/// Mapping of OpenType name table language identifier to BCP-47 language tag.
+<a href=#18 id=18 data-nosnippet>18</a>/// Borrowed from Skia: &lt;https://skia.googlesource.com/skia/+/refs/heads/main/src/sfnt/SkOTTable_name.cpp#98&gt;
+<a href=#19 id=19 data-nosnippet>19</a></span><span class="kw">const </span>LANGUAGE_ID_TO_BCP47: <span class="kw-2">&amp;</span>[(u16, <span class="kw-2">&amp;</span>str)] = <span class="kw-2">&amp;</span>[
+<a href=#20 id=20 data-nosnippet>20</a>    <span class="comment">/* A mapping from Mac Language Designators to BCP 47 codes.
+<a href=#21 id=21 data-nosnippet>21</a>     *  The following list was constructed more or less manually.
+<a href=#22 id=22 data-nosnippet>22</a>     *  Apple now uses BCP 47 (post OSX10.4), so there will be no new entries.
+<a href=#23 id=23 data-nosnippet>23</a>     */
+<a href=#24 id=24 data-nosnippet>24</a>    </span>(<span class="number">0</span>, <span class="string">"en"</span>),        <span class="comment">//English
+<a href=#25 id=25 data-nosnippet>25</a>    </span>(<span class="number">1</span>, <span class="string">"fr"</span>),        <span class="comment">//French
+<a href=#26 id=26 data-nosnippet>26</a>    </span>(<span class="number">2</span>, <span class="string">"de"</span>),        <span class="comment">//German
+<a href=#27 id=27 data-nosnippet>27</a>    </span>(<span class="number">3</span>, <span class="string">"it"</span>),        <span class="comment">//Italian
+<a href=#28 id=28 data-nosnippet>28</a>    </span>(<span class="number">4</span>, <span class="string">"nl"</span>),        <span class="comment">//Dutch
+<a href=#29 id=29 data-nosnippet>29</a>    </span>(<span class="number">5</span>, <span class="string">"sv"</span>),        <span class="comment">//Swedish
+<a href=#30 id=30 data-nosnippet>30</a>    </span>(<span class="number">6</span>, <span class="string">"es"</span>),        <span class="comment">//Spanish
+<a href=#31 id=31 data-nosnippet>31</a>    </span>(<span class="number">7</span>, <span class="string">"da"</span>),        <span class="comment">//Danish
+<a href=#32 id=32 data-nosnippet>32</a>    </span>(<span class="number">8</span>, <span class="string">"pt"</span>),        <span class="comment">//Portuguese
+<a href=#33 id=33 data-nosnippet>33</a>    </span>(<span class="number">9</span>, <span class="string">"nb"</span>),        <span class="comment">//Norwegian
+<a href=#34 id=34 data-nosnippet>34</a>    </span>(<span class="number">10</span>, <span class="string">"he"</span>),       <span class="comment">//Hebrew
+<a href=#35 id=35 data-nosnippet>35</a>    </span>(<span class="number">11</span>, <span class="string">"ja"</span>),       <span class="comment">//Japanese
+<a href=#36 id=36 data-nosnippet>36</a>    </span>(<span class="number">12</span>, <span class="string">"ar"</span>),       <span class="comment">//Arabic
+<a href=#37 id=37 data-nosnippet>37</a>    </span>(<span class="number">13</span>, <span class="string">"fi"</span>),       <span class="comment">//Finnish
+<a href=#38 id=38 data-nosnippet>38</a>    </span>(<span class="number">14</span>, <span class="string">"el"</span>),       <span class="comment">//Greek
+<a href=#39 id=39 data-nosnippet>39</a>    </span>(<span class="number">15</span>, <span class="string">"is"</span>),       <span class="comment">//Icelandic
+<a href=#40 id=40 data-nosnippet>40</a>    </span>(<span class="number">16</span>, <span class="string">"mt"</span>),       <span class="comment">//Maltese
+<a href=#41 id=41 data-nosnippet>41</a>    </span>(<span class="number">17</span>, <span class="string">"tr"</span>),       <span class="comment">//Turkish
+<a href=#42 id=42 data-nosnippet>42</a>    </span>(<span class="number">18</span>, <span class="string">"hr"</span>),       <span class="comment">//Croatian
+<a href=#43 id=43 data-nosnippet>43</a>    </span>(<span class="number">19</span>, <span class="string">"zh-Hant"</span>),  <span class="comment">//Chinese (Traditional)
+<a href=#44 id=44 data-nosnippet>44</a>    </span>(<span class="number">20</span>, <span class="string">"ur"</span>),       <span class="comment">//Urdu
+<a href=#45 id=45 data-nosnippet>45</a>    </span>(<span class="number">21</span>, <span class="string">"hi"</span>),       <span class="comment">//Hindi
+<a href=#46 id=46 data-nosnippet>46</a>    </span>(<span class="number">22</span>, <span class="string">"th"</span>),       <span class="comment">//Thai
+<a href=#47 id=47 data-nosnippet>47</a>    </span>(<span class="number">23</span>, <span class="string">"ko"</span>),       <span class="comment">//Korean
+<a href=#48 id=48 data-nosnippet>48</a>    </span>(<span class="number">24</span>, <span class="string">"lt"</span>),       <span class="comment">//Lithuanian
+<a href=#49 id=49 data-nosnippet>49</a>    </span>(<span class="number">25</span>, <span class="string">"pl"</span>),       <span class="comment">//Polish
+<a href=#50 id=50 data-nosnippet>50</a>    </span>(<span class="number">26</span>, <span class="string">"hu"</span>),       <span class="comment">//Hungarian
+<a href=#51 id=51 data-nosnippet>51</a>    </span>(<span class="number">27</span>, <span class="string">"et"</span>),       <span class="comment">//Estonian
+<a href=#52 id=52 data-nosnippet>52</a>    </span>(<span class="number">28</span>, <span class="string">"lv"</span>),       <span class="comment">//Latvian
+<a href=#53 id=53 data-nosnippet>53</a>    </span>(<span class="number">29</span>, <span class="string">"se"</span>),       <span class="comment">//Sami
+<a href=#54 id=54 data-nosnippet>54</a>    </span>(<span class="number">30</span>, <span class="string">"fo"</span>),       <span class="comment">//Faroese
+<a href=#55 id=55 data-nosnippet>55</a>    </span>(<span class="number">31</span>, <span class="string">"fa"</span>),       <span class="comment">//Farsi (Persian)
+<a href=#56 id=56 data-nosnippet>56</a>    </span>(<span class="number">32</span>, <span class="string">"ru"</span>),       <span class="comment">//Russian
+<a href=#57 id=57 data-nosnippet>57</a>    </span>(<span class="number">33</span>, <span class="string">"zh-Hans"</span>),  <span class="comment">//Chinese (Simplified)
+<a href=#58 id=58 data-nosnippet>58</a>    </span>(<span class="number">34</span>, <span class="string">"nl"</span>),       <span class="comment">//Dutch
+<a href=#59 id=59 data-nosnippet>59</a>    </span>(<span class="number">35</span>, <span class="string">"ga"</span>),       <span class="comment">//Irish(Gaelic)
+<a href=#60 id=60 data-nosnippet>60</a>    </span>(<span class="number">36</span>, <span class="string">"sq"</span>),       <span class="comment">//Albanian
+<a href=#61 id=61 data-nosnippet>61</a>    </span>(<span class="number">37</span>, <span class="string">"ro"</span>),       <span class="comment">//Romanian
+<a href=#62 id=62 data-nosnippet>62</a>    </span>(<span class="number">38</span>, <span class="string">"cs"</span>),       <span class="comment">//Czech
+<a href=#63 id=63 data-nosnippet>63</a>    </span>(<span class="number">39</span>, <span class="string">"sk"</span>),       <span class="comment">//Slovak
+<a href=#64 id=64 data-nosnippet>64</a>    </span>(<span class="number">40</span>, <span class="string">"sl"</span>),       <span class="comment">//Slovenian
+<a href=#65 id=65 data-nosnippet>65</a>    </span>(<span class="number">41</span>, <span class="string">"yi"</span>),       <span class="comment">//Yiddish
+<a href=#66 id=66 data-nosnippet>66</a>    </span>(<span class="number">42</span>, <span class="string">"sr"</span>),       <span class="comment">//Serbian
+<a href=#67 id=67 data-nosnippet>67</a>    </span>(<span class="number">43</span>, <span class="string">"mk"</span>),       <span class="comment">//Macedonian
+<a href=#68 id=68 data-nosnippet>68</a>    </span>(<span class="number">44</span>, <span class="string">"bg"</span>),       <span class="comment">//Bulgarian
+<a href=#69 id=69 data-nosnippet>69</a>    </span>(<span class="number">45</span>, <span class="string">"uk"</span>),       <span class="comment">//Ukrainian
+<a href=#70 id=70 data-nosnippet>70</a>    </span>(<span class="number">46</span>, <span class="string">"be"</span>),       <span class="comment">//Byelorussian
+<a href=#71 id=71 data-nosnippet>71</a>    </span>(<span class="number">47</span>, <span class="string">"uz"</span>),       <span class="comment">//Uzbek
+<a href=#72 id=72 data-nosnippet>72</a>    </span>(<span class="number">48</span>, <span class="string">"kk"</span>),       <span class="comment">//Kazakh
+<a href=#73 id=73 data-nosnippet>73</a>    </span>(<span class="number">49</span>, <span class="string">"az-Cyrl"</span>),  <span class="comment">//Azerbaijani (Cyrillic)
+<a href=#74 id=74 data-nosnippet>74</a>    </span>(<span class="number">50</span>, <span class="string">"az-Arab"</span>),  <span class="comment">//Azerbaijani (Arabic)
+<a href=#75 id=75 data-nosnippet>75</a>    </span>(<span class="number">51</span>, <span class="string">"hy"</span>),       <span class="comment">//Armenian
+<a href=#76 id=76 data-nosnippet>76</a>    </span>(<span class="number">52</span>, <span class="string">"ka"</span>),       <span class="comment">//Georgian
+<a href=#77 id=77 data-nosnippet>77</a>    </span>(<span class="number">53</span>, <span class="string">"mo"</span>),       <span class="comment">//Moldavian
+<a href=#78 id=78 data-nosnippet>78</a>    </span>(<span class="number">54</span>, <span class="string">"ky"</span>),       <span class="comment">//Kirghiz
+<a href=#79 id=79 data-nosnippet>79</a>    </span>(<span class="number">55</span>, <span class="string">"tg"</span>),       <span class="comment">//Tajiki
+<a href=#80 id=80 data-nosnippet>80</a>    </span>(<span class="number">56</span>, <span class="string">"tk"</span>),       <span class="comment">//Turkmen
+<a href=#81 id=81 data-nosnippet>81</a>    </span>(<span class="number">57</span>, <span class="string">"mn-Mong"</span>),  <span class="comment">//Mongolian (Traditional)
+<a href=#82 id=82 data-nosnippet>82</a>    </span>(<span class="number">58</span>, <span class="string">"mn-Cyrl"</span>),  <span class="comment">//Mongolian (Cyrillic)
+<a href=#83 id=83 data-nosnippet>83</a>    </span>(<span class="number">59</span>, <span class="string">"ps"</span>),       <span class="comment">//Pashto
+<a href=#84 id=84 data-nosnippet>84</a>    </span>(<span class="number">60</span>, <span class="string">"ku"</span>),       <span class="comment">//Kurdish
+<a href=#85 id=85 data-nosnippet>85</a>    </span>(<span class="number">61</span>, <span class="string">"ks"</span>),       <span class="comment">//Kashmiri
+<a href=#86 id=86 data-nosnippet>86</a>    </span>(<span class="number">62</span>, <span class="string">"sd"</span>),       <span class="comment">//Sindhi
+<a href=#87 id=87 data-nosnippet>87</a>    </span>(<span class="number">63</span>, <span class="string">"bo"</span>),       <span class="comment">//Tibetan
+<a href=#88 id=88 data-nosnippet>88</a>    </span>(<span class="number">64</span>, <span class="string">"ne"</span>),       <span class="comment">//Nepali
+<a href=#89 id=89 data-nosnippet>89</a>    </span>(<span class="number">65</span>, <span class="string">"sa"</span>),       <span class="comment">//Sanskrit
+<a href=#90 id=90 data-nosnippet>90</a>    </span>(<span class="number">66</span>, <span class="string">"mr"</span>),       <span class="comment">//Marathi
+<a href=#91 id=91 data-nosnippet>91</a>    </span>(<span class="number">67</span>, <span class="string">"bn"</span>),       <span class="comment">//Bengali
+<a href=#92 id=92 data-nosnippet>92</a>    </span>(<span class="number">68</span>, <span class="string">"as"</span>),       <span class="comment">//Assamese
+<a href=#93 id=93 data-nosnippet>93</a>    </span>(<span class="number">69</span>, <span class="string">"gu"</span>),       <span class="comment">//Gujarati
+<a href=#94 id=94 data-nosnippet>94</a>    </span>(<span class="number">70</span>, <span class="string">"pa"</span>),       <span class="comment">//Punjabi
+<a href=#95 id=95 data-nosnippet>95</a>    </span>(<span class="number">71</span>, <span class="string">"or"</span>),       <span class="comment">//Oriya
+<a href=#96 id=96 data-nosnippet>96</a>    </span>(<span class="number">72</span>, <span class="string">"ml"</span>),       <span class="comment">//Malayalam
+<a href=#97 id=97 data-nosnippet>97</a>    </span>(<span class="number">73</span>, <span class="string">"kn"</span>),       <span class="comment">//Kannada
+<a href=#98 id=98 data-nosnippet>98</a>    </span>(<span class="number">74</span>, <span class="string">"ta"</span>),       <span class="comment">//Tamil
+<a href=#99 id=99 data-nosnippet>99</a>    </span>(<span class="number">75</span>, <span class="string">"te"</span>),       <span class="comment">//Telugu
+<a href=#100 id=100 data-nosnippet>100</a>    </span>(<span class="number">76</span>, <span class="string">"si"</span>),       <span class="comment">//Sinhalese
+<a href=#101 id=101 data-nosnippet>101</a>    </span>(<span class="number">77</span>, <span class="string">"my"</span>),       <span class="comment">//Burmese
+<a href=#102 id=102 data-nosnippet>102</a>    </span>(<span class="number">78</span>, <span class="string">"km"</span>),       <span class="comment">//Khmer
+<a href=#103 id=103 data-nosnippet>103</a>    </span>(<span class="number">79</span>, <span class="string">"lo"</span>),       <span class="comment">//Lao
+<a href=#104 id=104 data-nosnippet>104</a>    </span>(<span class="number">80</span>, <span class="string">"vi"</span>),       <span class="comment">//Vietnamese
+<a href=#105 id=105 data-nosnippet>105</a>    </span>(<span class="number">81</span>, <span class="string">"id"</span>),       <span class="comment">//Indonesian
+<a href=#106 id=106 data-nosnippet>106</a>    </span>(<span class="number">82</span>, <span class="string">"tl"</span>),       <span class="comment">//Tagalog
+<a href=#107 id=107 data-nosnippet>107</a>    </span>(<span class="number">83</span>, <span class="string">"ms-Latn"</span>),  <span class="comment">//Malay (Roman)
+<a href=#108 id=108 data-nosnippet>108</a>    </span>(<span class="number">84</span>, <span class="string">"ms-Arab"</span>),  <span class="comment">//Malay (Arabic)
+<a href=#109 id=109 data-nosnippet>109</a>    </span>(<span class="number">85</span>, <span class="string">"am"</span>),       <span class="comment">//Amharic
+<a href=#110 id=110 data-nosnippet>110</a>    </span>(<span class="number">86</span>, <span class="string">"ti"</span>),       <span class="comment">//Tigrinya
+<a href=#111 id=111 data-nosnippet>111</a>    </span>(<span class="number">87</span>, <span class="string">"om"</span>),       <span class="comment">//Oromo
+<a href=#112 id=112 data-nosnippet>112</a>    </span>(<span class="number">88</span>, <span class="string">"so"</span>),       <span class="comment">//Somali
+<a href=#113 id=113 data-nosnippet>113</a>    </span>(<span class="number">89</span>, <span class="string">"sw"</span>),       <span class="comment">//Swahili
+<a href=#114 id=114 data-nosnippet>114</a>    </span>(<span class="number">90</span>, <span class="string">"rw"</span>),       <span class="comment">//Kinyarwanda/Ruanda
+<a href=#115 id=115 data-nosnippet>115</a>    </span>(<span class="number">91</span>, <span class="string">"rn"</span>),       <span class="comment">//Rundi
+<a href=#116 id=116 data-nosnippet>116</a>    </span>(<span class="number">92</span>, <span class="string">"ny"</span>),       <span class="comment">//Nyanja/Chewa
+<a href=#117 id=117 data-nosnippet>117</a>    </span>(<span class="number">93</span>, <span class="string">"mg"</span>),       <span class="comment">//Malagasy
+<a href=#118 id=118 data-nosnippet>118</a>    </span>(<span class="number">94</span>, <span class="string">"eo"</span>),       <span class="comment">//Esperanto
+<a href=#119 id=119 data-nosnippet>119</a>    </span>(<span class="number">128</span>, <span class="string">"cy"</span>),      <span class="comment">//Welsh
+<a href=#120 id=120 data-nosnippet>120</a>    </span>(<span class="number">129</span>, <span class="string">"eu"</span>),      <span class="comment">//Basque
+<a href=#121 id=121 data-nosnippet>121</a>    </span>(<span class="number">130</span>, <span class="string">"ca"</span>),      <span class="comment">//Catalan
+<a href=#122 id=122 data-nosnippet>122</a>    </span>(<span class="number">131</span>, <span class="string">"la"</span>),      <span class="comment">//Latin
+<a href=#123 id=123 data-nosnippet>123</a>    </span>(<span class="number">132</span>, <span class="string">"qu"</span>),      <span class="comment">//Quechua
+<a href=#124 id=124 data-nosnippet>124</a>    </span>(<span class="number">133</span>, <span class="string">"gn"</span>),      <span class="comment">//Guarani
+<a href=#125 id=125 data-nosnippet>125</a>    </span>(<span class="number">134</span>, <span class="string">"ay"</span>),      <span class="comment">//Aymara
+<a href=#126 id=126 data-nosnippet>126</a>    </span>(<span class="number">135</span>, <span class="string">"tt"</span>),      <span class="comment">//Tatar
+<a href=#127 id=127 data-nosnippet>127</a>    </span>(<span class="number">136</span>, <span class="string">"ug"</span>),      <span class="comment">//Uighur
+<a href=#128 id=128 data-nosnippet>128</a>    </span>(<span class="number">137</span>, <span class="string">"dz"</span>),      <span class="comment">//Dzongkha
+<a href=#129 id=129 data-nosnippet>129</a>    </span>(<span class="number">138</span>, <span class="string">"jv-Latn"</span>), <span class="comment">//Javanese (Roman)
+<a href=#130 id=130 data-nosnippet>130</a>    </span>(<span class="number">139</span>, <span class="string">"su-Latn"</span>), <span class="comment">//Sundanese (Roman)
+<a href=#131 id=131 data-nosnippet>131</a>    </span>(<span class="number">140</span>, <span class="string">"gl"</span>),      <span class="comment">//Galician
+<a href=#132 id=132 data-nosnippet>132</a>    </span>(<span class="number">141</span>, <span class="string">"af"</span>),      <span class="comment">//Afrikaans
+<a href=#133 id=133 data-nosnippet>133</a>    </span>(<span class="number">142</span>, <span class="string">"br"</span>),      <span class="comment">//Breton
+<a href=#134 id=134 data-nosnippet>134</a>    </span>(<span class="number">143</span>, <span class="string">"iu"</span>),      <span class="comment">//Inuktitut
+<a href=#135 id=135 data-nosnippet>135</a>    </span>(<span class="number">144</span>, <span class="string">"gd"</span>),      <span class="comment">//Scottish (Gaelic)
+<a href=#136 id=136 data-nosnippet>136</a>    </span>(<span class="number">145</span>, <span class="string">"gv"</span>),      <span class="comment">//Manx (Gaelic)
+<a href=#137 id=137 data-nosnippet>137</a>    </span>(<span class="number">146</span>, <span class="string">"ga"</span>),      <span class="comment">//Irish (Gaelic with Lenition)
+<a href=#138 id=138 data-nosnippet>138</a>    </span>(<span class="number">147</span>, <span class="string">"to"</span>),      <span class="comment">//Tongan
+<a href=#139 id=139 data-nosnippet>139</a>    </span>(<span class="number">148</span>, <span class="string">"el"</span>),      <span class="comment">//Greek (Polytonic) Note: ISO 15924 does not have an equivalent script name.
+<a href=#140 id=140 data-nosnippet>140</a>    </span>(<span class="number">149</span>, <span class="string">"kl"</span>),      <span class="comment">//Greenlandic
+<a href=#141 id=141 data-nosnippet>141</a>    </span>(<span class="number">150</span>, <span class="string">"az-Latn"</span>), <span class="comment">//Azerbaijani (Roman)
+<a href=#142 id=142 data-nosnippet>142</a>    </span>(<span class="number">151</span>, <span class="string">"nn"</span>),      <span class="comment">//Nynorsk
+<a href=#143 id=143 data-nosnippet>143</a>    /* A mapping from Windows LCID to BCP 47 codes.
+<a href=#144 id=144 data-nosnippet>144</a>     *  This list is the sorted, curated output of tools/win_lcid.cpp.
+<a href=#145 id=145 data-nosnippet>145</a>     *  Note that these are sorted by value for quick binary lookup, and not logically by lsb.
+<a href=#146 id=146 data-nosnippet>146</a>     *  The 'bare' language ids (e.g. 0x0001 for Arabic) are omitted
+<a href=#147 id=147 data-nosnippet>147</a>     *  as they do not appear as valid language ids in the OpenType specification.
+<a href=#148 id=148 data-nosnippet>148</a>     */
+<a href=#149 id=149 data-nosnippet>149</a>    </span>(<span class="number">0x0401</span>, <span class="string">"ar-SA"</span>),        <span class="comment">//Arabic
+<a href=#150 id=150 data-nosnippet>150</a>    </span>(<span class="number">0x0402</span>, <span class="string">"bg-BG"</span>),        <span class="comment">//Bulgarian
+<a href=#151 id=151 data-nosnippet>151</a>    </span>(<span class="number">0x0403</span>, <span class="string">"ca-ES"</span>),        <span class="comment">//Catalan
+<a href=#152 id=152 data-nosnippet>152</a>    </span>(<span class="number">0x0404</span>, <span class="string">"zh-TW"</span>),        <span class="comment">//Chinese (Traditional)
+<a href=#153 id=153 data-nosnippet>153</a>    </span>(<span class="number">0x0405</span>, <span class="string">"cs-CZ"</span>),        <span class="comment">//Czech
+<a href=#154 id=154 data-nosnippet>154</a>    </span>(<span class="number">0x0406</span>, <span class="string">"da-DK"</span>),        <span class="comment">//Danish
+<a href=#155 id=155 data-nosnippet>155</a>    </span>(<span class="number">0x0407</span>, <span class="string">"de-DE"</span>),        <span class="comment">//German
+<a href=#156 id=156 data-nosnippet>156</a>    </span>(<span class="number">0x0408</span>, <span class="string">"el-GR"</span>),        <span class="comment">//Greek
+<a href=#157 id=157 data-nosnippet>157</a>    </span>(<span class="number">0x0409</span>, <span class="string">"en-US"</span>),        <span class="comment">//English
+<a href=#158 id=158 data-nosnippet>158</a>    </span>(<span class="number">0x040a</span>, <span class="string">"es-ES_tradnl"</span>), <span class="comment">//Spanish
+<a href=#159 id=159 data-nosnippet>159</a>    </span>(<span class="number">0x040b</span>, <span class="string">"fi-FI"</span>),        <span class="comment">//Finnish
+<a href=#160 id=160 data-nosnippet>160</a>    </span>(<span class="number">0x040c</span>, <span class="string">"fr-FR"</span>),        <span class="comment">//French
+<a href=#161 id=161 data-nosnippet>161</a>    </span>(<span class="number">0x040d</span>, <span class="string">"he-IL"</span>),        <span class="comment">//Hebrew
+<a href=#162 id=162 data-nosnippet>162</a>    </span>(<span class="number">0x040d</span>, <span class="string">"he"</span>),           <span class="comment">//Hebrew
+<a href=#163 id=163 data-nosnippet>163</a>    </span>(<span class="number">0x040e</span>, <span class="string">"hu-HU"</span>),        <span class="comment">//Hungarian
+<a href=#164 id=164 data-nosnippet>164</a>    </span>(<span class="number">0x040e</span>, <span class="string">"hu"</span>),           <span class="comment">//Hungarian
+<a href=#165 id=165 data-nosnippet>165</a>    </span>(<span class="number">0x040f</span>, <span class="string">"is-IS"</span>),        <span class="comment">//Icelandic
+<a href=#166 id=166 data-nosnippet>166</a>    </span>(<span class="number">0x0410</span>, <span class="string">"it-IT"</span>),        <span class="comment">//Italian
+<a href=#167 id=167 data-nosnippet>167</a>    </span>(<span class="number">0x0411</span>, <span class="string">"ja-JP"</span>),        <span class="comment">//Japanese
+<a href=#168 id=168 data-nosnippet>168</a>    </span>(<span class="number">0x0412</span>, <span class="string">"ko-KR"</span>),        <span class="comment">//Korean
+<a href=#169 id=169 data-nosnippet>169</a>    </span>(<span class="number">0x0413</span>, <span class="string">"nl-NL"</span>),        <span class="comment">//Dutch
+<a href=#170 id=170 data-nosnippet>170</a>    </span>(<span class="number">0x0414</span>, <span class="string">"nb-NO"</span>),        <span class="comment">//Norwegian (Bokmål)
+<a href=#171 id=171 data-nosnippet>171</a>    </span>(<span class="number">0x0415</span>, <span class="string">"pl-PL"</span>),        <span class="comment">//Polish
+<a href=#172 id=172 data-nosnippet>172</a>    </span>(<span class="number">0x0416</span>, <span class="string">"pt-BR"</span>),        <span class="comment">//Portuguese
+<a href=#173 id=173 data-nosnippet>173</a>    </span>(<span class="number">0x0417</span>, <span class="string">"rm-CH"</span>),        <span class="comment">//Romansh
+<a href=#174 id=174 data-nosnippet>174</a>    </span>(<span class="number">0x0418</span>, <span class="string">"ro-RO"</span>),        <span class="comment">//Romanian
+<a href=#175 id=175 data-nosnippet>175</a>    </span>(<span class="number">0x0419</span>, <span class="string">"ru-RU"</span>),        <span class="comment">//Russian
+<a href=#176 id=176 data-nosnippet>176</a>    </span>(<span class="number">0x041a</span>, <span class="string">"hr-HR"</span>),        <span class="comment">//Croatian
+<a href=#177 id=177 data-nosnippet>177</a>    </span>(<span class="number">0x041b</span>, <span class="string">"sk-SK"</span>),        <span class="comment">//Slovak
+<a href=#178 id=178 data-nosnippet>178</a>    </span>(<span class="number">0x041c</span>, <span class="string">"sq-AL"</span>),        <span class="comment">//Albanian
+<a href=#179 id=179 data-nosnippet>179</a>    </span>(<span class="number">0x041d</span>, <span class="string">"sv-SE"</span>),        <span class="comment">//Swedish
+<a href=#180 id=180 data-nosnippet>180</a>    </span>(<span class="number">0x041e</span>, <span class="string">"th-TH"</span>),        <span class="comment">//Thai
+<a href=#181 id=181 data-nosnippet>181</a>    </span>(<span class="number">0x041f</span>, <span class="string">"tr-TR"</span>),        <span class="comment">//Turkish
+<a href=#182 id=182 data-nosnippet>182</a>    </span>(<span class="number">0x0420</span>, <span class="string">"ur-PK"</span>),        <span class="comment">//Urdu
+<a href=#183 id=183 data-nosnippet>183</a>    </span>(<span class="number">0x0421</span>, <span class="string">"id-ID"</span>),        <span class="comment">//Indonesian
+<a href=#184 id=184 data-nosnippet>184</a>    </span>(<span class="number">0x0422</span>, <span class="string">"uk-UA"</span>),        <span class="comment">//Ukrainian
+<a href=#185 id=185 data-nosnippet>185</a>    </span>(<span class="number">0x0423</span>, <span class="string">"be-BY"</span>),        <span class="comment">//Belarusian
+<a href=#186 id=186 data-nosnippet>186</a>    </span>(<span class="number">0x0424</span>, <span class="string">"sl-SI"</span>),        <span class="comment">//Slovenian
+<a href=#187 id=187 data-nosnippet>187</a>    </span>(<span class="number">0x0425</span>, <span class="string">"et-EE"</span>),        <span class="comment">//Estonian
+<a href=#188 id=188 data-nosnippet>188</a>    </span>(<span class="number">0x0426</span>, <span class="string">"lv-LV"</span>),        <span class="comment">//Latvian
+<a href=#189 id=189 data-nosnippet>189</a>    </span>(<span class="number">0x0427</span>, <span class="string">"lt-LT"</span>),        <span class="comment">//Lithuanian
+<a href=#190 id=190 data-nosnippet>190</a>    </span>(<span class="number">0x0428</span>, <span class="string">"tg-Cyrl-TJ"</span>),   <span class="comment">//Tajik (Cyrillic)
+<a href=#191 id=191 data-nosnippet>191</a>    </span>(<span class="number">0x0429</span>, <span class="string">"fa-IR"</span>),        <span class="comment">//Persian
+<a href=#192 id=192 data-nosnippet>192</a>    </span>(<span class="number">0x042a</span>, <span class="string">"vi-VN"</span>),        <span class="comment">//Vietnamese
+<a href=#193 id=193 data-nosnippet>193</a>    </span>(<span class="number">0x042b</span>, <span class="string">"hy-AM"</span>),        <span class="comment">//Armenian
+<a href=#194 id=194 data-nosnippet>194</a>    </span>(<span class="number">0x042c</span>, <span class="string">"az-Latn-AZ"</span>),   <span class="comment">//Azeri (Latin)
+<a href=#195 id=195 data-nosnippet>195</a>    </span>(<span class="number">0x042d</span>, <span class="string">"eu-ES"</span>),        <span class="comment">//Basque
+<a href=#196 id=196 data-nosnippet>196</a>    </span>(<span class="number">0x042e</span>, <span class="string">"hsb-DE"</span>),       <span class="comment">//Upper Sorbian
+<a href=#197 id=197 data-nosnippet>197</a>    </span>(<span class="number">0x042f</span>, <span class="string">"mk-MK"</span>),        <span class="comment">//Macedonian (FYROM)
+<a href=#198 id=198 data-nosnippet>198</a>    </span>(<span class="number">0x0432</span>, <span class="string">"tn-ZA"</span>),        <span class="comment">//Setswana
+<a href=#199 id=199 data-nosnippet>199</a>    </span>(<span class="number">0x0434</span>, <span class="string">"xh-ZA"</span>),        <span class="comment">//isiXhosa
+<a href=#200 id=200 data-nosnippet>200</a>    </span>(<span class="number">0x0435</span>, <span class="string">"zu-ZA"</span>),        <span class="comment">//isiZulu
+<a href=#201 id=201 data-nosnippet>201</a>    </span>(<span class="number">0x0436</span>, <span class="string">"af-ZA"</span>),        <span class="comment">//Afrikaans
+<a href=#202 id=202 data-nosnippet>202</a>    </span>(<span class="number">0x0437</span>, <span class="string">"ka-GE"</span>),        <span class="comment">//Georgian
+<a href=#203 id=203 data-nosnippet>203</a>    </span>(<span class="number">0x0438</span>, <span class="string">"fo-FO"</span>),        <span class="comment">//Faroese
+<a href=#204 id=204 data-nosnippet>204</a>    </span>(<span class="number">0x0439</span>, <span class="string">"hi-IN"</span>),        <span class="comment">//Hindi
+<a href=#205 id=205 data-nosnippet>205</a>    </span>(<span class="number">0x043a</span>, <span class="string">"mt-MT"</span>),        <span class="comment">//Maltese
+<a href=#206 id=206 data-nosnippet>206</a>    </span>(<span class="number">0x043b</span>, <span class="string">"se-NO"</span>),        <span class="comment">//Sami (Northern)
+<a href=#207 id=207 data-nosnippet>207</a>    </span>(<span class="number">0x043e</span>, <span class="string">"ms-MY"</span>),        <span class="comment">//Malay
+<a href=#208 id=208 data-nosnippet>208</a>    </span>(<span class="number">0x043f</span>, <span class="string">"kk-KZ"</span>),        <span class="comment">//Kazakh
+<a href=#209 id=209 data-nosnippet>209</a>    </span>(<span class="number">0x0440</span>, <span class="string">"ky-KG"</span>),        <span class="comment">//Kyrgyz
+<a href=#210 id=210 data-nosnippet>210</a>    </span>(<span class="number">0x0441</span>, <span class="string">"sw-KE"</span>),        <span class="comment">//Kiswahili
+<a href=#211 id=211 data-nosnippet>211</a>    </span>(<span class="number">0x0442</span>, <span class="string">"tk-TM"</span>),        <span class="comment">//Turkmen
+<a href=#212 id=212 data-nosnippet>212</a>    </span>(<span class="number">0x0443</span>, <span class="string">"uz-Latn-UZ"</span>),   <span class="comment">//Uzbek (Latin)
+<a href=#213 id=213 data-nosnippet>213</a>    </span>(<span class="number">0x0443</span>, <span class="string">"uz"</span>),           <span class="comment">//Uzbek
+<a href=#214 id=214 data-nosnippet>214</a>    </span>(<span class="number">0x0444</span>, <span class="string">"tt-RU"</span>),        <span class="comment">//Tatar
+<a href=#215 id=215 data-nosnippet>215</a>    </span>(<span class="number">0x0445</span>, <span class="string">"bn-IN"</span>),        <span class="comment">//Bengali
+<a href=#216 id=216 data-nosnippet>216</a>    </span>(<span class="number">0x0446</span>, <span class="string">"pa-IN"</span>),        <span class="comment">//Punjabi
+<a href=#217 id=217 data-nosnippet>217</a>    </span>(<span class="number">0x0447</span>, <span class="string">"gu-IN"</span>),        <span class="comment">//Gujarati
+<a href=#218 id=218 data-nosnippet>218</a>    </span>(<span class="number">0x0448</span>, <span class="string">"or-IN"</span>),        <span class="comment">//Oriya
+<a href=#219 id=219 data-nosnippet>219</a>    </span>(<span class="number">0x0449</span>, <span class="string">"ta-IN"</span>),        <span class="comment">//Tamil
+<a href=#220 id=220 data-nosnippet>220</a>    </span>(<span class="number">0x044a</span>, <span class="string">"te-IN"</span>),        <span class="comment">//Telugu
+<a href=#221 id=221 data-nosnippet>221</a>    </span>(<span class="number">0x044b</span>, <span class="string">"kn-IN"</span>),        <span class="comment">//Kannada
+<a href=#222 id=222 data-nosnippet>222</a>    </span>(<span class="number">0x044c</span>, <span class="string">"ml-IN"</span>),        <span class="comment">//Malayalam
+<a href=#223 id=223 data-nosnippet>223</a>    </span>(<span class="number">0x044d</span>, <span class="string">"as-IN"</span>),        <span class="comment">//Assamese
+<a href=#224 id=224 data-nosnippet>224</a>    </span>(<span class="number">0x044e</span>, <span class="string">"mr-IN"</span>),        <span class="comment">//Marathi
+<a href=#225 id=225 data-nosnippet>225</a>    </span>(<span class="number">0x044f</span>, <span class="string">"sa-IN"</span>),        <span class="comment">//Sanskrit
+<a href=#226 id=226 data-nosnippet>226</a>    </span>(<span class="number">0x0450</span>, <span class="string">"mn-Cyrl"</span>),      <span class="comment">//Mongolian (Cyrillic)
+<a href=#227 id=227 data-nosnippet>227</a>    </span>(<span class="number">0x0451</span>, <span class="string">"bo-CN"</span>),        <span class="comment">//Tibetan
+<a href=#228 id=228 data-nosnippet>228</a>    </span>(<span class="number">0x0452</span>, <span class="string">"cy-GB"</span>),        <span class="comment">//Welsh
+<a href=#229 id=229 data-nosnippet>229</a>    </span>(<span class="number">0x0453</span>, <span class="string">"km-KH"</span>),        <span class="comment">//Khmer
+<a href=#230 id=230 data-nosnippet>230</a>    </span>(<span class="number">0x0454</span>, <span class="string">"lo-LA"</span>),        <span class="comment">//Lao
+<a href=#231 id=231 data-nosnippet>231</a>    </span>(<span class="number">0x0456</span>, <span class="string">"gl-ES"</span>),        <span class="comment">//Galician
+<a href=#232 id=232 data-nosnippet>232</a>    </span>(<span class="number">0x0457</span>, <span class="string">"kok-IN"</span>),       <span class="comment">//Konkani
+<a href=#233 id=233 data-nosnippet>233</a>    </span>(<span class="number">0x045a</span>, <span class="string">"syr-SY"</span>),       <span class="comment">//Syriac
+<a href=#234 id=234 data-nosnippet>234</a>    </span>(<span class="number">0x045b</span>, <span class="string">"si-LK"</span>),        <span class="comment">//Sinhala
+<a href=#235 id=235 data-nosnippet>235</a>    </span>(<span class="number">0x045d</span>, <span class="string">"iu-Cans-CA"</span>),   <span class="comment">//Inuktitut (Syllabics)
+<a href=#236 id=236 data-nosnippet>236</a>    </span>(<span class="number">0x045e</span>, <span class="string">"am-ET"</span>),        <span class="comment">//Amharic
+<a href=#237 id=237 data-nosnippet>237</a>    </span>(<span class="number">0x0461</span>, <span class="string">"ne-NP"</span>),        <span class="comment">//Nepali
+<a href=#238 id=238 data-nosnippet>238</a>    </span>(<span class="number">0x0462</span>, <span class="string">"fy-NL"</span>),        <span class="comment">//Frisian
+<a href=#239 id=239 data-nosnippet>239</a>    </span>(<span class="number">0x0463</span>, <span class="string">"ps-AF"</span>),        <span class="comment">//Pashto
+<a href=#240 id=240 data-nosnippet>240</a>    </span>(<span class="number">0x0464</span>, <span class="string">"fil-PH"</span>),       <span class="comment">//Filipino
+<a href=#241 id=241 data-nosnippet>241</a>    </span>(<span class="number">0x0465</span>, <span class="string">"dv-MV"</span>),        <span class="comment">//Divehi
+<a href=#242 id=242 data-nosnippet>242</a>    </span>(<span class="number">0x0468</span>, <span class="string">"ha-Latn-NG"</span>),   <span class="comment">//Hausa (Latin)
+<a href=#243 id=243 data-nosnippet>243</a>    </span>(<span class="number">0x046a</span>, <span class="string">"yo-NG"</span>),        <span class="comment">//Yoruba
+<a href=#244 id=244 data-nosnippet>244</a>    </span>(<span class="number">0x046b</span>, <span class="string">"quz-BO"</span>),       <span class="comment">//Quechua
+<a href=#245 id=245 data-nosnippet>245</a>    </span>(<span class="number">0x046c</span>, <span class="string">"nso-ZA"</span>),       <span class="comment">//Sesotho sa Leboa
+<a href=#246 id=246 data-nosnippet>246</a>    </span>(<span class="number">0x046d</span>, <span class="string">"ba-RU"</span>),        <span class="comment">//Bashkir
+<a href=#247 id=247 data-nosnippet>247</a>    </span>(<span class="number">0x046e</span>, <span class="string">"lb-LU"</span>),        <span class="comment">//Luxembourgish
+<a href=#248 id=248 data-nosnippet>248</a>    </span>(<span class="number">0x046f</span>, <span class="string">"kl-GL"</span>),        <span class="comment">//Greenlandic
+<a href=#249 id=249 data-nosnippet>249</a>    </span>(<span class="number">0x0470</span>, <span class="string">"ig-NG"</span>),        <span class="comment">//Igbo
+<a href=#250 id=250 data-nosnippet>250</a>    </span>(<span class="number">0x0478</span>, <span class="string">"ii-CN"</span>),        <span class="comment">//Yi
+<a href=#251 id=251 data-nosnippet>251</a>    </span>(<span class="number">0x047a</span>, <span class="string">"arn-CL"</span>),       <span class="comment">//Mapudungun
+<a href=#252 id=252 data-nosnippet>252</a>    </span>(<span class="number">0x047c</span>, <span class="string">"moh-CA"</span>),       <span class="comment">//Mohawk
+<a href=#253 id=253 data-nosnippet>253</a>    </span>(<span class="number">0x047e</span>, <span class="string">"br-FR"</span>),        <span class="comment">//Breton
+<a href=#254 id=254 data-nosnippet>254</a>    </span>(<span class="number">0x0480</span>, <span class="string">"ug-CN"</span>),        <span class="comment">//Uyghur
+<a href=#255 id=255 data-nosnippet>255</a>    </span>(<span class="number">0x0481</span>, <span class="string">"mi-NZ"</span>),        <span class="comment">//Maori
+<a href=#256 id=256 data-nosnippet>256</a>    </span>(<span class="number">0x0482</span>, <span class="string">"oc-FR"</span>),        <span class="comment">//Occitan
+<a href=#257 id=257 data-nosnippet>257</a>    </span>(<span class="number">0x0483</span>, <span class="string">"co-FR"</span>),        <span class="comment">//Corsican
+<a href=#258 id=258 data-nosnippet>258</a>    </span>(<span class="number">0x0484</span>, <span class="string">"gsw-FR"</span>),       <span class="comment">//Alsatian
+<a href=#259 id=259 data-nosnippet>259</a>    </span>(<span class="number">0x0485</span>, <span class="string">"sah-RU"</span>),       <span class="comment">//Yakut
+<a href=#260 id=260 data-nosnippet>260</a>    </span>(<span class="number">0x0486</span>, <span class="string">"qut-GT"</span>),       <span class="comment">//K'iche
+<a href=#261 id=261 data-nosnippet>261</a>    </span>(<span class="number">0x0487</span>, <span class="string">"rw-RW"</span>),        <span class="comment">//Kinyarwanda
+<a href=#262 id=262 data-nosnippet>262</a>    </span>(<span class="number">0x0488</span>, <span class="string">"wo-SN"</span>),        <span class="comment">//Wolof
+<a href=#263 id=263 data-nosnippet>263</a>    </span>(<span class="number">0x048c</span>, <span class="string">"prs-AF"</span>),       <span class="comment">//Dari
+<a href=#264 id=264 data-nosnippet>264</a>    </span>(<span class="number">0x0491</span>, <span class="string">"gd-GB"</span>),        <span class="comment">//Scottish Gaelic
+<a href=#265 id=265 data-nosnippet>265</a>    </span>(<span class="number">0x0801</span>, <span class="string">"ar-IQ"</span>),        <span class="comment">//Arabic
+<a href=#266 id=266 data-nosnippet>266</a>    </span>(<span class="number">0x0804</span>, <span class="string">"zh-Hans"</span>),      <span class="comment">//Chinese (Simplified)
+<a href=#267 id=267 data-nosnippet>267</a>    </span>(<span class="number">0x0807</span>, <span class="string">"de-CH"</span>),        <span class="comment">//German
+<a href=#268 id=268 data-nosnippet>268</a>    </span>(<span class="number">0x0809</span>, <span class="string">"en-GB"</span>),        <span class="comment">//English
+<a href=#269 id=269 data-nosnippet>269</a>    </span>(<span class="number">0x080a</span>, <span class="string">"es-MX"</span>),        <span class="comment">//Spanish
+<a href=#270 id=270 data-nosnippet>270</a>    </span>(<span class="number">0x080c</span>, <span class="string">"fr-BE"</span>),        <span class="comment">//French
+<a href=#271 id=271 data-nosnippet>271</a>    </span>(<span class="number">0x0810</span>, <span class="string">"it-CH"</span>),        <span class="comment">//Italian
+<a href=#272 id=272 data-nosnippet>272</a>    </span>(<span class="number">0x0813</span>, <span class="string">"nl-BE"</span>),        <span class="comment">//Dutch
+<a href=#273 id=273 data-nosnippet>273</a>    </span>(<span class="number">0x0814</span>, <span class="string">"nn-NO"</span>),        <span class="comment">//Norwegian (Nynorsk)
+<a href=#274 id=274 data-nosnippet>274</a>    </span>(<span class="number">0x0816</span>, <span class="string">"pt-PT"</span>),        <span class="comment">//Portuguese
+<a href=#275 id=275 data-nosnippet>275</a>    </span>(<span class="number">0x081a</span>, <span class="string">"sr-Latn-CS"</span>),   <span class="comment">//Serbian (Latin)
+<a href=#276 id=276 data-nosnippet>276</a>    </span>(<span class="number">0x081d</span>, <span class="string">"sv-FI"</span>),        <span class="comment">//Swedish
+<a href=#277 id=277 data-nosnippet>277</a>    </span>(<span class="number">0x082c</span>, <span class="string">"az-Cyrl-AZ"</span>),   <span class="comment">//Azeri (Cyrillic)
+<a href=#278 id=278 data-nosnippet>278</a>    </span>(<span class="number">0x082e</span>, <span class="string">"dsb-DE"</span>),       <span class="comment">//Lower Sorbian
+<a href=#279 id=279 data-nosnippet>279</a>    </span>(<span class="number">0x082e</span>, <span class="string">"dsb"</span>),          <span class="comment">//Lower Sorbian
+<a href=#280 id=280 data-nosnippet>280</a>    </span>(<span class="number">0x083b</span>, <span class="string">"se-SE"</span>),        <span class="comment">//Sami (Northern)
+<a href=#281 id=281 data-nosnippet>281</a>    </span>(<span class="number">0x083c</span>, <span class="string">"ga-IE"</span>),        <span class="comment">//Irish
+<a href=#282 id=282 data-nosnippet>282</a>    </span>(<span class="number">0x083e</span>, <span class="string">"ms-BN"</span>),        <span class="comment">//Malay
+<a href=#283 id=283 data-nosnippet>283</a>    </span>(<span class="number">0x0843</span>, <span class="string">"uz-Cyrl-UZ"</span>),   <span class="comment">//Uzbek (Cyrillic)
+<a href=#284 id=284 data-nosnippet>284</a>    </span>(<span class="number">0x0845</span>, <span class="string">"bn-BD"</span>),        <span class="comment">//Bengali
+<a href=#285 id=285 data-nosnippet>285</a>    </span>(<span class="number">0x0850</span>, <span class="string">"mn-Mong-CN"</span>),   <span class="comment">//Mongolian (Traditional Mongolian)
+<a href=#286 id=286 data-nosnippet>286</a>    </span>(<span class="number">0x085d</span>, <span class="string">"iu-Latn-CA"</span>),   <span class="comment">//Inuktitut (Latin)
+<a href=#287 id=287 data-nosnippet>287</a>    </span>(<span class="number">0x085f</span>, <span class="string">"tzm-Latn-DZ"</span>),  <span class="comment">//Tamazight (Latin)
+<a href=#288 id=288 data-nosnippet>288</a>    </span>(<span class="number">0x086b</span>, <span class="string">"quz-EC"</span>),       <span class="comment">//Quechua
+<a href=#289 id=289 data-nosnippet>289</a>    </span>(<span class="number">0x0c01</span>, <span class="string">"ar-EG"</span>),        <span class="comment">//Arabic
+<a href=#290 id=290 data-nosnippet>290</a>    </span>(<span class="number">0x0c04</span>, <span class="string">"zh-Hant"</span>),      <span class="comment">//Chinese (Traditional)
+<a href=#291 id=291 data-nosnippet>291</a>    </span>(<span class="number">0x0c07</span>, <span class="string">"de-AT"</span>),        <span class="comment">//German
+<a href=#292 id=292 data-nosnippet>292</a>    </span>(<span class="number">0x0c09</span>, <span class="string">"en-AU"</span>),        <span class="comment">//English
+<a href=#293 id=293 data-nosnippet>293</a>    </span>(<span class="number">0x0c0a</span>, <span class="string">"es-ES"</span>),        <span class="comment">//Spanish
+<a href=#294 id=294 data-nosnippet>294</a>    </span>(<span class="number">0x0c0c</span>, <span class="string">"fr-CA"</span>),        <span class="comment">//French
+<a href=#295 id=295 data-nosnippet>295</a>    </span>(<span class="number">0x0c1a</span>, <span class="string">"sr-Cyrl-CS"</span>),   <span class="comment">//Serbian (Cyrillic)
+<a href=#296 id=296 data-nosnippet>296</a>    </span>(<span class="number">0x0c3b</span>, <span class="string">"se-FI"</span>),        <span class="comment">//Sami (Northern)
+<a href=#297 id=297 data-nosnippet>297</a>    </span>(<span class="number">0x0c6b</span>, <span class="string">"quz-PE"</span>),       <span class="comment">//Quechua
+<a href=#298 id=298 data-nosnippet>298</a>    </span>(<span class="number">0x1001</span>, <span class="string">"ar-LY"</span>),        <span class="comment">//Arabic
+<a href=#299 id=299 data-nosnippet>299</a>    </span>(<span class="number">0x1004</span>, <span class="string">"zh-SG"</span>),        <span class="comment">//Chinese (Simplified)
+<a href=#300 id=300 data-nosnippet>300</a>    </span>(<span class="number">0x1007</span>, <span class="string">"de-LU"</span>),        <span class="comment">//German
+<a href=#301 id=301 data-nosnippet>301</a>    </span>(<span class="number">0x1009</span>, <span class="string">"en-CA"</span>),        <span class="comment">//English
+<a href=#302 id=302 data-nosnippet>302</a>    </span>(<span class="number">0x100a</span>, <span class="string">"es-GT"</span>),        <span class="comment">//Spanish
+<a href=#303 id=303 data-nosnippet>303</a>    </span>(<span class="number">0x100c</span>, <span class="string">"fr-CH"</span>),        <span class="comment">//French
+<a href=#304 id=304 data-nosnippet>304</a>    </span>(<span class="number">0x101a</span>, <span class="string">"hr-BA"</span>),        <span class="comment">//Croatian (Latin)
+<a href=#305 id=305 data-nosnippet>305</a>    </span>(<span class="number">0x103b</span>, <span class="string">"smj-NO"</span>),       <span class="comment">//Sami (Lule)
+<a href=#306 id=306 data-nosnippet>306</a>    </span>(<span class="number">0x1401</span>, <span class="string">"ar-DZ"</span>),        <span class="comment">//Arabic
+<a href=#307 id=307 data-nosnippet>307</a>    </span>(<span class="number">0x1404</span>, <span class="string">"zh-MO"</span>),        <span class="comment">//Chinese (Traditional)
+<a href=#308 id=308 data-nosnippet>308</a>    </span>(<span class="number">0x1407</span>, <span class="string">"de-LI"</span>),        <span class="comment">//German
+<a href=#309 id=309 data-nosnippet>309</a>    </span>(<span class="number">0x1409</span>, <span class="string">"en-NZ"</span>),        <span class="comment">//English
+<a href=#310 id=310 data-nosnippet>310</a>    </span>(<span class="number">0x140a</span>, <span class="string">"es-CR"</span>),        <span class="comment">//Spanish
+<a href=#311 id=311 data-nosnippet>311</a>    </span>(<span class="number">0x140c</span>, <span class="string">"fr-LU"</span>),        <span class="comment">//French
+<a href=#312 id=312 data-nosnippet>312</a>    </span>(<span class="number">0x141a</span>, <span class="string">"bs-Latn-BA"</span>),   <span class="comment">//Bosnian (Latin)
+<a href=#313 id=313 data-nosnippet>313</a>    </span>(<span class="number">0x141a</span>, <span class="string">"bs"</span>),           <span class="comment">//Bosnian
+<a href=#314 id=314 data-nosnippet>314</a>    </span>(<span class="number">0x143b</span>, <span class="string">"smj-SE"</span>),       <span class="comment">//Sami (Lule)
+<a href=#315 id=315 data-nosnippet>315</a>    </span>(<span class="number">0x143b</span>, <span class="string">"smj"</span>),          <span class="comment">//Sami (Lule)
+<a href=#316 id=316 data-nosnippet>316</a>    </span>(<span class="number">0x1801</span>, <span class="string">"ar-MA"</span>),        <span class="comment">//Arabic
+<a href=#317 id=317 data-nosnippet>317</a>    </span>(<span class="number">0x1809</span>, <span class="string">"en-IE"</span>),        <span class="comment">//English
+<a href=#318 id=318 data-nosnippet>318</a>    </span>(<span class="number">0x180a</span>, <span class="string">"es-PA"</span>),        <span class="comment">//Spanish
+<a href=#319 id=319 data-nosnippet>319</a>    </span>(<span class="number">0x180c</span>, <span class="string">"fr-MC"</span>),        <span class="comment">//French
+<a href=#320 id=320 data-nosnippet>320</a>    </span>(<span class="number">0x181a</span>, <span class="string">"sr-Latn-BA"</span>),   <span class="comment">//Serbian (Latin)
+<a href=#321 id=321 data-nosnippet>321</a>    </span>(<span class="number">0x183b</span>, <span class="string">"sma-NO"</span>),       <span class="comment">//Sami (Southern)
+<a href=#322 id=322 data-nosnippet>322</a>    </span>(<span class="number">0x1c01</span>, <span class="string">"ar-TN"</span>),        <span class="comment">//Arabic
+<a href=#323 id=323 data-nosnippet>323</a>    </span>(<span class="number">0x1c09</span>, <span class="string">"en-ZA"</span>),        <span class="comment">//English
+<a href=#324 id=324 data-nosnippet>324</a>    </span>(<span class="number">0x1c0a</span>, <span class="string">"es-DO"</span>),        <span class="comment">//Spanish
+<a href=#325 id=325 data-nosnippet>325</a>    </span>(<span class="number">0x1c1a</span>, <span class="string">"sr-Cyrl-BA"</span>),   <span class="comment">//Serbian (Cyrillic)
+<a href=#326 id=326 data-nosnippet>326</a>    </span>(<span class="number">0x1c3b</span>, <span class="string">"sma-SE"</span>),       <span class="comment">//Sami (Southern)
+<a href=#327 id=327 data-nosnippet>327</a>    </span>(<span class="number">0x1c3b</span>, <span class="string">"sma"</span>),          <span class="comment">//Sami (Southern)
+<a href=#328 id=328 data-nosnippet>328</a>    </span>(<span class="number">0x2001</span>, <span class="string">"ar-OM"</span>),        <span class="comment">//Arabic
+<a href=#329 id=329 data-nosnippet>329</a>    </span>(<span class="number">0x2009</span>, <span class="string">"en-JM"</span>),        <span class="comment">//English
+<a href=#330 id=330 data-nosnippet>330</a>    </span>(<span class="number">0x200a</span>, <span class="string">"es-VE"</span>),        <span class="comment">//Spanish
+<a href=#331 id=331 data-nosnippet>331</a>    </span>(<span class="number">0x201a</span>, <span class="string">"bs-Cyrl-BA"</span>),   <span class="comment">//Bosnian (Cyrillic)
+<a href=#332 id=332 data-nosnippet>332</a>    </span>(<span class="number">0x201a</span>, <span class="string">"bs-Cyrl"</span>),      <span class="comment">//Bosnian (Cyrillic)
+<a href=#333 id=333 data-nosnippet>333</a>    </span>(<span class="number">0x203b</span>, <span class="string">"sms-FI"</span>),       <span class="comment">//Sami (Skolt)
+<a href=#334 id=334 data-nosnippet>334</a>    </span>(<span class="number">0x203b</span>, <span class="string">"sms"</span>),          <span class="comment">//Sami (Skolt)
+<a href=#335 id=335 data-nosnippet>335</a>    </span>(<span class="number">0x2401</span>, <span class="string">"ar-YE"</span>),        <span class="comment">//Arabic
+<a href=#336 id=336 data-nosnippet>336</a>    </span>(<span class="number">0x2409</span>, <span class="string">"en-029"</span>),       <span class="comment">//English
+<a href=#337 id=337 data-nosnippet>337</a>    </span>(<span class="number">0x240a</span>, <span class="string">"es-CO"</span>),        <span class="comment">//Spanish
+<a href=#338 id=338 data-nosnippet>338</a>    </span>(<span class="number">0x241a</span>, <span class="string">"sr-Latn-RS"</span>),   <span class="comment">//Serbian (Latin)
+<a href=#339 id=339 data-nosnippet>339</a>    </span>(<span class="number">0x243b</span>, <span class="string">"smn-FI"</span>),       <span class="comment">//Sami (Inari)
+<a href=#340 id=340 data-nosnippet>340</a>    </span>(<span class="number">0x2801</span>, <span class="string">"ar-SY"</span>),        <span class="comment">//Arabic
+<a href=#341 id=341 data-nosnippet>341</a>    </span>(<span class="number">0x2809</span>, <span class="string">"en-BZ"</span>),        <span class="comment">//English
+<a href=#342 id=342 data-nosnippet>342</a>    </span>(<span class="number">0x280a</span>, <span class="string">"es-PE"</span>),        <span class="comment">//Spanish
+<a href=#343 id=343 data-nosnippet>343</a>    </span>(<span class="number">0x281a</span>, <span class="string">"sr-Cyrl-RS"</span>),   <span class="comment">//Serbian (Cyrillic)
+<a href=#344 id=344 data-nosnippet>344</a>    </span>(<span class="number">0x2c01</span>, <span class="string">"ar-JO"</span>),        <span class="comment">//Arabic
+<a href=#345 id=345 data-nosnippet>345</a>    </span>(<span class="number">0x2c09</span>, <span class="string">"en-TT"</span>),        <span class="comment">//English
+<a href=#346 id=346 data-nosnippet>346</a>    </span>(<span class="number">0x2c0a</span>, <span class="string">"es-AR"</span>),        <span class="comment">//Spanish
+<a href=#347 id=347 data-nosnippet>347</a>    </span>(<span class="number">0x2c1a</span>, <span class="string">"sr-Latn-ME"</span>),   <span class="comment">//Serbian (Latin)
+<a href=#348 id=348 data-nosnippet>348</a>    </span>(<span class="number">0x3001</span>, <span class="string">"ar-LB"</span>),        <span class="comment">//Arabic
+<a href=#349 id=349 data-nosnippet>349</a>    </span>(<span class="number">0x3009</span>, <span class="string">"en-ZW"</span>),        <span class="comment">//English
+<a href=#350 id=350 data-nosnippet>350</a>    </span>(<span class="number">0x300a</span>, <span class="string">"es-EC"</span>),        <span class="comment">//Spanish
+<a href=#351 id=351 data-nosnippet>351</a>    </span>(<span class="number">0x301a</span>, <span class="string">"sr-Cyrl-ME"</span>),   <span class="comment">//Serbian (Cyrillic)
+<a href=#352 id=352 data-nosnippet>352</a>    </span>(<span class="number">0x3401</span>, <span class="string">"ar-KW"</span>),        <span class="comment">//Arabic
+<a href=#353 id=353 data-nosnippet>353</a>    </span>(<span class="number">0x3409</span>, <span class="string">"en-PH"</span>),        <span class="comment">//English
+<a href=#354 id=354 data-nosnippet>354</a>    </span>(<span class="number">0x340a</span>, <span class="string">"es-CL"</span>),        <span class="comment">//Spanish
+<a href=#355 id=355 data-nosnippet>355</a>    </span>(<span class="number">0x3801</span>, <span class="string">"ar-AE"</span>),        <span class="comment">//Arabic
+<a href=#356 id=356 data-nosnippet>356</a>    </span>(<span class="number">0x380a</span>, <span class="string">"es-UY"</span>),        <span class="comment">//Spanish
+<a href=#357 id=357 data-nosnippet>357</a>    </span>(<span class="number">0x3c01</span>, <span class="string">"ar-BH"</span>),        <span class="comment">//Arabic
+<a href=#358 id=358 data-nosnippet>358</a>    </span>(<span class="number">0x3c0a</span>, <span class="string">"es-PY"</span>),        <span class="comment">//Spanish
+<a href=#359 id=359 data-nosnippet>359</a>    </span>(<span class="number">0x4001</span>, <span class="string">"ar-QA"</span>),        <span class="comment">//Arabic
+<a href=#360 id=360 data-nosnippet>360</a>    </span>(<span class="number">0x4009</span>, <span class="string">"en-IN"</span>),        <span class="comment">//English
+<a href=#361 id=361 data-nosnippet>361</a>    </span>(<span class="number">0x400a</span>, <span class="string">"es-BO"</span>),        <span class="comment">//Spanish
+<a href=#362 id=362 data-nosnippet>362</a>    </span>(<span class="number">0x4409</span>, <span class="string">"en-MY"</span>),        <span class="comment">//English
+<a href=#363 id=363 data-nosnippet>363</a>    </span>(<span class="number">0x440a</span>, <span class="string">"es-SV"</span>),        <span class="comment">//Spanish
+<a href=#364 id=364 data-nosnippet>364</a>    </span>(<span class="number">0x4809</span>, <span class="string">"en-SG"</span>),        <span class="comment">//English
+<a href=#365 id=365 data-nosnippet>365</a>    </span>(<span class="number">0x480a</span>, <span class="string">"es-HN"</span>),        <span class="comment">//Spanish
+<a href=#366 id=366 data-nosnippet>366</a>    </span>(<span class="number">0x4c0a</span>, <span class="string">"es-NI"</span>),        <span class="comment">//Spanish
+<a href=#367 id=367 data-nosnippet>367</a>    </span>(<span class="number">0x500a</span>, <span class="string">"es-PR"</span>),        <span class="comment">//Spanish
+<a href=#368 id=368 data-nosnippet>368</a>    </span>(<span class="number">0x540a</span>, <span class="string">"es-US"</span>),        <span class="comment">//Spanish
+<a href=#369 id=369 data-nosnippet>369</a></span>];
+<a href=#370 id=370 data-nosnippet>370</a>
+<a href=#371 id=371 data-nosnippet>371</a><span class="attr">#[cfg(test)]
+<a href=#372 id=372 data-nosnippet>372</a></span><span class="kw">mod </span>tests {
+<a href=#373 id=373 data-nosnippet>373</a>    <span class="kw">use </span><span class="kw">super</span>::language_id_to_bcp47;
+<a href=#374 id=374 data-nosnippet>374</a>
+<a href=#375 id=375 data-nosnippet>375</a>    <span class="attr">#[test]
+<a href=#376 id=376 data-nosnippet>376</a>    </span><span class="kw">fn </span>respects_platform_and_unknown_ids() {
+<a href=#377 id=377 data-nosnippet>377</a>        <span class="macro">assert_eq!</span>(language_id_to_bcp47(<span class="number">1</span>, <span class="number">0</span>), <span class="prelude-val">Some</span>(<span class="string">"en"</span>));
+<a href=#378 id=378 data-nosnippet>378</a>        <span class="macro">assert_eq!</span>(language_id_to_bcp47(<span class="number">3</span>, <span class="number">0x0409</span>), <span class="prelude-val">Some</span>(<span class="string">"en-US"</span>));
+<a href=#379 id=379 data-nosnippet>379</a>        <span class="macro">assert_eq!</span>(language_id_to_bcp47(<span class="number">1</span>, <span class="number">0x0409</span>), <span class="prelude-val">None</span>);
+<a href=#380 id=380 data-nosnippet>380</a>        <span class="macro">assert_eq!</span>(language_id_to_bcp47(<span class="number">3</span>, <span class="number">0</span>), <span class="prelude-val">None</span>);
+<a href=#381 id=381 data-nosnippet>381</a>        <span class="macro">assert_eq!</span>(language_id_to_bcp47(<span class="number">0</span>, <span class="number">0</span>), <span class="prelude-val">None</span>);
+<a href=#382 id=382 data-nosnippet>382</a>        <span class="macro">assert_eq!</span>(language_id_to_bcp47(<span class="number">3</span>, <span class="number">0xffff</span>), <span class="prelude-val">None</span>);
+<a href=#383 id=383 data-nosnippet>383</a>    }
+<a href=#384 id=384 data-nosnippet>384</a>}
+</code></pre></div></section></main></body></html>

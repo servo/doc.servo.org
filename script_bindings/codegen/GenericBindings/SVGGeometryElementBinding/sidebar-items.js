@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["SVGGeometryElement_Binding"]};

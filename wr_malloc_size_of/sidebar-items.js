@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["malloc_size_of_hash_map",1],["malloc_size_of_hash_set",1],["malloc_size_of_is_0",1]],"struct":["MallocSizeOfOps"],"trait":["MallocShallowSizeOf","MallocSizeOf"],"type":["VoidPtrToSizeFn"]};

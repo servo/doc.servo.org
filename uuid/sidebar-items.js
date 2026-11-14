@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Variant","Version"],"macro":[["uuid",1]],"mod":["builder","error","external","fmt","macros","non_nil","parser","rng","serde","sha1","timestamp","v4","v5"],"struct":["Builder","Error","NonNilUuid","Uuid"],"type":["Bytes"]};

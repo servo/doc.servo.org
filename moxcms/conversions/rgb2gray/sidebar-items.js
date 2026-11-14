@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["make_rgb_to_gray"],"struct":["ToneReproductionRgbToGray","TransformRgbToGrayExecutor"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LIGATURE_3_TABLE","LIGATURE_MARK_TABLE","LIGATURE_TABLE","SHAPING_TABLE"],"fn":["arabic_joining_b4","arabic_joining_joining_type_u8","joining_type"],"static":["arabic_joining_u8"]};

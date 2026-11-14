@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AudioContextLatencyCategory"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["AudioContextLatencyCategoryValues","AudioContext_Binding"],"struct":["AudioContextOptions","AudioTimestamp"],"trait":["AudioContextMethods"]};

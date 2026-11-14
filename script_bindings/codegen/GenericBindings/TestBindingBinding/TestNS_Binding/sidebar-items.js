@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","get_testAttribute","init_statics"],"mod":["TestNSConstants"],"static":["NAMESPACE_OBJECT_CLASS"],"struct":["BindingTables"],"trait":["TestNSMethods"]};

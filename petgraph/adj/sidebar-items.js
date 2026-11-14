@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["proj1","proj2"],"struct":["EdgeIndex","EdgeIndices","EdgeReference","EdgeReferences","List","Neighbors","NodeIndices","OutgoingEdgeIndices","OutgoingEdgeReferences","WSuc"],"type":["NodeIndex","Row","RowIter","SomeIter","UnweightedList"]};

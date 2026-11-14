@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PermissionName","PermissionState"],"mod":["PermissionNameValues","PermissionStateValues","PermissionStatus_Binding"],"struct":["DevicePermissionDescriptor","MidiPermissionDescriptor","PermissionDescriptor","PushPermissionDescriptor"]};

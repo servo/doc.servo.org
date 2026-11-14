@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CONTEXT_MENU_ID_STR"],"enum":["MenuResponse"],"fn":["bar","context_menu","context_menu_opened","menu_button","menu_custom_button","menu_image_button","menu_popup","set_menu_style","stationary_menu_button_impl","stationary_menu_impl","submenu_button"],"struct":["BarState","MenuRoot","MenuRootManager","MenuState","SubMenu","SubMenuButton"]};

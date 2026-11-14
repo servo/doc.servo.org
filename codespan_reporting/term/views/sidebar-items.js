@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["count_digits"],"struct":["RichDiagnostic","ShortDiagnostic"]};

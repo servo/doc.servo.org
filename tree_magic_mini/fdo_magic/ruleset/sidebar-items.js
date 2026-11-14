@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["from_multiple","gen_graph","magic_rules","merge_rules","ruleset"]};

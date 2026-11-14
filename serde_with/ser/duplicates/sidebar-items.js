@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["map_duplicate_handling",1],["set_duplicate_handling",1]]};

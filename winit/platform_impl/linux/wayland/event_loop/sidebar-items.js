@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PumpEventNotifierAction"],"mod":["proxy","sink"],"struct":["ActiveEventLoop","EventLoop","PumpEventNotifier"],"type":["WaylandDispatcher"]};

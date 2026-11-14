@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_ZOOM_FACTOR","MIN_ZOOM_FACTOR"],"fn":["zoom_in","zoom_menu_buttons","zoom_out","zoom_with_keyboard"],"mod":["kb_shortcuts"]};

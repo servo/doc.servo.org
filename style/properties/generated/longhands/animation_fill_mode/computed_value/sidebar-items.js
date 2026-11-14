@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["OwnedList"],"type":["ComputedList","Iter","UnderlyingList","UnderlyingOwnedList"]};

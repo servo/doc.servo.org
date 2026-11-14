@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["forward_input_output","forward_output"],"mod":["brotli","flate","gzip","zlib","zstd"],"trait":["Decode","DecodeV2","DecodedSize","Encode","EncodeV2"]};

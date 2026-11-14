@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEPTH_BUCKET_TILE_WIDTH","DEPTH_BUCKET_WIDTH"],"enum":["DepthSegment"],"fn":["bucket_span","split_opaque_span"],"struct":["BucketRange","DepthBuffer","DepthState"]};

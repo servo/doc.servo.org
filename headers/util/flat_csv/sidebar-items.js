@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Comma","SemiColon"],"struct":["FlatCsv"],"trait":["Separator"]};

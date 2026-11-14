@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BoxDamageAction"],"fn":["compute_damage_and_rebuild_box_tree","compute_damage_and_rebuild_box_tree_above_dirty_root","compute_damage_and_rebuild_box_tree_below_dirty_root"],"struct":["ElementDamageSet","RecalcStyle"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_ATTRIBUTES_INLINE"],"enum":["AbbreviationsCacheStrategy","Attributes"],"fn":["get_attribute_size"],"struct":["Abbreviation","Abbreviations","AbbreviationsCache","AttributeSpecification","DebugAbbrev"]};

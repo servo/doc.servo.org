@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ConvolverNodeMessage"],"fn":["calculate_normalization_scale","downmix_four_channel_output_to_stereo","initialize_convolvers","linear_convolution"],"struct":["ConvolverNode","ConvolverNodeOptions"]};

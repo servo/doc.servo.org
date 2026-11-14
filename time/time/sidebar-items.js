@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Padding"],"struct":["Time"],"type":["Hours","Minutes","Nanoseconds","Seconds"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEG_PER_GRAD","DEG_PER_RAD","DEG_PER_TURN"],"enum":["AllowUnitlessZeroAngle","AngleUnit"],"struct":["Angle","NoCalcAngle"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SHUT_RD","SHUT_RDWR","SHUT_WR"],"struct":["mmsghdr"]};

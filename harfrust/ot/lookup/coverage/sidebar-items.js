@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ClassDef","Coverage","CoverageArray"],"fn":["array24_class","find_range","glyphs24_index","ranges24_class","ranges24_index","read_coverage"]};

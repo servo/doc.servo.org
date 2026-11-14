@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["offset_of",1],["offset_of_tuple",1],["offset_of_union",1],["raw_field",1],["raw_field_tuple",1],["raw_field_union",1],["span_of",1]],"mod":["offset_of","raw_field","span_of"]};

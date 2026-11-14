@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["pair_pos_intersects"],"mod":["extended"]};

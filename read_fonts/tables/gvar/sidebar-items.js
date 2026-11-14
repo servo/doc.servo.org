@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SelectedGvar"],"fn":["find_glyph_and_point_count"],"macro":[["impl_gvar_header",1],["impl_gvar_methods",1]],"mod":["deltas"],"struct":["DeltaBuffers","GlyphDelta","GlyphVariationDataHeader","GlyphVariationDataHeaderExtended","Gvar","GvarExtended","GvarFlags","SharedTuples","U16Or32"],"type":["GlyphVariationData"]};

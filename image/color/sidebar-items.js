@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SRGB_LUMA","SRGB_LUMA_DIV"],"enum":["ColorType","ExtendedColorType"],"fn":["normalize_float","rgb_to_luma"],"macro":[["define_colors",1]],"struct":["Luma","LumaA","Rgb","Rgba"],"trait":["Blend","FromColor","FromPrimitive","IntoColor","Invert"]};

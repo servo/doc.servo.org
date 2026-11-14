@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["conn","decode","dispatch","encode","io","role"],"struct":["Encode","ParseContext","ParsedMessage","Wants"],"trait":["Http1Transaction"],"type":["ClientTransaction","ParseResult","ServerTransaction"]};

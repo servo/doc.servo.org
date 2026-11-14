@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MARK_GLYPH_SET_PAGE_BITS"],"enum":["LayoutTable","MarkGlyphSetBitmap"],"fn":["is_gdef_blocklisted"],"mod":["apply","gpos","gsub","layout","lookup","lookup_flags","map","shaper"],"static":["EMPTY_OT_CACHE","EMPTY_OT_DATA","EMPTY_TABLES"],"struct":["CachedGdef","CachedTables","GposTable","GsubTable","MarkSet","OtCache","OtData"]};

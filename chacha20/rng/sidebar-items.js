@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLOCK_WORDS","BUFFER_SIZE","BUF_BLOCKS"],"macro":[["impl_chacha_rng",1]],"struct":["ChaCha12Rng","ChaCha20Rng","ChaCha8Rng"],"type":["Seed","SerializedRngState"]};

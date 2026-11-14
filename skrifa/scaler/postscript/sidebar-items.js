@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CACHED_SUBFONTS"],"fn":["hint_params"],"struct":["HintedSubfont","PostScriptHinter"]};

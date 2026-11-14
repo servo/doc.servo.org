@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["soft"],"trait":["Backend","BackendClosure"]};

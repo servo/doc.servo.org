@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CssTextType","ShapingQueueEntry"],"fn":["breaks_for_break_spaces","line_break_ignored_for_keep_all","suppresses_line_break_for_keep_all","trailing_white_space_of"],"struct":["BatchSlicer","ShapingQueue","ShapingQueueText"]};

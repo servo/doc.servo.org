@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["NamedArg","ParseAny","ParseArgument","ParseCollect","ParseCommand","ParseCon","ParseCount","ParseFallback","ParseFallbackWith","ParseFlag","ParseLast","ParseMany","ParseOptional","ParsePositional","ParseSome"]};

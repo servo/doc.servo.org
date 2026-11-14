@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_is_terminal",1]],"mod":["sealed"],"trait":["IsTerminal"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PvrtcCompression"],"fn":["detect_compression","matches","size"]};

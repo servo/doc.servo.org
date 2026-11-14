@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SPEC_WINDOW_SIZE"],"enum":["MessageKind","SendBuf"],"fn":["strip_connection_headers"],"mod":["client","ping","server","upgrade"],"static":["CONNECTION_HEADERS"],"struct":["Peeked","PipeToSendStream"],"trait":["SendStreamExt"]};

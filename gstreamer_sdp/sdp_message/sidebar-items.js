@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["define_iter",1],["define_iter_mut",1]],"struct":["AttributesIter","BandwidthsIter","EmailsIter","MediasIter","MediasIterMut","PhonesIter","SDPMessage","SDPMessageRef","TimesIter","ZonesIter"]};

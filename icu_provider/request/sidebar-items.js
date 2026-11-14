@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AttributeParseError","DataIdentifierBorrowed","DataIdentifierCow","DataLocale","DataMarkerAttributes","DataRequest","DataRequestMetadata"]};

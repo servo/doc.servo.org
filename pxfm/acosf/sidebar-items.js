@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["acosf_fma_impl","acosf_gen_impl","as_special","f_acosf","poly12"]};

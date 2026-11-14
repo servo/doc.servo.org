@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MIN_WR_IMAGE_SIZE"],"enum":["Filter"],"fn":["write_image"],"struct":["CanvasData"],"trait":["RectToi32"]};

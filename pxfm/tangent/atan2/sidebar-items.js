@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MPI","MPI_OVER_2","MZERO","PI","PI_OVER_2","PI_OVER_4","THREE_PI_OVER_4","ZERO"],"fn":["atan2_fma_impl","atan2_gen_fma","atan2_hard","atan_eval","atan_eval_fma","atan_eval_hard","f_atan2"],"static":["ATAN_I","ATAN_RATIONAL_128","CONST_ADJ","EXCEPTS","IS_NEG"]};

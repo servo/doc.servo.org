@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ServiceWorkerUpdateViaCache"],"fn":["Wrap"],"mod":["GenericBindings","ServiceWorkerRegistration_Binding","ServiceWorkerUpdateViaCacheValues"],"trait":["ServiceWorkerRegistrationMethods"]};

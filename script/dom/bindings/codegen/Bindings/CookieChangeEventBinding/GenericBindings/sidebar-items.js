@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["CookieChangeEvent_Binding"],"struct":["CookieChangeEventInit"],"trait":["CookieChangeEventMethods"]};

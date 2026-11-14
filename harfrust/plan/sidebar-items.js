@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["features_equivalent"],"struct":["ShapePlan","ShapePlanKey"]};

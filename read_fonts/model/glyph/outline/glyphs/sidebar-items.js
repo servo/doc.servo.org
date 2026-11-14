@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Base","OutlineGlyph"],"fn":["same_location","with_memory"],"struct":["OutlineGlyphs"]};

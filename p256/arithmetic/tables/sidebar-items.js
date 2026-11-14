@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WINDOW_SIZE"],"mod":["backend"],"static":["BASEPOINT_TABLE"],"type":["BasepointTable"]};

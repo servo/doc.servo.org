@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_GLYPH_NAME_LEN"],"enum":["GlyphNameSource","NameIterSource","NameSource"],"fn":["glyph_name","glyph_names","name_iter","source"],"struct":["GlyphName","GlyphNameIndex","GlyphNameWrite","NameIter"]};

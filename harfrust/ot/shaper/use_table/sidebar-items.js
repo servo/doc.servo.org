@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["use_b4","use_get_category"],"static":["use_u16","use_u8"]};

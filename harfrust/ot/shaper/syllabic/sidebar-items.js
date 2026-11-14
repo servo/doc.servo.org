@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["insert_dotted_circles","syllabic_clear_var"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AttrName","AttrRef","AttrValueRef","AttributeEntry"],"fn":["assert_valid_index"],"static":["EMPTY_NAMESPACE"],"struct":["AttributeStorage","AttributeStorageHeader","AttributesBorrow","AttributesRef","ContentAttributeData"],"type":["AttributeStorageInner"]};

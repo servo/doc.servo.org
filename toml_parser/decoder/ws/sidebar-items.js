@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NON_ASCII","NON_EOL"],"fn":["decode_comment","decode_newline"]};

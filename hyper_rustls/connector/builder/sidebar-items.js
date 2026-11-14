@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ConnectorBuilder","WantsProtocols1","WantsProtocols2","WantsProtocols3","WantsSchemes","WantsTlsConfig"]};

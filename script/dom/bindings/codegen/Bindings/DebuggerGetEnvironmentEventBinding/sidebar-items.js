@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["DebuggerGetEnvironmentEvent_Binding","GenericBindings"],"trait":["DebuggerGetEnvironmentEventMethods"],"type":["EnvironmentInfo"]};

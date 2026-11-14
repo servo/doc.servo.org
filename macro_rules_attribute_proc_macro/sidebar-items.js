@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["derive","macro_rules_attribute","macro_rules_derive"],"derive":["Custom"],"fn":["is_path_bang_terminated","is_punct","macro_rules_attribute_impl","parse_path_error","real_derive"],"macro":[["ts",1]],"struct":["PathIsBangTerminated"],"trait":["CollectVec"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InputEventType","KeyReaction","Lines","SelectionDirection"],"struct":["EmbedderClipboardProvider","SelectionState","TextInput","TextInputSelectionDragHandler"],"trait":["ClipboardProvider"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["auto","binding","dynamic_object","flags","interface_info","type_info","type_module","type_plugin","type_value_table"]};

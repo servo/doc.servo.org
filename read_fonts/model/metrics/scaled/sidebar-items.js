@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Scale26Dot6","ScaleF32","ScaledGlyphMetrics","ScaledMetrics","ScaledStyleMetrics"],"trait":["Scale"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["crate_root",1]]};

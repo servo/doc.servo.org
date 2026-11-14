@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CompositeMode","ImageSource","Level","Paint","PixelFormat","RenderMode"],"mod":["coarse","dispatch","filter","record","render","text","text_debug","util"],"struct":["Glyph","Mask","Pixmap","PixmapMut","RasterizerSettings","RenderContext","RenderSettings","Resources"],"type":["GlyphRunBuilder","Image","PaintType"]};

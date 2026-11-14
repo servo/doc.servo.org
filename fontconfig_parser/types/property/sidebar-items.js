@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Property","PropertyKind"],"macro":[["define_property",1]]};

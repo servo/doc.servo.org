@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PinchType"],"struct":["ActiveTouch","DynGestureState","GestureState","MultiTouchInfo","TouchState"]};

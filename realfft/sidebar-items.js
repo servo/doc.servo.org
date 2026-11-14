@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FftError"],"fn":["compute_twiddle","zip3"],"struct":["ComplexToRealEven","ComplexToRealOdd","RealFftPlanner","RealToComplexEven","RealToComplexOdd"],"trait":["ComplexToReal","FftNum","RealToComplex"],"type":["Res"]};

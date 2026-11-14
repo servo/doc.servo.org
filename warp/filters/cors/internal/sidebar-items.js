@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CorsFilter","Preflight","Wrapped","WrappedFuture"],"trait":["IntoOrigin","Seconds"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fallback_kern","fallback_spaces","position_around_base","position_cluster","position_cluster_impl","position_mark","position_marks","recategorize_combining_class","recategorize_marks","zero_mark_advances"],"struct":["FallbackShapeContext"]};

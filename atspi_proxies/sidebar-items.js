@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AtspiError","CoordType","Interface"],"mod":["accessible","action","application","bus","cache","collection","component","device_event_controller","device_event_listener","document","editable_text","events","hyperlink","hypertext","image","proxy_ext","registry","selection","socket","table","table_cell","text","value"],"struct":["InterfaceSet"]};

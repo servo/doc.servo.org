@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["static_variants_array_inner"]};

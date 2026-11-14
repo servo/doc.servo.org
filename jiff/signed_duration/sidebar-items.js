@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DAYS_PER_CIVIL_WEEK","HOURS_PER_CIVIL_DAY","MICROS_PER_SEC","MILLIS_PER_SEC","MINS_PER_HOUR","NANOS_PER_MICRO","NANOS_PER_MILLI","NANOS_PER_SEC","SECS_PER_MINUTE"],"fn":["parse_iso_or_friendly"],"struct":["SignedDuration","SignedDurationRound"]};

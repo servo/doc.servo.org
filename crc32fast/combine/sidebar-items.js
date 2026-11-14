@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["POLY"],"fn":["combine","fold_keys","multiply","shift","shift_table","x8n"],"static":["X2N_TABLE"]};

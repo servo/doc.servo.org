@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SYSTEM_RANDOM"],"fn":["fill","generate"],"mod":["sealed"],"struct":["Random","SystemRandom"],"trait":["RandomlyConstructable","SecureRandom"]};

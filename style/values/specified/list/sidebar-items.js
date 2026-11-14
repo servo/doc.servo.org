@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ListStylePosition","Quotes"],"struct":["ListStyleType","QuoteList","QuotePair"]};

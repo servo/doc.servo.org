@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SupportedType"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["DOMParser_Binding","SupportedTypeValues"],"trait":["DOMParserMethods"]};

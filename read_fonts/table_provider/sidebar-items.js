@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["prefer_extended"],"trait":["TableProvider","TopLevelTable"]};

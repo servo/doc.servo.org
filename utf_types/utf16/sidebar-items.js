@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BmpOrSurrogate"],"macro":[["code_unit_impls",1],["sequence_impls",1],["surrogate_impl",1],["to_surrogate",1]],"struct":["Bmp","HighSurrogate","LowSurrogate","Surrogate","SurrogatePair","Utf16CodeUnitError"],"trait":["Seal","Utf16CodeUnitSequence"]};

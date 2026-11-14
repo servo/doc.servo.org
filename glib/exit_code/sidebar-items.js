@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_from_exit_code_0",1]],"struct":["ExitCode","InvalidExitCode"]};

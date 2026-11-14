@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["rotation2d_float","rotation3d_float"],"struct":["Rotation2D","Rotation3D"]};

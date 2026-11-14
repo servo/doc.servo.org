@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["BluetoothUUID_Binding"],"type":["UUID"]};

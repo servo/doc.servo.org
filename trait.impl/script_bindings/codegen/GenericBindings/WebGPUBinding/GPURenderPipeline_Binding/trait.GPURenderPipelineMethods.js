@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["script",[]],["script_webgpu",[["impl&lt;D&gt; <a class=\"trait\" href=\"script_webgpu/codegen/Bindings/trait.GPURenderPipelineMethods.html\" title=\"trait script_webgpu::codegen::Bindings::GPURenderPipelineMethods\">GPURenderPipelineMethods</a>&lt;D&gt; for <a class=\"struct\" href=\"script_webgpu/gpurenderpipeline/struct.GPURenderPipeline.html\" title=\"struct script_webgpu::gpurenderpipeline::GPURenderPipeline\">GPURenderPipeline</a>&lt;D&gt;<div class=\"where\">where\n    D: <a class=\"trait\" href=\"script_webgpu/traits/trait.Equivalence.html\" title=\"trait script_webgpu::traits::Equivalence\">Equivalence</a>,\n    &lt;D::<a class=\"associatedtype\" href=\"script_webgpu/dom/bindings/trait.DomTypes.html#associatedtype.Promise\" title=\"type script_webgpu::dom::bindings::DomTypes::Promise\">Promise</a> as <a class=\"trait\" href=\"script_webgpu/dom/bindings/interfaces/trait.PromiseHelpers.html\" title=\"trait script_webgpu::dom::bindings::interfaces::PromiseHelpers\">PromiseHelpers</a>&lt;D&gt;&gt;::<a class=\"associatedtype\" href=\"script_webgpu/dom/bindings/interfaces/trait.PromiseHelpers.html#associatedtype.StackRoot\" title=\"type script_webgpu::dom::bindings::interfaces::PromiseHelpers::StackRoot\">StackRoot</a>: <a class=\"trait\" href=\"script_webgpu/traits/trait.WebGPUPromise.html\" title=\"trait script_webgpu::traits::WebGPUPromise\">WebGPUPromise</a>&lt;D&gt;,</div>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[13,1397]}

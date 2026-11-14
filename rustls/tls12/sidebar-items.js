@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DOWNGRADE_SENTINEL"],"enum":["Seed"],"fn":["decode_kx_params","join_randoms"],"struct":["ConnectionSecrets","Tls12CipherSuite"],"type":["MessageCipherPair"]};

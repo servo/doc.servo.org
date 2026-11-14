@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EventKind","EventMaskParseError"],"struct":["Event","EventAuxiliaryFlags","EventMask","Events","ParsedEventMask"],"type":["EventOwned"]};

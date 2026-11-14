@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OffsetSize"],"fn":["parse_index","parse_index_impl","skip_index","skip_index_impl"],"struct":["Index","IndexIter","VarOffsets"],"trait":["IndexSize"]};

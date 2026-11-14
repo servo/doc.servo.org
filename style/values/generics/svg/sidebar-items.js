@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericSVGLength","GenericSVGOpacity","GenericSVGPaintFallback","GenericSVGPaintKind","GenericSVGStrokeDashArray"],"struct":["GenericSVGPaint"]};

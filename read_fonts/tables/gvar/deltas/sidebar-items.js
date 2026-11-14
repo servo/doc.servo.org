@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["check_simple_buffers","interpolate_deltas","zero"],"macro":[["impl_gvar_deltas",1]],"struct":["Contour","DeltaBuffers"]};

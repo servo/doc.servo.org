@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["CookieChangeEvent_Binding"],"struct":["CookieChangeEventInit"]};

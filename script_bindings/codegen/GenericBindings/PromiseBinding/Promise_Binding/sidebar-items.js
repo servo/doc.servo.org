@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["CreateInterfaceObjects","GetProtoObject","init_statics"],"static":["PrototypeClass"],"struct":["BindingTables"],"trait":["PromiseMethods"]};

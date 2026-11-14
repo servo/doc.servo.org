@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IDBTransactionMode"],"mod":["IDBTransactionModeValues","IDBTransaction_Binding"]};

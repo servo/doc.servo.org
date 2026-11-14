@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["from_bytes","from_bytes_cobs","from_io","take_from_bytes","take_from_bytes_cobs"],"mod":["deserializer","flavors"]};

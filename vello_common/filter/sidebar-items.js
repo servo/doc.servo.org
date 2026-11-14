@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PreparedFilter"],"fn":["transform_offset_params"],"mod":["drop_shadow","flood","gaussian_blur","offset"],"struct":["FilterData","FilterLayerPlacement"]};

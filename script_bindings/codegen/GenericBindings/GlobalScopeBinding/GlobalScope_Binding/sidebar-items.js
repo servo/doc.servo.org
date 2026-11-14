@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["init_statics"],"struct":["BindingTables"],"trait":["GlobalScopeMethods"]};

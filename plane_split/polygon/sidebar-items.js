@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Intersection","PlaneCut"],"struct":["LineProjection","Polygon"]};

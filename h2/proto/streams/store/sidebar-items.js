@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Entry"],"struct":["Indices","Key","OccupiedEntry","Ptr","Queue","SlabIndex","Store","VacantEntry"],"trait":["Next","Resolve"]};

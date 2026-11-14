@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["XRLayerLayout","XRTextureType"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["XRLayerLayoutValues","XRTextureTypeValues","XRWebGLBinding_Binding"],"struct":["XRCubeLayerInit","XRCylinderLayerInit","XREquirectLayerInit","XRLayerInit","XRProjectionLayerInit","XRQuadLayerInit"],"trait":["XRWebGLBindingMethods"]};

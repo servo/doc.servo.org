@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["trace_msg_from_constellation",1]],"mod":["from_constellation"],"trait":["LogTarget"]};

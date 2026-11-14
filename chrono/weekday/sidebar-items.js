@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Weekday"],"mod":["weekday_serde"],"struct":["ParseWeekdayError"]};

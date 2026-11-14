@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["NormalizationMode"],"fn":["compare_combining_class","compose_unicode","decompose","decompose_current_character","decompose_multi_char_cluster","decompose_unicode","handle_variation_selector_cluster","next_char","normalize","output_char","skip_char"],"struct":["NormalizeContext"]};

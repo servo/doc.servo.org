@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["debug_detail",1]],"mod":["unix"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GenericCallbackVariants"],"struct":["GenericCallback","GenericCallbackVisitor"],"type":["MsgCallback"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["CaretColor","Color","ColorMix","ColorOrAuto","ColorPropertyValue"]};

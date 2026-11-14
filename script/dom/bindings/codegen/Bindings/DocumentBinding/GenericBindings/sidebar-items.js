@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DocumentReadyState","DocumentVisibilityState","NamedPropertyValue"],"fn":["DefineDOMInterface","GetConstructorObject","GetProtoObject","Wrap"],"mod":["DocumentReadyStateValues","DocumentVisibilityStateValues","Document_Binding"],"struct":["ElementCreationOptions","ImportNodeOptions"],"trait":["DocumentMethods"]};

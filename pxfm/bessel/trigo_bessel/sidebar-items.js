@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cos_small","reduce_small_pi64","sin_small","sincos_eval_pi64"],"static":["SIN_K_PI_OVER_64"],"struct":["SinCosPi64"]};

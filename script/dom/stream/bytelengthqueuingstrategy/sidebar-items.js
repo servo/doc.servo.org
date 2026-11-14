@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_ByteLengthQueuingStrategy"],"fn":["byte_length_queuing_strategy_size"],"struct":["ByteLengthQueuingStrategy"]};

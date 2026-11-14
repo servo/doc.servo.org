@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TinyVec","TinyVecDrain","TinyVecIterator"],"macro":[["impl_mirrored",1]],"struct":["TinyVecSplice"]};

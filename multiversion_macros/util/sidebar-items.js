@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["arg_exprs","await_tokens","fn_params","fn_type_from_signature","impl_trait_present","lifetime_bounds_present","normalize_signature"],"struct":["LifetimeRenamer"]};

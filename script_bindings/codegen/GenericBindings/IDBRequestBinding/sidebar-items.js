@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IDBRequestReadyState"],"mod":["IDBRequestReadyStateValues","IDBRequest_Binding"]};

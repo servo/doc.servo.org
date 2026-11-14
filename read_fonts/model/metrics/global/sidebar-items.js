@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["line_box","units_per_em"],"struct":["LineBox","LineExtents","Metrics"]};

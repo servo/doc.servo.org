@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Edge","NodeKind","VisitedLinks"],"fn":["is_non_inheritable"],"mod":["names","parse","text"],"struct":["Ancestors","Attribute","Children","Descendants","Document","HrefIter","NodeData","NodeId","ShortRange","SvgNode","Traverse"],"trait":["FromValue"]};

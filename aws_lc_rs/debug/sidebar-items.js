@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["write_hex_bytes"],"macro":[["derive_debug_self_as_ref_hex_bytes",1],["derive_debug_via_field",1],["derive_debug_via_id",1]]};

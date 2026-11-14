@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SimulatedLocation","TabularAlgorithmEpoch","TabularAlgorithmLeapYears"],"mod":["simulated_mecca_data","ummalqura_data"],"struct":["AstronomicalSimulation","Hijri","HijriDateInner","HijriYearData","PackedHijriYearData","TabularAlgorithm","UmmAlQura"],"trait":["Rules"]};

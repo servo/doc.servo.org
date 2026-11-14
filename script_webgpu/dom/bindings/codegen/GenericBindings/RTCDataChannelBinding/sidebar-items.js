@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["RTCDataChannelState"],"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["RTCDataChannelStateValues","RTCDataChannel_Binding"],"struct":["RTCDataChannelInit"],"trait":["RTCDataChannelMethods"]};

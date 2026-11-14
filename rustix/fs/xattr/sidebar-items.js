@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fgetxattr","fgetxattr_query","flistxattr","flistxattr_query","fremovexattr","fsetxattr","getxattr","getxattr_query","lgetxattr","lgetxattr_query","listxattr","listxattr_query","llistxattr","llistxattr_query","lremovexattr","lsetxattr","removexattr","setxattr"],"struct":["XattrFlags"]};

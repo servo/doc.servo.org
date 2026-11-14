@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_generic_array",1]],"mod":["private"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["uchar","ustr","writeable"],"struct":["PotentialCodePoint","PotentialUtf16","PotentialUtf8"]};

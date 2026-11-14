@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ExitStatus"],"fn":["exec","spawn"],"struct":["Process"]};

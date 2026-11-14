@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["fast",1],["fast_inner",1],["fast_mut",1],["fast_ref",1],["fast_slice",1],["fast_slice_mut",1],["fast_uninitialized",1]]};

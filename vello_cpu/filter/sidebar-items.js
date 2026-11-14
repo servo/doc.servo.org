@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["filter_highp","filter_lowp"],"mod":["context","drop_shadow","flood","gaussian_blur","offset","shift"],"trait":["FilterEffect"]};

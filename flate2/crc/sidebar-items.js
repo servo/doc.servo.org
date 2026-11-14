@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["impl_crc32fast"],"struct":["CrcReader","CrcWriter"]};

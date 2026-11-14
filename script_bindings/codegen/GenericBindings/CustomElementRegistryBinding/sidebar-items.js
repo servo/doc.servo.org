@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["CustomElementRegistry_Binding"],"struct":["CustomElementConstructor","ElementDefinitionOptions"]};

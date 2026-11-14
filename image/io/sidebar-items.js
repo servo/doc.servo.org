@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["decoder","encoder","format","free_functions","image_reader_type","limits"],"trait":["ReadExt"],"type":["LimitSupport","Limits","Reader"]};

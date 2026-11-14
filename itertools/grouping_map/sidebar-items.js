@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["new","new_map_for_grouping"],"struct":["GroupingMap","GroupingMapFn"],"type":["GroupingMapBy","MapForGrouping"]};

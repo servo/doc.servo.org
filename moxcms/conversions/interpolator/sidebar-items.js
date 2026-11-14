@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["define_md_inter",1]],"struct":["BarycentricWeight","TetrahedralFetchVector3f","TetrahedralFetchVector4f","Trilinear"],"trait":["Fetcher","MultidimensionalInterpolation"]};

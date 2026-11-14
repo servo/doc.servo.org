@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["Zeroize","ZeroizeOnDrop"],"fn":["optimization_barrier","volatile_set","volatile_write","zeroize_flat_type","zeroize_stack"],"macro":[["impl_zeroize_for_non_zero",1],["impl_zeroize_tuple",1],["impl_zeroize_with_default",1]],"mod":["barrier","stack","x86"],"struct":["Zeroizing"],"trait":["DefaultIsZeroes","TryZeroize","Zeroize","ZeroizeOnDrop"]};

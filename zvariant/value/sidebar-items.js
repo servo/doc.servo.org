@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Value"],"fn":["value_display_fmt"],"macro":[["serialize_value",1],["value_seed_basic_method",1]],"struct":["SignatureSeed","ValueSeed","ValueVisitor"]};
