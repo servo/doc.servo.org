@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_sincos","sincos_hard"]};

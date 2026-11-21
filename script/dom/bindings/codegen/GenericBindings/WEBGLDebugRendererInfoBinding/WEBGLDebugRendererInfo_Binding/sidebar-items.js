@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetProtoObject","Wrap"],"mod":["WEBGLDebugRendererInfoConstants"],"static":["Class"],"trait":["WEBGLDebugRendererInfoMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["mysql_query","mysql_query_as","postgres_query","postgres_query_as","sqlite_query","sqlite_query_as"],"struct":["CallArgs"]};

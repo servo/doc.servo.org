@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["ChannelMergerNode_Binding","GenericBindings"],"trait":["ChannelMergerNodeMethods"],"type":["ChannelMergerOptions"]};

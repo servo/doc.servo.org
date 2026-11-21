@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["VARIANT_BIT"],"struct":["UnicodeCharmap"]};

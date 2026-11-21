@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetProtoObject","Wrap","_constructor","_finalize","_trace","get_port1","get_port2","init_domjs_class","init_interface_object","init_statics"],"static":["CLASS_OPS","Class","INTERFACE_OBJECT_CLASS","PrototypeClass"],"struct":["BindingTables"],"trait":["MessageChannelMethods"]};

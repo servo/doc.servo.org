@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["F64_BITS","F64_EXP_BIAS","F64_EXP_BITS","F64_EXP_SAT","F64_SIGN_MASK","F64_SIG_BITS","F64_SIG_MASK","IVLN2HI","IVLN2LO","LG1","LG2","LG3","LG4","LG5","LG6","LG7"],"fn":["f64_ex","f64_exp_unbiased","f64_from_parts","floor","log2","round","trunc"],"type":["F64Int"]};

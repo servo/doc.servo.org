@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BundlePolicy","DescriptionType","GatheringState","IceConnectionState","SdpType","SignalingState","WebRtcError"],"mod":["datachannel","thread"],"struct":["IceCandidate","SessionDescription"],"trait":["WebRtcBackend","WebRtcControllerBackend","WebRtcSignaller"],"type":["WebRtcDataChannelResult","WebRtcResult"]};

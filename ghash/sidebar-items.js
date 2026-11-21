@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GHash","GHashBackend"],"type":["Block","Key","Tag"]};

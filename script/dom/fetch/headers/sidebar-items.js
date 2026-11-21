@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_Headers"],"enum":["Guard"],"fn":["is_field_name","is_forbidden_request_header","is_forbidden_response_header","is_legal_header_value","is_obs_text","is_vchar","validate_name"],"struct":["Headers"]};

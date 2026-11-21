@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FrameExtentsHeuristicPath"],"struct":["AaRect","FrameExtents","FrameExtentsHeuristic"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["State"],"fn":["channel"],"struct":["Canceled","Channel","Inner","Receiver","Sender"]};

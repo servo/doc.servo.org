@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fold_deltas_into_font_units","hypot_fixed","read_points_and_phantom","simple_deltas"],"struct":["FixedTransform","OffsetRounding","Scale26Dot6","ScaleF32","SimplePass","Unscaled"],"trait":["Scale"]};

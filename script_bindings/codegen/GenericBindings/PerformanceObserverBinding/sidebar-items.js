@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["PerformanceObserver_Binding"],"struct":["PerformanceObserverCallback","PerformanceObserverInit"]};

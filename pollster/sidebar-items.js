@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LOCAL_WAKER"],"fn":["block_on"],"struct":["Signal"],"trait":["FutureExt"]};

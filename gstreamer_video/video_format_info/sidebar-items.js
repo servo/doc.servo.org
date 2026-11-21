@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["VIDEO_FORMAT_FLAG_FLOAT"],"fn":["effective_depth"],"struct":["VideoFormatInfo"]};

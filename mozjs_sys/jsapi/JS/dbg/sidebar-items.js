@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["FireOnGarbageCollectionHookRequired","GetDebuggeeGlobals","GetDebuggerMallocSizeOf","IsDebugger","SetDebuggerMallocSizeOf","ShouldAvoidSideEffects"],"struct":["GarbageCollectionEvent","GarbageCollectionEvent_Collection"],"type":["GarbageCollectionEvent_Ptr"]};

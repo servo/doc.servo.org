@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_ACCURACY","MAX_EXTREMA"],"struct":["Nearest"],"trait":["ParamCurve","ParamCurveArclen","ParamCurveArea","ParamCurveCurvature","ParamCurveDeriv","ParamCurveExtrema","ParamCurveNearest"]};

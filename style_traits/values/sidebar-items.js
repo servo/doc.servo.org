@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_to_css_for_predefined_type",1]],"mod":["specified"],"struct":["Comma","CommaWithSpace","CssWriter","SequenceWriter","Space"],"trait":["OneOrMoreSeparated","Separator","ToCss"],"type":["CssString","CssStringWriter"]};

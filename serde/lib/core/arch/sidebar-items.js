@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["is_aarch64_feature_detected",1],["is_arm_feature_detected",1],["is_loongarch_feature_detected",1],["is_mips64_feature_detected",1],["is_mips_feature_detected",1],["is_powerpc64_feature_detected",1],["is_powerpc_feature_detected",1],["is_riscv_feature_detected",1],["is_s390x_feature_detected",1],["is_x86_feature_detected",1]]};

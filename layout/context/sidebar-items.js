@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LayoutImageCacheResult","ResolveImageError","ResolvedImage"],"struct":["ImageResolver","LayoutContext"],"type":["CachedImageOrError"]};

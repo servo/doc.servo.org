@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["ed448_goldilocks",[["impl&lt;C: <a class=\"trait\" href=\"ed448_goldilocks/field/scalar/trait.CurveWithScalar.html\" title=\"trait ed448_goldilocks::field::scalar::CurveWithScalar\">CurveWithScalar</a>&gt; <a class=\"trait\" href=\"elliptic_curve/scalar/trait.FromUintUnchecked.html\" title=\"trait elliptic_curve::scalar::FromUintUnchecked\">FromUintUnchecked</a> for <a class=\"struct\" href=\"ed448_goldilocks/struct.Scalar.html\" title=\"struct ed448_goldilocks::Scalar\">Scalar</a>&lt;C&gt;",0]]],["elliptic_curve",[]],["p256",[["impl <a class=\"trait\" href=\"elliptic_curve/scalar/trait.FromUintUnchecked.html\" title=\"trait elliptic_curve::scalar::FromUintUnchecked\">FromUintUnchecked</a> for <a class=\"struct\" href=\"p256/struct.Scalar.html\" title=\"struct p256::Scalar\">Scalar</a>",0]]],["p384",[["impl <a class=\"trait\" href=\"elliptic_curve/scalar/trait.FromUintUnchecked.html\" title=\"trait elliptic_curve::scalar::FromUintUnchecked\">FromUintUnchecked</a> for <a class=\"struct\" href=\"p384/struct.Scalar.html\" title=\"struct p384::Scalar\">Scalar</a>",0]]],["p521",[["impl <a class=\"trait\" href=\"elliptic_curve/scalar/trait.FromUintUnchecked.html\" title=\"trait elliptic_curve::scalar::FromUintUnchecked\">FromUintUnchecked</a> for <a class=\"struct\" href=\"p521/struct.Scalar.html\" title=\"struct p521::Scalar\">Scalar</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[503,22,279,279,279]}

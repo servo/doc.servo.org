@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AlignSetting","AutoKeyword","DirectionSetting","LineAlignSetting","PositionAlignSetting"],"mod":["AlignSettingValues","AutoKeywordValues","DirectionSettingValues","LineAlignSettingValues","PositionAlignSettingValues","VTTCue_Binding"]};

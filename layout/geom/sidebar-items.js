@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["flip"],"struct":["LogicalRect","LogicalSides","LogicalSides1D","LogicalVec2","SyncPhysicalRectAu"],"type":["AuOrAuto","LengthPercentageOrAuto","PhysicalPoint","PhysicalRect","PhysicalSides","PhysicalSize","PhysicalVec"]};

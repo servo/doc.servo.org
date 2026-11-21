@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CumulativeContentRectCalculation","Fragment","FragmentChildren"],"struct":["CollapsedBlockMargins","CollapsedMargin","FragmentAndLogicalRect","IFrameFragment","ImageFragment","LayoutRootFragment","TextFragment"]};

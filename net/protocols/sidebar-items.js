@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ProtocolRegisterError"],"fn":["get_range_request_bounds","is_url_potentially_trustworthy","partial_content","range_not_satisfiable_error"],"mod":["blob","data","file"],"static":["FORBIDDEN_SCHEMES"],"struct":["ProtocolRegistry","WebPageContentProtocolHandler"],"trait":["ProtocolHandler"],"type":["FutureResponse"]};

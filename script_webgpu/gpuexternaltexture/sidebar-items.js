@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_GPUExternalTexture"],"struct":["DroppableGPUExternalTexture","GPUExternalTexture","PlanarTexture"]};

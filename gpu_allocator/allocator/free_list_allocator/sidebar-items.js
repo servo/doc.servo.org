@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["USE_BEST_FIT"],"fn":["align_down","align_up","has_granularity_conflict","is_on_same_page"],"struct":["FreeListAllocator","MemoryChunk"]};

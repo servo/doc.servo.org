@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"static":["END_OF_MAP_IDENTIFIER"],"struct":["EnumAsMapElementSerializer","EnumDeserializer","EnumMap","SeedStructVariant","SeedTupleVariant","SeqAsMapSerializer","SeqDeserializer","SerializeSeqElement","SerializeVariant"]};

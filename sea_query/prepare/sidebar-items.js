@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["inject_parameters","write_int"],"struct":["SqlWriterValues"],"trait":["SqlWriter","Write"]};

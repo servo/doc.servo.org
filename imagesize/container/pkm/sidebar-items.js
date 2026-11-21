@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PkmCompression"],"fn":["detect_compression","matches","matches_eac","size"]};

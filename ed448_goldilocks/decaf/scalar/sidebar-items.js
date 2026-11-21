@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"type":["DecafScalar","DecafScalarBytes","WideDecafScalarBytes"]};

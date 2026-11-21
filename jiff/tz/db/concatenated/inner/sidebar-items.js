@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_TTL"],"enum":["TzdataLocation"],"fn":["read_names_and_version"],"static":["TZDATA_LOCATIONS"],"struct":["CachedTimeZone","CachedZones","Database","Names","NamesInner"]};

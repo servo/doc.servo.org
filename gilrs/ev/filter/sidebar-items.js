@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply_deadzone","axis_dpad_to_button","deadzone","deadzone_nonzero_axis_idx"],"struct":["Jitter","Repeat"],"trait":["Filter","FilterFn"]};

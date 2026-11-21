@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ToggleEvent_Binding"],"struct":["ToggleEventInit"],"trait":["ToggleEventMethods"]};

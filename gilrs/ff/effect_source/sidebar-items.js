@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DistanceModel","DistanceModelError","EffectState"],"struct":["EffectSource","Magnitude"],"trait":["SliceVecExt"]};

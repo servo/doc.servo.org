@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ParserMode","ParserPosition"],"fn":["parse_language_identifier","parse_language_identifier_from_iter","parse_language_identifier_with_single_variant","parse_locale_with_single_variant_single_keyword_unicode_extension_from_iter"]};

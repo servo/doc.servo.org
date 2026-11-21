@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["W_MAX"],"fn":["le_repr","wnaf_form","wnaf_multi_exp","wnaf_table"],"macro":[["impl_wnaf_size_for_scalar",1]],"mod":["base","limb_buffer","scalar","traits"],"struct":["WnafBase","WnafScalar"],"trait":["Group","WindowSize","WnafGroup","WnafSize"],"type":["Digit"]};

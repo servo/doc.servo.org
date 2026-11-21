@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_cyclic","layout_1d","layout_layer"],"struct":["BackgroundLayer","BackgroundPainter","Layout1DResult"]};

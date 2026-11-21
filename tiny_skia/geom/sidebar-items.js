@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ScreenIntRect"],"trait":["IntRectExt","IntSizeExt"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EventBody"],"struct":["EventBodyBorrowed","EventBodyOwned","EventBodyQtBorrowed","EventBodyQtOwned","Properties","QtProperties"]};

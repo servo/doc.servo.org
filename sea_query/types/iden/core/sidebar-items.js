@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_static_iden"],"struct":["Alias","Asterisk","DynIden","NullAlias"],"trait":["Iden","IdenStatic","IntoIden"]};

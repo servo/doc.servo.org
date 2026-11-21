@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fminimum_num"]};

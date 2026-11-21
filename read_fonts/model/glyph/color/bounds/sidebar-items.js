@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Bounds"],"fn":["transform_bounds"],"struct":["BoundsSink"]};

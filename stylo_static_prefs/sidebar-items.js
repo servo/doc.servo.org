@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["pref",1],["set_pref",1]],"static":["BOOLS","INTEGERS"]};

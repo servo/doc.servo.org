@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["cofactor","prime","wnaf"],"struct":["Wnaf","WnafBase","WnafScalar"],"trait":["Curve","CurveAffine","Group","GroupEncoding","GroupOps","GroupOpsOwned","ScalarMul","ScalarMulOwned","UncompressedEncoding","WnafGroup"]};

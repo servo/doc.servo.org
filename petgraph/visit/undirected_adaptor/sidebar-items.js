@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["access0",1]],"struct":["MaybeReversedEdgeReference","MaybeReversedEdgeReferences","MaybeReversedEdges","UndirectedAdaptor"]};

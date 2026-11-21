@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AtomKind"],"struct":["IntoSizedArgs","IntoSizedResult"],"type":["AtomClosure"]};

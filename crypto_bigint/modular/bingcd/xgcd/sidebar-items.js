@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DOUBLE_SUMMARY_LIMBS","SUMMARY_BITS","SUMMARY_LIMBS"],"fn":["binxgcd_step"],"struct":["RawXgcdOutput"],"type":["DividedPatternXgcdOutput","PatternXgcdOutput"]};

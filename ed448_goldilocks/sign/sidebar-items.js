@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ALGORITHM_ID","ALGORITHM_OID","HASH_HEAD","PUBLIC_KEY_LENGTH","SECRET_KEY_LENGTH","SIGNATURE_LENGTH"],"mod":["context","error","expanded","signing_key","verifying_key"],"struct":["InnerSignature","Signature"]};

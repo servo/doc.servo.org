@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["define_dictionary_property","get_array_index_from_id","has_own_property","has_property_on_prototype","set_dictionary_property","to_frozen_array"],"mod":["call_policies"],"struct":["CallPolicyInfo","DOMClass","DOMJSClass"],"trait":["CallPolicy"],"type":["ProtoOrIfaceArray"]};

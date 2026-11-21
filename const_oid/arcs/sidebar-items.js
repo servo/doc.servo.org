@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ARC_MAX_FIRST","ARC_MAX_SECOND"],"struct":["Arcs","RootArcs"],"type":["Arc"]};

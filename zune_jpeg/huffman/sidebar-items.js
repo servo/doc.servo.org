@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HUFF_LOOKAHEAD"],"struct":["HuffmanTable"]};

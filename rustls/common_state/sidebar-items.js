@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_BUFFER_LIMIT","DEFAULT_RECEIVED_PLAINTEXT_LIMIT"],"enum":["HandshakeKind","KxState","Limit","Protocol","Side"],"struct":["CommonState","Context","HandshakeFlight","IoState","TemperCounters"],"trait":["State"],"type":["HandshakeFlightTls12","HandshakeFlightTls13"]};

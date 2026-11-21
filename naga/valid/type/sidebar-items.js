@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Disalignment","ImmediateError","TypeError","WidthError"],"fn":["check_member_layout","ptr_space_argument_flag"],"struct":["TypeFlags","TypeInfo"],"type":["ImmediateCompatibility","LayoutCompatibility"]};

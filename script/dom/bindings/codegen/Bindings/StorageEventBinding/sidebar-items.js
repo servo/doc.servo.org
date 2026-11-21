@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","StorageEvent_Binding"],"trait":["StorageEventMethods"],"type":["StorageEventInit"]};

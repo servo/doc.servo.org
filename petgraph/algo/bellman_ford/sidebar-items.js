@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bellman_ford","bellman_ford_initialize_relax","find_negative_cycle"],"struct":["Paths"]};

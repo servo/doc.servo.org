@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CLASS_FRAGMENT","CLASS_HIGH","CLASS_INVALID","CLASS_QUERY","CLASS_VALID","NONE","PATH_MAP","QUERY_MAP"],"fn":["build_path_map","build_query_map","scan_path_and_query"],"struct":["PathAndQuery","Scanned"]};

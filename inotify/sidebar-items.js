@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EventKind","EventMaskParseError"],"fn":["get_absolute_path_buffer_size","get_buffer_size"],"mod":["events","fd_guard","inotify","util","watches"],"struct":["Event","EventAuxiliaryFlags","EventMask","Events","Inotify","ParsedEventMask","WatchDescriptor","WatchMask","Watches"],"type":["EventOwned"]};

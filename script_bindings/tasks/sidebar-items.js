@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CancellableTask","TaskCanceller"],"trait":["NonSendTaskBox","NonSendTaskOnce","TaskBox","TaskOnce"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","GetProtoObject","deleteRule","get_cssRules","init_interface_object","init_statics","insertRule"],"static":["INTERFACE_OBJECT_CLASS","PrototypeClass"],"struct":["BindingTables"],"trait":["CSSGroupingRuleMethods"]};

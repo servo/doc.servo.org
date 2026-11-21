@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["detect_features","have_cpuid"],"mod":["bit"]};

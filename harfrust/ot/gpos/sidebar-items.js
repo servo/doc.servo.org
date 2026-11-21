@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["position","position_finish_advances","position_finish_offsets","position_start","propagate_attachment_offsets"],"mod":["attach_type"]};

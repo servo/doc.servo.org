@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["extract_scales","f32_to_u8","is_axis_aligned","is_integer_translation","normalized_mul_u8x16","normalized_mul_u8x32","snap_down","strip_bbox"],"struct":["Pool","RetainVec"],"trait":["Clear","Div255Ext","RectExt"],"type":["VecPool"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["advance","side_bearing"],"macro":[["glyph_metric_records_from",1],["impl_hmtx_lookup",1]],"struct":["GlyphMetricRecords","Hmtx","HmtxExtended","LongMetric"]};

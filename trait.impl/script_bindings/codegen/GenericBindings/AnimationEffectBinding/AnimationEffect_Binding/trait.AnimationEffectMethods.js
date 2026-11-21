@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["script",[["impl <a class=\"trait\" href=\"script/dom/bindings/codegen/Bindings/AnimationEffectBinding/trait.AnimationEffectMethods.html\" title=\"trait script::dom::bindings::codegen::Bindings::AnimationEffectBinding::AnimationEffectMethods\">AnimationEffectMethods</a>&lt;<a class=\"struct\" href=\"script/dom/bindings/codegen/DomTypeHolder/struct.DomTypeHolder.html\" title=\"struct script::dom::bindings::codegen::DomTypeHolder::DomTypeHolder\">DomTypeHolder</a>&gt; for <a class=\"struct\" href=\"script/dom/animations/animationeffect/struct.AnimationEffect.html\" title=\"struct script::dom::animations::animationeffect::AnimationEffect\">AnimationEffect</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[671]}

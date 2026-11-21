@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_size_percentage_contribution","max_two_optional_percentages"],"struct":["CellLayout","CellOrColumnOuterSizes","CellOrTrackMeasure","ColspanToDistribute","ColumnLayout","RowFragmentLayout","RowGroupFragmentLayout","RowLayout","RowspanToDistribute","TableAndTrackDimensions","TableLayout"],"type":["CollapsedBorders"]};

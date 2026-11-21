@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["array_windows","circular_array_windows"],"struct":["ArrayWindows","ArrayWindowsInner","CircularArrayWindows","CircularArrayWindowsInner"]};

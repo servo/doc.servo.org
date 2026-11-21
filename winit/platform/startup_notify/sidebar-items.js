@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WAYLAND_VAR","X11_VAR"],"fn":["reset_activation_token_env","set_activation_token_env"],"trait":["EventLoopExtStartupNotify","WindowAttributesExtStartupNotify","WindowExtStartupNotify"]};

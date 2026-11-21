@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Format"],"fn":["check_type1"]};

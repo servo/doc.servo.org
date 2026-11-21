@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["HB_OT_TAG_DEFAULT_LANGUAGE","HB_OT_TAG_DEFAULT_SCRIPT"],"fn":["destroy_blob_func","font_table_func","glyph_func","glyph_h_advance_func"],"static":["HB_FONT_FUNCS"],"struct":["FontFuncs","HarfbuzzGlyphShapingResult","ShapedGlyphIterator","Shaper"]};

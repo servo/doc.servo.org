@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bind_local_address","connect","get_host_port","set_port"],"static":["INVALID_MISSING_HOST","INVALID_MISSING_SCHEME","INVALID_NOT_HTTP"],"struct":["Config","ConnectError","ConnectingTcp","ConnectingTcpFallback","ConnectingTcpRemote","HttpConnecting","HttpConnector","HttpInfo","TcpKeepaliveConfig"],"type":["BoxConnecting","ConnectResult"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["intersect_rects","map_rect","paint_transform","to_tsp_transform"],"struct":["Builder","GlyphPainter"],"trait":["XmlWriterExt"]};

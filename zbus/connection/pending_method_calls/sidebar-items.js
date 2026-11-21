@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["send_reply"],"struct":["PendingMethodCall","PendingMethodCalls","PendingMethodCallsState"],"type":["PendingMethodReply","PendingMethodReplySender"]};

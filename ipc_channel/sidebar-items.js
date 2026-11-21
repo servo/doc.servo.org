@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IpcError","TryRecvError","TrySelectError"],"mod":["error","ipc","platform","router"],"struct":["SerDeError"]};

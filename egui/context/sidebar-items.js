@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["IMMEDIATE_VIEWPORT_RENDERER"],"fn":["warn_if_rect_changes_id"],"struct":["Context","ContextImpl","RepaintCause","RequestRepaintInfo","ViewportRepaintInfo","ViewportState","WrappedTextureManager"]};

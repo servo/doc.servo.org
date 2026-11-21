@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_morx_blocklisted"],"mod":["common","kern","kerx","layout","map","morx","trak"],"static":["EMPTY_AAT_DATA","EMPTY_AAT_TABLES"],"struct":["AatCache","AatData","CachedAatTables","KernTableCache","KerxTableCache","MorphTableCache"]};

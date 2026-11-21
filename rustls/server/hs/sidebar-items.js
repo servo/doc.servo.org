@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["HandshakeHashOrBuffer"],"fn":["can_resume","process_client_hello"],"struct":["ExpectClientHello","ExtensionProcessing","PreviousClientHello"],"type":["NextState","NextStateOrError","ServerContext"]};

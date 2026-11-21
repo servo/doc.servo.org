@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["take_slice","with_scratch","with_scratch_dyn"]};

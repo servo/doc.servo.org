@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["audio_buffer_clip","audio_make_raw_caps"]};

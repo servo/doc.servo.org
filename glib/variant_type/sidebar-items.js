@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_eq",1],["impl_str_eq",1]],"struct":["VariantTy","VariantTyIterator","VariantType"]};

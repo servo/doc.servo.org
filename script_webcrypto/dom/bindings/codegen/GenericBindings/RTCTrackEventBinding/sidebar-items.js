@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["RTCTrackEvent_Binding"],"struct":["RTCTrackEventInit"],"trait":["RTCTrackEventMethods"]};

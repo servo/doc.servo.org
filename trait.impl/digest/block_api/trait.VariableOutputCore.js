@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["blake2",[["impl <a class=\"trait\" href=\"digest/block_api/trait.VariableOutputCore.html\" title=\"trait digest::block_api::VariableOutputCore\">VariableOutputCore</a> for <a class=\"struct\" href=\"blake2/struct.Blake2bVarCore.html\" title=\"struct blake2::Blake2bVarCore\">Blake2bVarCore</a>",0],["impl <a class=\"trait\" href=\"digest/block_api/trait.VariableOutputCore.html\" title=\"trait digest::block_api::VariableOutputCore\">VariableOutputCore</a> for <a class=\"struct\" href=\"blake2/struct.Blake2sVarCore.html\" title=\"struct blake2::Blake2sVarCore\">Blake2sVarCore</a>",0]]],["sha2",[["impl <a class=\"trait\" href=\"digest/block_api/trait.VariableOutputCore.html\" title=\"trait digest::block_api::VariableOutputCore\">VariableOutputCore</a> for <a class=\"struct\" href=\"sha2/block_api/struct.Sha256VarCore.html\" title=\"struct sha2::block_api::Sha256VarCore\">Sha256VarCore</a>",0],["impl <a class=\"trait\" href=\"digest/block_api/trait.VariableOutputCore.html\" title=\"trait digest::block_api::VariableOutputCore\">VariableOutputCore</a> for <a class=\"struct\" href=\"sha2/block_api/struct.Sha512VarCore.html\" title=\"struct sha2::block_api::Sha512VarCore\">Sha512VarCore</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[590,617]}

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ExtendableMessageEvent_Binding"],"struct":["ExtendableMessageEventInit"],"trait":["ExtendableMessageEventMethods"]};

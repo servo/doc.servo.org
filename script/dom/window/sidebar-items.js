@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["dissimilaroriginwindow","history","layout_image","location","screen","scrolling_box","useractivation","window","windowproxy"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GStreamerAudioDecoder","GStreamerAudioDecoderProgress"]};

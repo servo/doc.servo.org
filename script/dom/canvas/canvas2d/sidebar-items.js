@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["canvas_state","canvasgradient","canvaspattern","canvasrenderingcontext2d","offscreencanvasrenderingcontext2d","paintrenderingcontext2d","path2d","textmetrics"]};

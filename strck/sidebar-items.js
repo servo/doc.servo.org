@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ident","partial_eq"],"struct":["Check","Ck"],"trait":["IntoCheck","IntoCk","Invariant"]};

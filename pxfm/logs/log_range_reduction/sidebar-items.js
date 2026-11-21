@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["log_range_reduction"],"static":["S2","S3","S4"]};

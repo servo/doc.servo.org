@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BackBuffer","PreserveBuffer"],"struct":["SwapChain","SwapChainData","SwapChains"],"trait":["SwapChainAPI","SwapChainsAPI"]};

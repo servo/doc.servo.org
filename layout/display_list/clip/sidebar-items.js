@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_shape_radius_for_circle","compute_shape_radius_for_ellipse"],"struct":["Clip","ClipId","StackingContextTreeClipStore"]};

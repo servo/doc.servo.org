@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["p256",[["impl <a class=\"trait\" href=\"primefield/monty/trait.MontyFieldParams.html\" title=\"trait primefield::monty::MontyFieldParams\">MontyFieldParams</a>&lt;{ &lt;$uint&gt;::LIMBS }&gt; for <a class=\"struct\" href=\"p256/arithmetic/field/struct.FieldParams.html\" title=\"struct p256::arithmetic::field::FieldParams\">FieldParams</a>",0]]],["p384",[["impl <a class=\"trait\" href=\"primefield/monty/trait.MontyFieldParams.html\" title=\"trait primefield::monty::MontyFieldParams\">MontyFieldParams</a>&lt;{ &lt;$uint&gt;::LIMBS }&gt; for <a class=\"struct\" href=\"p384/arithmetic/field/struct.FieldParams.html\" title=\"struct p384::arithmetic::field::FieldParams\">FieldParams</a>",0],["impl <a class=\"trait\" href=\"primefield/monty/trait.MontyFieldParams.html\" title=\"trait primefield::monty::MontyFieldParams\">MontyFieldParams</a>&lt;{ &lt;$uint&gt;::LIMBS }&gt; for <a class=\"struct\" href=\"p384/arithmetic/scalar/struct.ScalarParams.html\" title=\"struct p384::arithmetic::scalar::ScalarParams\">ScalarParams</a>",0]]],["p521",[["impl <a class=\"trait\" href=\"primefield/monty/trait.MontyFieldParams.html\" title=\"trait primefield::monty::MontyFieldParams\">MontyFieldParams</a>&lt;{ &lt;$uint&gt;::LIMBS }&gt; for <a class=\"struct\" href=\"p521/arithmetic/scalar/struct.ScalarParams.html\" title=\"struct p521::arithmetic::scalar::ScalarParams\">ScalarParams</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[348,692,354]}

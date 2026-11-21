@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["can","futex","if_addr","if_link","if_packet","keyctl","membarrier","mount","netlink","pidfd","sctp","tls","types"]};

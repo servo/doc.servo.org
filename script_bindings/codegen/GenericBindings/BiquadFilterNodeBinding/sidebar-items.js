@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BiquadFilterType"],"mod":["BiquadFilterNode_Binding","BiquadFilterTypeValues"],"struct":["BiquadFilterOptions"]};

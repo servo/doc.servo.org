@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","UrlPatternMatchInput"],"fn":["hostname_pattern_is_ipv6_address","is_absolute_pathname"],"mod":["canonicalize_and_process","component","constructor_parser","error","matcher","parser","quirks","regexp","tokenizer"],"struct":["UrlPattern","UrlPatternComponentResult","UrlPatternInit","UrlPatternOptions","UrlPatternResult"]};

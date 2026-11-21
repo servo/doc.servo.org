@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OutboundChunks"],"fn":["read_opaque_message_header"],"struct":["OutboundOpaqueMessage","OutboundPlainMessage","PrefixedPayload"]};

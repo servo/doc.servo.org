@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLOCK_SIZE","MEDIUM_LEN","NBR_SEGMENTS","RECURSIVE_LIMIT","SMALL_LEN"],"fn":["transpose","transpose_block","transpose_block_segmented","transpose_recursive","transpose_small","transpose_tiled"]};

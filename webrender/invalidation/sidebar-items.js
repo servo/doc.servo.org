@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InvalidationReason","PrimitiveCompareResult"],"mod":["cached_surface","compare","quadtree","vert_buffer"],"struct":["DirtyRegion"]};

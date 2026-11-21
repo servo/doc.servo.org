@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["serialize_disposition"],"struct":["CSPReportUriViolationReport","CSPReportUriViolationReportBody","CSPViolationReportBuilder","SecurityPolicyViolationReport"]};

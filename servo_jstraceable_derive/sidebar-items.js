@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"derive":["JSTraceable"],"fn":["assert_not_impl_traceable","js_traceable_derive"]};

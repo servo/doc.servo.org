@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STEPS"],"fn":["apply","box_blur_horz","box_blur_impl","box_blur_vert","create_box_gauss","round","sub"]};

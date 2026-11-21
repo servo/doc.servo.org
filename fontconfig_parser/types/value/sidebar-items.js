@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BinaryOp","Expression","ListOp","PropertyTarget","TernaryOp","UnaryOp","Value"],"macro":[["from_value",1]],"type":["Bool","CharSet","Double","Int"]};

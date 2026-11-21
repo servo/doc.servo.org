@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["deal_with_variation_selectors","ensure_native_direction","form_clusters","hide_default_ignorables","map_glyphs_fast","propagate_flags","shape","shape_with_font","synthesize_glyph_classes","zero_mark_widths_by_gdef","zero_width_default_ignorables"],"struct":["OtShapeContext"]};

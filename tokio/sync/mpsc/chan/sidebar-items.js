@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["channel","channel_from_list"],"struct":["Chan","Rx","RxFields","Tx"],"trait":["Semaphore"]};

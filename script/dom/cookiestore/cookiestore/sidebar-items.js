@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_CookieStore"],"fn":["cookie_to_list_item","prepare_lists"],"struct":["CookieListener","CookieStore","DroppableCookieStore"]};

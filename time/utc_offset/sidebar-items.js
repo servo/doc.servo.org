@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["UtcOffset"],"type":["Hours","Minutes","Seconds","WholeSeconds"]};

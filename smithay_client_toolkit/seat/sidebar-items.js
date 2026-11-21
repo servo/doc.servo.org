@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Capability","CursorShapeManagerState","SeatError"],"mod":["pointer","pointer_constraints","relative_pointer","touch"],"struct":["SeatData","SeatInfo","SeatInner","SeatState"],"trait":["SeatHandler"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decoder_to_vec","encoder_for_format","guess_format","guess_format_impl","load","load_rect","save_buffer","save_buffer_with_format"],"static":["MAGIC_BYTES"]};

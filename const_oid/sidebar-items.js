@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_MAX_SIZE"],"enum":["Error"],"mod":["arcs","buffer","checked","db","encoder","error","parser","traits"],"struct":["Arcs","Buffer","ObjectIdentifier","ObjectIdentifierRef"],"trait":["AssociatedOid","DynAssociatedOid"],"type":["Arc","Result"]};

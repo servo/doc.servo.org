@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["N"],"macro":[["deserialize_any",1],["deserialize_number",1],["impl_from_signed",1],["impl_from_unsigned",1]],"struct":["Number"]};

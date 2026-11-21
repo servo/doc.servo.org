@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Precision"],"fn":["draw_plan","load_and_draw","plan_buffer_size"],"struct":["FontAt","GlyfContext","GlyfGlyph"]};

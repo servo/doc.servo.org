@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CascadeOrigin"],"fn":["transitions_override"],"struct":["CascadeLevel","ShadowCascadeOrder"]};

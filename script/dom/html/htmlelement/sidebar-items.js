@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_HTMLElement"],"enum":["PopoverState"],"fn":["append_text_node_to_fragment"],"struct":["HTMLElement"]};

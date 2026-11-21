@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["substitute_chromaticities","substitute_gamma"]};

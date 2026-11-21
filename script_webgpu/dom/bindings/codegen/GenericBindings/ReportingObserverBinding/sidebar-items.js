@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["ReportingObserver_Binding"],"struct":["Report","ReportBody","ReportingObserverCallback","ReportingObserverOptions"],"trait":["ReportingObserverMethods"],"type":["ReportList"]};

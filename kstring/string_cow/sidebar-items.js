@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["KStringCowInner"],"struct":["KStringCowBase"],"type":["BoxedStr","KStringCow","StdString"]};

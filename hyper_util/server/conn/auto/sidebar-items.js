@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["H2_PREFACE"],"enum":["ConnState","Cow","UpgradeableConnState","Version"],"fn":["read_version"],"mod":["upgrade"],"struct":["Builder","Connection","Http1Builder","Http2Builder","ReadVersion","UpgradeableConnection"],"trait":["HttpServerConnExec"],"type":["Error","Http1Connection","Http1UpgradeableConnection","Http2Connection","Result"]};

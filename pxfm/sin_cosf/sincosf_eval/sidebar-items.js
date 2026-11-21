@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cospif_eval","cospif_eval_fma","sincosf_eval","sincosf_eval_fma","sincospif_eval","sincospif_eval_fma","sinpif_eval","sinpif_eval2","sinpif_eval_fma"],"static":["SIN_K_PI_OVER32"],"struct":["SinCosf"]};

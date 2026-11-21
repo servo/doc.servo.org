@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["convert_base_gradient","convert_linear_gradient","convert_radial_gradient","fill_path","render","render_pattern_pixmap","stroke_path"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["new_tag_from_unicode","old_tag_from_unicode"],"struct":["ScriptTags","SelectedScript"]};

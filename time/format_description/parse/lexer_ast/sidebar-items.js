@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Context","NextModifier"],"fn":["items_to_owned_format_item","items_to_v3_borrowed","items_to_v3_owned","parse_generic"],"macro":[["v1_v2_parse_target",1],["v3_parse_target",1]],"struct":["Lexer","Modifier","Modifiers","NestedFormatDescription"],"trait":["ParseTarget"],"type":["ParseItemWithLiteralLifetime","ParseOutput"]};

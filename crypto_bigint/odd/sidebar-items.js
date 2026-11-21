@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Odd"],"type":["OddBoxedUint","OddInt","OddUint","OddUintRef"]};

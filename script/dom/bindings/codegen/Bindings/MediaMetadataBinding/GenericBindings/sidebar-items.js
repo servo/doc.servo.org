@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["MediaMetadata_Binding"],"struct":["MediaImage","MediaMetadataInit"],"trait":["MediaMetadataMethods"]};

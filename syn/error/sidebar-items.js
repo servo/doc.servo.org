@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["new2","new_at"],"struct":["Error","ErrorMessage","IntoIter","Iter","SpanRange"],"type":["Result"]};

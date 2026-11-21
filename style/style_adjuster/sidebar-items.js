@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_effective_display_none_for_display_contents","is_topmost_svg_svg_element"],"struct":["StyleAdjuster"]};

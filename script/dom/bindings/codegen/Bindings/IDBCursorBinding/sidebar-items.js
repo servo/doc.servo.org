@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IDBCursorDirection"],"fn":["GetConstructorObject","Wrap"],"mod":["GenericBindings","IDBCursorDirectionValues","IDBCursor_Binding"],"trait":["IDBCursorMethods"]};

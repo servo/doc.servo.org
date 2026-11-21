@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PLTE_CHANNELS"],"enum":["Decoded","DecodingError","FrameDataType","OutputBuffer","State","Version"],"struct":["DecodingFormatError","ExtensionData","FrameDecoder","LzwReader","StreamingDecoder"]};

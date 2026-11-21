@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["boilerplate_fft_butterfly",1]],"struct":["Butterfly1","Butterfly11","Butterfly12","Butterfly13","Butterfly16","Butterfly17","Butterfly19","Butterfly2","Butterfly23","Butterfly24","Butterfly27","Butterfly29","Butterfly3","Butterfly31","Butterfly32","Butterfly4","Butterfly5","Butterfly6","Butterfly7","Butterfly8","Butterfly9"]};

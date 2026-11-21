@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Device","DeviceIterator","Enumerate","Monitor","PropertyIterator","Udev"]};

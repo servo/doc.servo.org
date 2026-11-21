@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Origin"],"fn":["url_origin"],"struct":["OpaqueOrigin"]};

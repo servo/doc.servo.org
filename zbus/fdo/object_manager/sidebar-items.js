@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["InterfacesAdded","InterfacesAddedArgs","InterfacesAddedStream","InterfacesRemoved","InterfacesRemovedArgs","InterfacesRemovedStream","ObjectManager","ObjectManagerProxy"],"trait":["ObjectManagerSignals"],"type":["ManagedObjects"]};

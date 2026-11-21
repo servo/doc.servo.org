@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PKG_DESCRIPTION","PKG_NAME","PKG_VERSION"],"macro":[["char_property",1]],"mod":["macros","pkg_info","property","range_types","tables"],"trait":["BinaryCharProperty","CharProperty","CustomCharProperty","EnumeratedCharProperty","NumericCharProperty","NumericCharPropertyValue","PartialCharProperty","TotalCharProperty"]};

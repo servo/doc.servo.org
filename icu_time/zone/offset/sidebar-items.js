@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OffsetData","OffsetDataBorrowed"],"struct":["InvalidOffsetError","UtcOffset","VariantOffsetsCalculator","VariantOffsetsCalculatorBorrowed"]};

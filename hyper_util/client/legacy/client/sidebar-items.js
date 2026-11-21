@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ClientConnectError","ErrorKind","PoolTx","TrySendError"],"fn":["absolute_form","authority_form","domain_as_uri","extract_domain","get_non_default_port","is_schema_secure","origin_form","set_scheme"],"macro":[["e",1]],"struct":["Builder","Client","Config","Error","PoolClient","ResponseFuture"],"type":["BoxSendFuture","PoolKey"]};

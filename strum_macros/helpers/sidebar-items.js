@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["missing_parse_err_attr_error","non_enum_error","non_single_field_variant_error","non_unit_variant_error","occurrence_error","strum_discriminants_passthrough_error"],"mod":["case_style","inner_variant_props","metadata","type_props","variant_props"]};

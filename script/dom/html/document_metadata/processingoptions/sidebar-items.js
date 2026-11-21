@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LinkFetchContextType","LinkProcessingPhase"],"fn":["determine_cors_settings_for_token","extract_links_from_headers","process_link_headers"],"struct":["LinkFetchContext","LinkHeader","LinkProcessingOptions"],"trait":["ValueForKeyInLinkHeader"]};

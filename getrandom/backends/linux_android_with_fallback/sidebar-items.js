@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NOT_AVAILABLE"],"fn":["fill_inner","init","use_file_fallback"],"static":["GETRANDOM_FN"],"type":["GetRandomFn"]};

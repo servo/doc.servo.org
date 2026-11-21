@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ZEROIZE_ATTR"],"derive":["Zeroize","ZeroizeOnDrop"],"fn":["attr_skip","derive_zeroize_impl","derive_zeroize_on_drop_impl","field_ident","generate_fields","impl_zeroize_on_drop"],"struct":["BoundAccumulator","Bounds","ZeroizeAttrs"]};

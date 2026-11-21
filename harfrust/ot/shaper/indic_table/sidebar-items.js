@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get_categories","indic_b4","indic_combine_categories","indic_get_categories_index"],"static":["indic_u8","indic_values"]};

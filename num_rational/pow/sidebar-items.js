@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["pow_signed_impl",1],["pow_unsigned_impl",1]]};

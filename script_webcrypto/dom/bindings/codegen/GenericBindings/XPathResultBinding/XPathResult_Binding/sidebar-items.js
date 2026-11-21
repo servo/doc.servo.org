@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","DefineDOMInterface","GetProtoObject","Wrap"],"mod":["XPathResultConstants"],"static":["Class"],"trait":["XPathResultMethods"]};

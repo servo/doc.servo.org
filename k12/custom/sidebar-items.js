@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["borrow","owned"],"struct":["CustomKt","CustomRefKt"],"type":["CustomKt128","CustomKt256","CustomRefKt128","CustomRefKt256"]};

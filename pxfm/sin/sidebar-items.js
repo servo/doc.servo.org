@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cos_accurate","cos_accurate_near_zero","f_cos","f_sin","get_sin_k_rational","range_reduction_small","sin_accurate","sin_accurate_near_zero","sincos_eval"],"struct":["SinCos"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GlyphSource"],"mod":["bitmap","color","outline"],"struct":["GlyphSourceOrder"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["avx","bpc","gray2rgb","interpolator","lut3x3","lut3x4","lut4","lut_transforms","mab","mab4x3","mba3x4","prelude_lut_xyz_rgb","reduction","rgb2gray","rgb_xyz_factory","rgbxyz","rgbxyz_fixed","sse","transform_lut3_to_3","transform_lut3_to_4","transform_lut4_to_3","xyz_lab"]};

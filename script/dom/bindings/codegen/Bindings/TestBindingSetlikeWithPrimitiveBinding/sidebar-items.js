@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["GenericBindings","TestBindingSetlikeWithPrimitiveSetlike_Binding","TestBindingSetlikeWithPrimitive_Binding"],"trait":["TestBindingSetlikeWithPrimitiveMethods","TestBindingSetlikeWithPrimitiveSetlikeMethods"]};

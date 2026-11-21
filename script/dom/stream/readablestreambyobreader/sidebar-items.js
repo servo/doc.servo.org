@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_ReadableStreamBYOBReader"],"enum":["ReadIntoRequest"],"struct":["ByteTeeClosedPromiseRejectionHandler","ReadableStreamBYOBReader"]};

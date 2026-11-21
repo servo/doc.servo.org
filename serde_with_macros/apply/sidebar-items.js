@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply","prepare_apply_attribute_to_field","ty_pattern_matches_ty"],"struct":["AddAttributesRule","ApplyInput"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TOKEN_SIGNAL","TOKEN_WAKEUP"],"enum":["Direction","Tick"],"fn":["_assert_kinds","dispatch_event"],"mod":["signal"],"struct":["Driver","Handle","ReadyEvent"]};

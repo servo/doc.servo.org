@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["Performance_Binding"],"struct":["PerformanceMarkOptions","PerformanceMeasureOptions"],"type":["DOMHighResTimeStamp","PerformanceEntryList"]};

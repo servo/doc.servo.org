@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_CACHED_SUBTABLES","MIN_CACHED_COVERAGE_COST"],"enum":["BuildError"],"fn":["build_lookup","build_lookup_at","is_extension","is_reversed","lookup_count","lookup_location"],"struct":["BuiltSubtable","Source"]};

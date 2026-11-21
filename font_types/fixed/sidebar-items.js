@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["fmt_shortest","write_decimal"],"macro":[["fixed_impl",1],["fixed_mul_div_assign",1],["float_conv",1]],"struct":["F26Dot6","F2Dot14","F48Dot16","F4Dot12","F6Dot10","Fixed"]};

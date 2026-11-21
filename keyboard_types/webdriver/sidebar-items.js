@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Event"],"fn":["code","get_modifier","is_shifted_character","key_location","normalised_key_value","send_keys"],"struct":["KeyInputState"]};

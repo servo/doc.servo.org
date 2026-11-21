@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["avx2","packed_simd","scalar_mul"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["as_sincpi_zero","f_sincpi","sincpi_dd","sincpi_fma_impl","sincpi_gen_impl"]};

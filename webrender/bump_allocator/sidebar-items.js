@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHUNK_ALIGNMENT","DEFAULT_CHUNK_SIZE"],"fn":["align"],"struct":["BumpAllocator","Chunk","ChunkPool","ChunkPoolInner","RecycledChunk","Stats"]};

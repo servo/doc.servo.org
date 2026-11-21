@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["task_pool_trampoline"],"struct":["TaskPoolTaskHandle"],"trait":["TaskHandle","TaskPoolExtManual"]};

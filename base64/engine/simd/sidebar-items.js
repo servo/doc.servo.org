@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BITPOS_LUT","SIMD_MIN_INPUT_DECODE","SIMD_MIN_INPUT_ENCODE"],"enum":["Backend","SimdKind","Standard","UrlSafe"],"fn":["avx2_decode","avx2_encode"],"mod":["avx2"],"struct":["Avx2","Simd"],"trait":["SimdAlphabet"]};

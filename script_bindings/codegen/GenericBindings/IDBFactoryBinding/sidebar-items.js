@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["IDBFactory_Binding"],"struct":["IDBDatabaseInfo"]};
