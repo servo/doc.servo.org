@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["check_is",1],["to",1]],"struct":["TinyAsciiStr"]};

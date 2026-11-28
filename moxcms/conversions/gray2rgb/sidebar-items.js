@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["make_gray_to_unfused","make_gray_to_x"],"struct":["TransformGray2RgbFusedExecutor","TransformGrayToRgbExecutor"]};

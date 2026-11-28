@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["draw_headerbar","draw_headerbar_bg","get_margin_h_lp","rounded_headerbar_shape"],"mod":["buttons","config","parts","pointer","shadow","theme","title","wl_typed"],"struct":["AdwaitaFrame","FrameConfig"],"type":["SkiaResult"]};

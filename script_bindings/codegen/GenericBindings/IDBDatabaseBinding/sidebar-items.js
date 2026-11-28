@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IDBTransactionDurability"],"mod":["IDBDatabase_Binding","IDBTransactionDurabilityValues"],"struct":["IDBObjectStoreParameters","IDBTransactionOptions"]};

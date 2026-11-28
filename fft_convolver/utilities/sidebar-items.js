@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["complex_multiply_accumulate","complex_size","compute_tail_block_size","copy_and_pad","next_power_of_2","sum"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EncodingError","EncodingFormatError","ExtensionData","Repeat"],"fn":["flag_size","lzw_encode","tmp_buf"],"struct":["Buf","Encoder"]};

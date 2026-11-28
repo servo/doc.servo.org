@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BROTLI_DECODER_VERSION"],"fn":["cargo_package_version","parse_version_component"]};

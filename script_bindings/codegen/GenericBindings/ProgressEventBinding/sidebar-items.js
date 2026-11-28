@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ProgressEvent_Binding"],"struct":["ProgressEventInit"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["action","ctrl_c","signal","signal_enable","signal_with_handle"],"struct":["OsExtraData","OsStorage","Signal","SignalInfo","SignalKind"]};

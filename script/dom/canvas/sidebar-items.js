@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["canvas2d","canvas_context","imagebitmap","imagebitmaprenderingcontext","imagedata","offscreencanvas"]};

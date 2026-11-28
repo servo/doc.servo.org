@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ATLAS_IMAGE_ID_BASE","DEFAULT_GLYPH_ATLAS_SIZE"],"enum":["CompositeMode","PixelFormat"],"struct":["ImageRegistry","RasterizerSettings","RenderContext","RenderSettings","Resources"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["AudioBufferSourceNode_Binding"],"struct":["AudioBufferSourceOptions"],"trait":["AudioBufferSourceNodeMethods"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply_sign_and_sum","apply_sign_and_sum_quick","f_lgamma","lgamma_0p5","lgamma_0p5_to_1","lgamma_1_to_4","lgamma_4_to_12","lgamma_around_2","lgamma_core","stirling_accurate"]};

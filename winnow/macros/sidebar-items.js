@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_partial_eq",1],["impl_partial_ord",1]],"mod":["dispatch","seq","unordered_seq"]};

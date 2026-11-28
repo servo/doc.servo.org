@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["invalidate","invalidate_recursively"]};

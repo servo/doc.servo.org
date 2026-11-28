@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Language"],"fn":["get_language"],"struct":["LanguageIterator","LanguageIteratorUtf16"]};

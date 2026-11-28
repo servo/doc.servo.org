@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CanPlayTypeResult"],"mod":["CanPlayTypeResultValues","GenericBindings","HTMLMediaElementConstants","HTMLMediaElement_Binding"],"trait":["HTMLMediaElementMethods"],"type":["MediaProvider"]};

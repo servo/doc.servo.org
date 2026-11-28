@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FE_C2"],"fn":["differential_add_and_double","elligator_encode"],"struct":["MontgomeryPoint","ProjectivePoint"]};

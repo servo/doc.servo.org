@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EventKind"],"struct":["ParseError"],"trait":["ErrorSink","_"],"type":["Input"]};

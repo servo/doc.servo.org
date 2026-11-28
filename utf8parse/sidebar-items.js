@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CONTINUATION_MASK"],"mod":["types"],"struct":["Parser"],"trait":["Receiver"]};

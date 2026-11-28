@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NUM_DECIMALS"],"fn":["best_in_range_f64","from_decimal_string","is_integer","to_decimal_string"]};

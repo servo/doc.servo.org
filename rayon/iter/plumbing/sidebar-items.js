@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["bridge","bridge_producer_consumer","bridge_unindexed","bridge_unindexed_producer_consumer"],"struct":["LengthSplitter","Splitter"],"trait":["Consumer","Folder","Producer","ProducerCallback","Reducer","UnindexedConsumer","UnindexedProducer"]};

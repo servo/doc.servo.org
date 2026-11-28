@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["apply"],"struct":["Update","UpdateConsumer","UpdateFolder","UpdateProducer","UpdateSeq"]};

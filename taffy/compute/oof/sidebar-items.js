@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["OofAlignment"],"fn":["align_in_line","compute_oof_layout","compute_oof_layout_for_area","layout_oof_box","perform_oof_layout","resolve_static_offset","resolve_static_offset_axis"],"struct":["OofAxis","OofBoxLayout","OofLayoutResult"]};

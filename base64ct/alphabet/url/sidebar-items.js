@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DECODER","ENCODER"],"struct":["Base64Url","Base64UrlUnpadded"]};

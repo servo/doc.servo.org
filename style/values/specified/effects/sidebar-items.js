@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Blend"],"fn":["clamp_to_one","svg_filter_url_enabled"],"struct":["FilterFactor"],"type":["BoxShadow","NonNegativeFactor","SimpleShadow","SpecifiedFilter","ZeroToOneFactor"]};

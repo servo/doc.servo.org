@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["exp_poly","exp_poly_dd","i0_exp","i0_exp_accurate"]};

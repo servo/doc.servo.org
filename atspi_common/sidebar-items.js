@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ClipType","CoordType","Granularity","Layer","Politeness","RelationType","Role","ScrollType"],"mod":["action","cache","error","events","interface","macros","object_match","object_ref","operation","relation_type","role","state"],"struct":["TextSelection"],"type":["Result"]};

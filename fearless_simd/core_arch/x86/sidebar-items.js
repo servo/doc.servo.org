@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["avx","avx2","fma","sse","sse2","sse3","sse4_1","sse4_2","ssse3"],"struct":["Avx","Avx2","Fma","Sse","Sse2","Sse3","Sse4_1","Sse4_2","Ssse3"]};

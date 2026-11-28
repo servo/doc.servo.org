@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get","read","read_link_to_zoneinfo"],"static":["UNIX_LOCALTIME_PATH"]};

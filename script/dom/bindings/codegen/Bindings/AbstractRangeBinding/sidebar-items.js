@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["GetConstructorObject","Wrap"],"mod":["AbstractRange_Binding","GenericBindings"],"trait":["AbstractRangeMethods"]};

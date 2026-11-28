@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["intersect_coverage",1],["intersect_mark_coverages",1]]};

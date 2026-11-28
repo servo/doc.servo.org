@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["WebGLRenderingContext_Binding"],"struct":["WebGLContextAttributes"],"type":["GLbitfield","GLboolean","GLbyte","GLclampf","GLenum","GLfloat","GLint","GLintptr","GLshort","GLsizei","GLsizeiptr","GLubyte","GLuint","GLushort"]};

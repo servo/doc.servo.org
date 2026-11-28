@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Advance","OverlapRelationship","Region"],"fn":["first_strip_at_or_after","flush_strip","intersect","intersect_impl","should_create_new_strip","start_strip"],"struct":["ClipContext","ClipData","ClipFrame","ClipState","FillRegion","Overlap","PathDataRef","RawClip","RowIterator","StripRegion","StripState"]};

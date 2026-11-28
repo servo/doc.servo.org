@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WARNINGS_BUFFER_SIZE"],"enum":["TransferState"],"struct":["BrowsingContextGroup","Constellation","InitialConstellationState","MessagePortInfo","PendingApprovalNavigation","ServiceWorkerPendingUpdate","WebRenderWGPU","WorkerAnimationFrameProvider"],"type":["PendingApprovalNavigations"]};

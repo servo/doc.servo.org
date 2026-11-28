@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Format"],"mod":["format0","format10","format12","format13","format14","format2","format4","format6"],"struct":["EncodingRecord","Subtable","Subtables","SubtablesIter","Table"]};

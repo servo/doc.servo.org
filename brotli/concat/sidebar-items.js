@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FLAG_ANY_BYTES_EMITTED","FLAG_NEW_STREAM","FLAG_OPEN_TAIL","FLAG_TRUNCATED","FLAG_WRITE_SPLICE","NUM_STREAM_HEADER_BYTES"],"enum":["BroCatliResult","ParseError","Phase"],"fn":["bit_range","max_header_bytes","remove_final_empty_metablock"],"struct":["BitReader","BitWriter","BroCatli","ByteBuf"]};

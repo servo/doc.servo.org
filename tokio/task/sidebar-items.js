@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["block_in_place","id","spawn","spawn_blocking","spawn_local","try_id","yield_now"],"mod":["blocking","coop","futures","join_set","local","spawn","task_local","yield_now"],"struct":["AbortHandle","Id","JoinError","JoinHandle","JoinSet","LocalEnterGuard","LocalKey","LocalSet"]};

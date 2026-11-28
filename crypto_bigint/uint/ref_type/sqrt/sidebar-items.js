@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["sqrt_rem_expand_by_word","sqrt_rem_small","sqrt_rem_word"]};

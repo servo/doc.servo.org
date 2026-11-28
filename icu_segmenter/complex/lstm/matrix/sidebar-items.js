@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["unrolled_dot_1","unrolled_dot_2"],"macro":[["f32c",1],["impl_basic_dim",1]],"struct":["MatrixBorrowed","MatrixBorrowedMut","MatrixOwned","MatrixZero"]};

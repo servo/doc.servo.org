@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_sinmx","sinmx_accurate","sinmx_near_zero_hard"]};

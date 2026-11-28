@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decompress_woff2"],"mod":["rust"]};

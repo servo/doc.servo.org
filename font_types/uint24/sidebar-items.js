@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TryFromUint24Error","Uint24"]};

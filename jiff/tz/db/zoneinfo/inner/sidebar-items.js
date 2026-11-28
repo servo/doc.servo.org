@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_TTL"],"fn":["iana_name_from_path","walk"],"static":["ZONEINFO_DIRECTORIES","ZONE_INFO_NAME_INVALID","ZONE_INFO_NAME_UNKNOWN","ZONE_INFO_NAME_VALID"],"struct":["CachedTimeZone","CachedZones","Database","ZoneInfoName","ZoneInfoNameInner","ZoneInfoNames","ZoneInfoNamesInner"]};

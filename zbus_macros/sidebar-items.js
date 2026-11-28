@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["interface","proxy"],"derive":["DBusError"],"mod":["error","iface","proxy","utils"]};

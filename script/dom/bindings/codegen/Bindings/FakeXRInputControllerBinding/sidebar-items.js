@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FakeXRButtonType"],"fn":["Wrap"],"mod":["FakeXRButtonTypeValues","FakeXRInputController_Binding","GenericBindings"],"trait":["FakeXRInputControllerMethods"],"type":["FakeXRButtonStateInit","FakeXRInputSourceInit"]};

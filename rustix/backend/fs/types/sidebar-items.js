@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Advice","FileType","FlockOperation"],"struct":["Access","AtFlags","FallocateFlags","Fsid","MemfdFlags","Mode","OFlags","RenameFlags","ResolveFlags","SealFlags","Stat","StatFs","StatVfs","StatVfsMountFlags"],"type":["Dev","FsWord","RawMode"]};

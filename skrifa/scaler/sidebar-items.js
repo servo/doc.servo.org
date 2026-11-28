@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DrawMemory","DropoutControl","EngineChoice","GlyphSource","OutlineSource","State"],"fn":["draw_options","resolve_outlines"],"mod":["error","hinting","postscript","truetype"],"struct":["DrawnMetrics","GlyphSourceOrder","ScalerFont","ScalerOutline","ScalerSource"],"trait":["PathSink"]};

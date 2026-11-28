@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Drawing glyphs from fonts at a size, with hinting."><title>skrifa - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="skrifa" data-themes="" data-resource-suffix="" data-rustdoc-version="1.99.1 (58cf8f9c3 2026-10-13)" data-channel="1.99.1" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate skrifa</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../skrifa/index.html">skrifa</a><span class="version">0.49.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#drawing" title="Drawing">Drawing</a></li><li><a href="#hinting" title="Hinting">Hinting</a></li><li><a href="#metrics" title="Metrics">Metrics</a></li><li><a href="#the-font-model" title="The font model">The font model</a></li><li><a href="#need-shaping" title="Need shaping?">Need shaping?</a></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#traits" title="Traits">Traits</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>skrifa</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/skrifa/lib.rs.html#1-174">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Drawing glyphs from fonts at a size, with hinting.</p>
+<p>A <a href="struct.Font.html" title="struct skrifa::Font"><code>Font</code></a> is a font at a location in its variation space. A
+<a href="struct.ScalerFont.html" title="struct skrifa::ScalerFont"><code>ScalerFont</code></a> draws the font’s glyph outlines at a size in pixels per em,
+hinted or not.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>skrifa::{
+    font::{glyph::outline::SvgSink, Font},
+    DrawMemory, HintOptions, RasterTarget, ScalerFont,
+};
+
+<span class="comment">// Load the first font in the file and create a bold instance.
+</span><span class="kw">let </span>font = Font::new(data, <span class="number">0</span>).unwrap();
+<span class="kw">let </span>bold = font.instance_builder().variations([(<span class="string">"wght"</span>, <span class="number">700.0</span>)]).build();
+
+<span class="comment">// Find the glyph ID for the character 'A'.
+</span><span class="kw">let </span>glyph_id = bold.charmap().map_unicode(<span class="string">'A'</span>).unwrap_or_default();
+
+<span class="comment">// Configure a scaler font for hinted drawing at 16 pixels per em, using
+// the interpreter with a horizontal subpixel target.
+</span><span class="kw">let </span>options = HintOptions::interpreter().with_target(RasterTarget::Lcd);
+<span class="kw">let </span>scaler = ScalerFont::hinted(bold, <span class="number">16.0</span>, options);
+
+<span class="kw">if let </span><span class="prelude-val">Some</span>(outline) = scaler.outline(glyph_id) {
+    <span class="kw">let </span><span class="kw-2">mut </span>path = SvgSink::new();
+    <span class="comment">// Draw into the path and store the resulting metrics.
+    </span><span class="kw">let </span>metrics = outline.draw(DrawMemory::Scratch, <span class="kw-2">&amp;mut </span>path)<span class="question-mark">?</span>;
+    <span class="macro">println!</span>(<span class="string">"{path} advances by {:?}"</span>, metrics.h_advance);
+}</code></pre></div><h2 id="drawing"><a class="doc-anchor" href="#drawing">§</a>Drawing</h2>
+<p><a href="struct.ScalerFont.html#method.outline" title="method skrifa::ScalerFont::outline"><code>ScalerFont::outline</code></a> returns a glyph’s outline as a <a href="struct.ScalerOutline.html" title="struct skrifa::ScalerOutline"><code>ScalerOutline</code></a>,
+which draws into any <a href="trait.PathSink.html" title="trait skrifa::PathSink"><code>PathSink</code></a>. Drawing needs working memory. By
+default it uses short-lived scratch memory, and a caller drawing many
+glyphs can supply a reusable buffer instead.</p>
+<p>A scaler draws from the first outline table the font contains, in
+<a href="struct.GlyphSourceOrder.html#associatedconstant.DEFAULT" title="associated constant skrifa::GlyphSourceOrder::DEFAULT"><code>GlyphSourceOrder::DEFAULT</code></a>: <code>VARC</code> composites over <code>glyf</code>, <code>CFF2</code>,
+<code>CFF</code> or Type 1 charstrings. To choose other tables, pass a
+<a href="struct.ScalerSource.html" title="struct skrifa::ScalerSource"><code>ScalerSource</code></a> in place of the font. The scaler reports the tables it
+draws from.</p>
+<p>A scaler with no size draws in font units.</p>
+<h2 id="hinting"><a class="doc-anchor" href="#hinting">§</a>Hinting</h2>
+<p>Hinting fits an outline to the pixel grid at the scaler’s size.
+<a href="struct.HintOptions.html" title="struct skrifa::HintOptions"><code>HintOptions</code></a> configures it:</p>
+<ul>
+<li><strong>Engine.</strong> Run the font’s own hints, either TrueType instructions or
+PostScript hints; run the automatic hinter, which derives hints from
+the outline; or pick based on the font, using its own hints where they
+are worth running. A TrueType font that needs its instructions to draw
+correct contours always runs them.</li>
+<li><strong>Target.</strong> Monochrome, grayscale, light grayscale, or horizontal or
+vertical subpixel rendering. Each target hints to suit the way its
+pixels are drawn.</li>
+<li><strong>Linear metrics.</strong> Hint only vertically, keeping the unhinted
+horizontal shape and spacing.</li>
+<li><strong>ClearType compatibility.</strong> Choose between the current ClearType
+behavior of the TrueType interpreter, which follows the font’s <code>gasp</code>
+table, and the classic behavior, which grid fits every glyph.</li>
+<li><strong>Strictness.</strong> Fail a draw when a glyph’s instructions fail, instead of
+keeping the outline as they left it.</li>
+</ul>
+<p>The scaler reports the engine that runs, and the rasterizer settings the
+font requests at the size: whether to smooth along both axes, and the
+dropout control a glyph asks of a monochrome rasterizer.</p>
+<h2 id="metrics"><a class="doc-anchor" href="#metrics">§</a>Metrics</h2>
+<p>A scaler returns the font’s line metrics and heights, its style metrics
+such as the underline and italic angle, and the advance and bounds of each
+glyph, all scaled linearly to its size. Hinting can change a glyph’s
+advance, so hinted glyph metrics come from drawing the outline.</p>
+<h2 id="the-font-model"><a class="doc-anchor" href="#the-font-model">§</a>The font model</h2>
+<p>The <a href="font/index.html" title="mod skrifa::font"><code>font</code></a> module holds everything else about a font: its character
+map, names, variation axes and instances, and color and bitmap glyphs.</p>
+<h2 id="need-shaping"><a class="doc-anchor" href="#need-shaping">§</a>Need shaping?</h2>
+<p><a href="https://docs.rs/harfrust">HarfRust</a> turns text into positioned glyphs.
+It reads fonts through the same font model, so a <a href="struct.Font.html" title="struct skrifa::Font"><code>Font</code></a> can be shaped
+with HarfRust and drawn with a <a href="struct.ScalerFont.html" title="struct skrifa::ScalerFont"><code>ScalerFont</code></a>.</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt><code>pub extern crate <a class="mod" href="../read_fonts/index.html" title="mod read_fonts">read_fonts</a> as raw;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="decycler/index.html" title="mod skrifa::decycler">decycler</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Support for cycle detection in DFS graph traversals.</dd><dt><a class="mod" href="font/index.html" title="mod skrifa::font">font</a></dt><dd>Font types supplied by <code>read-fonts</code>.</dd><dt><a class="mod" href="glyph_name/index.html" title="mod skrifa::glyph_name">glyph_<wbr>name</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Support for accessing glyph names.</dd><dt><a class="mod" href="provider/index.html" title="mod skrifa::provider">provider</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dt><a class="mod" href="scaler/index.html" title="mod skrifa::scaler">scaler</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Scaled and hinted glyphs from a <a href="struct.Font.html" title="struct skrifa::Font"><code>Font</code></a>.</dd><dt><a class="mod" href="variation/index.html" title="mod skrifa::variation">variation</a><span title="Restricted Visibility">&nbsp;🔒</span> </dt><dd>Axes of variation in a variable font.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.DrawnMetrics.html" title="struct skrifa::DrawnMetrics">Drawn<wbr>Metrics</a></dt><dd>What drawing an outline reports about it.</dd><dt><a class="struct" href="struct.Font.html" title="struct skrifa::Font">Font</a></dt><dd>A font at one location in its design space.</dd><dt><a class="struct" href="struct.GlyphId.html" title="struct skrifa::GlyphId">GlyphId</a></dt><dd>A 32-bit glyph identifier.</dd><dt><a class="struct" href="struct.GlyphSourceOrder.html" title="struct skrifa::GlyphSourceOrder">Glyph<wbr>Source<wbr>Order</a></dt><dd>An ordered list of glyph sources, most preferred first.</dd><dt><a class="struct" href="struct.HintOptions.html" title="struct skrifa::HintOptions">Hint<wbr>Options</a></dt><dd>Hinting configuration for a <a href="struct.ScalerFont.html" title="struct skrifa::ScalerFont"><code>ScalerFont</code></a>.</dd><dt><a class="struct" href="struct.RasterPolicy.html" title="struct skrifa::RasterPolicy">Raster<wbr>Policy</a></dt><dd>The smoothing and grid fitting a font requests at a given size.</dd><dt><a class="struct" href="struct.ScalerFont.html" title="struct skrifa::ScalerFont">Scaler<wbr>Font</a></dt><dd>Draws glyphs from a <a href="struct.Font.html" title="struct skrifa::Font"><code>Font</code></a> at a size, with optional hinting.</dd><dt><a class="struct" href="struct.ScalerOutline.html" title="struct skrifa::ScalerOutline">Scaler<wbr>Outline</a></dt><dd>An outline from a <a href="struct.ScalerFont.html" title="struct skrifa::ScalerFont"><code>ScalerFont</code></a>, resolved for drawing.</dd><dt><a class="struct" href="struct.ScalerSource.html" title="struct skrifa::ScalerSource">Scaler<wbr>Source</a></dt><dd>A font and the order in which its outline sources are tried.</dd><dt><a class="struct" href="struct.Tag.html" title="struct skrifa::Tag">Tag</a></dt><dd>An OpenType tag.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.DrawMemory.html" title="enum skrifa::DrawMemory">Draw<wbr>Memory</a></dt><dd>Working memory for drawing an outline.</dd><dt><a class="enum" href="enum.DropoutControl.html" title="enum skrifa::DropoutControl">Dropout<wbr>Control</a></dt><dd>The dropout control mode for a bilevel rasterizer.</dd><dt><a class="enum" href="enum.GlyphSource.html" title="enum skrifa::GlyphSource">Glyph<wbr>Source</a></dt><dd>A table that can provide a glyph.</dd><dt><a class="enum" href="enum.HintEngine.html" title="enum skrifa::HintEngine">Hint<wbr>Engine</a></dt><dd>The hinting engine a scaler runs.</dd><dt><a class="enum" href="enum.OutlineSource.html" title="enum skrifa::OutlineSource">Outline<wbr>Source</a></dt><dd>A table that provides outlines.</dd><dt><a class="enum" href="enum.RasterTarget.html" title="enum skrifa::RasterTarget">Raster<wbr>Target</a></dt><dd>The rasterization target for a hinted outline.</dd><dt><a class="enum" href="enum.ScaleError.html" title="enum skrifa::ScaleError">Scale<wbr>Error</a></dt><dd>An error from drawing a glyph with a <a href="struct.ScalerFont.html" title="struct skrifa::ScalerFont"><code>ScalerFont</code></a>.</dd></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.PathSink.html" title="trait skrifa::PathSink">Path<wbr>Sink</a></dt><dd>Receives the path commands for an outline.</dd></dl></section></div></main></body></html>

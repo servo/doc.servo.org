@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MU"],"fn":["barrett_reduce","q1_times_mu_shift_five","q3_times_n_keep_five","sub_inner_five","subtract_n_if_necessary"]};

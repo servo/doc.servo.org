@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SEQUENCE_FOR_REPLACEMENT_CHARACTER"],"struct":["Utf8CharsWithHandler"],"trait":["Utf8Handler"]};

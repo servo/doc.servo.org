@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["blocking","no_sanitize_realtime","nonblocking"],"fn":["disable","enable","ensure_initialized","notify_blocking_call","realtime_enter","realtime_exit"],"macro":[["scoped_disabler",1]],"struct":["ScopedDisabler","ScopedSanitizeRealtime"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["mul_div_impl_signed",1],["mul_div_impl_unsigned",1]],"trait":["MulDiv"]};

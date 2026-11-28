@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["spare_capacity"],"mod":["private"],"struct":["SpareCapacity"],"trait":["Buffer"]};

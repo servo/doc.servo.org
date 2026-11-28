@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["ConstructorEnabled","CreateInterfaceObjects","DefineDOMInterface","GetConstructorObject","init_statics"],"mod":["GPUMapModeConstants"],"static":["NAMESPACE_OBJECT_CLASS"],"struct":["BindingTables"],"trait":["GPUMapModeMethods"]};

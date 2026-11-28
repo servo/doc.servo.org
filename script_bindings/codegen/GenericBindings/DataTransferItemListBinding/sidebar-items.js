@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["DataTransferItemList_Binding"]};

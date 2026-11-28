@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DisplayStyle"],"fn":["emit","emit_into_string","emit_to_string","emit_to_write_style","emit_with_style"],"mod":["config","renderer","views"],"struct":["Chars","Config","Renderer","RichDiagnostic","ShortDiagnostic"],"trait":["GeneralWrite","WriteStyle"],"type":["GeneralWriteResult"]};

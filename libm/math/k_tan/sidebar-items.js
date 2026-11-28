@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PIO4","PIO4_LO"],"fn":["k_tan","zero_low_word"],"static":["T"]};

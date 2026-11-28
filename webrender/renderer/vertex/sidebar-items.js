@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_VERTEX_TEXTURE_WIDTH","VERTEX_TEXTURE_EXTRA_ROWS"],"enum":["VertexArrayKind"],"mod":["desc"],"struct":["RendererVAOs","VertexDataTexture","VertexDataTextures"]};

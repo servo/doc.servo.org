@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INV_PI_DD","INV_PI_F128","PI_OVER_TWO_F128"],"fn":["f_acospi"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["dynamic","enumflags2","libstd","net","paths","time"],"trait":["Type"]};

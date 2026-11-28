@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["get","get_env_tz","get_force","read_unnamed_tzif_file","reset"],"mod":["sys"],"static":["CACHE","TTL"],"struct":["Cache"]};

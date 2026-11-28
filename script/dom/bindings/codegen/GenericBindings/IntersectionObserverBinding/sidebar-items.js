@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["DefineDOMInterface","GetProtoObject","Wrap"],"mod":["IntersectionObserver_Binding"],"struct":["IntersectionObserverCallback","IntersectionObserverInit"],"trait":["IntersectionObserverMethods"]};

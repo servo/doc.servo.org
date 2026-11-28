@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ResizeObserverBoxOptions"],"fn":["Wrap"],"mod":["GenericBindings","ResizeObserverBoxOptionsValues","ResizeObserver_Binding"],"trait":["ResizeObserverMethods"],"type":["ResizeObserverCallback","ResizeObserverOptions"]};

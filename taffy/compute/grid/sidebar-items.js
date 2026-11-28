@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_container_constants","compute_grid_layout","resolve_static_position_grid_area"],"mod":["alignment","explicit_grid","implicit_grid","placement","track_sizing","types","util"],"struct":["DetailedGridInfo","DetailedGridItemsInfo","DetailedGridTracksInfo","GridContainerConstants"]};

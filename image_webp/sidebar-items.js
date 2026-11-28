@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ColorType","DecodingError","EncodingError","LoopCount","UpsamplingMethod"],"mod":["alpha_blending","decoder","encoder","extended","huffman","loop_filter","lossless","lossless_transform","transform","vp8","vp8_arithmetic_decoder","yuv"],"struct":["EncoderParams","WebPDecodeOptions","WebPDecoder","WebPEncoder"]};

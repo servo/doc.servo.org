@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","WebGL2RenderingContextConstants","WebGL2RenderingContext_Binding"],"trait":["WebGL2RenderingContextMethods"],"type":["GLint64","GLuint64","Uint32List"]};

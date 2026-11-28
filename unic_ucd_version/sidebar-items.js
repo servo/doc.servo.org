@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PKG_DESCRIPTION","PKG_NAME","PKG_VERSION","UNICODE_VERSION"],"mod":["pkg_info","unicode_version"],"struct":["UnicodeVersion"]};

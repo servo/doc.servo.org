@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PatRangeBound"],"fn":["field_pat","multi_pat_impl","pat_box","pat_const","pat_ident","pat_lit_or_range","pat_paren_or_tuple","pat_path_or_macro_or_struct_or_range","pat_range","pat_range_bound","pat_range_half_open","pat_reference","pat_slice","pat_struct","pat_tuple_struct","pat_wild"]};

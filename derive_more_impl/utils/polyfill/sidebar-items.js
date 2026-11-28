@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Meta","NestedMeta","PathOrKeyword"],"struct":["MetaList"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_RESERVED"],"fn":["compress_file","compress_file_into","compress_sized","compress_sized_into","copy_decode","copy_encode","decode_all","decompressed_size","encode_all"]};

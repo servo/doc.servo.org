@@ -1,0 +1,1686 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/read-fonts-0.46.0/src/model/metrics/scaled.rs`."><title>scaled.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../../../" data-static-root-path="../../../../static.files/" data-current-crate="read_fonts" data-themes="" data-resource-suffix="" data-rustdoc-version="1.99.1 (58cf8f9c3 2026-10-13)" data-channel="1.99.1" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../../static.files/src-script-813739b1.js"></script><script defer src="../../../../src-files.js"></script><script defer src="../../../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">read_fonts/model/metrics/</div>scaled.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-4"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! Metrics in a caller's own units.
+<a href=#2 id=2 data-nosnippet>2</a>
+<a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">use super</span>::{
+<a href=#4 id=4 data-nosnippet>4</a>    Decoration, GlyphExtents, GlyphMetrics, LineBox, LineExtents, Metrics, ScriptMetrics,
+<a href=#5 id=5 data-nosnippet>5</a>    StyleMetrics,
+<a href=#6 id=6 data-nosnippet>6</a>};
+<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span><span class="kw">crate</span>::model::glyph::GlyphSourceOrder;
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>types::{BoundingBox, F26Dot6, F48Dot16, Fixed, GlyphId};
+<a href=#9 id=9 data-nosnippet>9</a>
+<a href=#10 id=10 data-nosnippet>10</a><span class="doccomment">/// Converts a measurement in font units into a caller's own units.
+<a href=#11 id=11 data-nosnippet>11</a>///
+<a href=#12 id=12 data-nosnippet>12</a>/// Written by whatever owns scaling in a text stack: a shaper, or the bridge
+<a href=#13 id=13 data-nosnippet>13</a>/// between one and this crate. Callers that want font units read them from
+<a href=#14 id=14 data-nosnippet>14</a>/// [`GlyphMetrics`], [`Metrics`] and [`StyleMetrics`] and never implement this.
+<a href=#15 id=15 data-nosnippet>15</a>///
+<a href=#16 id=16 data-nosnippet>16</a>/// An implementation chooses the number format, the rounding, and the order
+<a href=#17 id=17 data-nosnippet>17</a>/// of operations for each axis. This crate defines how measurements combine
+<a href=#18 id=18 data-nosnippet>18</a>/// into a metric.
+<a href=#19 id=19 data-nosnippet>19</a>///
+<a href=#20 id=20 data-nosnippet>20</a>/// The arithmetic is part of the trait for the same reason: an
+<a href=#21 id=21 data-nosnippet>21</a>/// implementation decides what an overflowing sum does and which way a
+<a href=#22 id=22 data-nosnippet>22</a>/// halved odd number rounds.
+<a href=#23 id=23 data-nosnippet>23</a></span><span class="kw">pub trait </span>Scale {
+<a href=#24 id=24 data-nosnippet>24</a>    <span class="doccomment">/// What a scaled measurement is expressed as.
+<a href=#25 id=25 data-nosnippet>25</a>    </span><span class="kw">type </span>Value: Copy;
+<a href=#26 id=26 data-nosnippet>26</a>
+<a href=#27 id=27 data-nosnippet>27</a>    <span class="doccomment">/// Returns `a` plus `b`.
+<a href=#28 id=28 data-nosnippet>28</a>    ///
+<a href=#29 id=29 data-nosnippet>29</a>    /// This and the two below take no scale. They describe
+<a href=#30 id=30 data-nosnippet>30</a>    /// [`Value`](Self::Value) itself, so every scale of that type answers
+<a href=#31 id=31 data-nosnippet>31</a>    /// them alike.
+<a href=#32 id=32 data-nosnippet>32</a>    </span><span class="kw">fn </span>add(a: <span class="self">Self</span>::Value, b: <span class="self">Self</span>::Value) -&gt; <span class="self">Self</span>::Value;
+<a href=#33 id=33 data-nosnippet>33</a>
+<a href=#34 id=34 data-nosnippet>34</a>    <span class="doccomment">/// Returns `a` less `b`.
+<a href=#35 id=35 data-nosnippet>35</a>    </span><span class="kw">fn </span>sub(a: <span class="self">Self</span>::Value, b: <span class="self">Self</span>::Value) -&gt; <span class="self">Self</span>::Value;
+<a href=#36 id=36 data-nosnippet>36</a>
+<a href=#37 id=37 data-nosnippet>37</a>    <span class="doccomment">/// Returns half of `value`.
+<a href=#38 id=38 data-nosnippet>38</a>    </span><span class="kw">fn </span>half(value: <span class="self">Self</span>::Value) -&gt; <span class="self">Self</span>::Value;
+<a href=#39 id=39 data-nosnippet>39</a>
+<a href=#40 id=40 data-nosnippet>40</a>    <span class="doccomment">/// Scales a measurement along the x axis.
+<a href=#41 id=41 data-nosnippet>41</a>    </span><span class="kw">fn </span>scale_x(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; <span class="self">Self</span>::Value;
+<a href=#42 id=42 data-nosnippet>42</a>
+<a href=#43 id=43 data-nosnippet>43</a>    <span class="doccomment">/// Scales a measurement along the y axis.
+<a href=#44 id=44 data-nosnippet>44</a>    ///
+<a href=#45 id=45 data-nosnippet>45</a>    /// Separate from [`scale_x`](Self::scale_x) because the two axes need
+<a href=#46 id=46 data-nosnippet>46</a>    /// not agree, and because a caller whose y runs down the page says so
+<a href=#47 id=47 data-nosnippet>47</a>    /// here.
+<a href=#48 id=48 data-nosnippet>48</a>    </span><span class="kw">fn </span>scale_y(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; <span class="self">Self</span>::Value;
+<a href=#49 id=49 data-nosnippet>49</a>
+<a href=#50 id=50 data-nosnippet>50</a>    <span class="doccomment">/// Scales where a glyph's ink sits.
+<a href=#51 id=51 data-nosnippet>51</a>    ///
+<a href=#52 id=52 data-nosnippet>52</a>    /// One call rather than four, so that a scale running the other way up
+<a href=#53 id=53 data-nosnippet>53</a>    /// settles in one place what that means for a bearing and a size. The
+<a href=#54 id=54 data-nosnippet>54</a>    /// scale also decides whether to round the box's corners before scaling.
+<a href=#55 id=55 data-nosnippet>55</a>    </span><span class="kw">fn </span>scale_glyph_extents(<span class="kw-2">&amp;</span><span class="self">self</span>, extents: GlyphExtents&lt;F48Dot16&gt;) -&gt; GlyphExtents&lt;<span class="self">Self</span>::Value&gt;;
+<a href=#56 id=56 data-nosnippet>56</a>
+<a href=#57 id=57 data-nosnippet>57</a>    <span class="doccomment">/// Scales a region given by its corners.
+<a href=#58 id=58 data-nosnippet>58</a>    ///
+<a href=#59 id=59 data-nosnippet>59</a>    /// One call for the same reason as [`scale_glyph_extents`](Self::scale_glyph_extents):
+<a href=#60 id=60 data-nosnippet>60</a>    /// a scale running the other way up decides here which corner ends up
+<a href=#61 id=61 data-nosnippet>61</a>    /// least.
+<a href=#62 id=62 data-nosnippet>62</a>    </span><span class="kw">fn </span>scale_rect(<span class="kw-2">&amp;</span><span class="self">self</span>, bounds: BoundingBox&lt;F48Dot16&gt;) -&gt; BoundingBox&lt;<span class="self">Self</span>::Value&gt;;
+<a href=#63 id=63 data-nosnippet>63</a>
+<a href=#64 id=64 data-nosnippet>64</a>    <span class="doccomment">/// Returns the size in pixels per em, if the scale has one.
+<a href=#65 id=65 data-nosnippet>65</a>    ///
+<a href=#66 id=66 data-nosnippet>66</a>    /// Embedded bitmaps are measured from the strike selected for this size.
+<a href=#67 id=67 data-nosnippet>67</a>    /// `None`, the default, selects the largest strike.
+<a href=#68 id=68 data-nosnippet>68</a>    </span><span class="kw">fn </span>ppem(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;f32&gt; {
+<a href=#69 id=69 data-nosnippet>69</a>        <span class="prelude-val">None
+<a href=#70 id=70 data-nosnippet>70</a>    </span>}
+<a href=#71 id=71 data-nosnippet>71</a>}
+<a href=#72 id=72 data-nosnippet>72</a>
+<a href=#73 id=73 data-nosnippet>73</a><span class="doccomment">/// Scales design-unit metrics to 26.6 pixels with 16.16 fixed-point
+<a href=#74 id=74 data-nosnippet>74</a>/// arithmetic.
+<a href=#75 id=75 data-nosnippet>75</a>///
+<a href=#76 id=76 data-nosnippet>76</a>/// Sums saturate and halves round toward negative infinity. A measurement
+<a href=#77 id=77 data-nosnippet>77</a>/// with a fraction is rounded to a whole unit before it is scaled;
+<a href=#78 id=78 data-nosnippet>78</a>/// [`ScaleF32`] keeps the fraction.
+<a href=#79 id=79 data-nosnippet>79</a></span><span class="attr">#[derive(Copy, Clone, Debug)]
+<a href=#80 id=80 data-nosnippet>80</a></span><span class="kw">pub struct </span>Scale26Dot6 {
+<a href=#81 id=81 data-nosnippet>81</a>    x: Fixed,
+<a href=#82 id=82 data-nosnippet>82</a>    y: Fixed,
+<a href=#83 id=83 data-nosnippet>83</a>    ppem: f32,
+<a href=#84 id=84 data-nosnippet>84</a>}
+<a href=#85 id=85 data-nosnippet>85</a>
+<a href=#86 id=86 data-nosnippet>86</a><span class="kw">impl </span>Scale26Dot6 {
+<a href=#87 id=87 data-nosnippet>87</a>    <span class="doccomment">/// Creates a scale with a separate size for each axis.
+<a href=#88 id=88 data-nosnippet>88</a>    </span><span class="kw">pub fn </span>new(x_ppem: f32, y_ppem: f32, units_per_em: u16) -&gt; <span class="self">Self </span>{
+<a href=#89 id=89 data-nosnippet>89</a>        <span class="self">Self </span>{
+<a href=#90 id=90 data-nosnippet>90</a>            x: <span class="self">Self</span>::factor(x_ppem, units_per_em),
+<a href=#91 id=91 data-nosnippet>91</a>            y: <span class="self">Self</span>::factor(y_ppem, units_per_em),
+<a href=#92 id=92 data-nosnippet>92</a>            ppem: x_ppem.max(y_ppem),
+<a href=#93 id=93 data-nosnippet>93</a>        }
+<a href=#94 id=94 data-nosnippet>94</a>    }
+<a href=#95 id=95 data-nosnippet>95</a>
+<a href=#96 id=96 data-nosnippet>96</a>    <span class="doccomment">/// Creates a scale that maps `units_per_em` font units to `ppem` pixels.
+<a href=#97 id=97 data-nosnippet>97</a>    </span><span class="kw">pub fn </span>from_ppem(ppem: f32, units_per_em: u16) -&gt; <span class="self">Self </span>{
+<a href=#98 id=98 data-nosnippet>98</a>        <span class="self">Self</span>::new(ppem, ppem, units_per_em)
+<a href=#99 id=99 data-nosnippet>99</a>    }
+<a href=#100 id=100 data-nosnippet>100</a>
+<a href=#101 id=101 data-nosnippet>101</a>    <span class="doccomment">/// Returns the factor that converts whole font units to 26.6 pixels.
+<a href=#102 id=102 data-nosnippet>102</a>    ///
+<a href=#103 id=103 data-nosnippet>103</a>    /// The factor includes the conversion to 1/64 pixel, so a 16.16 multiply
+<a href=#104 id=104 data-nosnippet>104</a>    /// of a whole design unit produces 26.6 bits.
+<a href=#105 id=105 data-nosnippet>105</a>    </span><span class="kw">fn </span>factor(ppem: f32, units_per_em: u16) -&gt; Fixed {
+<a href=#106 id=106 data-nosnippet>106</a>        Fixed::from_bits((ppem * <span class="number">64.0</span>) <span class="kw">as </span>i32) / Fixed::from_bits(units_per_em.max(<span class="number">1</span>) <span class="kw">as </span>i32)
+<a href=#107 id=107 data-nosnippet>107</a>    }
+<a href=#108 id=108 data-nosnippet>108</a>
+<a href=#109 id=109 data-nosnippet>109</a>    <span class="kw">fn </span>scale(value: F48Dot16, factor: Fixed) -&gt; F26Dot6 {
+<a href=#110 id=110 data-nosnippet>110</a>        F26Dot6::from_bits((Fixed::from_bits(value.to_i32()) * factor).to_bits())
+<a href=#111 id=111 data-nosnippet>111</a>    }
+<a href=#112 id=112 data-nosnippet>112</a>}
+<a href=#113 id=113 data-nosnippet>113</a>
+<a href=#114 id=114 data-nosnippet>114</a><span class="kw">impl </span>Scale <span class="kw">for </span>Scale26Dot6 {
+<a href=#115 id=115 data-nosnippet>115</a>    <span class="kw">type </span>Value = F26Dot6;
+<a href=#116 id=116 data-nosnippet>116</a>
+<a href=#117 id=117 data-nosnippet>117</a>    <span class="kw">fn </span>add(a: F26Dot6, b: F26Dot6) -&gt; F26Dot6 {
+<a href=#118 id=118 data-nosnippet>118</a>        a.saturating_add(b)
+<a href=#119 id=119 data-nosnippet>119</a>    }
+<a href=#120 id=120 data-nosnippet>120</a>
+<a href=#121 id=121 data-nosnippet>121</a>    <span class="kw">fn </span>sub(a: F26Dot6, b: F26Dot6) -&gt; F26Dot6 {
+<a href=#122 id=122 data-nosnippet>122</a>        a.saturating_sub(b)
+<a href=#123 id=123 data-nosnippet>123</a>    }
+<a href=#124 id=124 data-nosnippet>124</a>
+<a href=#125 id=125 data-nosnippet>125</a>    <span class="kw">fn </span>half(value: F26Dot6) -&gt; F26Dot6 {
+<a href=#126 id=126 data-nosnippet>126</a>        F26Dot6::from_bits(value.to_bits() &gt;&gt; <span class="number">1</span>)
+<a href=#127 id=127 data-nosnippet>127</a>    }
+<a href=#128 id=128 data-nosnippet>128</a>
+<a href=#129 id=129 data-nosnippet>129</a>    <span class="kw">fn </span>scale_x(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; F26Dot6 {
+<a href=#130 id=130 data-nosnippet>130</a>        <span class="self">Self</span>::scale(value, <span class="self">self</span>.x)
+<a href=#131 id=131 data-nosnippet>131</a>    }
+<a href=#132 id=132 data-nosnippet>132</a>
+<a href=#133 id=133 data-nosnippet>133</a>    <span class="kw">fn </span>scale_y(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; F26Dot6 {
+<a href=#134 id=134 data-nosnippet>134</a>        <span class="self">Self</span>::scale(value, <span class="self">self</span>.y)
+<a href=#135 id=135 data-nosnippet>135</a>    }
+<a href=#136 id=136 data-nosnippet>136</a>
+<a href=#137 id=137 data-nosnippet>137</a>    <span class="kw">fn </span>scale_glyph_extents(<span class="kw-2">&amp;</span><span class="self">self</span>, e: GlyphExtents&lt;F48Dot16&gt;) -&gt; GlyphExtents&lt;F26Dot6&gt; {
+<a href=#138 id=138 data-nosnippet>138</a>        <span class="kw">if </span>e.width &lt;= F48Dot16::ZERO || e.height &lt;= F48Dot16::ZERO {
+<a href=#139 id=139 data-nosnippet>139</a>            <span class="kw">return </span>GlyphExtents::default();
+<a href=#140 id=140 data-nosnippet>140</a>        }
+<a href=#141 id=141 data-nosnippet>141</a>        <span class="comment">// Match FreeType's FT_RoundFix: ties round away from zero.
+<a href=#142 id=142 data-nosnippet>142</a>        </span><span class="kw">let </span>round = |value: F48Dot16| {
+<a href=#143 id=143 data-nosnippet>143</a>            <span class="kw">let </span>bits = value.to_bits();
+<a href=#144 id=144 data-nosnippet>144</a>            F48Dot16::from_bits(bits.wrapping_add(<span class="number">0x8000 </span>- i64::from(bits &lt; <span class="number">0</span>)) &amp; !<span class="number">0xffff</span>)
+<a href=#145 id=145 data-nosnippet>145</a>        };
+<a href=#146 id=146 data-nosnippet>146</a>        <span class="kw">let </span>left = round(e.x_bearing);
+<a href=#147 id=147 data-nosnippet>147</a>        <span class="kw">let </span>top = round(e.y_bearing);
+<a href=#148 id=148 data-nosnippet>148</a>        <span class="kw">let </span>right = round(e.x_bearing + e.width);
+<a href=#149 id=149 data-nosnippet>149</a>        <span class="kw">let </span>bottom = round(e.y_bearing - e.height);
+<a href=#150 id=150 data-nosnippet>150</a>        GlyphExtents {
+<a href=#151 id=151 data-nosnippet>151</a>            x_bearing: <span class="self">self</span>.scale_x(left),
+<a href=#152 id=152 data-nosnippet>152</a>            y_bearing: <span class="self">self</span>.scale_y(top),
+<a href=#153 id=153 data-nosnippet>153</a>            width: <span class="self">self</span>.scale_x(right - left),
+<a href=#154 id=154 data-nosnippet>154</a>            height: <span class="self">self</span>.scale_y(top - bottom),
+<a href=#155 id=155 data-nosnippet>155</a>        }
+<a href=#156 id=156 data-nosnippet>156</a>    }
+<a href=#157 id=157 data-nosnippet>157</a>
+<a href=#158 id=158 data-nosnippet>158</a>    <span class="kw">fn </span>scale_rect(<span class="kw-2">&amp;</span><span class="self">self</span>, b: BoundingBox&lt;F48Dot16&gt;) -&gt; BoundingBox&lt;F26Dot6&gt; {
+<a href=#159 id=159 data-nosnippet>159</a>        BoundingBox {
+<a href=#160 id=160 data-nosnippet>160</a>            x_min: <span class="self">self</span>.scale_x(b.x_min),
+<a href=#161 id=161 data-nosnippet>161</a>            y_min: <span class="self">self</span>.scale_y(b.y_min),
+<a href=#162 id=162 data-nosnippet>162</a>            x_max: <span class="self">self</span>.scale_x(b.x_max),
+<a href=#163 id=163 data-nosnippet>163</a>            y_max: <span class="self">self</span>.scale_y(b.y_max),
+<a href=#164 id=164 data-nosnippet>164</a>        }
+<a href=#165 id=165 data-nosnippet>165</a>    }
+<a href=#166 id=166 data-nosnippet>166</a>
+<a href=#167 id=167 data-nosnippet>167</a>    <span class="kw">fn </span>ppem(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;f32&gt; {
+<a href=#168 id=168 data-nosnippet>168</a>        <span class="prelude-val">Some</span>(<span class="self">self</span>.ppem)
+<a href=#169 id=169 data-nosnippet>169</a>    }
+<a href=#170 id=170 data-nosnippet>170</a>}
+<a href=#171 id=171 data-nosnippet>171</a>
+<a href=#172 id=172 data-nosnippet>172</a><span class="doccomment">/// Scales font units to `f32` pixels.
+<a href=#173 id=173 data-nosnippet>173</a>///
+<a href=#174 id=174 data-nosnippet>174</a>/// Nothing here rounds, so a measurement carrying a fraction keeps it, which
+<a href=#175 id=175 data-nosnippet>175</a>/// [`Scale26Dot6`] does not.
+<a href=#176 id=176 data-nosnippet>176</a></span><span class="attr">#[derive(Copy, Clone, Debug)]
+<a href=#177 id=177 data-nosnippet>177</a></span><span class="kw">pub struct </span>ScaleF32 {
+<a href=#178 id=178 data-nosnippet>178</a>    x: f32,
+<a href=#179 id=179 data-nosnippet>179</a>    y: f32,
+<a href=#180 id=180 data-nosnippet>180</a>    ppem: f32,
+<a href=#181 id=181 data-nosnippet>181</a>}
+<a href=#182 id=182 data-nosnippet>182</a>
+<a href=#183 id=183 data-nosnippet>183</a><span class="kw">impl </span>ScaleF32 {
+<a href=#184 id=184 data-nosnippet>184</a>    <span class="doccomment">/// Creates a scale with a separate size for each axis.
+<a href=#185 id=185 data-nosnippet>185</a>    </span><span class="kw">pub fn </span>new(x_ppem: f32, y_ppem: f32, units_per_em: u16) -&gt; <span class="self">Self </span>{
+<a href=#186 id=186 data-nosnippet>186</a>        <span class="kw">let </span>per_unit = |ppem: f32| ppem / units_per_em.max(<span class="number">1</span>) <span class="kw">as </span>f32;
+<a href=#187 id=187 data-nosnippet>187</a>        <span class="self">Self </span>{
+<a href=#188 id=188 data-nosnippet>188</a>            x: per_unit(x_ppem),
+<a href=#189 id=189 data-nosnippet>189</a>            y: per_unit(y_ppem),
+<a href=#190 id=190 data-nosnippet>190</a>            ppem: x_ppem.max(y_ppem),
+<a href=#191 id=191 data-nosnippet>191</a>        }
+<a href=#192 id=192 data-nosnippet>192</a>    }
+<a href=#193 id=193 data-nosnippet>193</a>
+<a href=#194 id=194 data-nosnippet>194</a>    <span class="doccomment">/// Creates a scale that maps `units_per_em` font units to `ppem` pixels.
+<a href=#195 id=195 data-nosnippet>195</a>    </span><span class="kw">pub fn </span>from_ppem(ppem: f32, units_per_em: u16) -&gt; <span class="self">Self </span>{
+<a href=#196 id=196 data-nosnippet>196</a>        <span class="self">Self</span>::new(ppem, ppem, units_per_em)
+<a href=#197 id=197 data-nosnippet>197</a>    }
+<a href=#198 id=198 data-nosnippet>198</a>}
+<a href=#199 id=199 data-nosnippet>199</a>
+<a href=#200 id=200 data-nosnippet>200</a><span class="kw">impl </span>Scale <span class="kw">for </span>ScaleF32 {
+<a href=#201 id=201 data-nosnippet>201</a>    <span class="kw">type </span>Value = f32;
+<a href=#202 id=202 data-nosnippet>202</a>
+<a href=#203 id=203 data-nosnippet>203</a>    <span class="kw">fn </span>add(a: f32, b: f32) -&gt; f32 {
+<a href=#204 id=204 data-nosnippet>204</a>        a + b
+<a href=#205 id=205 data-nosnippet>205</a>    }
+<a href=#206 id=206 data-nosnippet>206</a>
+<a href=#207 id=207 data-nosnippet>207</a>    <span class="kw">fn </span>sub(a: f32, b: f32) -&gt; f32 {
+<a href=#208 id=208 data-nosnippet>208</a>        a - b
+<a href=#209 id=209 data-nosnippet>209</a>    }
+<a href=#210 id=210 data-nosnippet>210</a>
+<a href=#211 id=211 data-nosnippet>211</a>    <span class="kw">fn </span>half(value: f32) -&gt; f32 {
+<a href=#212 id=212 data-nosnippet>212</a>        value * <span class="number">0.5
+<a href=#213 id=213 data-nosnippet>213</a>    </span>}
+<a href=#214 id=214 data-nosnippet>214</a>
+<a href=#215 id=215 data-nosnippet>215</a>    <span class="kw">fn </span>scale_x(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; f32 {
+<a href=#216 id=216 data-nosnippet>216</a>        value.to_f32() * <span class="self">self</span>.x
+<a href=#217 id=217 data-nosnippet>217</a>    }
+<a href=#218 id=218 data-nosnippet>218</a>
+<a href=#219 id=219 data-nosnippet>219</a>    <span class="kw">fn </span>scale_y(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; f32 {
+<a href=#220 id=220 data-nosnippet>220</a>        value.to_f32() * <span class="self">self</span>.y
+<a href=#221 id=221 data-nosnippet>221</a>    }
+<a href=#222 id=222 data-nosnippet>222</a>
+<a href=#223 id=223 data-nosnippet>223</a>    <span class="kw">fn </span>scale_glyph_extents(<span class="kw-2">&amp;</span><span class="self">self</span>, e: GlyphExtents&lt;F48Dot16&gt;) -&gt; GlyphExtents&lt;f32&gt; {
+<a href=#224 id=224 data-nosnippet>224</a>        GlyphExtents {
+<a href=#225 id=225 data-nosnippet>225</a>            x_bearing: <span class="self">self</span>.scale_x(e.x_bearing),
+<a href=#226 id=226 data-nosnippet>226</a>            y_bearing: <span class="self">self</span>.scale_y(e.y_bearing),
+<a href=#227 id=227 data-nosnippet>227</a>            width: <span class="self">self</span>.scale_x(e.width),
+<a href=#228 id=228 data-nosnippet>228</a>            height: <span class="self">self</span>.scale_y(e.height),
+<a href=#229 id=229 data-nosnippet>229</a>        }
+<a href=#230 id=230 data-nosnippet>230</a>    }
+<a href=#231 id=231 data-nosnippet>231</a>
+<a href=#232 id=232 data-nosnippet>232</a>    <span class="kw">fn </span>scale_rect(<span class="kw-2">&amp;</span><span class="self">self</span>, b: BoundingBox&lt;F48Dot16&gt;) -&gt; BoundingBox&lt;f32&gt; {
+<a href=#233 id=233 data-nosnippet>233</a>        BoundingBox {
+<a href=#234 id=234 data-nosnippet>234</a>            x_min: <span class="self">self</span>.scale_x(b.x_min),
+<a href=#235 id=235 data-nosnippet>235</a>            y_min: <span class="self">self</span>.scale_y(b.y_min),
+<a href=#236 id=236 data-nosnippet>236</a>            x_max: <span class="self">self</span>.scale_x(b.x_max),
+<a href=#237 id=237 data-nosnippet>237</a>            y_max: <span class="self">self</span>.scale_y(b.y_max),
+<a href=#238 id=238 data-nosnippet>238</a>        }
+<a href=#239 id=239 data-nosnippet>239</a>    }
+<a href=#240 id=240 data-nosnippet>240</a>
+<a href=#241 id=241 data-nosnippet>241</a>    <span class="kw">fn </span>ppem(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;f32&gt; {
+<a href=#242 id=242 data-nosnippet>242</a>        <span class="prelude-val">Some</span>(<span class="self">self</span>.ppem)
+<a href=#243 id=243 data-nosnippet>243</a>    }
+<a href=#244 id=244 data-nosnippet>244</a>}
+<a href=#245 id=245 data-nosnippet>245</a>
+<a href=#246 id=246 data-nosnippet>246</a><span class="doccomment">/// Measurements of a font as a whole, in a caller's own units.
+<a href=#247 id=247 data-nosnippet>247</a>///
+<a href=#248 id=248 data-nosnippet>248</a>/// A view rather than a set of scaled fields, so reading one measurement
+<a href=#249 id=249 data-nosnippet>249</a>/// does not compute the rest. What carries no unit, such as the glyph count,
+<a href=#250 id=250 data-nosnippet>250</a>/// is reported unchanged.
+<a href=#251 id=251 data-nosnippet>251</a></span><span class="attr">#[derive(Clone, Copy)]
+<a href=#252 id=252 data-nosnippet>252</a></span><span class="kw">pub struct </span>ScaledMetrics&lt;<span class="lifetime">'a</span>, S: Scale&gt; {
+<a href=#253 id=253 data-nosnippet>253</a>    metrics: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Metrics,
+<a href=#254 id=254 data-nosnippet>254</a>    scale: S,
+<a href=#255 id=255 data-nosnippet>255</a>}
+<a href=#256 id=256 data-nosnippet>256</a>
+<a href=#257 id=257 data-nosnippet>257</a><span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, S: Scale&gt; ScaledMetrics&lt;<span class="lifetime">'a</span>, S&gt; {
+<a href=#258 id=258 data-nosnippet>258</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(metrics: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Metrics, scale: S) -&gt; <span class="self">Self </span>{
+<a href=#259 id=259 data-nosnippet>259</a>        <span class="self">Self </span>{ metrics, scale }
+<a href=#260 id=260 data-nosnippet>260</a>    }
+<a href=#261 id=261 data-nosnippet>261</a>
+<a href=#262 id=262 data-nosnippet>262</a>    <span class="doccomment">/// Returns the number of glyphs in the font.
+<a href=#263 id=263 data-nosnippet>263</a>    </span><span class="attr">#[inline]
+<a href=#264 id=264 data-nosnippet>264</a>    </span><span class="kw">pub fn </span>num_glyphs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+<a href=#265 id=265 data-nosnippet>265</a>        <span class="self">self</span>.metrics.num_glyphs
+<a href=#266 id=266 data-nosnippet>266</a>    }
+<a href=#267 id=267 data-nosnippet>267</a>
+<a href=#268 id=268 data-nosnippet>268</a>    <span class="doccomment">/// Returns the size of the font's design em.
+<a href=#269 id=269 data-nosnippet>269</a>    </span><span class="attr">#[inline]
+<a href=#270 id=270 data-nosnippet>270</a>    </span><span class="kw">pub fn </span>units_per_em(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u16 {
+<a href=#271 id=271 data-nosnippet>271</a>        <span class="self">self</span>.metrics.units_per_em
+<a href=#272 id=272 data-nosnippet>272</a>    }
+<a href=#273 id=273 data-nosnippet>273</a>
+<a href=#274 id=274 data-nosnippet>274</a>    <span class="doccomment">/// Returns the box enclosing every glyph in the font.
+<a href=#275 id=275 data-nosnippet>275</a>    </span><span class="attr">#[inline]
+<a href=#276 id=276 data-nosnippet>276</a>    </span><span class="kw">pub fn </span>bounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; BoundingBox&lt;S::Value&gt; {
+<a href=#277 id=277 data-nosnippet>277</a>        <span class="self">self</span>.scale.scale_rect(<span class="self">self</span>.metrics.bounds)
+<a href=#278 id=278 data-nosnippet>278</a>    }
+<a href=#279 id=279 data-nosnippet>279</a>
+<a href=#280 id=280 data-nosnippet>280</a>    <span class="doccomment">/// Returns the ascender, descender and gap for horizontal text.
+<a href=#281 id=281 data-nosnippet>281</a>    ///
+<a href=#282 id=282 data-nosnippet>282</a>    /// Resolved as [`Metrics::h_line`] resolves it, with each end
+<a href=#283 id=283 data-nosnippet>283</a>    /// scaled on its own so that a caller subtracting them gets the height
+<a href=#284 id=284 data-nosnippet>284</a>    /// the glyph metrics report for a font that stacks by this line.
+<a href=#285 id=285 data-nosnippet>285</a>    </span><span class="attr">#[inline]
+<a href=#286 id=286 data-nosnippet>286</a>    </span><span class="kw">pub fn </span>h_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LineBox&lt;S::Value&gt;&gt; {
+<a href=#287 id=287 data-nosnippet>287</a>        <span class="self">self</span>.metrics.h_line().map(|line| <span class="self">self</span>.scale_line_y(line))
+<a href=#288 id=288 data-nosnippet>288</a>    }
+<a href=#289 id=289 data-nosnippet>289</a>
+<a href=#290 id=290 data-nosnippet>290</a>    <span class="doccomment">/// Returns the line `hhea` provides.
+<a href=#291 id=291 data-nosnippet>291</a>    </span><span class="attr">#[inline]
+<a href=#292 id=292 data-nosnippet>292</a>    </span><span class="kw">pub fn </span>hhea_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LineBox&lt;S::Value&gt;&gt; {
+<a href=#293 id=293 data-nosnippet>293</a>        <span class="self">self</span>.metrics.hhea_line.map(|line| <span class="self">self</span>.scale_line_y(line))
+<a href=#294 id=294 data-nosnippet>294</a>    }
+<a href=#295 id=295 data-nosnippet>295</a>
+<a href=#296 id=296 data-nosnippet>296</a>    <span class="doccomment">/// Returns the typographic line `OS/2` provides.
+<a href=#297 id=297 data-nosnippet>297</a>    </span><span class="attr">#[inline]
+<a href=#298 id=298 data-nosnippet>298</a>    </span><span class="kw">pub fn </span>typo_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LineBox&lt;S::Value&gt;&gt; {
+<a href=#299 id=299 data-nosnippet>299</a>        <span class="self">self</span>.metrics.typo_line.map(|line| <span class="self">self</span>.scale_line_y(line))
+<a href=#300 id=300 data-nosnippet>300</a>    }
+<a href=#301 id=301 data-nosnippet>301</a>
+<a href=#302 id=302 data-nosnippet>302</a>    <span class="doccomment">/// Returns whether the font asks for its typographic line to be read.
+<a href=#303 id=303 data-nosnippet>303</a>    </span><span class="attr">#[inline]
+<a href=#304 id=304 data-nosnippet>304</a>    </span><span class="kw">pub fn </span>use_typo_metrics(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+<a href=#305 id=305 data-nosnippet>305</a>        <span class="self">self</span>.metrics.use_typo_metrics
+<a href=#306 id=306 data-nosnippet>306</a>    }
+<a href=#307 id=307 data-nosnippet>307</a>
+<a href=#308 id=308 data-nosnippet>308</a>    <span class="doccomment">/// Returns the line `vhea` provides, where the font has one.
+<a href=#309 id=309 data-nosnippet>309</a>    ///
+<a href=#310 id=310 data-nosnippet>310</a>    /// A vertical line runs across the page, so its measurements scale along
+<a href=#311 id=311 data-nosnippet>311</a>    /// x where a horizontal line's scale along y.
+<a href=#312 id=312 data-nosnippet>312</a>    </span><span class="attr">#[inline]
+<a href=#313 id=313 data-nosnippet>313</a>    </span><span class="kw">pub fn </span>vhea_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LineBox&lt;S::Value&gt;&gt; {
+<a href=#314 id=314 data-nosnippet>314</a>        <span class="self">self</span>.metrics.vhea_line.map(|line| LineBox {
+<a href=#315 id=315 data-nosnippet>315</a>            ascender: <span class="self">self</span>.scale.scale_x(line.ascender),
+<a href=#316 id=316 data-nosnippet>316</a>            descender: <span class="self">self</span>.scale.scale_x(line.descender),
+<a href=#317 id=317 data-nosnippet>317</a>            line_gap: <span class="self">self</span>.scale.scale_x(line.line_gap),
+<a href=#318 id=318 data-nosnippet>318</a>        })
+<a href=#319 id=319 data-nosnippet>319</a>    }
+<a href=#320 id=320 data-nosnippet>320</a>
+<a href=#321 id=321 data-nosnippet>321</a>    <span class="doccomment">/// Returns the height of a lowercase letter, where the font provides one.
+<a href=#322 id=322 data-nosnippet>322</a>    </span><span class="attr">#[inline]
+<a href=#323 id=323 data-nosnippet>323</a>    </span><span class="kw">pub fn </span>x_height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;S::Value&gt; {
+<a href=#324 id=324 data-nosnippet>324</a>        <span class="self">self</span>.scaled_y(<span class="self">self</span>.metrics.x_height)
+<a href=#325 id=325 data-nosnippet>325</a>    }
+<a href=#326 id=326 data-nosnippet>326</a>
+<a href=#327 id=327 data-nosnippet>327</a>    <span class="doccomment">/// Returns the height of a capital letter, where the font provides one.
+<a href=#328 id=328 data-nosnippet>328</a>    </span><span class="attr">#[inline]
+<a href=#329 id=329 data-nosnippet>329</a>    </span><span class="kw">pub fn </span>cap_height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;S::Value&gt; {
+<a href=#330 id=330 data-nosnippet>330</a>        <span class="self">self</span>.scaled_y(<span class="self">self</span>.metrics.cap_height)
+<a href=#331 id=331 data-nosnippet>331</a>    }
+<a href=#332 id=332 data-nosnippet>332</a>
+<a href=#333 id=333 data-nosnippet>333</a>    <span class="doccomment">/// Returns the widest advance in the font, where it provides one.
+<a href=#334 id=334 data-nosnippet>334</a>    </span><span class="attr">#[inline]
+<a href=#335 id=335 data-nosnippet>335</a>    </span><span class="kw">pub fn </span>max_h_advance(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;S::Value&gt; {
+<a href=#336 id=336 data-nosnippet>336</a>        <span class="self">self</span>.metrics
+<a href=#337 id=337 data-nosnippet>337</a>            .max_h_advance
+<a href=#338 id=338 data-nosnippet>338</a>            .map(|value| <span class="self">self</span>.scale.scale_x(value))
+<a href=#339 id=339 data-nosnippet>339</a>    }
+<a href=#340 id=340 data-nosnippet>340</a>
+<a href=#341 id=341 data-nosnippet>341</a>    <span class="doccomment">/// Returns the tallest advance in the font, where it provides one.
+<a href=#342 id=342 data-nosnippet>342</a>    </span><span class="attr">#[inline]
+<a href=#343 id=343 data-nosnippet>343</a>    </span><span class="kw">pub fn </span>max_v_advance(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;S::Value&gt; {
+<a href=#344 id=344 data-nosnippet>344</a>        <span class="self">self</span>.scaled_y(<span class="self">self</span>.metrics.max_v_advance)
+<a href=#345 id=345 data-nosnippet>345</a>    }
+<a href=#346 id=346 data-nosnippet>346</a>
+<a href=#347 id=347 data-nosnippet>347</a>    <span class="doccomment">/// Returns the average advance in the font, where it provides one.
+<a href=#348 id=348 data-nosnippet>348</a>    </span><span class="attr">#[inline]
+<a href=#349 id=349 data-nosnippet>349</a>    </span><span class="kw">pub fn </span>average_char_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;S::Value&gt; {
+<a href=#350 id=350 data-nosnippet>350</a>        <span class="self">self</span>.metrics
+<a href=#351 id=351 data-nosnippet>351</a>            .average_char_width
+<a href=#352 id=352 data-nosnippet>352</a>            .map(|value| <span class="self">self</span>.scale.scale_x(value))
+<a href=#353 id=353 data-nosnippet>353</a>    }
+<a href=#354 id=354 data-nosnippet>354</a>
+<a href=#355 id=355 data-nosnippet>355</a>    <span class="doccomment">/// Returns the line outside which the font asks not to be clipped.
+<a href=#356 id=356 data-nosnippet>356</a>    </span><span class="attr">#[inline]
+<a href=#357 id=357 data-nosnippet>357</a>    </span><span class="kw">pub fn </span>win_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LineExtents&lt;S::Value&gt;&gt; {
+<a href=#358 id=358 data-nosnippet>358</a>        <span class="self">self</span>.metrics.win_line.map(|line| <span class="self">self</span>.scale_line(line))
+<a href=#359 id=359 data-nosnippet>359</a>    }
+<a href=#360 id=360 data-nosnippet>360</a>
+<a href=#361 id=361 data-nosnippet>361</a>    <span class="attr">#[inline]
+<a href=#362 id=362 data-nosnippet>362</a>    </span><span class="kw">fn </span>scale_line_y(<span class="kw-2">&amp;</span><span class="self">self</span>, line: LineBox&lt;F48Dot16&gt;) -&gt; LineBox&lt;S::Value&gt; {
+<a href=#363 id=363 data-nosnippet>363</a>        LineBox {
+<a href=#364 id=364 data-nosnippet>364</a>            ascender: <span class="self">self</span>.scale.scale_y(line.ascender),
+<a href=#365 id=365 data-nosnippet>365</a>            descender: <span class="self">self</span>.scale.scale_y(line.descender),
+<a href=#366 id=366 data-nosnippet>366</a>            line_gap: <span class="self">self</span>.scale.scale_y(line.line_gap),
+<a href=#367 id=367 data-nosnippet>367</a>        }
+<a href=#368 id=368 data-nosnippet>368</a>    }
+<a href=#369 id=369 data-nosnippet>369</a>
+<a href=#370 id=370 data-nosnippet>370</a>    <span class="attr">#[inline]
+<a href=#371 id=371 data-nosnippet>371</a>    </span><span class="kw">fn </span>scale_line(<span class="kw-2">&amp;</span><span class="self">self</span>, line: LineExtents&lt;F48Dot16&gt;) -&gt; LineExtents&lt;S::Value&gt; {
+<a href=#372 id=372 data-nosnippet>372</a>        LineExtents {
+<a href=#373 id=373 data-nosnippet>373</a>            ascender: <span class="self">self</span>.scale.scale_y(line.ascender),
+<a href=#374 id=374 data-nosnippet>374</a>            descender: <span class="self">self</span>.scale.scale_y(line.descender),
+<a href=#375 id=375 data-nosnippet>375</a>        }
+<a href=#376 id=376 data-nosnippet>376</a>    }
+<a href=#377 id=377 data-nosnippet>377</a>
+<a href=#378 id=378 data-nosnippet>378</a>    <span class="attr">#[inline]
+<a href=#379 id=379 data-nosnippet>379</a>    </span><span class="kw">fn </span>scaled_y(<span class="kw-2">&amp;</span><span class="self">self</span>, value: <span class="prelude-ty">Option</span>&lt;F48Dot16&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;S::Value&gt; {
+<a href=#380 id=380 data-nosnippet>380</a>        value.map(|value| <span class="self">self</span>.scale.scale_y(value))
+<a href=#381 id=381 data-nosnippet>381</a>    }
+<a href=#382 id=382 data-nosnippet>382</a>}
+<a href=#383 id=383 data-nosnippet>383</a>
+<a href=#384 id=384 data-nosnippet>384</a><span class="kw">impl </span>Metrics {
+<a href=#385 id=385 data-nosnippet>385</a>    <span class="doccomment">/// Returns these metrics in the units `scale` describes.
+<a href=#386 id=386 data-nosnippet>386</a>    </span><span class="attr">#[inline]
+<a href=#387 id=387 data-nosnippet>387</a>    </span><span class="kw">pub fn </span>scaled&lt;S: Scale&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: S) -&gt; ScaledMetrics&lt;<span class="lifetime">'_</span>, S&gt; {
+<a href=#388 id=388 data-nosnippet>388</a>        ScaledMetrics::new(<span class="self">self</span>, scale)
+<a href=#389 id=389 data-nosnippet>389</a>    }
+<a href=#390 id=390 data-nosnippet>390</a>
+<a href=#391 id=391 data-nosnippet>391</a>    <span class="doccomment">/// Returns these metrics in pixels at `ppem`, as `f32`.
+<a href=#392 id=392 data-nosnippet>392</a>    </span><span class="attr">#[inline]
+<a href=#393 id=393 data-nosnippet>393</a>    </span><span class="kw">pub fn </span>scaled_f32(<span class="kw-2">&amp;</span><span class="self">self</span>, ppem: f32) -&gt; ScaledMetrics&lt;<span class="lifetime">'_</span>, ScaleF32&gt; {
+<a href=#394 id=394 data-nosnippet>394</a>        <span class="self">self</span>.scaled(ScaleF32::from_ppem(ppem, <span class="self">self</span>.units_per_em))
+<a href=#395 id=395 data-nosnippet>395</a>    }
+<a href=#396 id=396 data-nosnippet>396</a>
+<a href=#397 id=397 data-nosnippet>397</a>    <span class="doccomment">/// Returns these metrics in pixels at `ppem`, in 26.6 fixed point.
+<a href=#398 id=398 data-nosnippet>398</a>    </span><span class="attr">#[inline]
+<a href=#399 id=399 data-nosnippet>399</a>    </span><span class="kw">pub fn </span>scaled_26dot6(<span class="kw-2">&amp;</span><span class="self">self</span>, ppem: f32) -&gt; ScaledMetrics&lt;<span class="lifetime">'_</span>, Scale26Dot6&gt; {
+<a href=#400 id=400 data-nosnippet>400</a>        <span class="self">self</span>.scaled(Scale26Dot6::from_ppem(ppem, <span class="self">self</span>.units_per_em))
+<a href=#401 id=401 data-nosnippet>401</a>    }
+<a href=#402 id=402 data-nosnippet>402</a>}
+<a href=#403 id=403 data-nosnippet>403</a>
+<a href=#404 id=404 data-nosnippet>404</a><span class="doccomment">/// Style measurements in a caller's own units.
+<a href=#405 id=405 data-nosnippet>405</a>///
+<a href=#406 id=406 data-nosnippet>406</a>/// Scaling is done when a measurement is requested. The italic angle and
+<a href=#407 id=407 data-nosnippet>407</a>/// fixed-pitch flag have no length to scale and are returned unchanged.
+<a href=#408 id=408 data-nosnippet>408</a></span><span class="attr">#[derive(Clone, Copy)]
+<a href=#409 id=409 data-nosnippet>409</a></span><span class="kw">pub struct </span>ScaledStyleMetrics&lt;<span class="lifetime">'a</span>, S: Scale&gt; {
+<a href=#410 id=410 data-nosnippet>410</a>    metrics: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>StyleMetrics,
+<a href=#411 id=411 data-nosnippet>411</a>    scale: S,
+<a href=#412 id=412 data-nosnippet>412</a>}
+<a href=#413 id=413 data-nosnippet>413</a>
+<a href=#414 id=414 data-nosnippet>414</a><span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, S: Scale&gt; ScaledStyleMetrics&lt;<span class="lifetime">'a</span>, S&gt; {
+<a href=#415 id=415 data-nosnippet>415</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(metrics: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>StyleMetrics, scale: S) -&gt; <span class="self">Self </span>{
+<a href=#416 id=416 data-nosnippet>416</a>        <span class="self">Self </span>{ metrics, scale }
+<a href=#417 id=417 data-nosnippet>417</a>    }
+<a href=#418 id=418 data-nosnippet>418</a>
+<a href=#419 id=419 data-nosnippet>419</a>    <span class="doccomment">/// Returns the suggested subscript em box and placement.
+<a href=#420 id=420 data-nosnippet>420</a>    </span><span class="kw">pub fn </span>subscript(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;ScriptMetrics&lt;S::Value&gt;&gt; {
+<a href=#421 id=421 data-nosnippet>421</a>        <span class="self">self</span>.metrics
+<a href=#422 id=422 data-nosnippet>422</a>            .subscript
+<a href=#423 id=423 data-nosnippet>423</a>            .map(|script| <span class="self">self</span>.scale_script(script))
+<a href=#424 id=424 data-nosnippet>424</a>    }
+<a href=#425 id=425 data-nosnippet>425</a>
+<a href=#426 id=426 data-nosnippet>426</a>    <span class="doccomment">/// Returns the suggested superscript em box and placement.
+<a href=#427 id=427 data-nosnippet>427</a>    </span><span class="kw">pub fn </span>superscript(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;ScriptMetrics&lt;S::Value&gt;&gt; {
+<a href=#428 id=428 data-nosnippet>428</a>        <span class="self">self</span>.metrics
+<a href=#429 id=429 data-nosnippet>429</a>            .superscript
+<a href=#430 id=430 data-nosnippet>430</a>            .map(|script| <span class="self">self</span>.scale_script(script))
+<a href=#431 id=431 data-nosnippet>431</a>    }
+<a href=#432 id=432 data-nosnippet>432</a>
+<a href=#433 id=433 data-nosnippet>433</a>    <span class="doccomment">/// Returns the suggested underline position and thickness.
+<a href=#434 id=434 data-nosnippet>434</a>    </span><span class="kw">pub fn </span>underline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Decoration&lt;S::Value&gt;&gt; {
+<a href=#435 id=435 data-nosnippet>435</a>        <span class="self">self</span>.metrics
+<a href=#436 id=436 data-nosnippet>436</a>            .underline
+<a href=#437 id=437 data-nosnippet>437</a>            .map(|decoration| <span class="self">self</span>.scale_decoration(decoration))
+<a href=#438 id=438 data-nosnippet>438</a>    }
+<a href=#439 id=439 data-nosnippet>439</a>
+<a href=#440 id=440 data-nosnippet>440</a>    <span class="doccomment">/// Returns the suggested strikethrough position and thickness.
+<a href=#441 id=441 data-nosnippet>441</a>    </span><span class="kw">pub fn </span>strike_through(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Decoration&lt;S::Value&gt;&gt; {
+<a href=#442 id=442 data-nosnippet>442</a>        <span class="self">self</span>.metrics
+<a href=#443 id=443 data-nosnippet>443</a>            .strike_through
+<a href=#444 id=444 data-nosnippet>444</a>            .map(|decoration| <span class="self">self</span>.scale_decoration(decoration))
+<a href=#445 id=445 data-nosnippet>445</a>    }
+<a href=#446 id=446 data-nosnippet>446</a>
+<a href=#447 id=447 data-nosnippet>447</a>    <span class="doccomment">/// Returns the italic angle in degrees, unaffected by scaling.
+<a href=#448 id=448 data-nosnippet>448</a>    </span><span class="kw">pub fn </span>italic_angle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Fixed&gt; {
+<a href=#449 id=449 data-nosnippet>449</a>        <span class="self">self</span>.metrics.italic_angle
+<a href=#450 id=450 data-nosnippet>450</a>    }
+<a href=#451 id=451 data-nosnippet>451</a>
+<a href=#452 id=452 data-nosnippet>452</a>    <span class="doccomment">/// Returns whether the font reports a fixed pitch.
+<a href=#453 id=453 data-nosnippet>453</a>    </span><span class="kw">pub fn </span>is_fixed_pitch(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;bool&gt; {
+<a href=#454 id=454 data-nosnippet>454</a>        <span class="self">self</span>.metrics.is_fixed_pitch
+<a href=#455 id=455 data-nosnippet>455</a>    }
+<a href=#456 id=456 data-nosnippet>456</a>
+<a href=#457 id=457 data-nosnippet>457</a>    <span class="kw">fn </span>scale_script(<span class="kw-2">&amp;</span><span class="self">self</span>, script: ScriptMetrics) -&gt; ScriptMetrics&lt;S::Value&gt; {
+<a href=#458 id=458 data-nosnippet>458</a>        ScriptMetrics {
+<a href=#459 id=459 data-nosnippet>459</a>            x_size: <span class="self">self</span>.scale.scale_x(script.x_size),
+<a href=#460 id=460 data-nosnippet>460</a>            y_size: <span class="self">self</span>.scale.scale_y(script.y_size),
+<a href=#461 id=461 data-nosnippet>461</a>            x_offset: <span class="self">self</span>.scale.scale_x(script.x_offset),
+<a href=#462 id=462 data-nosnippet>462</a>            y_offset: <span class="self">self</span>.scale.scale_y(script.y_offset),
+<a href=#463 id=463 data-nosnippet>463</a>        }
+<a href=#464 id=464 data-nosnippet>464</a>    }
+<a href=#465 id=465 data-nosnippet>465</a>
+<a href=#466 id=466 data-nosnippet>466</a>    <span class="kw">fn </span>scale_decoration(<span class="kw-2">&amp;</span><span class="self">self</span>, decoration: Decoration) -&gt; Decoration&lt;S::Value&gt; {
+<a href=#467 id=467 data-nosnippet>467</a>        Decoration {
+<a href=#468 id=468 data-nosnippet>468</a>            position: <span class="self">self</span>.scale.scale_y(decoration.position),
+<a href=#469 id=469 data-nosnippet>469</a>            thickness: <span class="self">self</span>.scale.scale_y(decoration.thickness),
+<a href=#470 id=470 data-nosnippet>470</a>        }
+<a href=#471 id=471 data-nosnippet>471</a>    }
+<a href=#472 id=472 data-nosnippet>472</a>}
+<a href=#473 id=473 data-nosnippet>473</a>
+<a href=#474 id=474 data-nosnippet>474</a><span class="kw">impl </span>StyleMetrics {
+<a href=#475 id=475 data-nosnippet>475</a>    <span class="doccomment">/// Returns these style measurements in the units `scale` describes.
+<a href=#476 id=476 data-nosnippet>476</a>    </span><span class="kw">pub fn </span>scaled&lt;S: Scale&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: S) -&gt; ScaledStyleMetrics&lt;<span class="lifetime">'_</span>, S&gt; {
+<a href=#477 id=477 data-nosnippet>477</a>        ScaledStyleMetrics::new(<span class="self">self</span>, scale)
+<a href=#478 id=478 data-nosnippet>478</a>    }
+<a href=#479 id=479 data-nosnippet>479</a>
+<a href=#480 id=480 data-nosnippet>480</a>    <span class="doccomment">/// Returns these style measurements in pixels at `ppem`, as `f32`.
+<a href=#481 id=481 data-nosnippet>481</a>    </span><span class="attr">#[inline]
+<a href=#482 id=482 data-nosnippet>482</a>    </span><span class="kw">pub fn </span>scaled_f32(<span class="kw-2">&amp;</span><span class="self">self</span>, ppem: f32) -&gt; ScaledStyleMetrics&lt;<span class="lifetime">'_</span>, ScaleF32&gt; {
+<a href=#483 id=483 data-nosnippet>483</a>        <span class="self">self</span>.scaled(ScaleF32::from_ppem(ppem, <span class="self">self</span>.units_per_em))
+<a href=#484 id=484 data-nosnippet>484</a>    }
+<a href=#485 id=485 data-nosnippet>485</a>
+<a href=#486 id=486 data-nosnippet>486</a>    <span class="doccomment">/// Returns these style measurements in pixels at `ppem`, in 26.6 fixed
+<a href=#487 id=487 data-nosnippet>487</a>    /// point.
+<a href=#488 id=488 data-nosnippet>488</a>    </span><span class="attr">#[inline]
+<a href=#489 id=489 data-nosnippet>489</a>    </span><span class="kw">pub fn </span>scaled_26dot6(<span class="kw-2">&amp;</span><span class="self">self</span>, ppem: f32) -&gt; ScaledStyleMetrics&lt;<span class="lifetime">'_</span>, Scale26Dot6&gt; {
+<a href=#490 id=490 data-nosnippet>490</a>        <span class="self">self</span>.scaled(Scale26Dot6::from_ppem(ppem, <span class="self">self</span>.units_per_em))
+<a href=#491 id=491 data-nosnippet>491</a>    }
+<a href=#492 id=492 data-nosnippet>492</a>}
+<a href=#493 id=493 data-nosnippet>493</a>
+<a href=#494 id=494 data-nosnippet>494</a><span class="doccomment">/// Measurements of individual glyphs, in a caller's own units.
+<a href=#495 id=495 data-nosnippet>495</a>///
+<a href=#496 id=496 data-nosnippet>496</a>/// Holds borrows and a scale, so it is as cheap to make as the metrics it
+<a href=#497 id=497 data-nosnippet>497</a>/// scales and can be taken per query. It remembers nothing between calls: a
+<a href=#498 id=498 data-nosnippet>498</a>/// caller wanting measurements kept holds them itself.
+<a href=#499 id=499 data-nosnippet>499</a></span><span class="attr">#[derive(Clone, Copy)]
+<a href=#500 id=500 data-nosnippet>500</a></span><span class="kw">pub struct </span>ScaledGlyphMetrics&lt;<span class="lifetime">'a</span>, <span class="lifetime">'extents</span>, S: Scale&gt; {
+<a href=#501 id=501 data-nosnippet>501</a>    metrics: GlyphMetrics&lt;<span class="lifetime">'a</span>&gt;,
+<a href=#502 id=502 data-nosnippet>502</a>    scale: S,
+<a href=#503 id=503 data-nosnippet>503</a>    line: <span class="prelude-ty">Option</span>&lt;LineExtents&lt;S::Value&gt;&gt;,
+<a href=#504 id=504 data-nosnippet>504</a>    extents: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'extents </span><span class="kw">dyn </span>Fn(GlyphId) -&gt; <span class="prelude-ty">Option</span>&lt;GlyphExtents&lt;S::Value&gt;&gt;&gt;,
+<a href=#505 id=505 data-nosnippet>505</a>}
+<a href=#506 id=506 data-nosnippet>506</a>
+<a href=#507 id=507 data-nosnippet>507</a><span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, <span class="lifetime">'extents</span>, S: Scale&gt; ScaledGlyphMetrics&lt;<span class="lifetime">'a</span>, <span class="lifetime">'extents</span>, S&gt; {
+<a href=#508 id=508 data-nosnippet>508</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(metrics: GlyphMetrics&lt;<span class="lifetime">'a</span>&gt;, scale: S) -&gt; <span class="self">Self </span>{
+<a href=#509 id=509 data-nosnippet>509</a>        <span class="self">Self </span>{
+<a href=#510 id=510 data-nosnippet>510</a>            metrics: metrics.with_bitmap_ppem(scale.ppem()),
+<a href=#511 id=511 data-nosnippet>511</a>            scale,
+<a href=#512 id=512 data-nosnippet>512</a>            line: <span class="prelude-val">None</span>,
+<a href=#513 id=513 data-nosnippet>513</a>            extents: <span class="prelude-val">None</span>,
+<a href=#514 id=514 data-nosnippet>514</a>        }
+<a href=#515 id=515 data-nosnippet>515</a>    }
+<a href=#516 id=516 data-nosnippet>516</a>
+<a href=#517 id=517 data-nosnippet>517</a>    <span class="doccomment">/// Measures against a line the caller supplies rather than the font's own.
+<a href=#518 id=518 data-nosnippet>518</a>    ///
+<a href=#519 id=519 data-nosnippet>519</a>    /// A caller that reads its line from elsewhere supplies it here, so the
+<a href=#520 id=520 data-nosnippet>520</a>    /// metrics built on it agree with the rest of its layout. The line is in
+<a href=#521 id=521 data-nosnippet>521</a>    /// the same units as everything else this type reports, so nothing is
+<a href=#522 id=522 data-nosnippet>522</a>    /// converted back into font units.
+<a href=#523 id=523 data-nosnippet>523</a>    ///
+<a href=#524 id=524 data-nosnippet>524</a>    /// `None` leaves the font's own line in place, so a caller can pass
+<a href=#525 id=525 data-nosnippet>525</a>    /// whatever it happens to have without first checking.
+<a href=#526 id=526 data-nosnippet>526</a>    </span><span class="kw">pub fn </span>with_line_extents(<span class="self">self</span>, line: <span class="prelude-ty">Option</span>&lt;LineExtents&lt;S::Value&gt;&gt;) -&gt; <span class="self">Self </span>{
+<a href=#527 id=527 data-nosnippet>527</a>        <span class="self">Self </span>{ line, ..<span class="self">self </span>}
+<a href=#528 id=528 data-nosnippet>528</a>    }
+<a href=#529 id=529 data-nosnippet>529</a>
+<a href=#530 id=530 data-nosnippet>530</a>    <span class="doccomment">/// Measures ink using the sources in `order`.
+<a href=#531 id=531 data-nosnippet>531</a>    ///
+<a href=#532 id=532 data-nosnippet>532</a>    /// See [`GlyphMetrics::with_extents_source_order`].
+<a href=#533 id=533 data-nosnippet>533</a>    </span><span class="kw">pub fn </span>with_extents_source_order(<span class="self">self</span>, order: GlyphSourceOrder) -&gt; <span class="self">Self </span>{
+<a href=#534 id=534 data-nosnippet>534</a>        <span class="self">Self </span>{
+<a href=#535 id=535 data-nosnippet>535</a>            metrics: <span class="self">self</span>.metrics.with_extents_source_order(order),
+<a href=#536 id=536 data-nosnippet>536</a>            ..<span class="self">self
+<a href=#537 id=537 data-nosnippet>537</a>        </span>}
+<a href=#538 id=538 data-nosnippet>538</a>    }
+<a href=#539 id=539 data-nosnippet>539</a>
+<a href=#540 id=540 data-nosnippet>540</a>    <span class="doccomment">/// Measures ink by a function the caller supplies rather than the font.
+<a href=#541 id=541 data-nosnippet>541</a>    ///
+<a href=#542 id=542 data-nosnippet>542</a>    /// A caller that measures glyphs elsewhere supplies that here, so the
+<a href=#543 id=543 data-nosnippet>543</a>    /// metrics built on ink agree with the rest of what it reports. The
+<a href=#544 id=544 data-nosnippet>544</a>    /// function answers in the same units as everything else this type
+<a href=#545 id=545 data-nosnippet>545</a>    /// reports, so nothing is converted back into font units. `None` from
+<a href=#546 id=546 data-nosnippet>546</a>    /// the function means extents are unavailable; return
+<a href=#547 id=547 data-nosnippet>547</a>    /// `Some(GlyphExtents::default())` for a present glyph with no ink.
+<a href=#548 id=548 data-nosnippet>548</a>    ///
+<a href=#549 id=549 data-nosnippet>549</a>    /// `None` leaves the font's own measurement in place, so a caller can
+<a href=#550 id=550 data-nosnippet>550</a>    /// pass whatever it happens to have without first checking.
+<a href=#551 id=551 data-nosnippet>551</a>    ///
+<a href=#552 id=552 data-nosnippet>552</a>    /// The function is borrowed only for the lifetime of the returned view.
+<a href=#553 id=553 data-nosnippet>553</a>    </span><span class="kw">pub fn </span>with_glyph_extents&lt;<span class="lifetime">'new</span>&gt;(
+<a href=#554 id=554 data-nosnippet>554</a>        <span class="self">self</span>,
+<a href=#555 id=555 data-nosnippet>555</a>        extents: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'new </span><span class="kw">dyn </span>Fn(GlyphId) -&gt; <span class="prelude-ty">Option</span>&lt;GlyphExtents&lt;S::Value&gt;&gt;&gt;,
+<a href=#556 id=556 data-nosnippet>556</a>    ) -&gt; ScaledGlyphMetrics&lt;<span class="lifetime">'a</span>, <span class="lifetime">'new</span>, S&gt; {
+<a href=#557 id=557 data-nosnippet>557</a>        ScaledGlyphMetrics {
+<a href=#558 id=558 data-nosnippet>558</a>            metrics: <span class="self">self</span>.metrics,
+<a href=#559 id=559 data-nosnippet>559</a>            scale: <span class="self">self</span>.scale,
+<a href=#560 id=560 data-nosnippet>560</a>            line: <span class="self">self</span>.line,
+<a href=#561 id=561 data-nosnippet>561</a>            extents,
+<a href=#562 id=562 data-nosnippet>562</a>        }
+<a href=#563 id=563 data-nosnippet>563</a>    }
+<a href=#564 id=564 data-nosnippet>564</a>
+<a href=#565 id=565 data-nosnippet>565</a>    <span class="doccomment">/// Returns the advance width of `glyph`.
+<a href=#566 id=566 data-nosnippet>566</a>    </span><span class="attr">#[inline]
+<a href=#567 id=567 data-nosnippet>567</a>    </span><span class="kw">pub fn </span>h_advance(<span class="kw-2">&amp;</span><span class="self">self</span>, glyph: GlyphId) -&gt; S::Value {
+<a href=#568 id=568 data-nosnippet>568</a>        <span class="self">self</span>.scale.scale_x(<span class="self">self</span>.metrics.h_advance_exact(glyph))
+<a href=#569 id=569 data-nosnippet>569</a>    }
+<a href=#570 id=570 data-nosnippet>570</a>
+<a href=#571 id=571 data-nosnippet>571</a>    <span class="doccomment">/// Writes the advance width of each glyph to its slot, in order.
+<a href=#572 id=572 data-nosnippet>572</a>    </span><span class="attr">#[inline]
+<a href=#573 id=573 data-nosnippet>573</a>    </span><span class="kw">pub fn </span>h_advance_batched&lt;<span class="lifetime">'o</span>, V: <span class="lifetime">'o</span>&gt;(
+<a href=#574 id=574 data-nosnippet>574</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#575 id=575 data-nosnippet>575</a>        convert: <span class="kw">impl </span>Fn(S::Value) -&gt; V,
+<a href=#576 id=576 data-nosnippet>576</a>        glyphs: <span class="kw">impl </span>Iterator&lt;Item = (GlyphId, <span class="kw-2">&amp;</span><span class="lifetime">'o </span><span class="kw-2">mut </span>V)&gt;,
+<a href=#577 id=577 data-nosnippet>577</a>    ) {
+<a href=#578 id=578 data-nosnippet>578</a>        <span class="self">self</span>.metrics
+<a href=#579 id=579 data-nosnippet>579</a>            .h_advance_batched(|value| convert(<span class="self">self</span>.scale.scale_x(value)), glyphs);
+<a href=#580 id=580 data-nosnippet>580</a>    }
+<a href=#581 id=581 data-nosnippet>581</a>
+<a href=#582 id=582 data-nosnippet>582</a>    <span class="doccomment">/// Returns the advance height of `glyph`.
+<a href=#583 id=583 data-nosnippet>583</a>    ///
+<a href=#584 id=584 data-nosnippet>584</a>    /// A font with no vertical metrics stacks its glyphs by the line, the
+<a href=#585 id=585 data-nosnippet>585</a>    /// only measurement here a caller can supply. One that has them is
+<a href=#586 id=586 data-nosnippet>586</a>    /// measured by what it says, and a supplied line changes nothing.
+<a href=#587 id=587 data-nosnippet>587</a>    </span><span class="attr">#[inline]
+<a href=#588 id=588 data-nosnippet>588</a>    </span><span class="kw">pub fn </span>v_advance(<span class="kw-2">&amp;</span><span class="self">self</span>, glyph: GlyphId) -&gt; S::Value {
+<a href=#589 id=589 data-nosnippet>589</a>        <span class="comment">// Only a font with no vertical metrics stacks by the line; one
+<a href=#590 id=590 data-nosnippet>590</a>        // that has them is read below, supplied line or not.
+<a href=#591 id=591 data-nosnippet>591</a>        </span><span class="kw">match </span><span class="self">self</span>.line_height_fallback() {
+<a href=#592 id=592 data-nosnippet>592</a>            <span class="prelude-val">Some</span>(height) =&gt; height,
+<a href=#593 id=593 data-nosnippet>593</a>            <span class="prelude-val">None </span>=&gt; <span class="self">self</span>.scale.scale_y(<span class="self">self</span>.metrics.v_advance_exact(glyph)),
+<a href=#594 id=594 data-nosnippet>594</a>        }
+<a href=#595 id=595 data-nosnippet>595</a>    }
+<a href=#596 id=596 data-nosnippet>596</a>
+<a href=#597 id=597 data-nosnippet>597</a>    <span class="doccomment">/// Writes the advance height of each glyph to its slot, in order.
+<a href=#598 id=598 data-nosnippet>598</a>    </span><span class="attr">#[inline]
+<a href=#599 id=599 data-nosnippet>599</a>    </span><span class="kw">pub fn </span>v_advance_batched&lt;<span class="lifetime">'o</span>, V: <span class="lifetime">'o</span>&gt;(
+<a href=#600 id=600 data-nosnippet>600</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#601 id=601 data-nosnippet>601</a>        convert: <span class="kw">impl </span>Fn(S::Value) -&gt; V,
+<a href=#602 id=602 data-nosnippet>602</a>        glyphs: <span class="kw">impl </span>Iterator&lt;Item = (GlyphId, <span class="kw-2">&amp;</span><span class="lifetime">'o </span><span class="kw-2">mut </span>V)&gt;,
+<a href=#603 id=603 data-nosnippet>603</a>    ) {
+<a href=#604 id=604 data-nosnippet>604</a>        <span class="comment">// Settled before the run, as the table to read is. Only a font
+<a href=#605 id=605 data-nosnippet>605</a>        // with no vertical metrics reaches this, and then all its glyphs
+<a href=#606 id=606 data-nosnippet>606</a>        // advance the same; one that has them is read below, supplied line
+<a href=#607 id=607 data-nosnippet>607</a>        // or not.
+<a href=#608 id=608 data-nosnippet>608</a>        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(height) = <span class="self">self</span>.line_height_fallback() {
+<a href=#609 id=609 data-nosnippet>609</a>            <span class="kw">for </span>(<span class="kw">_</span>, out) <span class="kw">in </span>glyphs {
+<a href=#610 id=610 data-nosnippet>610</a>                <span class="kw-2">*</span>out = convert(height);
+<a href=#611 id=611 data-nosnippet>611</a>            }
+<a href=#612 id=612 data-nosnippet>612</a>            <span class="kw">return</span>;
+<a href=#613 id=613 data-nosnippet>613</a>        }
+<a href=#614 id=614 data-nosnippet>614</a>        <span class="self">self</span>.metrics
+<a href=#615 id=615 data-nosnippet>615</a>            .v_advance_batched(|value| convert(<span class="self">self</span>.scale.scale_y(value)), glyphs);
+<a href=#616 id=616 data-nosnippet>616</a>    }
+<a href=#617 id=617 data-nosnippet>617</a>
+<a href=#618 id=618 data-nosnippet>618</a>    <span class="doccomment">/// Returns the y coordinate of `glyph`'s vertical origin.
+<a href=#619 id=619 data-nosnippet>619</a>    ///
+<a href=#620 id=620 data-nosnippet>620</a>    /// This places the glyph relative to the pen in vertical text. The x
+<a href=#621 id=621 data-nosnippet>621</a>    /// coordinate is half the advance width, so only y is returned.
+<a href=#622 id=622 data-nosnippet>622</a>    ///
+<a href=#623 id=623 data-nosnippet>623</a>    /// The origin comes from the first available of: `VORG`, the `glyf` top
+<a href=#624 id=624 data-nosnippet>624</a>    /// phantom point when the font has vertical metrics, the ink centered in
+<a href=#625 id=625 data-nosnippet>625</a>    /// the line, and the ascender. The last two use the supplied ink
+<a href=#626 id=626 data-nosnippet>626</a>    /// measurement.
+<a href=#627 id=627 data-nosnippet>627</a>    </span><span class="kw">pub fn </span>v_origin_y(<span class="kw-2">&amp;</span><span class="self">self</span>, glyph: GlyphId) -&gt; S::Value {
+<a href=#628 id=628 data-nosnippet>628</a>        <span class="kw">let </span><span class="kw-2">mut </span>origin = <span class="self">self</span>.scale.scale_y(F48Dot16::ZERO);
+<a href=#629 id=629 data-nosnippet>629</a>        <span class="self">self</span>.v_origin_y_batched(|value| value, core::iter::once((glyph, <span class="kw-2">&amp;mut </span>origin)));
+<a href=#630 id=630 data-nosnippet>630</a>        origin
+<a href=#631 id=631 data-nosnippet>631</a>    }
+<a href=#632 id=632 data-nosnippet>632</a>
+<a href=#633 id=633 data-nosnippet>633</a>    <span class="doccomment">/// Writes the vertical origin of each glyph to its slot, in order.
+<a href=#634 id=634 data-nosnippet>634</a>    ///
+<a href=#635 id=635 data-nosnippet>635</a>    /// The line is measured only if a glyph reaches the extents fallback, and
+<a href=#636 id=636 data-nosnippet>636</a>    /// then reused for the rest of the run.
+<a href=#637 id=637 data-nosnippet>637</a>    </span><span class="kw">pub fn </span>v_origin_y_batched&lt;<span class="lifetime">'o</span>, V: <span class="lifetime">'o</span>&gt;(
+<a href=#638 id=638 data-nosnippet>638</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#639 id=639 data-nosnippet>639</a>        convert: <span class="kw">impl </span>Fn(S::Value) -&gt; V,
+<a href=#640 id=640 data-nosnippet>640</a>        glyphs: <span class="kw">impl </span>Iterator&lt;Item = (GlyphId, <span class="kw-2">&amp;</span><span class="lifetime">'o </span><span class="kw-2">mut </span>V)&gt;,
+<a href=#641 id=641 data-nosnippet>641</a>    ) {
+<a href=#642 id=642 data-nosnippet>642</a>        <span class="kw">let </span><span class="kw-2">mut </span>line = <span class="prelude-val">None</span>;
+<a href=#643 id=643 data-nosnippet>643</a>        <span class="self">self</span>.metrics.v_origin_y_batched_with(
+<a href=#644 id=644 data-nosnippet>644</a>            |glyph, origin| {
+<a href=#645 id=645 data-nosnippet>645</a>                <span class="kw">let </span>value = <span class="kw">match </span>origin {
+<a href=#646 id=646 data-nosnippet>646</a>                    <span class="prelude-val">Some</span>(origin) =&gt; <span class="self">self</span>.scale.scale_y(origin),
+<a href=#647 id=647 data-nosnippet>647</a>                    <span class="prelude-val">None </span>=&gt; <span class="self">self
+<a href=#648 id=648 data-nosnippet>648</a>                        </span>.origin_against_ink(glyph, <span class="kw-2">*</span>line.get_or_insert_with(|| <span class="self">self</span>.origin_line())),
+<a href=#649 id=649 data-nosnippet>649</a>                };
+<a href=#650 id=650 data-nosnippet>650</a>                convert(value)
+<a href=#651 id=651 data-nosnippet>651</a>            },
+<a href=#652 id=652 data-nosnippet>652</a>            |glyphs| {
+<a href=#653 id=653 data-nosnippet>653</a>                <span class="kw">let </span>line = <span class="self">self</span>.origin_line();
+<a href=#654 id=654 data-nosnippet>654</a>                <span class="self">self</span>.extents_batched(
+<a href=#655 id=655 data-nosnippet>655</a>                    |extents| convert(<span class="self">self</span>.origin_from_extents(extents, line)),
+<a href=#656 id=656 data-nosnippet>656</a>                    glyphs,
+<a href=#657 id=657 data-nosnippet>657</a>                );
+<a href=#658 id=658 data-nosnippet>658</a>            },
+<a href=#659 id=659 data-nosnippet>659</a>            glyphs,
+<a href=#660 id=660 data-nosnippet>660</a>        );
+<a href=#661 id=661 data-nosnippet>661</a>    }
+<a href=#662 id=662 data-nosnippet>662</a>
+<a href=#663 id=663 data-nosnippet>663</a>    <span class="doccomment">/// Returns where `glyph`'s ink sits.
+<a href=#664 id=664 data-nosnippet>664</a>    ///
+<a href=#665 id=665 data-nosnippet>665</a>    /// An empty glyph has zero extents. `None` means the glyph is unavailable
+<a href=#666 id=666 data-nosnippet>666</a>    /// or its extents could not be read. A supplied extents function may use
+<a href=#667 id=667 data-nosnippet>667</a>    /// `None` for any glyph it does not measure.
+<a href=#668 id=668 data-nosnippet>668</a>    </span><span class="attr">#[inline]
+<a href=#669 id=669 data-nosnippet>669</a>    </span><span class="kw">pub fn </span>extents(<span class="kw-2">&amp;</span><span class="self">self</span>, glyph: GlyphId) -&gt; <span class="prelude-ty">Option</span>&lt;GlyphExtents&lt;S::Value&gt;&gt; {
+<a href=#670 id=670 data-nosnippet>670</a>        <span class="kw">match </span><span class="self">self</span>.extents {
+<a href=#671 id=671 data-nosnippet>671</a>            <span class="prelude-val">Some</span>(extents) =&gt; extents(glyph),
+<a href=#672 id=672 data-nosnippet>672</a>            <span class="prelude-val">None </span>=&gt; {
+<a href=#673 id=673 data-nosnippet>673</a>                <span class="kw">let </span><span class="kw-2">mut </span>extents = <span class="prelude-val">None</span>;
+<a href=#674 id=674 data-nosnippet>674</a>                <span class="self">self</span>.metrics.extents_batched(
+<a href=#675 id=675 data-nosnippet>675</a>                    |value| value.map(|extents| <span class="self">self</span>.scale.scale_glyph_extents(extents)),
+<a href=#676 id=676 data-nosnippet>676</a>                    core::iter::once((glyph, <span class="kw-2">&amp;mut </span>extents)),
+<a href=#677 id=677 data-nosnippet>677</a>                );
+<a href=#678 id=678 data-nosnippet>678</a>                extents
+<a href=#679 id=679 data-nosnippet>679</a>            }
+<a href=#680 id=680 data-nosnippet>680</a>        }
+<a href=#681 id=681 data-nosnippet>681</a>    }
+<a href=#682 id=682 data-nosnippet>682</a>
+<a href=#683 id=683 data-nosnippet>683</a>    <span class="doccomment">/// Writes where each glyph's ink sits to its slot, in order.
+<a href=#684 id=684 data-nosnippet>684</a>    </span><span class="attr">#[inline]
+<a href=#685 id=685 data-nosnippet>685</a>    </span><span class="kw">pub fn </span>extents_batched&lt;<span class="lifetime">'o</span>, V: <span class="lifetime">'o</span>&gt;(
+<a href=#686 id=686 data-nosnippet>686</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#687 id=687 data-nosnippet>687</a>        convert: <span class="kw">impl </span>Fn(<span class="prelude-ty">Option</span>&lt;GlyphExtents&lt;S::Value&gt;&gt;) -&gt; V,
+<a href=#688 id=688 data-nosnippet>688</a>        glyphs: <span class="kw">impl </span>Iterator&lt;Item = (GlyphId, <span class="kw-2">&amp;</span><span class="lifetime">'o </span><span class="kw-2">mut </span>V)&gt;,
+<a href=#689 id=689 data-nosnippet>689</a>    ) {
+<a href=#690 id=690 data-nosnippet>690</a>        <span class="comment">// Settled before the run, as the source to read is: a supplied
+<a href=#691 id=691 data-nosnippet>691</a>        // function answers for every glyph, and the font is never read.
+<a href=#692 id=692 data-nosnippet>692</a>        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(extents) = <span class="self">self</span>.extents {
+<a href=#693 id=693 data-nosnippet>693</a>            <span class="kw">for </span>(glyph, out) <span class="kw">in </span>glyphs {
+<a href=#694 id=694 data-nosnippet>694</a>                <span class="kw-2">*</span>out = convert(extents(glyph));
+<a href=#695 id=695 data-nosnippet>695</a>            }
+<a href=#696 id=696 data-nosnippet>696</a>            <span class="kw">return</span>;
+<a href=#697 id=697 data-nosnippet>697</a>        }
+<a href=#698 id=698 data-nosnippet>698</a>        <span class="self">self</span>.metrics.extents_batched(
+<a href=#699 id=699 data-nosnippet>699</a>            |extents| convert(extents.map(|extents| <span class="self">self</span>.scale.scale_glyph_extents(extents))),
+<a href=#700 id=700 data-nosnippet>700</a>            glyphs,
+<a href=#701 id=701 data-nosnippet>701</a>        );
+<a href=#702 id=702 data-nosnippet>702</a>    }
+<a href=#703 id=703 data-nosnippet>703</a>
+<a href=#704 id=704 data-nosnippet>704</a>    <span class="doccomment">/// The height a glyph takes from the line, where it takes one.
+<a href=#705 id=705 data-nosnippet>705</a>    ///
+<a href=#706 id=706 data-nosnippet>706</a>    /// `None` for two reasons that mean the same thing here: the font has
+<a href=#707 id=707 data-nosnippet>707</a>    /// vertical metrics of its own, so the line is not what its glyphs stack
+<a href=#708 id=708 data-nosnippet>708</a>    /// by; or it has no line either, which the unscaled metrics answer with
+<a href=#709 id=709 data-nosnippet>709</a>    /// an em. A supplied line applies only in the first case, so supplying
+<a href=#710 id=710 data-nosnippet>710</a>    /// one never overrides what a font says about itself.
+<a href=#711 id=711 data-nosnippet>711</a>    ///
+<a href=#712 id=712 data-nosnippet>712</a>    /// Each end is scaled before the two are subtracted, so a scale that
+<a href=#713 id=713 data-nosnippet>713</a>    /// rounds rounds them as a caller supplying its own line would, and the
+<a href=#714 id=714 data-nosnippet>714</a>    /// answer does not turn on whether one was supplied.
+<a href=#715 id=715 data-nosnippet>715</a>    </span><span class="attr">#[inline]
+<a href=#716 id=716 data-nosnippet>716</a>    </span><span class="kw">fn </span>line_height_fallback(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;S::Value&gt; {
+<a href=#717 id=717 data-nosnippet>717</a>        <span class="kw">if </span><span class="self">self</span>.metrics.states_vertical_advances() {
+<a href=#718 id=718 data-nosnippet>718</a>            <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#719 id=719 data-nosnippet>719</a>        }
+<a href=#720 id=720 data-nosnippet>720</a>        <span class="kw">let </span>line = <span class="self">self</span>.origin_line();
+<a href=#721 id=721 data-nosnippet>721</a>        <span class="prelude-val">Some</span>(S::sub(line.ascender, line.descender))
+<a href=#722 id=722 data-nosnippet>722</a>    }
+<a href=#723 id=723 data-nosnippet>723</a>
+<a href=#724 id=724 data-nosnippet>724</a>    <span class="doccomment">/// The line a glyph stacks by, in the units this type reports.
+<a href=#725 id=725 data-nosnippet>725</a>    ///
+<a href=#726 id=726 data-nosnippet>726</a>    /// The supplied line if there is one, and the font's otherwise. A font
+<a href=#727 id=727 data-nosnippet>727</a>    /// with no line metrics gets one proportioned to its em.
+<a href=#728 id=728 data-nosnippet>728</a>    </span><span class="kw">fn </span>origin_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; LineExtents&lt;S::Value&gt; {
+<a href=#729 id=729 data-nosnippet>729</a>        <span class="comment">// A supplied line is reported as it was given: a caller stating its
+<a href=#730 id=730 data-nosnippet>730</a>        // own has already decided which way its ends run.
+<a href=#731 id=731 data-nosnippet>731</a>        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(line) = <span class="self">self</span>.line {
+<a href=#732 id=732 data-nosnippet>732</a>            <span class="kw">return </span>line;
+<a href=#733 id=733 data-nosnippet>733</a>        }
+<a href=#734 id=734 data-nosnippet>734</a>        <span class="kw">let </span>line = <span class="self">self</span>.metrics.origin_line();
+<a href=#735 id=735 data-nosnippet>735</a>        <span class="comment">// Each end is scaled, rather than the height between them, so a scale
+<a href=#736 id=736 data-nosnippet>736</a>        // that rounds reports ends a caller can lay out against.
+<a href=#737 id=737 data-nosnippet>737</a>        </span>LineExtents {
+<a href=#738 id=738 data-nosnippet>738</a>            ascender: <span class="self">self</span>.scale.scale_y(line.ascender),
+<a href=#739 id=739 data-nosnippet>739</a>            descender: <span class="self">self</span>.scale.scale_y(line.descender),
+<a href=#740 id=740 data-nosnippet>740</a>        }
+<a href=#741 id=741 data-nosnippet>741</a>    }
+<a href=#742 id=742 data-nosnippet>742</a>
+<a href=#743 id=743 data-nosnippet>743</a>    <span class="doccomment">/// The last two rungs of [`v_origin_y`](Self::v_origin_y), which measure
+<a href=#744 id=744 data-nosnippet>744</a>    /// against the ink.
+<a href=#745 id=745 data-nosnippet>745</a>    </span><span class="kw">fn </span>origin_against_ink(<span class="kw-2">&amp;</span><span class="self">self</span>, glyph: GlyphId, line: LineExtents&lt;S::Value&gt;) -&gt; S::Value {
+<a href=#746 id=746 data-nosnippet>746</a>        <span class="self">self</span>.origin_from_extents(<span class="self">self</span>.extents(glyph), line)
+<a href=#747 id=747 data-nosnippet>747</a>    }
+<a href=#748 id=748 data-nosnippet>748</a>
+<a href=#749 id=749 data-nosnippet>749</a>    <span class="kw">fn </span>origin_from_extents(
+<a href=#750 id=750 data-nosnippet>750</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#751 id=751 data-nosnippet>751</a>        extents: <span class="prelude-ty">Option</span>&lt;GlyphExtents&lt;S::Value&gt;&gt;,
+<a href=#752 id=752 data-nosnippet>752</a>        line: LineExtents&lt;S::Value&gt;,
+<a href=#753 id=753 data-nosnippet>753</a>    ) -&gt; S::Value {
+<a href=#754 id=754 data-nosnippet>754</a>        <span class="kw">let </span><span class="prelude-val">Some</span>(extents) = extents <span class="kw">else </span>{
+<a href=#755 id=755 data-nosnippet>755</a>            <span class="kw">return </span>line.ascender;
+<a href=#756 id=756 data-nosnippet>756</a>        };
+<a href=#757 id=757 data-nosnippet>757</a>        <span class="kw">let </span>line_height = S::sub(line.ascender, line.descender);
+<a href=#758 id=758 data-nosnippet>758</a>        S::add(
+<a href=#759 id=759 data-nosnippet>759</a>            extents.y_bearing,
+<a href=#760 id=760 data-nosnippet>760</a>            S::half(S::sub(line_height, extents.height)),
+<a href=#761 id=761 data-nosnippet>761</a>        )
+<a href=#762 id=762 data-nosnippet>762</a>    }
+<a href=#763 id=763 data-nosnippet>763</a>}
+<a href=#764 id=764 data-nosnippet>764</a>
+<a href=#765 id=765 data-nosnippet>765</a><span class="attr">#[cfg(test)]
+<a href=#766 id=766 data-nosnippet>766</a></span><span class="kw">mod </span>tests {
+<a href=#767 id=767 data-nosnippet>767</a>    <span class="kw">use super</span>::<span class="kw-2">*</span>;
+<a href=#768 id=768 data-nosnippet>768</a>    <span class="kw">use </span><span class="kw">crate</span>::model::Blob;
+<a href=#769 id=769 data-nosnippet>769</a>    <span class="kw">use </span><span class="kw">crate</span>::model::Font;
+<a href=#770 id=770 data-nosnippet>770</a>    <span class="kw">use </span>alloc::sync::Arc;
+<a href=#771 id=771 data-nosnippet>771</a>    <span class="kw">use </span>types::{GlyphId, Tag};
+<a href=#772 id=772 data-nosnippet>772</a>
+<a href=#773 id=773 data-nosnippet>773</a>    <span class="doccomment">/// Scales font units to pixels at a size, halving toward zero.
+<a href=#774 id=774 data-nosnippet>774</a>    </span><span class="attr">#[derive(Clone, Copy)]
+<a href=#775 id=775 data-nosnippet>775</a>    </span><span class="kw">struct </span>Ppem {
+<a href=#776 id=776 data-nosnippet>776</a>        ppem: f32,
+<a href=#777 id=777 data-nosnippet>777</a>        upem: u16,
+<a href=#778 id=778 data-nosnippet>778</a>    }
+<a href=#779 id=779 data-nosnippet>779</a>
+<a href=#780 id=780 data-nosnippet>780</a>    <span class="kw">impl </span>Scale <span class="kw">for </span>Ppem {
+<a href=#781 id=781 data-nosnippet>781</a>        <span class="kw">type </span>Value = f32;
+<a href=#782 id=782 data-nosnippet>782</a>
+<a href=#783 id=783 data-nosnippet>783</a>        <span class="kw">fn </span>scale_x(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; f32 {
+<a href=#784 id=784 data-nosnippet>784</a>            value.to_f32() * <span class="self">self</span>.ppem / <span class="self">self</span>.upem <span class="kw">as </span>f32
+<a href=#785 id=785 data-nosnippet>785</a>        }
+<a href=#786 id=786 data-nosnippet>786</a>
+<a href=#787 id=787 data-nosnippet>787</a>        <span class="kw">fn </span>scale_y(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; f32 {
+<a href=#788 id=788 data-nosnippet>788</a>            <span class="self">self</span>.scale_x(value)
+<a href=#789 id=789 data-nosnippet>789</a>        }
+<a href=#790 id=790 data-nosnippet>790</a>
+<a href=#791 id=791 data-nosnippet>791</a>        <span class="kw">fn </span>scale_glyph_extents(<span class="kw-2">&amp;</span><span class="self">self</span>, extents: GlyphExtents&lt;F48Dot16&gt;) -&gt; GlyphExtents&lt;f32&gt; {
+<a href=#792 id=792 data-nosnippet>792</a>            GlyphExtents {
+<a href=#793 id=793 data-nosnippet>793</a>                x_bearing: <span class="self">self</span>.scale_x(extents.x_bearing),
+<a href=#794 id=794 data-nosnippet>794</a>                y_bearing: <span class="self">self</span>.scale_y(extents.y_bearing),
+<a href=#795 id=795 data-nosnippet>795</a>                width: <span class="self">self</span>.scale_x(extents.width),
+<a href=#796 id=796 data-nosnippet>796</a>                height: <span class="self">self</span>.scale_y(extents.height),
+<a href=#797 id=797 data-nosnippet>797</a>            }
+<a href=#798 id=798 data-nosnippet>798</a>        }
+<a href=#799 id=799 data-nosnippet>799</a>
+<a href=#800 id=800 data-nosnippet>800</a>        <span class="kw">fn </span>scale_rect(<span class="kw-2">&amp;</span><span class="self">self</span>, b: BoundingBox&lt;F48Dot16&gt;) -&gt; BoundingBox&lt;f32&gt; {
+<a href=#801 id=801 data-nosnippet>801</a>            BoundingBox {
+<a href=#802 id=802 data-nosnippet>802</a>                x_min: <span class="self">self</span>.scale_x(b.x_min),
+<a href=#803 id=803 data-nosnippet>803</a>                y_min: <span class="self">self</span>.scale_y(b.y_min),
+<a href=#804 id=804 data-nosnippet>804</a>                x_max: <span class="self">self</span>.scale_x(b.x_max),
+<a href=#805 id=805 data-nosnippet>805</a>                y_max: <span class="self">self</span>.scale_y(b.y_max),
+<a href=#806 id=806 data-nosnippet>806</a>            }
+<a href=#807 id=807 data-nosnippet>807</a>        }
+<a href=#808 id=808 data-nosnippet>808</a>
+<a href=#809 id=809 data-nosnippet>809</a>        <span class="kw">fn </span>add(a: f32, b: f32) -&gt; f32 {
+<a href=#810 id=810 data-nosnippet>810</a>            a + b
+<a href=#811 id=811 data-nosnippet>811</a>        }
+<a href=#812 id=812 data-nosnippet>812</a>
+<a href=#813 id=813 data-nosnippet>813</a>        <span class="kw">fn </span>sub(a: f32, b: f32) -&gt; f32 {
+<a href=#814 id=814 data-nosnippet>814</a>            a - b
+<a href=#815 id=815 data-nosnippet>815</a>        }
+<a href=#816 id=816 data-nosnippet>816</a>
+<a href=#817 id=817 data-nosnippet>817</a>        <span class="kw">fn </span>half(value: f32) -&gt; f32 {
+<a href=#818 id=818 data-nosnippet>818</a>            value / <span class="number">2.0
+<a href=#819 id=819 data-nosnippet>819</a>        </span>}
+<a href=#820 id=820 data-nosnippet>820</a>    }
+<a href=#821 id=821 data-nosnippet>821</a>
+<a href=#822 id=822 data-nosnippet>822</a>    <span class="kw">const </span>STATIC: <span class="kw-2">&amp;</span>[u8] = font_test_data::TINOS_SUBSET;
+<a href=#823 id=823 data-nosnippet>823</a>    <span class="kw">const </span>VERT: <span class="kw-2">&amp;</span>[u8] = font_test_data::MPLUS1CODE_VERTICAL_SUBSET;
+<a href=#824 id=824 data-nosnippet>824</a>    <span class="doccomment">/// States its vertical origins outright.
+<a href=#825 id=825 data-nosnippet>825</a>    </span><span class="kw">const </span>VORG: <span class="kw-2">&amp;</span>[u8] = font_test_data::VORG;
+<a href=#826 id=826 data-nosnippet>826</a>
+<a href=#827 id=827 data-nosnippet>827</a>    <span class="kw">fn </span>scaled(data: <span class="kw-2">&amp;</span>[u8], ppem: f32) -&gt; (Font, Ppem) {
+<a href=#828 id=828 data-nosnippet>828</a>        <span class="kw">let </span>font = Font::new(data.to_vec(), <span class="number">0</span>).unwrap();
+<a href=#829 id=829 data-nosnippet>829</a>        <span class="kw">let </span>upem = font.metrics().units_per_em;
+<a href=#830 id=830 data-nosnippet>830</a>        (font, Ppem { ppem, upem })
+<a href=#831 id=831 data-nosnippet>831</a>    }
+<a href=#832 id=832 data-nosnippet>832</a>
+<a href=#833 id=833 data-nosnippet>833</a>    <span class="kw">fn </span>line(ascender: f32, descender: f32) -&gt; LineExtents&lt;f32&gt; {
+<a href=#834 id=834 data-nosnippet>834</a>        LineExtents {
+<a href=#835 id=835 data-nosnippet>835</a>            ascender,
+<a href=#836 id=836 data-nosnippet>836</a>            descender,
+<a href=#837 id=837 data-nosnippet>837</a>        }
+<a href=#838 id=838 data-nosnippet>838</a>    }
+<a href=#839 id=839 data-nosnippet>839</a>
+<a href=#840 id=840 data-nosnippet>840</a>    <span class="doccomment">/// Rounds every scaled value to a whole number, as a hinted scale does.
+<a href=#841 id=841 data-nosnippet>841</a>    </span><span class="attr">#[derive(Clone, Copy)]
+<a href=#842 id=842 data-nosnippet>842</a>    </span><span class="kw">struct </span>Rounding(f32, u16);
+<a href=#843 id=843 data-nosnippet>843</a>
+<a href=#844 id=844 data-nosnippet>844</a>    <span class="kw">impl </span>Scale <span class="kw">for </span>Rounding {
+<a href=#845 id=845 data-nosnippet>845</a>        <span class="kw">type </span>Value = f32;
+<a href=#846 id=846 data-nosnippet>846</a>        <span class="kw">fn </span>scale_x(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; f32 {
+<a href=#847 id=847 data-nosnippet>847</a>            (value.to_f32() * <span class="self">self</span>.<span class="number">0 </span>/ <span class="self">self</span>.<span class="number">1 </span><span class="kw">as </span>f32).round()
+<a href=#848 id=848 data-nosnippet>848</a>        }
+<a href=#849 id=849 data-nosnippet>849</a>        <span class="kw">fn </span>scale_y(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; f32 {
+<a href=#850 id=850 data-nosnippet>850</a>            <span class="self">self</span>.scale_x(value)
+<a href=#851 id=851 data-nosnippet>851</a>        }
+<a href=#852 id=852 data-nosnippet>852</a>        <span class="kw">fn </span>scale_glyph_extents(<span class="kw-2">&amp;</span><span class="self">self</span>, e: GlyphExtents&lt;F48Dot16&gt;) -&gt; GlyphExtents&lt;f32&gt; {
+<a href=#853 id=853 data-nosnippet>853</a>            GlyphExtents {
+<a href=#854 id=854 data-nosnippet>854</a>                x_bearing: <span class="self">self</span>.scale_x(e.x_bearing),
+<a href=#855 id=855 data-nosnippet>855</a>                y_bearing: <span class="self">self</span>.scale_y(e.y_bearing),
+<a href=#856 id=856 data-nosnippet>856</a>                width: <span class="self">self</span>.scale_x(e.width),
+<a href=#857 id=857 data-nosnippet>857</a>                height: <span class="self">self</span>.scale_y(e.height),
+<a href=#858 id=858 data-nosnippet>858</a>            }
+<a href=#859 id=859 data-nosnippet>859</a>        }
+<a href=#860 id=860 data-nosnippet>860</a>
+<a href=#861 id=861 data-nosnippet>861</a>        <span class="kw">fn </span>scale_rect(<span class="kw-2">&amp;</span><span class="self">self</span>, b: BoundingBox&lt;F48Dot16&gt;) -&gt; BoundingBox&lt;f32&gt; {
+<a href=#862 id=862 data-nosnippet>862</a>            BoundingBox {
+<a href=#863 id=863 data-nosnippet>863</a>                x_min: <span class="self">self</span>.scale_x(b.x_min),
+<a href=#864 id=864 data-nosnippet>864</a>                y_min: <span class="self">self</span>.scale_y(b.y_min),
+<a href=#865 id=865 data-nosnippet>865</a>                x_max: <span class="self">self</span>.scale_x(b.x_max),
+<a href=#866 id=866 data-nosnippet>866</a>                y_max: <span class="self">self</span>.scale_y(b.y_max),
+<a href=#867 id=867 data-nosnippet>867</a>            }
+<a href=#868 id=868 data-nosnippet>868</a>        }
+<a href=#869 id=869 data-nosnippet>869</a>        <span class="kw">fn </span>add(a: f32, b: f32) -&gt; f32 {
+<a href=#870 id=870 data-nosnippet>870</a>            a + b
+<a href=#871 id=871 data-nosnippet>871</a>        }
+<a href=#872 id=872 data-nosnippet>872</a>        <span class="kw">fn </span>sub(a: f32, b: f32) -&gt; f32 {
+<a href=#873 id=873 data-nosnippet>873</a>            a - b
+<a href=#874 id=874 data-nosnippet>874</a>        }
+<a href=#875 id=875 data-nosnippet>875</a>        <span class="kw">fn </span>half(value: f32) -&gt; f32 {
+<a href=#876 id=876 data-nosnippet>876</a>            value / <span class="number">2.0
+<a href=#877 id=877 data-nosnippet>877</a>        </span>}
+<a href=#878 id=878 data-nosnippet>878</a>    }
+<a href=#879 id=879 data-nosnippet>879</a>
+<a href=#880 id=880 data-nosnippet>880</a>    <span class="attr">#[test]
+<a href=#881 id=881 data-nosnippet>881</a>    </span><span class="kw">fn </span>a_rounding_scale_rounds_the_ends_of_the_line_not_the_height() {
+<a href=#882 id=882 data-nosnippet>882</a>        <span class="comment">// A font with no `vmtx` stacks by the line, and the height comes
+<a href=#883 id=883 data-nosnippet>883</a>        // from two ends. Scaling each before subtracting is what a caller
+<a href=#884 id=884 data-nosnippet>884</a>        // stating its own line does, so doing it the other way round would
+<a href=#885 id=885 data-nosnippet>885</a>        // answer differently depending on whether one was supplied. It shows
+<a href=#886 id=886 data-nosnippet>886</a>        // up only where the scale rounds, and then by a whole unit.
+<a href=#887 id=887 data-nosnippet>887</a>        </span><span class="kw">let </span>font = Font::new(STATIC.to_vec(), <span class="number">0</span>).unwrap();
+<a href=#888 id=888 data-nosnippet>888</a>        <span class="kw">let </span>upem = font.metrics().units_per_em;
+<a href=#889 id=889 data-nosnippet>889</a>        <span class="kw">let </span>from_font = font.metrics().h_line().unwrap().extents();
+<a href=#890 id=890 data-nosnippet>890</a>        <span class="kw">let </span><span class="kw-2">mut </span>rounded_apart = <span class="number">0</span>;
+<a href=#891 id=891 data-nosnippet>891</a>        <span class="kw">for </span>ppem <span class="kw">in </span>[<span class="number">11.0f32</span>, <span class="number">12.0</span>, <span class="number">13.0</span>, <span class="number">14.0</span>, <span class="number">16.0</span>, <span class="number">19.0</span>, <span class="number">24.0</span>] {
+<a href=#892 id=892 data-nosnippet>892</a>            <span class="kw">let </span>scale = Rounding(ppem, upem);
+<a href=#893 id=893 data-nosnippet>893</a>            <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#894 id=894 data-nosnippet>894</a>            <span class="kw">let </span>ends = LineExtents {
+<a href=#895 id=895 data-nosnippet>895</a>                ascender: scale.scale_y(from_font.ascender),
+<a href=#896 id=896 data-nosnippet>896</a>                descender: scale.scale_y(from_font.descender),
+<a href=#897 id=897 data-nosnippet>897</a>            };
+<a href=#898 id=898 data-nosnippet>898</a>            <span class="kw">let </span>from_ends = Rounding::sub(ends.ascender, ends.descender);
+<a href=#899 id=899 data-nosnippet>899</a>            <span class="macro">assert_eq!</span>(
+<a href=#900 id=900 data-nosnippet>900</a>                metrics.v_advance(GlyphId::new(<span class="number">1</span>)),
+<a href=#901 id=901 data-nosnippet>901</a>                from_ends,
+<a href=#902 id=902 data-nosnippet>902</a>                <span class="string">"at {ppem}ppem"
+<a href=#903 id=903 data-nosnippet>903</a>            </span>);
+<a href=#904 id=904 data-nosnippet>904</a>            <span class="comment">// And stating the same line back gives the same answer.
+<a href=#905 id=905 data-nosnippet>905</a>            </span><span class="macro">assert_eq!</span>(
+<a href=#906 id=906 data-nosnippet>906</a>                metrics
+<a href=#907 id=907 data-nosnippet>907</a>                    .with_line_extents(<span class="prelude-val">Some</span>(ends))
+<a href=#908 id=908 data-nosnippet>908</a>                    .v_advance(GlyphId::new(<span class="number">1</span>)),
+<a href=#909 id=909 data-nosnippet>909</a>                from_ends,
+<a href=#910 id=910 data-nosnippet>910</a>                <span class="string">"at {ppem}ppem, supplied"
+<a href=#911 id=911 data-nosnippet>911</a>            </span>);
+<a href=#912 id=912 data-nosnippet>912</a>            <span class="comment">// The other way round: subtract in design units, scale once.
+<a href=#913 id=913 data-nosnippet>913</a>            </span><span class="kw">if </span>scale.scale_y(from_font.ascender - from_font.descender) != from_ends {
+<a href=#914 id=914 data-nosnippet>914</a>                rounded_apart += <span class="number">1</span>;
+<a href=#915 id=915 data-nosnippet>915</a>            }
+<a href=#916 id=916 data-nosnippet>916</a>        }
+<a href=#917 id=917 data-nosnippet>917</a>        <span class="macro">assert!</span>(
+<a href=#918 id=918 data-nosnippet>918</a>            rounded_apart &gt; <span class="number">0</span>,
+<a href=#919 id=919 data-nosnippet>919</a>            <span class="string">"no size here rounds the two ways apart, so this proves nothing"
+<a href=#920 id=920 data-nosnippet>920</a>        </span>);
+<a href=#921 id=921 data-nosnippet>921</a>    }
+<a href=#922 id=922 data-nosnippet>922</a>
+<a href=#923 id=923 data-nosnippet>923</a>    <span class="attr">#[test]
+<a href=#924 id=924 data-nosnippet>924</a>    </span><span class="kw">fn </span>the_scaled_line_is_the_one_the_glyph_metrics_stack_by() {
+<a href=#925 id=925 data-nosnippet>925</a>        <span class="comment">// The reason both views exist. A caller reading the line from the
+<a href=#926 id=926 data-nosnippet>926</a>        // global metrics and subtracting its ends must land on the height
+<a href=#927 id=927 data-nosnippet>927</a>        // the glyph metrics give a font that stacks by that line, or the two
+<a href=#928 id=928 data-nosnippet>928</a>        // disagree about the same font at the same size.
+<a href=#929 id=929 data-nosnippet>929</a>        </span><span class="kw">let </span>font = Font::new(STATIC.to_vec(), <span class="number">0</span>).unwrap();
+<a href=#930 id=930 data-nosnippet>930</a>        <span class="kw">let </span>upem = font.metrics().units_per_em;
+<a href=#931 id=931 data-nosnippet>931</a>        <span class="kw">for </span>ppem <span class="kw">in </span>[<span class="number">11.0f32</span>, <span class="number">12.0</span>, <span class="number">13.0</span>, <span class="number">16.0</span>, <span class="number">19.0</span>, <span class="number">24.0</span>] {
+<a href=#932 id=932 data-nosnippet>932</a>            <span class="kw">let </span>scale = Rounding(ppem, upem);
+<a href=#933 id=933 data-nosnippet>933</a>            <span class="kw">let </span>line = font.metrics().scaled(scale).h_line().unwrap();
+<a href=#934 id=934 data-nosnippet>934</a>            <span class="kw">let </span>height = Rounding::sub(line.ascender, line.descender);
+<a href=#935 id=935 data-nosnippet>935</a>            <span class="kw">let </span>glyphs = font.glyph_metrics().scaled(scale);
+<a href=#936 id=936 data-nosnippet>936</a>            <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#937 id=937 data-nosnippet>937</a>                <span class="macro">assert_eq!</span>(glyphs.v_advance(gid), height, <span class="string">"glyph {gid} at {ppem}ppem"</span>);
+<a href=#938 id=938 data-nosnippet>938</a>            }
+<a href=#939 id=939 data-nosnippet>939</a>        }
+<a href=#940 id=940 data-nosnippet>940</a>    }
+<a href=#941 id=941 data-nosnippet>941</a>
+<a href=#942 id=942 data-nosnippet>942</a>    <span class="attr">#[test]
+<a href=#943 id=943 data-nosnippet>943</a>    </span><span class="kw">fn </span>every_measurement_is_the_unscaled_one_through_the_scale() {
+<a href=#944 id=944 data-nosnippet>944</a>        <span class="comment">// One case per field of `Metrics`, so that a field added there
+<a href=#945 id=945 data-nosnippet>945</a>        // without one here is a gap someone has to notice.
+<a href=#946 id=946 data-nosnippet>946</a>        </span><span class="kw">let </span>font = Font::new(STATIC.to_vec(), <span class="number">0</span>).unwrap();
+<a href=#947 id=947 data-nosnippet>947</a>        <span class="kw">let </span>global = font.metrics();
+<a href=#948 id=948 data-nosnippet>948</a>        <span class="kw">let </span>scale = Ppem {
+<a href=#949 id=949 data-nosnippet>949</a>            ppem: <span class="number">16.0</span>,
+<a href=#950 id=950 data-nosnippet>950</a>            upem: global.units_per_em,
+<a href=#951 id=951 data-nosnippet>951</a>        };
+<a href=#952 id=952 data-nosnippet>952</a>        <span class="kw">let </span>scaled = global.scaled(scale);
+<a href=#953 id=953 data-nosnippet>953</a>        <span class="kw">let </span>y = |line: LineBox&lt;F48Dot16&gt;| LineBox {
+<a href=#954 id=954 data-nosnippet>954</a>            ascender: scale.scale_y(line.ascender),
+<a href=#955 id=955 data-nosnippet>955</a>            descender: scale.scale_y(line.descender),
+<a href=#956 id=956 data-nosnippet>956</a>            line_gap: scale.scale_y(line.line_gap),
+<a href=#957 id=957 data-nosnippet>957</a>        };
+<a href=#958 id=958 data-nosnippet>958</a>        <span class="kw">let </span>x = |line: LineBox&lt;F48Dot16&gt;| LineBox {
+<a href=#959 id=959 data-nosnippet>959</a>            ascender: scale.scale_x(line.ascender),
+<a href=#960 id=960 data-nosnippet>960</a>            descender: scale.scale_x(line.descender),
+<a href=#961 id=961 data-nosnippet>961</a>            line_gap: scale.scale_x(line.line_gap),
+<a href=#962 id=962 data-nosnippet>962</a>        };
+<a href=#963 id=963 data-nosnippet>963</a>        <span class="macro">assert_eq!</span>(scaled.bounds(), scale.scale_rect(global.bounds));
+<a href=#964 id=964 data-nosnippet>964</a>        <span class="macro">assert_eq!</span>(scaled.hhea_line(), global.hhea_line.map(y));
+<a href=#965 id=965 data-nosnippet>965</a>        <span class="macro">assert_eq!</span>(scaled.typo_line(), global.typo_line.map(y));
+<a href=#966 id=966 data-nosnippet>966</a>        <span class="macro">assert_eq!</span>(scaled.vhea_line(), global.vhea_line.map(x));
+<a href=#967 id=967 data-nosnippet>967</a>        <span class="macro">assert_eq!</span>(scaled.h_line(), global.h_line().map(y));
+<a href=#968 id=968 data-nosnippet>968</a>        <span class="macro">assert_eq!</span>(
+<a href=#969 id=969 data-nosnippet>969</a>            scaled.win_line(),
+<a href=#970 id=970 data-nosnippet>970</a>            global.win_line.map(|l| LineExtents {
+<a href=#971 id=971 data-nosnippet>971</a>                ascender: scale.scale_y(l.ascender),
+<a href=#972 id=972 data-nosnippet>972</a>                descender: scale.scale_y(l.descender),
+<a href=#973 id=973 data-nosnippet>973</a>            })
+<a href=#974 id=974 data-nosnippet>974</a>        );
+<a href=#975 id=975 data-nosnippet>975</a>        <span class="macro">assert_eq!</span>(scaled.x_height(), global.x_height.map(|v| scale.scale_y(v)));
+<a href=#976 id=976 data-nosnippet>976</a>        <span class="macro">assert_eq!</span>(
+<a href=#977 id=977 data-nosnippet>977</a>            scaled.cap_height(),
+<a href=#978 id=978 data-nosnippet>978</a>            global.cap_height.map(|v| scale.scale_y(v))
+<a href=#979 id=979 data-nosnippet>979</a>        );
+<a href=#980 id=980 data-nosnippet>980</a>        <span class="macro">assert_eq!</span>(
+<a href=#981 id=981 data-nosnippet>981</a>            scaled.max_h_advance(),
+<a href=#982 id=982 data-nosnippet>982</a>            global.max_h_advance.map(|v| scale.scale_x(v))
+<a href=#983 id=983 data-nosnippet>983</a>        );
+<a href=#984 id=984 data-nosnippet>984</a>        <span class="macro">assert_eq!</span>(
+<a href=#985 id=985 data-nosnippet>985</a>            scaled.max_v_advance(),
+<a href=#986 id=986 data-nosnippet>986</a>            global.max_v_advance.map(|v| scale.scale_y(v))
+<a href=#987 id=987 data-nosnippet>987</a>        );
+<a href=#988 id=988 data-nosnippet>988</a>        <span class="macro">assert_eq!</span>(
+<a href=#989 id=989 data-nosnippet>989</a>            scaled.average_char_width(),
+<a href=#990 id=990 data-nosnippet>990</a>            global.average_char_width.map(|v| scale.scale_x(v))
+<a href=#991 id=991 data-nosnippet>991</a>        );
+<a href=#992 id=992 data-nosnippet>992</a>        <span class="comment">// What carries no unit is reported unchanged.
+<a href=#993 id=993 data-nosnippet>993</a>        </span><span class="macro">assert_eq!</span>(scaled.units_per_em(), global.units_per_em);
+<a href=#994 id=994 data-nosnippet>994</a>        <span class="macro">assert_eq!</span>(scaled.num_glyphs(), global.num_glyphs);
+<a href=#995 id=995 data-nosnippet>995</a>        <span class="macro">assert_eq!</span>(scaled.use_typo_metrics(), global.use_typo_metrics);
+<a href=#996 id=996 data-nosnippet>996</a>        <span class="comment">// And this font provides enough for the comparison to mean something.
+<a href=#997 id=997 data-nosnippet>997</a>        </span><span class="macro">assert!</span>(scaled.hhea_line().is_some() &amp;&amp; scaled.typo_line().is_some());
+<a href=#998 id=998 data-nosnippet>998</a>    }
+<a href=#999 id=999 data-nosnippet>999</a>
+<a href=#1000 id=1000 data-nosnippet>1000</a>    <span class="attr">#[test]
+<a href=#1001 id=1001 data-nosnippet>1001</a>    </span><span class="kw">fn </span>the_clipping_line_reports_its_descent_as_a_position() {
+<a href=#1002 id=1002 data-nosnippet>1002</a>        <span class="comment">// `OS/2` gives the descent as a positive number below the baseline.
+<a href=#1003 id=1003 data-nosnippet>1003</a>        // Reporting it as a position keeps the pair readable as a line.
+<a href=#1004 id=1004 data-nosnippet>1004</a>        </span><span class="kw">let </span>font = Font::new(STATIC.to_vec(), <span class="number">0</span>).unwrap();
+<a href=#1005 id=1005 data-nosnippet>1005</a>        <span class="kw">let </span>global = font.metrics();
+<a href=#1006 id=1006 data-nosnippet>1006</a>        <span class="kw">let </span>win = global
+<a href=#1007 id=1007 data-nosnippet>1007</a>            .win_line
+<a href=#1008 id=1008 data-nosnippet>1008</a>            .expect(<span class="string">"this font provides clipping metrics"</span>);
+<a href=#1009 id=1009 data-nosnippet>1009</a>        <span class="macro">assert!</span>(win.ascender &gt; F48Dot16::ZERO);
+<a href=#1010 id=1010 data-nosnippet>1010</a>        <span class="macro">assert!</span>(win.descender &lt; F48Dot16::ZERO);
+<a href=#1011 id=1011 data-nosnippet>1011</a>        <span class="kw">let </span>scale = Ppem {
+<a href=#1012 id=1012 data-nosnippet>1012</a>            ppem: <span class="number">16.0</span>,
+<a href=#1013 id=1013 data-nosnippet>1013</a>            upem: global.units_per_em,
+<a href=#1014 id=1014 data-nosnippet>1014</a>        };
+<a href=#1015 id=1015 data-nosnippet>1015</a>        <span class="kw">let </span>scaled = global.scaled(scale).win_line().unwrap();
+<a href=#1016 id=1016 data-nosnippet>1016</a>        <span class="macro">assert_eq!</span>(scaled.ascender, scale.scale_y(win.ascender));
+<a href=#1017 id=1017 data-nosnippet>1017</a>        <span class="macro">assert_eq!</span>(scaled.descender, scale.scale_y(win.descender));
+<a href=#1018 id=1018 data-nosnippet>1018</a>    }
+<a href=#1019 id=1019 data-nosnippet>1019</a>
+<a href=#1020 id=1020 data-nosnippet>1020</a>    <span class="attr">#[test]
+<a href=#1021 id=1021 data-nosnippet>1021</a>    </span><span class="kw">fn </span>the_two_scales_agree_within_what_each_can_hold() {
+<a href=#1022 id=1022 data-nosnippet>1022</a>        <span class="comment">// The same font at the same size, in two number types. They differ by
+<a href=#1023 id=1023 data-nosnippet>1023</a>        // what each can represent, so the coarser rounds the finer rather
+<a href=#1024 id=1024 data-nosnippet>1024</a>        // than disagreeing with it.
+<a href=#1025 id=1025 data-nosnippet>1025</a>        </span><span class="kw">let </span>font = Font::new(STATIC.to_vec(), <span class="number">0</span>).unwrap();
+<a href=#1026 id=1026 data-nosnippet>1026</a>        <span class="kw">let </span>upem = font.metrics().units_per_em;
+<a href=#1027 id=1027 data-nosnippet>1027</a>        <span class="kw">let </span>coarse = font
+<a href=#1028 id=1028 data-nosnippet>1028</a>            .glyph_metrics()
+<a href=#1029 id=1029 data-nosnippet>1029</a>            .scaled(Scale26Dot6::from_ppem(<span class="number">16.0</span>, upem));
+<a href=#1030 id=1030 data-nosnippet>1030</a>        <span class="kw">let </span>fine = font.glyph_metrics().scaled(ScaleF32::from_ppem(<span class="number">16.0</span>, upem));
+<a href=#1031 id=1031 data-nosnippet>1031</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1032 id=1032 data-nosnippet>1032</a>            <span class="comment">// 26.6 resolves 1/64 pixel, so it lands within one of those.
+<a href=#1033 id=1033 data-nosnippet>1033</a>            </span><span class="kw">let </span>apart = (coarse.h_advance(gid).to_f32() - fine.h_advance(gid)).abs();
+<a href=#1034 id=1034 data-nosnippet>1034</a>            <span class="macro">assert!</span>(apart &lt; <span class="number">1.0 </span>/ <span class="number">32.0</span>, <span class="string">"glyph {gid} is {apart} apart"</span>);
+<a href=#1035 id=1035 data-nosnippet>1035</a>        }
+<a href=#1036 id=1036 data-nosnippet>1036</a>    }
+<a href=#1037 id=1037 data-nosnippet>1037</a>
+<a href=#1038 id=1038 data-nosnippet>1038</a>    <span class="attr">#[test]
+<a href=#1039 id=1039 data-nosnippet>1039</a>    </span><span class="kw">fn </span>a_scale_with_a_size_per_axis_uses_each_in_its_own_direction() {
+<a href=#1040 id=1040 data-nosnippet>1040</a>        <span class="comment">// The axes are apart because HarfBuzz keeps them apart, so a scale
+<a href=#1041 id=1041 data-nosnippet>1041</a>        // built from two factors has to use the right one in each direction.
+<a href=#1042 id=1042 data-nosnippet>1042</a>        </span><span class="kw">let </span>font = Font::new(VERT.to_vec(), <span class="number">0</span>).unwrap();
+<a href=#1043 id=1043 data-nosnippet>1043</a>        <span class="kw">let </span>upem = font.metrics().units_per_em;
+<a href=#1044 id=1044 data-nosnippet>1044</a>        <span class="kw">let </span>em = upem <span class="kw">as </span>f32;
+<a href=#1045 id=1045 data-nosnippet>1045</a>        <span class="kw">let </span>wide = ScaleF32::new(em * <span class="number">2.0</span>, em, upem);
+<a href=#1046 id=1046 data-nosnippet>1046</a>        <span class="kw">let </span>tall = ScaleF32::new(em, em * <span class="number">2.0</span>, upem);
+<a href=#1047 id=1047 data-nosnippet>1047</a>        <span class="kw">let </span>plain = ScaleF32::new(em, em, upem);
+<a href=#1048 id=1048 data-nosnippet>1048</a>        <span class="kw">let </span>gid = GlyphId::new(<span class="number">1</span>);
+<a href=#1049 id=1049 data-nosnippet>1049</a>        <span class="kw">let </span>(w, t, p) = (
+<a href=#1050 id=1050 data-nosnippet>1050</a>            font.glyph_metrics().scaled(wide),
+<a href=#1051 id=1051 data-nosnippet>1051</a>            font.glyph_metrics().scaled(tall),
+<a href=#1052 id=1052 data-nosnippet>1052</a>            font.glyph_metrics().scaled(plain),
+<a href=#1053 id=1053 data-nosnippet>1053</a>        );
+<a href=#1054 id=1054 data-nosnippet>1054</a>        <span class="macro">assert_eq!</span>(w.h_advance(gid), p.h_advance(gid) * <span class="number">2.0</span>);
+<a href=#1055 id=1055 data-nosnippet>1055</a>        <span class="macro">assert_eq!</span>(w.v_advance(gid), p.v_advance(gid));
+<a href=#1056 id=1056 data-nosnippet>1056</a>        <span class="macro">assert_eq!</span>(t.v_advance(gid), p.v_advance(gid) * <span class="number">2.0</span>);
+<a href=#1057 id=1057 data-nosnippet>1057</a>        <span class="macro">assert_eq!</span>(t.h_advance(gid), p.h_advance(gid));
+<a href=#1058 id=1058 data-nosnippet>1058</a>    }
+<a href=#1059 id=1059 data-nosnippet>1059</a>
+<a href=#1060 id=1060 data-nosnippet>1060</a>    <span class="attr">#[test]
+<a href=#1061 id=1061 data-nosnippet>1061</a>    </span><span class="kw">fn </span>freetype_scales_whole_design_units() {
+<a href=#1062 id=1062 data-nosnippet>1062</a>        <span class="comment">// What separates the two: FreeType multiplies a whole design unit,
+<a href=#1063 id=1063 data-nosnippet>1063</a>        // so a measurement carrying a fraction loses it before the multiply.
+<a href=#1064 id=1064 data-nosnippet>1064</a>        // A varied advance carries one, which is why the other exists.
+<a href=#1065 id=1065 data-nosnippet>1065</a>        </span><span class="kw">let </span>upem = <span class="number">1000</span>;
+<a href=#1066 id=1066 data-nosnippet>1066</a>        <span class="kw">let </span>fraction = F48Dot16::from_f64(<span class="number">10.5</span>);
+<a href=#1067 id=1067 data-nosnippet>1067</a>        <span class="macro">assert_eq!</span>(
+<a href=#1068 id=1068 data-nosnippet>1068</a>            Scale26Dot6::from_ppem(upem <span class="kw">as </span>f32, upem).scale_x(fraction),
+<a href=#1069 id=1069 data-nosnippet>1069</a>            F26Dot6::from_f64(<span class="number">11.0</span>)
+<a href=#1070 id=1070 data-nosnippet>1070</a>        );
+<a href=#1071 id=1071 data-nosnippet>1071</a>        <span class="macro">assert_eq!</span>(
+<a href=#1072 id=1072 data-nosnippet>1072</a>            ScaleF32::from_ppem(upem <span class="kw">as </span>f32, upem).scale_x(fraction),
+<a href=#1073 id=1073 data-nosnippet>1073</a>            <span class="number">10.5
+<a href=#1074 id=1074 data-nosnippet>1074</a>        </span>);
+<a href=#1075 id=1075 data-nosnippet>1075</a>    }
+<a href=#1076 id=1076 data-nosnippet>1076</a>
+<a href=#1077 id=1077 data-nosnippet>1077</a>    <span class="attr">#[test]
+<a href=#1078 id=1078 data-nosnippet>1078</a>    </span><span class="kw">fn </span>a_rounding_scale_rounds_extents_corners_before_size() {
+<a href=#1079 id=1079 data-nosnippet>1079</a>        <span class="kw">let </span>extents = GlyphExtents {
+<a href=#1080 id=1080 data-nosnippet>1080</a>            x_bearing: F48Dot16::from_f64(<span class="number">10.6</span>),
+<a href=#1081 id=1081 data-nosnippet>1081</a>            y_bearing: F48Dot16::from_f64(-<span class="number">0.5</span>),
+<a href=#1082 id=1082 data-nosnippet>1082</a>            width: F48Dot16::from_f64(<span class="number">9.8</span>),
+<a href=#1083 id=1083 data-nosnippet>1083</a>            height: F48Dot16::from_f64(<span class="number">20.0</span>),
+<a href=#1084 id=1084 data-nosnippet>1084</a>        };
+<a href=#1085 id=1085 data-nosnippet>1085</a>        <span class="kw">let </span>scale = Scale26Dot6::from_ppem(<span class="number">1000.0</span>, <span class="number">1000</span>);
+<a href=#1086 id=1086 data-nosnippet>1086</a>        <span class="macro">assert_eq!</span>(
+<a href=#1087 id=1087 data-nosnippet>1087</a>            scale.scale_glyph_extents(extents),
+<a href=#1088 id=1088 data-nosnippet>1088</a>            GlyphExtents {
+<a href=#1089 id=1089 data-nosnippet>1089</a>                x_bearing: F26Dot6::from_f64(<span class="number">11.0</span>),
+<a href=#1090 id=1090 data-nosnippet>1090</a>                y_bearing: F26Dot6::from_f64(-<span class="number">1.0</span>),
+<a href=#1091 id=1091 data-nosnippet>1091</a>                width: F26Dot6::from_f64(<span class="number">9.0</span>),
+<a href=#1092 id=1092 data-nosnippet>1092</a>                height: F26Dot6::from_f64(<span class="number">20.0</span>),
+<a href=#1093 id=1093 data-nosnippet>1093</a>            }
+<a href=#1094 id=1094 data-nosnippet>1094</a>        );
+<a href=#1095 id=1095 data-nosnippet>1095</a>
+<a href=#1096 id=1096 data-nosnippet>1096</a>        <span class="kw">let </span>below_half = F48Dot16::from_bits((<span class="number">100_000 </span>&lt;&lt; <span class="number">16</span>) + <span class="number">0x7fff</span>);
+<a href=#1097 id=1097 data-nosnippet>1097</a>        <span class="kw">let </span>extents = GlyphExtents {
+<a href=#1098 id=1098 data-nosnippet>1098</a>            x_bearing: below_half,
+<a href=#1099 id=1099 data-nosnippet>1099</a>            y_bearing: F48Dot16::from_i32(<span class="number">10</span>),
+<a href=#1100 id=1100 data-nosnippet>1100</a>            width: F48Dot16::from_i32(<span class="number">2</span>),
+<a href=#1101 id=1101 data-nosnippet>1101</a>            height: F48Dot16::from_i32(<span class="number">2</span>),
+<a href=#1102 id=1102 data-nosnippet>1102</a>        };
+<a href=#1103 id=1103 data-nosnippet>1103</a>        <span class="macro">assert_eq!</span>(
+<a href=#1104 id=1104 data-nosnippet>1104</a>            scale.scale_glyph_extents(extents).x_bearing,
+<a href=#1105 id=1105 data-nosnippet>1105</a>            F26Dot6::from_i32(<span class="number">100_000</span>)
+<a href=#1106 id=1106 data-nosnippet>1106</a>        );
+<a href=#1107 id=1107 data-nosnippet>1107</a>    }
+<a href=#1108 id=1108 data-nosnippet>1108</a>
+<a href=#1109 id=1109 data-nosnippet>1109</a>    <span class="attr">#[test]
+<a href=#1110 id=1110 data-nosnippet>1110</a>    </span><span class="kw">fn </span>halving_rounds_toward_negative_infinity_in_26_6() {
+<a href=#1111 id=1111 data-nosnippet>1111</a>        <span class="comment">// Documented, because HarfBuzz halves two ways within one function
+<a href=#1112 id=1112 data-nosnippet>1112</a>        // and a caller writing its own needs to know which it is getting.
+<a href=#1113 id=1113 data-nosnippet>1113</a>        </span><span class="macro">assert_eq!</span>(
+<a href=#1114 id=1114 data-nosnippet>1114</a>            Scale26Dot6::half(F26Dot6::from_bits(-<span class="number">3</span>)),
+<a href=#1115 id=1115 data-nosnippet>1115</a>            F26Dot6::from_bits(-<span class="number">2</span>)
+<a href=#1116 id=1116 data-nosnippet>1116</a>        );
+<a href=#1117 id=1117 data-nosnippet>1117</a>        <span class="macro">assert_eq!</span>(ScaleF32::half(-<span class="number">3.0</span>), -<span class="number">1.5</span>);
+<a href=#1118 id=1118 data-nosnippet>1118</a>    }
+<a href=#1119 id=1119 data-nosnippet>1119</a>
+<a href=#1120 id=1120 data-nosnippet>1120</a>    <span class="attr">#[test]
+<a href=#1121 id=1121 data-nosnippet>1121</a>    </span><span class="kw">fn </span>a_scaled_advance_is_the_design_unit_one_through_the_scale() {
+<a href=#1122 id=1122 data-nosnippet>1122</a>        <span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1123 id=1123 data-nosnippet>1123</a>        <span class="kw">let </span>metrics = font.glyph_metrics();
+<a href=#1124 id=1124 data-nosnippet>1124</a>        <span class="kw">let </span>scaled = metrics.scaled(scale);
+<a href=#1125 id=1125 data-nosnippet>1125</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1126 id=1126 data-nosnippet>1126</a>            <span class="macro">assert_eq!</span>(
+<a href=#1127 id=1127 data-nosnippet>1127</a>                scaled.h_advance(gid),
+<a href=#1128 id=1128 data-nosnippet>1128</a>                scale.scale_x(metrics.h_advance_exact(gid)),
+<a href=#1129 id=1129 data-nosnippet>1129</a>                <span class="string">"glyph {gid}"
+<a href=#1130 id=1130 data-nosnippet>1130</a>            </span>);
+<a href=#1131 id=1131 data-nosnippet>1131</a>        }
+<a href=#1132 id=1132 data-nosnippet>1132</a>    }
+<a href=#1133 id=1133 data-nosnippet>1133</a>
+<a href=#1134 id=1134 data-nosnippet>1134</a>    <span class="attr">#[test]
+<a href=#1135 id=1135 data-nosnippet>1135</a>    </span><span class="kw">fn </span>a_stated_line_measures_a_font_that_states_none() {
+<a href=#1136 id=1136 data-nosnippet>1136</a>        <span class="comment">// This font has no `vmtx`, so its glyphs stack by the line.
+<a href=#1137 id=1137 data-nosnippet>1137</a>        </span><span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1138 id=1138 data-nosnippet>1138</a>        <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1139 id=1139 data-nosnippet>1139</a>        <span class="kw">let </span>supplied = metrics.with_line_extents(<span class="prelude-val">Some</span>(line(<span class="number">12.0</span>, -<span class="number">4.0</span>)));
+<a href=#1140 id=1140 data-nosnippet>1140</a>        <span class="kw">let </span>gid = GlyphId::new(<span class="number">1</span>);
+<a href=#1141 id=1141 data-nosnippet>1141</a>        <span class="macro">assert_eq!</span>(supplied.v_advance(gid), <span class="number">16.0</span>);
+<a href=#1142 id=1142 data-nosnippet>1142</a>        <span class="macro">assert!</span>(metrics.v_advance(gid) != <span class="number">16.0</span>);
+<a href=#1143 id=1143 data-nosnippet>1143</a>    }
+<a href=#1144 id=1144 data-nosnippet>1144</a>
+<a href=#1145 id=1145 data-nosnippet>1145</a>    <span class="attr">#[test]
+<a href=#1146 id=1146 data-nosnippet>1146</a>    </span><span class="kw">fn </span>a_font_that_states_its_own_ignores_the_line() {
+<a href=#1147 id=1147 data-nosnippet>1147</a>        <span class="comment">// This one has `vmtx`, so the line is not what its glyphs stack by,
+<a href=#1148 id=1148 data-nosnippet>1148</a>        // and stating one changes nothing.
+<a href=#1149 id=1149 data-nosnippet>1149</a>        </span><span class="kw">let </span>(font, scale) = scaled(VERT, <span class="number">16.0</span>);
+<a href=#1150 id=1150 data-nosnippet>1150</a>        <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1151 id=1151 data-nosnippet>1151</a>        <span class="kw">let </span>supplied = metrics.with_line_extents(<span class="prelude-val">Some</span>(line(<span class="number">99.0</span>, -<span class="number">99.0</span>)));
+<a href=#1152 id=1152 data-nosnippet>1152</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1153 id=1153 data-nosnippet>1153</a>            <span class="macro">assert_eq!</span>(
+<a href=#1154 id=1154 data-nosnippet>1154</a>                metrics.v_advance(gid),
+<a href=#1155 id=1155 data-nosnippet>1155</a>                supplied.v_advance(gid),
+<a href=#1156 id=1156 data-nosnippet>1156</a>                <span class="string">"glyph {gid}"
+<a href=#1157 id=1157 data-nosnippet>1157</a>            </span>);
+<a href=#1158 id=1158 data-nosnippet>1158</a>        }
+<a href=#1159 id=1159 data-nosnippet>1159</a>    }
+<a href=#1160 id=1160 data-nosnippet>1160</a>
+<a href=#1161 id=1161 data-nosnippet>1161</a>    <span class="attr">#[test]
+<a href=#1162 id=1162 data-nosnippet>1162</a>    </span><span class="kw">fn </span>stating_nothing_is_stating_nothing() {
+<a href=#1163 id=1163 data-nosnippet>1163</a>        <span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1164 id=1164 data-nosnippet>1164</a>        <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1165 id=1165 data-nosnippet>1165</a>        <span class="kw">let </span>gid = GlyphId::new(<span class="number">1</span>);
+<a href=#1166 id=1166 data-nosnippet>1166</a>        <span class="macro">assert_eq!</span>(
+<a href=#1167 id=1167 data-nosnippet>1167</a>            metrics.with_line_extents(<span class="prelude-val">None</span>).v_advance(gid),
+<a href=#1168 id=1168 data-nosnippet>1168</a>            metrics.v_advance(gid)
+<a href=#1169 id=1169 data-nosnippet>1169</a>        );
+<a href=#1170 id=1170 data-nosnippet>1170</a>    }
+<a href=#1171 id=1171 data-nosnippet>1171</a>
+<a href=#1172 id=1172 data-nosnippet>1172</a>    <span class="attr">#[test]
+<a href=#1173 id=1173 data-nosnippet>1173</a>    </span><span class="kw">fn </span>a_batch_agrees_with_one_at_a_time() {
+<a href=#1174 id=1174 data-nosnippet>1174</a>        <span class="kw">for </span>(data, supplied) <span class="kw">in </span>[
+<a href=#1175 id=1175 data-nosnippet>1175</a>            (STATIC, <span class="prelude-val">None</span>),
+<a href=#1176 id=1176 data-nosnippet>1176</a>            (STATIC, <span class="prelude-val">Some</span>(line(<span class="number">12.0</span>, -<span class="number">4.0</span>))),
+<a href=#1177 id=1177 data-nosnippet>1177</a>            (VERT, <span class="prelude-val">None</span>),
+<a href=#1178 id=1178 data-nosnippet>1178</a>            (VERT, <span class="prelude-val">Some</span>(line(<span class="number">12.0</span>, -<span class="number">4.0</span>))),
+<a href=#1179 id=1179 data-nosnippet>1179</a>        ] {
+<a href=#1180 id=1180 data-nosnippet>1180</a>            <span class="kw">let </span>(font, scale) = scaled(data, <span class="number">16.0</span>);
+<a href=#1181 id=1181 data-nosnippet>1181</a>            <span class="kw">let </span>metrics = font
+<a href=#1182 id=1182 data-nosnippet>1182</a>                .glyph_metrics()
+<a href=#1183 id=1183 data-nosnippet>1183</a>                .scaled(scale)
+<a href=#1184 id=1184 data-nosnippet>1184</a>                .with_line_extents(supplied);
+<a href=#1185 id=1185 data-nosnippet>1185</a>            <span class="kw">let </span>gids: Vec&lt;<span class="kw">_</span>&gt; = (<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new).collect();
+<a href=#1186 id=1186 data-nosnippet>1186</a>            <span class="kw">let </span><span class="kw-2">mut </span>h = <span class="macro">vec!</span>[<span class="number">0.0f32</span>; gids.len()];
+<a href=#1187 id=1187 data-nosnippet>1187</a>            <span class="kw">let </span><span class="kw-2">mut </span>v = <span class="macro">vec!</span>[<span class="number">0.0f32</span>; gids.len()];
+<a href=#1188 id=1188 data-nosnippet>1188</a>            metrics.h_advance_batched(|value| value, gids.iter().copied().zip(h.iter_mut()));
+<a href=#1189 id=1189 data-nosnippet>1189</a>            metrics.v_advance_batched(|value| value, gids.iter().copied().zip(v.iter_mut()));
+<a href=#1190 id=1190 data-nosnippet>1190</a>            <span class="kw">for </span>(i, gid) <span class="kw">in </span>gids.iter().enumerate() {
+<a href=#1191 id=1191 data-nosnippet>1191</a>                <span class="macro">assert_eq!</span>(metrics.h_advance(<span class="kw-2">*</span>gid), h[i], <span class="string">"h, glyph {gid}"</span>);
+<a href=#1192 id=1192 data-nosnippet>1192</a>                <span class="macro">assert_eq!</span>(metrics.v_advance(<span class="kw-2">*</span>gid), v[i], <span class="string">"v, glyph {gid}"</span>);
+<a href=#1193 id=1193 data-nosnippet>1193</a>            }
+<a href=#1194 id=1194 data-nosnippet>1194</a>        }
+<a href=#1195 id=1195 data-nosnippet>1195</a>    }
+<a href=#1196 id=1196 data-nosnippet>1196</a>
+<a href=#1197 id=1197 data-nosnippet>1197</a>    <span class="attr">#[test]
+<a href=#1198 id=1198 data-nosnippet>1198</a>    </span><span class="kw">fn </span>a_scaled_box_is_the_font_box_through_the_scale() {
+<a href=#1199 id=1199 data-nosnippet>1199</a>        <span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1200 id=1200 data-nosnippet>1200</a>        <span class="kw">let </span>metrics = font.glyph_metrics();
+<a href=#1201 id=1201 data-nosnippet>1201</a>        <span class="kw">let </span>scaled = metrics.scaled(scale);
+<a href=#1202 id=1202 data-nosnippet>1202</a>        <span class="kw">let </span><span class="kw-2">mut </span>measured = <span class="number">0</span>;
+<a href=#1203 id=1203 data-nosnippet>1203</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1204 id=1204 data-nosnippet>1204</a>            <span class="kw">let </span>expected = metrics
+<a href=#1205 id=1205 data-nosnippet>1205</a>                .extents_exact(gid)
+<a href=#1206 id=1206 data-nosnippet>1206</a>                .map(|extents| scale.scale_glyph_extents(extents));
+<a href=#1207 id=1207 data-nosnippet>1207</a>            <span class="macro">assert_eq!</span>(scaled.extents(gid), expected, <span class="string">"glyph {gid}"</span>);
+<a href=#1208 id=1208 data-nosnippet>1208</a>            measured += expected.is_some() <span class="kw">as </span>u32;
+<a href=#1209 id=1209 data-nosnippet>1209</a>        }
+<a href=#1210 id=1210 data-nosnippet>1210</a>        <span class="macro">assert!</span>(measured &gt; <span class="number">0</span>);
+<a href=#1211 id=1211 data-nosnippet>1211</a>    }
+<a href=#1212 id=1212 data-nosnippet>1212</a>
+<a href=#1213 id=1213 data-nosnippet>1213</a>    <span class="attr">#[test]
+<a href=#1214 id=1214 data-nosnippet>1214</a>    </span><span class="kw">fn </span>a_supplied_measurement_replaces_the_font_one() {
+<a href=#1215 id=1215 data-nosnippet>1215</a>        <span class="comment">// A caller measuring ink elsewhere answers for every glyph, including
+<a href=#1216 id=1216 data-nosnippet>1216</a>        // one it cannot measure where the font states a box.
+<a href=#1217 id=1217 data-nosnippet>1217</a>        </span><span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1218 id=1218 data-nosnippet>1218</a>        <span class="kw">let </span>ink = GlyphExtents {
+<a href=#1219 id=1219 data-nosnippet>1219</a>            x_bearing: <span class="number">1.0</span>,
+<a href=#1220 id=1220 data-nosnippet>1220</a>            y_bearing: <span class="number">2.0</span>,
+<a href=#1221 id=1221 data-nosnippet>1221</a>            width: <span class="number">3.0</span>,
+<a href=#1222 id=1222 data-nosnippet>1222</a>            height: <span class="number">4.0</span>,
+<a href=#1223 id=1223 data-nosnippet>1223</a>        };
+<a href=#1224 id=1224 data-nosnippet>1224</a>        <span class="kw">let </span>supplied = |glyph: GlyphId| (glyph.to_u32() % <span class="number">2 </span>== <span class="number">0</span>).then_some(ink);
+<a href=#1225 id=1225 data-nosnippet>1225</a>        <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1226 id=1226 data-nosnippet>1226</a>        <span class="kw">let </span>overridden = metrics.with_glyph_extents(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>supplied));
+<a href=#1227 id=1227 data-nosnippet>1227</a>        <span class="kw">let </span><span class="kw-2">mut </span>replaced = <span class="number">0</span>;
+<a href=#1228 id=1228 data-nosnippet>1228</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1229 id=1229 data-nosnippet>1229</a>            <span class="macro">assert_eq!</span>(overridden.extents(gid), supplied(gid), <span class="string">"glyph {gid}"</span>);
+<a href=#1230 id=1230 data-nosnippet>1230</a>            replaced += (metrics.extents(gid) != supplied(gid)) <span class="kw">as </span>u32;
+<a href=#1231 id=1231 data-nosnippet>1231</a>        }
+<a href=#1232 id=1232 data-nosnippet>1232</a>        <span class="macro">assert!</span>(replaced &gt; <span class="number">0</span>, <span class="string">"the font already agreed everywhere"</span>);
+<a href=#1233 id=1233 data-nosnippet>1233</a>    }
+<a href=#1234 id=1234 data-nosnippet>1234</a>
+<a href=#1235 id=1235 data-nosnippet>1235</a>    <span class="attr">#[test]
+<a href=#1236 id=1236 data-nosnippet>1236</a>    </span><span class="kw">fn </span>a_supplied_measurement_answers_a_whole_run() {
+<a href=#1237 id=1237 data-nosnippet>1237</a>        <span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1238 id=1238 data-nosnippet>1238</a>        <span class="kw">let </span>ink = GlyphExtents {
+<a href=#1239 id=1239 data-nosnippet>1239</a>            x_bearing: <span class="number">5.0</span>,
+<a href=#1240 id=1240 data-nosnippet>1240</a>            y_bearing: <span class="number">6.0</span>,
+<a href=#1241 id=1241 data-nosnippet>1241</a>            width: <span class="number">7.0</span>,
+<a href=#1242 id=1242 data-nosnippet>1242</a>            height: <span class="number">8.0</span>,
+<a href=#1243 id=1243 data-nosnippet>1243</a>        };
+<a href=#1244 id=1244 data-nosnippet>1244</a>        <span class="kw">let </span>supplied = |glyph: GlyphId| (glyph.to_u32() % <span class="number">3 </span>!= <span class="number">0</span>).then_some(ink);
+<a href=#1245 id=1245 data-nosnippet>1245</a>        <span class="kw">let </span>metrics = font
+<a href=#1246 id=1246 data-nosnippet>1246</a>            .glyph_metrics()
+<a href=#1247 id=1247 data-nosnippet>1247</a>            .scaled(scale)
+<a href=#1248 id=1248 data-nosnippet>1248</a>            .with_glyph_extents(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>supplied));
+<a href=#1249 id=1249 data-nosnippet>1249</a>        <span class="kw">let </span>glyphs: Vec&lt;<span class="kw">_</span>&gt; = (<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new).collect();
+<a href=#1250 id=1250 data-nosnippet>1250</a>        <span class="kw">let </span><span class="kw-2">mut </span>batched = <span class="macro">vec!</span>[<span class="prelude-val">None</span>; glyphs.len()];
+<a href=#1251 id=1251 data-nosnippet>1251</a>        metrics.extents_batched(
+<a href=#1252 id=1252 data-nosnippet>1252</a>            |extents| extents,
+<a href=#1253 id=1253 data-nosnippet>1253</a>            glyphs.iter().copied().zip(batched.iter_mut()),
+<a href=#1254 id=1254 data-nosnippet>1254</a>        );
+<a href=#1255 id=1255 data-nosnippet>1255</a>        <span class="kw">for </span>(gid, batched) <span class="kw">in </span>glyphs.iter().copied().zip(batched) {
+<a href=#1256 id=1256 data-nosnippet>1256</a>            <span class="macro">assert_eq!</span>(batched, supplied(gid), <span class="string">"glyph {gid}"</span>);
+<a href=#1257 id=1257 data-nosnippet>1257</a>        }
+<a href=#1258 id=1258 data-nosnippet>1258</a>    }
+<a href=#1259 id=1259 data-nosnippet>1259</a>
+<a href=#1260 id=1260 data-nosnippet>1260</a>    <span class="attr">#[test]
+<a href=#1261 id=1261 data-nosnippet>1261</a>    </span><span class="kw">fn </span>no_supplied_measurement_leaves_the_font_in_place() {
+<a href=#1262 id=1262 data-nosnippet>1262</a>        <span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1263 id=1263 data-nosnippet>1263</a>        <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1264 id=1264 data-nosnippet>1264</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1265 id=1265 data-nosnippet>1265</a>            <span class="macro">assert_eq!</span>(
+<a href=#1266 id=1266 data-nosnippet>1266</a>                metrics.with_glyph_extents(<span class="prelude-val">None</span>).extents(gid),
+<a href=#1267 id=1267 data-nosnippet>1267</a>                metrics.extents(gid),
+<a href=#1268 id=1268 data-nosnippet>1268</a>                <span class="string">"glyph {gid}"
+<a href=#1269 id=1269 data-nosnippet>1269</a>            </span>);
+<a href=#1270 id=1270 data-nosnippet>1270</a>        }
+<a href=#1271 id=1271 data-nosnippet>1271</a>    }
+<a href=#1272 id=1272 data-nosnippet>1272</a>
+<a href=#1273 id=1273 data-nosnippet>1273</a>    <span class="attr">#[test]
+<a href=#1274 id=1274 data-nosnippet>1274</a>    </span><span class="kw">fn </span>a_supplied_measurement_can_borrow_for_one_query() {
+<a href=#1275 id=1275 data-nosnippet>1275</a>        <span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1276 id=1276 data-nosnippet>1276</a>        <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1277 id=1277 data-nosnippet>1277</a>        <span class="kw">let </span>glyph = GlyphId::new(<span class="number">1</span>);
+<a href=#1278 id=1278 data-nosnippet>1278</a>        <span class="kw">let </span>original = metrics.extents(glyph);
+<a href=#1279 id=1279 data-nosnippet>1279</a>        <span class="kw">let </span>supplied = {
+<a href=#1280 id=1280 data-nosnippet>1280</a>            <span class="kw">let </span>ink = GlyphExtents {
+<a href=#1281 id=1281 data-nosnippet>1281</a>                x_bearing: <span class="number">1.0</span>,
+<a href=#1282 id=1282 data-nosnippet>1282</a>                y_bearing: <span class="number">2.0</span>,
+<a href=#1283 id=1283 data-nosnippet>1283</a>                width: <span class="number">3.0</span>,
+<a href=#1284 id=1284 data-nosnippet>1284</a>                height: <span class="number">4.0</span>,
+<a href=#1285 id=1285 data-nosnippet>1285</a>            };
+<a href=#1286 id=1286 data-nosnippet>1286</a>            <span class="kw">let </span>callback = |<span class="kw">_</span>: GlyphId| <span class="prelude-val">Some</span>(ink);
+<a href=#1287 id=1287 data-nosnippet>1287</a>            metrics.with_glyph_extents(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>callback)).extents(glyph)
+<a href=#1288 id=1288 data-nosnippet>1288</a>        };
+<a href=#1289 id=1289 data-nosnippet>1289</a>        <span class="macro">assert_ne!</span>(supplied, original);
+<a href=#1290 id=1290 data-nosnippet>1290</a>        <span class="macro">assert_eq!</span>(metrics.extents(glyph), original);
+<a href=#1291 id=1291 data-nosnippet>1291</a>    }
+<a href=#1292 id=1292 data-nosnippet>1292</a>
+<a href=#1293 id=1293 data-nosnippet>1293</a>    <span class="attr">#[test]
+<a href=#1294 id=1294 data-nosnippet>1294</a>    </span><span class="kw">fn </span>vorg_answers_ahead_of_everything_else() {
+<a href=#1295 id=1295 data-nosnippet>1295</a>        <span class="comment">// A font stating this states it outright, whatever its ink or its
+<a href=#1296 id=1296 data-nosnippet>1296</a>        // vertical metrics would otherwise say.
+<a href=#1297 id=1297 data-nosnippet>1297</a>        </span><span class="kw">let </span>(font, scale) = scaled(VORG, <span class="number">16.0</span>);
+<a href=#1298 id=1298 data-nosnippet>1298</a>        <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1299 id=1299 data-nosnippet>1299</a>        <span class="kw">let </span>direct = <span class="kw">crate</span>::FontRef::new(VORG).unwrap();
+<a href=#1300 id=1300 data-nosnippet>1300</a>        <span class="kw">let </span>vorg = <span class="kw">crate</span>::TableProvider::vorg(<span class="kw-2">&amp;</span>direct).unwrap();
+<a href=#1301 id=1301 data-nosnippet>1301</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..<span class="number">4</span>).map(GlyphId::new) {
+<a href=#1302 id=1302 data-nosnippet>1302</a>            <span class="macro">assert_eq!</span>(
+<a href=#1303 id=1303 data-nosnippet>1303</a>                metrics.v_origin_y(gid),
+<a href=#1304 id=1304 data-nosnippet>1304</a>                scale.scale_y(F48Dot16::from_i32(vorg.vertical_origin_y(gid) <span class="kw">as </span>i32)),
+<a href=#1305 id=1305 data-nosnippet>1305</a>                <span class="string">"glyph {gid}"
+<a href=#1306 id=1306 data-nosnippet>1306</a>            </span>);
+<a href=#1307 id=1307 data-nosnippet>1307</a>        }
+<a href=#1308 id=1308 data-nosnippet>1308</a>        <span class="comment">// And it answers even where the ink is measured differently.
+<a href=#1309 id=1309 data-nosnippet>1309</a>        </span><span class="kw">let </span>ink = GlyphExtents {
+<a href=#1310 id=1310 data-nosnippet>1310</a>            x_bearing: <span class="number">0.0</span>,
+<a href=#1311 id=1311 data-nosnippet>1311</a>            y_bearing: <span class="number">999.0</span>,
+<a href=#1312 id=1312 data-nosnippet>1312</a>            width: <span class="number">1.0</span>,
+<a href=#1313 id=1313 data-nosnippet>1313</a>            height: <span class="number">1.0</span>,
+<a href=#1314 id=1314 data-nosnippet>1314</a>        };
+<a href=#1315 id=1315 data-nosnippet>1315</a>        <span class="kw">let </span>supplied = |<span class="kw">_</span>: GlyphId| <span class="prelude-val">Some</span>(ink);
+<a href=#1316 id=1316 data-nosnippet>1316</a>        <span class="kw">let </span>overridden = metrics.with_glyph_extents(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>supplied));
+<a href=#1317 id=1317 data-nosnippet>1317</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..<span class="number">4</span>).map(GlyphId::new) {
+<a href=#1318 id=1318 data-nosnippet>1318</a>            <span class="macro">assert_eq!</span>(overridden.v_origin_y(gid), metrics.v_origin_y(gid));
+<a href=#1319 id=1319 data-nosnippet>1319</a>        }
+<a href=#1320 id=1320 data-nosnippet>1320</a>    }
+<a href=#1321 id=1321 data-nosnippet>1321</a>
+<a href=#1322 id=1322 data-nosnippet>1322</a>    <span class="attr">#[test]
+<a href=#1323 id=1323 data-nosnippet>1323</a>    </span><span class="kw">fn </span>vmtx_uses_the_glyf_top_phantom_point() {
+<a href=#1324 id=1324 data-nosnippet>1324</a>        <span class="comment">// With no `VORG`, the top phantom point includes the top side bearing.
+<a href=#1325 id=1325 data-nosnippet>1325</a>        </span><span class="kw">let </span>(font, scale) = scaled(VERT, <span class="number">16.0</span>);
+<a href=#1326 id=1326 data-nosnippet>1326</a>        <span class="kw">let </span>glyph_metrics = font.glyph_metrics();
+<a href=#1327 id=1327 data-nosnippet>1327</a>        <span class="kw">let </span>metrics = glyph_metrics.scaled(scale);
+<a href=#1328 id=1328 data-nosnippet>1328</a>        <span class="macro">assert!</span>(glyph_metrics.stated_v_origin(GlyphId::new(<span class="number">1</span>)).is_none());
+<a href=#1329 id=1329 data-nosnippet>1329</a>        <span class="kw">let </span><span class="kw-2">mut </span>checked = <span class="number">0</span>;
+<a href=#1330 id=1330 data-nosnippet>1330</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1331 id=1331 data-nosnippet>1331</a>            <span class="kw">let </span>(<span class="prelude-val">Some</span>(extents), <span class="prelude-val">Some</span>(bearing)) = (
+<a href=#1332 id=1332 data-nosnippet>1332</a>                glyph_metrics.extents_exact(gid),
+<a href=#1333 id=1333 data-nosnippet>1333</a>                glyph_metrics.stated_v_bearing(gid),
+<a href=#1334 id=1334 data-nosnippet>1334</a>            ) <span class="kw">else </span>{
+<a href=#1335 id=1335 data-nosnippet>1335</a>                <span class="kw">continue</span>;
+<a href=#1336 id=1336 data-nosnippet>1336</a>            };
+<a href=#1337 id=1337 data-nosnippet>1337</a>            <span class="macro">assert_eq!</span>(
+<a href=#1338 id=1338 data-nosnippet>1338</a>                metrics.v_origin_y(gid),
+<a href=#1339 id=1339 data-nosnippet>1339</a>                scale.scale_y(glyph_metrics.glyf_v_origin(gid).unwrap()),
+<a href=#1340 id=1340 data-nosnippet>1340</a>                <span class="string">"glyph {gid}"
+<a href=#1341 id=1341 data-nosnippet>1341</a>            </span>);
+<a href=#1342 id=1342 data-nosnippet>1342</a>            <span class="macro">assert_eq!</span>(
+<a href=#1343 id=1343 data-nosnippet>1343</a>                glyph_metrics.glyf_v_origin(gid).unwrap(),
+<a href=#1344 id=1344 data-nosnippet>1344</a>                extents.y_bearing + bearing,
+<a href=#1345 id=1345 data-nosnippet>1345</a>                <span class="string">"glyph {gid}"
+<a href=#1346 id=1346 data-nosnippet>1346</a>            </span>);
+<a href=#1347 id=1347 data-nosnippet>1347</a>            checked += <span class="number">1</span>;
+<a href=#1348 id=1348 data-nosnippet>1348</a>        }
+<a href=#1349 id=1349 data-nosnippet>1349</a>        <span class="macro">assert!</span>(checked &gt; <span class="number">0</span>, <span class="string">"no glyph stated both"</span>);
+<a href=#1350 id=1350 data-nosnippet>1350</a>
+<a href=#1351 id=1351 data-nosnippet>1351</a>        <span class="kw">let </span>supplied = |<span class="kw">_</span>: GlyphId| {
+<a href=#1352 id=1352 data-nosnippet>1352</a>            <span class="prelude-val">Some</span>(GlyphExtents {
+<a href=#1353 id=1353 data-nosnippet>1353</a>                x_bearing: <span class="number">0.0</span>,
+<a href=#1354 id=1354 data-nosnippet>1354</a>                y_bearing: <span class="number">999.0</span>,
+<a href=#1355 id=1355 data-nosnippet>1355</a>                width: <span class="number">1.0</span>,
+<a href=#1356 id=1356 data-nosnippet>1356</a>                height: <span class="number">1.0</span>,
+<a href=#1357 id=1357 data-nosnippet>1357</a>            })
+<a href=#1358 id=1358 data-nosnippet>1358</a>        };
+<a href=#1359 id=1359 data-nosnippet>1359</a>        <span class="kw">let </span>overridden = metrics.with_glyph_extents(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>supplied));
+<a href=#1360 id=1360 data-nosnippet>1360</a>        <span class="macro">assert_eq!</span>(
+<a href=#1361 id=1361 data-nosnippet>1361</a>            overridden.v_origin_y(GlyphId::new(<span class="number">1</span>)),
+<a href=#1362 id=1362 data-nosnippet>1362</a>            metrics.v_origin_y(GlyphId::new(<span class="number">1</span>))
+<a href=#1363 id=1363 data-nosnippet>1363</a>        );
+<a href=#1364 id=1364 data-nosnippet>1364</a>    }
+<a href=#1365 id=1365 data-nosnippet>1365</a>
+<a href=#1366 id=1366 data-nosnippet>1366</a>    <span class="attr">#[test]
+<a href=#1367 id=1367 data-nosnippet>1367</a>    </span><span class="kw">fn </span>without_vmtx_the_ink_is_centered_in_the_line() {
+<a href=#1368 id=1368 data-nosnippet>1368</a>        <span class="comment">// The leftover of the line, half above the ink and half below it.
+<a href=#1369 id=1369 data-nosnippet>1369</a>        </span><span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1370 id=1370 data-nosnippet>1370</a>        <span class="kw">let </span>glyph_metrics = font.glyph_metrics();
+<a href=#1371 id=1371 data-nosnippet>1371</a>        <span class="kw">let </span>metrics = glyph_metrics.scaled(scale);
+<a href=#1372 id=1372 data-nosnippet>1372</a>        <span class="macro">assert!</span>(glyph_metrics.stated_v_bearing(GlyphId::new(<span class="number">1</span>)).is_none());
+<a href=#1373 id=1373 data-nosnippet>1373</a>        <span class="kw">let </span>line = glyph_metrics.line_extents().unwrap();
+<a href=#1374 id=1374 data-nosnippet>1374</a>        <span class="kw">let </span>height = scale.scale_y(line.ascender) - scale.scale_y(line.descender);
+<a href=#1375 id=1375 data-nosnippet>1375</a>        <span class="kw">let </span><span class="kw-2">mut </span>checked = <span class="number">0</span>;
+<a href=#1376 id=1376 data-nosnippet>1376</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1377 id=1377 data-nosnippet>1377</a>            <span class="kw">let </span><span class="prelude-val">Some</span>(extents) = glyph_metrics.extents_exact(gid) <span class="kw">else </span>{
+<a href=#1378 id=1378 data-nosnippet>1378</a>                <span class="kw">continue</span>;
+<a href=#1379 id=1379 data-nosnippet>1379</a>            };
+<a href=#1380 id=1380 data-nosnippet>1380</a>            <span class="kw">let </span>extents = scale.scale_glyph_extents(extents);
+<a href=#1381 id=1381 data-nosnippet>1381</a>            <span class="macro">assert_eq!</span>(
+<a href=#1382 id=1382 data-nosnippet>1382</a>                metrics.v_origin_y(gid),
+<a href=#1383 id=1383 data-nosnippet>1383</a>                extents.y_bearing + (height - extents.height) / <span class="number">2.0</span>,
+<a href=#1384 id=1384 data-nosnippet>1384</a>                <span class="string">"glyph {gid}"
+<a href=#1385 id=1385 data-nosnippet>1385</a>            </span>);
+<a href=#1386 id=1386 data-nosnippet>1386</a>            checked += <span class="number">1</span>;
+<a href=#1387 id=1387 data-nosnippet>1387</a>        }
+<a href=#1388 id=1388 data-nosnippet>1388</a>        <span class="macro">assert!</span>(checked &gt; <span class="number">0</span>);
+<a href=#1389 id=1389 data-nosnippet>1389</a>    }
+<a href=#1390 id=1390 data-nosnippet>1390</a>
+<a href=#1391 id=1391 data-nosnippet>1391</a>    <span class="attr">#[test]
+<a href=#1392 id=1392 data-nosnippet>1392</a>    </span><span class="kw">fn </span>an_empty_glyph_is_centered_but_unavailable_extents_use_the_ascender() {
+<a href=#1393 id=1393 data-nosnippet>1393</a>        <span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1394 id=1394 data-nosnippet>1394</a>        <span class="kw">let </span>glyph_metrics = font.glyph_metrics();
+<a href=#1395 id=1395 data-nosnippet>1395</a>        <span class="kw">let </span>metrics = glyph_metrics.scaled(scale);
+<a href=#1396 id=1396 data-nosnippet>1396</a>        <span class="kw">let </span>line = metrics.origin_line();
+<a href=#1397 id=1397 data-nosnippet>1397</a>        <span class="kw">let </span>absent = |<span class="kw">_</span>: GlyphId| <span class="prelude-val">None</span>;
+<a href=#1398 id=1398 data-nosnippet>1398</a>        <span class="kw">let </span>overridden = metrics.with_glyph_extents(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>absent));
+<a href=#1399 id=1399 data-nosnippet>1399</a>        <span class="kw">let </span><span class="kw-2">mut </span>checked = <span class="number">0</span>;
+<a href=#1400 id=1400 data-nosnippet>1400</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1401 id=1401 data-nosnippet>1401</a>            <span class="kw">if </span>glyph_metrics.extents(gid) != <span class="prelude-val">Some</span>(GlyphExtents::default()) {
+<a href=#1402 id=1402 data-nosnippet>1402</a>                <span class="kw">continue</span>;
+<a href=#1403 id=1403 data-nosnippet>1403</a>            }
+<a href=#1404 id=1404 data-nosnippet>1404</a>            <span class="macro">assert_eq!</span>(
+<a href=#1405 id=1405 data-nosnippet>1405</a>                metrics.v_origin_y(gid),
+<a href=#1406 id=1406 data-nosnippet>1406</a>                (line.ascender - line.descender) / <span class="number">2.0</span>,
+<a href=#1407 id=1407 data-nosnippet>1407</a>                <span class="string">"glyph {gid}"
+<a href=#1408 id=1408 data-nosnippet>1408</a>            </span>);
+<a href=#1409 id=1409 data-nosnippet>1409</a>            <span class="macro">assert_eq!</span>(overridden.v_origin_y(gid), line.ascender);
+<a href=#1410 id=1410 data-nosnippet>1410</a>            checked += <span class="number">1</span>;
+<a href=#1411 id=1411 data-nosnippet>1411</a>        }
+<a href=#1412 id=1412 data-nosnippet>1412</a>        <span class="macro">assert!</span>(checked &gt; <span class="number">0</span>, <span class="string">"no glyph was empty"</span>);
+<a href=#1413 id=1413 data-nosnippet>1413</a>    }
+<a href=#1414 id=1414 data-nosnippet>1414</a>
+<a href=#1415 id=1415 data-nosnippet>1415</a>    <span class="attr">#[test]
+<a href=#1416 id=1416 data-nosnippet>1416</a>    </span><span class="kw">fn </span>a_supplied_measurement_moves_the_origin_with_it() {
+<a href=#1417 id=1417 data-nosnippet>1417</a>        <span class="comment">// The two middle rungs read the ink, so a caller substituting its own
+<a href=#1418 id=1418 data-nosnippet>1418</a>        // gets an origin consistent with it rather than with the font.
+<a href=#1419 id=1419 data-nosnippet>1419</a>        </span><span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1420 id=1420 data-nosnippet>1420</a>        <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1421 id=1421 data-nosnippet>1421</a>        <span class="kw">let </span>ink = GlyphExtents {
+<a href=#1422 id=1422 data-nosnippet>1422</a>            x_bearing: <span class="number">0.0</span>,
+<a href=#1423 id=1423 data-nosnippet>1423</a>            y_bearing: <span class="number">100.0</span>,
+<a href=#1424 id=1424 data-nosnippet>1424</a>            width: <span class="number">10.0</span>,
+<a href=#1425 id=1425 data-nosnippet>1425</a>            height: <span class="number">20.0</span>,
+<a href=#1426 id=1426 data-nosnippet>1426</a>        };
+<a href=#1427 id=1427 data-nosnippet>1427</a>        <span class="kw">let </span>supplied = |<span class="kw">_</span>: GlyphId| <span class="prelude-val">Some</span>(ink);
+<a href=#1428 id=1428 data-nosnippet>1428</a>        <span class="kw">let </span>overridden = metrics.with_glyph_extents(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>supplied));
+<a href=#1429 id=1429 data-nosnippet>1429</a>        <span class="kw">let </span>line = metrics.origin_line();
+<a href=#1430 id=1430 data-nosnippet>1430</a>        <span class="kw">let </span>height = line.ascender - line.descender;
+<a href=#1431 id=1431 data-nosnippet>1431</a>        <span class="kw">let </span>expected = ink.y_bearing + (height - ink.height) / <span class="number">2.0</span>;
+<a href=#1432 id=1432 data-nosnippet>1432</a>        <span class="kw">let </span><span class="kw-2">mut </span>moved = <span class="number">0</span>;
+<a href=#1433 id=1433 data-nosnippet>1433</a>        <span class="kw">for </span>gid <span class="kw">in </span>(<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new) {
+<a href=#1434 id=1434 data-nosnippet>1434</a>            <span class="macro">assert_eq!</span>(overridden.v_origin_y(gid), expected, <span class="string">"glyph {gid}"</span>);
+<a href=#1435 id=1435 data-nosnippet>1435</a>            moved += (metrics.v_origin_y(gid) != expected) <span class="kw">as </span>u32;
+<a href=#1436 id=1436 data-nosnippet>1436</a>        }
+<a href=#1437 id=1437 data-nosnippet>1437</a>        <span class="macro">assert!</span>(moved &gt; <span class="number">0</span>, <span class="string">"the font already agreed everywhere"</span>);
+<a href=#1438 id=1438 data-nosnippet>1438</a>
+<a href=#1439 id=1439 data-nosnippet>1439</a>        <span class="kw">let </span>gids: Vec&lt;<span class="kw">_</span>&gt; = (<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new).collect();
+<a href=#1440 id=1440 data-nosnippet>1440</a>        <span class="kw">let </span><span class="kw-2">mut </span>origins = <span class="macro">vec!</span>[<span class="number">0.0</span>; gids.len()];
+<a href=#1441 id=1441 data-nosnippet>1441</a>        overridden.v_origin_y_batched(
+<a href=#1442 id=1442 data-nosnippet>1442</a>            |origin| origin,
+<a href=#1443 id=1443 data-nosnippet>1443</a>            gids.iter().copied().zip(origins.iter_mut()),
+<a href=#1444 id=1444 data-nosnippet>1444</a>        );
+<a href=#1445 id=1445 data-nosnippet>1445</a>        <span class="macro">assert!</span>(origins.iter().all(|origin| <span class="kw-2">*</span>origin == expected));
+<a href=#1446 id=1446 data-nosnippet>1446</a>    }
+<a href=#1447 id=1447 data-nosnippet>1447</a>
+<a href=#1448 id=1448 data-nosnippet>1448</a>    <span class="attr">#[test]
+<a href=#1449 id=1449 data-nosnippet>1449</a>    </span><span class="kw">fn </span>a_supplied_line_moves_the_origin_with_it() {
+<a href=#1450 id=1450 data-nosnippet>1450</a>        <span class="comment">// The centered rung measures against the line, so a caller laying out
+<a href=#1451 id=1451 data-nosnippet>1451</a>        // against its own line gets an origin in that line.
+<a href=#1452 id=1452 data-nosnippet>1452</a>        </span><span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1453 id=1453 data-nosnippet>1453</a>        <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1454 id=1454 data-nosnippet>1454</a>        <span class="kw">let </span>taller = metrics.with_line_extents(<span class="prelude-val">Some</span>(line(<span class="number">100.0</span>, -<span class="number">20.0</span>)));
+<a href=#1455 id=1455 data-nosnippet>1455</a>        <span class="kw">let </span>gid = (<span class="number">0</span>..font.num_glyphs())
+<a href=#1456 id=1456 data-nosnippet>1456</a>            .map(GlyphId::new)
+<a href=#1457 id=1457 data-nosnippet>1457</a>            .find(|gid| font.glyph_metrics().extents(<span class="kw-2">*</span>gid).is_some())
+<a href=#1458 id=1458 data-nosnippet>1458</a>            .unwrap();
+<a href=#1459 id=1459 data-nosnippet>1459</a>        <span class="macro">assert_ne!</span>(taller.v_origin_y(gid), metrics.v_origin_y(gid));
+<a href=#1460 id=1460 data-nosnippet>1460</a>    }
+<a href=#1461 id=1461 data-nosnippet>1461</a>
+<a href=#1462 id=1462 data-nosnippet>1462</a>    <span class="attr">#[test]
+<a href=#1463 id=1463 data-nosnippet>1463</a>    </span><span class="kw">fn </span>a_run_of_origins_agrees_with_one_at_a_time() {
+<a href=#1464 id=1464 data-nosnippet>1464</a>        <span class="kw">for </span>data <span class="kw">in </span>[VORG, VERT, STATIC] {
+<a href=#1465 id=1465 data-nosnippet>1465</a>            <span class="kw">let </span>(font, scale) = scaled(data, <span class="number">16.0</span>);
+<a href=#1466 id=1466 data-nosnippet>1466</a>            <span class="kw">let </span>metrics = font.glyph_metrics().scaled(scale);
+<a href=#1467 id=1467 data-nosnippet>1467</a>            <span class="kw">let </span>glyphs: Vec&lt;<span class="kw">_</span>&gt; = (<span class="number">0</span>..font.num_glyphs()).map(GlyphId::new).collect();
+<a href=#1468 id=1468 data-nosnippet>1468</a>            <span class="kw">let </span><span class="kw-2">mut </span>batched = <span class="macro">vec!</span>[<span class="number">0.0</span>; glyphs.len()];
+<a href=#1469 id=1469 data-nosnippet>1469</a>            metrics.v_origin_y_batched(
+<a href=#1470 id=1470 data-nosnippet>1470</a>                |origin| origin,
+<a href=#1471 id=1471 data-nosnippet>1471</a>                glyphs.iter().copied().zip(batched.iter_mut()),
+<a href=#1472 id=1472 data-nosnippet>1472</a>            );
+<a href=#1473 id=1473 data-nosnippet>1473</a>            <span class="kw">for </span>(gid, batched) <span class="kw">in </span>glyphs.iter().copied().zip(batched) {
+<a href=#1474 id=1474 data-nosnippet>1474</a>                <span class="macro">assert_eq!</span>(metrics.v_origin_y(gid), batched, <span class="string">"glyph {gid}"</span>);
+<a href=#1475 id=1475 data-nosnippet>1475</a>            }
+<a href=#1476 id=1476 data-nosnippet>1476</a>        }
+<a href=#1477 id=1477 data-nosnippet>1477</a>    }
+<a href=#1478 id=1478 data-nosnippet>1478</a>
+<a href=#1479 id=1479 data-nosnippet>1479</a>    <span class="attr">#[test]
+<a href=#1480 id=1480 data-nosnippet>1480</a>    </span><span class="kw">fn </span>a_font_stating_no_line_is_given_one_proportioned_to_its_em() {
+<a href=#1481 id=1481 data-nosnippet>1481</a>        <span class="comment">// Four fifths of the em above the baseline and the rest below, which
+<a href=#1482 id=1482 data-nosnippet>1482</a>        // is what a glyph with no ink to measure then sits on.
+<a href=#1483 id=1483 data-nosnippet>1483</a>        </span><span class="kw">let </span>font = font_without(<span class="kw-2">&amp;</span>[<span class="string">b"hhea"</span>, <span class="string">b"OS/2"</span>]);
+<a href=#1484 id=1484 data-nosnippet>1484</a>        <span class="kw">let </span>glyph_metrics = font.glyph_metrics();
+<a href=#1485 id=1485 data-nosnippet>1485</a>        <span class="macro">assert!</span>(glyph_metrics.line_extents().is_none());
+<a href=#1486 id=1486 data-nosnippet>1486</a>        <span class="kw">let </span>em = font.units_per_em();
+<a href=#1487 id=1487 data-nosnippet>1487</a>        <span class="macro">assert!</span>(
+<a href=#1488 id=1488 data-nosnippet>1488</a>            em &gt; <span class="number">0</span>,
+<a href=#1489 id=1489 data-nosnippet>1489</a>            <span class="string">"the em itself has to survive for this to mean anything"
+<a href=#1490 id=1490 data-nosnippet>1490</a>        </span>);
+<a href=#1491 id=1491 data-nosnippet>1491</a>
+<a href=#1492 id=1492 data-nosnippet>1492</a>        <span class="kw">let </span>scale = Ppem {
+<a href=#1493 id=1493 data-nosnippet>1493</a>            ppem: <span class="number">16.0</span>,
+<a href=#1494 id=1494 data-nosnippet>1494</a>            upem: em,
+<a href=#1495 id=1495 data-nosnippet>1495</a>        };
+<a href=#1496 id=1496 data-nosnippet>1496</a>        <span class="kw">let </span>metrics = glyph_metrics.scaled(scale);
+<a href=#1497 id=1497 data-nosnippet>1497</a>        <span class="kw">let </span>ascender = F48Dot16::from_f64(em <span class="kw">as </span>f64 * <span class="number">0.8</span>);
+<a href=#1498 id=1498 data-nosnippet>1498</a>        <span class="kw">let </span>empty = empty_glyph(<span class="kw-2">&amp;</span>font);
+<a href=#1499 id=1499 data-nosnippet>1499</a>        <span class="macro">assert_eq!</span>(
+<a href=#1500 id=1500 data-nosnippet>1500</a>            metrics.v_origin_y(empty),
+<a href=#1501 id=1501 data-nosnippet>1501</a>            scale.scale_y(F48Dot16::from_i32(em <span class="kw">as </span>i32)) / <span class="number">2.0
+<a href=#1502 id=1502 data-nosnippet>1502</a>        </span>);
+<a href=#1503 id=1503 data-nosnippet>1503</a>        <span class="kw">let </span>absent = |<span class="kw">_</span>: GlyphId| <span class="prelude-val">None</span>;
+<a href=#1504 id=1504 data-nosnippet>1504</a>        <span class="macro">assert_eq!</span>(
+<a href=#1505 id=1505 data-nosnippet>1505</a>            metrics.with_glyph_extents(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>absent)).v_origin_y(empty),
+<a href=#1506 id=1506 data-nosnippet>1506</a>            scale.scale_y(ascender)
+<a href=#1507 id=1507 data-nosnippet>1507</a>        );
+<a href=#1508 id=1508 data-nosnippet>1508</a>        <span class="comment">// And the line it implies is a whole em tall, so a glyph with no
+<a href=#1509 id=1509 data-nosnippet>1509</a>        // vertical metrics still advances by one.
+<a href=#1510 id=1510 data-nosnippet>1510</a>        </span><span class="macro">assert_eq!</span>(
+<a href=#1511 id=1511 data-nosnippet>1511</a>            metrics.v_advance(empty),
+<a href=#1512 id=1512 data-nosnippet>1512</a>            scale.scale_y(ascender) - scale.scale_y(ascender - F48Dot16::from_i32(em <span class="kw">as </span>i32))
+<a href=#1513 id=1513 data-nosnippet>1513</a>        );
+<a href=#1514 id=1514 data-nosnippet>1514</a>    }
+<a href=#1515 id=1515 data-nosnippet>1515</a>
+<a href=#1516 id=1516 data-nosnippet>1516</a>    <span class="doccomment">/// A font serving every table but the ones named.
+<a href=#1517 id=1517 data-nosnippet>1517</a>    </span><span class="kw">fn </span>font_without(hide: <span class="kw-2">&amp;</span><span class="lifetime">'static </span>[<span class="kw-2">&amp;</span>[u8; <span class="number">4</span>]]) -&gt; Font {
+<a href=#1518 id=1518 data-nosnippet>1518</a>        <span class="kw">let </span>source: Arc&lt;<span class="kw">dyn </span>Fn(Tag) -&gt; <span class="prelude-ty">Option</span>&lt;Blob&gt; + Send + Sync&gt; = Arc::new(<span class="kw">move </span>|tag: Tag| {
+<a href=#1519 id=1519 data-nosnippet>1519</a>            <span class="kw">if </span>hide.iter().any(|hidden| Tag::new(hidden) == tag) {
+<a href=#1520 id=1520 data-nosnippet>1520</a>                <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#1521 id=1521 data-nosnippet>1521</a>            }
+<a href=#1522 id=1522 data-nosnippet>1522</a>            <span class="kw">let </span>font = <span class="kw">crate</span>::FontRef::new(STATIC).ok()<span class="question-mark">?</span>;
+<a href=#1523 id=1523 data-nosnippet>1523</a>            <span class="prelude-val">Some</span>(Blob::from(font.table_data(tag)<span class="question-mark">?</span>.as_bytes().to_vec()))
+<a href=#1524 id=1524 data-nosnippet>1524</a>        });
+<a href=#1525 id=1525 data-nosnippet>1525</a>        Font::new(source, <span class="number">0</span>).unwrap()
+<a href=#1526 id=1526 data-nosnippet>1526</a>    }
+<a href=#1527 id=1527 data-nosnippet>1527</a>
+<a href=#1528 id=1528 data-nosnippet>1528</a>    <span class="attr">#[test]
+<a href=#1529 id=1529 data-nosnippet>1529</a>    </span><span class="kw">fn </span>the_ends_of_the_line_are_signed_whatever_the_font_says() {
+<a href=#1530 id=1530 data-nosnippet>1530</a>        <span class="comment">// Fonts state these both ways round: some as positions, where the
+<a href=#1531 id=1531 data-nosnippet>1531</a>        // descender runs down and is negative, and some as magnitudes, where
+<a href=#1532 id=1532 data-nosnippet>1532</a>        // it is not. All three describe one line and have to measure as one.
+<a href=#1533 id=1533 data-nosnippet>1533</a>        </span><span class="kw">let </span>stated = font_with_hhea_ends(<span class="number">1600</span>, -<span class="number">400</span>);
+<a href=#1534 id=1534 data-nosnippet>1534</a>        <span class="kw">let </span>scale = Ppem {
+<a href=#1535 id=1535 data-nosnippet>1535</a>            ppem: <span class="number">16.0</span>,
+<a href=#1536 id=1536 data-nosnippet>1536</a>            upem: stated.units_per_em(),
+<a href=#1537 id=1537 data-nosnippet>1537</a>        };
+<a href=#1538 id=1538 data-nosnippet>1538</a>        <span class="kw">let </span>empty = empty_glyph(<span class="kw-2">&amp;</span>stated);
+<a href=#1539 id=1539 data-nosnippet>1539</a>        <span class="kw">let </span>ink = drawn_glyph(<span class="kw-2">&amp;</span>stated);
+<a href=#1540 id=1540 data-nosnippet>1540</a>        <span class="kw">let </span>expected = stated.glyph_metrics().scaled(scale);
+<a href=#1541 id=1541 data-nosnippet>1541</a>        <span class="kw">for </span>(ascender, descender) <span class="kw">in </span>[(<span class="number">1600</span>, <span class="number">400</span>), (-<span class="number">1600</span>, <span class="number">400</span>), (-<span class="number">1600</span>, -<span class="number">400</span>)] {
+<a href=#1542 id=1542 data-nosnippet>1542</a>            <span class="kw">let </span>font = font_with_hhea_ends(ascender, descender);
+<a href=#1543 id=1543 data-nosnippet>1543</a>            <span class="kw">let </span>actual = font.glyph_metrics().scaled(scale);
+<a href=#1544 id=1544 data-nosnippet>1544</a>            <span class="comment">// The line itself, through the two rungs that read it.
+<a href=#1545 id=1545 data-nosnippet>1545</a>            </span><span class="macro">assert_eq!</span>(
+<a href=#1546 id=1546 data-nosnippet>1546</a>                actual.v_origin_y(empty),
+<a href=#1547 id=1547 data-nosnippet>1547</a>                expected.v_origin_y(empty),
+<a href=#1548 id=1548 data-nosnippet>1548</a>                <span class="string">"ascender {ascender}, descender {descender}"
+<a href=#1549 id=1549 data-nosnippet>1549</a>            </span>);
+<a href=#1550 id=1550 data-nosnippet>1550</a>            <span class="macro">assert_eq!</span>(
+<a href=#1551 id=1551 data-nosnippet>1551</a>                actual.v_origin_y(ink),
+<a href=#1552 id=1552 data-nosnippet>1552</a>                expected.v_origin_y(ink),
+<a href=#1553 id=1553 data-nosnippet>1553</a>                <span class="string">"ascender {ascender}, descender {descender}"
+<a href=#1554 id=1554 data-nosnippet>1554</a>            </span>);
+<a href=#1555 id=1555 data-nosnippet>1555</a>            <span class="comment">// And the height a glyph advances by, which is that line too.
+<a href=#1556 id=1556 data-nosnippet>1556</a>            </span><span class="macro">assert_eq!</span>(
+<a href=#1557 id=1557 data-nosnippet>1557</a>                actual.v_advance(ink),
+<a href=#1558 id=1558 data-nosnippet>1558</a>                expected.v_advance(ink),
+<a href=#1559 id=1559 data-nosnippet>1559</a>                <span class="string">"ascender {ascender}, descender {descender}"
+<a href=#1560 id=1560 data-nosnippet>1560</a>            </span>);
+<a href=#1561 id=1561 data-nosnippet>1561</a>        }
+<a href=#1562 id=1562 data-nosnippet>1562</a>        <span class="comment">// And the line really is the one the font states, not a fallback that
+<a href=#1563 id=1563 data-nosnippet>1563</a>        // would agree by accident.
+<a href=#1564 id=1564 data-nosnippet>1564</a>        </span><span class="macro">assert_eq!</span>(
+<a href=#1565 id=1565 data-nosnippet>1565</a>            expected.v_origin_y(empty),
+<a href=#1566 id=1566 data-nosnippet>1566</a>            scale.scale_y(F48Dot16::from_i32(<span class="number">1000</span>))
+<a href=#1567 id=1567 data-nosnippet>1567</a>        );
+<a href=#1568 id=1568 data-nosnippet>1568</a>    }
+<a href=#1569 id=1569 data-nosnippet>1569</a>
+<a href=#1570 id=1570 data-nosnippet>1570</a>    <span class="comment">// A bitmap is measured from the strike for the scale's size, and a scale
+<a href=#1571 id=1571 data-nosnippet>1571</a>    // with no size measures from the largest strike.
+<a href=#1572 id=1572 data-nosnippet>1572</a>    </span><span class="attr">#[test]
+<a href=#1573 id=1573 data-nosnippet>1573</a>    </span><span class="kw">fn </span>the_scale_chooses_the_bitmap_strike() {
+<a href=#1574 id=1574 data-nosnippet>1574</a>        <span class="kw">let </span>font = Font::new(font_test_data::CBDT, <span class="number">0</span>).unwrap();
+<a href=#1575 id=1575 data-nosnippet>1575</a>        <span class="kw">let </span>glyph = GlyphId::new(<span class="number">2</span>);
+<a href=#1576 id=1576 data-nosnippet>1576</a>        <span class="kw">let </span>upem = font.units_per_em();
+<a href=#1577 id=1577 data-nosnippet>1577</a>        <span class="kw">let </span>metrics = font.glyph_metrics();
+<a href=#1578 id=1578 data-nosnippet>1578</a>        <span class="kw">for </span>scale <span class="kw">in </span>[
+<a href=#1579 id=1579 data-nosnippet>1579</a>            ScaleF32::from_ppem(<span class="number">12.0</span>, upem),
+<a href=#1580 id=1580 data-nosnippet>1580</a>            ScaleF32::new(<span class="number">12.0</span>, <span class="number">10.0</span>, upem),
+<a href=#1581 id=1581 data-nosnippet>1581</a>        ] {
+<a href=#1582 id=1582 data-nosnippet>1582</a>            <span class="macro">assert_eq!</span>(scale.ppem(), <span class="prelude-val">Some</span>(<span class="number">12.0</span>));
+<a href=#1583 id=1583 data-nosnippet>1583</a>            <span class="kw">let </span>expected = metrics
+<a href=#1584 id=1584 data-nosnippet>1584</a>                .with_bitmap_ppem(<span class="prelude-val">Some</span>(<span class="number">12.0</span>))
+<a href=#1585 id=1585 data-nosnippet>1585</a>                .extents_exact(glyph)
+<a href=#1586 id=1586 data-nosnippet>1586</a>                .map(|extents| scale.scale_glyph_extents(extents));
+<a href=#1587 id=1587 data-nosnippet>1587</a>            <span class="macro">assert_eq!</span>(metrics.scaled(scale).extents(glyph), expected);
+<a href=#1588 id=1588 data-nosnippet>1588</a>        }
+<a href=#1589 id=1589 data-nosnippet>1589</a>        <span class="macro">assert_eq!</span>(Scale26Dot6::new(<span class="number">10.0</span>, <span class="number">14.0</span>, upem).ppem(), <span class="prelude-val">Some</span>(<span class="number">14.0</span>));
+<a href=#1590 id=1590 data-nosnippet>1590</a>        <span class="comment">// The 12 ppem strike and the largest measure the glyph differently.
+<a href=#1591 id=1591 data-nosnippet>1591</a>        </span><span class="macro">assert_ne!</span>(
+<a href=#1592 id=1592 data-nosnippet>1592</a>            metrics.with_bitmap_ppem(<span class="prelude-val">Some</span>(<span class="number">12.0</span>)).extents_exact(glyph),
+<a href=#1593 id=1593 data-nosnippet>1593</a>            metrics.with_bitmap_ppem(<span class="prelude-val">None</span>).extents_exact(glyph)
+<a href=#1594 id=1594 data-nosnippet>1594</a>        );
+<a href=#1595 id=1595 data-nosnippet>1595</a>        <span class="comment">// A scale of its own with no size gets the largest strike.
+<a href=#1596 id=1596 data-nosnippet>1596</a>        </span><span class="kw">struct </span>NoSize(ScaleF32);
+<a href=#1597 id=1597 data-nosnippet>1597</a>        <span class="kw">impl </span>Scale <span class="kw">for </span>NoSize {
+<a href=#1598 id=1598 data-nosnippet>1598</a>            <span class="kw">type </span>Value = f32;
+<a href=#1599 id=1599 data-nosnippet>1599</a>            <span class="kw">fn </span>add(a: f32, b: f32) -&gt; f32 {
+<a href=#1600 id=1600 data-nosnippet>1600</a>                ScaleF32::add(a, b)
+<a href=#1601 id=1601 data-nosnippet>1601</a>            }
+<a href=#1602 id=1602 data-nosnippet>1602</a>            <span class="kw">fn </span>sub(a: f32, b: f32) -&gt; f32 {
+<a href=#1603 id=1603 data-nosnippet>1603</a>                ScaleF32::sub(a, b)
+<a href=#1604 id=1604 data-nosnippet>1604</a>            }
+<a href=#1605 id=1605 data-nosnippet>1605</a>            <span class="kw">fn </span>half(value: f32) -&gt; f32 {
+<a href=#1606 id=1606 data-nosnippet>1606</a>                ScaleF32::half(value)
+<a href=#1607 id=1607 data-nosnippet>1607</a>            }
+<a href=#1608 id=1608 data-nosnippet>1608</a>            <span class="kw">fn </span>scale_x(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; f32 {
+<a href=#1609 id=1609 data-nosnippet>1609</a>                <span class="self">self</span>.<span class="number">0</span>.scale_x(value)
+<a href=#1610 id=1610 data-nosnippet>1610</a>            }
+<a href=#1611 id=1611 data-nosnippet>1611</a>            <span class="kw">fn </span>scale_y(<span class="kw-2">&amp;</span><span class="self">self</span>, value: F48Dot16) -&gt; f32 {
+<a href=#1612 id=1612 data-nosnippet>1612</a>                <span class="self">self</span>.<span class="number">0</span>.scale_y(value)
+<a href=#1613 id=1613 data-nosnippet>1613</a>            }
+<a href=#1614 id=1614 data-nosnippet>1614</a>            <span class="kw">fn </span>scale_glyph_extents(<span class="kw-2">&amp;</span><span class="self">self</span>, extents: GlyphExtents&lt;F48Dot16&gt;) -&gt; GlyphExtents&lt;f32&gt; {
+<a href=#1615 id=1615 data-nosnippet>1615</a>                <span class="self">self</span>.<span class="number">0</span>.scale_glyph_extents(extents)
+<a href=#1616 id=1616 data-nosnippet>1616</a>            }
+<a href=#1617 id=1617 data-nosnippet>1617</a>            <span class="kw">fn </span>scale_rect(<span class="kw-2">&amp;</span><span class="self">self</span>, bounds: BoundingBox&lt;F48Dot16&gt;) -&gt; BoundingBox&lt;f32&gt; {
+<a href=#1618 id=1618 data-nosnippet>1618</a>                <span class="self">self</span>.<span class="number">0</span>.scale_rect(bounds)
+<a href=#1619 id=1619 data-nosnippet>1619</a>            }
+<a href=#1620 id=1620 data-nosnippet>1620</a>        }
+<a href=#1621 id=1621 data-nosnippet>1621</a>        <span class="kw">let </span>no_size = NoSize(ScaleF32::from_ppem(<span class="number">12.0</span>, upem));
+<a href=#1622 id=1622 data-nosnippet>1622</a>        <span class="kw">let </span>largest = metrics
+<a href=#1623 id=1623 data-nosnippet>1623</a>            .with_bitmap_ppem(<span class="prelude-val">None</span>)
+<a href=#1624 id=1624 data-nosnippet>1624</a>            .extents_exact(glyph)
+<a href=#1625 id=1625 data-nosnippet>1625</a>            .map(|extents| no_size.scale_glyph_extents(extents));
+<a href=#1626 id=1626 data-nosnippet>1626</a>        <span class="macro">assert_eq!</span>(metrics.scaled(no_size).extents(glyph), largest);
+<a href=#1627 id=1627 data-nosnippet>1627</a>    }
+<a href=#1628 id=1628 data-nosnippet>1628</a>
+<a href=#1629 id=1629 data-nosnippet>1629</a>    <span class="attr">#[test]
+<a href=#1630 id=1630 data-nosnippet>1630</a>    </span><span class="kw">fn </span>a_supplied_line_is_taken_as_it_was_given() {
+<a href=#1631 id=1631 data-nosnippet>1631</a>        <span class="comment">// The signing is what HarfBuzz applies to what it reads from a font.
+<a href=#1632 id=1632 data-nosnippet>1632</a>        // A caller stating its own line has already decided, so an ascender
+<a href=#1633 id=1633 data-nosnippet>1633</a>        // below the baseline stays there.
+<a href=#1634 id=1634 data-nosnippet>1634</a>        </span><span class="kw">let </span>(font, scale) = scaled(STATIC, <span class="number">16.0</span>);
+<a href=#1635 id=1635 data-nosnippet>1635</a>        <span class="kw">let </span>metrics = font
+<a href=#1636 id=1636 data-nosnippet>1636</a>            .glyph_metrics()
+<a href=#1637 id=1637 data-nosnippet>1637</a>            .scaled(scale)
+<a href=#1638 id=1638 data-nosnippet>1638</a>            .with_line_extents(<span class="prelude-val">Some</span>(line(-<span class="number">100.0</span>, <span class="number">20.0</span>)));
+<a href=#1639 id=1639 data-nosnippet>1639</a>        <span class="kw">let </span>absent = |<span class="kw">_</span>: GlyphId| <span class="prelude-val">None</span>;
+<a href=#1640 id=1640 data-nosnippet>1640</a>        <span class="macro">assert_eq!</span>(
+<a href=#1641 id=1641 data-nosnippet>1641</a>            metrics
+<a href=#1642 id=1642 data-nosnippet>1642</a>                .with_glyph_extents(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>absent))
+<a href=#1643 id=1643 data-nosnippet>1643</a>                .v_origin_y(empty_glyph(<span class="kw-2">&amp;</span>font)),
+<a href=#1644 id=1644 data-nosnippet>1644</a>            -<span class="number">100.0
+<a href=#1645 id=1645 data-nosnippet>1645</a>        </span>);
+<a href=#1646 id=1646 data-nosnippet>1646</a>    }
+<a href=#1647 id=1647 data-nosnippet>1647</a>
+<a href=#1648 id=1648 data-nosnippet>1648</a>    <span class="doccomment">/// `STATIC` with the ends of its `hhea` line replaced, and no `OS/2` to
+<a href=#1649 id=1649 data-nosnippet>1649</a>    /// be read ahead of it.
+<a href=#1650 id=1650 data-nosnippet>1650</a>    </span><span class="kw">fn </span>font_with_hhea_ends(ascender: i16, descender: i16) -&gt; Font {
+<a href=#1651 id=1651 data-nosnippet>1651</a>        <span class="kw">let </span>source: Arc&lt;<span class="kw">dyn </span>Fn(Tag) -&gt; <span class="prelude-ty">Option</span>&lt;Blob&gt; + Send + Sync&gt; = Arc::new(<span class="kw">move </span>|tag: Tag| {
+<a href=#1652 id=1652 data-nosnippet>1652</a>            <span class="kw">if </span>tag == Tag::new(<span class="string">b"OS/2"</span>) {
+<a href=#1653 id=1653 data-nosnippet>1653</a>                <span class="kw">return </span><span class="prelude-val">None</span>;
+<a href=#1654 id=1654 data-nosnippet>1654</a>            }
+<a href=#1655 id=1655 data-nosnippet>1655</a>            <span class="kw">let </span>font = <span class="kw">crate</span>::FontRef::new(STATIC).ok()<span class="question-mark">?</span>;
+<a href=#1656 id=1656 data-nosnippet>1656</a>            <span class="kw">let </span><span class="kw-2">mut </span>data = font.table_data(tag)<span class="question-mark">?</span>.as_bytes().to_vec();
+<a href=#1657 id=1657 data-nosnippet>1657</a>            <span class="kw">if </span>tag == Tag::new(<span class="string">b"hhea"</span>) {
+<a href=#1658 id=1658 data-nosnippet>1658</a>                <span class="comment">// Both ends sit right after the version.
+<a href=#1659 id=1659 data-nosnippet>1659</a>                </span>data.get_mut(<span class="number">4</span>..<span class="number">6</span>)<span class="question-mark">?</span>.copy_from_slice(<span class="kw-2">&amp;</span>ascender.to_be_bytes());
+<a href=#1660 id=1660 data-nosnippet>1660</a>                data.get_mut(<span class="number">6</span>..<span class="number">8</span>)<span class="question-mark">?
+<a href=#1661 id=1661 data-nosnippet>1661</a>                    </span>.copy_from_slice(<span class="kw-2">&amp;</span>descender.to_be_bytes());
+<a href=#1662 id=1662 data-nosnippet>1662</a>            }
+<a href=#1663 id=1663 data-nosnippet>1663</a>            <span class="prelude-val">Some</span>(Blob::from(data))
+<a href=#1664 id=1664 data-nosnippet>1664</a>        });
+<a href=#1665 id=1665 data-nosnippet>1665</a>        Font::new(source, <span class="number">0</span>).unwrap()
+<a href=#1666 id=1666 data-nosnippet>1666</a>    }
+<a href=#1667 id=1667 data-nosnippet>1667</a>
+<a href=#1668 id=1668 data-nosnippet>1668</a>    <span class="doccomment">/// A present glyph of `font` with no outline and a zero box.
+<a href=#1669 id=1669 data-nosnippet>1669</a>    </span><span class="kw">fn </span>empty_glyph(font: <span class="kw-2">&amp;</span>Font) -&gt; GlyphId {
+<a href=#1670 id=1670 data-nosnippet>1670</a>        <span class="kw">let </span>metrics = font.glyph_metrics();
+<a href=#1671 id=1671 data-nosnippet>1671</a>        (<span class="number">0</span>..font.num_glyphs())
+<a href=#1672 id=1672 data-nosnippet>1672</a>            .map(GlyphId::new)
+<a href=#1673 id=1673 data-nosnippet>1673</a>            .find(|gid| metrics.extents(<span class="kw-2">*</span>gid) == <span class="prelude-val">Some</span>(GlyphExtents::default()))
+<a href=#1674 id=1674 data-nosnippet>1674</a>            .expect(<span class="string">"no glyph has a zero box"</span>)
+<a href=#1675 id=1675 data-nosnippet>1675</a>    }
+<a href=#1676 id=1676 data-nosnippet>1676</a>
+<a href=#1677 id=1677 data-nosnippet>1677</a>    <span class="doccomment">/// A glyph of `font` with ink to measure against.
+<a href=#1678 id=1678 data-nosnippet>1678</a>    </span><span class="kw">fn </span>drawn_glyph(font: <span class="kw-2">&amp;</span>Font) -&gt; GlyphId {
+<a href=#1679 id=1679 data-nosnippet>1679</a>        <span class="kw">let </span>metrics = font.glyph_metrics();
+<a href=#1680 id=1680 data-nosnippet>1680</a>        (<span class="number">0</span>..font.num_glyphs())
+<a href=#1681 id=1681 data-nosnippet>1681</a>            .map(GlyphId::new)
+<a href=#1682 id=1682 data-nosnippet>1682</a>            .find(|gid| metrics.extents(<span class="kw-2">*</span>gid).is_some())
+<a href=#1683 id=1683 data-nosnippet>1683</a>            .expect(<span class="string">"no glyph drew anything"</span>)
+<a href=#1684 id=1684 data-nosnippet>1684</a>    }
+<a href=#1685 id=1685 data-nosnippet>1685</a>}
+</code></pre></div></section></main></body></html>

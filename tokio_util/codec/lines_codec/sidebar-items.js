@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LinesCodecError"],"fn":["utf8","without_carriage_return"],"struct":["LinesCodec"]};

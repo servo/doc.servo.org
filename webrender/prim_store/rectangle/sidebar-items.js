@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RectangleData","RectanglePrim"],"type":["RectangleDataHandle","RectangleKey","RectangleTemplate"]};

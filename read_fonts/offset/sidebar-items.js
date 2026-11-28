@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["impl_offset",1]],"struct":["CheckedOffset"],"trait":["Offset","ResolveNullableOffset","ResolveOffset"]};

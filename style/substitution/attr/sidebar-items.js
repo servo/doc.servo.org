@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AttrType"],"fn":["simple_attr_substitution"],"struct":["AttrArgument","AttrFunction","AttrName"]};

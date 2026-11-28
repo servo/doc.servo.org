@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["webgl_limits","webgl_mode","webgl_thread","webxr"],"struct":["WebGLComm"]};

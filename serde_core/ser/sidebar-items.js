@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["iterator_len_hint"],"macro":[["declare_error_trait",1]],"mod":["fmt","impls","impossible"],"struct":["Impossible"],"trait":["Error","Serialize","SerializeMap","SerializeSeq","SerializeStruct","SerializeStructVariant","SerializeTuple","SerializeTupleStruct","SerializeTupleVariant","Serializer"]};

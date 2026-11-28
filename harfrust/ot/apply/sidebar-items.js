@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["MatchResult","MayMatch","MaySkip"],"fn":["apply_lookup","check_glyph_property","ligate_input","match_always","match_backtrack","match_glyph","match_info","match_input","match_lookahead","match_properties_mark"],"struct":["ApplyContext","Matcher","RuleSetDigest","SkippingIterator","WouldApplyContext"],"type":["MappingCache","MatchPositions"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Entry"],"fn":["cmp_assuming_same_buffer","open_span_of_group","same_buffer","same_scope","start_of_buffer"],"struct":["Cursor","TokenBuffer"]};

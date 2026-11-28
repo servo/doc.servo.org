@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AnchorResolutionResult","AnchorSizeKeyword","GenericFitTolerance","GenericLengthOrNumber","GenericLengthPercentageOrAuto","GenericLengthPercentageOrNormal","GenericMargin","GenericMaxSize","GenericSize"],"struct":["GenericAnchorSizeFunction"]};

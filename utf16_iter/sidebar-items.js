@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["basic","handler","indices","macros","report"],"struct":["ErrorReportingUtf16CharIndices","ErrorReportingUtf16Chars","Utf16CharIndices","Utf16CharIndicesWithHandler","Utf16Chars","Utf16CharsError","Utf16CharsWithHandler"],"trait":["Utf16CharsEx","Utf16Handler"]};

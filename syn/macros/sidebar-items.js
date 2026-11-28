@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["ast_enum",1],["ast_enum_of_structs",1],["ast_struct",1],["check_keyword_matches",1],["generate_to_tokens",1],["pub_if_not_doc",1],["return_impl_trait",1]]};

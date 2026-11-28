@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_CRATE_NAME","DEFAULT_PREFIX","DEFAULT_SUFFIX"],"fn":["expand","find_attr","get_table_name","impl_iden_for_enum","impl_iden_for_unit_struct","is_static_iden","sea_query_path"],"mod":["attr","error","iden_static","path","write_arm"],"struct":["DeriveIden","DeriveIdenStatic","GenEnumArgs","NamingHolder"]};

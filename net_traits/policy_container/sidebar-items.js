@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["EmbedderPolicyValue","RequestPolicyContainer"],"struct":["EmbedderPolicy","PolicyContainer"]};

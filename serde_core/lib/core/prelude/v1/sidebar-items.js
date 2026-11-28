@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["alloc_error_handler","bench","cfg_accessible","cfg_eval","define_opaque","derive_const","eii","eii_declaration","global_allocator","test","test_case","unsafe_eii"],"macro":[["deref",1],["type_ascribe",1]]};

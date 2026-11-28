@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["different_signs"],"mod":["cubic","poly","poly_dyn","quadratic","yuksel"],"struct":["Poly","PolyDyn"],"type":["Cubic","Quadratic","Quartic","Quintic"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NEWTON_METHOD_ITERATIONS"],"struct":["Bezier"],"trait":["ApproxEq"]};

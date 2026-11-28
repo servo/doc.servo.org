@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["atan2pif_fma_impl","atan2pif_gen_impl","f_atan2pif"],"static":["OFF","SGN","SGNF"]};

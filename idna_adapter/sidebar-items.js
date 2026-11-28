@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["FIRST_BC_MASK","LAST_LTR_MASK","LAST_RTL_MASK","LEFT_OR_DUAL_JOINING_MASK","MARK_MASK","MIDDLE_LTR_MASK","MIDDLE_RTL_MASK","RIGHT_OR_DUAL_JOINING_MASK","RTL_MASK"],"fn":["bidi_class_to_mask","general_category_to_mask","joining_type_to_mask"],"struct":["Adapter","BidiClass","BidiClassMask","JoiningType","JoiningTypeMask"]};

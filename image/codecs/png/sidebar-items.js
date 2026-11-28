@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["IPTC_KEYS","PNG_SIGNATURE","XMP_KEY"],"enum":["CompressionType","FilterType"],"fn":["unsupported_color"],"struct":["ApngDecoder","PngDecoder","PngEncoder"]};

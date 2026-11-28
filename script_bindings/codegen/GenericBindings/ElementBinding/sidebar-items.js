@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FullscreenKeyboardLock","FullscreenNavigationUI","ScrollIntoViewContainer","ScrollLogicalPosition"],"mod":["Element_Binding","FullscreenKeyboardLockValues","FullscreenNavigationUIValues","ScrollIntoViewContainerValues","ScrollLogicalPositionValues"],"struct":["FullscreenOptions","GetHTMLOptions","ScrollIntoViewOptions","ShadowRootInit"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["GenericBindings","XMLSerializer_Binding"],"trait":["XMLSerializerMethods"]};

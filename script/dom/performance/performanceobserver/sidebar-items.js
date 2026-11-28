@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_PerformanceObserver"],"enum":["ObserverType"],"struct":["PerformanceObserver"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["Wrap"],"mod":["FileReaderSync_Binding","GenericBindings"],"trait":["FileReaderSyncMethods"]};

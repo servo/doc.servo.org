@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_CacheStorage"],"fn":["relevant_name_to_cache_map"],"struct":["CacheStorage"]};

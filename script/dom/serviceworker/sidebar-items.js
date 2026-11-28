@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["cache","cachestorage","client","extendableevent","extendablemessageevent","navigationpreloadmanager","notification","serviceworker","serviceworker_manager","serviceworkercontainer","serviceworkerglobalscope","serviceworkerregistration","windowclient"]};

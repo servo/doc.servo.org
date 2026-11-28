@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["AES_128","AES_256","CHACHA20","SAMPLE_LEN"],"enum":["AlgorithmID"],"fn":["cipher_new_mask"],"struct":["Algorithm","HeaderProtectionKey"],"type":["Sample"]};

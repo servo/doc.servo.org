@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BLOCK_SIZE"],"fn":["match_block","match_header_name_vectored","match_header_value_char_8_swar","match_header_value_vectored","match_tail","match_uri_char_8_swar","match_uri_vectored","offsetnz","uniform_block"],"type":["ByteBlock"]};

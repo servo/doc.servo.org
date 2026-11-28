@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_SBIX_DUPES","PNG_SIGNATURE"],"enum":["BitmapSource","Kind","Origin","Pixels","StrikeKind"],"fn":["closer_to","sbix_bearings","sbix_glyph"],"struct":["Bgra","BitmapGlyph","BitmapStrikes","Mask","MaskRow","Strike"]};

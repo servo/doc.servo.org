@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["XRWebGLLayer_Binding"],"struct":["XRWebGLLayerInit"]};

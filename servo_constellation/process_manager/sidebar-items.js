@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Process"],"struct":["ProcessManager"],"type":["ProcessReceiver"]};

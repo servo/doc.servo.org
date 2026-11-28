@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["const_generic_impl"],"trait":["Array"]};

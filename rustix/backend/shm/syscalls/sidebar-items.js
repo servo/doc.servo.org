@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["NAME_MAX","SHM_DIR"],"fn":["get_shm_name","shm_open","shm_unlink"]};

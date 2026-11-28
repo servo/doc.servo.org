@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Validity"],"fn":["derive","derive_enum","derive_projection_struct_union","generate_tag_consts","struct_union_variant_id","tag_ident","variant_struct_ident","variants_union_field_ident"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["candidate_ident","derive_is_safe","derive_try_from_bytes","derive_try_from_bytes_enum","derive_try_from_bytes_struct","derive_try_from_bytes_union","derive_variant_is_safe","gen_trivial_is_safe_unchecked","try_gen_trivial_is_safe"]};

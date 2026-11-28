@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["InnerHandle","State","WeakInnerHandle"],"trait":["ErasedState"],"type":["PendingDestructor"]};

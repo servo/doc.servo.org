@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["decompose_axis_aligned_gradient","linear_gradient_decomposes","optimize_linear_gradient"],"struct":["LinearGradient","LinearGradientKey","LinearGradientTemplate"],"type":["LinearGradientDataHandle"]};

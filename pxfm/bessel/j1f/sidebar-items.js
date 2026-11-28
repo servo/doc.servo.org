@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["f_j1f","j1f_asympt","j1f_asympt_alpha","j1f_asympt_beta","j1f_rsqrt","poly_near_zero","small_argument_path"]};

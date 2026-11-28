@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["_IMPL_DOMOBJECT_FOR_WebGL2RenderingContext"],"fn":["blit_integer_type"],"static":["WEBGL2_ORIGINS"],"struct":["IndexedBinding","ReadPixelsAllowedFormats","ReadPixelsSizes","WebGL2RenderingContext"],"trait":["ClearBufferValue"]};

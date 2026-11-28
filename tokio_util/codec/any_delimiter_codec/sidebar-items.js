@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_SEEK_DELIMITERS","DEFAULT_SEQUENCE_WRITER"],"enum":["AnyDelimiterCodecError"],"struct":["AnyDelimiterCodec"]};

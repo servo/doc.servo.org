@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SMALL_ATTRIBUTE_COUNT"],"enum":["Attr","AttrError","State"],"fn":["hash_name"],"struct":["Attribute","Attributes","IdentityHasher","IterState"],"type":["AttrResult"]};

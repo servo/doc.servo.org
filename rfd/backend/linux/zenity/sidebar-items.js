@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ZenityError"],"fn":["command","file_dialog_command","message","pick_file","pick_files","pick_folder","pick_folders","question","run","save_file","strip_newline"],"type":["ZenityResult"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["client_point","range_bounds","round_halves_positive"],"struct":["RangeInputShadowTree","RangeInputType","SliderAxis"]};

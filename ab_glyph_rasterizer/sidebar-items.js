@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["point"],"mod":["geometry","raster"],"struct":["Point","Rasterizer"]};

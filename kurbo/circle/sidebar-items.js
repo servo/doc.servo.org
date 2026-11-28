@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["point_on_circle"],"struct":["Circle","CircleSegment"],"type":["CircleSegmentPathIter"]};

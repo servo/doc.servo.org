@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LIGATURE_TRANSPARENT_MASK"],"mod":["gen"],"struct":["WidthInfo"]};

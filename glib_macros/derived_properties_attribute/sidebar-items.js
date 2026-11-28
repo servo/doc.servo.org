@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["WRONG_PLACE_MSG"],"fn":["impl_derived_properties"]};

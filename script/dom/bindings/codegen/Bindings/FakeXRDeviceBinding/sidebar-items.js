@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FakeXRRegionType"],"fn":["Wrap"],"mod":["FakeXRDevice_Binding","FakeXRRegionTypeValues","GenericBindings"],"trait":["FakeXRDeviceMethods"],"type":["FakeXRBoundsPoint","FakeXRDeviceResolution","FakeXRFieldOfViewInit","FakeXRRegionInit","FakeXRRigidTransformInit","FakeXRTriangleInit","FakeXRViewInit","FakeXRWorldInit"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["compute_cached_layout","compute_grid_layout","compute_hidden_layout","compute_in_flow_root_layout","compute_leaf_layout","compute_oof_layout","compute_oof_layout_for_area","compute_root_layout","resolve_static_offset","round_layout"],"mod":["common","detailed_info","grid","leaf","oof"],"struct":["OofLayoutResult"]};

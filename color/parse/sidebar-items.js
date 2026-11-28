@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LOWERCASE_BUF_SIZE"],"enum":["Mode","ParseError","Value"],"fn":["color_from_4bit_hex","color_from_components","get_4bit_hex_channels","hex_from_ascii_byte","make_lowercase","parse_color","parse_color_prefix"],"struct":["Parser"]};

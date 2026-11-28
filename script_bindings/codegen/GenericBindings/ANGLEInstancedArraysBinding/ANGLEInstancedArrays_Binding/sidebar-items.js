@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["CreateInterfaceObjects","GetProtoObject","Wrap","_finalize","_trace","drawArraysInstancedANGLE","drawElementsInstancedANGLE","init_domjs_class","init_statics","vertexAttribDivisorANGLE"],"mod":["ANGLEInstancedArraysConstants"],"static":["CLASS_OPS","Class","PrototypeClass"],"struct":["BindingTables"],"trait":["ANGLEInstancedArraysMethods"]};

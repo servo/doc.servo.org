@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PrecedingNodeIteratorWithoutAncestors"],"fn":["parse_expression","previous_non_ancestor_node"],"struct":["XPathImplementation","XPathWrapper"],"type":["Value"]};

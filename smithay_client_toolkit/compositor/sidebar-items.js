@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["dispatch_surface_state_updates"],"struct":["CompositorState","Region","RegionData","Surface","SurfaceData","SurfaceDataInner"],"trait":["CompositorHandler","SurfaceDataExt"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["colr","is_apple_color_emoji","outline","raster","svg","to_skrifa_variation","with_optical_sizing"],"struct":["BitmapImage","FontCache","FontInstance","LoadedFont","PathBuilder"]};

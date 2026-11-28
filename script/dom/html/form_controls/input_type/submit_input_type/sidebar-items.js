@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_SUBMIT_VALUE"],"struct":["SubmitInputActivation","SubmitInputType"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["REPLACEMENT_CHARACTER_AS_BMP"],"struct":["Utf16CharsWithHandler"],"trait":["Utf16Handler"]};

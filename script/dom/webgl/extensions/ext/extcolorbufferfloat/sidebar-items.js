@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["COLOR_RENDERABLE_FORMATS","_IMPL_DOMOBJECT_FOR_EXTColorBufferFloat"],"struct":["EXTColorBufferFloat"]};

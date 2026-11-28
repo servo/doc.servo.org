@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["guard","guard_ref","tree_node"],"struct":["CancellationToken","RunUntilCancelledFuture","RunUntilCancelledFutureOwned","WaitForCancellationFuture","WaitForCancellationFutureOwned"]};

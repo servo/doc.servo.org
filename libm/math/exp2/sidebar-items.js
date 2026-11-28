@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["TBLSIZE"],"fn":["exp2"],"static":["TBL"]};

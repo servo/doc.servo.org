@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PathSpec"],"fn":["write_comma","write_match_rule_string_component"],"mod":["builder"],"struct":["Builder","MatchRule","OwnedMatchRule"]};

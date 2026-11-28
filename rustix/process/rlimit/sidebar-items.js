@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["getrlimit","prlimit","setrlimit"],"struct":["Rlimit"]};

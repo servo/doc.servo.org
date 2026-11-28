@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SearchAffinity"],"struct":["BoundaryIterator","PositionInInlineFormattingContext"]};

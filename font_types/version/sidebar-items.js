@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MajorMinor","Version16Dot16"],"trait":["Compatible"]};

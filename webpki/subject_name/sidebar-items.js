@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GeneralName","Subtrees"],"fn":["check_name_constraints","check_presented_id_conforms_to_constraints"],"mod":["dns_name","ip_address"],"struct":["IpAddrSlice","NameIterator"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AllowAnchorPosResolutionInCalcPercentage","LengthPercentageTag","Serializable","Unpacked","UnpackedMut"],"struct":["CalcLengthPercentage","CalcLengthPercentageResolution","LengthPercentage"],"type":["CalcAnchorSide","CalcNode","NonNegativeLengthPercentage"]};

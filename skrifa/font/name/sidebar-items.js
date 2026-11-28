@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["GlyphNameSource"],"struct":["Encoded","GlyphName","Localized","Name","NameId","Names"]};

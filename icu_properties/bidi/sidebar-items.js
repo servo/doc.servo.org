@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BidiPairedBracketType"],"struct":["BidiMirroringGlyph"]};

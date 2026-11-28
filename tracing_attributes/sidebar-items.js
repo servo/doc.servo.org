@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["instrument"],"fn":["instrument_precise","instrument_speculative"],"mod":["attr","expand"],"struct":["MaybeItemFn","MaybeItemFnRef"]};

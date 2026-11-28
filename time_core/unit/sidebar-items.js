@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Unit"],"fn":["multiple_of_value"],"macro":[["declare_types",1],["impl_partial_eq_ord",1],["impl_partial_eq_ord_for_unit",1],["impl_per",1],["stringify_outputs",1]],"mod":["sealed"],"struct":["Day","Hour","Microsecond","Millisecond","Minute","Nanosecond","Second","Week"]};

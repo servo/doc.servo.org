@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["named_iterators_from_no_argument_handler",1]]};

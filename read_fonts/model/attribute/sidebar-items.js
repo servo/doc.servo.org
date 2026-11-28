@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["ITAL","SLNT","WDTH","WGHT"],"enum":["Style"],"fn":["style_at"],"struct":["Attributes","Weight","Width"]};

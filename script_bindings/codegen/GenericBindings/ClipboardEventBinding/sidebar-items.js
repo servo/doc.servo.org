@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ClipboardEvent_Binding"],"struct":["ClipboardEventInit"]};

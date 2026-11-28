@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ToSqlOutput"],"macro":[["from_value",1],["to_sql_self",1],["to_sql_self_fallible",1]],"trait":["ToSql"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["as_tanh_zero","f_tanh"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["SpooledData"],"fn":["cursor_to_tempfile","spooled_tempfile","spooled_tempfile_in"],"struct":["SpooledTempFile"]};

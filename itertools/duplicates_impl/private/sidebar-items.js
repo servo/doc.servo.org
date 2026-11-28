@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ByFn","ById","DuplicatesBy","JustValue","KeyValue","Meta"],"trait":["KeyMethod","KeyXorValue"]};

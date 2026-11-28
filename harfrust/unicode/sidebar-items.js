@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Decomposed"],"fn":["combining_class","compose","decompose","script"],"mod":["builtin","combining_class","emoji_table","modified_combining_class","space_fallback","ucd_table"],"static":["MODIFIED_COMBINING_CLASS"],"struct":["GeneralCategory"],"trait":["CharExt"],"type":["Codepoint"]};

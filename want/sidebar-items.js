@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["State"],"fn":["new"],"struct":["Closed","Giver","Inner","SharedGiver","Taker","Want"]};

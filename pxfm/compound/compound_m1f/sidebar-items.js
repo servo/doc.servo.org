@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["INVLOG2"],"fn":["as_compoundm1f_special","compoundf_exp2m1_accurate","compoundf_expf_poly","compoundm1f_accurate","exp2m1_fast","f_compound_m1f"]};

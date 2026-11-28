@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DBL_EPSILON_ERR","FLT_EPSILON_CUBED","FLT_EPSILON_HALF","FLT_EPSILON_INVERSE"],"fn":["cbrt_5d","cbrta_halleyd","cube_root","halley_cbrt3d","interp"],"mod":["cubic64","line_cubic_intersections","point64","quad64"],"trait":["Scalar64"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["L_BASE","L_COUNT","N_COUNT","S_BASE","S_COUNT","T_BASE","T_COUNT","V_BASE","V_COUNT"],"fn":["combining_class_for","compose_hangul","compose_impl","decompose_hangul","decompose_impl","general_category_for","mirroring_for","script_for"]};

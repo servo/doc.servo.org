@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["TagKind","Token","TokenSinkResult"],"struct":["Doctype","Tag"],"trait":["TokenSink"]};

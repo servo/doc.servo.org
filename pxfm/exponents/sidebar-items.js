@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["auxiliary","exp","exp10","exp10f","exp10m1","exp10m1f","exp2","exp2f","exp2m1","exp2m1f","exp_f128","expf","expm1","expm1f","logistic","logisticf"]};

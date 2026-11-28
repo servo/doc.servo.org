@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["SYSTEM_FONT_CACHE_CAPACITY"],"enum":["SkrifaFontCacheEntry"],"struct":["FontTemplateCacheKey","SystemFontServiceProxy"]};

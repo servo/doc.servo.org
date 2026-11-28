@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["convert","has_char"],"mod":["cache","colr","flatten","layout"],"struct":["FontResolver","GlyphId"],"type":["FallbackSelectionFn","FontSelectionFn"]};

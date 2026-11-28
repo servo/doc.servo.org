@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["L2L_F","L2U_F","R_LN2_F"],"fn":["core_expdf","core_expf","expf","expf_fma_impl","expf_gen_impl","f_expf"],"static":["EXP_M1","EXP_M2"],"struct":["FmaBackend","GenericExpfBackend"],"trait":["ExpfBackend"]};

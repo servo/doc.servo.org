@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["approx_eq",1],["assert_approx_eq",1]],"mod":["eq","macros","ulps","ulps_eq"],"struct":["F32Margin","F64Margin"],"trait":["ApproxEq","ApproxEqUlps","Ulps"]};

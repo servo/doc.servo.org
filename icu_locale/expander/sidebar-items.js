@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["update_langid","update_langid_minimize"],"struct":["LocaleExpander","LocaleExpanderBorrowed"]};

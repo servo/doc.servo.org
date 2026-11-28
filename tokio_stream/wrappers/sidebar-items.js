@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["errors","interval","mpsc_bounded","mpsc_unbounded"],"struct":["IntervalStream","ReceiverStream","UnboundedReceiverStream"]};

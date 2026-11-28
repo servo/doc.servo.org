@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["STDERR_FILENO","STDIN_FILENO","STDOUT_FILENO"]};

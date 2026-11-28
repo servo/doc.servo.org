@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FontFaceSetLoadStatus"],"mod":["FontFaceSetLoadEvent_Binding","FontFaceSetLoadStatusValues","FontFaceSetSetlike_Binding","FontFaceSet_Binding","GenericBindings"],"trait":["FontFaceSetLoadEventMethods","FontFaceSetMethods","FontFaceSetSetlikeMethods"],"type":["FontFaceSetLoadEventInit"]};

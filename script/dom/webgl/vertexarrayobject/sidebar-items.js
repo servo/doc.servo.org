@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["VertexAttribPointerKind"],"struct":["DroppableVertexArrayObject","DroppableVertexAttribData","VertexArrayObject","VertexAttribData"]};

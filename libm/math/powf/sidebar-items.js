@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["BP","CP","CP_H","CP_L","DP_H","DP_L","HUGE","IVLN2","IVLN2_H","IVLN2_L","L1","L2","L3","L4","L5","L6","LG2","LG2_H","LG2_L","OVT","P1","P2","P3","P4","P5","TINY","TWO24"],"fn":["powf"]};

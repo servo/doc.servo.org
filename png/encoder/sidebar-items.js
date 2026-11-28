@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_BUFFER_LENGTH"],"enum":["ChunkOutput","EncodingError","FormatErrorKind","Wrapper"],"fn":["write_chunk"],"struct":["ChunkWriter","Encoder","FormatError","Options","PartialInfo","StreamWriter","Writer"],"type":["Result"]};

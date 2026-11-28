@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["map_impl",1],["set_impl",1]],"struct":["MapFirstKeyWinsVisitor","MapPreventDuplicatesVisitor","SetLastValueWinsVisitor","SetPreventDuplicatesVisitor"]};

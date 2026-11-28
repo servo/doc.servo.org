@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ExtendedKind"],"fn":["day","dayk","dayo","decimal_sign","float","hour","min","month","week","year"]};

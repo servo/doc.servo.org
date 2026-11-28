@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["frame","size_hint"],"struct":["Frame","SizeHint"],"trait":["Body"]};

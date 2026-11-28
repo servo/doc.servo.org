@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["COLORS","NAMES","SALTS"],"fn":["lookup_palette_index","weak_hash"]};
